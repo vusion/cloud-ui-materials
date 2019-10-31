@@ -1,0 +1,46 @@
+.root {
+    display: block;
+    background: #f7f8fd;
+    border-radius: $border-radius-base;
+    padding: 15px 18px;
+    transition: $transition-duration-base;
+}
+
+.root:hover {
+    background: $background-color-base;
+}
+
+.title {
+    color: #8a8e9e;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.number {
+    font-size: 32px;
+    line-height: 1;
+    margin-top: 8px;
+}
+
+.number[alignment="left"] {
+    text-align: left;
+}
+
+.number[alignment="center"] {
+    text-align: center;
+}
+
+.number[alignment="right"] {
+    text-align: right;
+}
+
+.root[color="primary"] .number { color: $brand-primary; }
+.root[color="info"] .number { color: $brand-info; }
+.root[color="success"] .number { color: $brand-success; }
+.root[color="warning"] .number { color: $brand-warning; }
+.root[color="error"] .number { color: $brand-error; }
+
+.root [class^="u-countup_count"] {
+    color: inherit;
+}
