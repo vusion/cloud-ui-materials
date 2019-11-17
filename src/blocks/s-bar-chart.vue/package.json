@@ -1,0 +1,44 @@
+{
+  "name": "@cloud-ui/s-bar-chart.vue",
+  "description": "Cloud UI - SBarChart",
+  "version": "0.1.0",
+  "author": "Rainfore <rainforest92@126.com>",
+  "main": "./index.js",
+  "repository": "vusion/cloud-materials",
+  "homepage": "http://vusion.github.io",
+  "bugs": {
+    "url": "http://github.com/vusion/cloud-materials/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cloud",
+    "ui",
+    "material",
+    "block"
+  ],
+  "scripts": {
+    "doc": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "doc-build": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "prepublishOnly": "npm run doc-build"
+  },
+  "dependencies": {
+    "@cloud-ui/x-echarts.vue": "^0.6.2"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^3.10.0",
+    "vue-cli-plugin-vusion": "^0.8.2"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.6.0"
+  },
+  "vusion": {
+    "type": "block",
+    "title": "柱状图",
+    "screenshots": [
+      "./screenshots/0.png"
+    ],
+    "team": "necfe",
+    "access": "public"
+  }
+}
