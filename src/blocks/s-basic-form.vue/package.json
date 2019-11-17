@@ -25,7 +25,8 @@
   "scripts": {
     "doc": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "doc-build": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "prepublishOnly": "npm run doc-build"
+    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html --code-example 0",
+    "prepublishOnly": "npm run doc-build && npm run screenshot"
   },
   "dependencies": {},
   "devDependencies": {

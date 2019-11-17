@@ -19,7 +19,8 @@
   "scripts": {
     "doc": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "doc-build": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "prepublishOnly": "npm run doc-build"
+    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html -a",
+    "prepublishOnly": "npm run doc-build && npm run screenshot"
   },
   "dependencies": {
     "@cloud-ui/x-echarts.vue": "^0.6.2"

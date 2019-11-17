@@ -22,6 +22,7 @@
     "vue": "^2.6.10",
     "vue-cli-plugin-vusion": "^0.8.2",
     "vue-template-compiler": "^2.6.10",
+    "vusion": "^0.10.0",
     "vusion-hooks": "^0.3.0",
     "vusion-utils": "^0.4.5"
   },

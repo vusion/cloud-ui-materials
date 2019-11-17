@@ -1,7 +1,7 @@
 {
-  "name": "@cloud-ui/s-dest-list.vue",
-  "description": "Cloud UI - SDestList",
-  "version": "0.1.1",
+  "name": "@cloud-ui/s-pie-chart.vue",
+  "description": "Cloud UI - SPieChart",
+  "version": "0.1.0",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": "vusion/cloud-materials",
@@ -16,19 +16,14 @@
     "material",
     "block"
   ],
-  "tags": [
-    "cloud",
-    "ui",
-    "material",
-    "block"
-  ],
   "scripts": {
     "doc": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "doc-build": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html --code-example",
-    "prepublishOnly": "npm run doc-build && npm run screenshot"
+    "prepublishOnly": "npm run doc-build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@cloud-ui/x-echarts.vue": "^0.6.2"
+  },
   "devDependencies": {
     "@vue/cli-service": "^3.10.0",
     "vue-cli-plugin-vusion": "^0.8.2"
@@ -39,7 +34,7 @@
   },
   "vusion": {
     "type": "block",
-    "title": "描述列表",
+    "title": "饼图",
     "screenshots": [
       "./screenshots/0.png"
     ],
