@@ -1,6 +1,6 @@
 {
-  "name": "@cloud-ui/s-basic-table.vue",
-  "description": "Cloud UI - SBasicTable",
+  "name": "@cloud-ui/s-info-list.vue",
+  "description": "Cloud UI - SInfoList",
   "version": "0.1.0",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
@@ -38,7 +38,7 @@
   },
   "vusion": {
     "type": "block",
-    "title": "基础表格",
+    "title": "信息列表",
     "screenshots": [
       "./screenshots/0.png"
     ],

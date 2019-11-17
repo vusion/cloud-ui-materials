@@ -38,7 +38,7 @@
   },
   "vusion": {
     "type": "block",
-    "title": "基础表单",
+    "title": "描述列表",
     "screenshots": [
       "./screenshots/0.png"
     ],
