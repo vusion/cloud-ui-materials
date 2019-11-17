@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-bar-chart.vue",
   "description": "Cloud UI - SBarChart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": "vusion/cloud-materials",
@@ -19,7 +19,7 @@
   "scripts": {
     "doc": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "doc-build": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html -a",
+    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html --code-example",
     "prepublishOnly": "npm run doc-build && npm run screenshot"
   },
   "dependencies": {
