@@ -23,3 +23,10 @@ npm run dev
 <!-- ``` shell
 npm run build
 ``` -->
+
+## Publish
+
+``` shell
+cd src/blocks/s-basic-form.vue
+vusion publish v0.1.0
+```
