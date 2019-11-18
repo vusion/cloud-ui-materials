@@ -1,0 +1,45 @@
+{
+  "name": "@cloud-ui/s-donut-chart.vue",
+  "description": "Cloud UI - SDonutChart",
+  "version": "0.1.0",
+  "author": "Rainfore <rainforest92@126.com>",
+  "main": "./index.js",
+  "repository": "vusion/cloud-materials",
+  "homepage": "http://vusion.github.io",
+  "bugs": {
+    "url": "http://github.com/vusion/cloud-materials/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cloud",
+    "ui",
+    "material",
+    "block"
+  ],
+  "scripts": {
+    "doc": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "doc-build": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html --code-example",
+    "prepublishOnly": "npm run doc-build && npm run screenshot && git add ."
+  },
+  "dependencies": {
+    "@cloud-ui/x-echarts.vue": "^0.6.2"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^3.10.0",
+    "vue-cli-plugin-vusion": "^0.8.2"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.6.0"
+  },
+  "vusion": {
+    "type": "block",
+    "title": "甜圈图",
+    "screenshots": [
+      "./screenshots/0.png"
+    ],
+    "team": "necfe",
+    "access": "public"
+  }
+}

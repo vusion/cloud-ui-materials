@@ -1,0 +1,4 @@
+<div :class="$style.root">
+    <u-loading v-show="!asyncLib.loaded"></u-loading>
+    <x-echarts :options="options" border></x-echarts>
+</div>
