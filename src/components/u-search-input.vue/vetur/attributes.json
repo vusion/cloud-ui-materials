@@ -1,0 +1,70 @@
+{
+  "u-search-input/value": {
+    "type": "object",
+    "description": "选中对象"
+  },
+  "u-search-input/search-word": {
+    "type": "string",
+    "description": "输入框内容"
+  },
+  "u-search-input/offset": {
+    "type": "number",
+    "description": "输入框x轴方向偏移量"
+  },
+  "u-search-input/load-list": {
+    "type": "Function",
+    "description": "搜索列表返回函数，接受搜索关键字作为参数，以promise或者array返回值"
+  },
+  "u-search-input/value-check": {
+    "type": "boolean",
+    "description": "失焦时search与value值同步, 仅在value值绑定时生效"
+  },
+  "u-search-input/type": {
+    "type": "string",
+    "description": "输入框的类型，目前支持两种：`'text'`和`'password'`"
+  },
+  "u-search-input/clearable": {
+    "type": "boolean",
+    "description": "是否可清空。开启并在输入框有内容时会显示清空按钮。"
+  },
+  "u-search-input/placeholder": {
+    "type": "string",
+    "description": "原生属性。对 IE9 做了兼容。"
+  },
+  "u-search-input/minlength": {
+    "type": "number",
+    "description": "原生属性"
+  },
+  "u-search-input/maxlength": {
+    "type": "number",
+    "description": "原生属性"
+  },
+  "u-search-input/spellcheck": {
+    "type": "boolean",
+    "description": "原生属性"
+  },
+  "u-search-input/autofocus": {
+    "type": "boolean",
+    "description": "是否自动获取焦点"
+  },
+  "u-search-input/readonly": {
+    "type": "boolean",
+    "description": "是否只读"
+  },
+  "u-search-input/disabled": {
+    "type": "boolean",
+    "description": "是否禁用"
+  },
+  "u-search-input/size": {
+    "type": "string",
+    "description": "大小扩展，支持一个值：`'mini'`, `'small'`, `'normal'`, `'large'`, `'huge'`, `'full'`，或两个值的组合，前者表示高度，后者表示宽度，类似CSS的padding书写格式"
+  },
+  "u-search-input/search": {
+    "type": "string",
+    "description": "搜索标志，支持位置自定义，默认搜索标志在最右边，值为`left`即表示搜索标志在左边"
+  },
+  "u-search-input/maxlength-message": {
+    "type": "string",
+    "description": "\b\b输入内容达到上限时的错误提示，且被 [FormItem](#/components/u-form) 包裹时生效"
+  }
+}

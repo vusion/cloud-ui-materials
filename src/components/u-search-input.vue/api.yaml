@@ -1,0 +1,135 @@
+- name: u-search-input
+  title: 联想搜索框
+  description: u-input 联想搜索框，自动补全输入内容
+  attrs:
+    - name: value
+      sync: true
+      model: true
+      type: object
+      default: null
+      description: 选中对象
+    - name: search-word
+      type: string
+      default: null
+      description: 输入框内容
+    - name: offset
+      type: number
+      default: 0
+      description: 输入框x轴方向偏移量
+    - name: load-list
+      type: Function
+      default: null
+      description: 搜索列表返回函数，接受搜索关键字作为参数，以promise或者array返回值
+    - name: value-check
+      type: boolean
+      default: false
+      description: 失焦时search与value值同步, 仅在value值绑定时生效
+    - name: type
+      type: string
+      default: text
+      description: 输入框的类型，目前支持两种：`'text'`和`'password'`
+    - name: clearable
+      type: boolean
+      default: null
+      description: 是否可清空。开启并在输入框有内容时会显示清空按钮。
+    - name: placeholder
+      type: string
+      default: null
+      description: 原生属性。对 IE9 做了兼容。
+    - name: minlength
+      type: number
+      default: null
+      description: 原生属性
+    - name: maxlength
+      type: number
+      default: null
+      description: 原生属性
+    - name: spellcheck
+      type: boolean
+      default: null
+      description: 原生属性
+    - name: autofocus
+      type: boolean
+      default: null
+      description: 是否自动获取焦点
+    - name: readonly
+      type: boolean
+      default: false
+      description: 是否只读
+    - name: disabled
+      type: boolean
+      default: false
+      description: 是否禁用
+    - name: size
+      type: string
+      default: normal
+      description: 大小扩展，支持一个值：`'mini'`, `'small'`, `'normal'`, `'large'`, `'huge'`,
+        `'full'`，或两个值的组合，前者表示高度，后者表示宽度，类似CSS的padding书写格式
+    - name: search
+      type: string
+      default: null
+      description: 搜索标志，支持位置自定义，默认搜索标志在最右边，值为`left`即表示搜索标志在左边
+    - name: maxlength-message
+      type: string
+      default: null
+      description: "\b\b输入内容达到上限时的错误提示，且被 [FormItem](#/components/u-form) 包裹时生效"
+  slots:
+    - name: default
+      description: "插入  HTML或 `Component`, \b下来框单项展示。"
+    - name: header
+      description: 分组数据，组标题
+  events:
+    - name: input
+      description: value值更改时触发
+      params:
+        - name: $event
+          type: object
+          description: 选中下拉框中的值
+    - name: change
+      description: value值更改时触发
+      params:
+        - name: $event.value
+          type: object
+          description: 改变后的值
+        - name: $event.oldValue
+          type: object
+          description: 旧的值
+    - name: blur
+      description: 输入框失焦事件透传
+      params:
+        - name: $event
+          type: string
+          description: vue失焦事件对象
+    - name: focus
+      description: 输入框聚焦焦事件透传
+      params:
+        - name: $event
+          type: string
+          description: vue聚焦事件对象
+    - name: keyenter
+      description: enter输入事件
+      params:
+        - name: $event
+          type: string
+          description: vue keydown.enter事件对象
+    - name: keydown
+      description: down输入事件
+      params:
+        - name: $event
+          type: string
+          description: vue keydown.down事件对象
+    - name: keyup
+      description: up输入事件
+      params:
+        - name: $event
+          type: string
+          description: vue keydown.up事件对象
+    - name: keychange
+      description: searchWord更改事件
+      params:
+        - name: $event.value
+          type: string
+          description: 改变后的值
+        - name: $event.oldValue
+          type: string
+          description: 旧的值
