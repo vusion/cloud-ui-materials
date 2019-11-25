@@ -1,0 +1,13 @@
+{
+  "x-ace-editor": {
+    "attributes": [
+      "value",
+      "lang",
+      "theme",
+      "readonly",
+      "disabled",
+      "options",
+      "autofocus"
+    ]
+  }
+}

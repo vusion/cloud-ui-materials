@@ -1,0 +1,32 @@
+- name: x-ace-editor
+  attrs:
+    - name: value
+      sync: true
+      model: true
+      type: any
+      default: null
+      description: 当前选择的值
+    - name: lang
+      type: string
+      default: text
+      description: 设置语言
+    - name: theme
+      type: string
+      default: null
+      description: 设置主题
+    - name: readonly
+      type: boolean
+      default: false
+      description: 是否只读
+    - name: disabled
+      type: boolean
+      default: false
+      description: 是否禁用
+    - name: options
+      type: object
+      default: null
+      description: 配置项对象
+    - name: autofocus
+      type: boolean
+      default: false
+      description: 默认focus状态

@@ -1,0 +1,30 @@
+{
+  "x-ace-editor/value": {
+    "type": "any",
+    "description": "当前选择的值"
+  },
+  "x-ace-editor/lang": {
+    "type": "string",
+    "description": "设置语言"
+  },
+  "x-ace-editor/theme": {
+    "type": "string",
+    "description": "设置主题"
+  },
+  "x-ace-editor/readonly": {
+    "type": "boolean",
+    "description": "是否只读"
+  },
+  "x-ace-editor/disabled": {
+    "type": "boolean",
+    "description": "是否禁用"
+  },
+  "x-ace-editor/options": {
+    "type": "object",
+    "description": "配置项对象"
+  },
+  "x-ace-editor/autofocus": {
+    "type": "boolean",
+    "description": "默认focus状态"
+  }
+}
