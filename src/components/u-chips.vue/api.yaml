@@ -1,0 +1,60 @@
+- name: u-input
+  title: 条目输入
+  labels: [UI 组件, 表单类]
+  description: 表单输入组件，基于`<u-textarea>`控件进行了一些功能扩展，可以输入字符串卡片，并结合`<u-validator>`进行验证。
+  attrs:
+    - name: type
+      type: string
+      default: null
+      description: 输入框的类型，目前支持两种：默认和`'searchInput'`
+    - name: value
+      sync: true
+      model: true
+      type: Array
+      default: []
+      description: 输入框的内容
+    - name: placeholder
+      type: string
+      default: null
+      description: 原生属性。对 IE9 做了兼容。
+    - name: disabled
+      type: boolean
+      default: false
+      description: 是否禁用
+    - name: rules
+      type: Array
+      default: null
+      description: 对于每一个输入字符串的验证规则
+    - name: list-rules
+      type: Array
+      default: null
+      description: 对于chips的验证规则，如数量范围、是否允许重复项等
+    - name: separators
+      type: string
+      default: all
+      description: 指定输入的分隔符。当设置为`'comma'`或`'space'`时，分别指定逗号或空格为分隔符
+  events:
+    - name: change
+      description: chip数量变化时触发。
+      params:
+        - name: $event
+          type: string
+          description: 输入框的值
+        - name: senderVM
+          type: UInput
+          description: 发送事件实例
+    - name: validate
+      description: 验证时触发。
+      params:
+        - name: $event.isValid
+          type: boolean
+          description: 当前内容是否合法
+        - name: $event.errMessage
+          type: string
+          description: 当前错误提示
+        - name: $event.value
+          type: string
+          description: 当前校验内容
+        - name: $event.current
+          type: number
+          description: 当前项目的索引

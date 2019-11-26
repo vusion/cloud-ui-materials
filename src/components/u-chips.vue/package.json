@@ -1,0 +1,51 @@
+{
+  "name": "@cloud-ui/x-echarts.vue",
+  "description": "Cloud UI - ECharts",
+  "version": "0.6.3",
+  "author": "wt911122",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-materials.git",
+    "directory": "src/components/x-echarts.vue"
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/public/index.html",
+  "bugs": "http://github.com/vusion/cloud-materials/issues",
+  "license": "MIT",
+  "keywords": [
+    "cloud",
+    "extension",
+    "ui",
+    "charts"
+  ],
+  "scripts": {
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "npx vusion screenshot public/index.html --code-example --package",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && git add ."
+  },
+  "dependencies": {
+    "echarts": "^4.2.1",
+    "vue-echarts": "^4.0.3"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^3.10.0",
+    "vue-cli-plugin-vusion": "^0.8.4"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.0",
+    "cloud-ui.vusion": "^0.6.0"
+  },
+  "vusion": {
+    "type": "component",
+    "title": "XECharts",
+    "team": "necfe",
+    "access": "public",
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/3.png"
+    ]
+  }
+}
