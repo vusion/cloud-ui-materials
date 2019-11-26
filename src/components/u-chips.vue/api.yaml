@@ -1,4 +1,4 @@
-- name: u-input
+- name: u-chips
   title: 条目输入
   labels: [UI 组件, 表单类]
   description: 表单输入组件，基于`<u-textarea>`控件进行了一些功能扩展，可以输入字符串卡片，并结合`<u-validator>`进行验证。
@@ -35,7 +35,7 @@
       description: 指定输入的分隔符。当设置为`'comma'`或`'space'`时，分别指定逗号或空格为分隔符
   events:
     - name: change
-      description: chip数量变化时触发。
+      description: chip 数量变化时触发。
       params:
         - name: $event
           type: string
