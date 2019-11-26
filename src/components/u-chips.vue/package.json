@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-chips.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-chips.vue@0.6.3/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/u-chips.vue@0.1.0/public/index.html",
   "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [

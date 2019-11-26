@@ -1,0 +1,30 @@
+{
+  "u-chips/type": {
+    "type": "string",
+    "description": "输入框的类型，目前支持两种：默认和`'searchInput'`"
+  },
+  "u-chips/value": {
+    "type": "Array",
+    "description": "输入框的内容"
+  },
+  "u-chips/placeholder": {
+    "type": "string",
+    "description": "原生属性。对 IE9 做了兼容。"
+  },
+  "u-chips/disabled": {
+    "type": "boolean",
+    "description": "是否禁用"
+  },
+  "u-chips/rules": {
+    "type": "Array",
+    "description": "对于每一个输入字符串的验证规则"
+  },
+  "u-chips/list-rules": {
+    "type": "Array",
+    "description": "对于chips的验证规则，如数量范围、是否允许重复项等"
+  },
+  "u-chips/separators": {
+    "type": "string",
+    "description": "指定输入的分隔符。当设置为`'comma'`或`'space'`时，分别指定逗号或空格为分隔符"
+  }
+}
