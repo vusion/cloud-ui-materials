@@ -20,11 +20,10 @@
     "stylelint": "^9.3.0",
     "stylelint-config-vusion": "^1.1.2",
     "vue": "^2.6.10",
-    "vue-cli-plugin-vusion": "^0.8.2",
+    "vue-cli-plugin-vusion": "^0.8.4",
     "vue-template-compiler": "^2.6.10",
-    "vusion": "^0.10.0",
     "vusion-hooks": "^0.3.0",
-    "vusion-utils": "^0.4.5"
+    "vusion-utils": "^0.4.6"
   },
   "peerDependencies": {
     "vue": "^2.6.10"

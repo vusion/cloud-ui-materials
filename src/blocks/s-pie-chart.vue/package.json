@@ -17,8 +17,8 @@
     "block"
   ],
   "scripts": {
-    "doc": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
-    "doc-build": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "prepublishOnly": "npm run doc-build"
   },
   "dependencies": {

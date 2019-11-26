@@ -22,12 +22,8 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "npx vusion screenshot public/index.html --code-example --package",
+    "screenshot": "vusion screenshot public/index.html --code-example --package",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && git add ."
-  },
-  "devDependencies": {
-    "@vue/cli-service": "^3.10.0",
-    "vue-cli-plugin-vusion": "^0.8.4"
   },
   "peerDependencies": {
     "vue": "^2.5.0",
