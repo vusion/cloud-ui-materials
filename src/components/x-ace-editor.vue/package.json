@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/x-ace-editor.vue",
-  "description": "Cloud UI - XAceEditor",
-  "version": "0.6.2",
+  "description": "本组件对 Ace Editor 进行了封装，添加样式修饰，接入了 Cloud UI 表单验证体系。",
+  "version": "0.6.3",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-materials.git",
     "directory": "src/components/x-ace-editor.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.2/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/public/index.html",
   "bugs": "http://github.com/vusion/cloud-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -37,16 +37,16 @@
   },
   "vusion": {
     "type": "component",
-    "title": "Ace Editor",
+    "title": "Ace编辑器",
     "category": "editor",
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.2/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.2/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.2/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.2/screenshots/3.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.2/screenshots/4.png"
+      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/4.png"
     ],
     "team": "网易云计算前端",
     "access": "public"

@@ -8,6 +8,7 @@
       "disabled",
       "options",
       "autofocus"
-    ]
+    ],
+    "description": "本组件对 Ace Editor 进行了封装，添加样式修饰，接入了 Cloud UI 表单验证体系。"
   }
 }
