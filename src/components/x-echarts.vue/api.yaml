@@ -1,4 +1,5 @@
 - name: x-echarts
+  title: 百度图表
   description: 本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。
   attrs:
     - name: init-options

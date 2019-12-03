@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/x-echarts.vue",
-  "description": "Cloud UI - ECharts",
-  "version": "0.6.3",
+  "description": "本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。",
+  "version": "0.6.4",
   "author": "wt911122",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-materials.git",
     "directory": "src/components/x-echarts.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.4/public/index.html",
   "bugs": "http://github.com/vusion/cloud-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -24,13 +24,12 @@
     "screenshot": "npx vusion screenshot public/index.html --code-example --package",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && git add ."
   },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
   "dependencies": {
     "echarts": "^4.2.1",
     "vue-echarts": "^4.0.3"
-  },
-  "devDependencies": {
-    "@vue/cli-service": "^3.10.0",
-    "vue-cli-plugin-vusion": "^0.8.4"
   },
   "peerDependencies": {
     "vue": "^2.5.0",
@@ -38,14 +37,17 @@
   },
   "vusion": {
     "type": "component",
-    "title": "XECharts",
-    "team": "necfe",
+    "title": "百度图表",
+    "category": "chart",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "team": "网易云计算前端",
     "access": "public",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.3/screenshots/3.png"
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.4/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.4/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.4/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.4/screenshots/3.png"
     ]
   }
 }
