@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-materials.git",
     "directory": "src/components/x-highlight.vue"
   },
-  "homepage": "http://vusion.github.io",
+  "homepage": "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.0/public/index.html",
   "bugs": "http://github.com/vusion/editors/issues",
   "license": "MIT",
   "keywords": [
@@ -42,11 +42,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/3.png",
-      "https://unpkg.com/@cloud-ui/x-ace-editor.vue@0.6.3/screenshots/4.png"
+      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.0/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.0/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"

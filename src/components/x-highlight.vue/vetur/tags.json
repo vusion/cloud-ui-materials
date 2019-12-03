@@ -1,0 +1,12 @@
+{
+  "x-highlight": {
+    "attributes": [
+      "content",
+      "lang",
+      "auto",
+      "preRender",
+      "postRender"
+    ],
+    "description": "本组件对 [highlight.js](https://highlightjs.org/usage/) 进行了封装，方便代码高亮展示。"
+  }
+}
