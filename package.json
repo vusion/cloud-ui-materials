@@ -32,5 +32,8 @@
     "hooks": {
       "pre-commit": "node node_modules/vusion-hooks/pre-commit"
     }
+  },
+  "vusion": {
+    "type": "repository"
   }
 }
