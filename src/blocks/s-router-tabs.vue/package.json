@@ -33,7 +33,9 @@
     "category": "info",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/s-router-tabs.vue@0.1.0/screenshots/0.png"
+    ],
     "team": "网易云计算前端",
     "access": "public"
   },
@@ -42,5 +44,6 @@
   "peerDependencies": {
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.0"
-  }
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/s-router-tabs.vue@0.1.0/public/index.html"
 }
