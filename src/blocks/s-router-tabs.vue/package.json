@@ -26,7 +26,11 @@
   "vuePlugins": {
     "resolveFrom": "../../../"
   },
-  "babel": {},
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
+  },
   "vusion": {
     "type": "block",
     "title": "路由标签页",

@@ -49,7 +49,7 @@
   "vusion": {
     "type": "block",
     "title": "基础表单",
-    "category": "info",
+    "category": "form",
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [

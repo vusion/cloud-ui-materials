@@ -34,11 +34,10 @@
       "@vue/app"
     ]
   },
-  "dependencies": {},
-  "devDependencies": {
-    "@vue/cli-service": "^3.10.0",
-    "vue-cli-plugin-vusion": "^0.8.2"
+  "dependencies": {
+    "@cloud-ui/x-echarts.vue": "^0.6.2"
   },
+  "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.0"
@@ -46,7 +45,7 @@
   "vusion": {
     "type": "block",
     "title": "柱状图",
-    "category": "图表",
+    "category": "chart",
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
