@@ -1,11 +1,15 @@
 {
   "name": "@cloud-ui/s-pie-chart.vue",
   "description": "Cloud UI - SPieChart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
-  "repository": "vusion/cloud-materials",
-  "homepage": "http://vusion.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-materials.git",
+    "directory": "src/blocks/s-pie-chart.vue"
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/s-pie-chart.vue@0.1.1/public/index.html",
   "bugs": {
     "url": "http://github.com/vusion/cloud-materials/issues"
   },
@@ -19,7 +23,16 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "prepublishOnly": "npm run doc-build"
+    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "prepublishOnly": "npm run build:doc && npm run screenshot"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
   },
   "dependencies": {
     "@cloud-ui/x-echarts.vue": "^0.6.2"
@@ -35,10 +48,11 @@
   "vusion": {
     "type": "block",
     "title": "饼图",
-    "screenshots": [
-      "./screenshots/0.png"
-    ],
-    "team": "necfe",
+    "category": "chart",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [],
+    "team": "网易云计算前端",
     "access": "public"
   }
 }
