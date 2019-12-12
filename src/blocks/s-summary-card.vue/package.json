@@ -1,11 +1,15 @@
 {
   "name": "@cloud-ui/s-summary-card.vue",
   "description": "Cloud UI - SSummaryCard",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
-  "repository": "vusion/cloud-materials",
-  "homepage": "https://unpkg.com/@cloud-ui/s-summary-card.vue@0.1.1/public/index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-materials.git",
+    "directory": "src/blocks/s-summary-card.vue"
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/s-summary-card.vue@0.1.2/public/index.html",
   "bugs": "http://github.com/vusion/cloud-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -14,23 +18,22 @@
     "material",
     "block"
   ],
-  "tags": [
-    "cloud",
-    "ui",
-    "material",
-    "block"
-  ],
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "npx vusion screenshot public/index.html --code-example --package",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && git add ."
+    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "prepublishOnly": "npm run build:doc && npm run screenshot"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
   },
   "dependencies": {},
-  "devDependencies": {
-    "@vue/cli-service": "^3.10.0",
-    "vue-cli-plugin-vusion": "^0.8.2"
-  },
+  "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.0"
@@ -38,10 +41,13 @@
   "vusion": {
     "type": "block",
     "title": "摘要卡片",
-    "team": "necfe",
+    "team": "网易云计算前端",
     "access": "public",
+    "category": "chart",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-summary-card.vue@0.1.1/screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-summary-card.vue@0.1.2/screenshots/0.png"
     ]
   }
 }
