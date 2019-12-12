@@ -1,11 +1,15 @@
 {
   "name": "@cloud-ui/s-donut-chart.vue",
   "description": "Cloud UI - SDonutChart",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
-  "repository": "vusion/cloud-materials",
-  "homepage": "http://vusion.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-materials.git",
+    "directory": "src/blocks/s-donut-chart.vue"
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/s-donut-chart.vue@0.1.1/public/index.html",
   "bugs": {
     "url": "http://github.com/vusion/cloud-materials/issues"
   },
@@ -19,16 +23,21 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html --code-example",
-    "prepublishOnly": "npm run doc-build && npm run screenshot && git add ."
+    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "prepublishOnly": "npm run build:doc && npm run screenshot"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
   },
   "dependencies": {
     "@cloud-ui/x-echarts.vue": "^0.6.2"
   },
-  "devDependencies": {
-    "@vue/cli-service": "^3.10.0",
-    "vue-cli-plugin-vusion": "^0.8.2"
-  },
+  "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.0"
@@ -36,10 +45,13 @@
   "vusion": {
     "type": "block",
     "title": "甜圈图",
+    "category": "chart",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
     "screenshots": [
-      "./screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-donut-chart.vue@0.1.1/screenshots/0.png"
     ],
-    "team": "necfe",
+    "team": "网易云计算前端",
     "access": "public"
   }
 }
