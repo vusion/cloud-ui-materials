@@ -1,11 +1,15 @@
 {
   "name": "@cloud-ui/s-dest-list.vue",
   "description": "Cloud UI - SDestList",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
-  "repository": "vusion/cloud-materials",
-  "homepage": "http://vusion.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-materials.git",
+    "directory": "src/blocks/s-dest-list.vue"
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/s-dest-list.vue@0.1.2/public/index.html",
   "bugs": {
     "url": "http://github.com/vusion/cloud-materials/issues"
   },
@@ -16,17 +20,19 @@
     "material",
     "block"
   ],
-  "tags": [
-    "cloud",
-    "ui",
-    "material",
-    "block"
-  ],
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "../../../node_modules/.bin/vusion screenshot public/index.html --code-example",
-    "prepublishOnly": "npm run doc-build && npm run screenshot"
+    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "prepublishOnly": "npm run build:doc && npm run screenshot"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
   },
   "dependencies": {},
   "devDependencies": {
@@ -40,10 +46,13 @@
   "vusion": {
     "type": "block",
     "title": "描述列表",
+    "category": "info",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
     "screenshots": [
-      "./screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-dest-list.vue@0.1.2/screenshots/0.png"
     ],
-    "team": "necfe",
+    "team": "网易云计算前端",
     "access": "public"
   }
 }
