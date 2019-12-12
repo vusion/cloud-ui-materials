@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-info-list.vue",
   "description": "Cloud UI - SInfoList",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-materials.git",
     "directory": "src/blocks/s-info-list.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/s-info-list.vue@0.1.1/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/s-info-list.vue@0.1.2/public/index.html",
   "bugs": {
     "url": "http://github.com/vusion/cloud-materials/issues"
   },
@@ -49,7 +49,9 @@
     "category": "info",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/s-info-list.vue@0.1.2/screenshots/0.png"
+    ],
     "team": "网易云计算前端",
     "access": "public"
   }
