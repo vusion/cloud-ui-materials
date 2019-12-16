@@ -1,0 +1,51 @@
+{
+  "name": "@cloud-ui/u-region-select.vue",
+  "description": "地区选择器，该组件从 UCascadeSelect 继承，仅填充了中国的行政区数据，其他功能与 UCascadeSelect 相同。",
+  "version": "0.1.0",
+  "author": "zhangsanshi5566@gmail.com",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-materials.git",
+    "directory": "src/components/u-region-select.vue"
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/public/index.html",
+  "bugs": "http://github.com/vusion/editors/issues",
+  "license": "MIT",
+  "keywords": [
+    "vusion",
+    "extension",
+    "ui",
+    "code",
+    "editor"
+  ],
+  "scripts": {
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "npx vusion screenshot public/index.html --code-example --package",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && git add ."
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.0",
+    "cloud-ui.vusion": "^0.6.0"
+  },
+  "vusion": {
+    "type": "component",
+    "title": "地区选择",
+    "category": "data",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/screenshots/1.png"
+    ],
+    "team": "网易云计算前端",
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4"
+  }
+}
