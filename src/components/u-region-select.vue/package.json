@@ -40,7 +40,9 @@
     "ui": "cloud-ui.vusion",
     "screenshots": [
       "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/screenshots/1.png"
+      "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.0/screenshots/3.png"
     ],
     "team": "网易云计算前端",
     "access": "public"

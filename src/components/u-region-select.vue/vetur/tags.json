@@ -1,0 +1,18 @@
+{
+  "u-region-select": {
+    "attributes": [
+      "data",
+      "value",
+      "categories",
+      "hide-empty",
+      "converter",
+      "field",
+      "readonly",
+      "disabled"
+    ],
+    "description": "该组件从 UCascadeSelect 继承，仅填充了中国的行政区数据，其他功能与 UCascadeSelect 相同。",
+    "defaults": [
+      "v-model"
+    ]
+  }
+}
