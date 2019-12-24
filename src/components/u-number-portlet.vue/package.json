@@ -1,16 +1,16 @@
 {
   "name": "@cloud-ui/u-number-portlet.vue",
   "description": "Cloud UI - UNumberPortlet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/cloud-materials.git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-number-portlet.vue"
   },
-  "homepage": "http://vusion.github.io",
-  "bugs": "http://github.com/vusion/cloud-materials/issues",
+  "homepage": "https://unpkg.com/@cloud-ui/u-number-portlet.vue@0.1.1/public/index.html",
+  "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [
     "cloud",
@@ -25,7 +25,9 @@
     "screenshot": "vusion screenshot public/index.html --code-example --package",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && git add ."
   },
-  "dependencies": {},
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
   "peerDependencies": {
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.0"
@@ -33,8 +35,14 @@
   "vusion": {
     "type": "component",
     "title": "数字窗格",
-    "screenshots": [],
-    "team": "necfe",
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/u-number-portlet.vue@0.1.1/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-number-portlet.vue@0.1.1/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-number-portlet.vue@0.1.1/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-number-portlet.vue@0.1.1/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/u-number-portlet.vue@0.1.1/screenshots/4.png"
+    ],
+    "team": "网易云计算前端",
     "access": "public"
   }
 }
