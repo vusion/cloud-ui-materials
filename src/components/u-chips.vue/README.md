@@ -175,7 +175,7 @@ export default {
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | type | string |  |  | 输入框的类型，目前支持两种：默认和`'searchInput'` |
-| value | Array |  | `[]` | 输入框的内容 |
+| value.sync, v-model | Array |  | `[]` | 输入框的内容 |
 | placeholder | string |  |  | 原生属性。对 IE9 做了兼容。 |
 | disabled | boolean |  | `false` | 是否禁用 |
 | rules | Array |  |  | 对于每一个输入字符串的验证规则 |
