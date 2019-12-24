@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/x-echarts.vue",
   "description": "本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。",
-  "version": "0.1.1",
+  "version": "0.6.5",
   "author": "wt911122",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/x-echarts.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/x-echarts.vue@0.1.1/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.5/public/index.html",
   "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -44,10 +44,10 @@
     "team": "网易云计算前端",
     "access": "public",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.1.1/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.1.1/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.1.1/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.1.1/screenshots/3.png"
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.5/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.5/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.5/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.5/screenshots/3.png"
     ]
   }
 }
