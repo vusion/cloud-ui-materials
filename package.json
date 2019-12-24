@@ -11,6 +11,7 @@
     "cloud-ui.vusion": "^0.6.0"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@vue/babel-preset-app": "^3.10.0",
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-service": "^3.10.0",
