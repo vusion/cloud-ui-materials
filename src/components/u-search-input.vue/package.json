@@ -6,11 +6,11 @@
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/cloud-materials.git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-search-input.vue"
   },
   "homepage": "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/public/index.html",
-  "bugs": "http://github.com/vusion/cloud-materials/issues",
+  "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [
     "cloud",
@@ -25,6 +25,9 @@
     "screenshot": "vusion screenshot public/index.html --code-example --package",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && git add ."
   },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
   "peerDependencies": {
     "vue": "^2.5.0",
     "cloud-ui.vusion": "^0.6.0"
@@ -32,7 +35,20 @@
   "vusion": {
     "type": "component",
     "title": "联想搜索框",
-    "screenshots": [],
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/4.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/5.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/6.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/7.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/8.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/9.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/10.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.1/screenshots/11.png"
+    ],
     "team": "网易云计算前端",
     "access": "public"
   }

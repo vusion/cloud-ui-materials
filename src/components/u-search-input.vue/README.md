@@ -791,7 +791,7 @@ export default {
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| value | object |  |  | 选中对象 |
+| value.sync, v-model | object |  |  | 选中对象 |
 | search-word | string |  |  | 输入框内容 |
 | offset | number |  | `0` | 输入框x轴方向偏移量 |
 | load-list | Function |  |  | 搜索列表返回函数，接受搜索关键字作为参数，以promise或者array返回值 |

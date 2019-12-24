@@ -81,7 +81,7 @@ export default {
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| value | any |  |  | 当前选择的值 |
+| value.sync, v-model | any |  |  | 当前选择的值 |
 | lang | string |  | `'text'` | 设置语言 |
 | theme | string |  |  | 设置主题 |
 | readonly | boolean |  | `false` | 是否只读 |

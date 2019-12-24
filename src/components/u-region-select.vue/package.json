@@ -6,7 +6,7 @@
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/cloud-materials.git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-region-select.vue"
   },
   "homepage": "https://unpkg.com/@cloud-ui/u-region-select.vue@0.1.1/public/index.html",
