@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/x-highlight.vue",
   "description": "本组件对 [highlight.js](https://highlightjs.org/usage/) 进行了封装，方便代码高亮展示。",
-  "version": "0.1.1",
+  "version": "0.6.1",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/x-highlight.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/x-highlight.vue@0.1.1/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.1/public/index.html",
   "bugs": "http://github.com/vusion/editors/issues",
   "license": "MIT",
   "keywords": [
@@ -42,8 +42,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.1.1/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.1.1/screenshots/1.png"
+      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.1/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.1/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
