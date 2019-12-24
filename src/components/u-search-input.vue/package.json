@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-search-input.vue",
   "description": "Cloud UI - USearchInput",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-search-input.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/public/index.html",
   "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -36,18 +36,18 @@
     "type": "component",
     "title": "联想搜索框",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/3.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/4.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/5.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/6.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/7.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/8.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/9.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/10.png",
-      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.2/screenshots/11.png"
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/4.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/5.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/6.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/7.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/8.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/9.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/10.png",
+      "https://unpkg.com/@cloud-ui/u-search-input.vue@0.1.3/screenshots/11.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
