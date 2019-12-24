@@ -1,17 +1,17 @@
 {
   "name": "@cloud-ui/s-dest-list.vue",
   "description": "Cloud UI - SDestList",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/cloud-materials.git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-dest-list.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/s-dest-list.vue@0.1.2/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/s-dest-list.vue@0.1.3/public/index.html",
   "bugs": {
-    "url": "http://github.com/vusion/cloud-materials/issues"
+    "url": "http://github.com/vusion/cloud-ui-materials/issues"
   },
   "license": "MIT",
   "keywords": [
@@ -35,10 +35,6 @@
     ]
   },
   "dependencies": {},
-  "devDependencies": {
-    "@vue/cli-service": "^3.10.0",
-    "vue-cli-plugin-vusion": "^0.8.2"
-  },
   "peerDependencies": {
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.0"
@@ -50,7 +46,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-dest-list.vue@0.1.2/screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-dest-list.vue@0.1.3/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
