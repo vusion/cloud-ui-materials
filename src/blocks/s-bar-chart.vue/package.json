@@ -49,7 +49,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-bar-chart.vue@0.1.2/screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-bar-chart.vue@0.1.3/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
