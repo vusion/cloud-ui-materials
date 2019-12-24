@@ -1,17 +1,17 @@
 {
   "name": "@cloud-ui/s-pie-chart.vue",
   "description": "Cloud UI - SPieChart",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/cloud-materials.git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-pie-chart.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/s-pie-chart.vue@0.1.2/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/s-pie-chart.vue@0.1.3/public/index.html",
   "bugs": {
-    "url": "http://github.com/vusion/cloud-materials/issues"
+    "url": "http://github.com/vusion/cloud-ui-materials/issues"
   },
   "license": "MIT",
   "keywords": [

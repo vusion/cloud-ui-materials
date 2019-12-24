@@ -1,12 +1,12 @@
 {
   "name": "@cloud-ui/s-router-tabs.vue",
   "description": "常见的带路由功能的标签页。",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "Rainfore <rainforest92@126.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/cloud-materials.git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-router-tabs.vue"
   },
   "license": "MIT",
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-router-tabs.vue@0.1.0/screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-router-tabs.vue@0.1.1/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -49,5 +49,5 @@
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.0"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/s-router-tabs.vue@0.1.0/public/index.html"
+  "homepage": "https://unpkg.com/@cloud-ui/s-router-tabs.vue@0.1.1/public/index.html"
 }
