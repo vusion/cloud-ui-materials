@@ -1,17 +1,17 @@
 {
   "name": "@cloud-ui/s-sidebar.vue",
   "description": "Cloud UI - SSidebar，可嵌套侧边栏",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "zhangsanshi5566@gmail.com",
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/cloud-materials.git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-sidebar.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/s-sidebar.vue@0.1.1/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/s-sidebar.vue@0.1.2/public/index.html",
   "bugs": {
-    "url": "http://github.com/vusion/cloud-materials/issues"
+    "url": "http://github.com/vusion/cloud-ui-materials/issues"
   },
   "license": "MIT",
   "keywords": [
@@ -46,7 +46,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-sidebar.vue@0.1.1/screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-sidebar.vue@0.1.2/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
