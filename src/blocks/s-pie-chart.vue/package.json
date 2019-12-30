@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-pie-chart.vue",
   "description": "Cloud UI - SPieChart",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Rainfore <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-pie-chart.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/s-pie-chart.vue@0.1.3/public/index.html",
+  "homepage": "https://unpkg.com/@cloud-ui/s-pie-chart.vue@0.1.4/public/index.html",
   "bugs": {
     "url": "http://github.com/vusion/cloud-ui-materials/issues"
   },
@@ -29,11 +29,6 @@
   "vuePlugins": {
     "resolveFrom": "../../../"
   },
-  "babel": {
-    "presets": [
-      "@vue/babel-preset-app"
-    ]
-  },
   "dependencies": {
     "@cloud-ui/x-echarts.vue": "^0.6.6"
   },
@@ -49,7 +44,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-pie-chart.vue@0.1.3/screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-pie-chart.vue@0.1.4/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
