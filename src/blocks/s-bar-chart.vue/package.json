@@ -31,11 +31,11 @@
   },
   "babel": {
     "presets": [
-      "@vue/app"
+      "@vue/babel-preset-app"
     ]
   },
   "dependencies": {
-    "@cloud-ui/x-echarts.vue": "^0.6.2"
+    "@cloud-ui/x-echarts.vue": "^0.6.6"
   },
   "devDependencies": {},
   "peerDependencies": {

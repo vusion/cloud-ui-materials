@@ -29,7 +29,7 @@
   },
   "babel": {
     "presets": [
-      "@vue/app"
+      "@vue/babel-preset-app"
     ]
   },
   "dependencies": {},
