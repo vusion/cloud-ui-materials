@@ -1,0 +1,38 @@
+<div :class="$style.root">
+        <div :class="$style.wrapper">
+            <div v-if="!hasSubmit">
+                <div :class="$style.content">
+                    <span :class="$style.tips">{{tip}}</span>
+                    <p :class="$style.info">{{secondTip}}</p>
+                    <div :class="$style.form">
+                        <u-form gap="large">
+                            <u-form-item label="申请人" required>
+                                <u-input v-model="form.name" size="normal" placeholder="请输入申请人姓名"></u-input>
+                            </u-form-item>
+                            <u-form-item label="申请人岗位" required>
+                                <u-input v-model="form.position" size="normal large" placeholder="请输入申请人岗位"></u-input>
+                            </u-form-item>
+                            <u-form-item label="申请原因描述" required>
+                                <u-textarea v-model="form.remark" maxlength="50" size="normal large"
+                                    placeholder="请输入申请原因、所需权限、不超过50字符"></u-textarea>
+                            </u-form-item>
+                            <u-form-item>
+                                <u-button color="primary" :disabled="!canSubmit" @click="submit"
+                                    style="margin-right: 20px;">立即启用</u-button>
+                                <u-button color="primary" @click="logout">退出登录</u-button>
+                            </u-form-item>
+                        </u-form>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <div :class="$style.tip">
+                    <p :class="$style.status">
+                        <u-status-icon name="success">提交申请成功</u-status-icon>
+                    </p>
+                    <p :class="$style.tips">您的申请正在审核中，如有疑问请联系系统管理员，谢谢</p>
+                    <u-link to="/page/apply" @click="logout">返回登录页</u-link>
+                </div>
+            </div>
+        </div>
+</div>

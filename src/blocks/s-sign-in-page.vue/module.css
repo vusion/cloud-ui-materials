@@ -1,0 +1,32 @@
+.root {}
+.wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+    .content {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .status {
+        font-size: 22px;
+    }
+    .tips {
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+    .info {
+        margin:0px;
+        padding: 0px;
+        color: #999;
+        font-size: 12px;
+    }
+    .form {
+        margin-top: 10px;
+        padding: 40px;
+        border: 1px solid #999;
+    }
