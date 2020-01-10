@@ -1,0 +1,28 @@
+- name: u-log-viewer
+  title: 日志查看器
+  description: 请在这里添加描述
+  attrs:
+    - name: content
+      type: string
+      default: ''
+      description: 日志内容
+  slots:
+    - name: default
+      description: 插入文本或 HTML。
+  events:
+    - name: change
+      description: 修改时触发
+      params:
+        - name: $event.param1
+          type: string
+          description: 参数1
+        - name: $event.param2
+          type: number
+          description: 参数2
+  methods:
+    - name: append
+      description: 追加日志
+      params:
+        - name: content
+          type: string
+          description: 需要追加的内容
