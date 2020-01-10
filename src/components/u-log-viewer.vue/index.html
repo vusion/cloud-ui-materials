@@ -1,0 +1,23 @@
+<div :class="$style.root" :color="currentColor" :display="currentDisplay" :position="position">
+    <div :class="$style.head">
+        <div :class="$style.buttons">
+            <slot name="buttons"></slot>
+            <!-- <div :class="$style.button" role="search" v-tooltip="'搜索'"></div> -->
+            <div :class="$style.button" role="clear" v-tooltip="'清空日志'" @click="clear()"></div>
+            <div :class="$style.button" v-if="fetchLogs" role="fetchLogs" v-tooltip="'拉取日志'" @click="fetchLogs()"></div>
+            <div :class="$style.button" role="brightness"
+                v-tooltip="'切换为' + (currentColor === 'dark' ? '浅色' : '深色')"
+                @click="toggleColor()"></div>
+            <div :class="$style.button" role="fullScreen" v-tooltip="currentDisplay === 'fullScreen' ? '退出全屏' : '全屏'" @click="toggleFullscreen()"></div>
+            <div :class="$style.button" v-if="openInNewTab" role="openInNewTab" v-tooltip="'在新标签页中打开'" @click="_openInNewTab()"></div>
+            <div :class="$style.button" role="close" v-tooltip="'关闭'"></div>
+        </div>
+    </div>
+    <div :class="$style.body" ref="body">
+        <div :class="$style.log" v-for="(log, index) in logs" :key="index">{{ log }}</div>
+    </div>
+    <div :class="$style.foot">
+        <div :class="$style.button" role="scrollToTop" v-tooltip.left="'滚动到顶部'" @click="scrollToTop()"></div>
+        <div :class="$style.button" role="scrollToBottom" v-tooltip.left="'滚动到底部'" @click="scrollToBottom()"></div>
+    </div>
+</div>
