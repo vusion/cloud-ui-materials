@@ -1,4 +1,4 @@
-<div :class="$style.root" :color="currentColor" :display="currentDisplay" :position="position">
+<div :class="$style.root" v-if="visible" :color="currentColor" :display="currentDisplay" :maximized="isMaximized" :position="position">
     <div :class="$style.head">
         <div :class="$style.buttons">
             <slot name="buttons"></slot>
@@ -8,9 +8,9 @@
             <div :class="$style.button" role="brightness"
                 v-tooltip="'切换为' + (currentColor === 'dark' ? '浅色' : '深色')"
                 @click="toggleColor()"></div>
-            <div :class="$style.button" role="fullScreen" v-tooltip="currentDisplay === 'fullScreen' ? '退出全屏' : '全屏'" @click="toggleFullscreen()"></div>
+            <div :class="$style.button" role="maximize" v-tooltip="isMaximized ? '退出全屏' : '全屏'" @click="toggleMaximize()"></div>
             <div :class="$style.button" v-if="openInNewTab" role="openInNewTab" v-tooltip="'在新标签页中打开'" @click="_openInNewTab()"></div>
-            <div :class="$style.button" role="close" v-tooltip="'关闭'"></div>
+            <div v-if="$attrs.hasOwnProperty('visible')" :class="$style.button" role="close" v-tooltip="'关闭'" @click="close()"></div>
         </div>
     </div>
     <div :class="$style.body" ref="body">

@@ -490,11 +490,9 @@ export default {
 <template>
 <u-linear-layout direction="vertical" gap="small">
     <u-linear-layout gap="small">
-        <u-button @click="display='fixed'">切换为固定显示</u-button>
-        <u-button @click="display='fullWindow'">切换为全窗口显示</u-button>
-        <u-button @click="display='fullScreen'">切换为全屏显示</u-button>
+        <u-button @click="display = (display === 'fixed' ? 'static' : 'fixed')">切换为{{ display === 'fixed' ? '静态' : '固定' }}显示</u-button>
     </u-linear-layout>
-    <u-log-viewer :content="content" :display="display"></u-log-viewer>
+    <u-log-viewer :content="content" :display="display" :normal-display="display"></u-log-viewer>
 </u-linear-layout>
 </template>
 <script>
