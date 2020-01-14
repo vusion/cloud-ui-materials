@@ -1,0 +1,6 @@
+{
+  "u-log-viewer/content": {
+    "type": "string",
+    "description": "日志内容"
+  }
+}
