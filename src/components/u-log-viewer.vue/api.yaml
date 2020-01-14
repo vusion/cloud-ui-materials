@@ -1,6 +1,6 @@
 - name: u-log-viewer
   title: 日志查看器
-  description: 请在这里添加描述
+  description: 用于查看日志
   attrs:
     - name: content
       type: string
@@ -22,6 +22,12 @@
   methods:
     - name: append
       description: 追加日志
+      params:
+        - name: content
+          type: string
+          description: 需要追加的内容
+    - name: preppend
+      description: 在头部追加日志
       params:
         - name: content
           type: string
