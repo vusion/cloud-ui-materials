@@ -89,7 +89,7 @@
     width: 60%;
 }
 
-.root[display="fullScreen"] {
+.root[display="fullWindow"] {
     position: fixed;
     top: 0;
     left: 0;
@@ -148,13 +148,13 @@
     icon-font: url('./assets/brightness_high-24px.svg');
 }
 
-.button[role="fullScreen"]::before {
+.button[role="maximize"]::before {
     icon-font: url('./assets/fullscreen-24px.svg');
     font-size: 24px;
     margin-right: -4px;
 }
 
-.root[display="fullScreen"] .button[role="fullScreen"]::before {
+.root[maximized] .button[role="maximize"]::before {
     icon-font: url('./assets/fullscreen_exit-24px.svg');
 }
 
