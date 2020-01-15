@@ -488,25 +488,61 @@ export default {
 </script>
 ```
 
-### 设置初始显示方式
+### 设置显示方式
+
+通过`visible.sync`绑定显示/隐藏。
 
 默认显示方式为`'static'`，嵌入在文档流中。`'fixed'`表示固定显示，`'fullWindow'`表示全窗口显示，`'fullScreen'`表示全屏显示。
+
+通过`position`设置固定模式的位置。
 
 
 ``` vue
 <template>
-<u-linear-layout direction="vertical" gap="small">
-    <u-linear-layout gap="small">
-        <u-button @click="display = (display === 'fixed' ? 'static' : 'fixed')">切换为{{ display === 'fixed' ? '静态' : '固定' }}显示</u-button>
-    </u-linear-layout>
-    <u-log-viewer :content="content" :display="display" :normal-display="display"></u-log-viewer>
+<u-linear-layout direction="vertical" gap="small" layout="block">
+    <u-form>
+        <u-form-item label="可见性">
+            <u-capsules v-model="visible">
+                <u-capsule :value="true">显示</u-capsule>
+                <u-capsule :value="false">隐藏</u-capsule>
+            </u-capsules>
+        </u-form-item>
+        <u-form-item label="普通显示方式">
+            <u-capsules v-model="display">
+                <u-capsule value="static">静态</u-capsule>
+                <u-capsule value="fixed">固定</u-capsule>
+            </u-capsules>
+        </u-form-item>
+        <u-form-item label="显示位置" v-if="display === 'fixed'">
+            <u-capsules v-model="position">
+                <u-capsule value="top">top</u-capsule>
+                <u-capsule value="top-center">top-center</u-capsule>
+                <u-capsule value="top-left">top-left</u-capsule>
+                <u-capsule value="top-right">top-right</u-capsule>
+                <u-capsule value="bottom">bottom</u-capsule>
+                <u-capsule value="bottom-center">bottom-center</u-capsule>
+                <u-capsule value="bottom-left">bottom-left</u-capsule>
+                <u-capsule value="bottom-right">bottom-right</u-capsule>
+            </u-capsules>
+        </u-form-item>
+        <u-form-item label="全屏显示方式">
+            <u-capsules v-model="maximizedDisplay">
+                <u-capsule value="fullWindow">全窗口</u-capsule>
+                <u-capsule value="fullScreen">全屏幕</u-capsule>
+            </u-capsules>
+        </u-form-item>
+    </u-form>
+    <u-log-viewer :content="content" :visible.sync="visible" :position="position" :display="display" :normal-display="display" :maximized-display="maximizedDisplay"></u-log-viewer>
 </u-linear-layout>
 </template>
 <script>
 export default {
     data() {
         return {
+            visible: true,
             display: 'static',
+            position: 'bottom-right',
+            maximizedDisplay: 'fullWindow',
             content: `[2020-01-10 10:14:55] [git] start to download source code
 [2020-01-10 10:14:55] [git] fetch source code
 [2020-01-10 10:14:58] [git] delete all untracked files and directories
@@ -961,12 +997,41 @@ build total  second:175
 </script>
 ```
 
+### 按钮钩子
+
+通过设置`fetchLogs`函数，可以开启拉取日志按钮。
+
+通过设置`openInNewTab`属性，可以开启在新标签页打开按钮。
+
+``` vue
+<template>
+<u-log-viewer ref="logViewer" :fetchLogs="fetchLogs" openInNewTab="https://www.163.com/"></u-log-viewer>
+</template>
+<script>
+export default {
+    methods: {
+        fetchLogs() {
+            this.$refs.logViewer.append('[' + new Date().toJSON() + '] ' + Math.random());
+        },
+    },
+}
+</script>
+```
+
 ## API
 ### Props/Attrs
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | content | string |  | `''` | 日志内容 |
+| color | enum | `'dark'`, `'light'` | `'dark'` | 日志查看器配色 |
+| visible.sync | boolean |  | `true` | 控制日志查看器显示或者隐藏 |
+| display | enum | `'block'`, `'static'`, `'fixed'`, `'fullWindow'`, `'fullScreen'` | `'static'` | 显示方式 |
+| normal-display | enum | `'block'`, `'static'`, `'fixed'` | `'static'` | 与最大化切换按钮相关。非最大化时的显示方式 |
+| maximized-display | enum | `'fullWindow'`, `'fullScreen'` | `'fullWindow'` | 与最大化切换按钮相关。最大化时的显示方式 |
+| position | enum | `'top'`, `'top-center'`, `'top-left'`, `'top-right'`, `'bottom'`, `'bottom-center'`, `'bottom-left'`, `'bottom-right'` | `'bottom-right'` | 固定模式时的位置 |
+| fetchLogs | Function |  |  | 该属性传值时，拉取日志按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。 |
+| openInNewTab | string, Function |  |  | 该属性传值时，在新窗口打开按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。 |
 
 ### Slots
 
@@ -976,14 +1041,31 @@ build total  second:175
 
 ### Events
 
-#### @change
+#### @update
 
-修改时触发
+更新日志时触发
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event.param1 | string | 参数1 |
-| $event.param2 | number | 参数2 |
+| $event.logs | Array | 当前日志 |
+| $event.incremental | string | 增量日志 |
+
+#### @clear
+
+清除日志时触发
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event.logs | Array | 空日志 |
+
+#### @display-change
+
+显示方式改变时触发
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event.display | enum | 改变后的显示方式 |
+| $event.oldDisplay | enum | 旧的显示方式 |
 
 ### Methods
 
@@ -995,10 +1077,14 @@ build total  second:175
 | ----- | ---- | ------- | ----------- |
 | content | string |  | 需要追加的内容 |
 
-#### preppend
+#### prepend
 
 在头部追加日志
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 | content | string |  | 需要追加的内容 |
+
+#### clear
+
+清除日志

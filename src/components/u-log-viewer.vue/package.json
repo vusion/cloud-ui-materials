@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-log-viewer.vue",
   "description": "用于查看日志",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "Rainfore <rainforest92@126.com>",
   "repository": {
@@ -38,10 +38,11 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.0/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.0/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.0/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.0/screenshots/3.png"
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/4.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -56,5 +57,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.0/public/index.html"
+  "homepage": "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/public/index.html"
 }

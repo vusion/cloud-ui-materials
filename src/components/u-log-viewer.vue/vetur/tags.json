@@ -1,7 +1,15 @@
 {
   "u-log-viewer": {
     "attributes": [
-      "content"
+      "content",
+      "color",
+      "visible",
+      "display",
+      "normal-display",
+      "maximized-display",
+      "position",
+      "fetchLogs",
+      "openInNewTab"
     ],
     "description": "用于查看日志"
   }

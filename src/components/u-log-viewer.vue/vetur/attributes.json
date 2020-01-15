@@ -2,5 +2,67 @@
   "u-log-viewer/content": {
     "type": "string",
     "description": "日志内容"
+  },
+  "u-log-viewer/color": {
+    "type": "enum",
+    "options": [
+      "dark",
+      "light"
+    ],
+    "description": "日志查看器配色"
+  },
+  "u-log-viewer/visible": {
+    "type": "boolean",
+    "description": "控制日志查看器显示或者隐藏"
+  },
+  "u-log-viewer/display": {
+    "type": "enum",
+    "options": [
+      "block",
+      "static",
+      "fixed",
+      "fullWindow",
+      "fullScreen"
+    ],
+    "description": "显示方式"
+  },
+  "u-log-viewer/normal-display": {
+    "type": "enum",
+    "options": [
+      "block",
+      "static",
+      "fixed"
+    ],
+    "description": "与最大化切换按钮相关。非最大化时的显示方式"
+  },
+  "u-log-viewer/maximized-display": {
+    "type": "enum",
+    "options": [
+      "fullWindow",
+      "fullScreen"
+    ],
+    "description": "与最大化切换按钮相关。最大化时的显示方式"
+  },
+  "u-log-viewer/position": {
+    "type": "enum",
+    "options": [
+      "top",
+      "top-center",
+      "top-left",
+      "top-right",
+      "bottom",
+      "bottom-center",
+      "bottom-left",
+      "bottom-right"
+    ],
+    "description": "固定模式时的位置"
+  },
+  "u-log-viewer/fetchLogs": {
+    "type": "Function",
+    "description": "该属性传值时，拉取日志按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。"
+  },
+  "u-log-viewer/openInNewTab": {
+    "type": "string, Function",
+    "description": "该属性传值时，在新窗口打开按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。"
   }
 }
