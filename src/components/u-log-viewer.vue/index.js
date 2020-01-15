@@ -64,18 +64,46 @@ export default {
             },
             immediate: true,
         },
+        currentDisplay: {
+            handler(currentDisplay, oldDisplay) {
+                if (currentDisplay === 'fullScreen')
+                    this.$el && this.$el.requestFullscreen && this.$el.requestFullscreen();
+                else if (oldDisplay === 'fullScreen')
+                    document.exitFullscreen && document.exitFullscreen();
+
+                this.$emit('display-change', {
+                    display: currentDisplay,
+                    oldDisplay,
+                }, this);
+            },
+            immediate: true,
+        },
     },
     methods: {
         append(content) {
             this.logs = this.logs.concat(content.split('\n'));
             this.$nextTick(this.scrollToBottom);
+
+            this.$emit('update', {
+                logs: this.logs,
+                incremental: content,
+            }, this);
         },
         prepend(content) {
             this.logs = content.split('\n').concat(this.logs);
             this.$nextTick(this.scrollToTop);
+
+            this.$emit('update', {
+                logs: this.logs,
+                incremental: content,
+            }, this);
         },
         clear() {
             this.logs = [];
+
+            this.$emit('clear', {
+                logs: [],
+            }, this);
         },
         toggleColor() {
             this.currentColor = (this.currentColor === 'dark' ? 'light' : 'dark');

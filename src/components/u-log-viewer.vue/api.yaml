@@ -6,19 +6,70 @@
       type: string
       default: ''
       description: 日志内容
+    - name: color
+      type: enum
+      options: ['dark', 'light']
+      default: 'dark'
+      description: 日志查看器配色
+    - name: visible
+      sync: true
+      type: boolean
+      default: true
+      description: 控制日志查看器显示或者隐藏
+    - name: display
+      type: enum
+      options: ['block', 'static', 'fixed', 'fullWindow', 'fullScreen']
+      default: static
+      description: 显示方式
+    - name: normal-display
+      type: enum
+      options: ['block', 'static', 'fixed']
+      default: static
+      description: 与最大化切换按钮相关。非最大化时的显示方式
+    - name: maximized-display
+      type: enum
+      options: ['fullWindow', 'fullScreen']
+      default: fullWindow
+      description: 与最大化切换按钮相关。最大化时的显示方式
+    - name: position
+      type: enum
+      options: ['top', 'top-center', 'top-left', 'top-right', 'bottom', 'bottom-center', 'bottom-left', 'bottom-right']
+      default: bottom-right
+      description: 固定模式时的位置
+    - name: fetchLogs
+      type: Function
+      description: 该属性传值时，拉取日志按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。
+    - name: openInNewTab
+      type: string, Function
+      description: 该属性传值时，在新窗口打开按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。
   slots:
     - name: default
       description: 插入文本或 HTML。
   events:
-    - name: change
-      description: 修改时触发
+    - name: update
+      description: 更新日志时触发
       params:
-        - name: $event.param1
+        - name: $event.logs
+          type: Array
+          description: 当前日志
+        - name: $event.incremental
           type: string
-          description: 参数1
-        - name: $event.param2
-          type: number
-          description: 参数2
+          description: 增量日志
+    - name: clear
+      description: 清除日志时触发
+      params:
+        - name: $event.logs
+          type: Array
+          description: 空日志
+    - name: display-change
+      description: 显示方式改变时触发
+      params:
+        - name: $event.display
+          type: enum
+          description: 改变后的显示方式
+        - name: $event.oldDisplay
+          type: enum
+          description: 旧的显示方式
   methods:
     - name: append
       description: 追加日志
@@ -26,9 +77,12 @@
         - name: content
           type: string
           description: 需要追加的内容
-    - name: preppend
+    - name: prepend
       description: 在头部追加日志
       params:
         - name: content
           type: string
           description: 需要追加的内容
+    - name: clear
+      description: 清除日志
+

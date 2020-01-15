@@ -10,7 +10,7 @@
                 @click="toggleColor()"></div>
             <div :class="$style.button" role="maximize" v-tooltip="isMaximized ? '退出全屏' : '全屏'" @click="toggleMaximize()"></div>
             <div :class="$style.button" v-if="openInNewTab" role="openInNewTab" v-tooltip="'在新标签页中打开'" @click="_openInNewTab()"></div>
-            <div v-if="$attrs.hasOwnProperty('visible')" :class="$style.button" role="close" v-tooltip="'关闭'" @click="close()"></div>
+            <div v-if="$options.propsData.hasOwnProperty('visible')" :class="$style.button" role="close" v-tooltip="'关闭'" @click="close()"></div>
         </div>
     </div>
     <div :class="$style.body" ref="body">
@@ -20,4 +20,5 @@
         <div :class="$style.button" role="scrollToTop" v-tooltip.left="'滚动到顶部'" @click="scrollToTop()"></div>
         <div :class="$style.button" role="scrollToBottom" v-tooltip.left="'滚动到底部'" @click="scrollToBottom()"></div>
     </div>
+    <slot></slot>
 </div>
