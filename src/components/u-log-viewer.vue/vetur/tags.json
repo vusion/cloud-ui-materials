@@ -9,7 +9,9 @@
       "maximized-display",
       "position",
       "fetchLogs",
-      "openInNewTab"
+      "openInNewTab",
+      "bufferWait",
+      "viewCount"
     ],
     "description": "用于查看日志"
   }

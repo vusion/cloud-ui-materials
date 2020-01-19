@@ -1,10 +1,7 @@
 import AnsiUp from 'ansi_up';
-// import VirtualList from 'vue-virtual-scroll-list';
-import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
 
 export default {
     name: 'u-log-viewer',
-    components: { DynamicScroller, DynamicScrollerItem },
     props: {
         content: { type: String, default: '' },
         color: { type: String, default: 'dark' },
@@ -168,7 +165,7 @@ export default {
             let viewIndex = 0;
             for (let i = 0; i < this.logs.length; i++) {
                 const log = this.logs[i];
-                accHeight += log.height || 50;
+                accHeight += log.height || 12;
                 viewIndex = i;
                 if (accHeight > scrollTop)
                     break;
@@ -183,9 +180,9 @@ export default {
             for (let i = 0; i < this.logs.length; i++) {
                 const log = this.logs[i];
                 if (i < viewIndex)
-                    paddingTop += log.height || 50;
+                    paddingTop += log.height || 12;
                 else if (i >= viewIndex + this.viewCount)
-                    paddingBottom += log.height || 50;
+                    paddingBottom += log.height || 12;
             }
 
             this.viewIndex = viewIndex;

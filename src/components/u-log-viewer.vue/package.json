@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-log-viewer.vue",
   "description": "用于查看日志",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "Rainfore <rainforest92@126.com>",
   "repository": {
@@ -38,19 +38,18 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/3.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/screenshots/4.png"
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.2/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.2/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.2/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.2/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.2/screenshots/4.png",
+      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.2/screenshots/5.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
   },
   "dependencies": {
-    "ansi_up": "^4.0.4",
-    "vue-virtual-scroll-list": "^1.4.4",
-    "vue-virtual-scroller": "^1.0.0-rc.2"
+    "ansi_up": "^4.0.4"
   },
   "devDependencies": {},
   "peerDependencies": {
@@ -61,5 +60,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.1/public/index.html"
+  "homepage": "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.1.2/public/index.html"
 }
