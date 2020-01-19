@@ -47,7 +47,11 @@
     "team": "网易云计算前端",
     "access": "public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ansi_up": "^4.0.4",
+    "vue-virtual-scroll-list": "^1.4.4",
+    "vue-virtual-scroller": "^1.0.0-rc.2"
+  },
   "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",

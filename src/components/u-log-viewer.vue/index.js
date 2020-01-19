@@ -1,5 +1,10 @@
+import AnsiUp from 'ansi_up';
+// import VirtualList from 'vue-virtual-scroll-list';
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
+
 export default {
     name: 'u-log-viewer',
+    components: { DynamicScroller, DynamicScrollerItem },
     props: {
         content: { type: String, default: '' },
         color: { type: String, default: 'dark' },
@@ -35,12 +40,19 @@ export default {
         ].includes(value) },
         fetchLogs: { type: Function },
         openInNewTab: { type: [String, Function] },
+        bufferWait: { type: Number, default: 200 },
+        viewCount: { type: Number, default: 100 },
     },
     data() {
         return {
             logs: [],
+            buffer: [],
             currentDisplay: this.display,
             currentColor: this.color,
+            // timer
+            viewIndex: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
         };
     },
     computed: {
@@ -50,11 +62,15 @@ export default {
         isNormal() {
             return ['block', 'static', 'fixed'].includes(this.currentDisplay);
         },
+        viewLogs() {
+            return this.logs.slice(this.viewIndex, this.viewIndex + this.viewCount);
+        },
     },
     watch: {
         content: {
-            handler() {
-                this.logs = this.content.split('\n');
+            handler(content) {
+                // this.logs = this.content.split('\n');
+                this.logs = [{ content: this.toHtml(content), timestamp: +new Date() }];
             },
             immediate: true,
         },
@@ -79,24 +95,39 @@ export default {
             immediate: true,
         },
     },
+    beforeCreate() {
+        // 有 buffering，不同组件实例最好不要混用
+        this.ansiUp = new AnsiUp();
+        // eslint-disable-next-line camelcase
+        this.ansiUp.use_classes = true;
+    },
     methods: {
-        append(content) {
-            this.logs = this.logs.concat(content.split('\n'));
-            this.$nextTick(this.scrollToBottom);
-
-            this.$emit('update', {
-                logs: this.logs,
-                incremental: content,
-            }, this);
+        toHtml(content) {
+            // eslint-disable-next-line no-div-regex
+            return this.ansiUp.ansi_to_html(content.replace(/ /g, '=WHITESPACE=')).replace(/=WHITESPACE=/g, '&nbsp;').replace(/\n/g, '<br>');
         },
-        prepend(content) {
-            this.logs = content.split('\n').concat(this.logs);
-            this.$nextTick(this.scrollToTop);
+        push(content) {
+            this.buffer.push({ content: this.toHtml(content), timestamp: +new Date() });
+            if (!this.timer) {
+                this.timer = setTimeout(() => {
+                    this.logs = this.logs.concat(this.buffer);
 
-            this.$emit('update', {
-                logs: this.logs,
-                incremental: content,
-            }, this);
+                    this.buffer = [];
+
+                    // 日志如果在最底下，便持续滚
+                    if (this.$refs.body.scrollTop + this.$refs.body.clientHeight >= this.$refs.body.scrollHeight) {
+                        this.onScroll({ target: this.$refs.body });
+                        this.$nextTick(this.scrollToBottom);
+                    }
+
+                    this.$emit('update', {
+                        logs: this.logs,
+                        incremental: content,
+                    }, this);
+
+                    this.timer = window.clearTimeout(this.timer);
+                }, this.bufferWait);
+            }
         },
         clear() {
             this.logs = [];
@@ -119,7 +150,47 @@ export default {
             this.$refs.body.scrollTop = 0;
         },
         scrollToBottom() {
-            this.$refs.body.scrollTop = this.$refs.body.scrollHeight;
+            this.$refs.body.scrollTop = this.$refs.body.scrollHeight - this.$refs.body.clientHeight;
+        },
+        onScroll(e) {
+            const bodyVM = e.target;
+
+            // 记录当前 DOM 节点的高度
+            const children = Array.from(bodyVM.children[0].children);
+            children.forEach((childVM, index) => {
+                if (this.logs[this.viewIndex + index])
+                    this.logs[this.viewIndex + index].height = childVM.offsetHeight;
+            });
+
+            const scrollHeight = bodyVM.scrollHeight;
+            const scrollTop = bodyVM.scrollTop;
+            let accHeight = 0;
+            let viewIndex = 0;
+            for (let i = 0; i < this.logs.length; i++) {
+                const log = this.logs[i];
+                accHeight += log.height || 50;
+                viewIndex = i;
+                if (accHeight > scrollTop)
+                    break;
+            }
+
+            viewIndex -= Math.ceil(this.viewCount / 10);
+            viewIndex = Math.max(0, Math.min(viewIndex, this.logs.length - this.viewCount));
+            // }
+
+            let paddingTop = 0;
+            let paddingBottom = 0;
+            for (let i = 0; i < this.logs.length; i++) {
+                const log = this.logs[i];
+                if (i < viewIndex)
+                    paddingTop += log.height || 50;
+                else if (i >= viewIndex + this.viewCount)
+                    paddingBottom += log.height || 50;
+            }
+
+            this.viewIndex = viewIndex;
+            this.paddingTop = paddingTop;
+            this.paddingBottom = paddingBottom;
         },
         _openInNewTab(e) {
             if (typeof this.openInNewTab === 'string')

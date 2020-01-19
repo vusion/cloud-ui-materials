@@ -473,7 +473,7 @@ export default {
         fetchLog() {
             return fetchLog().then((content) => {
                 if (typeof content === 'string')
-                    this.$refs.logViewer.append(content);
+                    this.$refs.logViewer.push(content);
                 return content;
             });
         },
@@ -1011,7 +1011,7 @@ build total  second:175
 export default {
     methods: {
         fetchLogs() {
-            this.$refs.logViewer.append('[' + new Date().toJSON() + '] ' + Math.random());
+            this.$refs.logViewer.push('[' + new Date().toJSON() + '] ' + Math.random());
         },
     },
 }
@@ -1069,7 +1069,7 @@ export default {
 
 ### Methods
 
-#### append
+#### push
 
 追加日志
 
