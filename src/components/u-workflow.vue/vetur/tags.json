@@ -1,0 +1,19 @@
+{
+  "u-workflow": {
+    "attributes": [],
+    "description": "请在这里添加描述",
+    "subtags": [
+      "u-workflow-item"
+    ]
+  },
+  "u-workflow-item": {
+    "attributes": [
+      "title",
+      "href",
+      "target",
+      "to",
+      "replace",
+      "append"
+    ]
+  }
+}
