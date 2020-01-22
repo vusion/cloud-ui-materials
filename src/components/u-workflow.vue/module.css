@@ -1,0 +1,30 @@
+.root {}
+
+.body {
+    position: relative;
+    margin: calc(var(--workflow-space, 50px) / 2) 0;
+}
+
+.body::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-right: 1px solid var(--workflow-space-border-color, #cbd5e5);
+    left: 50%;
+    top: 0;
+    bottom: 0;
+}
+
+.legend {
+    margin-top: 50px;
+}
+
+.legend .item_button {
+    font-size: 12px;
+    padding: 0px 10px;
+    line-height: 18px;
+}
+
+.legend .item_button + .item_button {
+    margin-left: 5px;
+}

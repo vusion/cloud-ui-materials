@@ -1,0 +1,11 @@
+<div :class="$style.root">
+    <div :class="$style.body">
+        <slot></slot>
+    </div>
+    <div :class="$style.legend">
+        图例：
+        <div :class="$style.item_button" status="done">已完成</div>
+        <div :class="$style.item_button" status="doing">进行中</div>
+        <div :class="$style.item_button" status="todo">未开始</div>
+    </div>
+</div>

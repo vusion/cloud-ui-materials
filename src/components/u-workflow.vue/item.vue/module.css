@@ -1,0 +1,51 @@
+.root {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+    user-select: none;
+    line-height: inherit;
+    padding: var(--workflow-button-padding-y, 4px) var(--workflow-button-padding-x, 30px);
+    background: var(--workflow-button-background, white);
+    border: var(--workflow-button-border-width, 2px) solid var(--workflow-button-border-color, #acb6c4);
+    color: var(--workflow-button-color, inherit);
+}
+
+.button:hover {
+    background: var(--workflow-button-background, white);
+    border: var(--workflow-button-border-width, 2px) solid var(--workflow-button-border-color, #acb6c4);
+    color: var(--workflow-button-color, inherit);
+}
+
+.button:active {
+    box-shadow: none;
+}
+
+.button:empty {
+    display: none;
+}
+
+.root + .root {
+    margin-top: var(--workflow-space, 50px);
+}
+
+.button[status="doing"] {
+    background: var(--workflow-button-background-doing, #ffa136);
+    border-color: var(--workflow-button-background-doing, #ffa136);
+    color: var(--workflow-button-color-doing, white);
+}
+
+.button[status="done"] {
+    background: var(--workflow-button-background-done, #3ad0af);
+    border-color: var(--workflow-button-background-done, #3ad0af);
+    color: var(--workflow-button-color-doing, white);
+}
+
+.root[has-child] > .sub {
+    background: white;
+    display: flex;
+    margin: calc(var(--workflow-space, 50px) * (-1/3)) 0;
+}
