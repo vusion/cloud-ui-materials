@@ -1,0 +1,58 @@
+{
+    "name": "@cloud-ui/u-summary-card.vue",
+    "description": "摘要卡片",
+    "version": "0.6.0",
+    "main": "./index.js",
+    "author": "Rainfore <rainforest92@126.com>",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/vusion/cloud-ui-materials.git",
+      "directory": "src/components/u-summary-card.vue"
+    },
+    "license": "MIT",
+    "keywords": [
+      "vusion",
+      "material",
+      "component"
+    ],
+    "scripts": {
+      "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+      "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+      "screenshot": "vusion screenshot public/index.html --code-example --package",
+      "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+    },
+    "vuePlugins": {
+      "resolveFrom": "../../../"
+    },
+    "babel": {
+      "presets": [
+        [
+          "@vue/app"
+        ]
+      ]
+    },
+    "vusion": {
+      "type": "component",
+      "title": "摘要卡片",
+      "category": "info",
+      "base": "vue",
+      "ui": "cloud-ui.vusion",
+      "screenshots": [
+        "https://unpkg.com/@cloud-ui/u-summary-card.vue@0.1.0/screenshots/0.png",
+        "https://unpkg.com/@cloud-ui/u-summary-card.vue@0.1.0/screenshots/1.png"
+      ],
+      "team": "网易云计算前端",
+      "access": "public"
+    },
+    "dependencies": {},
+    "devDependencies": {},
+    "peerDependencies": {
+      "vue": "^2.6.10",
+      "cloud-ui.vusion": "^0.6.0"
+    },
+    "vetur": {
+      "tags": "./vetur/tags.json",
+      "attributes": "./vetur/attributes.json"
+    },
+    "homepage": "https://unpkg.com/@cloud-ui/u-summary-card.vue@0.1.0/public/index.html"
+  }
