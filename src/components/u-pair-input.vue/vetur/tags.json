@@ -1,0 +1,17 @@
+{
+  "u-pair-input": {
+    "attributes": [
+      "value",
+      "key-field",
+      "value-field",
+      "key-placeholder",
+      "value-placeholder",
+      "key-rules",
+      "value-rules",
+      "list-rules",
+      "clearable",
+      "disabled"
+    ],
+    "description": "用于输入一系列键值对。"
+  }
+}

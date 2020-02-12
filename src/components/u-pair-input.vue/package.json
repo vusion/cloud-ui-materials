@@ -35,7 +35,15 @@
     "category": "form",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/screenshots/4.png",
+      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/screenshots/5.png",
+      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/screenshots/6.png"
+    ],
     "team": "网易云计算前端",
     "access": "public"
   },
@@ -48,5 +56,6 @@
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
-  }
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.0/public/index.html"
 }

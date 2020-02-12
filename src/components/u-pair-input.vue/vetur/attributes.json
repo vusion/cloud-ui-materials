@@ -1,0 +1,42 @@
+{
+  "u-pair-input/value": {
+    "type": "Array",
+    "description": "键值对列表"
+  },
+  "u-pair-input/key-field": {
+    "type": "string",
+    "description": "键字段"
+  },
+  "u-pair-input/value-field": {
+    "type": "string",
+    "description": "值字段"
+  },
+  "u-pair-input/key-placeholder": {
+    "type": "string",
+    "description": "键输入框的占位符"
+  },
+  "u-pair-input/value-placeholder": {
+    "type": "string",
+    "description": "值输入框的占位符"
+  },
+  "u-pair-input/key-rules": {
+    "type": "string, Array<Rule>",
+    "description": "针对键的验证规则"
+  },
+  "u-pair-input/value-rules": {
+    "type": "string, Array<Rule>",
+    "description": "针对值的验证规则"
+  },
+  "u-pair-input/list-rules": {
+    "type": "string, Array<Rule>",
+    "description": "针对整个键值对列表的验证规则"
+  },
+  "u-pair-input/clearable": {
+    "type": "boolean",
+    "description": "是否显示一键清除按钮"
+  },
+  "u-pair-input/disabled": {
+    "type": "boolean",
+    "description": "是否禁用"
+  }
+}
