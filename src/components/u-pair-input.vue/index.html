@@ -1,0 +1,42 @@
+<div :class="$style.root" :size="size" :readonly="readonly" :disabled="disabled"
+    :clearable="clearable && currentValue.length"
+    :tabindex="readonly || disabled ? '' : 0"
+    @click="focus" @focusin="focused = true" :focus="focused" :error="error">
+    <span :class="$style.baseline">b</span><!-- 用于基线对齐 -->
+    <!-- <span v-show="!currentValue.length" :class="$style.placeholder">{{ placeholder }}</span> -->
+    <div :class="$style.text">
+        <u-chip v-for="(item, index) in currentValue" :key="index"
+            :editing="!!editingList[index]"
+            :removable="!disabled" @before-remove="beforeRemove(index, $event)" @remove="remove(index)" @click.stop
+            :rules="editingList[index] && (editingList[index].type === 'key' ? keyRules : valueRules)" @validate="onInputValidate(index, $event)">
+            <u-input v-if="editingList[index] && editingList[index].type === 'key'" key="key" :class="$style['chip-input']"
+                v-model="editingList[index].key" auto-size="horizontal" autofocus
+                @keydown.enter.stop="$event.target.blur()"
+                @blur="onBlur()"></u-input>
+            <span v-else :class="$style['chip-part']" @dblclick="edit(index, 'key')">{{ item[keyField] }}</span>
+            <span>: </span>
+            <u-input v-if="editingList[index] && editingList[index].type === 'value'" key="value" :class="$style['chip-input']"
+                v-model="editingList[index].value" auto-size="horizontal" autofocus
+                @keydown.enter.stop="$event.target.blur()"
+                @blur="onBlur()"></u-input>
+            <span v-else :class="$style['chip-part']" @dblclick="edit(index, 'value')">{{ item[valueField] }}</span>
+        </u-chip>
+        <u-chip ref="addingChip" v-if="adding" :editing="!!adding" @click.stop
+            :rules="adding.type === 'key' ? keyRules : valueRules" @validate="onInputValidate(-1, $event)">
+            <u-input ref="addingKeyInput" v-if="adding.type === 'key'" key="key" :class="$style['chip-input']"
+                v-model="adding.key" auto-size="horizontal" :placeholder="keyPlaceholder" style="min-width: 120px;"
+                @keydown.tab.stop.prevent="addNext = true, $event.target.blur()" @keydown.enter.stop="addNext = true, $event.target.blur()"
+                @blur="onBlur()"></u-input>
+            <span v-else :class="$style['chip-part']" @dblclick="editAdding('key')">{{ adding.key }}</span>
+            <span v-if="adding.type === 'value'">: </span>
+            <u-input ref="addingValueInput" v-if="adding.type === 'value'" key="value" :class="$style['chip-input']"
+                v-model="adding.value" auto-size="horizontal" :placeholder="valuePlaceholder" style="min-width: 120px;"
+                @keydown.tab.stop.prevent="addNext = true, $event.target.blur()" @keydown.enter.stop="addNext = true, $event.target.blur()"
+                @blur="onBlur()"></u-input>
+            <span v-else-if="adding.type !== 'key'" :class="$style['chip-part']">{{ adding.value }}</span>
+        </u-chip>
+    </div>
+    <span v-if="clearable && currentValue.length" :class="$style.clearable" @click="clear"></span>
+    <u-validator ref="listValidator" muted="all" :rules="listRules" :validating-value="currentValue" @validate="error = $event.touched && !$event.valid"></u-validator>
+    <slot></slot>
+</div>
