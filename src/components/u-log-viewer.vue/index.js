@@ -118,7 +118,7 @@ export default {
                     this.buffer = [];
 
                     // 日志如果在最底下，便持续滚
-                    if (this.$refs.body.scrollTop + this.$refs.body.clientHeight >= this.$refs.body.scrollHeight) {
+                    if (this.$refs.body && this.$refs.body.scrollTop + this.$refs.body.clientHeight >= this.$refs.body.scrollHeight) {
                         this.onScroll({ target: this.$refs.body });
                         this.$nextTick(this.scrollToBottom);
                     }
@@ -150,10 +150,12 @@ export default {
                 this.currentDisplay = this.maximizedDisplay;
         },
         scrollToTop() {
-            this.$refs.body.scrollTop = 0;
+            if (this.$refs.body)
+                this.$refs.body.scrollTop = 0;
         },
         scrollToBottom() {
-            this.$refs.body.scrollTop = this.$refs.body.scrollHeight - this.$refs.body.clientHeight;
+            if (this.$refs.body)
+                this.$refs.body.scrollTop = this.$refs.body.scrollHeight - this.$refs.body.clientHeight;
         },
         onScroll(e) {
             const bodyVM = e.target;

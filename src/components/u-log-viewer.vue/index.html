@@ -1,4 +1,4 @@
-<div :class="$style.root" v-if="visible" :color="currentColor" :display="currentDisplay" :maximized="isMaximized" :position="position">
+<div :class="$style.root" v-show="visible" :color="currentColor" :display="currentDisplay" :maximized="isMaximized" :position="position">
     <div :class="$style.head">
         <div :class="$style.buttons">
             <slot name="buttons"></slot>
