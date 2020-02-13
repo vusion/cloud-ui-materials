@@ -950,7 +950,7 @@ export default {
 | content | string |  | `''` | 日志内容 |
 | color | enum | `'dark'`, `'light'` | `'dark'` | 日志查看器配色 |
 | visible.sync | boolean |  | `true` | 控制日志查看器显示或者隐藏 |
-| display | enum | `'block'`, `'static'`, `'fixed'`, `'fullWindow'`, `'fullScreen'` | `'static'` | 显示方式 |
+| display.sync | enum | `'block'`, `'static'`, `'fixed'`, `'fullWindow'`, `'fullScreen'` | `'static'` | 显示方式 |
 | normal-display | enum | `'block'`, `'static'`, `'fixed'` | `'static'` | 与最大化切换按钮相关。非最大化时的显示方式 |
 | maximized-display | enum | `'fullWindow'`, `'fullScreen'` | `'fullWindow'` | 与最大化切换按钮相关。最大化时的显示方式 |
 | position | enum | `'top'`, `'top-center'`, `'top-left'`, `'top-right'`, `'bottom'`, `'bottom-center'`, `'bottom-left'`, `'bottom-right'` | `'bottom-right'` | 固定模式时的位置 |
@@ -966,6 +966,15 @@ export default {
 插入文本或 HTML。
 
 ### Events
+
+#### @push
+
+追加日志时触发。由于设置了高频追加性能机制，刚追加日志时不一定会立即更新(update)。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event.logs | Array | 当前日志 |
+| $event.incremental | string | 增量日志 |
 
 #### @update
 
