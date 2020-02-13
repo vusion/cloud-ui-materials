@@ -17,6 +17,7 @@
       default: true
       description: 控制日志查看器显示或者隐藏
     - name: display
+      sync: true
       type: enum
       options: ['block', 'static', 'fixed', 'fullWindow', 'fullScreen']
       default: static
@@ -54,6 +55,15 @@
     - name: default
       description: 插入文本或 HTML。
   events:
+    - name: push
+      description: 追加日志时触发。由于设置了高频追加性能机制，刚追加日志时不一定会立即更新(update)。
+      params:
+        - name: $event.logs
+          type: Array
+          description: 当前日志
+        - name: $event.incremental
+          type: string
+          description: 增量日志
     - name: update
       description: 更新日志时触发
       params:

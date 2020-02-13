@@ -67,7 +67,7 @@ export default {
         content: {
             handler(content) {
                 // this.logs = this.content.split('\n');
-                this.logs = [{ content: this.toHtml(content), timestamp: +new Date() }];
+                this.logs = [{ content: this.toHtml(content), id: +new Date() + '-' + 0 }];
             },
             immediate: true,
         },
@@ -84,6 +84,7 @@ export default {
                 else if (oldDisplay === 'fullScreen')
                     document.exitFullscreen && document.exitFullscreen();
 
+                this.$emit('update:display', currentDisplay);
                 this.$emit('display-change', {
                     display: currentDisplay,
                     oldDisplay,
@@ -104,7 +105,12 @@ export default {
             return this.ansiUp.ansi_to_html(content.replace(/ /g, '=WHITESPACE=')).replace(/=WHITESPACE=/g, '&nbsp;').replace(/\n/g, '<br>');
         },
         push(content) {
-            this.buffer.push({ content: this.toHtml(content), timestamp: +new Date() });
+            this.buffer.push({ content: this.toHtml(content), id: +new Date() + '-' + (this.logs.length + this.buffer.length) });
+            this.$emit('push', {
+                logs: this.logs,
+                incremental: content,
+            }, this);
+
             if (!this.timer) {
                 this.timer = setTimeout(() => {
                     this.logs = this.logs.concat(this.buffer);
