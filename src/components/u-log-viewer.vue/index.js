@@ -50,6 +50,8 @@ export default {
             viewIndex: 0,
             paddingTop: 0,
             paddingBottom: 0,
+            // parentEl
+            // nextSibling
         };
     },
     computed: {
@@ -81,8 +83,20 @@ export default {
             handler(currentDisplay, oldDisplay) {
                 if (currentDisplay === 'fullScreen')
                     this.$el && this.$el.requestFullscreen && this.$el.requestFullscreen();
-                else if (oldDisplay === 'fullScreen')
+                if (oldDisplay === 'fullScreen')
                     document.exitFullscreen && document.exitFullscreen();
+                if (currentDisplay === 'fullWindow') {
+                    // 处理 z-index 的问题，修改层层父级的 z-index 比较复杂
+                    // 除了迁移 $el 到 document.body 下，没有更通用的方法
+                    this.parentEl = this.$el.parentElement;
+                    this.nextSibling = this.$el.nextSibling;
+                    document.body.appendChild(this.$el);
+                }
+                if (oldDisplay === 'fullWindow' && this.parentEl) {
+                    this.parentEl.insertBefore(this.$el, this.nextSibling);
+                    this.parentEl = undefined;
+                    this.nextSibling = undefined;
+                }
 
                 this.$emit('update:display', currentDisplay);
                 this.$emit('display-change', {
