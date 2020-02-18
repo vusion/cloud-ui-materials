@@ -1,5 +1,5 @@
 <template>
-<u-form :class="$style.form" layout="inline" :expanded="expanded">
+<u-form :class="$style.form" layout="inline">
     <u-grid-layout>
         <u-grid-layout-row :repeat="4">
             <u-grid-layout-column>
@@ -22,7 +22,7 @@
                 </u-form-item>
             </u-grid-layout-column>
         </u-grid-layout-row>
-        <u-grid-layout-row :repeat="4">
+        <u-grid-layout-row :repeat="4" v-show="expanded">
             <u-grid-layout-column>
                 <u-form-item label="用户名">
                     <u-input maxlength="63"></u-input>
@@ -57,18 +57,12 @@ export default {
 <style module>
 .form {
     position: relative;
-    height: 34px;
-    overflow: hidden;
-}
-
-.form[expanded] {
-    height: auto;
 }
 
 .expander {
     position: absolute;
     right: 20px;
-    bottom: 8px;
+    bottom: 15px;
 }
 
 .expander::after {
