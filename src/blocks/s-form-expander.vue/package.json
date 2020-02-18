@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-form-expander.vue",
   "description": "表单的展开与收起。",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./src/index.vue",
   "author": "",
   "repository": "",
@@ -34,7 +34,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-form-expander.vue@0.1.0/screenshots/0.png"
+      "https://unpkg.com/@cloud-ui/s-form-expander.vue@0.1.1/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -45,5 +45,5 @@
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.6.4"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/s-form-expander.vue@0.1.0/public/index.html"
+  "homepage": "https://unpkg.com/@cloud-ui/s-form-expander.vue@0.1.1/public/index.html"
 }
