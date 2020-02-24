@@ -1,0 +1,10 @@
+{
+  "u-chip": {
+    "attributes": [
+      "removable",
+      "editing",
+      "error"
+    ],
+    "description": "类似于标签组件，用于条目的增删改查。"
+  }
+}

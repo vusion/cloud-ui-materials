@@ -1,6 +1,6 @@
 - name: u-chip
   title: 薯条
-  labels: [行内展示]
+  labels: [行内展示, 表单验证器]
   description: 类似于标签组件，用于条目的增删改查。
   attrs:
     - name: removable
@@ -24,7 +24,7 @@
       params:
         - name: $event
           type: 'null'
-          description: 无
+          description: 无参数
         - name: senderVM
           type: UChip
           description: 发送事件实例
