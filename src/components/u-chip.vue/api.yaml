@@ -1,0 +1,30 @@
+- name: u-chip
+  title: 薯条
+  labels: [行内展示]
+  description: 类似于标签组件，用于条目的增删改查。
+  attrs:
+    - name: removable
+      type: boolean
+      default: false
+      description: 是否可以删除
+    - name: editing
+      type: boolean
+      default: false
+      description: 是否正在编辑
+    - name: error
+      type: boolean
+      default: false
+      description: 是否显示红框错误提示
+  slots:
+    - name: default
+      description: 插入文本或 HTML。
+  events:
+    - name: before-remove
+      description: 删除前触发
+      params:
+        - name: $event
+          type: 'null'
+          description: 无
+        - name: senderVM
+          type: UChip
+          description: 发送事件实例
