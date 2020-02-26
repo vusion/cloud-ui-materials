@@ -12,9 +12,11 @@ export const UChipInput = {
         placeholder: { type: String, default: '请输入内容' },
         rules: [String, Array, Object],
         listRules: [String, Array, Object],
-        separators: { type: String, default: '\n\t' },
+        separators: { type: String, default: ',' },
         clearable: { type: Boolean, default: false },
-        size: { type: String, default: 'huge' },
+        prefix: String,
+        suffix: String,
+        size: { type: String, default: 'normal huge' },
         readonly: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
     },
@@ -79,15 +81,19 @@ export const UChipInput = {
                 this.editAdding();
             });
         },
-        onInput($event, senderVM) {
-            if (!$event.match(new RegExp(`[${this.separators}]+`)))
+        onInput(index, $event) {
+            const re = new RegExp(`[${this.separators}]+`);
+            if (!$event.match(re))
                 return;
 
-            this.reduce($event, senderVM);
+            this.reduce($event, index);
         },
-        reduce(remain, senderVM) {
+        reduce(remain, index) {
+            if (!remain)
+                return;
             let part;
-            const cap = remain.match(new RegExp(`[${this.separators}]+`));
+            const re = new RegExp(`[${this.separators}]+`);
+            const cap = remain.match(re);
             if (cap) {
                 part = remain.slice(0, cap.index).trim();
                 remain = remain.slice(cap.index + cap[0].length).trim(); // 有可能不是匹配单个字符
@@ -95,16 +101,31 @@ export const UChipInput = {
                 part = remain;
                 remain = '';
             }
+            if (!part)
+                return this.reduce(remain, index);
 
             const validator = this.$refs.validator.validator;
             validator.validate(part, 'blur').then(() => {
-                this.currentValue.push(part);
-                if (remain) {
-                    this.reduce(remain);
-                } else
-                    this.keepAdding();
+                if (index === -1) {
+                    this.currentValue.push(part);
+                    if (remain) {
+                        this.reduce(remain, index);
+                    } else
+                        this.keepAdding();
+                } else {
+                    this.currentValue.splice(index, 0, part);
+                    this.editingList.splice(index, 0, undefined);
+                    index++;
+                    if (remain)
+                        this.reduce(remain, index);
+                    else
+                        this.editingList[index].text = '';
+                }
             }).catch((error) => {
-                this.adding = { text: part };
+                if (index === -1)
+                    this.adding = { text: part };
+                else
+                    this.editingList[index].text = part;
             });
         },
         onInputValidate(index, $event) {
@@ -117,7 +138,6 @@ export const UChipInput = {
         },
         save(index) {
             // 先 enter 再 blur 会触发两次
-
             const editing = this.editingList[index];
             if (!editing)
                 return;
@@ -173,9 +193,6 @@ export const UChipInput = {
         },
         remove(index) {
             const text = this.currentValue[index];
-            if (!text)
-                return;
-
             if (this.$emitPrevent('before-remove', {
                 oldValue: this.currentValue,
                 text,
@@ -184,7 +201,7 @@ export const UChipInput = {
                 return;
 
             this.currentValue.splice(index, 1);
-            this.editingList[index] = undefined;
+            this.editingList.splice(index, 1);
 
             this.$refs.listValidator.validate()
                 .catch(() => undefined);

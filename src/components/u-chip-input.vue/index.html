@@ -1,19 +1,20 @@
-<div :class="$style.root" :size="size" :readonly="readonly" :disabled="disabled"
-    :clearable="clearable && currentValue.length"
+<div :class="$style.root" :size="size" :disabled="disabled"
+    :clearable="clearable && currentValue.length" :prefix="prefix" :suffix="suffix"
     :tabindex="readonly || disabled ? '' : 0"
     @click="focus" @focusin="focused = true" :focus="focused" :error="error">
     <span :class="$style.baseline">b</span><!-- 用于基线对齐 -->
     <!-- <span v-show="!currentValue.length" :class="$style.placeholder">{{ placeholder }}</span> -->
-    <div :class="$style.text">
-        <u-chip v-for="(text, index) in currentValue" :key="index"
+    <span v-if="prefix" :class="$style.prefix" :name="prefix"><slot name="prefix"></slot></span>
+    <div :class="$style.body">
+        <u-chip :class="$style.chip" v-for="(text, index) in currentValue" :key="index"
             :editing="!!editingList[index]"
             :removable="!disabled" @remove="remove(index)" @click.stop
             :rules="editingList[index] && rules" @validate="onInputValidate(index, $event)">
             <u-input v-if="editingList[index]" :class="$style['chip-input']"
                 v-model="editingList[index].text" auto-size="horizontal" autofocus
-                @input="onInput"
-                @keydown.delete = "onInputDelete(index, $event)"
+                @input="onInput(index, $event)"
                 @keydown.enter.stop="$event.target.blur()"
+                @keydown.delete = "onInputDelete(index, $event)"
                 @blur="onBlur()"></u-input>
             <span v-else :class="$style['chip-part']" @dblclick="edit(index)">{{ text }}</span>
         </u-chip>
@@ -21,12 +22,13 @@
             :rules="rules" @validate="onInputValidate(-1, $event)">
             <u-input ref="addingInput" :class="$style['chip-input']"
                 v-model="adding.text" auto-size="horizontal" :placeholder="placeholder" style="min-width: 120px;"
-                @input="onInput"
-                @keydown.delete = "onInputDelete(-1, $event)"
+                @input="onInput(-1, $event)"
                 @keydown.tab.stop.prevent="addNext = true, $event.target.blur()" @keydown.enter.stop="addNext = true, $event.target.blur()"
+                @keydown.delete = "onInputDelete(-1, $event)"
                 @blur="onBlur()"></u-input>
         </u-chip>
     </div>
+    <span v-if="suffix" :class="$style.suffix" :name="suffix"><slot name="suffix"></slot></span>
     <span v-if="clearable && currentValue.length" :class="$style.clearable" @click="clear"></span>
     <u-validator ref="validator" v-show="false" :rules="rules"></u-validator>
     <u-validator ref="listValidator" muted="all" :rules="listRules" :validating-value="currentValue" @validate="error = $event.touched && !$event.valid"></u-validator>
