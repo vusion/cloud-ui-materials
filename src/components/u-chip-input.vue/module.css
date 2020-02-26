@@ -110,11 +110,12 @@
 }
 
 .chip {
-    transition: background var(--transition-duration-base);
+    transition: all var(--transition-duration-fast);
 }
 
 .chip:hover {
     background: #d0dbe7;
+    border-color: #d0dbe7;
 }
 
 .chip[editing] {
@@ -123,6 +124,7 @@
 
 .root[disabled] .chip {
     background: var(--chip-background-color, #eef2f7);
+    border-color: var(--chip-background-color, #eef2f7);
 }
 
 .chip-part {

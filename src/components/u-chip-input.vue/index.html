@@ -1,6 +1,6 @@
 <div :class="$style.root" :size="size" :disabled="disabled"
     :clearable="clearable && currentValue.length" :prefix="prefix" :suffix="suffix"
-    :tabindex="readonly || disabled ? '' : 0"
+    :tabindex="disabled ? '' : 0"
     @click="focus" @focusin="focused = true" :focus="focused" :error="error">
     <span :class="$style.baseline">b</span><!-- 用于基线对齐 -->
     <!-- <span v-show="!currentValue.length" :class="$style.placeholder">{{ placeholder }}</span> -->

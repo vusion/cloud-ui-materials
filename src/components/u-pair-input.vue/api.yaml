@@ -4,8 +4,8 @@
   attrs:
     - name: value
       type: Array
-      model: true,
-      sync: true,
+      model: true
+      sync: true
       default: '[]'
       description: 键值对列表
     - name: key-field
@@ -188,3 +188,10 @@
     - name: clear()
       description: 清空输入框中所有键值对。
       params: []
+  aria:
+    - key: Enter
+      description: 完成当前项的输入
+    - key: Tab
+      description: 完成当前项的输入
+    - key: Delete
+      description: 删除前一项

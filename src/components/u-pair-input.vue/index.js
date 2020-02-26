@@ -1,5 +1,5 @@
 // import i18n from './i18n';
-import UChip from './u-chip.vue';
+import UChip from '@cloud-ui/u-chip.vue';
 import { MEmitter } from 'cloud-ui.vusion';
 
 export const UPairInput = {
@@ -16,9 +16,11 @@ export const UPairInput = {
         keyRules: [String, Array, Object],
         valueRules: [String, Array, Object],
         listRules: [String, Array, Object],
+        separators: { type: String, default: ',' },
         clearable: { type: Boolean, default: false },
-        size: { type: String, default: 'huge' },
-        readonly: { type: Boolean, default: false },
+        prefix: String,
+        suffix: String,
+        size: { type: String, default: 'normal huge' },
         disabled: { type: Boolean, default: false },
     },
     data() {
@@ -34,11 +36,11 @@ export const UPairInput = {
                 value: undefined,
             },
             editingList: [],
-            editing: undefined,
         };
     },
     watch: {
         value: {
+            immediate: true,
             handler(value) {
                 this.currentValue = value;
 
@@ -52,7 +54,6 @@ export const UPairInput = {
                     };
                 }
             },
-            immediate: true,
         },
         currentValue(value, oldValue) {
             this.$emit('change', {
@@ -86,6 +87,14 @@ export const UPairInput = {
                 else
                     this.$refs.addingValueInput.focus();
             });
+        },
+        onBeforeInput($event) {
+            // const value = $event.value.trim();
+            // const index = value.search(new RegExp(`[${this.separators}]`));
+            // if (~index) {
+            //     $event.value = value.slice(0, index);
+            //     const remain = value.slice(index + 1);
+            // }
         },
         onInputValidate(index, $event) {
             if ($event.trigger !== 'blur' || !$event.valid)
@@ -170,7 +179,7 @@ export const UPairInput = {
                 }, 200);
             }
         },
-        beforeRemove(index, $event) {
+        remove(index) {
             const item = this.currentValue[index];
             if (!item)
                 return;
@@ -180,11 +189,6 @@ export const UPairInput = {
                 item,
                 index,
             }, this))
-                $event.preventDefault();
-        },
-        remove(index) {
-            const item = this.currentValue[index];
-            if (!item)
                 return;
 
             this.currentValue.splice(index, 1);

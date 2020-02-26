@@ -1,5 +1,7 @@
 ### 基本用法
 
+点击输入区域进行输入。在完成键或值的输入之后，可以通过 <kbd>Tab</kbd>, <kbd>Enter</kbd> 按键或鼠标失焦切换输入。
+
 ``` html
 <u-pair-input></u-pair-input>
 ```
@@ -52,14 +54,16 @@ export default {
 
 ### 表单验证
 
-通过`key-rules`和`value-rules`设置规则，规则参见[UValidator](https://vusion.github.io/cloud-ui/components/u-validator/rules)。
+#### 键值的规则
 
-下面的例子中，键只能输入字母、数字和下划线，值只能输入数字，不得少于 4 个字符。
+通过`key-rules`和`value-rules`设置规则，条目输入框可以接入到 [Cloud UI 表单验证体系](https://vusion.github.io/cloud-ui/components/cloud-ui/components/u-validator/examples)中，规则参见[UValidator](https://vusion.github.io/cloud-ui/components/u-validator/rules)。
+
+比如在下面的例子中，键只能输入字母、数字，值只能输入数字，不得少于 4 位。
 
 ``` vue
 <template>
 <u-form-item label="键值对" bubble>
-    <u-pair-input v-model="pairs" key-rules="alphaNumDash | minLength(4) # 键不得少于 4 个数字" value-rules="numeric | minLength(4) # 值不得少于 4 个数字"></u-pair-input>
+    <u-pair-input v-model="pairs" key-rules="alphaNum" value-rules="numeric | minLength(2) # 值不得少于 4 个数字"></u-pair-input>
 </u-form-item>
 </template>
 <script>
@@ -77,6 +81,8 @@ export default {
 </script>
 ```
 
+#### 列表的规则
+
 通过`list-rules`设置键值对数组的规则，规则参见[UValidator](https://vusion.github.io/cloud-ui/components/u-validator/rules)中与数组相关的一些规则。
 
 下面的例子中，数组不能为空，且最多可以添加 2 个键值对。
@@ -92,6 +98,29 @@ export default {
     data() {
         return {
             pairs: [],
+        };
+    },
+};
+</script>
+```
+
+### 分隔符与一键粘贴
+
+`ddd: d-value; eee: e-value; fff: f-value`。
+
+``` vue
+<template>
+<u-pair-input v-model="pairs" separators="\n\t;"></u-pair-input>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            pairs: [
+                { key: 'aaa', value: 'a-value' },
+                { key: 'bbb', value: 'b-value' },
+                { key: 'ccc', value: 'c-value' },
+            ],
         };
     },
 };
@@ -138,6 +167,103 @@ export default {
             ],
         };
     },
+};
+</script>
+```
+
+
+### 添加图标
+
+可以使用`prefix`和`suffix`添加图标。
+
+``` vue
+<template>
+<u-linear-layout direction="vertical">
+    <u-pair-input v-model="list" prefix="search"></u-pair-input>
+    <u-pair-input v-model="list" suffix="search"></u-pair-input>
+</u-linear-layout>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            list: [
+                { key: 'aaa', value: 'a-value' },
+                { key: 'bbb', value: 'b-value' },
+                { key: 'ccc', value: 'c-value' },
+            ],
+        };
+    },
+};
+</script>
+```
+
+### 修改尺寸
+
+支持`normal`、`large`、`huge`、`full`几种级别的宽高组合。
+
+``` vue
+<template>
+<u-linear-layout direction="vertical">
+<u-pair-input size="normal large" v-model="list"></u-pair-input>
+<u-pair-input size="large" v-model="list"></u-pair-input>
+<u-pair-input size="huge" v-model="list"></u-pair-input>
+<u-pair-input size="full" v-model="list"></u-pair-input>
+</u-linear-layout>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            list: [
+                { key: 'aaa', value: 'a-value' },
+                { key: 'bbb', value: 'b-value' },
+                { key: 'ccc', value: 'c-value' },
+            ],
+        };
+    },
+};
+</script>
+```
+
+### 综合示例
+
+``` vue
+<template>
+<u-form ref="form">
+    <u-form-item required label="实例名称" rules="required | alphaNum">
+        <u-input v-model="model.name" placeholder="请输入实例名称"></u-input>
+    </u-form-item>
+    <u-form-item required label="端口" rules="required | port">
+        <u-input v-model="model.port" placeholder="请输入端口"></u-input>
+    </u-form-item>
+    <u-form-item required label="环境变量" layout="block" :bubble="true">
+        <u-pair-input size="huge" v-model="model.whitelist" key-placeholder="请输入环境变量名称" value-placeholder="请输入环境变量的值" key-rules="required | alphaNumDash" value-rules="required | alphaNumDash" list-rules="notEmpty # 至少输入一个环境变量 | maxLength(3) # 环境变量不得超过 3 个"></u-pair-input>
+    </u-form-item>
+    <u-form-item>
+        <u-button color="primary" @click="submit">立即创建</u-button>
+    </u-form-item>
+</u-form>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            model: {
+                name: 'abc',
+                port: '8002',
+                whitelist: [],
+            }
+        };
+    },
+    methods: {
+        submit() {
+            this.$refs.form.validate()
+                .then(() => this.$toast.show('验证通过，提交成功！'))
+                .catch(() => this.$toast.show('验证失败！'));
+            },
+        },
 };
 </script>
 ```

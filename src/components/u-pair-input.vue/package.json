@@ -47,7 +47,9 @@
     "team": "网易云计算前端",
     "access": "public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@cloud-ui/u-chip.vue": "^0.1.0"
+  },
   "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",

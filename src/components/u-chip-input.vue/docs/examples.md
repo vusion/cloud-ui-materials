@@ -35,7 +35,7 @@ export default {
 
 通过`rules`设置规则，条目输入框可以接入到 [Cloud UI 表单验证体系](https://vusion.github.io/cloud-ui/components/cloud-ui/components/u-validator/examples)中，各类规则参见[UValidator](https://vusion.github.io/cloud-ui/components/u-validator/rules)。
 
-比如下面的例子中，要求用户输入正确的 IP 地址。
+比如在下面的例子中，要求用户输入正确的 IP 地址。
 
 ``` vue
 <template>

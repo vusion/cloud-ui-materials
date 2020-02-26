@@ -17,7 +17,6 @@ export const UChipInput = {
         prefix: String,
         suffix: String,
         size: { type: String, default: 'normal huge' },
-        readonly: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
     },
     data() {
@@ -148,8 +147,8 @@ export const UChipInput = {
             if (this.$emitPrevent('before-edit', {
                 oldText: text,
                 text: editing.text,
-                value: this.currentValue,
                 index,
+                value: this.currentValue,
             }, this))
                 return;
 
@@ -158,8 +157,8 @@ export const UChipInput = {
 
             this.$emit('edit', {
                 text: editing.text,
-                value: this.currentValue,
                 index,
+                value: this.currentValue,
             }, this);
         },
         saveAdding() {
@@ -194,9 +193,9 @@ export const UChipInput = {
         remove(index) {
             const text = this.currentValue[index];
             if (this.$emitPrevent('before-remove', {
-                oldValue: this.currentValue,
                 text,
                 index,
+                oldValue: this.currentValue,
             }, this))
                 return;
 
@@ -207,9 +206,9 @@ export const UChipInput = {
                 .catch(() => undefined);
 
             this.$emit('remove', {
-                value: this.currentValue,
                 text,
                 index,
+                value: this.currentValue,
             }, this);
         },
         onFocus() {
@@ -231,19 +230,13 @@ export const UChipInput = {
             }
         },
         clear() {
-            // this.preventBlur = true;
-
-            const oldValue = this.value;
-            const value = [];
-
-            if (this.$emitPrevent('before-clear', { oldValue, value }, this))
+            if (this.$emitPrevent('before-clear', { oldValue: this.currentValue }, this))
                 return;
 
             this.currentValue.splice(0, this.currentValue.length);
 
             this.$emit('clear', {
-                oldValue,
-                value,
+                value: this.currentValue,
             }, this);
 
             // this.focus();
