@@ -29,7 +29,6 @@ export const UPairInput = {
             focused: false,
             error: false,
             addNext: false,
-            preventBlur: false,
             adding: {
                 type: 'key',
                 key: undefined,
@@ -45,13 +44,17 @@ export const UPairInput = {
                 this.currentValue = value;
 
                 // 当 Placeholder
-                this.adding = undefined;
-                if (!value.length) {
-                    this.adding = {
-                        type: 'key',
-                        key: undefined,
-                        value: undefined,
-                    };
+                if (value.length) {
+                    if (this.adding && !this.adding.key && !this.adding.value)
+                        this.adding = undefined;
+                } else {
+                    if (!this.adding) {
+                        this.adding = {
+                            type: 'key',
+                            key: undefined,
+                            value: undefined,
+                        };
+                    }
                 }
             },
         },
@@ -88,13 +91,102 @@ export const UPairInput = {
                     this.$refs.addingValueInput.focus();
             });
         },
-        onBeforeInput($event) {
-            // const value = $event.value.trim();
-            // const index = value.search(new RegExp(`[${this.separators}]`));
-            // if (~index) {
-            //     $event.value = value.slice(0, index);
-            //     const remain = value.slice(index + 1);
-            // }
+        keepAdding(adding) {
+            this.$nextTick(() => {
+                this.adding = adding || {
+                    type: 'key',
+                    key: undefined,
+                    value: undefined,
+                };
+                this.editAdding(this.adding.type);
+            });
+        },
+        onInput(index, type, $event) {
+            const re = type === 'key' ? /[:\s]+/ : new RegExp(`[${this.separators}]+`);
+            if (!$event.match(re))
+                return;
+
+            this.reduce($event, type, index);
+        },
+        reduce(remain, type, index, item) {
+            if (!remain)
+                return;
+            let part;
+            const re = type === 'key' ? /[:\s]+/ : new RegExp(`[${this.separators}]+`);
+            const cap = remain.match(re);
+            if (cap) {
+                part = remain.slice(0, cap.index).trim();
+                remain = remain.slice(cap.index + cap[0].length).trim(); // 有可能不是匹配单个字符
+            } else {
+                part = remain;
+                remain = '';
+            }
+            if (!part)
+                return;
+
+            const validator = type === 'key' ? this.$refs.keyValidator.validator : this.$refs.valueValidator.validator;
+            item = item || {
+                type,
+                key: undefined,
+                value: undefined,
+            };
+            item.type = type;
+            item[type] = part;
+
+            validator.validate(part, 'blur').then(() => {
+                if (index === -1) {
+                    if (type === 'value') {
+                        this.currentValue.push({ [this.keyField]: item.key, [this.valueField]: item.value });
+                        if (remain) {
+                            this.reduce(remain, 'key', index);
+                        } else
+                            this.keepAdding();
+                    } else {
+                        if (remain) {
+                            this.reduce(remain, 'value', index, item);
+                        } else {
+                            item.type = 'value';
+                            this.keepAdding(item);
+                        }
+                    }
+                } else {
+                    if (type === 'value') {
+                        if (!item.key)
+                            item.key = this.currentValue[index][this.keyField];
+                        this.currentValue.splice(index, 0, { [this.keyField]: item.key, [this.valueField]: item.value });
+                        this.editingList.splice(index, 0, undefined);
+                        index++;
+                        if (remain)
+                            this.reduce(remain, 'key', index);
+                        else {
+                            const editing = this.editingList[index];
+                            editing.type = 'key';
+                            editing.key = '';
+                            editing.value = '';
+                        }
+                    } else {
+                        if (remain)
+                            this.reduce(remain, 'value', index, item);
+                        else {
+                            const editing = this.editingList[index];
+                            editing.type = 'value';
+                            editing.key = item.key;
+                            editing.value = '';
+                            if (editing.key)
+                                this.currentValue[index][this.keyField] = editing.key;
+                        }
+                    }
+                }
+            }).catch((error) => {
+                if (index === -1) {
+                    this.adding = item;
+                } else {
+                    const editing = this.editingList[index];
+                    Object.assign(editing, item);
+                    if (type === 'value' && editing.key)
+                        this.currentValue[index][this.keyField] = editing.key;
+                }
+            });
         },
         onInputValidate(index, $event) {
             if ($event.trigger !== 'blur' || !$event.valid)
@@ -120,10 +212,10 @@ export const UPairInput = {
                 item: Object.assign({}, item, {
                     [field]: editing[editing.type],
                 }),
-                value: this.currentValue,
                 index,
                 type: editing.type,
                 field,
+                value: this.currentValue,
             }, this))
                 return;
 
@@ -132,10 +224,10 @@ export const UPairInput = {
 
             this.$emit('edit', {
                 item,
-                value: this.currentValue,
                 index,
                 type: editing.type,
                 field,
+                value: this.currentValue,
             }, this);
         },
         saveAdding() {
@@ -166,17 +258,10 @@ export const UPairInput = {
                 this.$refs.listValidator.validate()
                     .catch(() => undefined);
 
-                setTimeout(() => {
-                    if (this.addNext) {
-                        this.addNext = false;
-                        this.adding = {
-                            type: 'key',
-                            key: undefined,
-                            value: undefined,
-                        };
-                        this.editAdding('key');
-                    }
-                }, 200);
+                if (this.addNext) {
+                    this.addNext = false;
+                    this.keepAdding();
+                }
             }
         },
         remove(index) {
@@ -185,13 +270,15 @@ export const UPairInput = {
                 return;
 
             if (this.$emitPrevent('before-remove', {
-                oldValue: this.currentValue,
                 item,
                 index,
+                oldValue: this.currentValue,
             }, this))
                 return;
 
             this.currentValue.splice(index, 1);
+            this.editingList.splice(index, 1);
+
             this.$refs.listValidator.validate()
                 .catch(() => undefined);
 
@@ -209,23 +296,42 @@ export const UPairInput = {
             this.$refs.listValidator.validate()
                 .catch(() => undefined);
         },
-        onInputDelete() {
-            //
+        onInputDelete(index, type, e) {
+            const value = e.target.value;
+            if (!value) {
+                e.preventDefault();
+                if (index === -1 && this.currentValue.length > 0) {
+                    if (type === 'key') {
+                        this.remove(this.currentValue.length - 1);
+                        this.keepAdding();
+                    } else {
+                        this.$el.focus();
+                        this.$nextTick(() => {
+                            this.editAdding('key');
+                        });
+                    }
+                }
+                // 编辑状态下，交互有些矛盾，先不实现
+                // else if (index > 0) {
+                //     if (type === 'key')
+                //         this.remove(index);
+                //     else {
+                //         this.$el.focus();
+                //         this.$nextTick(() => {
+                //             this.editingList[index].type = 'key';
+                //         });
+                //     }
+                // }
+            }
         },
         clear() {
-            // this.preventBlur = true;
-
-            const oldValue = this.value;
-            const value = [];
-
-            if (this.$emitPrevent('before-clear', { oldValue, value }, this))
+            if (this.$emitPrevent('before-clear', { oldValue: this.currentValue }, this))
                 return;
 
             this.currentValue.splice(0, this.currentValue.length);
 
             this.$emit('clear', {
-                oldValue,
-                value,
+                value: this.currentValue,
             }, this);
 
             // this.focus();

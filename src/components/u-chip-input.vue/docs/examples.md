@@ -82,7 +82,7 @@ export default {
 
 ### 分隔符与复制粘贴
 
-默认分隔符为`,`，如果添加或修改条目时出现`,`，会将它前面字符串视为一个完成项处理。
+默认分隔符为`,`，如果添加或修改条目时出现`,`，会将它前面字符串视为一个完成项进行添加。
 
 另外，本组件支持一次粘贴多个条目的功能。如果复制粘贴的字符串包括多个分隔符，会依次添加。
 
@@ -242,10 +242,10 @@ export default {
 ``` vue
 <template>
 <u-linear-layout direction="vertical">
-<u-chip-input size="normal large" v-model="list"></u-chip-input>
-<u-chip-input size="large" v-model="list"></u-chip-input>
-<u-chip-input size="huge" v-model="list"></u-chip-input>
-<u-chip-input size="full" v-model="list"></u-chip-input>
+    <u-chip-input size="normal large" v-model="list"></u-chip-input>
+    <u-chip-input size="large" v-model="list"></u-chip-input>
+    <u-chip-input size="huge" v-model="list"></u-chip-input>
+    <u-chip-input size="full" v-model="list"></u-chip-input>
 </u-linear-layout>
 </template>
 <script>

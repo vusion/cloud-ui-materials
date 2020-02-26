@@ -63,7 +63,7 @@ export default {
 ``` vue
 <template>
 <u-form-item label="键值对" bubble>
-    <u-pair-input v-model="pairs" key-rules="alphaNum" value-rules="numeric | minLength(2) # 值不得少于 4 个数字"></u-pair-input>
+    <u-pair-input v-model="pairs" key-rules="alphaNum" value-rules="numeric | minLength(4) # 值不得少于 4 个数字"></u-pair-input>
 </u-form-item>
 </template>
 <script>
@@ -90,7 +90,7 @@ export default {
 ``` vue
 <template>
 <u-form-item label="键值对" bubble>
-    <u-pair-input v-model="pairs" key-rules="alphaNumDash | minLength(4) # 键不得少于 4 个数字" value-rules="numeric | minLength(4)" list-rules="notEmpty # 需要至少输入一个键值对 | maxLength(2) # 键值对不得超过 2 个"></u-pair-input>
+    <u-pair-input v-model="pairs" key-rules="alphaNum" value-rules="numeric | minLength(4)" list-rules="notEmpty # 需要至少输入一个键值对 | maxLength(2) # 键值对不得超过 2 个"></u-pair-input>
 </u-form-item>
 </template>
 <script>
@@ -104,22 +104,59 @@ export default {
 </script>
 ```
 
-### 分隔符与一键粘贴
+### 分隔符与复制粘贴
 
-`ddd: d-value; eee: e-value; fff: f-value`。
+键与值之间的分隔符固定为`:`，不能修改。
+
+键值对之间的分隔符为`,`，如果添加或修改时出现`,`，会将它前面的输入视为一个完成项进行添加。
+
+另外，本组件支持一次粘贴多个键值对的功能。如果复制粘贴的键值对包括多个分隔符，会依次添加。
+
+如果添加时验证到中间有错误的一项，会中止粘贴的操作。
+
+在下面的例子中，可以尝试复制`www: 4444, xxx: 5555, yyy: 666, zzz: 7777`，粘贴到输入框中。
 
 ``` vue
 <template>
-<u-pair-input v-model="pairs" separators="\n\t;"></u-pair-input>
+<u-form-item label="键值对" bubble>
+    <u-pair-input v-model="pairs" key-rules="alphaNum" value-rules="numeric | minLength(4) # 值不得少于 4 个数字"></u-pair-input>
+</u-form-item>
 </template>
 <script>
 export default {
     data() {
         return {
             pairs: [
-                { key: 'aaa', value: 'a-value' },
-                { key: 'bbb', value: 'b-value' },
-                { key: 'ccc', value: 'c-value' },
+                { key: 'aaaa', value: 1234 },
+                { key: 'bbbb', value: 5678 },
+                { key: 'cccc', value: 9101 },
+            ],
+        };
+    },
+};
+</script>
+```
+
+#### 修改分隔符
+
+通过修改`separators`属性，设置分隔符。
+
+比如下面的例子中，需要用`;`分隔。尝试复制`www: 4444; xxx: 5555; yyy: 666; zzz: 7777`，粘贴到输入框中。
+
+``` vue
+<template>
+<u-form-item label="键值对" bubble>
+    <u-pair-input v-model="pairs" separators=";" key-rules="alphaNum" value-rules="numeric | minLength(4) # 值不得少于 4 个数字"></u-pair-input>
+</u-form-item>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            pairs: [
+                { key: 'aaaa', value: 1234 },
+                { key: 'bbbb', value: 5678 },
+                { key: 'cccc', value: 9101 },
             ],
         };
     },
@@ -205,10 +242,10 @@ export default {
 ``` vue
 <template>
 <u-linear-layout direction="vertical">
-<u-pair-input size="normal large" v-model="list"></u-pair-input>
-<u-pair-input size="large" v-model="list"></u-pair-input>
-<u-pair-input size="huge" v-model="list"></u-pair-input>
-<u-pair-input size="full" v-model="list"></u-pair-input>
+    <u-pair-input size="normal large" v-model="list"></u-pair-input>
+    <u-pair-input size="large" v-model="list"></u-pair-input>
+    <u-pair-input size="huge" v-model="list"></u-pair-input>
+    <u-pair-input size="full" v-model="list"></u-pair-input>
 </u-linear-layout>
 </template>
 <script>

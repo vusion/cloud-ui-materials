@@ -25,7 +25,6 @@ export const UChipInput = {
             focused: false,
             error: false,
             addNext: false,
-            preventBlur: false,
             adding: { text: '' },
             editingList: [],
         };
