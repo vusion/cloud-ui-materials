@@ -5,8 +5,8 @@
   attrs:
     - name: value
       type: Array
-      model: true,
-      sync: true,
+      model: true
+      sync: true
       default: '[]'
       description: 键值对列表
     - name: key-field

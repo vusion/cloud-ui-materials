@@ -12,6 +12,7 @@ export const UChipInput = {
         placeholder: { type: String, default: '请输入内容' },
         rules: [String, Array, Object],
         listRules: [String, Array, Object],
+        separators: { type: String, default: '\n\t' },
         clearable: { type: Boolean, default: false },
         size: { type: String, default: 'huge' },
         readonly: { type: Boolean, default: false },
@@ -24,9 +25,7 @@ export const UChipInput = {
             error: false,
             addNext: false,
             preventBlur: false,
-            adding: {
-                text: undefined,
-            },
+            adding: { text: '' },
             editingList: [],
         };
     },
@@ -37,11 +36,13 @@ export const UChipInput = {
                 this.currentValue = value;
 
                 // 当 Placeholder
-                this.adding = undefined;
-                if (!value.length) {
-                    this.adding = {
-                        text: undefined,
-                    };
+                if (value.length) {
+                    if (this.adding && !this.adding.text)
+                        this.adding = undefined;
+                } else {
+                    if (!this.adding) {
+                        this.adding = { text: '' };
+                    }
                 }
             },
         },
@@ -70,6 +71,40 @@ export const UChipInput = {
                 return;
             this.$nextTick(() => {
                 this.$refs.addingInput.focus();
+            });
+        },
+        keepAdding() {
+            this.$nextTick(() => {
+                this.adding = { text: '' };
+                this.editAdding();
+            });
+        },
+        onInput($event, senderVM) {
+            if (!$event.match(new RegExp(`[${this.separators}]+`)))
+                return;
+
+            this.reduce($event, senderVM);
+        },
+        reduce(remain, senderVM) {
+            let part;
+            const cap = remain.match(new RegExp(`[${this.separators}]+`));
+            if (cap) {
+                part = remain.slice(0, cap.index).trim();
+                remain = remain.slice(cap.index + cap[0].length).trim(); // 有可能不是匹配单个字符
+            } else {
+                part = remain;
+                remain = '';
+            }
+
+            const validator = this.$refs.validator.validator;
+            validator.validate(part, 'blur').then(() => {
+                this.currentValue.push(part);
+                if (remain) {
+                    this.reduce(remain);
+                } else
+                    this.keepAdding();
+            }).catch((error) => {
+                this.adding = { text: part };
             });
         },
         onInputValidate(index, $event) {
@@ -127,15 +162,10 @@ export const UChipInput = {
                 this.$refs.listValidator.validate()
                     .catch(() => undefined);
 
-                setTimeout(() => {
-                    if (this.addNext) {
-                        this.addNext = false;
-                        this.adding = {
-                            value: undefined,
-                        };
-                        this.editAdding('key');
-                    }
-                }, 200);
+                if (this.addNext) {
+                    this.addNext = false;
+                    this.keepAdding();
+                }
             } else {
                 if (this.currentValue.length)
                     this.adding = undefined;
@@ -154,6 +184,8 @@ export const UChipInput = {
                 return;
 
             this.currentValue.splice(index, 1);
+            this.editingList[index] = undefined;
+
             this.$refs.listValidator.validate()
                 .catch(() => undefined);
 
@@ -171,8 +203,15 @@ export const UChipInput = {
             this.$refs.listValidator.validate()
                 .catch(() => undefined);
         },
-        onInputDelete() {
-            //
+        onInputDelete(index, e) {
+            const value = e.target.value;
+            if (!value) {
+                if (index === -1 && this.currentValue.length > 0) {
+                    this.remove(this.currentValue.length - 1);
+                    this.keepAdding();
+                } else if (index > 0)
+                    this.remove(index);
+            }
         },
         clear() {
             // this.preventBlur = true;
@@ -197,9 +236,7 @@ export const UChipInput = {
                 return;
 
             if (!this.adding) {
-                this.adding = {
-                    text: undefined,
-                };
+                this.adding = { text: '' };
             }
             this.$nextTick(() => {
                 this.$refs.addingInput && this.$refs.addingInput.focus();

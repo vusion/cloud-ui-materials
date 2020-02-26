@@ -11,19 +11,24 @@
             :rules="editingList[index] && rules" @validate="onInputValidate(index, $event)">
             <u-input v-if="editingList[index]" :class="$style['chip-input']"
                 v-model="editingList[index].text" auto-size="horizontal" autofocus
+                @input="onInput"
+                @keydown.delete = "onInputDelete(index, $event)"
                 @keydown.enter.stop="$event.target.blur()"
                 @blur="onBlur()"></u-input>
             <span v-else :class="$style['chip-part']" @dblclick="edit(index)">{{ text }}</span>
         </u-chip>
-        <u-chip ref="addingChip" v-if="adding" :editing="!!adding" @click.stop
+        <u-chip ref="addingChip" v-if="adding" key="adding" :editing="!!adding" @click.stop
             :rules="rules" @validate="onInputValidate(-1, $event)">
             <u-input ref="addingInput" :class="$style['chip-input']"
                 v-model="adding.text" auto-size="horizontal" :placeholder="placeholder" style="min-width: 120px;"
+                @input="onInput"
+                @keydown.delete = "onInputDelete(-1, $event)"
                 @keydown.tab.stop.prevent="addNext = true, $event.target.blur()" @keydown.enter.stop="addNext = true, $event.target.blur()"
                 @blur="onBlur()"></u-input>
         </u-chip>
     </div>
     <span v-if="clearable && currentValue.length" :class="$style.clearable" @click="clear"></span>
+    <u-validator ref="validator" v-show="false" :rules="rules"></u-validator>
     <u-validator ref="listValidator" muted="all" :rules="listRules" :validating-value="currentValue" @validate="error = $event.touched && !$event.valid"></u-validator>
     <slot></slot>
 </div>

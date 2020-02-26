@@ -31,7 +31,7 @@ export default {
 
 通过`rules`设置规则，规则参见[UValidator](https://vusion.github.io/cloud-ui/components/u-validator/rules)。
 
-下面的例子中，值只能输入数字，且不得少于 4 个字符。
+下面的例子中，需要输入合法的 IP 地址。
 
 ``` vue
 <template>
@@ -68,6 +68,31 @@ export default {
     data() {
         return {
             list: [],
+        };
+    },
+};
+</script>
+```
+
+### 分隔符与一键粘贴
+
+如果验证到中间有错误的一项，会停止粘贴处理。
+
+示例：尝试复制`2020-02-02,2020-02-29,2019-12-18,2019-02-,2019-02-29`，并粘贴到输入框。
+
+``` vue
+<template>
+<u-form-item label="日期" bubble>
+    <u-chip-input v-model="list" separators="\n\t ," placeholder="请输入多个日期" rules="iso8601(true) # 请输入合法的日期"></u-chip-input>
+</u-form-item>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            list: [
+                '2019-06-25',
+            ],
         };
     },
 };
