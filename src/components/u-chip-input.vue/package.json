@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-chip-input.vue",
   "description": "用于输入一系列条目。",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "main": "./index.js",
   "author": "Rainfore <rainforest92@126.com>",
   "repository": {
@@ -35,7 +35,20 @@
     "category": "form",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/1.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/2.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/3.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/4.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/5.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/6.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/7.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/8.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/9.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/10.png",
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/11.png"
+    ],
     "team": "网易云计算前端",
     "access": "public"
   },
@@ -50,5 +63,6 @@
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
-  }
+  },
+  "homepage": "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/public/index.html"
 }

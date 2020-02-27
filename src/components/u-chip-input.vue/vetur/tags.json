@@ -1,0 +1,17 @@
+{
+  "u-chip-input": {
+    "attributes": [
+      "value",
+      "placeholder",
+      "rules",
+      "list-rules",
+      "separators",
+      "clearable",
+      "prefix",
+      "suffix",
+      "size",
+      "disabled"
+    ],
+    "description": "用于输入一系列条目。"
+  }
+}
