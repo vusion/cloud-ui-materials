@@ -204,6 +204,10 @@
         - name: index
           type: number
           description: 编辑项的索引
+        - name: type
+          type: enum
+          options: ['key', 'value']
+          description: 编辑键还是值
     - name: save
       description: 保存正在编辑的项
       params:

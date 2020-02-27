@@ -31,9 +31,31 @@
     "type": "string, Array<Rule>",
     "description": "针对整个键值对列表的验证规则"
   },
+  "u-pair-input/separators": {
+    "type": "string",
+    "description": "分隔符"
+  },
   "u-pair-input/clearable": {
     "type": "boolean",
     "description": "是否显示一键清除按钮"
+  },
+  "u-pair-input/prefix": {
+    "type": "enum",
+    "options": [
+      "search"
+    ],
+    "description": "前缀图标"
+  },
+  "u-pair-input/suffix": {
+    "type": "enum",
+    "options": [
+      "search"
+    ],
+    "description": "后缀图标"
+  },
+  "u-pair-input/size": {
+    "type": "string",
+    "description": "`normal`、`large`、`huge` 几种级别的组合"
   },
   "u-pair-input/disabled": {
     "type": "boolean",

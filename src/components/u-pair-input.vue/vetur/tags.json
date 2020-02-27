@@ -9,7 +9,11 @@
       "key-rules",
       "value-rules",
       "list-rules",
+      "separators",
       "clearable",
+      "prefix",
+      "suffix",
+      "size",
       "disabled"
     ],
     "description": "用于输入一系列键值对。"
