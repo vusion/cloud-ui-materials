@@ -2,7 +2,7 @@
 
 # ULogViewer 日志查看器
 
-用于查看日志
+用于查看日志。
 
 ## 示例
 ### 基本用法
@@ -77,7 +77,7 @@ For more info visit https://webpack.js.org/guides/code-splitting/
     <u-log-viewer ref="logViewer"></u-log-viewer>
     <u-linear-layout gap="small">
         <u-button @click="fetchLog">单步获取</u-button>
-        <u-button @click="autoFetchLog">定时自动获取</u-button>
+        <u-button @click="autoFetchLog">自动获取</u-button>
     </u-linear-layout>
 </u-linear-layout>
 </template>
@@ -323,25 +323,25 @@ export default {
 
 ### 高频大量日志
 
-组件利用虚拟列表机制，对高频大量日志做了优化。
+组件利用节流函数和虚拟列表，对高频大量日志做了优化。
 
 一般不需要做任何设置，如果需要可以关注以下两个属性：
-- `bufferWait`属性用于设置最短日志缓冲间隔。
-- `viewCount`属性用于设置实际渲染的 DOM 数。
+- `buffer-wait`属性用于设置最短日志缓冲间隔。
+- `virtual-count`属性用于设置实际渲染的 DOM 数。
 
 ``` vue
 <template>
 <u-linear-layout direction="vertical" gap="small">
-    <u-log-viewer ref="logViewer"></u-log-viewer>
+    <u-log-viewer ref="logViewer" style="height: 476px"></u-log-viewer>
     <u-linear-layout gap="small">
         <u-button @click="fetchLog">单步获取</u-button>
-        <u-button @click="autoFetchLog">定时自动获取</u-button>
+        <u-button @click="fetching ? (fetching = false) : startFetchLog()">{{ fetching ? '停止获取' : '自动获取' }}</u-button>
     </u-linear-layout>
 </u-linear-layout>
 </template>
 <script>
 const remoteLogs = [`
-[43m[30m WARNING [39m[49m [33mCompiled with 3 warnings[39m[90m index: 00:00:00[39m
+[43m[30m WARNING [39m[49m [33mCompiled with 3 warnings[39m[90m 04:45:53[39m
 
 [43m[30m warning [39m[49m
 
@@ -364,7 +364,7 @@ Entrypoints:
 
 
 [43m[30m warning [39m[49m`,
-`[39m[90m index: 00:00:00[39m
+`[39m[90m 40:46:23[39m
 
 webpack performance recommendations:
 You can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.
@@ -386,12 +386,17 @@ For more info visit https://webpack.js.org/guides/code-splitting/
 let count = 0;
 const fetchLog = () => {
     if (count++ < 2000)
-        return Promise.resolve(remoteLogs[count%2].replace(/00:00:00/g, count));
+        return Promise.resolve(remoteLogs[count%2].replace(/warning/g, 'Index: ' + count));
     else
         return Promise.resolve();
 };
 
 export default {
+    data() {
+        return {
+            fetching: false,
+        };
+    },
     methods: {
         fetchLog() {
             return fetchLog().then((content) => {
@@ -400,9 +405,13 @@ export default {
                 return content;
             });
         },
+        startFetchLog() {
+            this.fetching = true;
+            this.autoFetchLog();
+        },
         autoFetchLog() {
             setTimeout(() => this.fetchLog().then((content) => {
-                if (typeof content === 'string')
+                if (typeof content === 'string' && this.fetching)
                     this.autoFetchLog();
             }), 10);
         },
@@ -929,7 +938,7 @@ build total  second:175
 
 ``` vue
 <template>
-<u-log-viewer ref="logViewer" :fetchLogs="fetchLogs" openInNewTab="https://www.163.com/"></u-log-viewer>
+<u-log-viewer ref="logViewer" :fetchLogs="fetchLogs" openInNewTab="https://163yun.com/"></u-log-viewer>
 </template>
 <script>
 export default {
@@ -954,10 +963,10 @@ export default {
 | normal-display | enum | `'block'`, `'static'`, `'fixed'` | `'static'` | 与最大化切换按钮相关。非最大化时的显示方式 |
 | maximized-display | enum | `'fullWindow'`, `'fullScreen'` | `'fullWindow'` | 与最大化切换按钮相关。最大化时的显示方式 |
 | position | enum | `'top'`, `'top-center'`, `'top-left'`, `'top-right'`, `'bottom'`, `'bottom-center'`, `'bottom-left'`, `'bottom-right'` | `'bottom-right'` | 固定模式时的位置 |
-| fetchLogs | Function |  |  | 该属性传值时，拉取日志按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。 |
-| openInNewTab | string, Function |  |  | 该属性传值时，在新窗口打开按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。 |
-| bufferWait | number |  | `200` | 防止高频追加日志。设置最短日志缓冲间隔（ms） |
-| viewCount | number |  | `100` | 防止大量日志渲染卡顿。设置实际渲染的 DOM 数。 |
+| fetchLogs | Function |  |  | 该属性有值时，“拉取日志”按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。 |
+| openInNewTab | string, Function |  |  | 该属性有值时，“在新窗口打开”按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。 |
+| buffer-wait | number |  | `200` | 防止高频追加日志。设置日志节流间隔（ms） |
+| view-count | number |  | `100` | 防止大量日志渲染卡顿。设置实际渲染的 DOM 数。 |
 
 ### Slots
 
@@ -969,21 +978,21 @@ export default {
 
 #### @push
 
-追加日志时触发。由于设置了高频追加性能机制，刚追加日志时不一定会立即更新(update)。
+追加日志时触发。由于设置了高频追加性能机制，刚追加日志时不一定会立即更新(flush)。
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
 | $event.logs | Array | 当前日志 |
 | $event.incremental | string | 增量日志 |
 
-#### @update
+#### @flush
 
-更新日志时触发
+从缓存区更新日志时触发
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
 | $event.logs | Array | 当前日志 |
-| $event.incremental | string | 增量日志 |
+| $event.incremental | Array | 增量日志 |
 
 #### @clear
 
@@ -1004,7 +1013,7 @@ export default {
 
 ### Methods
 
-#### push
+#### push(content)
 
 追加日志
 
@@ -1012,6 +1021,6 @@ export default {
 | ----- | ---- | ------- | ----------- |
 | content | string |  | 需要追加的内容 |
 
-#### clear
+#### clear()
 
 清除日志

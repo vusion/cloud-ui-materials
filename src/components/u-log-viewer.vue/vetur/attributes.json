@@ -59,17 +59,17 @@
   },
   "u-log-viewer/fetchLogs": {
     "type": "Function",
-    "description": "该属性传值时，拉取日志按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。"
+    "description": "该属性有值时，“拉取日志”按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。"
   },
   "u-log-viewer/openInNewTab": {
     "type": "string, Function",
-    "description": "该属性传值时，在新窗口打开按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。"
+    "description": "该属性有值时，“在新窗口打开”按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。"
   },
-  "u-log-viewer/bufferWait": {
+  "u-log-viewer/buffer-wait": {
     "type": "number",
-    "description": "防止高频追加日志。设置最短日志缓冲间隔（ms）"
+    "description": "防止高频追加日志。设置日志节流间隔（ms）"
   },
-  "u-log-viewer/viewCount": {
+  "u-log-viewer/view-count": {
     "type": "number",
     "description": "防止大量日志渲染卡顿。设置实际渲染的 DOM 数。"
   }

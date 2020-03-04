@@ -10,9 +10,9 @@
       "position",
       "fetchLogs",
       "openInNewTab",
-      "bufferWait",
-      "viewCount"
+      "buffer-wait",
+      "view-count"
     ],
-    "description": "用于查看日志"
+    "description": "用于查看日志。"
   }
 }
