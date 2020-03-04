@@ -70,7 +70,7 @@ For more info visit https://webpack.js.org/guides/code-splitting/
     <u-log-viewer ref="logViewer"></u-log-viewer>
     <u-linear-layout gap="small">
         <u-button @click="fetchLog">单步获取</u-button>
-        <u-button @click="autoFetchLog">定时自动获取</u-button>
+        <u-button @click="autoFetchLog">自动获取</u-button>
     </u-linear-layout>
 </u-linear-layout>
 </template>
@@ -316,25 +316,25 @@ export default {
 
 ### 高频大量日志
 
-组件利用虚拟列表机制，对高频大量日志做了优化。
+组件利用节流函数和虚拟列表，对高频大量日志做了优化。
 
 一般不需要做任何设置，如果需要可以关注以下两个属性：
-- `bufferWait`属性用于设置最短日志缓冲间隔。
-- `viewCount`属性用于设置实际渲染的 DOM 数。
+- `buffer-wait`属性用于设置最短日志缓冲间隔。
+- `virtual-count`属性用于设置实际渲染的 DOM 数。
 
 ``` vue
 <template>
 <u-linear-layout direction="vertical" gap="small">
-    <u-log-viewer ref="logViewer"></u-log-viewer>
+    <u-log-viewer ref="logViewer" style="height: 476px"></u-log-viewer>
     <u-linear-layout gap="small">
         <u-button @click="fetchLog">单步获取</u-button>
-        <u-button @click="autoFetchLog">定时自动获取</u-button>
+        <u-button @click="fetching ? (fetching = false) : startFetchLog()">{{ fetching ? '停止获取' : '自动获取' }}</u-button>
     </u-linear-layout>
 </u-linear-layout>
 </template>
 <script>
 const remoteLogs = [`
-[43m[30m WARNING [39m[49m [33mCompiled with 3 warnings[39m[90m index: 00:00:00[39m
+[43m[30m WARNING [39m[49m [33mCompiled with 3 warnings[39m[90m 04:45:53[39m
 
 [43m[30m warning [39m[49m
 
@@ -357,7 +357,7 @@ Entrypoints:
 
 
 [43m[30m warning [39m[49m`,
-`[39m[90m index: 00:00:00[39m
+`[39m[90m 40:46:23[39m
 
 webpack performance recommendations:
 You can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.
@@ -379,12 +379,17 @@ For more info visit https://webpack.js.org/guides/code-splitting/
 let count = 0;
 const fetchLog = () => {
     if (count++ < 2000)
-        return Promise.resolve(remoteLogs[count%2].replace(/00:00:00/g, count));
+        return Promise.resolve(remoteLogs[count%2].replace(/warning/g, 'Index: ' + count));
     else
         return Promise.resolve();
 };
 
 export default {
+    data() {
+        return {
+            fetching: false,
+        };
+    },
     methods: {
         fetchLog() {
             return fetchLog().then((content) => {
@@ -393,9 +398,13 @@ export default {
                 return content;
             });
         },
+        startFetchLog() {
+            this.fetching = true;
+            this.autoFetchLog();
+        },
         autoFetchLog() {
             setTimeout(() => this.fetchLog().then((content) => {
-                if (typeof content === 'string')
+                if (typeof content === 'string' && this.fetching)
                     this.autoFetchLog();
             }), 10);
         },
@@ -922,7 +931,7 @@ build total  second:175
 
 ``` vue
 <template>
-<u-log-viewer ref="logViewer" :fetchLogs="fetchLogs" openInNewTab="https://www.163.com/"></u-log-viewer>
+<u-log-viewer ref="logViewer" :fetchLogs="fetchLogs" openInNewTab="https://163yun.com/"></u-log-viewer>
 </template>
 <script>
 export default {

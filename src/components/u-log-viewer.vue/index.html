@@ -13,11 +13,9 @@
             <div v-if="$options.propsData.hasOwnProperty('visible')" :class="$style.button" role="close" title="关闭" @click="close()"></div>
         </div>
     </div>
-    <div :class="$style.body" ref="body" @scroll="onScroll">
-        <div :class="$style.scroll" :style="{ paddingTop: paddingTop + 'px', paddingBottom: paddingBottom + 'px' }">
-            <div :class="$style.log" v-for="log in viewLogs" :key="log.id" v-html="log.content"></div>
-        </div>
-    </div>
+    <f-virtual-list ref="body" :class="$style.body" :list="logs" :virtual-count="virtualCount">
+        <div :class="$style.log" v-for="log in logs" :key="log.id" v-html="log.content"></div>
+    </f-virtual-list>
     <div :class="$style.foot">
         <div :class="$style.button" role="scrollToTop" title="滚动到顶部" @click="scrollToTop()"></div>
         <div :class="$style.button" role="scrollToBottom" title="滚动到底部" @click="scrollToBottom()"></div>

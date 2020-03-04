@@ -1,4 +1,5 @@
 import AnsiUp from 'ansi_up';
+import throttle from 'lodash/throttle';
 
 export default {
     name: 'u-log-viewer',
@@ -38,7 +39,7 @@ export default {
         fetchLogs: { type: Function },
         openInNewTab: { type: [String, Function] },
         bufferWait: { type: Number, default: 200 },
-        viewCount: { type: Number, default: 100 },
+        virtualCount: { type: Number, default: 60 },
     },
     data() {
         return {
@@ -46,10 +47,6 @@ export default {
             buffer: [],
             currentDisplay: this.display,
             currentColor: this.color,
-            // timer
-            viewIndex: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
             // parentEl
             // nextSibling
         };
@@ -60,9 +57,6 @@ export default {
         },
         isNormal() {
             return ['block', 'static', 'fixed'].includes(this.currentDisplay);
-        },
-        viewLogs() {
-            return this.logs.slice(this.viewIndex, this.viewIndex + this.viewCount);
         },
     },
     watch: {
@@ -113,6 +107,9 @@ export default {
         // eslint-disable-next-line camelcase
         this.ansiUp.use_classes = true;
     },
+    created() {
+        this.throttledFlush = throttle(this.flush, this.bufferWait);
+    },
     methods: {
         toHtml(content) {
             // eslint-disable-next-line no-div-regex
@@ -125,26 +122,25 @@ export default {
                 incremental: content,
             }, this);
 
-            if (!this.timer) {
-                this.timer = setTimeout(() => {
-                    this.logs = this.logs.concat(this.buffer);
+            this.throttledFlush();
+        },
+        flush() {
+            const oldBuffer = this.buffer;
+            this.logs = this.logs.concat(oldBuffer);
 
-                    this.buffer = [];
+            this.buffer = [];
 
-                    // 日志如果在最底下，便持续滚
-                    if (this.$refs.body && this.$refs.body.scrollTop + this.$refs.body.clientHeight >= this.$refs.body.scrollHeight) {
-                        this.onScroll({ target: this.$refs.body });
-                        this.$nextTick(this.scrollToBottom);
-                    }
-
-                    this.$emit('update', {
-                        logs: this.logs,
-                        incremental: content,
-                    }, this);
-
-                    this.timer = window.clearTimeout(this.timer);
-                }, this.bufferWait);
+            // 日志如果在最底下，便持续滚
+            const bodyEl = this.$refs.body && this.$refs.body.$el;
+            if (bodyEl && bodyEl.scrollTop + bodyEl.clientHeight >= bodyEl.scrollHeight) {
+                // this.onScroll({ target: bodyEl });
+                this.$nextTick(this.scrollToBottom);
             }
+
+            this.$emit('flush', {
+                logs: this.logs,
+                incremental: oldBuffer,
+            }, this);
         },
         clear() {
             this.logs = [];
@@ -164,52 +160,14 @@ export default {
                 this.currentDisplay = this.maximizedDisplay;
         },
         scrollToTop() {
-            if (this.$refs.body)
-                this.$refs.body.scrollTop = 0;
+            const bodyEl = this.$refs.body && this.$refs.body.$el;
+            if (bodyEl)
+                bodyEl.scrollTop = 0;
         },
         scrollToBottom() {
-            if (this.$refs.body)
-                this.$refs.body.scrollTop = this.$refs.body.scrollHeight - this.$refs.body.clientHeight;
-        },
-        onScroll(e) {
-            const bodyVM = e.target;
-
-            // 记录当前 DOM 节点的高度
-            const children = Array.from(bodyVM.children[0].children);
-            children.forEach((childVM, index) => {
-                if (this.logs[this.viewIndex + index])
-                    this.logs[this.viewIndex + index].height = childVM.offsetHeight;
-            });
-
-            const scrollHeight = bodyVM.scrollHeight;
-            const scrollTop = bodyVM.scrollTop;
-            let accHeight = 0;
-            let viewIndex = 0;
-            for (let i = 0; i < this.logs.length; i++) {
-                const log = this.logs[i];
-                accHeight += log.height || 12;
-                viewIndex = i;
-                if (accHeight > scrollTop)
-                    break;
-            }
-
-            viewIndex -= Math.ceil(this.viewCount / 10);
-            viewIndex = Math.max(0, Math.min(viewIndex, this.logs.length - this.viewCount));
-            // }
-
-            let paddingTop = 0;
-            let paddingBottom = 0;
-            for (let i = 0; i < this.logs.length; i++) {
-                const log = this.logs[i];
-                if (i < viewIndex)
-                    paddingTop += log.height || 12;
-                else if (i >= viewIndex + this.viewCount)
-                    paddingBottom += log.height || 12;
-            }
-
-            this.viewIndex = viewIndex;
-            this.paddingTop = paddingTop;
-            this.paddingBottom = paddingBottom;
+            const bodyEl = this.$refs.body && this.$refs.body.$el;
+            if (bodyEl)
+                bodyEl.scrollTop = bodyEl.scrollHeight - bodyEl.clientHeight;
         },
         _openInNewTab(e) {
             if (typeof this.openInNewTab === 'string')

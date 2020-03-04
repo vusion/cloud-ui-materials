@@ -1,6 +1,6 @@
 - name: u-log-viewer
   title: 日志查看器
-  description: 用于查看日志
+  description: 用于查看日志。
   attrs:
     - name: content
       type: string
@@ -39,15 +39,15 @@
       description: 固定模式时的位置
     - name: fetchLogs
       type: Function
-      description: 该属性传值时，拉取日志按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。
+      description: 该属性有值时，“拉取日志”按钮才会显示。用于自定义拉取方法处理，因为组件自身不会实现拉取日志逻辑。
     - name: openInNewTab
       type: string, Function
-      description: 该属性传值时，在新窗口打开按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。
-    - name: bufferWait
+      description: 该属性有值时，“在新窗口打开”按钮才会显示。如果为字符串，会按字符串打开。如果为函数，则按函数自定义。
+    - name: buffer-wait
       type: number
       default: 200
-      description: 防止高频追加日志。设置最短日志缓冲间隔（ms）
-    - name: viewCount
+      description: 防止高频追加日志。设置日志节流间隔（ms）
+    - name: view-count
       type: number
       default: 100
       description: 防止大量日志渲染卡顿。设置实际渲染的 DOM 数。
@@ -56,7 +56,7 @@
       description: 插入文本或 HTML。
   events:
     - name: push
-      description: 追加日志时触发。由于设置了高频追加性能机制，刚追加日志时不一定会立即更新(update)。
+      description: 追加日志时触发。由于设置了高频追加性能机制，刚追加日志时不一定会立即更新(flush)。
       params:
         - name: $event.logs
           type: Array
@@ -64,14 +64,14 @@
         - name: $event.incremental
           type: string
           description: 增量日志
-    - name: update
-      description: 更新日志时触发
+    - name: flush
+      description: 从缓存区更新日志时触发
       params:
         - name: $event.logs
           type: Array
           description: 当前日志
         - name: $event.incremental
-          type: string
+          type: Array
           description: 增量日志
     - name: clear
       description: 清除日志时触发
