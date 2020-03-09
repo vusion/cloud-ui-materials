@@ -1,0 +1,10 @@
+{
+  "e-ripple/color": {
+    "type": "enum",
+    "options": [
+      "light",
+      "dark"
+    ],
+    "description": "波纹颜色"
+  }
+}
