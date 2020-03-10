@@ -1,1 +1,6 @@
-<div :class="$style.root" :theme="theme" :disabled="disabled" :size="size"></div>
+<div :class="$style.root" :theme="theme" :disabled="disabled" :size="size" :style="{ width, height }">
+    <div ref="editor" :class="$style.editor"></div>
+    <f-dragger @dragstart="onDragStart" @drag="onDrag" :disabled="readonly || disabled">
+        <div ref="handle" :class="$style.handle" v-show="resize !== 'none'"></div>
+    </f-dragger>
+</div>

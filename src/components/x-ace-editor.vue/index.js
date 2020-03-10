@@ -1,4 +1,4 @@
-import { MField } from 'cloud-ui.vusion';
+import { MField, utils } from 'cloud-ui.vusion';
 import * as ace from 'brace';
 
 export const XAceEditor = {
@@ -20,6 +20,7 @@ export const XAceEditor = {
         },
         autofocus: { type: Boolean, default: false },
         size: { type: String, default: 'normal' },
+        resize: { type: String, default: 'none', validator: (value) => ['none', 'horizontal', 'vertical', 'both'].includes(value) },
     },
     data() {
         // 就不监听了
@@ -27,6 +28,10 @@ export const XAceEditor = {
 
         return {
             currentValue: '',
+            startWidth: 0,
+            startHeight: 0,
+            width: '',
+            height: '',
         };
     },
     watch: {
@@ -50,7 +55,7 @@ export const XAceEditor = {
         },
     },
     mounted() {
-        this.editor = ace.edit(this.$el);
+        this.editor = ace.edit(this.$refs.editor);
         const options = this.options;
         if (options)
             this.editor.setOptions(options);
@@ -151,6 +156,20 @@ export const XAceEditor = {
             const session = this.editor.getSession();
             const count = session.getLength();
             this.editor.gotoLine(count, session.getLine(count - 1).length);
+        },
+        onDragStart() {
+            const size = utils.getSize(this.$el);
+            this.startWidth = size.width;
+            this.startHeight = size.height;
+        },
+        onDrag($event) {
+            if (this.resize === 'horizontal' || this.resize === 'both')
+                this.width = this.startWidth + $event.dragX + 'px';
+            if (this.resize === 'vertical' || this.resize === 'both')
+                this.height = this.startHeight + $event.dragY + 'px';
+            this.$refs.handle.style.left = 'auto';
+            this.$refs.handle.style.top = 'auto';
+            this.$nextTick(() => this.editor.resize());
         },
     },
     destroyed() {

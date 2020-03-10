@@ -188,3 +188,16 @@ export default {
     <x-ace-editor size="large full" value="large full" readonly></x-ace-editor>
 </u-linear-layout>
 ```
+
+### 调整大小
+
+通过设置`resize`属性，决定水平垂直方向是否可以调整大小。
+
+``` html
+<u-linear-layout direction="vertical">
+    <div><x-ace-editor value="none：默认不可以调整大小" resize="none"></x-ace-editor></div>
+    <div><x-ace-editor value="vertical：仅允许垂直方向调整大小" resize="vertical"></x-ace-editor></div>
+    <div><x-ace-editor value="horizontal：仅允许水平方向调整大小" resize="horizontal"></x-ace-editor></div>
+    <div><x-ace-editor value="both：垂直水平方向均可" resize="both"></x-ace-editor></div>
+</u-linear-layout>
+```

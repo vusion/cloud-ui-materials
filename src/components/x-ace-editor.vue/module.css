@@ -1,26 +1,32 @@
 .root[class] {
+    position: relative;
     /* width: auto; */
     height: var(--ace-editor-height, 400px);
 }
 
-.root[disabled] {
+.editor {
+    width: 100%;
+    height: 100%;
+}
+
+.root[disabled] .editor {
     cursor: not-allowed;
 }
 
-.root:not([theme])[class] {
+.root:not([theme])[class] .editor {
     border-color: var(--ace-editor-border-color, var(--background-color-light, #f2f3f8));
     background-color: var(--ace-editor-background, var(--background-color-light, #f2f3f8));
-    padding-top: var(--ace-editor-padding-top, 16px);
+    /* padding-top: var(--ace-editor-padding-top, 16px); */
     font-size: var(--ace-editor-font-size, 12px);
 }
 
 .root:not([theme]) :global(.ace_gutter) {
     background-color: var(--ace-editor-gutter-background, var(--background-color-light, #f2f3f8));
-    top: var(--ace-editor-padding-top, 16px);
+    /* top: var(--ace-editor-padding-top, 16px); */
 }
 
 .root:not([theme]) :global(.ace_scroller) {
-    top: var(--ace-editor-padding-top, 16px);
+    /* top: var(--ace-editor-padding-top, 16px); */
 }
 
 .root:not([theme]) :global(.ace_variable) {
@@ -43,3 +49,25 @@
 
 .root[size$="full"] { width: 100%; }
 .root[size^="full"] { height: 100%; }
+
+.handle {
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    display: block;
+    width: 8px;
+    height: 8px;
+    overflow: hidden;
+    cursor: default;
+    z-index: 10;
+}
+
+.handle::before {
+    content: '';
+    display: block;
+    height: 4px;
+    width: 12px;
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+    transform: rotate(-45deg) translate(-2px, 2px);
+}
