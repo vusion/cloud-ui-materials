@@ -1,19 +1,26 @@
-@import 'x-ace-editor.vue/module.css';
+.root[class] {
+    /* width: auto; */
+    height: var(--ace-editor-height, 400px);
+}
+
+.root[disabled] {
+    cursor: not-allowed;
+}
 
 .root:not([theme])[class] {
-    border-color: #f5f7f9;
-    background-color: #f5f7f9;
-    padding-top: 16px;
-    font-size: 14px;
+    border-color: var(--ace-editor-border-color, var(--background-color-light, #f2f3f8));
+    background-color: var(--ace-editor-background, var(--background-color-light, #f2f3f8));
+    padding-top: var(--ace-editor-padding-top, 16px);
+    font-size: var(--ace-editor-font-size, 14px);
 }
 
 .root:not([theme]) :global(.ace_gutter) {
-    background-color: #f5f7f9;
-    top: 16px;
+    background-color: var(--ace-editor-gutter-background, var(--background-color-light, #f2f3f8));
+    top: var(--ace-editor-padding-top, 16px);
 }
 
 .root:not([theme]) :global(.ace_scroller) {
-    top: 16px;
+    top: var(--ace-editor-padding-top, 16px);
 }
 
 .root:not([theme]) :global(.ace_variable) {
@@ -22,5 +29,5 @@
 
 .root:not([theme]) :global(.ace_marker-layer) :global(.ace_active-line),
 .root:not([theme]) :global(.ace_gutter-active-line) {
-    background: #ecf1f6;
+    background: var(--ace-editor-active-line-background, #ecf1f6);
 }

@@ -1,12 +1,13 @@
 - name: x-ace-editor
   title: Ace编辑器
+  labels: [表单控件, 块级展示]
   description: 本组件对 Ace Editor 进行了封装，添加样式修饰，接入了 Cloud UI 表单验证体系。
   attrs:
     - name: value
       sync: true
       model: true
-      type: any
-      default: null
+      type: string
+      default: ''
       description: 当前选择的值
     - name: lang
       type: string
@@ -15,7 +16,7 @@
     - name: theme
       type: string
       default: null
-      description: 设置主题
+      description: 设置主题。如果不设置，默认使用 Cloud UI 风格的主题。
     - name: readonly
       type: boolean
       default: false
@@ -31,4 +32,4 @@
     - name: autofocus
       type: boolean
       default: false
-      description: 默认focus状态
+      description: 组件挂载时自动获取焦点
