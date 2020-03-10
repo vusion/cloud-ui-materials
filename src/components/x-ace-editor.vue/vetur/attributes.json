@@ -1,6 +1,6 @@
 {
   "x-ace-editor/value": {
-    "type": "any",
+    "type": "string",
     "description": "当前选择的值"
   },
   "x-ace-editor/lang": {
@@ -9,7 +9,7 @@
   },
   "x-ace-editor/theme": {
     "type": "string",
-    "description": "设置主题"
+    "description": "设置主题。如果不设置，默认使用 Cloud UI 风格的主题。"
   },
   "x-ace-editor/readonly": {
     "type": "boolean",
@@ -25,6 +25,6 @@
   },
   "x-ace-editor/autofocus": {
     "type": "boolean",
-    "description": "默认focus状态"
+    "description": "组件挂载时自动获取焦点"
   }
 }
