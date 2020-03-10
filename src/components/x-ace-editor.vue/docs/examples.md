@@ -176,3 +176,15 @@ export default {
     </u-grid-layout-column>
 </u-grid-layout>
 ```
+
+### 设置尺寸
+
+``` html
+<u-linear-layout direction="vertical">
+    <x-ace-editor size="small" value="small" readonly></x-ace-editor>
+    <x-ace-editor size="small normal" value="small normal" readonly></x-ace-editor>
+    <x-ace-editor size="normal" value="normal" readonly></x-ace-editor>
+    <x-ace-editor size="large" value="large" readonly></x-ace-editor>
+    <x-ace-editor size="large full" value="large full" readonly></x-ace-editor>
+</u-linear-layout>
+```

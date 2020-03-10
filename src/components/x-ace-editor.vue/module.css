@@ -11,7 +11,7 @@
     border-color: var(--ace-editor-border-color, var(--background-color-light, #f2f3f8));
     background-color: var(--ace-editor-background, var(--background-color-light, #f2f3f8));
     padding-top: var(--ace-editor-padding-top, 16px);
-    font-size: var(--ace-editor-font-size, 14px);
+    font-size: var(--ace-editor-font-size, 12px);
 }
 
 .root:not([theme]) :global(.ace_gutter) {
@@ -31,3 +31,15 @@
 .root:not([theme]) :global(.ace_gutter-active-line) {
     background: var(--ace-editor-active-line-background, #ecf1f6);
 }
+
+.root[size$="small"] { width: var(--ace-editor-width-small, 440px); }
+.root[size^="small"] { height: var(--ace-editor-height-small, 200px); }
+
+.root[size$="normal"] { width: var(--ace-editor-width, 580px); }
+.root[size^="normal"] { height: var(--ace-editor-height, 360px); }
+
+.root[size$="large"] { width: var(--ace-editor-width-large, 760px); }
+.root[size^="large"] { height: var(--ace-editor-height-large, 420px); }
+
+.root[size$="full"] { width: 100%; }
+.root[size^="full"] { height: 100%; }

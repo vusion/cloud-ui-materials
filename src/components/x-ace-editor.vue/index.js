@@ -19,6 +19,7 @@ export const XAceEditor = {
             },
         },
         autofocus: { type: Boolean, default: false },
+        size: { type: String, default: 'normal' },
     },
     data() {
         // 就不监听了
