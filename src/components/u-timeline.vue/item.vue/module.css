@@ -1,7 +1,7 @@
 .root {
     position: relative;
     padding-left: 20px;
-    min-height: 50px;
+    min-height: 86px;
     padding-bottom: 10px;
 }
 
@@ -30,11 +30,11 @@
     border-color: var(--timeline-point-border-color-primary, #4988e8);
 }
 
-.root[color="success"] .point {
+.root[color="success"] .point, .root[color="done"] .point {
     border-color: var(--timeline-point-border-color-primary, #3ad0af);
 }
 
-.root[color="warning"] .point {
+.root[color="warning"] .point, .root[color="doing"] .point {
     border-color: var(--timeline-point-border-color-primary, #ffa136);
 }
 
