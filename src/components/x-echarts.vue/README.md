@@ -522,133 +522,133 @@ export default {
 
 ### Methods
 
-#### mergeOptions
+#### mergeOptions()
 
 （底层调用了 ECharts 实例的 `setOption` 方法）提供了一个更贴切的名称来描述 `setOption` 方法的实际行为。
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### appendData
+#### appendData()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### resize
+#### resize()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### dispatchAction
+#### dispatchAction()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### showLoading
+#### showLoading()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### hideLoading
+#### hideLoading()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### convertToPixel
+#### convertToPixel()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### convertFromPixel
+#### convertFromPixel()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### containPixel
+#### containPixel()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### getDataURL
+#### getDataURL()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### getConnectedDataURL
+#### getConnectedDataURL()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### clear
+#### clear()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### dispose
+#### dispose()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### connect
+#### connect()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### disconnect
+#### disconnect()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### registerMap
+#### registerMap()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### registerTheme
+#### registerTheme()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### graphic.clipPointsByRect
+#### graphic.clipPointsByRect()
 
 
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
 
-#### graphic.clipRectByRect
+#### graphic.clipRectByRect()
 
 
 

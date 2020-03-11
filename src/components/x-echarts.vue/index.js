@@ -1,7 +1,7 @@
 import './theme';
 import VueEcharts from 'vue-echarts';
 
-export default {
+export const XEcharts = {
     name: 'x-echarts',
     extends: VueEcharts,
     props: {
@@ -9,3 +9,5 @@ export default {
         autoresize: { type: Boolean, default: true },
     },
 };
+
+export default XEcharts;
