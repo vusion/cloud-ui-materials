@@ -19,7 +19,6 @@ export const XAceEditor = {
             },
         },
         autofocus: { type: Boolean, default: false },
-        size: { type: String, default: 'normal' },
         resize: { type: String, default: 'none', validator: (value) => ['none', 'horizontal', 'vertical', 'both'].includes(value) },
     },
     data() {

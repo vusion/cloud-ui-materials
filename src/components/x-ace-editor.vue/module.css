@@ -1,7 +1,8 @@
 .root[class] {
     position: relative;
-    /* width: auto; */
-    height: var(--ace-editor-height, 400px);
+    min-width: var(--ace-editor-width, 580px);
+    min-height: var(--ace-editor-height-small, 200px);
+    height: var(--ace-editor-height, 360px);
 }
 
 .editor {
