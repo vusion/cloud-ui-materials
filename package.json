@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "cloud-ui.vusion": "^0.6.6"
+    "cloud-ui.vusion": "^0.6.10"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
@@ -21,7 +21,7 @@
     "stylelint": "^9.3.0",
     "stylelint-config-vusion": "^1.1.2",
     "vue": "^2.6.10",
-    "vue-cli-plugin-vusion": "^0.9.2",
+    "vue-cli-plugin-vusion": "^0.9.4",
     "vue-template-compiler": "^2.6.10",
     "vusion-hooks": "^0.3.0",
     "vusion-utils": "^0.4.7"
