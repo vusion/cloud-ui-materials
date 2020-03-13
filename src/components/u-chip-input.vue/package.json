@@ -18,8 +18,9 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html --code-example --package",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && vusion deploy"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -41,19 +42,13 @@
       "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/2.png",
       "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/3.png",
       "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/4.png",
-      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/5.png",
-      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/6.png",
-      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/7.png",
-      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/8.png",
-      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/9.png",
-      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/10.png",
-      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/11.png"
+      "https://unpkg.com/@cloud-ui/u-chip-input.vue@0.6.0/screenshots/5.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
   },
   "dependencies": {
-    "@cloud-ui/u-chip.vue": "^0.1.0"
+    "@cloud-ui/u-chip.vue": "^0.1.1"
   },
   "devDependencies": {},
   "peerDependencies": {

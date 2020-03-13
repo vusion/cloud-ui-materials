@@ -216,8 +216,8 @@ export default {
 ``` vue
 <template>
 <u-linear-layout direction="vertical">
-    <u-chip-input v-model="list" prefix="search"></u-chip-input>
-    <u-chip-input v-model="list" suffix="search"></u-chip-input>
+    <div><u-chip-input v-model="list" prefix="search"></u-chip-input></div>
+    <div><u-chip-input v-model="list" suffix="search"></u-chip-input></div>
 </u-linear-layout>
 </template>
 <script>
@@ -242,10 +242,10 @@ export default {
 ``` vue
 <template>
 <u-linear-layout direction="vertical">
-    <u-chip-input size="normal large" v-model="list"></u-chip-input>
-    <u-chip-input size="large" v-model="list"></u-chip-input>
-    <u-chip-input size="huge" v-model="list"></u-chip-input>
-    <u-chip-input size="full" v-model="list"></u-chip-input>
+    <div><u-chip-input size="normal large" v-model="list"></u-chip-input></div>
+    <div><u-chip-input size="large" v-model="list"></u-chip-input></div>
+    <div><u-chip-input size="huge" v-model="list"></u-chip-input></div>
+    <div><u-chip-input size="full" v-model="list"></u-chip-input></div>
 </u-linear-layout>
 </template>
 <script>

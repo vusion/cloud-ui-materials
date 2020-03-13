@@ -8,7 +8,7 @@
     height: var(--select-height);
     background: var(--select-background);
     border: var(--select-border-width) solid var(--select-border-color);
-    color: #555;
+    color: var(--color-base, #555);
     border-radius: var(--border-radius-base);
 
     height: auto;
@@ -114,8 +114,8 @@
 }
 
 .chip:hover {
-    background: #d0dbe7;
-    border-color: #d0dbe7;
+    background: var(--chip-background-color-hover, #d0dbe7);
+    border-color: var(--chip-background-color-hover, #d0dbe7);
 }
 
 .chip[editing] {
@@ -133,7 +133,7 @@
 }
 
 .chip-part:hover {
-    /* background: #d0dbe7; */
+    /* background: var(--chip-background-color-hover, #d0dbe7; *)/
 }
 
 .root[disabled] .chip-part {
@@ -150,16 +150,16 @@
     background: transparent;
 }
 
-.root[size$="normal"] { width: 160px; }
+.root[size$="normal"] { width: var(--wdith-base, 160px); }
 .root[size^="normal"] { min-height: 40px; }
 
-.root[size$="medium"] { width: 280px; }
+.root[size$="medium"] { width: var(--width-medium, 280px); }
 .root[size^="medium"] { min-height: 70px; }
 
-.root[size$="large"] { width: 440px; }
+.root[size$="large"] { width: var(--width-large, 440px); }
 .root[size^="large"] { min-height: 102px; }
 
-.root[size$="huge"] { width: 580px; }
+.root[size$="huge"] { width: var(--width-huge, 580px); }
 .root[size^="huge"] { min-height: 134px; }
 
 .root[size$="full"] { width: 100%; }
