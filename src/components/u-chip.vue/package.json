@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-chip.vue",
   "description": "类似于标签组件，用于条目的增删改查。",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -34,8 +34,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.0/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.0/screenshots/1.png"
+      "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.1/screenshots/0.png",
+      "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.1/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -50,5 +50,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.0/public/index.html"
+  "homepage": "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.1/public/index.html"
 }
