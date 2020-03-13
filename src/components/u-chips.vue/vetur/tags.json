@@ -9,6 +9,6 @@
       "list-rules",
       "separators"
     ],
-    "description": "表单输入组件，基于`<u-textarea>`控件进行了一些功能扩展，可以输入字符串卡片，并结合`<u-validator>`进行验证。"
+    "description": "@deprecated 请使用最新的 UChipInput 组件。表单输入组件，基于`<u-textarea>`控件进行了一些功能扩展，可以输入字符串卡片，并结合`<u-validator>`进行验证。"
   }
 }
