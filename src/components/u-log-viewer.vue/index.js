@@ -1,7 +1,7 @@
 import AnsiUp from 'ansi_up';
 import throttle from 'lodash/throttle';
 
-export default {
+export const ULogViewer = {
     name: 'u-log-viewer',
     props: {
         content: { type: String, default: '' },
@@ -180,3 +180,5 @@ export default {
         },
     },
 };
+
+export default ULogViewer;

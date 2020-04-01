@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-log-viewer.vue",
   "description": "用于查看日志",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,6 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-log-viewer.vue"
   },
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.2/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -37,12 +38,12 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/1.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/2.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/3.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/4.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/5.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.2/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.2/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.2/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.2/screenshots/3.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.2/screenshots/4.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.2/screenshots/5.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -58,6 +59,5 @@
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
-  },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/index.html"
+  }
 }
