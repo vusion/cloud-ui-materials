@@ -1,4 +1,3 @@
-// import { MEmitter } from 'proto-ui.vusion';
 import hljs from 'highlight.js/lib/highlight';
 
 const HTML_ESCAPE_TEST_RE = /[&<>"]/;
@@ -23,7 +22,6 @@ function escapeHtml(str) {
 
 export const XHighlight = {
     name: 'x-highlight',
-    // mixins: [MEmitter],
     props: {
         content: { type: String, default: '' },
         lang: { type: String, default: '' },

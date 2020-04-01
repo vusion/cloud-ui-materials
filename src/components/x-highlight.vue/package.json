@@ -1,15 +1,15 @@
 {
   "name": "@cloud-ui/x-highlight.vue",
   "description": "本组件对 [highlight.js](https://highlightjs.org/usage/) 进行了封装，方便代码高亮展示。",
-  "version": "0.6.1",
-  "author": "Rainfore <rainforest92@126.com>",
+  "version": "0.6.2",
+  "author": "Forrest <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/x-highlight.vue"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.1/public/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/x-highlight.vue@0.6.2/index.html",
   "bugs": "http://github.com/vusion/editors/issues",
   "license": "MIT",
   "keywords": [
@@ -22,8 +22,9 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "npx vusion screenshot public/index.html --code-example --package",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && git add ."
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -42,8 +43,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.1/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/x-highlight.vue@0.6.1/screenshots/1.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-highlight.vue@0.6.2/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-highlight.vue@0.6.2/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
