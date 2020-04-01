@@ -1,6 +1,6 @@
 import { UValidator } from 'cloud-ui.vusion';
 
-export default {
+export const UChip = {
     name: 'u-chip',
     mixins: [UValidator],
     props: {
@@ -17,3 +17,5 @@ export default {
         },
     },
 };
+
+export default UChip;
