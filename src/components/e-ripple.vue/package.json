@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/e-ripple.vue",
   "description": "波纹，插入到需要添加波纹的元素或组件内部。",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -20,7 +20,7 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur && vusion deploy"
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -37,7 +37,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/e-ripple.vue@0.6.2/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/e-ripple.vue@0.6.3/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -52,5 +52,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/e-ripple.vue@0.6.2/index.html"
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/e-ripple.vue@0.6.3/index.html"
 }
