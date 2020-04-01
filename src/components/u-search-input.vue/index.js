@@ -1,5 +1,5 @@
 // import i18n from '@/utils/i18n';
-import { MField } from 'proto-ui.vusion';
+import { MField } from 'cloud-ui.vusion';
 import SearchList from './list.vue';
 
 export const USearchInput = {
