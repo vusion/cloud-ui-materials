@@ -1,10 +1,15 @@
 {
   "name": "@cloud-ui/u-timeline.vue",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "./index.js",
-  "author": "",
-  "repository": "",
+  "author": "Forrest <rainforest92@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/components/u-chip-input.vue"
+  },
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-timeline.vue@0.1.3/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -33,8 +38,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-timeline.vue@0.1.2/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-timeline.vue@0.1.2/screenshots/1.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-timeline.vue@0.1.3/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-timeline.vue@0.1.3/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -48,6 +53,5 @@
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
-  },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-timeline.vue@0.1.2/index.html"
+  }
 }
