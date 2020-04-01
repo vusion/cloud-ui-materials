@@ -37,12 +37,12 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.2.0/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.2.0/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.2.0/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.2.0/screenshots/3.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.2.0/screenshots/4.png",
-      "https://unpkg.com/@cloud-ui/u-log-viewer.vue@0.2.0/screenshots/5.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/3.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/4.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-log-viewer.vue@0.2.1/screenshots/5.png"
     ],
     "team": "网易云计算前端",
     "access": "public"

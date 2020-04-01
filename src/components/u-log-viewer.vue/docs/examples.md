@@ -426,7 +426,7 @@ export default {
 ``` vue
 <template>
 <u-linear-layout direction="vertical" gap="small" layout="block">
-    <u-form>
+    <u-form gap="small">
         <u-form-item label="可见性">
             <u-capsules v-model="visible">
                 <u-capsule :value="true">显示</u-capsule>
