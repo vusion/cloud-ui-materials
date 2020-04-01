@@ -1,10 +1,14 @@
 {
   "name": "@cloud-ui/u-workflow.vue",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
-  "author": "",
-  "repository": "",
+  "author": "Forrest <rainforest92@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/components/u-workflow.vue"
+  },
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -14,7 +18,8 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
   "vuePlugins": {
@@ -22,9 +27,7 @@
   },
   "babel": {
     "presets": [
-      [
-        "@vue/app"
-      ]
+      "@vue/app"
     ]
   },
   "vusion": {
@@ -34,8 +37,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-workflow.vue@0.1.0/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-workflow.vue@0.1.0/screenshots/1.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.1/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.1/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -50,5 +53,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-workflow.vue@0.1.0/public/index.html"
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.1/index.html"
 }
