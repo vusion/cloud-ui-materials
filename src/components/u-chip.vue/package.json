@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-chip.vue",
   "description": "类似于标签组件，用于条目的增删改查。",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -14,7 +14,8 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
   "vuePlugins": {
@@ -34,8 +35,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.2/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.2/screenshots/1.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip.vue@0.1.3/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip.vue@0.1.3/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -50,5 +51,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-chip.vue@0.1.2/public/index.html"
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip.vue@0.1.3/index.html"
 }
