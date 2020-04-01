@@ -1,9 +1,9 @@
 {
   "name": "@cloud-ui/u-summary-card.vue",
   "description": "摘要卡片",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "./index.js",
-  "author": "Rainfore <rainforest92@126.com>",
+  "author": "Forrest <rainforest92@126.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/vusion/cloud-ui-materials.git",
@@ -18,7 +18,8 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
   "vuePlugins": {
@@ -26,9 +27,7 @@
   },
   "babel": {
     "presets": [
-      [
-        "@vue/app"
-      ]
+      "@vue/app"
     ]
   },
   "vusion": {
@@ -38,7 +37,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-summary-card.vue@0.6.0/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-summary-card.vue@0.6.1/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -53,5 +52,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-summary-card.vue@0.6.0/public/index.html"
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-summary-card.vue@0.6.1/index.html"
 }
