@@ -161,24 +161,18 @@
         - name: senderVM
           type: UPairInput
           description: 发送事件实例
-    - name: before-clear
+    - name: clear
       description: 清除前触发
       params:
         - name: $event.oldValue
           type: Array
           description: 旧的键值对数组
-        - name: $event.value
-          type: Array
-          description: 改变后的键值对数组
         - name: senderVM
           type: UPairInput
           description: 发送事件实例
     - name: before-clear
       description: 清除前触发
       params:
-        - name: $event.oldValue
-          type: Array
-          description: 旧的键值对数组
         - name: $event.value
           type: Array
           description: 改变后的键值对数组

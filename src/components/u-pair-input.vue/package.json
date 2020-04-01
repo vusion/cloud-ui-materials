@@ -1,9 +1,9 @@
 {
   "name": "@cloud-ui/u-pair-input.vue",
   "description": "键值对输入框",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "main": "./index.js",
-  "author": "Rainfore <rainforest92@126.com>",
+  "author": "Forrest <rainforest92@126.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/vusion/cloud-ui-materials.git",
@@ -18,7 +18,8 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html --code-example --package",
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
   "vuePlugins": {
@@ -36,18 +37,12 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/3.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/4.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/5.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/6.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/7.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/8.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/9.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/10.png",
-      "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/screenshots/11.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-pair-input.vue@0.6.2/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-pair-input.vue@0.6.2/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-pair-input.vue@0.6.2/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-pair-input.vue@0.6.2/screenshots/3.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-pair-input.vue@0.6.2/screenshots/4.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-pair-input.vue@0.6.2/screenshots/5.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -64,5 +59,5 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://unpkg.com/@cloud-ui/u-pair-input.vue@0.6.1/public/index.html"
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-pair-input.vue@0.6.2/index.html"
 }

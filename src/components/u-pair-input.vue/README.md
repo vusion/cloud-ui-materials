@@ -417,14 +417,13 @@ export default {
 | $event.index | number | 删除项的索引 |
 | senderVM | UPairInput | 发送事件实例 |
 
-#### @before-clear
+#### @clear
 
 清除前触发
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
 | $event.oldValue | Array | 旧的键值对数组 |
-| $event.value | Array | 改变后的键值对数组 |
 | senderVM | UPairInput | 发送事件实例 |
 
 #### @before-clear
@@ -433,7 +432,6 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event.oldValue | Array | 旧的键值对数组 |
 | $event.value | Array | 改变后的键值对数组 |
 | senderVM | UPairInput | 发送事件实例 |
 
@@ -499,6 +497,6 @@ export default {
 
 | Key | Description |
 | --- | ----------- |
-| Enter | 完成当前项的输入 |
-| Tab | 完成当前项的输入 |
-| Delete | 删除前一项 |
+| <kdb>Enter</kdb> | 完成当前项的输入 |
+| <kdb>Tab</kdb> | 完成当前项的输入 |
+| <kdb>Delete</kdb> | 删除前一项 |
