@@ -45,10 +45,10 @@
     "team": "网易云计算前端",
     "access": "public",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.7/screenshots/0.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.7/screenshots/1.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.7/screenshots/2.png",
-      "https://unpkg.com/@cloud-ui/x-echarts.vue@0.6.7/screenshots/3.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.6.8/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.6.8/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.6.8/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.6.8/screenshots/3.png"
     ]
   }
 }
