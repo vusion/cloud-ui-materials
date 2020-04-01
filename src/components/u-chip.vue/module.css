@@ -6,7 +6,7 @@
     font-size: var(--chip-font-size, var(--font-size-base));
     line-height: var(--chip-line-height, 1.8);
     background: var(--chip-background-color, var(--background-color-base, #eef2f7));
-    color: var(--chip-color, #666);
+    color: var(--chip-color, var(--color-base, #666));
     border: 1px solid var(--chip-background-color, var(--background-color-base, #eef2f7));
     border-radius: var(--chip-border-radius, 100px);
 }
