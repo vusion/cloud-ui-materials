@@ -8,10 +8,15 @@
     display: inline-block;
     user-select: none;
     line-height: inherit;
-    padding: var(--workflow-button-padding-y, 4px) var(--workflow-button-padding-x, 30px);
+    padding: var(--workflow-button-padding-y, 4px) var(--workflow-button-padding-x, 20px);
     background: var(--workflow-button-background, white);
     border: var(--workflow-button-border-width, 2px) solid var(--workflow-button-border-color, #acb6c4);
     color: var(--workflow-button-color, inherit);
+    max-width: var(--workflow-button-max-width, 200px);
+    margin: 0 var(--workflow-button-space-x, 10px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: top;
 }
 
 .button:hover {
