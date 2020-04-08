@@ -237,7 +237,7 @@ export const URelationsDiagram = {
                 condense: true,
                 padding: 0,
             }).run();
-        });
+        }, 60);
     },
     methods: {
         handleData(data) {
