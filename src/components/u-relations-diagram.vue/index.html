@@ -1,0 +1,12 @@
+<div :class="$style.root">
+    <cytoscape ref="cy" :config="currentConfig" v-on="$listeners">
+        <cy-element v-for="el in elements" :key="`${el.data.id}`" :definition="el"></cy-element>
+    </cytoscape>
+    <cytoscape v-if="legend" :class="$style.legend" ref="legend" :config="legendConfig">
+        图例：<cy-element v-for="el in legendElements" :key="`${el.data.id}`" :definition="el"></cy-element>
+    </cytoscape>
+<!-- <div :class="$style.legend" v-if="legend">
+    图例：<div :class="$style['legend-item']" v-for="item in legend" :key="item.label" :color="item.color">{{ item.label }}</div>
+</div> -->
+    <slot></slot>
+</div>

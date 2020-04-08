@@ -1,0 +1,56 @@
+{
+  "name": "@cloud-ui/u-relations-diagram.vue",
+  "description": "基于 Cytoscape.js，传入节点和边的数据来表达各种关系的 Canvas 图。",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "Forrest <rainforest92@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/components/u-relations-diagram.vue"
+  },
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "vusion",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "component",
+    "title": "关系图",
+    "category": "chart",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [],
+    "team": "网易云计算前端",
+    "access": "public"
+  },
+  "dependencies": {
+    "vue-cytoscape": "^1.0.8"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.6.6"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  }
+}
