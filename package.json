@@ -1,14 +1,12 @@
 {
   "name": "cloud-ui-materials",
+  "version": "0.6.0",
   "scripts": {
-    "build": "vue-cli-service library-build",
-    "build-raw": "vue-cli-service library-build --vusion-mode raw",
-    "doc": "vue-cli-service doc",
-    "doc-build": "vue-cli-service doc-build",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "cloud-ui.vusion": "^0.6.10"
+    "cloud-ui.vusion": "^0.6.14"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
@@ -21,10 +19,10 @@
     "stylelint": "^9.3.0",
     "stylelint-config-vusion": "^1.1.2",
     "vue": "^2.6.10",
-    "vue-cli-plugin-vusion": "^0.9.4",
+    "vue-cli-plugin-vusion": "^0.9.8",
     "vue-template-compiler": "^2.6.10",
     "vusion-hooks": "^0.3.0",
-    "vusion-utils": "^0.4.7"
+    "vusion-utils": "^0.4.8"
   },
   "peerDependencies": {
     "vue": "^2.6.10"
