@@ -1,6 +1,6 @@
 {
   "name": "@cloud-ui/u-relations-diagram.vue",
-  "description": "基于 Cytoscape.js，传入节点和边的数据来表达各种关系的 Canvas 图。",
+  "description": "基于 [Cytoscape.js](https://js.cytoscape.org)，传入节点和边的数据来表达各种关系的 Canvas 图。",
   "version": "0.1.1",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
@@ -52,7 +52,8 @@
   "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.6.6"
+    "cloud-ui.vusion": "^0.6.6",
+    "lodash": "^4.17.15"
   },
   "vetur": {
     "tags": "./vetur/tags.json",

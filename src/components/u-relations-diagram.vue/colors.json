@@ -47,6 +47,14 @@
     "brand-error-darker": "#E60000",
     "brand-error-darkest": "#C00000",
 
+    "brand-danger-lightest": "#FFEDED",
+    "brand-danger-lighter": "#FFC8C8",
+    "brand-danger-light": "#FF6C6C",
+    "brand-danger": "#FF5A5A",
+    "brand-danger-dark": "#FF3434",
+    "brand-danger-darker": "#E60000",
+    "brand-danger-darkest": "#C00000",
+
     "background-color-lighter": "#F9FAFC",
     "background-color-light": "#F4F6F9",
     "background-color-base": "#EEF1F6",

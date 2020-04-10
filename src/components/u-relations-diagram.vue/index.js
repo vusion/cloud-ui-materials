@@ -1,159 +1,124 @@
 import Vue from 'vue';
 import VueCytoscape from 'vue-cytoscape';
 Vue.use(VueCytoscape);
+import debounce from 'lodash/debounce';
 
 import colors from './colors';
-const style = [
-    {
-        selector: 'node',
-        css: {
-            label: 'data(id)',
-            shape: 'rectangle',
-            width: 'label',
-            height: 'label',
-            padding: 8,
-            color: colors['color-base'],
-            'font-size': 14,
-            'background-color': colors['background-color-base'],
-            'border-width': 2,
-            'border-color': colors['border-color-base'],
-            'text-valign': 'center',
-            'text-halign': 'center',
-            // 'compound-sizing-wrt-labels': 'include',
-        },
+const style = [{
+    selector: 'node',
+    css: {
+        label: 'data(id)',
+        shape: 'rectangle',
+        width: 'label',
+        height: 'label',
+        padding: 8,
+        color: colors['color-base'],
+        'font-size': 14,
+        'background-color': colors['background-color-base'],
+        'border-width': 2,
+        'border-color': colors['border-color-base'],
+        'text-valign': 'center',
+        'text-halign': 'center',
+        // 'compound-sizing-wrt-labels': 'include',
     },
-    {
-        selector: 'node[color="primary"]',
+}, {
+    selector: 'node[label]',
+    css: {
+        label: 'data(label)',
+    },
+}, {
+    selector: 'node[shape]',
+    css: {
+        shape: 'data(shape)',
+    },
+}, {
+    selector: ':parent',
+    css: {
+        'text-valign': 'top',
+        'text-halign': 'center',
+        'background-opacity': 0,
+    },
+}, {
+    selector: 'edge',
+    css: {
+        'curve-style': 'bezier',
+        color: colors['color-base'],
+        'font-size': 14,
+        width: 2,
+        'line-color': colors['color-lighter'],
+        'source-arrow-shape': 'none',
+        'target-arrow-shape': 'triangle',
+        'source-arrow-color': colors['color-lighter'],
+        'target-arrow-color': colors['color-lighter'],
+        'mid-source-arrow-color': colors['color-lighter'],
+        'mid-target-arrow-color': colors['color-lighter'],
+        'source-text-offset': 50,
+        'target-text-offset': 50,
+    },
+}, {
+    selector: 'edge[label]',
+    css: {
+        label: 'data(label)',
+    },
+}, {
+    selector: 'edge[source-label]',
+    css: {
+        'source-label': (el) => el.data('source-label'),
+    },
+}, {
+    selector: 'edge[target-label]',
+    css: {
+        'target-label': (el) => el.data('target-label'),
+    },
+}, {
+    selector: 'edge[curve]',
+    css: {
+        'curve-style': 'data(curve)',
+        'haystack-radius': 1,
+        'segment-distances': [50, -50],
+        'segment-weights': [0.25, 0.75],
+    },
+}, {
+    selector: 'edge[source-arrow]',
+    css: {
+        'source-arrow-shape': (el) => el.data('source-arrow'),
+    },
+}, {
+    selector: 'edge[target-arrow]',
+    css: {
+        'target-arrow-shape': (el) => el.data('target-arrow'),
+    },
+}, {
+    selector: 'edge[mid-source-arrow]',
+    css: {
+        'mid-source-arrow-shape': (el) => el.data('mid-source-arrow'),
+    },
+}, {
+    selector: 'edge[mid-target-arrow]',
+    css: {
+        'mid-target-arrow-shape': (el) => el.data('mid-target-arrow'),
+    },
+}];
+
+['primary', 'success', 'normal', 'problem', 'warning', 'error', 'danger', 'disabled'].forEach((color) => {
+    style.push({
+        selector: `node[color="${color}"]`,
         css: {
             color: 'white',
-            'background-color': colors['brand-primary'],
-            'border-color': colors['brand-primary'],
+            'background-color': colors[`brand-${color}`],
+            'border-color': colors[`brand-${color}`],
         },
-    },
-    {
-        selector: 'node[color="success"]',
+    }, {
+        selector: `edge[color="${color}"]`,
         css: {
-            color: 'white',
-            'background-color': colors['brand-success'],
-            'border-color': colors['brand-success'],
+            'line-color': colors[`brand-${color}`],
+            'source-arrow-color': colors[`brand-${color}`],
+            'target-arrow-color': colors[`brand-${color}`],
+            'mid-source-arrow-color': colors[`brand-${color}`],
+            'mid-target-arrow-color': colors[`brand-${color}`],
         },
-    },
-    {
-        selector: 'node[color="normal"]',
-        css: {
-            color: 'white',
-            'background-color': colors['brand-normal'],
-            'border-color': colors['brand-normal'],
-        },
-    },
-    {
-        selector: 'node[color="problem"]',
-        css: {
-            color: 'white',
-            'background-color': colors['brand-problem'],
-            'border-color': colors['brand-problem'],
-        },
-    },
-    {
-        selector: 'node[color="warning"]',
-        css: {
-            color: 'white',
-            'background-color': colors['brand-warning'],
-            'border-color': colors['brand-warning'],
-        },
-    },
-    {
-        selector: 'node[color="error"]',
-        css: {
-            color: 'white',
-            'background-color': colors['brand-error'],
-            'border-color': colors['brand-error'],
-        },
-    },
-    {
-        selector: 'node[color="danger"]',
-        css: {
-            color: 'white',
-            'background-color': colors['brand-error'],
-            'border-color': colors['brand-error'],
-        },
-    },
-    {
-        selector: 'node[color="disabled"]',
-        css: {
-            color: 'white',
-            'background-color': colors['brand-disabled'],
-            'border-color': colors['brand-disabled'],
-        },
-    },
-    {
-        selector: ':parent',
-        css: {
-            'text-valign': 'top',
-            'text-halign': 'center',
-            'background-opacity': 0,
-        },
-    },
-    {
-        selector: 'edge',
-        css: {
-            color: colors['color-base'],
-            'font-size': 14,
-            width: 2,
-            'line-color': colors['color-lighter'],
-            'target-arrow-shape': 'triangle',
-            'target-arrow-color': colors['color-lighter'],
-        },
-    },
-    {
-        selector: 'edge[color="primary"]',
-        css: {
-            'line-color': colors['brand-primary'],
-        },
-    },
-    {
-        selector: 'edge[color="success"]',
-        css: {
-            'line-color': colors['brand-success'],
-        },
-    },
-    {
-        selector: 'edge[color="normal"]',
-        css: {
-            'line-color': colors['brand-normal'],
-        },
-    },
-    {
-        selector: 'edge[color="problem"]',
-        css: {
-            'line-color': colors['brand-problem'],
-        },
-    },
-    {
-        selector: 'edge[color="warning"]',
-        css: {
-            'line-color': colors['brand-warning'],
-        },
-    },
-    {
-        selector: 'edge[color="error"]',
-        css: {
-            'line-color': colors['brand-error'],
-        },
-    },
-    {
-        selector: 'edge[color="danger"]',
-        css: {
-            'line-color': colors['brand-error'],
-        },
-    },
-    {
-        selector: 'edge[color="disabled"]',
-        css: {
-            'line-color': colors['brand-disabled'],
-        },
-    },
-];
+    });
+});
 
 export const URelationsDiagram = {
     name: 'u-relations-diagram',
@@ -219,11 +184,14 @@ export const URelationsDiagram = {
         },
         layout(layout) {
             this.currentLayout = this.handleLayout(layout);
-            this.runLayout();
+            this.debouncedRunLayout();
         },
     },
     mounted() {
-        // 经测试，必须要加 setTimeout
+        this.debouncedRunLayout = debounce(() => setTimeout(() => this.runLayout(), 20), 80);
+        window.addEventListener('resize', this.debouncedRunLayout);
+
+        // 即使 mounted 时，容器也有可能宽度为0，因此必须要加 setTimeout
         setTimeout(() => {
             this.runLayout();
 
@@ -238,6 +206,9 @@ export const URelationsDiagram = {
                 padding: 0,
             }).run();
         }, 60);
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.debouncedRunLayout);
     },
     methods: {
         handleData(data) {
