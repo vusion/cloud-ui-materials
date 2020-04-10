@@ -17,6 +17,6 @@
   },
   "u-relations-diagram/config": {
     "type": "ConfigOptions",
-    "description": "Cytoscape.js 配置选项。详见 [Cytoscape.js Initialisation](https://js.cytoscape.org/#core/initialisation)"
+    "description": "Cytoscape.js 配置选项。详见 [Cytoscape.js - Initialisation](https://js.cytoscape.org/#core/initialisation)"
   }
 }

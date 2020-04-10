@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-relations-diagram.vue",
   "description": "基于 [Cytoscape.js](https://js.cytoscape.org)，传入节点和边的数据来表达各种关系的 Canvas 图。",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-relations-diagram.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.1/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -21,7 +21,8 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "release": "vusion publish"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -38,10 +39,12 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.1/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.1/screenshots/1.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.1/screenshots/2.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.1/screenshots/3.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/screenshots/3.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/screenshots/4.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/screenshots/5.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
