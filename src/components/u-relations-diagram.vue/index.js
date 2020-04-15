@@ -3,7 +3,23 @@ import VueCytoscape from 'vue-cytoscape';
 Vue.use(VueCytoscape);
 import debounce from 'lodash/debounce';
 
-import colors from './colors';
+// import colors from './colors';
+import globalVariables from './module.css?variables';
+function isColor(strColor) {
+    const s = new Option().style;
+    s.color = strColor;
+    const test1 = s.color === strColor;
+    const test2 = /^#[0-9A-F]{6}$/i.test(strColor);
+    if (test1 === true || test2 === true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+const colors = {};
+Object.keys(globalVariables).filter((k) => isColor(globalVariables[k])).forEach((k) => {
+    colors[k.substring(2)] = globalVariables[k];
+});
 const style = [{
     selector: 'node',
     css: {
