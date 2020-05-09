@@ -1,8 +1,11 @@
-<div :class="$style.root" :has-child="!!branchVMs.length">
-    <u-button v-if="title" :class="$style.button" :status="status" v-ellipsis-title
-              :href="href" :target="target" :to="to" :replace="replace" :append="append" :disabled="disabled"
-    >{{ title }}
-        <u-tooltip v-if="tooltip || $slots.tooltip" placement="right"><slot name="tooltip">{{ tooltip }}</slot></u-tooltip>
-    </u-button>
-    <div :class="$style.sub"><slot></slot></div>
+<div :class="$style.root" :label-size="parentVM.hasLabel && parentVM.labelSize">
+    <span :class="$style.label" v-if="parentVM.hasLabel && label">{{ label }}</span>
+    <div :class="$style.body" :has-child="!!branchVMs.length">
+        <u-button v-if="title" :class="$style.button" :status="status" v-ellipsis-title
+                :href="href" :target="target" :to="to" :replace="replace" :append="append" :disabled="disabled"
+        >{{ title }}
+            <u-tooltip v-if="tooltip || $slots.tooltip" placement="right"><slot name="tooltip">{{ tooltip }}</slot></u-tooltip>
+        </u-button>
+        <div :class="$style.sub"><slot></slot></div>
+    </div>
 </div>

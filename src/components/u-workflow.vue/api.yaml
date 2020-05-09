@@ -1,6 +1,16 @@
 - name: u-workflow
   title: 工作流程
-  description: 请在这里添加描述
+  description: 用于展示工作流程的图。
+  attrs:
+    - name: legend
+      type: 'Array<{ label: string, color: string }>'
+      default: '...'
+      description: 图例。图例项中的样式与图节点的一致
+    - name: label-size
+      type: enum
+      options: [small, normal, large]
+      default: normal
+      description: 左侧标签的宽度
   slots:
     - name: default
       description: 插入 `<u-workflow-item>`。
