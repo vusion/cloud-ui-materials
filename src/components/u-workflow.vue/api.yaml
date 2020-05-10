@@ -20,6 +20,10 @@
       type: string
       default:
       description: 步骤标题
+    - name: label
+      type: string
+      default:
+      description: 左侧标签
     - name: href
       type: string
       default:
@@ -42,3 +46,12 @@
       type: boolean
       default: false
       description: 需要 vue-router，与`<router-link>`的`append`属性相同。如果为`true`，则在当前路径后追加`to`的路径。
+  slots:
+    - name: default
+      description: 插入 `<u-workflow-branch>`。
+    - name: tooltip
+      description: 自定义工具提示。
+- name: u-workflow-branch
+  slots:
+    - name: default
+      description: 插入 `<u-workflow-item>`。

@@ -10,9 +10,6 @@ import { MEmitter } from 'cloud-ui.vusion';
 export const UWorkflowBranch = {
     name: 'u-workflow-branch',
     mixins: [MEmitter],
-    props: {
-        title: String,
-    },
     data() {
         return {
             parentVM: undefined,
