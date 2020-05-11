@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-workflow.vue",
   "description": "用于展示工作流程各节点的示意图",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-workflow.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.2/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.3/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
     "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
