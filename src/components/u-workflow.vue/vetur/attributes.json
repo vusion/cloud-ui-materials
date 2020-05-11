@@ -1,7 +1,24 @@
 {
+  "u-workflow/legend": {
+    "type": "Array<{ label: string, color: string }>",
+    "description": "图例。图例项中的样式与图节点的一致"
+  },
+  "u-workflow/label-size": {
+    "type": "enum",
+    "options": [
+      "small",
+      "normal",
+      "large"
+    ],
+    "description": "左侧标签的宽度"
+  },
   "u-workflow-item/title": {
     "type": "string",
     "description": "步骤标题"
+  },
+  "u-workflow-item/label": {
+    "type": "string",
+    "description": "左侧标签"
   },
   "u-workflow-item/href": {
     "type": "string",

@@ -1,19 +1,27 @@
 {
   "u-workflow": {
-    "attributes": [],
-    "description": "请在这里添加描述",
+    "attributes": [
+      "legend",
+      "label-size"
+    ],
+    "description": "用于展示工作流程的图。",
     "subtags": [
-      "u-workflow-item"
+      "u-workflow-item",
+      "u-workflow-branch"
     ]
   },
   "u-workflow-item": {
     "attributes": [
       "title",
+      "label",
       "href",
       "target",
       "to",
       "replace",
       "append"
     ]
+  },
+  "u-workflow-branch": {
+    "attributes": []
   }
 }

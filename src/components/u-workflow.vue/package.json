@@ -38,8 +38,9 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.2/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.2/screenshots/1.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.3/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.3/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-workflow.vue@0.1.3/screenshots/2.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
