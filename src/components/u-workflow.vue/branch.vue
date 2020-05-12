@@ -7,7 +7,7 @@
 <script>
 import { MEmitter } from 'cloud-ui.vusion';
 
-export const UWorkflowBranch = {
+export default {
     name: 'u-workflow-branch',
     mixins: [MEmitter],
     data() {
@@ -33,8 +33,6 @@ export const UWorkflowBranch = {
         });
     },
 };
-
-export default UWorkflowBranch;
 </script>
 
 <style module>

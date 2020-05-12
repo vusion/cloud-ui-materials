@@ -1,9 +1,0 @@
-<div :class="$style.root">
-    <div :class="$style.body" :label-size="hasLabel && labelSize">
-        <slot></slot>
-    </div>
-    <div v-if="legend" :class="$style.legend">
-        图例：
-        <div :class="$style.item_button" v-for="item in legend" :key="item.label" :status="item.color">{{ item.label }}</div>
-    </div>
-</div>
