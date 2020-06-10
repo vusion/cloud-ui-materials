@@ -2,6 +2,16 @@
 
 # XEcharts 百度图表
 
+- [示例](#示例)
+    - [基本用法](#基本用法)
+    - [添加边框](#添加边框)
+    - [设置宽高](#设置宽高)
+- [API]()
+    - [Props/Attrs](#propsattrs)
+    - [Computed](#computed)
+    - [Events](#events)
+    - [Methods](#methods)
+
 本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。
 
 更多示例请查阅[官方示例](https://www.echartsjs.com/examples/zh/index.html)，
@@ -520,7 +530,7 @@ export default {
 | Param | Type | Description |
 | ----- | ---- | ----------- |
 
-### Methods
+Methods
 
 #### mergeOptions()
 
@@ -654,3 +664,4 @@ export default {
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
+
