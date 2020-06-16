@@ -1,0 +1,8 @@
+{
+  "x-monaco-editor": {
+    "attributes": [
+      "value"
+    ],
+    "description": "本组件对 [Monaco Editor]([https://microsoft.github.io/monaco-editor/index.html]) 进行了 Vue 的封装，添加样式修饰，接入了 Cloud UI 表单验证体系。"
+  }
+}
