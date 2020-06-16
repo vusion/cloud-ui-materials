@@ -1,0 +1,57 @@
+{
+  "name": "@cloud-ui/x-monaco-editor.vue",
+  "description": "",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "vusion",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:doc": "node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "release": "vusion publish"
+  },
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "component",
+    "title": "Monaco 编辑器",
+    "category": "editor",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [],
+    "team": "网易云计算前端",
+    "access": "public"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.20.0"
+  },
+  "devDependencies": {
+    "@vue/cli-service": ">=3.10.0",
+    "vue-cli-plugin-vusion": "^0.9.14",
+    "vue-cli-plugin-monaco": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": ">=3.10.0",
+    "vue-cli-plugin-vusion": "^0.9.14",
+    "vue-cli-plugin-monaco": "^0.1.0",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.6.6"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  }
+}
