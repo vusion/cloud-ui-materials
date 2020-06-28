@@ -48,8 +48,7 @@
     </template>
     <template #default>
         <u-linear-layout direction="vertical" :class="$style.main">
-            <s-crumb :class="$style.crumb"></s-crumb>
-            <router-view></router-view>
+            <slot><router-view></router-view></slot>
         </u-linear-layout>
     </template>
 </l-dashboard>
@@ -60,7 +59,7 @@ export default {
     data() {
         return {
             userInfo: {
-                username: 'Username',
+                username: 'User',
             },
             noticeCount: 0,
             noticeActive: false,
