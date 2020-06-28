@@ -1,0 +1,50 @@
+{
+  "name": "@cloud-ui/s-wrapper.vue",
+  "description": "空白页",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "Forrest <rainforest92@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/blocks/s-wrapper.vue"
+  },
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "vusion",
+    "material",
+    "block"
+  ],
+  "scripts": {
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "block",
+    "title": "空白页",
+    "category": "layout",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [],
+    "team": "网易云计算前端",
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.9.5"
+  }
+}
