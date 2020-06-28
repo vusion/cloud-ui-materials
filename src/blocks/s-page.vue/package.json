@@ -1,10 +1,14 @@
 {
   "name": "@cloud-ui/s-page.vue",
-  "description": "",
+  "description": "只有顶部栏和底部栏的通用页面布局。",
   "version": "0.1.0",
   "main": "./index.js",
-  "author": "",
-  "repository": "",
+  "author": "Forrest <rainforest92@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/blocks/s-page.vue"
+  },
   "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-page.vue@0.1.0/index.html",
   "license": "MIT",
   "keywords": [
@@ -29,7 +33,7 @@
   },
   "vusion": {
     "type": "block",
-    "title": "仪表盘布局",
+    "title": "通用页面布局",
     "category": "layout",
     "base": "vue",
     "ui": "cloud-ui.vusion",

@@ -6,13 +6,14 @@
                 <s-logo>演示</s-logo>
             </template>
             <template #default>
-                <u-navbar-item>导航 1</u-navbar-item>
+                <u-navbar-item>Item 1</u-navbar-item>
+                <u-navbar-item>Item 2</u-navbar-item>
             </template>
             <template #right>
                 <div :class="$style.item">
                     <u-badge corner dot :value="noticeCount">
-                        <u-link
-                            :class="noticeActive ? $style.active : ''"
+                        <u-link :class="$style.link"
+                            :active="noticeActive"
                             to="/notice"
                             title="通知">
                             <i-icon name="notice" :class="$style.icon"></i-icon>
@@ -33,8 +34,7 @@
                 </u-navbar-dropdown>
                 <template v-else>
                     <u-navbar>
-                        <u-navbar-item
-                            href="/login">登录</u-navbar-item>
+                        <u-navbar-item href="/login">登录</u-navbar-item>
                     </u-navbar>
                 </template>
             </template>
@@ -43,11 +43,12 @@
     <template #side>
         <u-sidebar slot="side">
             <u-sidebar-item to="/overview">总览</u-sidebar-item>
+            <u-sidebar-item>Item 2</u-sidebar-item>
         </u-sidebar>
     </template>
     <template #default>
         <u-linear-layout direction="vertical" :class="$style.main">
-            <s-crumb :class="$style.crumb" :no-side="!hasSideBar"></s-crumb>
+            <s-crumb :class="$style.crumb"></s-crumb>
             <router-view></router-view>
         </u-linear-layout>
     </template>
@@ -59,7 +60,7 @@ export default {
     data() {
         return {
             userInfo: {
-                username: 'username',
+                username: 'Username',
             },
             noticeCount: 0,
             noticeActive: false,
@@ -114,7 +115,7 @@ export default {
     color: #9ba4ad;
 }
 
-.active[class] span {
+.link[active] {
     color: #67aaf5;
 }
 </style>
