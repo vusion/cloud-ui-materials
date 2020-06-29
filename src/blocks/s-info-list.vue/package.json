@@ -1,30 +1,23 @@
 {
   "name": "@cloud-ui/s-info-list.vue",
-  "description": "Cloud UI - SInfoList",
-  "version": "0.1.3",
-  "author": "Rainfore <rainforest92@126.com>",
+  "description": "",
+  "version": "0.2.0",
   "main": "./index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vusion/cloud-ui-materials.git",
-    "directory": "src/blocks/s-info-list.vue"
-  },
-  "homepage": "https://unpkg.com/@cloud-ui/s-info-list.vue@0.1.3/public/index.html",
-  "bugs": {
-    "url": "http://github.com/vusion/cloud-ui-materials/issues"
-  },
+  "author": "",
+  "repository": "",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-info-list.vue@0.2.0/index.html",
   "license": "MIT",
   "keywords": [
-    "cloud",
-    "ui",
+    "vusion",
     "material",
     "block"
   ],
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html --code-example --package",
-    "prepublishOnly": "npm run build:doc && npm run screenshot"
+    "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -34,11 +27,6 @@
       "@vue/babel-preset-app"
     ]
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.6.0"
-  },
   "vusion": {
     "type": "block",
     "title": "信息列表",
@@ -46,9 +34,15 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://unpkg.com/@cloud-ui/s-info-list.vue@0.1.3/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/s-info-list.vue@0.2.0/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.9.5"
   }
 }
