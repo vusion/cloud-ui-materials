@@ -36,7 +36,7 @@ export default {
                 },
             }).then(({ data }) => {
                 this.instance = data;
-                this.$publish(name_PLACEHOLDER.loadDetail, data);
+                this.$publish('name_PLACEHOLDER.loadDetail', data);
             });
         },
     },
