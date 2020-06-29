@@ -2,10 +2,10 @@
 <u-linear-layout direction="vertical">
     <u-form gap="large" @validate="valid = $event.valid">
         <u-form-item label="名称" required rules="required | alphaNumDash | rangeLength(1,63)">
-            <u-input v-model="model.name" size="huge" maxlength="24" placeholder="由1-63个小写字母，数字，中划线组成"></u-input>
+            <u-input v-model="model.name" size="huge medium" maxlength="24" placeholder="由1-63个小写字母，数字，中划线组成"></u-input>
         </u-form-item>
         <u-form-item label="描述">
-            <u-input v-model="model.description" size="huge"></u-input>
+            <u-input v-model="model.description" size="huge medium"></u-input>
         </u-form-item>
         <u-form-item>
             <u-button color="primary"
