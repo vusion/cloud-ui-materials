@@ -10,6 +10,7 @@
     <u-table-view ref="tableView" :data-source="load">
         <u-table-view-column type="checkbox" width="8%"></u-table-view-column>
         <u-table-view-column title="名称" field="name"></u-table-view-column>
+        <u-table-view-column title="描述" field="description"></u-table-view-column>
         <u-table-view-column title="操作">
             <template #cell="{ item }">
                 <u-linear-layout gap="small">
