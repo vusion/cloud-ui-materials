@@ -1,0 +1,44 @@
+<template>
+<div>
+    <u-head-card :title="instance.name">
+        <div slot="info">
+            <ul>
+                <li><label>公网 IP：</label>127.0.0.1</li>
+            </ul>
+        </div>
+    </u-head-card>
+    <div>
+        <u-tabs router>
+            <u-tab title="详细信息" :to="{ path: '/name_PLACEHOLDER/detail/info', query: { id: $route.query.id } }"></u-tab>
+        </u-tabs>
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            instance: {},
+        };
+    },
+    created() {
+        this.getDetail();
+    },
+    methods: {
+        getDetail() {
+            this.$services.service_PLACEHOLDER.loadDetail_PLACEHOLDER({
+                query: {
+                    InstanceId: this.$route.query.id,
+                },
+            }).then(({ data }) => this.instance = data.data);
+        },
+    },
+    publish: {
+        'name_PLACEHOLDER.loadDetail': 'instance',
+    },
+};
+</script>
