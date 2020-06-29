@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-basic-form.vue",
   "description": "用于创建提交的基础表单",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-wrapper.vue"
   },
-  "homepage": "",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-basic-form.vue@0.2.0/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -37,7 +37,9 @@
     "category": "form",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "https://static-vusion.163yun.com/packages/@cloud-ui/s-basic-form.vue@0.2.0/screenshots/0.png"
+    ],
     "team": "网易云计算前端",
     "access": "public"
   },
