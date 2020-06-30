@@ -58,9 +58,7 @@
 export default {
     data() {
         return {
-            userInfo: {
-                username: 'User',
-            },
+            userInfo: undefined,
             noticeCount: 0,
             noticeActive: false,
         };
@@ -73,11 +71,15 @@ export default {
             },
         },
     },
+    created() {
+        this.$auth && this.$auth.getUserInfo().then((userInfo) => this.userInfo = userInfo);
+    },
     methods: {
         logout() {
-            this.$confirm(`确定退出登录吗？`, '提示').then(() => {
-                location.reload();
-            });
+            /* eslint-disable new-cap */
+            this.$confirm(`确定退出登录吗？`, '提示')
+                .then(() => this.$service.auth.Logout())
+                .then(() => location.reload());
         },
     },
 };
