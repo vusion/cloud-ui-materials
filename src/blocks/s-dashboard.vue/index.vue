@@ -10,7 +10,7 @@
                 <u-navbar-item>Item 2</u-navbar-item>
             </template>
             <template #right>
-                <div :class="$style.item">
+                <!-- <div :class="$style.item">
                     <u-badge corner dot :value="noticeCount">
                         <u-link :class="$style.link"
                             :active="noticeActive"
@@ -19,7 +19,7 @@
                             <i-icon name="notice" :class="$style.icon"></i-icon>
                         </u-link>
                     </u-badge>
-                </div>
+                </div> -->
                 <u-navbar-dropdown style="margin-right: 10px;" v-if="userInfo">
                     <template #title>
                         <u-avatar shape="circle"></u-avatar>
