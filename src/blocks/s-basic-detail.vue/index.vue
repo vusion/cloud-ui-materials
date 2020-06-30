@@ -7,14 +7,9 @@
             </ul>
         </div>
     </u-head-card>
-    <div>
-        <u-tabs router>
-            <u-tab title="详细信息" :to="{ path: '/name_PLACEHOLDER/detail/info', query: { id: $route.query.id } }"></u-tab>
-        </u-tabs>
-        <div>
-            <router-view></router-view>
-        </div>
-    </div>
+    <u-tabs router>
+        <u-tab title="详细信息" :to="{ path: '/name_PLACEHOLDER/detail/info', query: { id: $route.query.id } }"></u-tab>
+    </u-tabs>
 </div>
 </template>
 
