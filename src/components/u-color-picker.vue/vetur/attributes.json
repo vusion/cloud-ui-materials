@@ -1,0 +1,10 @@
+{
+  "u-color-picker/value": {
+    "type": "string",
+    "description": "十六进制颜色，或是 rgba()"
+  },
+  "u-pallette/value": {
+    "type": "string",
+    "description": "十六进制颜色，或是 rgba()"
+  }
+}
