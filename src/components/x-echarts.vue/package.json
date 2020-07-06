@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/x-echarts.vue",
   "description": "本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "author": "wt911122",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/x-echarts.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.0/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.1/index.html",
   "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -20,10 +20,12 @@
   ],
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
+    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
     "release": "vusion publish"
   },
   "vuePlugins": {
@@ -46,9 +48,9 @@
     "team": "网易云计算前端",
     "access": "public",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.0/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.0/screenshots/1.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.0/screenshots/2.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.1/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.1/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.1/screenshots/2.png"
     ]
   }
 }
