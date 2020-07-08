@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-dashboard.vue",
   "description": "常见中后台系统中的顶部栏和左侧栏固定的仪表盘布局。",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-dashboard.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-dashboard.vue@0.1.4/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-dashboard.vue@0.1.5/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -21,7 +21,7 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+    "prepublishOnly": "npm run build:doc && vusion readme && vusion vetur"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/s-dashboard.vue@0.1.4/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/s-dashboard.vue@0.1.1/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
