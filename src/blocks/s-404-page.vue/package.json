@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-404-page.vue",
-  "description": "",
-  "version": "0.1.1",
+  "description": "404 页面",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-page.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-404-page.vue@0.1.1/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-404-page.vue@0.1.2/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -21,7 +21,7 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+    "prepublishOnly": "npm run build:doc && vusion readme && vusion vetur"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
