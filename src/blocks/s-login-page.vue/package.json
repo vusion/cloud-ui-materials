@@ -1,11 +1,15 @@
 {
   "name": "@cloud-ui/s-login-page.vue",
-  "description": "",
-  "version": "0.1.0",
+  "description": "预置了账号与权限中心登录组件的页面。",
+  "version": "0.1.1",
   "main": "./index.js",
-  "author": "",
-  "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-login-page.vue@0.1.0/index.html",
+  "author": "Forrest <rainforest92@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/blocks/s-page.vue"
+  },
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-login-page.vue@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -17,7 +21,7 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+    "prepublishOnly": "npm run build:doc && vusion readme && vusion vetur"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -46,6 +50,6 @@
     "cloud-ui.vusion": "^0.9.12"
   },
   "vusionDependencies": {
-    "s-login.vue": "^0.2.1"
+    "s-login.vue": "^0.2.3"
   }
 }

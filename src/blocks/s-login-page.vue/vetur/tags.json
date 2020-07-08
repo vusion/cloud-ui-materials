@@ -5,9 +5,8 @@
       "useNormal",
       "useQZ",
       "useLDAP",
-      "allowList",
       "exdays"
     ],
-    "description": "账号与权限中心的统一认证登录组件。"
+    "description": "账号与权限中心的统一认证登录组件"
   }
 }

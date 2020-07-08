@@ -1,7 +1,7 @@
 <template>
 <u-linear-layout :class="$style.main" type="flex" justify="center" alignment="center">
     <u-linear-layout direction="vertical" justify="center">
-        <h1>登录演示</h1>
+        <h1>登录</h1>
         <s-login src="http://nuims.vusion.top" @success="onSuccess"></s-login>
     </u-linear-layout>
 </u-linear-layout>

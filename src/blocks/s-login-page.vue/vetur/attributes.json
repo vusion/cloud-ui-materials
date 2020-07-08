@@ -15,10 +15,6 @@
     "type": "boolean",
     "description": "是否开启LDAP登录，默认关闭"
   },
-  "s-login/allowList": {
-    "type": "Array<string>",
-    "description": "主域地址，安全校验使用"
-  },
   "s-login/exdays": {
     "type": "number",
     "description": "设置 Cookie 过期天数"
