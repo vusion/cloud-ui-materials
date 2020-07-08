@@ -1,5 +1,5 @@
 <template>
-<u-linear-layout :class="$style.main" type="flex" justify="center" alignment="center">
+<u-linear-layout :class="$style.root" type="flex" justify="center" alignment="center">
     <u-linear-layout direction="vertical" justify="center">
         <h1>登录</h1>
         <s-login src="http://nuims.vusion.top" @success="onSuccess"></s-login>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style module>
-.main {
+.root {
     background: url('https://static-vusion.163yun.com/assets/login-bg-1.jpg') no-repeat;
     background-size: cover;
     height: 100vh;
