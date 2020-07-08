@@ -29,7 +29,7 @@ export default {
                 query: {
                     InstanceId: this.$route.query.id,
                 },
-            }).then(({ data }) => {
+            }).then((data) => {
                 this.instance = data;
                 this.$publish('name_PLACEHOLDER.loadDetail', data);
             });
