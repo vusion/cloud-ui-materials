@@ -45,11 +45,11 @@ export default {
                 query: {
                     id: this.$route.query.id,
                 },
-            }).then((info) => {
-                const instance = this.instance = info.data;
-                this.model.id = instance.id;
-                this.model.name = instance.name;
-                this.model.description = instance.description;
+            }).then((data) => {
+                this.instance = data;
+                this.model.id = data.id;
+                this.model.name = data.name;
+                this.model.description = data.description;
             });
         },
         submit() {
