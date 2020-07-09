@@ -1,4 +1,0 @@
-<span :class="$style.root" :editing="editing" :error="error || !mutedMessage && touched && !valid" v-on="$listeners">
-    <slot></slot>
-    <span v-if="removable" :class="$style.remove" @click.stop="remove()"></span>
-</span>

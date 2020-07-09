@@ -1,7 +1,9 @@
-export const UTimeline = {
-    name: 'u-timeline',
-};
+import UTimeline from './index.vue';
+import UTimelineItem from './item.vue';
 
-export { UTimelineItem } from './item.vue';
+export {
+    UTimeline,
+    UTimelineItem,
+};
 
 export default UTimeline;

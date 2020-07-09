@@ -17,10 +17,13 @@
   ],
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
+    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur"
+    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "release": "vusion publish"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -46,7 +49,7 @@
   "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.6.0"
+    "cloud-ui.vusion": "^0.9.0"
   },
   "vetur": {
     "tags": "./vetur/tags.json",

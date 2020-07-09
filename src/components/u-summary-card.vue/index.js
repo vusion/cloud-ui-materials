@@ -1,8 +1,11 @@
-export const USummaryCard = {
-    name: 'u-summary-card',
-};
+import USummaryCard from './index.vue';
+import USummaryCardGroup from './group.vue';
+import USummaryCardItem from './item.vue';
 
-export { USummaryCardGroup } from './group.vue';
-export { USummaryCardItem } from './item.vue';
+export {
+    USummaryCard,
+    USummaryCardGroup,
+    USummaryCardItem,
+};
 
 export default USummaryCard;

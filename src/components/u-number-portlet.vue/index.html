@@ -1,9 +1,0 @@
-<a :class="$style.root" :href="currentHref" :target="target" :disabled="disabled" @click="onClick" v-on="listeners">
-    <div :class="$style.title">{{ title }}</div>
-    <div :class="$style.number" :alignment="alignment">
-        <!-- 兼容小数，暂固定为小数点后两位 -->
-        <u-countup v-if="!isNaN(value) && !isInteger" :end="value" :decimals="2"></u-countup>
-        <u-countup v-else :end="isNaN(value) ? 0 : value" :duration="1"></u-countup>
-        <span style="font-size: 16px;" v-if="unit">{{ unit }}</span>
-    </div>
-</a>

@@ -1,14 +1,15 @@
 - name: x-ace-editor
   title: Ace编辑器
   labels: [表单控件, 块级展示]
-  description: 本组件对 Ace Editor 进行了封装，添加样式修饰，接入了 Cloud UI 表单验证体系。
+  description: 本组件对 Ace Editor 进行了 Vue 的封装，添加样式修饰，接入了 Cloud UI 表单验证体系。
   attrs:
     - name: value
-      sync: true
+      title: 值
       model: true
+      sync: true
       type: string
       default: ''
-      description: 当前选择的值
+      description: 代码段
     - name: lang
       type: string
       default: text

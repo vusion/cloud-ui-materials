@@ -1,13 +1,7 @@
-import './theme';
-import VueEcharts from 'vue-echarts';
+import XEcharts from './index.vue';
 
-export const XEcharts = {
-    name: 'x-echarts',
-    extends: VueEcharts,
-    props: {
-        theme: { type: [String, Object], default: 'cloud-ui' },
-        autoresize: { type: Boolean, default: true },
-    },
+export {
+    XEcharts,
 };
 
 export default XEcharts;
