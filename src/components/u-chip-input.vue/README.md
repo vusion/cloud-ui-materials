@@ -2,6 +2,23 @@
 
 # UChipInput 条目输入框
 
+- [示例](#示例)
+    - [基本用法](#基本用法)
+    - [双向绑定](#双向绑定)
+    - [表单验证](#表单验证)
+    - [分隔符与复制粘贴](#分隔符与复制粘贴)
+    - [禁用状态](#禁用状态)
+    - [一键清除](#一键清除)
+    - [添加图标](#添加图标)
+    - [修改尺寸](#修改尺寸)
+    - [综合示例](#综合示例)
+- [API]()
+    - [Props/Attrs](#propsattrs)
+    - [Slots](#slots)
+    - [Events](#events)
+    - [Methods](#methods)
+    - [ARIA and Keyboard](#aria-and-keyboard)
+
 **表单验证器**
 
 用于输入一系列条目。
@@ -439,7 +456,7 @@ export default {
 | $event.value | Array | 改变后的条目列表 |
 | senderVM | UChipInput | 发送事件实例 |
 
-### Methods
+Methods
 
 #### edit(index)
 
@@ -493,3 +510,4 @@ export default {
 | <kdb>Enter</kdb> | 完成当前项的输入 |
 | <kdb>Tab</kdb> | 完成当前项的输入 |
 | <kdb>Delete</kdb> | 删除前一项 |
+
