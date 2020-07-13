@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-chip-input.vue",
   "description": "用于输入一系列条目。",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -40,16 +40,16 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/1.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/2.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/3.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/4.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/5.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/6.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/7.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/8.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/screenshots/9.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/3.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/4.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/5.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/6.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/7.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/8.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/screenshots/9.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -60,11 +60,11 @@
   "devDependencies": {},
   "peerDependencies": {
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.6.10"
+    "cloud-ui.vusion": "^0.9.13"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.0/index.html"
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-chip-input.vue@0.9.1/index.html"
 }
