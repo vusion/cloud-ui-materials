@@ -1,7 +1,7 @@
 {
   "x-ace-editor/value": {
     "type": "string",
-    "description": "当前选择的值"
+    "description": "代码段"
   },
   "x-ace-editor/lang": {
     "type": "string",

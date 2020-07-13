@@ -2,9 +2,19 @@
 
 # XAceEditor Ace编辑器
 
+- [示例](#示例)
+    - [基本用法](#基本用法)
+    - [设置语言](#设置语言)
+    - [设置主题](#设置主题)
+    - [只读和禁用](#只读和禁用)
+    - [设置尺寸](#设置尺寸)
+    - [调整大小](#调整大小)
+- [API]()
+    - [Props/Attrs](#propsattrs)
+
 **表单控件**, **块级展示**
 
-本组件对 Ace Editor 进行了封装，添加样式修饰，接入了 Cloud UI 表单验证体系。
+本组件对 Ace Editor 进行了 Vue 的封装，添加样式修饰，接入了 Cloud UI 表单验证体系。
 
 ## 示例
 ### 基本用法
@@ -216,10 +226,11 @@ export default {
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| value.sync, v-model | string |  | `''` | 当前选择的值 |
+| value.sync, v-model | string |  | `''` | 代码段 |
 | lang | string |  | `'text'` | 设置语言 |
 | theme | string |  |  | 设置主题。如果不设置，默认使用 Cloud UI 风格的主题。 |
 | readonly | boolean |  | `false` | 是否只读 |
 | disabled | boolean |  | `false` | 是否禁用 |
 | options | object |  |  | 配置项对象 |
 | autofocus | boolean |  | `false` | 组件挂载时自动获取焦点 |
+
