@@ -15,7 +15,7 @@
                 v-model="editingList[index].key" auto-size="horizontal" autofocus
                 @input="onInput(index, 'key', $event)"
                 @keydown.enter.stop="$event.target.blur()"
-                @keydown.delete = "onInputDelete(index, 'key', $event)"
+                @keydown.delete="onInputDelete(index, 'key', $event)"
                 @blur="onBlur()"></u-input>
             <span v-else :class="$style['chip-part']" @dblclick="edit(index, 'key')">{{ item[keyField] }}</span>
             <span>: </span>
@@ -23,7 +23,7 @@
                 v-model="editingList[index].value" auto-size="horizontal" autofocus
                 @input="onInput(index, 'value', $event)"
                 @keydown.enter.stop="$event.target.blur()"
-                @keydown.delete = "onInputDelete(index, 'value', $event)"
+                @keydown.delete="onInputDelete(index, 'value', $event)"
                 @blur="onBlur()"></u-input>
             <span v-else :class="$style['chip-part']" @dblclick="edit(index, 'value')">{{ item[valueField] }}</span>
         </u-chip>
@@ -33,7 +33,7 @@
                 v-model="adding.key" auto-size="horizontal" :placeholder="keyPlaceholder" style="min-width: 120px;"
                 @input="onInput(-1, 'key', $event)"
                 @keydown.tab.stop.prevent="addNext = true, $event.target.blur()" @keydown.enter.stop="addNext = true, $event.target.blur()"
-                @keydown.delete = "onInputDelete(-1, 'key', $event)"
+                @keydown.delete="onInputDelete(-1, 'key', $event)"
                 @blur="onBlur()"></u-input>
             <span v-else :class="$style['chip-part']" @dblclick="editAdding('key')">{{ adding.key }}</span>
             <span v-if="adding.type === 'value'">: </span>
@@ -41,7 +41,7 @@
                 v-model="adding.value" auto-size="horizontal" :placeholder="valuePlaceholder" style="min-width: 120px;"
                 @input="onInput(-1, 'value', $event)"
                 @keydown.tab.stop.prevent="addNext = true, $event.target.blur()" @keydown.enter.stop="addNext = true, $event.target.blur()"
-                @keydown.delete = "onInputDelete(-1, 'value', $event)"
+                @keydown.delete="onInputDelete(-1, 'value', $event)"
                 @blur="onBlur()"></u-input>
             <span v-else-if="adding.type !== 'key'" :class="$style['chip-part']">{{ adding.value }}</span>
         </u-chip>
@@ -61,8 +61,8 @@ import UChip from '@cloud-ui/u-chip.vue';
 import { MEmitter } from 'cloud-ui.vusion';
 
 export default {
-    components: { UChip },
     name: 'u-pair-input',
+    components: { UChip },
     mixins: [MEmitter], // i18n,
     props: {
         value: { type: Array, default: () => [] },
@@ -118,7 +118,8 @@ export default {
     },
     methods: {
         edit(index, type) {
-            if (this.disabled) return;
+            if (this.disabled)
+                return;
             const item = this.currentValue[index];
             this.$set(this.editingList, index, {
                 index,
@@ -128,11 +129,14 @@ export default {
             });
         },
         editAdding(type = 'key') {
-            if (this.disabled) return;
+            if (this.disabled)
+                return;
             this.adding.type = type;
             this.$nextTick(() => {
-                if (type === 'key') this.$refs.addingKeyInput.focus();
-                else this.$refs.addingValueInput.focus();
+                if (type === 'key')
+                    this.$refs.addingKeyInput.focus();
+                else
+                    this.$refs.addingValueInput.focus();
             });
         },
         keepAdding(adding) {
@@ -146,16 +150,18 @@ export default {
             });
         },
         onInput(index, type, $event) {
-            const re =
-                type === 'key' ? /[:\s]+/ : new RegExp(`[${this.separators}]+`);
-            if (!$event.match(re)) return;
+            const re
+                = type === 'key' ? /[:\s]+/ : new RegExp(`[${this.separators}]+`);
+            if (!$event.match(re))
+                return;
             this.reduce($event, type, index);
         },
         reduce(remain, type, index, item) {
-            if (!remain) return;
+            if (!remain)
+                return;
             let part;
-            const re =
-                type === 'key' ? /[:\s]+/ : new RegExp(`[${this.separators}]+`);
+            const re
+                = type === 'key' ? /[:\s]+/ : new RegExp(`[${this.separators}]+`);
             const cap = remain.match(re);
             if (cap) {
                 part = remain.slice(0, cap.index).trim();
@@ -164,11 +170,9 @@ export default {
                 part = remain;
                 remain = '';
             }
-            if (!part) return;
-            const validator =
-                type === 'key'
-                    ? this.$refs.keyValidator.validator
-                    : this.$refs.valueValidator.validator;
+            if (!part)
+                return;
+            const validator = type === 'key' ? this.$refs.keyValidator.validator : this.$refs.valueValidator.validator;
             item = item || { type, key: undefined, value: undefined };
             item.type = type;
             item[type] = part;
@@ -183,7 +187,8 @@ export default {
                             });
                             if (remain) {
                                 this.reduce(remain, 'key', index);
-                            } else this.keepAdding();
+                            } else
+                                this.keepAdding();
                         } else {
                             if (remain) {
                                 this.reduce(remain, 'value', index, item);
@@ -204,7 +209,8 @@ export default {
                             });
                             this.editingList.splice(index, 0, undefined);
                             index++;
-                            if (remain) this.reduce(remain, 'key', index);
+                            if (remain)
+                                this.reduce(remain, 'key', index);
                             else {
                                 const editing = this.editingList[index];
                                 editing.type = 'key';
@@ -220,8 +226,8 @@ export default {
                                 editing.key = item.key;
                                 editing.value = '';
                                 if (editing.key)
-                                    this.currentValue[index][this.keyField] =
-                                        editing.key;
+                                    this.currentValue[index][this.keyField]
+                                        = editing.key;
                             }
                         }
                     }
@@ -233,23 +239,28 @@ export default {
                         const editing = this.editingList[index];
                         Object.assign(editing, item);
                         if (type === 'value' && editing.key)
-                            this.currentValue[index][this.keyField] =
-                                editing.key;
+                            this.currentValue[index][this.keyField]
+                                = editing.key;
                     }
                 });
         },
         onInputValidate(index, $event) {
-            if ($event.trigger !== 'blur' || !$event.valid) return;
-            if (index === -1) this.saveAdding();
-            else this.save(index);
+            if ($event.trigger !== 'blur' || !$event.valid)
+                return;
+            if (index === -1)
+                this.saveAdding();
+            else
+                this.save(index);
         },
         save(index) {
             // 先 enter 再 blur 会触发两次
             const editing = this.editingList[index];
-            if (!editing) return;
+            if (!editing)
+                return;
             const item = this.currentValue[index];
             const field = this[editing.type + 'Field'];
-            if (!editing[editing.type]) return;
+            if (!editing[editing.type])
+                return;
             if (
                 this.$emitPrevent(
                     'before-edit',
@@ -287,7 +298,8 @@ export default {
                     this.adding.type = 'value';
                     this.$nextTick(() => this.$refs.addingValueInput.focus());
                 } else {
-                    if (this.currentValue.length) this.adding = undefined;
+                    if (this.currentValue.length)
+                        this.adding = undefined;
                 }
             } else if (this.adding.type === 'value' && this.adding.value) {
                 const item = {
@@ -314,7 +326,8 @@ export default {
         },
         remove(index) {
             const item = this.currentValue[index];
-            if (!item) return;
+            if (!item)
+                return;
             if (
                 this.$emitPrevent(
                     'before-remove',
@@ -379,14 +392,15 @@ export default {
             this.$emit('clear', { value: this.currentValue }, this); // this.focus();
         },
         focus() {
-            if (this.disabled) return;
+            if (this.disabled)
+                return;
             if (!this.adding) {
                 this.adding = { type: 'key', key: undefined, value: undefined };
             }
             this.$nextTick(() => {
                 this.$refs.addingKeyInput && this.$refs.addingKeyInput.focus();
-                this.$refs.addingValueInput &&
-                    this.$refs.addingValueInput.focus();
+                this.$refs.addingValueInput
+                    && this.$refs.addingValueInput.focus();
             });
         },
         blur() {

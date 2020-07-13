@@ -2,6 +2,24 @@
 
 # UPairInput 键值对输入框
 
+- [示例](#示例)
+    - [基本用法](#基本用法)
+    - [双向绑定](#双向绑定)
+    - [指定键值字段名](#指定键值字段名)
+    - [表单验证](#表单验证)
+    - [分隔符与复制粘贴](#分隔符与复制粘贴)
+    - [禁用状态](#禁用状态)
+    - [一键清除](#一键清除)
+    - [添加图标](#添加图标)
+    - [修改尺寸](#修改尺寸)
+    - [综合示例](#综合示例)
+- [API]()
+    - [Props/Attrs](#propsattrs)
+    - [Slots](#slots)
+    - [Events](#events)
+    - [Methods](#methods)
+    - [ARIA and Keyboard](#aria-and-keyboard)
+
 用于输入一系列键值对。
 
 ## 示例
@@ -445,7 +463,7 @@ export default {
 | $event.value | Array | 改变后的键值对数组 |
 | senderVM | UPairInput | 发送事件实例 |
 
-### Methods
+Methods
 
 #### edit(index, type)
 
@@ -500,3 +518,4 @@ export default {
 | <kdb>Enter</kdb> | 完成当前项的输入 |
 | <kdb>Tab</kdb> | 完成当前项的输入 |
 | <kdb>Delete</kdb> | 删除前一项 |
+

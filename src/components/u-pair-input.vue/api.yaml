@@ -50,7 +50,7 @@
       description: 后缀图标
     - name: size
       type: string
-      description: `normal`、`large`、`huge` 几种级别的组合
+      description: '`normal`、`large`、`huge` 几种级别的组合'
     - name: disabled
       type: boolean
       description: 是否禁用
