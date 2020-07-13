@@ -34,13 +34,13 @@ export default {
 .root {
     display: block;
     background: #f7f8fd;
-    border-radius: $border-radius-base;
+    border-radius: var(--border-radius-base);
     padding: 15px 18px;
-    transition: $transition-duration-base;
+    transition: var(--transition-duration-base);
 }
 
 .root:hover {
-    background: $background-color-base;
+    background: var(--background-color-base);
 }
 
 .title {
@@ -68,11 +68,11 @@ export default {
     text-align: right;
 }
 
-.root[color="primary"] .number { color: $brand-primary; }
-.root[color="info"] .number { color: $brand-info; }
-.root[color="success"] .number { color: $brand-success; }
-.root[color="warning"] .number { color: $brand-warning; }
-.root[color="error"] .number { color: $brand-error; }
+.root[color="primary"] .number { color: var(--brand-primary); }
+.root[color="info"] .number { color: var(--brand-info); }
+.root[color="success"] .number { color: var(--brand-success); }
+.root[color="warning"] .number { color: var(--brand-warning); }
+.root[color="error"] .number { color: var(--brand-error); }
 
 .root [class^="u-countup_count"] {
     color: inherit;
