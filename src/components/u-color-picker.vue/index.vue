@@ -1,7 +1,7 @@
 <template>
 <span :class="$style.root">
     <span :class="$style.color" :style="{ backgroundColor: currentValue }"></span>
-    <u-popup>
+    <u-popup @open="onOpen" @close="onClose">
         <u-pallette :class="$style.pallette" slot="root" :value="currentValue" @input="onInput">
             <slot></slot>
         </u-pallette>
@@ -36,6 +36,16 @@ export default {
             this.currentValue = value;
             this.$emit('input', value);
             this.$emit('update:value', value);
+        },
+        onOpen($event) {
+            this.$emit('open', Object.assign({
+                value: this.currentValue,
+            }, $event), this);
+        },
+        onClose($event) {
+            this.$emit('close', Object.assign({
+                value: this.currentValue,
+            }, $event), this);
         },
     },
 };

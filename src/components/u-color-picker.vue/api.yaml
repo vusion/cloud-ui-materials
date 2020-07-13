@@ -58,3 +58,21 @@
         - name: $event.oldValue
           type: string
           description: 旧的颜色
+    - name: open
+      description: 弹出时触发。
+      params:
+        - name: $event.value
+          type: string
+          description: 弹出时的颜色值
+        - name: senderVM
+          type: UColorPicker
+          description: 发送事件实例
+    - name: close
+      description: 隐藏时触发。
+      params:
+        - name: $event.value
+          type: string
+          description: 隐藏时的颜色值
+        - name: senderVM
+          type: UColorPicker
+          description: 发送事件实例
