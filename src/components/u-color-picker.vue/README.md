@@ -115,3 +115,21 @@ export default {
 | $event.value | string | 当前颜色 |
 | $event.oldValue | string | 旧的颜色 |
 
+#### @open
+
+弹出时触发。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event.value | string | 弹出时的颜色值 |
+| senderVM | UColorPicker | 发送事件实例 |
+
+#### @close
+
+隐藏时触发。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event.value | string | 隐藏时的颜色值 |
+| senderVM | UColorPicker | 发送事件实例 |
+
