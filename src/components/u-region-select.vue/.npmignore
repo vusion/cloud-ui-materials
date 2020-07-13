@@ -4,9 +4,9 @@ vusion_packages/
 npm-debug.log
 lerna-debug.log
 
-dist/
-dist-theme/
-dist-raw/
+!dist/
+!dist-theme/
+!dist-raw/
 !public/
 !screenshots/
 test-reports/
