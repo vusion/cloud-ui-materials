@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-relations-diagram.vue",
   "description": "基于 [Cytoscape.js](https://js.cytoscape.org)，传入节点和边的数据来表达各种关系的 Canvas 图。",
-  "version": "0.1.2",
+  "version": "0.9.0",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-relations-diagram.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.1.2/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-relations-diagram.vue@0.9.0/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -18,10 +18,12 @@
   ],
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
+    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html --code-example --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
     "release": "vusion publish"
   },
   "vuePlugins": {
@@ -29,7 +31,7 @@
   },
   "babel": {
     "presets": [
-      "@vue/babel-preset-app"
+      "@vue/app"
     ]
   },
   "vusion": {
@@ -54,8 +56,10 @@
   },
   "devDependencies": {},
   "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.11.11",
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.6.6",
+    "cloud-ui.vusion": "^0.9.13",
     "lodash": "^4.17.15"
   },
   "vetur": {

@@ -2,6 +2,21 @@
 
 # URelationsDiagram 关系图
 
+- [示例](#示例)
+    - [基本用法](#基本用法)
+    - [图例与配色](#图例与配色)
+    - [节点形状](#节点形状)
+    - [曲线类型](#曲线类型)
+    - [箭头类型](#箭头类型)
+    - [自定义样式](#自定义样式)
+    - [事件](#事件)
+    - [配置](#配置)
+    - [复杂示例](#复杂示例)
+- [API]()
+    - [Props/Attrs](#propsattrs)
+    - [Slots](#slots)
+    - [Events](#events)
+
 基于 [Cytoscape.js](https://js.cytoscape.org)，传入节点和边的数据来表达各种关系的 Canvas 图。
 
 ## 示例
@@ -438,3 +453,4 @@ export default {
 #### @$listeners
 
 透传所有 Cytoscape.js 事件。详见 [Cytoscape.js - Events](https://js.cytoscape.org/#events)
+
