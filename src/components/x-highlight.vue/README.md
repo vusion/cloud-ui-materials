@@ -2,6 +2,17 @@
 
 # XHighlight 代码高亮
 
+- [安装配置](#安装配置)
+    - [安装](#安装)
+    - [引入](#引入)
+    - [打包配置](#打包配置)
+- [示例](#示例)
+    - [基本用法](#基本用法)
+- [API]()
+    - [Props/Attrs](#propsattrs)
+    - [Events](#events)
+    - [Methods](#methods)
+
 **三方组件**, **块级展示**
 
 本组件对 [highlight.js](https://highlightjs.org/usage/) 进行了封装，方便代码高亮展示。
@@ -145,7 +156,7 @@ export default {
 | $event.result | string | 渲染后的结果 |
 | senderVM | XHighlight | 发送事件实例 |
 
-### Methods
+Methods
 
 #### render()
 
@@ -153,3 +164,4 @@ export default {
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
+
