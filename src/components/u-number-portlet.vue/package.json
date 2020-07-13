@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-number-portlet.vue",
   "description": "数字窗格",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "author": "Forrest <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-number-portlet.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.0/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.1/index.html",
   "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -44,18 +44,16 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.0/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.0/screenshots/1.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.0/screenshots/2.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.0/screenshots/3.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.0/screenshots/4.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.1/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.1/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.1/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.1/screenshots/3.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-number-portlet.vue@0.9.1/screenshots/4.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
   },
-  "dependencies": {
-    "@cloud-ui/u-chip.vue": "^0.1.1"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
     "vue-cli-plugin-vusion": "^0.11.11",
