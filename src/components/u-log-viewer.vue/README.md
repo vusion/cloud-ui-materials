@@ -2,6 +2,19 @@
 
 # ULogViewer 日志查看器
 
+- [示例](#示例)
+    - [基本用法](#基本用法)
+    - [日志多次追加](#日志多次追加)
+    - [高频大量日志](#高频大量日志)
+    - [设置显示方式](#设置显示方式)
+    - [设置初始深浅色](#设置初始深浅色)
+    - [按钮钩子](#按钮钩子)
+- [API]()
+    - [Props/Attrs](#propsattrs)
+    - [Slots](#slots)
+    - [Events](#events)
+    - [Methods](#methods)
+
 用于查看日志。
 
 ## 示例
@@ -1011,7 +1024,7 @@ export default {
 | $event.display | enum | 改变后的显示方式 |
 | $event.oldDisplay | enum | 旧的显示方式 |
 
-### Methods
+Methods
 
 #### push(content)
 
@@ -1024,3 +1037,4 @@ export default {
 #### clear()
 
 清除日志
+
