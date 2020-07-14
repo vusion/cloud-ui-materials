@@ -40,22 +40,20 @@ export default {
         this.getDetail();
     },
     methods: {
-        getDetail() {
-            return this.$services.service_PLACEHOLDER.loadDetail_PLACEHOLDER({
+        async getDetail() {
+            const result = await this.$services.service_PLACEHOLDER.loadDetail_PLACEHOLDER({
                 query: {
                     id: this.$route.query.id,
                 },
-            }).then((data) => {
-                this.instance = data;
-                this.model.id = data.id;
-                this.model.name = data.name;
-                this.model.description = data.description;
             });
+            this.instance = result;
+            this.model = Object.assign({}, result);
         },
-        submit() {
-            return this.$services.service_PLACEHOLDER.update_PLACEHOLDER({
+        async submit() {
+            await this.$services.service_PLACEHOLDER.update_PLACEHOLDER({
                 body: this.model,
-            }).then(() => this.$router.push('list'));
+            });
+            this.$router.push('list');
         },
     },
 };
