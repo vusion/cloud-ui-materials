@@ -30,8 +30,9 @@ export default {
         return {};
     },
     methods: {
-        load() {
-            return this.$services.service_PLACEHOLDER.loadList_PLACEHOLDER();
+        async load() {
+            const result = await this.$services.service_PLACEHOLDER.loadList_PLACEHOLDER();
+            return result;
         },
     },
 };
