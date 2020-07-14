@@ -24,15 +24,14 @@ export default {
         this.getDetail();
     },
     methods: {
-        getDetail() {
-            this.$services.service_PLACEHOLDER.loadDetail_PLACEHOLDER({
+        async getDetail() {
+            const result = await this.$services.service_PLACEHOLDER.loadDetail_PLACEHOLDER({
                 query: {
                     InstanceId: this.$route.query.id,
                 },
-            }).then((data) => {
-                this.instance = data;
-                this.$publish('name_PLACEHOLDER.loadDetail', data);
             });
+            this.instance = result;
+            this.$publish('name_PLACEHOLDER.loadDetail', result);
         },
     },
 };
