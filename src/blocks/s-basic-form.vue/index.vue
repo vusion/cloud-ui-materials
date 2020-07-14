@@ -36,10 +36,11 @@ export default {
         },
     },
     methods: {
-        submit() {
-            return this.$services.service_PLACEHOLDER.create_PLACEHOLDER({
+        async submit() {
+            await this.$services.service_PLACEHOLDER.create_PLACEHOLDER({
                 body: this.model,
-            }).then(() => this.$router.push('list'));
+            });
+            this.$router.push('list');
         },
     },
 };
