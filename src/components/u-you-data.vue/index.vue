@@ -138,6 +138,11 @@ export default {
             return style;
         },
     },
+    watch: {
+        rootStyle() {
+            this.autoSize();
+        },
+    },
     mounted() {
         const iFrame = this.$refs.iframeRef;
         if (iFrame) {
