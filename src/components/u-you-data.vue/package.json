@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-you-data",
   "description": "Cloud UI - UYouData",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-you-data.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.0/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -41,7 +41,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.0/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.1/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
