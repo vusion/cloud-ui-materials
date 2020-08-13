@@ -1,0 +1,19 @@
+- name: u-you-data
+  title: 有数报表
+  description: 有数报表集成组件
+  attrs:
+    - name: src
+      type: string
+      default: ''
+      description: 报表地址
+    - name: width
+      type: String
+      default: 'auto'
+      description: 宽度
+    - name: height
+      type: String
+      default: 'auto'
+      description: 高度
+  events:
+    - name: load
+      description: 加载完成后触发

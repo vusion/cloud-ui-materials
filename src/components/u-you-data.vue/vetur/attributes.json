@@ -1,0 +1,14 @@
+{
+  "u-you-data/src": {
+    "type": "string",
+    "description": "报表地址"
+  },
+  "u-you-data/width": {
+    "type": "String",
+    "description": "宽度"
+  },
+  "u-you-data/height": {
+    "type": "String",
+    "description": "高度"
+  }
+}
