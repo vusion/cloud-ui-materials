@@ -170,8 +170,9 @@ export default {
             const iFrame = this.$refs.iframeRef;
             if (iFrame) {
                 const width = this.$el.offsetWidth;
-                iFrame.style.width = (width > 1000 ? width : 1000) + 120 + 'px';
-                iFrame.style.height = width * 2 + 140 + 'px';
+                const height = this.$el.offsetHeight;
+                iFrame.style.width = width + 'px';
+                iFrame.style.height = height + 'px';
             }
         },
     },
@@ -183,7 +184,6 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 300px;
     /* overflow: auto; */
     box-sizing: border-box;
     margin: 0;
@@ -201,16 +201,11 @@ export default {
 .wrapper {
     position: relative;
     flex: 1 1 100%;
-    width: 160%;
-    height: 500px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 .frame {
-    position: absolute;
-    top: -80px;
-    left: -60px;
-    right: -100px;
-    bottom: -100px;
     padding: 0;
     margin: 0;
     overflow: hidden;
