@@ -1,5 +1,5 @@
 <template>
-<div :class="$style.root" :style="rootStyle">
+<div :class="$style.root">
     <u-linear-layout
         :class="$style.loading"
         v-if="loading"
@@ -23,14 +23,16 @@
     <div :class="$style.wrapper">
         <template v-if="finnalSrc">
             <iframe
+                allowfullscreen="allowfullscreen"
                 v-show="!loading"
                 ref="iframeRef"
                 :class="$style.frame"
                 :src="finnalSrc"
                 width="100%"
                 height="100%"
-                :frameborder="frameborder"
+                frameborder="0"
                 style="border:0px;"
+                @load="iframeLoaded"
             ></iframe>
         </template>
     </div>
@@ -44,14 +46,6 @@ export default {
         src: {
             type: String,
             required: true,
-        },
-        width: {
-            type: String,
-            default: 'auto',
-        },
-        height: {
-            type: String,
-            default: 'auto',
         },
         scale: {
             type: String,
@@ -101,7 +95,6 @@ export default {
     data() {
         return {
             loading: true,
-            frameborder: 0,
         };
     },
     computed: {
@@ -111,6 +104,7 @@ export default {
                 return '';
             }
             const url = new URL(src);
+            const searchParams = url.searchParams;
             [
                 'scale',
                 'bottomBarPos',
@@ -125,60 +119,17 @@ export default {
                 'mode',
             ].forEach((key) => {
                 if (this[key]) {
-                    url.searchParams.append(key, this[key]);
+                    searchParams.delete(key);
+                    searchParams.append(key, this[key]);
                 }
             });
-
             return url.toString();
         },
-        rootStyle() {
-            const style = {};
-            style.width = this.width;
-            style.height = this.height;
-            return style;
-        },
-    },
-    watch: {
-        rootStyle() {
-            this.autoSize();
-        },
-    },
-    mounted() {
-        const iFrame = this.$refs.iframeRef;
-        if (iFrame) {
-            iFrame.onload = () => {
-                this.loading = false;
-                console.warn('onload...');
-                this.autoSize();
-                this.$emit('load');
-                this.timer = setTimeout(() => {
-                    this.autoSize();
-                }, 100);
-            };
-            window.addEventListener('resize', this.autoSize);
-        } else {
-            this.loading = true;
-            this.load().then(() => {
-                this.loading = false;
-                this.$emit('load');
-            });
-        }
-    },
-    beforeDestroy() {
-        if (this.timer) {
-            clearTimeout(this.timer);
-        }
-        window.removeEventListener('resize', this.autoSize);
     },
     methods: {
-        autoSize() {
-            const iFrame = this.$refs.iframeRef;
-            if (iFrame) {
-                const width = this.$el.offsetWidth;
-                const height = this.$el.offsetHeight;
-                iFrame.style.width = width + 'px';
-                iFrame.style.height = height + 'px';
-            }
+        iframeLoaded() {
+            this.loading = false;
+            this.$emit('load');
         },
     },
 };
@@ -187,8 +138,8 @@ export default {
 <style module>
 .root {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 600px;
     /* overflow: auto; */
     box-sizing: border-box;
     margin: 0;
@@ -198,22 +149,18 @@ export default {
 
 .loading {
     position: absolute;
+}
+.wrapper {
+
+}
+.frame {
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-}
-.wrapper {
-    position: relative;
-    flex: 1 1 100%;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-.frame {
     padding: 0;
-    margin: 0;
-    overflow: hidden;
+    margin: auto;
     box-sizing: border-box;
 }
 </style>

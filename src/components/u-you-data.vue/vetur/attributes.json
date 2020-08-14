@@ -10,5 +10,49 @@
   "u-you-data/height": {
     "type": "String",
     "description": "高度"
+  },
+  "u-you-data/scale": {
+    "type": "String",
+    "description": "有数缩放配置"
+  },
+  "u-you-data/bottomBarPos": {
+    "type": "String",
+    "description": "有数底部栏放在顶部配置"
+  },
+  "u-you-data/hideProgressBar": {
+    "type": "Boolean",
+    "description": "有数顶部进度条隐藏配置"
+  },
+  "u-you-data/hidePageBar": {
+    "type": "Boolean",
+    "description": "有数底部工具栏隐藏配置"
+  },
+  "u-you-data/hideScaleBar": {
+    "type": "Boolean",
+    "description": "有数缩放栏隐藏配置"
+  },
+  "u-you-data/hideTitle": {
+    "type": "Boolean",
+    "description": "有数顶部标题栏隐藏配置"
+  },
+  "u-you-data/hidePrivate": {
+    "type": "Boolean",
+    "description": "有数私有文件夹隐藏配置"
+  },
+  "u-you-data/hidePublic": {
+    "type": "Boolean",
+    "description": "有数公共文件夹隐藏配置"
+  },
+  "u-you-data/side": {
+    "type": "Boolean",
+    "description": "有数侧边栏配置"
+  },
+  "u-you-data/toolbar": {
+    "type": "String",
+    "description": "有数功能键配置"
+  },
+  "u-you-data/mode": {
+    "type": "String",
+    "description": "有数底部导航条显示方式配置"
   }
 }

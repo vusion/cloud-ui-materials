@@ -3,7 +3,18 @@
     "attributes": [
       "src",
       "width",
-      "height"
+      "height",
+      "scale",
+      "bottomBarPos",
+      "hideProgressBar",
+      "hidePageBar",
+      "hideScaleBar",
+      "hideTitle",
+      "hidePrivate",
+      "hidePublic",
+      "side",
+      "toolbar",
+      "mode"
     ],
     "description": "有数报表集成组件"
   }
