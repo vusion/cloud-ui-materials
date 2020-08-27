@@ -1,0 +1,9 @@
+{
+  "i-status": {
+    "attributes": [
+      "name",
+      "size"
+    ],
+    "description": "请在这里添加描述"
+  }
+}
