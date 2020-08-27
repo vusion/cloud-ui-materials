@@ -59,7 +59,7 @@ export default {
 
 .root[name="waiting"]::before {
     icon-font: url("./assets/waiting.svg");
-    color: var(--brand-disabled, #cdd6e4);
+    color: var(--brand-disabled-dark, #c2cdde);
 }
 
 .root[name="error"]::before {
@@ -79,17 +79,17 @@ export default {
 
 .root[name="unused"]::before {
     icon-font: url("./assets/unused.svg");
-    color: var(--brand-disabled, #cdd6e4);
+    color: var(--brand-disabled-dark, #c2cdde);
 }
 
 .root[name="end"]::before {
     icon-font: url("./assets/end.svg");
-    color: var(--brand-disabled, #cdd6e4);
+    color: var(--brand-disabled-dark, #c2cdde);
 }
 
 .root[name="expired"]::before {
     icon-font: url("./assets/expired.svg");
-    color: var(--brand-disabled, #cdd6e4);
+    color: var(--brand-disabled-dark, #c2cdde);
 }
 
 .root[name="locked"]::before {

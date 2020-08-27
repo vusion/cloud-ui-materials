@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/i-status.vue",
   "description": "状态图标",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/i-status.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/i-status.vue@0.1.0/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/i-status.vue@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -41,8 +41,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/i-status.vue@0.1.0/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/i-status.vue@0.1.0/screenshots/1.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/i-status.vue@0.1.1/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/@cloud-ui/i-status.vue@0.1.1/screenshots/1.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
