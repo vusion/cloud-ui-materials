@@ -1,10 +1,14 @@
 {
   "name": "@cloud-ui/x-monaco-editor.vue",
-  "description": "",
+  "description": "Monaco 编辑器",
   "version": "0.1.0",
+  "author": "Forrest <rainforest92@126.com>",
   "main": "./index.js",
-  "author": "",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/components/x-monaco-editor.vue"
+  },
   "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/x-monaco-editor.vue@0.1.0/index.html",
   "license": "MIT",
   "keywords": [
@@ -14,6 +18,8 @@
   ],
   "scripts": {
     "dev": "node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
+    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
     "build:doc": "node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
@@ -22,7 +28,7 @@
   },
   "babel": {
     "presets": [
-      "@vue/babel-preset-app"
+      "@vue/app"
     ]
   },
   "vusion": {
@@ -44,15 +50,15 @@
   },
   "devDependencies": {
     "@vue/cli-service": ">=3.10.0",
-    "vue-cli-plugin-vusion": "^0.9.14",
+    "vue-cli-plugin-vusion": "^0.11.11",
     "vue-cli-plugin-monaco": "^0.1.1"
   },
   "peerDependencies": {
     "@vue/cli-service": ">=3.10.0",
-    "vue-cli-plugin-vusion": "^0.9.14",
+    "vue-cli-plugin-vusion": "^0.11.11",
     "vue-cli-plugin-monaco": "^0.1.1",
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.6.6"
+    "cloud-ui.vusion": "^0.9.13"
   },
   "vetur": {
     "tags": "./vetur/tags.json",

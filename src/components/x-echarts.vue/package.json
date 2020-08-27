@@ -48,7 +48,7 @@
   },
   "vusion": {
     "type": "component",
-    "title": "百度图表",
+    "title": "图表",
     "category": "chart",
     "base": "vue",
     "ui": "cloud-ui.vusion",
