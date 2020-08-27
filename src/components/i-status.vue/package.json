@@ -1,0 +1,59 @@
+{
+  "name": "@cloud-ui/i-status.vue",
+  "description": "状态图标",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "Forrest <rainforest92@126.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vusion/cloud-ui-materials.git",
+    "directory": "src/components/i-status.vue"
+  },
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "vusion",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
+    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "release": "vusion publish"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "component",
+    "title": "状态图标",
+    "category": "icon",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [],
+    "team": "网易云计算前端",
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.11.9",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.9.12"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  }
+}
