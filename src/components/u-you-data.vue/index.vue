@@ -85,7 +85,7 @@ export default {
         },
         toolbar: {
             type: String,
-            default: JSON.stringify(['export', 'refresh', 'print']),
+            default: () => ['export', 'refresh', 'print'],
         },
         mode: {
             type: String,
@@ -120,7 +120,11 @@ export default {
             ].forEach((key) => {
                 if (this[key]) {
                     searchParams.delete(key);
-                    searchParams.append(key, this[key]);
+                    if (key === 'toolbar' && Array.isArray(this[key])) {
+                        searchParams.append(key, JSON.stringify(this[key]));
+                    } else {
+                        searchParams.append(key, this[key]);
+                    }
                 }
             });
             return url.toString();

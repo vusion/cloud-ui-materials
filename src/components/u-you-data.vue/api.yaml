@@ -1,62 +1,99 @@
 - name: u-you-data
   title: 有数报表
   description: 有数报表集成组件
+  labels: ['chart', 'runtime']
   attrs:
     - name: src
       type: string
       default: ''
       description: 报表地址
     - name: width
-      type: String
+      type: string
       default: 'auto'
       description: 宽度
     - name: height
-      type: String
+      type: string
       default: 'auto'
       description: 高度
     - name: scale
-      type: String
+      type: enum
+      advanced: true
+      options: 
+        - name: '100'
+          description: 缩放100%
+        - name: width
+          description: 自适应宽度
+        - name: screen
+          description: 自适应窗口
       default: '100'
       description: 有数缩放配置
     - name: bottomBarPos
-      type: String
-      default: 'bottom'
-      description: 有数底部栏放在顶部配置
+      type: enum
+      default: bottom
+      advanced: true
+      options: 
+        - name: bottom
+          description: 底部栏放在底部
+        - name: top
+          description: 底部栏放在顶部
+      description: 有数底部栏位置配置
     - name: hideProgressBar
-      type: Boolean
+      type: boolean
+      advanced: true
       default: true
       description: 有数顶部进度条隐藏配置
     - name: hidePageBar
-      type: Boolean
+      type: boolean
       default: true
+      advanced: true
       description: 有数底部工具栏隐藏配置
     - name: hideScaleBar
-      type: Boolean
+      type: boolean
       default: true
+      advanced: true
       description: 有数缩放栏隐藏配置
     - name: hideTitle
-      type: Boolean
+      type: boolean
+      advanced: true
       default: true
       description: 有数顶部标题栏隐藏配置
     - name: hidePrivate
-      type: Boolean
+      type: boolean
+      advanced: true
       default: true
       description: 有数私有文件夹隐藏配置
     - name: hidePublic
-      type: Boolean
+      type: boolean
+      advanced: true
       default: true
       description: 有数公共文件夹隐藏配置
     - name: side
-      type: Boolean
+      type: boolean
+      advanced: true
       default: false
       description: 有数侧边栏配置
     - name: toolbar
-      type: String
-      default: '["export", "refresh", "print"]'
+      advanced: true
+      type: array
+      multi: true
+      options:
+        - name: export
+          description: 导出
+        - name: refresh
+          description: 刷新
+        - name: print
+          description: 打印
+      default: ["export", "refresh", "print"]
       description: 有数功能键配置
     - name: mode
-      type: String
-      default: 'normal'
+      type: enum
+      advanced: true
+      options:
+        - name: simple
+          description: 箭头切换
+        - name: normal
+          description: tab 页切换
+      default: normal
       description: 有数底部导航条显示方式配置
   events:
     - name: load
