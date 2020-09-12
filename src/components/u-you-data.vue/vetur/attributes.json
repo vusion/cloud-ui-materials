@@ -4,55 +4,103 @@
     "description": "报表地址"
   },
   "u-you-data/width": {
-    "type": "String",
+    "type": "string",
     "description": "宽度"
   },
   "u-you-data/height": {
-    "type": "String",
+    "type": "string",
     "description": "高度"
   },
   "u-you-data/scale": {
-    "type": "String",
+    "type": "enum",
+    "options": [
+      {
+        "name": "100",
+        "description": "缩放100%"
+      },
+      {
+        "name": "width",
+        "description": "自适应宽度"
+      },
+      {
+        "name": "screen",
+        "description": "自适应窗口"
+      }
+    ],
     "description": "有数缩放配置"
   },
   "u-you-data/bottomBarPos": {
-    "type": "String",
-    "description": "有数底部栏放在顶部配置"
+    "type": "enum",
+    "options": [
+      {
+        "name": "bottom",
+        "description": "底部栏放在底部"
+      },
+      {
+        "name": "top",
+        "description": "底部栏放在顶部"
+      }
+    ],
+    "description": "有数底部栏位置配置"
   },
   "u-you-data/hideProgressBar": {
-    "type": "Boolean",
+    "type": "boolean",
     "description": "有数顶部进度条隐藏配置"
   },
   "u-you-data/hidePageBar": {
-    "type": "Boolean",
+    "type": "boolean",
     "description": "有数底部工具栏隐藏配置"
   },
   "u-you-data/hideScaleBar": {
-    "type": "Boolean",
+    "type": "boolean",
     "description": "有数缩放栏隐藏配置"
   },
   "u-you-data/hideTitle": {
-    "type": "Boolean",
+    "type": "boolean",
     "description": "有数顶部标题栏隐藏配置"
   },
   "u-you-data/hidePrivate": {
-    "type": "Boolean",
+    "type": "boolean",
     "description": "有数私有文件夹隐藏配置"
   },
   "u-you-data/hidePublic": {
-    "type": "Boolean",
+    "type": "boolean",
     "description": "有数公共文件夹隐藏配置"
   },
   "u-you-data/side": {
-    "type": "Boolean",
+    "type": "boolean",
     "description": "有数侧边栏配置"
   },
   "u-you-data/toolbar": {
-    "type": "String",
+    "type": "array",
+    "options": [
+      {
+        "name": "export",
+        "description": "导出"
+      },
+      {
+        "name": "refresh",
+        "description": "刷新"
+      },
+      {
+        "name": "print",
+        "description": "打印"
+      }
+    ],
     "description": "有数功能键配置"
   },
   "u-you-data/mode": {
-    "type": "String",
+    "type": "enum",
+    "options": [
+      {
+        "name": "simple",
+        "description": "箭头切换"
+      },
+      {
+        "name": "normal",
+        "description": "tab 页切换"
+      }
+    ],
     "description": "有数底部导航条显示方式配置"
   }
 }
