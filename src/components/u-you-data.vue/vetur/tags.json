@@ -2,8 +2,6 @@
   "u-you-data": {
     "attributes": [
       "src",
-      "width",
-      "height",
       "scale",
       "bottomBarPos",
       "hideProgressBar",

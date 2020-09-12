@@ -3,14 +3,6 @@
     "type": "string",
     "description": "报表地址"
   },
-  "u-you-data/width": {
-    "type": "string",
-    "description": "宽度"
-  },
-  "u-you-data/height": {
-    "type": "string",
-    "description": "高度"
-  },
   "u-you-data/scale": {
     "type": "enum",
     "options": [

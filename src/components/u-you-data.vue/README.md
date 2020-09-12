@@ -25,8 +25,6 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | src | string |  | `''` | 报表地址 |
-| width | string |  | `'auto'` | 宽度 |
-| height | string |  | `'auto'` | 高度 |
 | scale | enum | `[object Object]`, `[object Object]`, `[object Object]` | `'100'` | 有数缩放配置 |
 | bottomBarPos | enum | `[object Object]`, `[object Object]` | `'bottom'` | 有数底部栏位置配置 |
 | hideProgressBar | boolean |  | `true` | 有数顶部进度条隐藏配置 |
