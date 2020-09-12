@@ -7,14 +7,6 @@
       type: string
       default: ''
       description: 报表地址
-    - name: width
-      type: string
-      default: 'auto'
-      description: 宽度
-    - name: height
-      type: string
-      default: 'auto'
-      description: 高度
     - name: scale
       type: enum
       advanced: true

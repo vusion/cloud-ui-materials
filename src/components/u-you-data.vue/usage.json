@@ -6,8 +6,8 @@
         "title": "有数报表",
         "description": "有数报表集成组件",
         "labels": [
-            "报表",
-            "运行时"
+            "chart",
+            "runtime"
         ],
         "attrs": [
             {
@@ -15,18 +15,6 @@
                 "type": "string",
                 "default": "",
                 "description": "报表地址"
-            },
-            {
-                "name": "width",
-                "type": "string",
-                "default": "auto",
-                "description": "宽度"
-            },
-            {
-                "name": "height",
-                "type": "string",
-                "default": "auto",
-                "description": "高度"
             },
             {
                 "name": "scale",
@@ -168,7 +156,7 @@
     },
     "description": "有数报表集成组件",
     "labels": [
-        "报表",
-        "运行时"
+        "chart",
+        "runtime"
     ]
 }

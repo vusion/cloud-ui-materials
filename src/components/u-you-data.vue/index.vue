@@ -84,7 +84,7 @@ export default {
             default: false,
         },
         toolbar: {
-            type: String,
+            type: Array,
             default: () => ['export', 'refresh', 'print'],
         },
         mode: {
