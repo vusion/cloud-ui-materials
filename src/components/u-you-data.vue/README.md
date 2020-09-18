@@ -16,7 +16,7 @@
 ### 基本用法
 
 ``` html
-<u-you-data src="https://www.baidu.com" scale="width" style="width:400px;height:200px"></u-you-data>
+<u-you-data src="https://fengchao.youdata.netease.com/dash/integration/450200717?rid=38269&token=159989189077219a5e8f0bfc4674648569b33" scale="width" style="width:1200px;height:1100px"></u-you-data>
 ```
 
 ## API
@@ -25,8 +25,8 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | src | string |  | `''` | 报表地址 |
-| scale | enum | `[object Object]`, `[object Object]`, `[object Object]` | `'100'` | 有数缩放配置 |
-| bottomBarPos | enum | `[object Object]`, `[object Object]` | `'bottom'` | 有数底部栏位置配置 |
+| scale | string | `'100'` (缩放100%)<br/>`'width'` (自适应宽度)<br/>`'screen'` (自适应窗口) | `'100'` | 有数缩放配置 |
+| bottomBarPos | string | `'bottom'` (底部栏放在底部)<br/>`'top'` (底部栏放在顶部) | `'bottom'` | 有数底部栏位置配置 |
 | hideProgressBar | boolean |  | `true` | 有数顶部进度条隐藏配置 |
 | hidePageBar | boolean |  | `true` | 有数底部工具栏隐藏配置 |
 | hideScaleBar | boolean |  | `true` | 有数缩放栏隐藏配置 |
@@ -34,8 +34,8 @@
 | hidePrivate | boolean |  | `true` | 有数私有文件夹隐藏配置 |
 | hidePublic | boolean |  | `true` | 有数公共文件夹隐藏配置 |
 | side | boolean |  | `false` | 有数侧边栏配置 |
-| toolbar | array | `[object Object]`, `[object Object]`, `[object Object]` | `[export, refresh, print]` | 有数功能键配置 |
-| mode | enum | `[object Object]`, `[object Object]` | `'normal'` | 有数底部导航条显示方式配置 |
+| toolbar | array | `'export'` (导出)<br/>`'refresh'` (刷新)<br/>`'print'` (打印) | `[export, refresh, print]` | 有数功能键配置 |
+| mode | string | `'simple'` (箭头切换)<br/>`'normal'` (tab 页切换) | `'normal'` | 有数底部导航条显示方式配置 |
 
 ### Events
 
