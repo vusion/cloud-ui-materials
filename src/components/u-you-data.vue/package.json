@@ -22,8 +22,8 @@
     "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
-    "lcap": "vusion lcap",
-    "deploy": "vusion deploy && vusion deploy screenshots",
+    "lcap": "node ./scripts/lcap",
+    "deploy": "vusion deploy && vusion deploy screenshots && npm run lcap",
     "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
     "release": "vusion publish"
   },
