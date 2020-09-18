@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/u-you-data",
   "description": "Cloud UI - UYouData",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "./index.js",
   "author": "",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/components/u-you-data.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.7/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.8/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -23,7 +23,7 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
     "lcap": "node ./scripts/lcap",
-    "deploy": "vusion deploy && vusion deploy screenshots && npm run lcap",
+    "deploy": "vusion deploy && vusion deploy screenshots && npm run lcap && git add .",
     "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
     "release": "vusion publish"
   },
@@ -42,7 +42,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.7/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.8/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"

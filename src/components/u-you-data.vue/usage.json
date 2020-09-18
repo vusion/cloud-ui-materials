@@ -6,7 +6,7 @@
         "title": "有数报表",
         "description": "有数报表集成组件",
         "category": "chart",
-        "screenShot": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.6/screenshots/0.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.8/screenshots/0.png",
         "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-you-data src=\\\"https://fengchao.youdata.netease.com/dash/integration/450200717?rid=38269&token=159989189077219a5e8f0bfc4674648569b33\\\" scale=\\\"width\\\" style=\\\"width:1200px;height:1100px\\\"></u-you-data>\\n</template>\\n\"}]",
         "attrs": [
             {
@@ -159,6 +159,6 @@
         "chart",
         "runtime"
     ],
-    "screenShot": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.6/screenshots/0.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/@cloud-ui/u-you-data@0.1.8/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-you-data src=\\\"https://fengchao.youdata.netease.com/dash/integration/450200717?rid=38269&token=159989189077219a5e8f0bfc4674648569b33\\\" scale=\\\"width\\\" style=\\\"width:1200px;height:1100px\\\"></u-you-data>\\n</template>\\n\"}]"
 }
