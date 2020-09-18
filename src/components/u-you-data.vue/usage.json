@@ -5,10 +5,9 @@
         "name": "u-you-data",
         "title": "有数报表",
         "description": "有数报表集成组件",
-        "labels": [
-            "chart",
-            "runtime"
-        ],
+        "category": "chart",
+        "screenShot": "[\"0.png\"]",
+        "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-you-data src=\\\"https://fengchao.youdata.netease.com/dash/integration/450200717?rid=38269&token=159989189077219a5e8f0bfc4674648569b33\\\" scale=\\\"width\\\" style=\\\"width:1200px;height:1100px\\\"></u-you-data>\\n</template>\\n\"}]",
         "attrs": [
             {
                 "name": "src",
@@ -18,7 +17,7 @@
             },
             {
                 "name": "scale",
-                "type": "enum",
+                "type": "string",
                 "advanced": true,
                 "options": [
                     {
@@ -39,7 +38,7 @@
             },
             {
                 "name": "bottomBarPos",
-                "type": "enum",
+                "type": "string",
                 "default": "bottom",
                 "advanced": true,
                 "options": [
@@ -131,7 +130,7 @@
             },
             {
                 "name": "mode",
-                "type": "enum",
+                "type": "string",
                 "advanced": true,
                 "options": [
                     {
@@ -158,5 +157,7 @@
     "labels": [
         "chart",
         "runtime"
-    ]
+    ],
+    "screenShot": "[\"0.png\"]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-you-data src=\\\"https://fengchao.youdata.netease.com/dash/integration/450200717?rid=38269&token=159989189077219a5e8f0bfc4674648569b33\\\" scale=\\\"width\\\" style=\\\"width:1200px;height:1100px\\\"></u-you-data>\\n</template>\\n\"}]"
 }

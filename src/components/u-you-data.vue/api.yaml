@@ -8,7 +8,7 @@
       default: ''
       description: 报表地址
     - name: scale
-      type: enum
+      type: string
       advanced: true
       options: 
         - name: '100'
@@ -20,7 +20,7 @@
       default: '100'
       description: 有数缩放配置
     - name: bottomBarPos
-      type: enum
+      type: string
       default: bottom
       advanced: true
       options: 
@@ -78,7 +78,7 @@
       default: ["export", "refresh", "print"]
       description: 有数功能键配置
     - name: mode
-      type: enum
+      type: string
       advanced: true
       options:
         - name: simple
