@@ -24,10 +24,10 @@
       default: bottom
       advanced: true
       options: 
-        - name: bottom
-          description: 底部栏放在底部
-        - name: top
-          description: 底部栏放在顶部
+        - value: bottom
+          name: 底部栏放在底部
+        - value: top
+          name: 底部栏放在顶部
       description: 有数底部栏位置配置
     - name: hideProgressBar
       type: boolean
@@ -69,12 +69,12 @@
       type: array
       multi: true
       options:
-        - name: export
-          description: 导出
-        - name: refresh
-          description: 刷新
-        - name: print
-          description: 打印
+        - value: export
+          name: 导出
+        - value: refresh
+          name: 刷新
+        - value: print
+          name: 打印
       default: ["export", "refresh", "print"]
       description: 有数功能键配置
     - name: mode
