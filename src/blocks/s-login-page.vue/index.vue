@@ -2,7 +2,7 @@
 <u-linear-layout :class="$style.root" type="flex" justify="center" alignment="center">
     <u-linear-layout direction="vertical" justify="center">
         <h1>登录</h1>
-        <s-login :src="`http://${tenant}.user.lcap.163yun.com`" @success="onSuccess"></s-login>
+        <s-login :src="`http://${tenant}.user.lcap.163yun.com`" :domainName="domainName" @success="onSuccess"></s-login>
     </u-linear-layout>
 </u-linear-layout>
 </template>
@@ -15,6 +15,7 @@ export default {
     data() {
         return {
             tenant: window.appInfo.tenant,
+            domainName: window.appInfo.domainName,
         };
     },
     methods: {
