@@ -1,0 +1,6 @@
+{
+  "lcap-configable-demo/src": {
+    "type": "string",
+    "description": "图片地址"
+  }
+}
