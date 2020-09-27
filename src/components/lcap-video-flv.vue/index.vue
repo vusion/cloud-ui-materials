@@ -123,16 +123,9 @@ export default {
 <style module>
 .root {
     position: relative;
-    width: 600px;
-    height: 450px;
+    text-align: center;
 }
 .root video {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: 0 auto;
     max-width: 100%;
     max-height: 100%;
 }
