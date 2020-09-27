@@ -1,28 +1,28 @@
 <!-- 该 README.md 根据 api.yaml 和 docs/*.md 自动生成，为了方便在 GitHub 和 NPM 上查阅。如需修改，请查看源文件 -->
 
-# LcapClock 时间
+# LcapVideoFlv FLV 视频流播放器
 
 - [示例](#示例)
     - [基本用法](#基本用法)
-    - [格式化设置](#格式化设置)
+    - [设置宽高样式](#设置宽高样式)
 - [API]()
     - [Props/Attrs](#propsattrs)
 
 **Display**
 
-时间显示器
+FLV 视频流播放器
 
 ## 示例
 ### 基本用法
 
 ``` html
-<lcap-video-flv></lcap-video-flv>
+<lcap-video-flv src="https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv" ></lcap-video-flv>
 ```
 
-### 格式化设置
+### 设置宽高样式
 
 ``` html
-<lcap-video-flv format="YYYY-MM-DD"></lcap-video-flv>
+<lcap-video-flv src="https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv" style="width:400px;height:225px"></lcap-video-flv>
 ```
 
 ## API
@@ -30,5 +30,11 @@
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| format | string |  | `'YYYY-MM-DD HH:mm'` | 支持对时间格式化 |
+| src | string |  |  | 视频流地址 |
+| type | string | `'flv'` ()<br/>`'mp4'` () | `'flv'` | 视频编码格式 |
+| autoplay | boolean |  | `false` | 是否自动播放 |
+| isLive | boolean |  | `false` | 是否直播流 |
+| cors | boolean |  | `true` | 是否支持第三方视频服务 |
+| withCredentials | boolean |  | `false` | 是否向第三方视频服务传递登录凭证 |
+| config | object |  |  | flv.js 其他配置 |
 

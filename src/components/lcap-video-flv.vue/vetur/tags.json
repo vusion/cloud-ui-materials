@@ -1,8 +1,14 @@
 {
   "lcap-video-flv": {
     "attributes": [
-      "format"
+      "src",
+      "type",
+      "autoplay",
+      "isLive",
+      "cors",
+      "withCredentials",
+      "config"
     ],
-    "description": "时间显示器"
+    "description": "FLV 视频流播放器"
   }
 }
