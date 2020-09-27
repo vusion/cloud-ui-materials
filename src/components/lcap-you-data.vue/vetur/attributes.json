@@ -1,9 +1,9 @@
 {
-  "u-you-data/src": {
+  "lcap-you-data/src": {
     "type": "string",
     "description": "报表地址"
   },
-  "u-you-data/scale": {
+  "lcap-you-data/scale": {
     "type": "string",
     "options": [
       {
@@ -21,7 +21,7 @@
     ],
     "description": "有数缩放配置"
   },
-  "u-you-data/bottomBarPos": {
+  "lcap-you-data/bottomBarPos": {
     "type": "string",
     "options": [
       {
@@ -35,35 +35,35 @@
     ],
     "description": "有数底部栏位置配置"
   },
-  "u-you-data/hideProgressBar": {
+  "lcap-you-data/hideProgressBar": {
     "type": "boolean",
     "description": "有数顶部进度条隐藏配置"
   },
-  "u-you-data/hidePageBar": {
+  "lcap-you-data/hidePageBar": {
     "type": "boolean",
     "description": "有数底部工具栏隐藏配置"
   },
-  "u-you-data/hideScaleBar": {
+  "lcap-you-data/hideScaleBar": {
     "type": "boolean",
     "description": "有数缩放栏隐藏配置"
   },
-  "u-you-data/hideTitle": {
+  "lcap-you-data/hideTitle": {
     "type": "boolean",
     "description": "有数顶部标题栏隐藏配置"
   },
-  "u-you-data/hidePrivate": {
+  "lcap-you-data/hidePrivate": {
     "type": "boolean",
     "description": "有数私有文件夹隐藏配置"
   },
-  "u-you-data/hidePublic": {
+  "lcap-you-data/hidePublic": {
     "type": "boolean",
     "description": "有数公共文件夹隐藏配置"
   },
-  "u-you-data/side": {
+  "lcap-you-data/side": {
     "type": "boolean",
     "description": "有数侧边栏配置"
   },
-  "u-you-data/toolbar": {
+  "lcap-you-data/toolbar": {
     "type": "array",
     "options": [
       {
@@ -81,7 +81,7 @@
     ],
     "description": "有数功能键配置"
   },
-  "u-you-data/mode": {
+  "lcap-you-data/mode": {
     "type": "string",
     "options": [
       {

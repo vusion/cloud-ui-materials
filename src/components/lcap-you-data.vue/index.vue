@@ -41,7 +41,7 @@
 
 <script>
 export default {
-    name: 'u-you-data',
+    name: 'lcap-you-data',
     props: {
         src: {
             type: String,

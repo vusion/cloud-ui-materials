@@ -1,4 +1,4 @@
-- name: u-you-data
+- name: lcap-you-data
   title: 有数报表
   description: 有数报表集成组件
   labels: ['chart', 'runtime']
