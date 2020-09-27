@@ -1,0 +1,72 @@
+{
+    "symbol": "lcap-video-flv",
+    "name": "FLV 视频流播放器",
+    "icon": "video",
+    "jsonSchema": {
+        "name": "lcap-video-flv",
+        "title": "FLV 视频流播放器",
+        "description": "FLV 视频流播放器",
+        "category": "Display",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-video-flv.vue@0.1.0/screenshots/.DS_Store,https://static-vusion.163yun.com/packages/lcap-video-flv.vue@0.1.0/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-video-flv.vue@0.1.0/screenshots/1.png",
+        "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\"></lcap-video-flv>\\n</template>\\n\"},{\"title\":\"设置宽高样式\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\" style=\\\"width:400px;height:225px\\\"></lcap-video-flv>\\n</template>\\n\"}]",
+        "attrs": [
+            {
+                "name": "src",
+                "type": "string",
+                "description": "视频流地址"
+            },
+            {
+                "name": "type",
+                "type": "string",
+                "default": "flv",
+                "options": [
+                    {
+                        "name": "flv",
+                        "title": "flv"
+                    },
+                    {
+                        "name": "mp4",
+                        "title": "mp4"
+                    }
+                ],
+                "description": "视频编码格式"
+            },
+            {
+                "name": "autoplay",
+                "type": "boolean",
+                "description": "是否自动播放",
+                "default": false
+            },
+            {
+                "name": "isLive",
+                "type": "boolean",
+                "description": "是否直播流",
+                "default": false
+            },
+            {
+                "name": "cors",
+                "type": "boolean",
+                "description": "是否支持第三方视频服务",
+                "default": true
+            },
+            {
+                "name": "withCredentials",
+                "type": "boolean",
+                "description": "是否向第三方视频服务传递登录凭证",
+                "default": false
+            },
+            {
+                "name": "config",
+                "type": "object",
+                "description": "flv.js 其他配置"
+            }
+        ],
+        "children": []
+    },
+    "description": "FLV 视频流播放器",
+    "labels": [
+        "Display"
+    ],
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-video-flv.vue@0.1.0/screenshots/.DS_Store,https://static-vusion.163yun.com/packages/lcap-video-flv.vue@0.1.0/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-video-flv.vue@0.1.0/screenshots/1.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\"></lcap-video-flv>\\n</template>\\n\"},{\"title\":\"设置宽高样式\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\" style=\\\"width:400px;height:225px\\\"></lcap-video-flv>\\n</template>\\n\"}]"
+}

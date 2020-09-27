@@ -1,0 +1,6 @@
+{
+  "lcap-video-flv/format": {
+    "type": "string",
+    "description": "支持对时间格式化"
+  }
+}

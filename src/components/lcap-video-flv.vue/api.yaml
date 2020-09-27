@@ -1,0 +1,46 @@
+- name: lcap-video-flv
+  title: FLV 视频流播放器
+  labels: [Display]
+  icon: video
+  description: FLV 视频流播放器
+  attrs:
+    - name: src
+      type: string
+      description: 视频流地址
+    - name: type
+      type: string
+      default: flv
+      options:
+        - name: flv
+          title: flv
+        - name: mp4
+          title: mp4
+      description: 视频编码格式
+    - name: autoplay
+      type: boolean
+      description: 是否自动播放
+      default: false
+    - name: isLive
+      type: boolean
+      description: 是否直播流
+      default: false
+    - name: cors
+      type: boolean
+      description: 是否支持第三方视频服务
+      default: true
+    - name: withCredentials
+      type: boolean
+      description: 是否向第三方视频服务传递登录凭证
+      default: false
+    - name: config
+      type: object
+      description: flv.js 其他配置
+  event:
+    - name: paly
+      description: 视频播放事件
+    - name: pause
+      description: 视频暂停事件
+    - name: destroy
+      description: 视频销毁事件
+      
+
