@@ -1,11 +1,11 @@
 {
   "name": "lcap-video-flv",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.0/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
