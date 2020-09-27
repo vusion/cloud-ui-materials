@@ -1,11 +1,11 @@
 {
-  "name": "lcap-clock.vue",
+  "name": "lcap-clock",
   "description": "",
   "version": "0.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/lcap-clock.vue@0.1.0/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/lcap-clock@0.1.0/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -38,8 +38,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/lcap-clock.vue@0.1.0/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/lcap-clock.vue@0.1.0/screenshots/1.png"
+      "https://static-vusion.163yun.com/packages/lcap-clock@0.1.0/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/lcap-clock@0.1.0/screenshots/1.png"
     ],
     "team": "",
     "access": "public"

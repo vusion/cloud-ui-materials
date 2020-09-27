@@ -7,7 +7,7 @@
         "title": "时间",
         "description": "时间显示器",
         "category": "Display",
-        "screenShot": "https://static-vusion.163yun.com/packages/lcap-clock.vue@0.1.0/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-clock.vue@0.1.0/screenshots/1.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-clock@0.1.0/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-clock@0.1.0/screenshots/1.png",
         "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-clock></lcap-clock>\\n</template>\\n\"},{\"title\":\"格式化设置\",\"description\":\"\",\"code\":\"<template>\\n<lcap-clock format=\\\"YYYY-MM-DD\\\"></lcap-clock>\\n</template>\\n\"}]",
         "attrs": [
             {
@@ -23,6 +23,6 @@
     "labels": [
         "Display"
     ],
-    "screenShot": "https://static-vusion.163yun.com/packages/lcap-clock.vue@0.1.0/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-clock.vue@0.1.0/screenshots/1.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-clock@0.1.0/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-clock@0.1.0/screenshots/1.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-clock></lcap-clock>\\n</template>\\n\"},{\"title\":\"格式化设置\",\"description\":\"\",\"code\":\"<template>\\n<lcap-clock format=\\\"YYYY-MM-DD\\\"></lcap-clock>\\n</template>\\n\"}]"
 }
