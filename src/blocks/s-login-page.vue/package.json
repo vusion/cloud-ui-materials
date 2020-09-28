@@ -50,6 +50,6 @@
     "cloud-ui.vusion": "^0.9.12"
   },
   "vusionDependencies": {
-    "s-login.vue": "^0.2.3"
+    "lcap-login": "^0.2.3"
   }
 }
