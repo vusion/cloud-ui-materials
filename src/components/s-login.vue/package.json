@@ -1,0 +1,59 @@
+{
+  "name": "s-login.vue",
+  "description": "",
+  "version": "0.3.3",
+  "main": "./index.js",
+  "author": "daysai",
+  "repository": "",
+  "homepage": "https://static-vusion.163yun.com/packages/s-login.vue@0.3.3/index.html",
+  "license": "MIT",
+  "keywords": [
+    "vusion",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
+    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
+    "deploy": "vusion deploy && vusion deploy screenshots",
+    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "release": "vusion publish"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "component",
+    "title": "登录组件",
+    "category": "form",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [
+      "https://static-vusion.163yun.com/packages/s-login.vue@0.1.5/screenshots/0.png"
+    ],
+    "team": "网易云计算前端",
+    "access": "public"
+  },
+  "dependencies": {
+    "query-string": "^6.13.1"
+  },
+  "devDependencies": {},
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.11.9",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.9.12"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  }
+}
