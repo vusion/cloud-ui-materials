@@ -25,7 +25,7 @@
 
 ``` vue
 <template>
-<x-echarts :options="options"></x-echarts>
+<lcap-x-echarts :options="options"></lcap-x-echarts>
 </template>
 <script>
 export default {
@@ -67,7 +67,7 @@ export default {
 
 ``` vue
 <template>
-<x-echarts :options="options"></x-echarts>
+<lcap-x-echarts :options="options"></lcap-x-echarts>
 </template>
 <script>
 export default {
@@ -121,7 +121,7 @@ export default {
 
 ``` vue
 <template>
-<x-echarts border :options="options"></x-echarts>
+<lcap-x-echarts border :options="options"></lcap-x-echarts>
 </template>
 <script>
 export default {
@@ -191,7 +191,7 @@ export default {
 
 ``` vue
 <template>
-<x-echarts border :options="options" style="width: 420px; height: 240px;"></x-echarts>
+<lcap-x-echarts border :options="options" style="width: 420px; height: 240px;"></lcap-x-echarts>
 </template>
 <script>
 export default {

@@ -1,8 +1,8 @@
-### 柱状图
+### 基本用法
 
 ``` vue
 <template>
-<x-echarts :options="options"></x-echarts>
+<lcap-x-echarts :options="options"></lcap-x-echarts>
 </template>
 <script>
 export default {
@@ -14,10 +14,6 @@ export default {
                 }
 
                 return {
-                    title: {
-                        text: '柱状图示例',
-                        x: 'left',
-                    },
                     legend: {},
                     tooltip: {},
                     dataset: {
@@ -46,11 +42,9 @@ export default {
 </script>
 ```
 
-### 饼图
-
 ``` vue
 <template>
-<x-echarts :options="options"></x-echarts>
+<lcap-x-echarts :options="options"></lcap-x-echarts>
 </template>
 <script>
 export default {
@@ -59,7 +53,7 @@ export default {
 			options: {
                 title: {
                     text: '饼图示例',
-                    x: 'left',
+                    x: 'center',
                 },
                 tooltip: {
                     trigger: 'item',
@@ -67,7 +61,7 @@ export default {
                 },
                 legend: {
                     orient: 'vertical',
-                    left: 'right',
+                    left: 'left',
                     data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
                 },
                 series: [
@@ -96,11 +90,15 @@ export default {
 </script>
 ```
 
-### 甜圈图
+### 添加边框
+
+默认的 ECharts 没有边框，为了方便，实现在了组件中。
+
+只需开启`border`属性即可。
 
 ``` vue
 <template>
-<x-echarts :options="options"></x-echarts>
+<lcap-x-echarts border :options="options"></lcap-x-echarts>
 </template>
 <script>
 export default {
@@ -125,6 +123,76 @@ export default {
                         name:'访问来源',
                         type:'pie',
                         radius: ['45%', '60%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '24',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            borderWidth: 2,
+                            borderColor: 'white',
+                        },
+                        data:[
+                            { value: 335, name: '直接访问' },
+                            { value: 310, name: '邮件营销' },
+                            { value: 234, name: '联盟广告' },
+                            { value: 135, name: '视频广告' },
+                            { value: 1548, name: '搜索引擎' },
+                        ],
+                    },
+                ],
+            },
+        };
+	},
+};
+</script>
+```
+
+### 设置宽高
+
+直接添加`style`属性。
+
+``` vue
+<template>
+<lcap-x-echarts border :options="options" style="width: 420px; height: 240px;"></lcap-x-echarts>
+</template>
+<script>
+export default {
+	data() {
+		return {
+			options: {
+                title: {
+                    text: '甜圈图示例',
+                    x: 'left',
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'right',
+                    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                },
+                series: [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        radius: ['60%', '80%'],
                         avoidLabelOverlap: false,
                         label: {
                             normal: {

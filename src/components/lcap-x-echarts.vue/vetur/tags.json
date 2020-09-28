@@ -1,5 +1,5 @@
 {
-  "x-echarts": {
+  "lcap-x-echarts": {
     "attributes": [
       "init-options",
       "options",

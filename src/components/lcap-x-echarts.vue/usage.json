@@ -1,0 +1,246 @@
+{
+    "symbol": "lcap-x-echarts",
+    "name": "百度图表",
+    "icon": "chart",
+    "jsonSchema": {
+        "name": "lcap-x-echarts",
+        "title": "百度图表",
+        "description": "本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。",
+        "category": "Chart",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/1.png,https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/2.png,https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/3.png",
+        "blocks": "[{\"title\":\"柱状图\",\"description\":\"\",\"code\":\"<template>\\n<lcap-x-echarts :options=\\\"options\\\"></lcap-x-echarts>\\n</template>\\n<script>\\nexport default {\\n\\tdata() {\\n\\t\\treturn {\\n\\t\\t\\toptions: (() => {\\n                function randomize() {\\n                    return [0, 0, 0].map((v) => Math.round(300 + Math.random() * 700) / 10);\\n                }\\n\\n                return {\\n                    title: {\\n                        text: '柱状图示例',\\n                        x: 'left',\\n                    },\\n                    legend: {},\\n                    tooltip: {},\\n                    dataset: {\\n                        // Provide data.\\n                        source: [\\n                            ['Product', '2015', '2016', '2017'],\\n                            ['Matcha Latte', ...randomize()],\\n                            ['Milk Tea', ...randomize()],\\n                            ['Cheese Cocoa', ...randomize()],\\n                            ['Walnut Brownie', ...randomize()],\\n                        ],\\n                    },\\n                    // Declare X axis, which is a category axis, mapping\\n                    // to the first column by default.\\n                    xAxis: { type: 'category' },\\n                    // Declare Y axis, which is a value axis.\\n                    yAxis: {},\\n                    // Declare several series, each of them mapped to a\\n                    // column of the dataset by default.\\n                    series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],\\n                };\\n            })(),\\n\\t\\t}\\n\\t}\\n};\\n</script>\\n\"},{\"title\":\"饼图\",\"description\":\"\",\"code\":\"<template>\\n<lcap-x-echarts :options=\\\"options\\\"></lcap-x-echarts>\\n</template>\\n<script>\\nexport default {\\n\\tdata() {\\n\\t\\treturn {\\n\\t\\t\\toptions: {\\n                title: {\\n                    text: '饼图示例',\\n                    x: 'left',\\n                },\\n                tooltip: {\\n                    trigger: 'item',\\n                    formatter: '{a} <br/>{b} : {c} ({d}%)',\\n                },\\n                legend: {\\n                    orient: 'vertical',\\n                    left: 'right',\\n                    data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],\\n                },\\n                series: [\\n                    {\\n                        name: '访问来源',\\n                        type: 'pie',\\n                        radius: '55%',\\n                        center: ['50%', '60%'],\\n                        data: [\\n                            { value: 335, name: '直接访问' },\\n                            { value: 310, name: '邮件营销' },\\n                            { value: 234, name: '联盟广告' },\\n                            { value: 135, name: '视频广告' },\\n                            { value: 1548, name: '搜索引擎' },\\n                        ],\\n                        itemStyle: {\\n                            borderWidth: 2,\\n                            borderColor: 'white',\\n                        },\\n                    },\\n                ],\\n            },\\n\\t\\t}\\n\\t}\\n};\\n</script>\\n\"},{\"title\":\"甜圈图\",\"description\":\"\",\"code\":\"<template>\\n<lcap-x-echarts :options=\\\"options\\\"></lcap-x-echarts>\\n</template>\\n<script>\\nexport default {\\n\\tdata() {\\n\\t\\treturn {\\n\\t\\t\\toptions: {\\n                title: {\\n                    text: '甜圈图示例',\\n                    x: 'left',\\n                },\\n                tooltip: {\\n                    trigger: 'item',\\n                    formatter: \\\"{a} <br/>{b}: {c} ({d}%)\\\"\\n                },\\n                legend: {\\n                    orient: 'vertical',\\n                    x: 'right',\\n                    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']\\n                },\\n                series: [\\n                    {\\n                        name:'访问来源',\\n                        type:'pie',\\n                        radius: ['45%', '60%'],\\n                        avoidLabelOverlap: false,\\n                        label: {\\n                            normal: {\\n                                show: false,\\n                                position: 'center'\\n                            },\\n                            emphasis: {\\n                                show: true,\\n                                textStyle: {\\n                                    fontSize: '24',\\n                                    fontWeight: 'bold'\\n                                }\\n                            }\\n                        },\\n                        labelLine: {\\n                            normal: {\\n                                show: false\\n                            }\\n                        },\\n                        itemStyle: {\\n                            borderWidth: 2,\\n                            borderColor: 'white',\\n                        },\\n                        data:[\\n                            { value: 335, name: '直接访问' },\\n                            { value: 310, name: '邮件营销' },\\n                            { value: 234, name: '联盟广告' },\\n                            { value: 135, name: '视频广告' },\\n                            { value: 1548, name: '搜索引擎' },\\n                        ],\\n                    },\\n                ],\\n            },\\n        };\\n\\t},\\n};\\n</script>\\n\"}]",
+        "attrs": [
+            {
+                "name": "init-options",
+                "type": "object",
+                "default": null,
+                "description": "初始化实例"
+            },
+            {
+                "name": "options",
+                "type": "object",
+                "default": null,
+                "description": "ECharts 实例的数据。修改这个 prop 会触发 ECharts 实例的 `setOption` 方法。如果直接修改 `options` 绑定的数据而对象引用保持不变，`setOption` 方法调用时将带有参数 `notMerge: false`。否则，如果为 `options` 绑定一个新的对象，`setOption` 方法调用时则将带有参数 `notMerge: true`。"
+            },
+            {
+                "name": "theme",
+                "type": "string",
+                "default": null,
+                "description": "设置主题"
+            },
+            {
+                "name": "group",
+                "type": "string",
+                "default": null,
+                "description": "实例的分组，会自动绑定到 ECharts 组件的同名属性上。"
+            },
+            {
+                "name": "autoresize",
+                "type": "boolean",
+                "default": true,
+                "description": "指定 ECharts 实例在组件根元素尺寸变化时是否需要自动进行重绘。"
+            },
+            {
+                "name": "manual-update",
+                "type": "boolean",
+                "default": false,
+                "description": "在性能敏感（数据量很大）的场景下，我们最好对于 `options` prop 绕过 Vue 的响应式系统。当将 `manual-update` prop 指定为 `true` 且不传入 `options` prop 时，数据将不会被监听。然后，你需要用 `ref` 获取组件实例以后手动调用 `mergeOptions` 方法来更新图表。"
+            },
+            {
+                "name": "border",
+                "type": "boolean",
+                "default": false,
+                "description": "是否添加边框"
+            }
+        ],
+        "events": [
+            {
+                "name": "legendselectchanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "legendselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "legendunselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "legendscroll",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "datazoom",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "datarangeselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "timelinechanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "timelineplaychanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "restore",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "dataviewchanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "magictypechanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "geoselectchanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "geoselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "geounselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "pieselectchanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "pieselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "pieunselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mapselectchanged",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mapselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mapunselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "axisareaselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "focusnodeadjacency",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "unfocusnodeadjacency",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "brush",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "brushselected",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "rendered",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "finished",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "click",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "dblclick",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mouseover",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mouseout",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mousemove",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mousedown",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "mouseup",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "globalout",
+                "description": null,
+                "params": []
+            },
+            {
+                "name": "contextmenu",
+                "description": null,
+                "params": []
+            }
+        ],
+        "children": []
+    },
+    "description": "本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。",
+    "labels": [
+        "Chart"
+    ],
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/1.png,https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/2.png,https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/3.png",
+    "blocks": "[{\"title\":\"柱状图\",\"description\":\"\",\"code\":\"<template>\\n<lcap-x-echarts :options=\\\"options\\\"></lcap-x-echarts>\\n</template>\\n<script>\\nexport default {\\n\\tdata() {\\n\\t\\treturn {\\n\\t\\t\\toptions: (() => {\\n                function randomize() {\\n                    return [0, 0, 0].map((v) => Math.round(300 + Math.random() * 700) / 10);\\n                }\\n\\n                return {\\n                    title: {\\n                        text: '柱状图示例',\\n                        x: 'left',\\n                    },\\n                    legend: {},\\n                    tooltip: {},\\n                    dataset: {\\n                        // Provide data.\\n                        source: [\\n                            ['Product', '2015', '2016', '2017'],\\n                            ['Matcha Latte', ...randomize()],\\n                            ['Milk Tea', ...randomize()],\\n                            ['Cheese Cocoa', ...randomize()],\\n                            ['Walnut Brownie', ...randomize()],\\n                        ],\\n                    },\\n                    // Declare X axis, which is a category axis, mapping\\n                    // to the first column by default.\\n                    xAxis: { type: 'category' },\\n                    // Declare Y axis, which is a value axis.\\n                    yAxis: {},\\n                    // Declare several series, each of them mapped to a\\n                    // column of the dataset by default.\\n                    series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],\\n                };\\n            })(),\\n\\t\\t}\\n\\t}\\n};\\n</script>\\n\"},{\"title\":\"饼图\",\"description\":\"\",\"code\":\"<template>\\n<lcap-x-echarts :options=\\\"options\\\"></lcap-x-echarts>\\n</template>\\n<script>\\nexport default {\\n\\tdata() {\\n\\t\\treturn {\\n\\t\\t\\toptions: {\\n                title: {\\n                    text: '饼图示例',\\n                    x: 'left',\\n                },\\n                tooltip: {\\n                    trigger: 'item',\\n                    formatter: '{a} <br/>{b} : {c} ({d}%)',\\n                },\\n                legend: {\\n                    orient: 'vertical',\\n                    left: 'right',\\n                    data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],\\n                },\\n                series: [\\n                    {\\n                        name: '访问来源',\\n                        type: 'pie',\\n                        radius: '55%',\\n                        center: ['50%', '60%'],\\n                        data: [\\n                            { value: 335, name: '直接访问' },\\n                            { value: 310, name: '邮件营销' },\\n                            { value: 234, name: '联盟广告' },\\n                            { value: 135, name: '视频广告' },\\n                            { value: 1548, name: '搜索引擎' },\\n                        ],\\n                        itemStyle: {\\n                            borderWidth: 2,\\n                            borderColor: 'white',\\n                        },\\n                    },\\n                ],\\n            },\\n\\t\\t}\\n\\t}\\n};\\n</script>\\n\"},{\"title\":\"甜圈图\",\"description\":\"\",\"code\":\"<template>\\n<lcap-x-echarts :options=\\\"options\\\"></lcap-x-echarts>\\n</template>\\n<script>\\nexport default {\\n\\tdata() {\\n\\t\\treturn {\\n\\t\\t\\toptions: {\\n                title: {\\n                    text: '甜圈图示例',\\n                    x: 'left',\\n                },\\n                tooltip: {\\n                    trigger: 'item',\\n                    formatter: \\\"{a} <br/>{b}: {c} ({d}%)\\\"\\n                },\\n                legend: {\\n                    orient: 'vertical',\\n                    x: 'right',\\n                    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']\\n                },\\n                series: [\\n                    {\\n                        name:'访问来源',\\n                        type:'pie',\\n                        radius: ['45%', '60%'],\\n                        avoidLabelOverlap: false,\\n                        label: {\\n                            normal: {\\n                                show: false,\\n                                position: 'center'\\n                            },\\n                            emphasis: {\\n                                show: true,\\n                                textStyle: {\\n                                    fontSize: '24',\\n                                    fontWeight: 'bold'\\n                                }\\n                            }\\n                        },\\n                        labelLine: {\\n                            normal: {\\n                                show: false\\n                            }\\n                        },\\n                        itemStyle: {\\n                            borderWidth: 2,\\n                            borderColor: 'white',\\n                        },\\n                        data:[\\n                            { value: 335, name: '直接访问' },\\n                            { value: 310, name: '邮件营销' },\\n                            { value: 234, name: '联盟广告' },\\n                            { value: 135, name: '视频广告' },\\n                            { value: 1548, name: '搜索引擎' },\\n                        ],\\n                    },\\n                ],\\n            },\\n        };\\n\\t},\\n};\\n</script>\\n\"}]"
+}

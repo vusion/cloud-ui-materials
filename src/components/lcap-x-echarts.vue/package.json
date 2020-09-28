@@ -1,5 +1,5 @@
 {
-  "name": "@cloud-ui/x-echarts.vue",
+  "name": "lcap-x-echarts",
   "description": "本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。",
   "version": "0.9.2",
   "author": "wt911122",
@@ -7,9 +7,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/vusion/cloud-ui-materials.git",
-    "directory": "src/components/x-echarts.vue"
+    "directory": "src/components/lcap-x-echarts"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.2/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/index.html",
   "bugs": "http://github.com/vusion/cloud-ui-materials/issues",
   "license": "MIT",
   "keywords": [
@@ -25,7 +25,8 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
+    "lcap": "node ./scripts/lcap",
+    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && npm run lcap && git add . && vusion readme && vusion vetur",
     "release": "vusion publish"
   },
   "vuePlugins": {
@@ -55,9 +56,9 @@
     "team": "网易云计算前端",
     "access": "public",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.2/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.2/screenshots/1.png",
-      "https://static-vusion.163yun.com/packages/@cloud-ui/x-echarts.vue@0.9.2/screenshots/2.png"
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/0.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/1.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/2.png"
     ]
   }
 }
