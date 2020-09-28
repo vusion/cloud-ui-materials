@@ -1,0 +1,50 @@
+{
+  "lcap-login/src": {
+    "type": "string",
+    "description": "登录页的目标地址"
+  },
+  "lcap-login/domainName": {
+    "type": "string",
+    "description": "配置登录应用信息"
+  },
+  "lcap-login/useNormal": {
+    "type": "boolean",
+    "description": "是否开启普通登录，默认开启"
+  },
+  "lcap-login/useQZ": {
+    "type": "boolean",
+    "description": "是否开启轻舟登录，默认关闭"
+  },
+  "lcap-login/useLdap": {
+    "type": "boolean",
+    "description": "是否开启LDAP登录，默认关闭"
+  },
+  "lcap-login/useNetease": {
+    "type": "boolean",
+    "description": "是否开启OpenID登录，默认关闭"
+  },
+  "lcap-login/neteaseClientId": {
+    "type": "string",
+    "description": "配置OpenID Client ID"
+  },
+  "lcap-login/useGithub": {
+    "type": "boolean",
+    "description": "是否开启Github登录，默认关闭"
+  },
+  "lcap-login/githubClientId": {
+    "type": "string",
+    "description": "配置Github Client ID"
+  },
+  "lcap-login/useWechat": {
+    "type": "boolean",
+    "description": "是否开启微信登录，默认关闭"
+  },
+  "lcap-login/wechatClientId": {
+    "type": "string",
+    "description": "配置Wechat Client ID"
+  },
+  "lcap-login/exdays": {
+    "type": "number",
+    "description": "设置 Cookie 过期天数"
+  }
+}

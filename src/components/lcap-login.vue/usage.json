@@ -1,0 +1,143 @@
+{
+    "symbol": "lcap-login",
+    "name": "登录",
+    "icon": "default",
+    "jsonSchema": {
+        "name": "lcap-login",
+        "title": "登录",
+        "description": "账号与权限中心的统一认证登录组件",
+        "category": "runtime",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.3/screenshots/0.png",
+        "blocks": "[]",
+        "attrs": [
+            {
+                "name": "src",
+                "title": "登录页地址",
+                "type": "string",
+                "default": "http://nuims.vusion.top/clogin",
+                "description": "登录页的目标地址"
+            },
+            {
+                "name": "domainName",
+                "title": "登录应用信息",
+                "type": "string",
+                "description": "配置登录应用信息"
+            },
+            {
+                "name": "useNormal",
+                "title": "开启普通登录",
+                "type": "boolean",
+                "default": true,
+                "description": "是否开启普通登录，默认开启"
+            },
+            {
+                "name": "useQZ",
+                "title": "开启轻舟登录",
+                "type": "boolean",
+                "default": false,
+                "description": "是否开启轻舟登录，默认关闭"
+            },
+            {
+                "name": "useLdap",
+                "title": "开启LDAP登录",
+                "type": "boolean",
+                "default": false,
+                "description": "是否开启LDAP登录，默认关闭"
+            },
+            {
+                "name": "useNetease",
+                "title": "开启OpenID登录",
+                "type": "boolean",
+                "default": false,
+                "description": "是否开启OpenID登录，默认关闭"
+            },
+            {
+                "name": "neteaseClientId",
+                "title": "OpenID Client ID",
+                "type": "string",
+                "description": "配置OpenID Client ID"
+            },
+            {
+                "name": "useGithub",
+                "title": "开启Github登录",
+                "type": "boolean",
+                "default": false,
+                "description": "是否开启Github登录，默认关闭"
+            },
+            {
+                "name": "githubClientId",
+                "title": "Github Client ID",
+                "type": "string",
+                "description": "配置Github Client ID"
+            },
+            {
+                "name": "useWechat",
+                "title": "开启微信登录",
+                "type": "boolean",
+                "default": false,
+                "description": "是否开启微信登录，默认关闭"
+            },
+            {
+                "name": "wechatClientId",
+                "title": "Wechat Client ID",
+                "type": "string",
+                "description": "配置Wechat Client ID"
+            },
+            {
+                "name": "exdays",
+                "title": "过期天数",
+                "type": "number",
+                "default": 1,
+                "description": "设置 Cookie 过期天数"
+            }
+        ],
+        "events": [
+            {
+                "name": "success",
+                "title": "登录成功后",
+                "description": "登录成功后触发",
+                "params": [
+                    {
+                        "name": "$event.Authorization",
+                        "type": "string",
+                        "description": "登录成功后为用户颁发的 AccessToken"
+                    },
+                    {
+                        "name": "$event.UserId",
+                        "type": "string",
+                        "description": "用户 ID"
+                    },
+                    {
+                        "name": "$event.UserName",
+                        "type": "string",
+                        "description": "用户名"
+                    },
+                    {
+                        "name": "$event.Message",
+                        "type": "string",
+                        "description": "登录成功的信息"
+                    }
+                ]
+            },
+            {
+                "name": "error",
+                "title": "登录失败后",
+                "description": "登录失败后触发",
+                "params": [
+                    {
+                        "name": "$event.Message",
+                        "type": "string",
+                        "description": "登录失败的信息"
+                    }
+                ]
+            }
+        ],
+        "children": []
+    },
+    "description": "账号与权限中心的统一认证登录组件",
+    "labels": [
+        "runtime"
+    ],
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.3/screenshots/0.png",
+    "blocks": "[]"
+}

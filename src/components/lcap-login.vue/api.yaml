@@ -1,5 +1,7 @@
-- name: s-login
+- name: lcap-login
   title: 登录
+  icon: default
+  labels: [runtime]
   description: 账号与权限中心的统一认证登录组件
   attrs:
     - name: src

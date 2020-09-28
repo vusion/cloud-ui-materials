@@ -36,7 +36,7 @@ const rmLastSlash = (str) => {
 const commonType = 'clogin';
 
 export default {
-    name: 's-login',
+    name: 'lcap-login',
     props: {
         src: {
             type: String,
