@@ -459,3 +459,21 @@
 ``` html
 <lcap-configable-demo src="https://raw.githubusercontent.com/vusion/cloud-ui-materials/master/src/components/lcap-configable-demo.vue/assets/Tanks/Tank 9.png" ></lcap-configable-demo>
 ```
+
+### 高炉-1
+
+``` html
+<lcap-configable-demo src="https://raw.githubusercontent.com/vusion/cloud-ui-materials/master/src/components/lcap-configable-demo.vue/assets/高炉/1.jpg" ></lcap-configable-demo>
+```
+
+### 高炉-2
+
+``` html
+<lcap-configable-demo src="https://raw.githubusercontent.com/vusion/cloud-ui-materials/master/src/components/lcap-configable-demo.vue/assets/高炉/2.jpg" ></lcap-configable-demo>
+```
+
+### 高炉-3
+
+``` html
+<lcap-configable-demo src="https://raw.githubusercontent.com/vusion/cloud-ui-materials/master/src/components/lcap-configable-demo.vue/assets/高炉/3.gif" ></lcap-configable-demo>
+```
