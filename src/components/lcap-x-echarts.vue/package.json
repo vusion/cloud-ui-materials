@@ -23,7 +23,7 @@
     "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
     "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "screenshot": "vusion screenshot public/index.html#blocks --code-example --max-count 11 --smart-crop --package",
     "deploy": "vusion deploy && vusion deploy screenshots",
     "lcap": "node ./scripts/lcap",
     "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && npm run lcap && git add . && vusion readme && vusion vetur",
@@ -58,7 +58,15 @@
     "screenshots": [
       "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/0.png",
       "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/1.png",
-      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/2.png"
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/2.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/3.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/4.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/5.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/6.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/7.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/8.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/9.png",
+      "https://static-vusion.163yun.com/packages/lcap-x-echarts@0.9.2/screenshots/10.png"
     ]
   }
 }
