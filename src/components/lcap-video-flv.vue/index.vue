@@ -42,6 +42,14 @@ export default {
             type: Boolean,
             default: false,
         },
+        hasAudio: {
+            type: Boolean,
+            default: true,
+        },
+        hasVideo: {
+            type: Boolean,
+            default: true,
+        },
         config: {
             type: Object,
             default: () => ({}),
@@ -102,6 +110,8 @@ export default {
                 isLive: this.isLive,
                 cors: this.cors,
                 withCredentials: this.withCredentials,
+                hasAudio: this.hasAudio,
+                hasVideo: this.hasVideo,
             }, this.config);
             if (this.ready) {
                 player.attachMediaElement(this.$refs.video);
