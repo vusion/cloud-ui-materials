@@ -7,7 +7,7 @@
     "depDescription": {},
     "description": "FLV 视频流播放器",
     "labels": [
-        "Display"
+        "Media"
     ],
     "screenShot": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.2/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.2/screenshots/1.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\"></lcap-video-flv>\\n</template>\\n\"},{\"title\":\"设置宽高样式\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\" style=\\\"width:400px\\\"></lcap-video-flv>\\n</template>\\n\"}]",
@@ -15,7 +15,7 @@
         "name": "lcap-video-flv",
         "title": "FLV 视频流播放器",
         "description": "FLV 视频流播放器",
-        "category": "Display",
+        "category": "Media",
         "screenShot": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.2/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.2/screenshots/1.png",
         "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\"></lcap-video-flv>\\n</template>\\n\"},{\"title\":\"设置宽高样式\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\" style=\\\"width:400px\\\"></lcap-video-flv>\\n</template>\\n\"}]",
         "attrs": [
@@ -51,6 +51,18 @@
                 "type": "boolean",
                 "description": "是否直播流",
                 "default": false
+            },
+            {
+                "name": "hasVideo",
+                "type": "boolean",
+                "description": "是否有视频",
+                "default": true
+            },
+            {
+                "name": "hasAudio",
+                "type": "boolean",
+                "description": "是否有音频",
+                "default": true
             },
             {
                 "name": "cors",

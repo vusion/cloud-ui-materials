@@ -1,6 +1,6 @@
 - name: lcap-video-flv
   title: FLV 视频流播放器
-  labels: [Display]
+  labels: [Media]
   icon: video
   description: FLV 视频流播放器
   attrs:
@@ -24,6 +24,14 @@
       type: boolean
       description: 是否直播流
       default: false
+    - name: hasVideo
+      type: boolean
+      description: 是否有视频
+      default: true
+    - name: hasAudio
+      type: boolean
+      description: 是否有音频
+      default: true
     - name: cors
       type: boolean
       description: 是否支持第三方视频服务
