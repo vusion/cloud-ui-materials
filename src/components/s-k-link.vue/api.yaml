@@ -1,6 +1,8 @@
-- name: s-dashboard-link
-  title: 控制台入口组件
-  description: 请在这里添加描述
+- name: s-k-flv
+  title: k 项目导航入口
+  labels: [InfoDisplay]
+  icon: link
+  description: k 项目的多边形导航，内置图标
   attrs:
     - name: type
       type: string

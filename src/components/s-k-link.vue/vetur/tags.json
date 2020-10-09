@@ -1,5 +1,5 @@
 {
-  "s-dashboard-link": {
+  "s-k-flv": {
     "attributes": [
       "type",
       "href",
@@ -7,6 +7,6 @@
       "text",
       "color"
     ],
-    "description": "请在这里添加描述"
+    "description": "k 项目的多边形导航，内置图标"
   }
 }
