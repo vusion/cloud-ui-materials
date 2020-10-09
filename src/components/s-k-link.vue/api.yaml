@@ -1,0 +1,24 @@
+- name: s-dashboard-link
+  title: 控制台入口组件
+  description: 请在这里添加描述
+  attrs:
+    - name: type
+      type: string
+      default: index
+      description: 图标类型
+    - name: href
+      type: string
+      default: undefined
+      description: 绝对链接路径，同 Link
+    - name: to
+      type: string
+      default: undefined
+      description: 相对链接路径，同 Link
+    - name: text
+      type: string
+      default: undefined
+      description: 展示文案，默认根据类型匹配
+    - name: color
+      type: string
+      default: undefined
+      description: 展示图标背景色，默认根据类型匹配

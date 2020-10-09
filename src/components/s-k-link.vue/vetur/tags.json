@@ -1,0 +1,12 @@
+{
+  "s-dashboard-link": {
+    "attributes": [
+      "type",
+      "href",
+      "to",
+      "text",
+      "color"
+    ],
+    "description": "请在这里添加描述"
+  }
+}

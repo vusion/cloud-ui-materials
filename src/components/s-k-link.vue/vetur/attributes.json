@@ -1,0 +1,22 @@
+{
+  "s-dashboard-link/type": {
+    "type": "string",
+    "description": "图标类型"
+  },
+  "s-dashboard-link/href": {
+    "type": "string",
+    "description": "绝对链接路径，同 Link"
+  },
+  "s-dashboard-link/to": {
+    "type": "string",
+    "description": "相对链接路径，同 Link"
+  },
+  "s-dashboard-link/text": {
+    "type": "string",
+    "description": "展示文案，默认根据类型匹配"
+  },
+  "s-dashboard-link/color": {
+    "type": "string",
+    "description": "展示图标背景色，默认根据类型匹配"
+  }
+}
