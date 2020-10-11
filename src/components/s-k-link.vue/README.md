@@ -15,7 +15,7 @@ k 项目的多边形导航，内置图标
 ### 基本用法
 
 ``` html
-<s-k-link type="notice" to="/dashboard"></s-k-link>
+<s-k-link type="index" to="/index"></s-k-link>
 ```
 
 ## API
