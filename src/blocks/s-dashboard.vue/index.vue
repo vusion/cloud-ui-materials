@@ -48,6 +48,7 @@
     </template>
     <template #default>
         <u-linear-layout direction="vertical" :class="$style.main">
+            <s-crumb></s-crumb>
             <slot><router-view></router-view></slot>
         </u-linear-layout>
     </template>
@@ -78,7 +79,7 @@ export default {
         logout() {
             /* eslint-disable new-cap */
             this.$confirm(`确定退出登录吗？`, '提示')
-                .then(() => this.$service.auth.Logout())
+                .then(() => this.$services.auth.Logout())
                 .then(() => location.reload());
         },
     },
