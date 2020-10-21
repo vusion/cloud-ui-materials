@@ -33,28 +33,16 @@
       type: boolean
       default: false
       description: 是否开启OpenID登录，默认关闭
-    - name: neteaseClientId
-      title: OpenID Client ID
-      type: string
-      description: 配置OpenID Client ID
     - name: useGithub
       title: 开启Github登录
       type: boolean
       default: false
       description: 是否开启Github登录，默认关闭
-    - name: githubClientId
-      title: Github Client ID
-      type: string
-      description: 配置Github Client ID
     - name: useWechat
       title: 开启微信登录
       type: boolean
       default: false
       description: 是否开启微信登录，默认关闭
-    - name: wechatClientId
-      title: Wechat Client ID
-      type: string
-      description: 配置Wechat Client ID
     - name: exdays
       title: 过期天数
       type: number

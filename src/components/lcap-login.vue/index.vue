@@ -97,21 +97,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        // OpenID Client ID
-        neteaseClientId: {
-            type: String,
-            default: undefined,
-        },
-        // Github Client ID
-        githubClientId: {
-            type: String,
-            default: undefined,
-        },
-        // Wechat Client ID
-        wechatClientId: {
-            type: String,
-            default: undefined,
-        },
     },
     data() {
         return {
@@ -141,14 +126,6 @@ export default {
                 UserName: userName,
                 UserId: userId,
             });
-            const path = location.href.replace(/\?(\S*)/, '');
-            const queryStr = queryString.stringify({
-                ...query,
-                userName: undefined,
-                userId: undefined,
-                code: undefined,
-            });
-            location.href = queryStr ? `${path}?${queryStr}` : path;
             return;
         }
 
@@ -163,9 +140,6 @@ export default {
             useNetease,
             useGithub,
             useWechat,
-            neteaseClientId,
-            githubClientId,
-            wechatClientId,
         } = this;
         iFrame.onload = () => {
             this.loading = false;
@@ -177,9 +151,6 @@ export default {
                     useNetease,
                     useGithub,
                     domainName,
-                    neteaseClientId,
-                    githubClientId,
-                    wechatClientId,
                     from,
                     type: commonType,
                 },
