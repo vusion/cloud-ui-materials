@@ -2,7 +2,7 @@
 <u-linear-layout :class="$style.root" type="flex" justify="center" alignment="center">
     <u-linear-layout direction="vertical" justify="center">
         <h1>登录</h1>
-        <lcap-login :src="`http://${tenant}.user.lcap.163yun.com`" :domain-name="domainName" @success="onSuccess"></lcap-login>
+        <lcap-login :src="`http://${tenant}.${nuimsDomain}`" :domain-name="domainName" @success="onSuccess"></lcap-login>
     </u-linear-layout>
 </u-linear-layout>
 </template>
@@ -13,6 +13,7 @@ export default {
         return {
             tenant: window.appInfo.tenant,
             domainName: window.appInfo.domainName,
+            nuimsDomain: window.appInfo.nuimsDomain || 'lcap.163yun.com',
         };
     },
     methods: {
