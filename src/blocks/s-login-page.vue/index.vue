@@ -13,7 +13,7 @@ export default {
         return {
             tenant: window.appInfo.tenant,
             domainName: window.appInfo.domainName,
-            nuimsDomain: window.appInfo.nuimsDomain || 'lcap.163yun.com',
+            nuimsDomain: window.appInfo.nuimsDomain || 'user.lcap.163yun.com',
         };
     },
     methods: {
