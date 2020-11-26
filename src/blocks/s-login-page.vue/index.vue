@@ -1,5 +1,5 @@
 <template>
-<u-linear-layout :class="$style.root" type="flex" justify="center" alignment="center">
+<u-linear-layout type="flex" justify="center" alignment="center" style="background: url('https://static-vusion.163yun.com/assets/login-bg-1.jpg') no-repeat; background-size: cover; height: 100vh;">
     <u-linear-layout direction="vertical" justify="center">
         <h1>登录</h1>
         <lcap-login :src="`http://${tenant}.${nuimsDomain}`" :domain-name="domainName" @success="onSuccess"></lcap-login>
@@ -11,6 +11,7 @@
 export default {
     data() {
         return {
+            // window 等变量暂时不支持变成 ASL
             tenant: window.appInfo.tenant,
             domainName: window.appInfo.domainName,
             nuimsDomain: window.appInfo.nuimsDomain || 'user.lcap.163yun.com',
@@ -23,11 +24,3 @@ export default {
     },
 };
 </script>
-
-<style module>
-.root {
-    background: url('https://static-vusion.163yun.com/assets/login-bg-1.jpg') no-repeat;
-    background-size: cover;
-    height: 100vh;
-}
-</style>

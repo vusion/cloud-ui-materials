@@ -1,1 +1,22 @@
-{}
+{
+  "s-login/src": {
+    "type": "string",
+    "description": "登录页的目标地址"
+  },
+  "s-login/useNormal": {
+    "type": "boolean",
+    "description": "是否开启普通登录，默认开启"
+  },
+  "s-login/useQZ": {
+    "type": "boolean",
+    "description": "是否开启轻舟登录，默认关闭"
+  },
+  "s-login/useLDAP": {
+    "type": "boolean",
+    "description": "是否开启LDAP登录，默认关闭"
+  },
+  "s-login/exdays": {
+    "type": "number",
+    "description": "设置 Cookie 过期天数"
+  }
+}
