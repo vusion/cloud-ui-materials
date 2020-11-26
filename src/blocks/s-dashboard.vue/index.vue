@@ -48,7 +48,7 @@
     </template>
     <template #default>
         <u-linear-layout direction="vertical" :class="$style.main">
-            <s-crumb></s-crumb>
+            <u-crumb auto></u-crumb>
             <slot><router-view></router-view></slot>
         </u-linear-layout>
     </template>

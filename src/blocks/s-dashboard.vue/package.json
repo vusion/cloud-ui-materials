@@ -1,7 +1,7 @@
 {
   "name": "@cloud-ui/s-dashboard.vue",
   "description": "常见中后台系统中的顶部栏和左侧栏固定的仪表盘布局。",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "./index.js",
   "author": "Forrest <rainforest92@126.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/vusion/cloud-ui-materials.git",
     "directory": "src/blocks/s-dashboard.vue"
   },
-  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-dashboard.vue@0.1.6/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/@cloud-ui/s-dashboard.vue@0.1.7/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
