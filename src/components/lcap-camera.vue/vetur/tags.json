@@ -1,0 +1,12 @@
+{
+  "lcap-camera": {
+    "attributes": [
+      "width",
+      "height",
+      "value",
+      "url",
+      "converter"
+    ],
+    "description": "开启/关闭摄影头，支持截图、上传等功能"
+  }
+}
