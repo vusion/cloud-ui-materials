@@ -6,9 +6,9 @@
         <u-button @click="close()">关闭</u-button>
         <u-button color="primary" @click="snapshot()">截图</u-button>
     </u-linear-layout>
-    <canvas ref="canvas"></canvas>
+    <canvas v-show="false" ref="canvas"></canvas>
     <u-uploader v-if="url" ref="uploader" readonly
-        :url="url" :url-field="urlField"
+        :url="url" :url-field="urlField" :converter="converter"
         list-type="card" accept="image/png, image/jpg, image/jpeg, image/gif, image/bmp"
         :value="value"
         @send="$emit('send', $event, this)"
@@ -44,7 +44,7 @@ export default {
     name: 'lcap-camera',
     props: {
         value: String,
-        convert: { type: String, default: 'json' },
+        converter: { type: String, default: 'json' },
         url: String,
         urlField: { type: String, default: 'url' },
         width: { type: [Number, String], default: 800 },

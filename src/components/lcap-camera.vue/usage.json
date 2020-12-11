@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-camera",
     "name": "摄像头",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icon": "demo",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Form"
     ],
-    "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.0/screenshots/0.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.1/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-camera list-type=\\\"image\\\"\\n    url=\\\"/gateway/lowcode/api/v1/app/upload\\\" url-field=\\\"result\\\"\\n    converter=\\\"json\\\">\\n</lcap-camera>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-camera",
         "title": "摄像头",
         "description": "开启/关闭摄影头，支持截图、上传等功能",
         "category": "Form",
-        "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.0/screenshots/0.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.1/screenshots/0.png",
         "blocks": [
             {
                 "title": "基本用法",
