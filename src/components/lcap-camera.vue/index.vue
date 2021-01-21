@@ -8,9 +8,9 @@
     </u-linear-layout>
     <canvas v-show="false" ref="canvas"></canvas>
     <u-uploader v-if="url" ref="uploader" readonly
-        :url="url" :url-field="urlField" :converter="converter"
+        :url="url" :url-field="urlField"
         list-type="card" accept="image/png, image/jpg, image/jpeg, image/gif, image/bmp"
-        :value="value"
+        :value="currentValue"
         @send="$emit('send', $event, this)"
         @progress="$emit('progress', $event, this)"
         @complete="$emit('complete', $event, this)"
@@ -43,12 +43,20 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
 export default {
     name: 'lcap-camera',
     props: {
-        value: String,
-        converter: { type: String, default: 'json' },
+        value: [Array, String],
         url: String,
         urlField: { type: String, default: 'url' },
         width: { type: [Number, String], default: 800 },
         height: { type: [Number, String], default: 600 },
+    },
+    computed: {
+        currentValue() {
+            if (typeof this.value === 'string') {
+                return JSON.parse(this.value);
+            } else {
+                return this.value;
+            }
+        },
     },
     created() {
 

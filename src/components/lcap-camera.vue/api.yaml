@@ -16,19 +16,13 @@
       type: Array
       model: true
       sync: true
-      default: '[]'
+      default: []
       description: 当前文件列表
     - name: url
       type: string
       required: true
       default:
       description: 上传的地址
-    - name: converter
-      title: 转换器
-      type: string
-      options:
-        - name: JSON
-          value: json
   events:
     - name: send
       title: 发送时
