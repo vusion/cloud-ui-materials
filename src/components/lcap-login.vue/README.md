@@ -30,11 +30,8 @@
 | useQZ | boolean |  | `false` | 是否开启轻舟登录，默认关闭 |
 | useLdap | boolean |  | `false` | 是否开启LDAP登录，默认关闭 |
 | useNetease | boolean |  | `false` | 是否开启OpenID登录，默认关闭 |
-| neteaseClientId | string |  |  | 配置OpenID Client ID |
 | useGithub | boolean |  | `false` | 是否开启Github登录，默认关闭 |
-| githubClientId | string |  |  | 配置Github Client ID |
 | useWechat | boolean |  | `false` | 是否开启微信登录，默认关闭 |
-| wechatClientId | string |  |  | 配置Wechat Client ID |
 | exdays | number |  | `1` | 设置 Cookie 过期天数 |
 
 ### Events

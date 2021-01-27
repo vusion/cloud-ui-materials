@@ -23,25 +23,13 @@
     "type": "boolean",
     "description": "是否开启OpenID登录，默认关闭"
   },
-  "lcap-login/neteaseClientId": {
-    "type": "string",
-    "description": "配置OpenID Client ID"
-  },
   "lcap-login/useGithub": {
     "type": "boolean",
     "description": "是否开启Github登录，默认关闭"
   },
-  "lcap-login/githubClientId": {
-    "type": "string",
-    "description": "配置Github Client ID"
-  },
   "lcap-login/useWechat": {
     "type": "boolean",
     "description": "是否开启微信登录，默认关闭"
-  },
-  "lcap-login/wechatClientId": {
-    "type": "string",
-    "description": "配置Wechat Client ID"
   },
   "lcap-login/exdays": {
     "type": "number",

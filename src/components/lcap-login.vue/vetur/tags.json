@@ -7,11 +7,8 @@
       "useQZ",
       "useLdap",
       "useNetease",
-      "neteaseClientId",
       "useGithub",
-      "githubClientId",
       "useWechat",
-      "wechatClientId",
       "exdays"
     ],
     "description": "账号与权限中心的统一认证登录组件"

@@ -1,13 +1,22 @@
 {
     "symbol": "lcap-login",
     "name": "登录",
+    "version": "0.3.4",
     "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "账号与权限中心的统一认证登录组件",
+    "labels": [
+        "runtime"
+    ],
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.4/screenshots/0.png",
+    "blocks": "[]",
     "jsonSchema": {
         "name": "lcap-login",
         "title": "登录",
         "description": "账号与权限中心的统一认证登录组件",
         "category": "runtime",
-        "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.3/screenshots/0.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.4/screenshots/0.png",
         "blocks": "[]",
         "attrs": [
             {
@@ -52,12 +61,6 @@
                 "description": "是否开启OpenID登录，默认关闭"
             },
             {
-                "name": "neteaseClientId",
-                "title": "OpenID Client ID",
-                "type": "string",
-                "description": "配置OpenID Client ID"
-            },
-            {
                 "name": "useGithub",
                 "title": "开启Github登录",
                 "type": "boolean",
@@ -65,23 +68,11 @@
                 "description": "是否开启Github登录，默认关闭"
             },
             {
-                "name": "githubClientId",
-                "title": "Github Client ID",
-                "type": "string",
-                "description": "配置Github Client ID"
-            },
-            {
                 "name": "useWechat",
                 "title": "开启微信登录",
                 "type": "boolean",
                 "default": false,
                 "description": "是否开启微信登录，默认关闭"
-            },
-            {
-                "name": "wechatClientId",
-                "title": "Wechat Client ID",
-                "type": "string",
-                "description": "配置Wechat Client ID"
             },
             {
                 "name": "exdays",
@@ -133,11 +124,5 @@
             }
         ],
         "children": []
-    },
-    "description": "账号与权限中心的统一认证登录组件",
-    "labels": [
-        "runtime"
-    ],
-    "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.3/screenshots/0.png",
-    "blocks": "[]"
+    }
 }

@@ -126,69 +126,69 @@ export default {
                 UserName: userName,
                 UserId: userId,
             });
-            return;
-        }
-
-        const iFrame = document.getElementById('login');
-        const from = location.href;
-        const {
-            loginSrc,
-            domainName,
-            useNormal,
-            useQZ,
-            useLdap,
-            useNetease,
-            useGithub,
-            useWechat,
-        } = this;
-        iFrame.onload = () => {
-            this.loading = false;
-            iFrame.contentWindow.postMessage(
-                {
-                    useNormal,
-                    useQZ,
-                    useLdap,
-                    useNetease,
-                    useGithub,
-                    domainName,
-                    from,
-                    type: commonType,
-                },
+        } else {
+            const iFrame = document.getElementById('login');
+            const from = location.href;
+            const {
                 loginSrc,
-            );
-        };
+                domainName,
+                useNormal,
+                useQZ,
+                useLdap,
+                useNetease,
+                useGithub,
+                useWechat,
+            } = this;
+            iFrame.onload = () => {
+                this.loading = false;
+                iFrame.contentWindow.postMessage(
+                    {
+                        useNormal,
+                        useQZ,
+                        useLdap,
+                        useNetease,
+                        useGithub,
+                        useWechat,
+                        domainName,
+                        from,
+                        type: commonType,
+                    },
+                    loginSrc,
+                );
+            };
 
-        window.addEventListener(
-            'message',
-            (e) => {
-                const { data } = e;
-                const { type, success = false, data: dData = {} } = data;
-                if (type === commonType) {
-                    if (success) {
-                        const {
-                            Authorization,
-                            UserName,
-                            UserId,
-                            LoginType,
-                            To,
-                        } = dData;
-                        if (['CNetease', 'CGithub'].includes(LoginType)) {
-                            location.href = To;
+            window.addEventListener(
+                'message',
+                (e) => {
+                    const { data } = e;
+                    const { type, success = false, data: dData = {} } = data;
+                    if (type === commonType) {
+                        if (success) {
+                            const {
+                                Authorization,
+                                UserName,
+                                UserId,
+                                LoginType,
+                                To,
+                            } = dData;
+                            if (['CNetease', 'CGithub', 'CWechat'].includes(LoginType)) {
+                                location.href = To;
+                            } else {
+                                this.setCookie({
+                                    authorization: Authorization,
+                                    userName: UserName,
+                                    userId: UserId,
+                                });
+                                this.$emit('success', dData);
+                            }
                         } else {
-                            this.setCookie({
-                                authorization: Authorization,
-                                userName: UserName,
-                                userId: UserId,
-                            });
-                            this.$emit('success', dData);
+                            this.$emit('error', dData);
                         }
-                    } else {
-                        this.$emit('error', dData);
                     }
-                }
-            },
-            false,
-        );
+                },
+                false,
+            );
+        }
     },
     methods: {
         setCookie(data = {}) {
