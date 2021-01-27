@@ -1,11 +1,11 @@
 {
   "name": "lcap-login",
   "description": "",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "main": "./index.js",
   "author": "daysai",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/lcap-login@0.3.4/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/lcap-login@0.3.5/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -18,7 +18,7 @@
     "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
-    "lcap": "node ./scripts/lcap",
+    "lcap": "vusion lcap",
     "deploy": "vusion deploy && vusion deploy screenshots && npm run lcap && git add .",
     "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
     "release": "vusion publish"
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/lcap-login@0.3.4/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/lcap-login@0.3.5/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
