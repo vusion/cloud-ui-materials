@@ -4,6 +4,7 @@
 
 - [示例](#示例)
     - [基本用法](#基本用法)
+    - [默认值](#默认值)
 - [API]()
     - [Props/Attrs](#propsattrs)
     - [Events](#events)
@@ -20,6 +21,27 @@
 <lcap-camera></lcap-camera>
 ```
 
+### 默认值
+
+```vue
+<template>
+<lcap-camera list-type="image"
+    url="/gateway/lowcode/api/v1/app/upload" v-model="value"
+    converter="json">
+</lcap-camera>
+
+</template>
+<script>
+    export default {
+        data() {
+            return {
+                value: '[]',
+            };
+        },
+    };
+</script>
+```
+
 ## API
 ### Props/Attrs
 
@@ -27,9 +49,8 @@
 | --------- | ---- | ------- | ------- | ----------- |
 | width | string |  | `800` | 宽度 |
 | height | string |  | `600` | 高度 |
-| value.sync, v-model | Array |  | `'\[\]'` | 当前文件列表 |
+| value.sync, v-model | Array |  | `[]` | 当前文件列表 |
 | url | string |  |  | 上传的地址 |
-| converter | string | `'JSON'` () |  | undefined |
 
 ### Events
 

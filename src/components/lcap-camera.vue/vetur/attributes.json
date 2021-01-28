@@ -14,14 +14,5 @@
   "lcap-camera/url": {
     "type": "string",
     "description": "上传的地址"
-  },
-  "lcap-camera/converter": {
-    "type": "string",
-    "options": [
-      {
-        "name": "JSON",
-        "value": "json"
-      }
-    ]
   }
 }

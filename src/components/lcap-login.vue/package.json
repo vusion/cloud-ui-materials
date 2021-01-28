@@ -19,7 +19,7 @@
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
     "lcap": "vusion lcap",
-    "deploy": "vusion deploy && vusion deploy screenshots && npm run lcap && git add .",
+    "deploy": "vusion deploy && vusion deploy dist-theme && vusion deploy screenshots && npm run lcap && git add .",
     "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
     "release": "vusion publish"
   },
