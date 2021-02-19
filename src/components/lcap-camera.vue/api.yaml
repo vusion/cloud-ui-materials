@@ -21,6 +21,7 @@
     - name: url
       type: string
       required: true
+      compType: interfaceSelect
       default:
       description: 上传的地址
   events:

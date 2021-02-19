@@ -16,6 +16,7 @@
     - name: rules
       type: string, Array<Rule>
       description: 针对每一项的验证规则
+      compType: validationRulesSelect
     - name: list-rules
       type: string, Array<Rule>
       description: 针对整个列表的验证规则

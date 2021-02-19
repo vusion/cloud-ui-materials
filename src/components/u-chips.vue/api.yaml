@@ -25,6 +25,7 @@
       type: Array
       default: null
       description: 对于每一个输入字符串的验证规则
+      compType: validationRulesSelect
     - name: list-rules
       type: Array
       default: null
