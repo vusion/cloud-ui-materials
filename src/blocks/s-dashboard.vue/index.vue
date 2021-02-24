@@ -50,6 +50,7 @@
         <u-linear-layout direction="vertical" :class="$style.main">
             <u-crumb auto></u-crumb>
             <slot><router-view></router-view></slot>
+            <u-linear-layout direction="vertical"></u-linear-layout>
         </u-linear-layout>
     </template>
 </l-dashboard>

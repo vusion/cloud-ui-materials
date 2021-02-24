@@ -43,6 +43,7 @@
     <template #default>
         <u-linear-layout direction="vertical" :class="$style.main">
             <slot><router-view></router-view></slot>
+            <u-linear-layout direction="vertical"></u-linear-layout>
         </u-linear-layout>
     </template>
 </l-page>
