@@ -1,7 +1,7 @@
 <template>
 <span :class="$style.root">
     <span :class="$style.color" :style="{ backgroundColor: currentValue }"></span>
-    <u-popup @open="onOpen" @close="onClose">
+    <u-popup @open="onOpen" @close="onClose" :placement="placement">
         <u-pallette :class="$style.pallette" slot="root" :value="currentValue" @input="onInput">
             <slot></slot>
         </u-pallette>
@@ -14,6 +14,7 @@ export default {
     name: 'u-color-picker',
     props: {
         value: { type: String, default: '#000000' },
+        placement: { type: String }
     },
     data() {
         return {
