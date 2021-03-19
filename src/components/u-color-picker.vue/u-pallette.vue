@@ -74,7 +74,7 @@ export default {
     },
     data() {
         return {
-            color: Color.parse(this.value),
+            color: this.value ? Color.parse(this.value) : new Color(),
             grid: { x: 1, y: 1 },
             handleEl: undefined,
         };
@@ -88,6 +88,10 @@ export default {
     },
     watch: {
         value(value, oldValue) {
+            if (!value) {
+                return '';
+            }
+
             const color = Color.parse(this.value);
             if (color.toRGBA() === this.color.toRGBA())
                 return;
