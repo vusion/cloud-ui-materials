@@ -10,20 +10,10 @@
                 <u-navbar-item>Item 2</u-navbar-item>
             </template>
             <template #right>
-                <!-- <div :class="$style.item">
-                    <u-badge corner dot :value="noticeCount">
-                        <u-link :class="$style.link"
-                            :active="noticeActive"
-                            to="/notice"
-                            title="通知">
-                            <i-icon name="notice" :class="$style.icon"></i-icon>
-                        </u-link>
-                    </u-badge>
-                </div> -->
                 <u-navbar-dropdown style="margin-right: 10px;" v-if="userInfo">
                     <template #title>
                         <u-avatar shape="circle"></u-avatar>
-                        <span :class="$style.username">{{ userInfo.UserName }}</span>
+                        <span style="display: inline-block; vertical-align: top; margin-left: 10px; margin-right: 10px; color: white;">{{ userInfo.UserName }}</span>
                     </template>
                     <template #default>
                         <u-navbar-menu>
@@ -41,16 +31,15 @@
         </u-navbar>
     </template>
     <template #side>
-        <u-sidebar slot="side">
+        <u-sidebar>
             <u-sidebar-item to="/overview">总览</u-sidebar-item>
             <u-sidebar-item>Item 2</u-sidebar-item>
         </u-sidebar>
     </template>
     <template #default>
-        <u-linear-layout direction="vertical" :class="$style.main">
+        <u-linear-layout direction="vertical">
             <u-crumb auto></u-crumb>
-            <slot><router-view></router-view></slot>
-            <u-linear-layout direction="vertical"></u-linear-layout>
+            <router-view></router-view>
         </u-linear-layout>
     </template>
 </l-dashboard>
@@ -60,7 +49,7 @@
 export default {
     data() {
         return {
-            userInfo: undefined,
+            userInfo: {},
             noticeCount: 0,
             noticeActive: false,
         };
@@ -79,46 +68,10 @@ export default {
     methods: {
         logout() {
             /* eslint-disable new-cap */
-            this.$confirm(`确定退出登录吗？`, '提示')
-                .then(() => this.$services.auth.Logout())
+            this.$confirm('确定退出登录吗？', '提示')
+                .then(() => this.$auth.logout())
                 .then(() => location.reload());
         },
     },
 };
 </script>
-
-<style module>
-.root {}
-
-.username {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 10px;
-    margin-right: 10px;
-    color: white;
-}
-
-.icon {
-    display: inline-block;
-    vertical-align: top;
-    font-size: 16px;
-}
-
-.item {
-    display: inline-block;
-    vertical-align: top;
-    width: 64px;
-    text-align: center;
-    line-height: 64px;
-}
-
-.item .icon {
-    font-size: 22px;
-    line-height: 22px;
-    color: #9ba4ad;
-}
-
-.link[active] {
-    color: #67aaf5;
-}
-</style>

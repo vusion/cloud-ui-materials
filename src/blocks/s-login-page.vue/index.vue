@@ -14,7 +14,7 @@ export default {
             // window 等变量暂时不支持变成 ASL
             tenant: window.appInfo.tenant,
             domainName: window.appInfo.domainName,
-            nuimsDomain: window.appInfo.nuimsDomain || 'user.lcap.163yun.com',
+            nuimsDomain: window.appInfo.tenant === 'lcp' ? 'user.vusion.top' : window.appInfo.nuimsDomain || 'user.lcap.163yun.com',
         };
     },
     methods: {
