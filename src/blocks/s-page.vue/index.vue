@@ -50,6 +50,9 @@ export default {
             noticeActive: false,
         };
     },
+    created() {
+        this.$auth && this.$auth.getUserInfo().then((userInfo) => this.userInfo = userInfo);
+    },
     watch: {
         $route: {
             immediate: true,
@@ -60,8 +63,21 @@ export default {
     },
     methods: {
         logout() {
-            this.$confirm('确定退出登录吗？', '提示').then(() => {
-                location.reload();
+            this.$confirm('确定退出登录吗？', '提示')
+                .then(() => this.$auth && this.$auth.logout())
+                .then(() => {
+                    this.eraseCookie();
+                    location.reload();
+                });
+        },
+        eraseCookie() {
+            const cookies = document.cookie.split(';');
+            cookies.forEach((cookie) => {
+                const eqPos = cookie.indexOf('=');
+                const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                const d = new Date();
+                d.setTime(d.getTime() - (1 * 24 * 60 * 60 * 1000));
+                document.cookie = `${name}=; expires=${d.toGMTString()}; path=/`;
             });
         },
     },
