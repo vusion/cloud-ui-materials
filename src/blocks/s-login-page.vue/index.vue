@@ -19,7 +19,7 @@ export default {
     },
     methods: {
         onSuccess() {
-            location.href = '/dashboard';
+            location.href = '/';
         },
     },
 };

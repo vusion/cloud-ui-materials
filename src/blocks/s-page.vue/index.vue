@@ -50,9 +50,6 @@ export default {
             noticeActive: false,
         };
     },
-    created() {
-        this.$auth && this.$auth.getUserInfo().then((userInfo) => this.userInfo = userInfo);
-    },
     watch: {
         $route: {
             immediate: true,
@@ -60,6 +57,9 @@ export default {
                 this.noticeActive = $route.path.startsWith('/notice');
             },
         },
+    },
+    created() {
+        this.$auth && this.$auth.getUserInfo().then((userInfo) => this.userInfo = userInfo);
     },
     methods: {
         logout() {
