@@ -13,7 +13,7 @@
                 <u-navbar-dropdown style="margin-right: 10px;" v-if="userInfo">
                     <template #title>
                         <u-avatar shape="circle"></u-avatar>
-                        <span style="display: inline-block; vertical-align: top; margin-left: 10px; margin-right: 10px; color: white;">{{ userInfo.username }}</span>
+                        <span style="display: inline-block; vertical-align: top; margin-left: 10px; margin-right: 10px; color: white;">{{ userInfo.UserName }}</span>
                     </template>
                     <template #default>
                         <u-navbar-menu>
