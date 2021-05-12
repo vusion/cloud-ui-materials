@@ -31,3 +31,21 @@ export default {
 };
 </script>
 ```
+
+
+### 直接使用默认值
+
+``` vue
+<template>
+<u-pallette v-model="color"></u-pallette>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            color: 'white',
+        };
+    },
+};
+</script>
+```

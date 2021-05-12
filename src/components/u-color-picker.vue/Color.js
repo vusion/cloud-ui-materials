@@ -1,3 +1,5 @@
+import { defineColor } from './colorsname.js';
+
 class Color {
     // r, g, b, a
     constructor(r = 0, g = 0, b = 0, a = 1) {
@@ -5,11 +7,11 @@ class Color {
         this.g = g;
         this.b = b;
         this.a = a;
-
         // 将hsv也缓存下来好了，省事
         /* eslint-disable new-cap */
         Object.assign(this, Color.RGB2HSV(this.r, this.g, this.b));
     }
+
 
     toArray() {
         return [this.r, this.g, this.b, this.a];
@@ -106,8 +108,23 @@ class Color {
         return new Color(...arr);
     }
 
-    /** @TODO: fromHSL */
+    static fromNAME(value) {
+        value = defineColor[value];
+        value = value.trim().slice(1);
+        if (value.length !== 6 && value.length !== 3) {
+            throw new SyntaxError('Unexpected params of name function');
+        } else if (value.length === 3) {
+            value = `${value[0]}${value[0]}${value[1]}${value[1]}${value[2]}${value[2]}`;
+        }
 
+        return new Color(
+            parseInt(value.slice(0, 2), 16),
+            parseInt(value.slice(2, 4), 16),
+            parseInt(value.slice(4, 6), 16),
+        );
+    }
+
+    /** @TODO: fromHSL */
     static parse(value) {
         value = value.trim();
         return Color['from' + this.checkFormat(value)](value);

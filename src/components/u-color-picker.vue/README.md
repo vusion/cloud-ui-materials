@@ -5,6 +5,7 @@
 - [示例](#示例)
     - [基本用法](#基本用法)
     - [直接使用调色板](#直接使用调色板)
+    - [直接使用默认值](#直接使用默认值)
 - [UColorPicker API](#ucolorpicker-api)
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
@@ -51,6 +52,23 @@ export default {
 </script>
 ```
 
+
+### 直接使用默认值
+
+``` vue
+<template>
+<u-pallette v-model="color"></u-pallette>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            color: 'white',
+        };
+    },
+};
+</script>
+```
 ## UColorPicker API
 ### Props/Attrs
 
