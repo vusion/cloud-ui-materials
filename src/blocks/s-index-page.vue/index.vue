@@ -16,12 +16,12 @@
         <u-carousel style="width: 100%; margin: 0 auto; height: 420px; text-align: center;">
             <u-carousel-item>
                 <u-link>
-                    <u-image style="width:100%;height:100%" src="https://raw.githubusercontent.com/vusion/cloud-ui/master/src/assets/images/1.jpg"></u-image>
+                    <u-image style="width:100%;height:100%" src="https://static-vusion.163yun.com/assets/cloud-ui/1.jpg"></u-image>
                 </u-link>
             </u-carousel-item>
             <u-carousel-item>
                 <u-link>
-                    <u-image style="width:100%;height:100%" src="https://raw.githubusercontent.com/vusion/cloud-ui/master/src/assets/images/3.jpg"></u-image>
+                    <u-image style="width:100%;height:100%" src="https://static-vusion.163yun.com/assets/cloud-ui/3.jpg"></u-image>
                 </u-link>
             </u-carousel-item>
         </u-carousel>
