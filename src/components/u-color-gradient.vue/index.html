@@ -1,0 +1,14 @@
+<div :class="$style.root">
+    <div :class="$style.color" v-for="(color, index) in colors" :key="index" :style="{ background: color }">
+        {{ color }}
+    </div>
+    <pre>
+        --brand-theme-lightest: {{ colors[8] }};
+        --brand-theme-lighter: {{ colors[6] }};
+        --brand-theme-light: {{ colors[1] }};
+        --brand-theme: {{ colors[0] }};
+        --brand-theme-dark: {{ colors[1] }};
+        --brand-theme-darker: {{ colors[3] }};
+        --brand-theme-darkest: {{ colors[4] }};
+    </pre>
+</div>

@@ -43,9 +43,7 @@
 export default {
     data() {
         return {
-            userInfo: {
-                username: 'User',
-            },
+            userInfo: {},
             noticeCount: 0,
             noticeActive: false,
         };
