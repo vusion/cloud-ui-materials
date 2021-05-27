@@ -47,7 +47,7 @@
                 <u-link style="margin-top:16px;font-size:16px;line-height:32px;display: block;">查看详情 ></u-link>
                 <u-button color="primary" style="margin-top:40px;height:42px;line-height:42px" href="/">免费试用</u-button>
             </div>
-            <u-image src="https://static-vusion.nos-eastchina1.126.net/assets/%E5%8F%B3%E5%9B%BE%402x.png" style="position: absolute;top:240px;left:455px;width:672px;height: 400px">
+            <u-image src="https://static-vusion.163yun.com/assets/%E5%8F%B3%E5%9B%BE%402x.png" style="position: absolute;top:240px;left:455px;width:672px;height: 400px">
             </u-image>
         </u-linear-layout>
     </u-linear-layout>
@@ -94,7 +94,7 @@ width: 24px;
 height: 24px;
 background-size: 24px auto;
 background-position: 0 -48px;
-background-image: url(https://static-vusion.nos-eastchina1.126.net/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weixin'" v-show="linkCode !== 'weixin'" weixin>
+background-image: url(https://static-vusion.163yun.com/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weixin'" v-show="linkCode !== 'weixin'" weixin>
 
                     </a>
                     <a style=" position: relative;
@@ -103,8 +103,8 @@ width: 24px;
 height: 24px;
 background-size: 24px auto;
 background-position: 0 -72px;
-background-image: url(https://static-vusion.nos-eastchina1.126.net/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weixin'" v-show="linkCode === 'weixin'" weixin>
-                        <u-image style=" position: absolute;width: 120px;height: 120px;max-width: none;top: 30px;right: -30px;" src="https://static-vusion.nos-eastchina1.126.net/assets/weixin%402x.png" fit="full"></u-image>
+background-image: url(https://static-vusion.163yun.com/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weixin'" v-show="linkCode === 'weixin'" weixin>
+                        <u-image style=" position: absolute;width: 120px;height: 120px;max-width: none;top: 30px;right: -30px;" src="https://static-vusion.163yun.com/assets/weixin%402x.png" fit="full"></u-image>
                     </a>
                     <a href="/" weibo style=" position: relative;
 display: inline-block;
@@ -113,8 +113,8 @@ height: 24px;
 background-size: 24px auto;
 background-position: 0 -24px;
 margin-left:20px;
-background-image: url(https://static-vusion.nos-eastchina1.126.net/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weibo'" v-show="linkCode === 'weibo'">
-                        <u-image style=" position: absolute;width: 120px;height: 120px;max-width: none;top: 30px;right: -30px;" src="https://static-vusion.nos-eastchina1.126.net/assets/weibo%402x.png" fit="full"></u-image>
+background-image: url(https://static-vusion.163yun.com/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weibo'" v-show="linkCode === 'weibo'">
+                        <u-image style=" position: absolute;width: 120px;height: 120px;max-width: none;top: 30px;right: -30px;" src="https://static-vusion.163yun.com/assets/weibo%402x.png" fit="full"></u-image>
                     </a>
                     <a href="/" weibo style=" position: relative;
 display: inline-block;
@@ -123,7 +123,7 @@ height: 24px;
 margin-left:20px;
 background-size: 24px auto;
 background-position: 0 0;
-background-image: url(https://static-vusion.nos-eastchina1.126.net/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weibo'" v-show="linkCode !== 'weibo'">
+background-image: url(https://static-vusion.163yun.com/assets/footer-icon-sns.png);" @mouseenter="linkCode = 'weibo'" v-show="linkCode !== 'weibo'">
                     </a>
                 </div>
             </div>
