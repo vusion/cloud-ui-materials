@@ -18,6 +18,7 @@ export default {
         language: String,
         diff: { type: Boolean, default: false },
         amdRequire: Function,
+        readonly: { type: Boolean, default: false },
     },
     watch: {
         options: {
@@ -43,6 +44,11 @@ export default {
         theme(theme) {
             // VSCode Monaco 全局只支持一套
             this.monaco && this.monaco.editor.setTheme(theme);
+        },
+        readonly(readonly) {
+            this.monaco && this.monaco.editor.updateOptions({
+                readOnly: readonly,
+            });
         },
     },
     mounted() {
@@ -73,6 +79,7 @@ export default {
                 value: this.value,
                 theme: this.theme,
                 language: this.language || this.lang,
+                readOnly: this.readonly,
             }, this.options);
 
             if (this.diff) {
