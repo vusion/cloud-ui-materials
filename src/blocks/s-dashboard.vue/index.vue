@@ -10,6 +10,7 @@
                 <u-navbar-item>Item 2</u-navbar-item>
             </template>
             <template #right>
+                <u-linear-layout style="display: inline-block; width: 60px;"></u-linear-layout>
                 <u-navbar-dropdown style="margin-right: 10px;" v-if="userInfo">
                     <template #title>
                         <u-avatar shape="circle"></u-avatar>
