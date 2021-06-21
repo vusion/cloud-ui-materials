@@ -3,7 +3,10 @@
     <template #head>
         <u-navbar>
             <template #left>
-                <s-logo>演示</s-logo>
+                <u-linear-layout gap="small">
+                    <u-image src="https://static-vusion.163yun.com/assets/lcap-logo-light.svg"
+                        style="height: 64px; margin-left: 14px; --custom-start: auto; vertical-align: -24px;"></u-image>
+                </u-linear-layout>
             </template>
             <template #default>
                 <u-navbar-item>Item 1</u-navbar-item>
@@ -12,8 +15,12 @@
             <template #right>
                 <u-navbar-dropdown style="margin-right: 10px;" v-if="userInfo">
                     <template #title>
-                        <u-avatar shape="circle"></u-avatar>
-                        <span style="display: inline-block; vertical-align: top; margin-left: 10px; margin-right: 10px; color: white;">{{ userInfo.UserName }}</span>
+                        <u-linear-layout gap="small">
+                            <u-image fit="cover" src="https://static-vusion.163yun.com/assets/avatar-default.svg" style="height: 36px; vertical-align: middle;"></u-image>
+                            <span style="display: inline-block; vertical-align: top; margin-left: 10px; margin-right: 10px; color: white;">
+                                <u-text :text="userInfo.UserName"></u-text>
+                            </span>
+                        </u-linear-layout>
                     </template>
                     <template #default>
                         <u-navbar-menu>
