@@ -1,11 +1,3 @@
 <template>
-<u-linear-layout direction="vertical">
-    <u-linear-layout direction="vertical">
-    </u-linear-layout>
-    <router-view></router-view>
-</u-linear-layout>
+<l-root></l-root>
 </template>
-
-<script>
-export default {};
-</script>
