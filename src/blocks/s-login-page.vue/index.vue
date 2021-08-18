@@ -11,10 +11,11 @@
 export default {
     data() {
         const { tenant, domainName, env, nuimsDomain = 'user.lcap.163yun.com' } = window.appInfo;
+        const envUri = env === 'dev' ? 'dev.' : '';
         return {
             // window 等变量暂时不支持变成 ASL
             domainName,
-            src: `${window.location.protocol}//${env}.${tenant}.${nuimsDomain}`,
+            src: `${window.location.protocol}//${envUri}${tenant}.${nuimsDomain}`,
         };
     },
     methods: {
