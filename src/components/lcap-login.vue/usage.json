@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-login",
     "name": "登录",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,15 @@
     "labels": [
         "runtime"
     ],
-    "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.5/screenshots/0.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.6/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-login src=\\\"http://nuims.vusion.top\\\"></lcap-login>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-login",
         "title": "登录",
         "description": "账号与权限中心的统一认证登录组件",
         "category": "runtime",
-        "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.5/screenshots/0.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.6/screenshots/0.png",
+        "drawings": "[]",
         "blocks": [
             {
                 "title": "基本用法",
@@ -79,6 +80,13 @@
                 "type": "boolean",
                 "default": false,
                 "description": "是否开启微信登录，默认关闭"
+            },
+            {
+                "name": "useIcbc",
+                "title": "开启工行登录",
+                "type": "boolean",
+                "default": false,
+                "description": "是否开启工行登录，默认关闭"
             },
             {
                 "name": "exdays",

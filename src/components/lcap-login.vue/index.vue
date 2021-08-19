@@ -97,6 +97,11 @@ export default {
             type: Boolean,
             default: false,
         },
+        // 开启工行登录
+        useIcbc: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -138,6 +143,7 @@ export default {
                 useNetease,
                 useGithub,
                 useWechat,
+                useIcbc,
             } = this;
             iFrame.onload = () => {
                 this.loading = false;
@@ -149,6 +155,7 @@ export default {
                         useNetease,
                         useGithub,
                         useWechat,
+                        useIcbc,
                         domainName,
                         from,
                         type: commonType,
@@ -171,7 +178,7 @@ export default {
                                 LoginType,
                                 To,
                             } = dData;
-                            if (['CNetease', 'CGithub', 'CWechat'].includes(LoginType)) {
+                            if (['CNetease', 'CGithub', 'CWechat', 'CIcbc'].includes(LoginType)) {
                                 location.href = To;
                             } else {
                                 this.setCookie({

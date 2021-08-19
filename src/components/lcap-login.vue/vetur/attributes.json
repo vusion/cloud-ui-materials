@@ -31,6 +31,10 @@
     "type": "boolean",
     "description": "是否开启微信登录，默认关闭"
   },
+  "lcap-login/useIcbc": {
+    "type": "boolean",
+    "description": "是否开启工行登录，默认关闭"
+  },
   "lcap-login/exdays": {
     "type": "number",
     "description": "设置 Cookie 过期天数"

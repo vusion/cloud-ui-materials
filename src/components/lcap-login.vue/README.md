@@ -32,6 +32,7 @@
 | useNetease | boolean |  | `false` | 是否开启OpenID登录，默认关闭 |
 | useGithub | boolean |  | `false` | 是否开启Github登录，默认关闭 |
 | useWechat | boolean |  | `false` | 是否开启微信登录，默认关闭 |
+| useIcbc | boolean |  | `false` | 是否开启工行登录，默认关闭 |
 | exdays | number |  | `1` | 设置 Cookie 过期天数 |
 
 ### Events
