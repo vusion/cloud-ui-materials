@@ -1,12 +1,4 @@
 {
-  "lcap-login/src": {
-    "type": "string",
-    "description": "登录页的目标地址"
-  },
-  "lcap-login/domainName": {
-    "type": "string",
-    "description": "配置登录应用信息"
-  },
   "lcap-login/useNormal": {
     "type": "boolean",
     "description": "是否开启普通登录，默认开启"

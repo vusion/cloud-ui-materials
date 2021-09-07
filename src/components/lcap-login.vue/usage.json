@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-login",
     "name": "登录",
-    "version": "0.3.6",
+    "version": "0.4.0",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "runtime"
     ],
-    "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.6/screenshots/0.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.4.0/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-login src=\\\"http://nuims.vusion.top\\\"></lcap-login>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-login",
         "title": "登录",
         "description": "账号与权限中心的统一认证登录组件",
         "category": "runtime",
-        "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.3.6/screenshots/0.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-login@0.4.0/screenshots/0.png",
         "drawings": "[]",
         "blocks": [
             {
@@ -26,19 +26,6 @@
             }
         ],
         "attrs": [
-            {
-                "name": "src",
-                "title": "登录页地址",
-                "type": "string",
-                "default": "http://nuims.vusion.top/clogin",
-                "description": "登录页的目标地址"
-            },
-            {
-                "name": "domainName",
-                "title": "登录应用信息",
-                "type": "string",
-                "description": "配置登录应用信息"
-            },
             {
                 "name": "useNormal",
                 "title": "开启普通登录",

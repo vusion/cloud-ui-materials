@@ -24,8 +24,6 @@
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| src | string |  | `'http://nuims.vusion.top/clogin'` | 登录页的目标地址 |
-| domainName | string |  |  | 配置登录应用信息 |
 | useNormal | boolean |  | `true` | 是否开启普通登录，默认开启 |
 | useQZ | boolean |  | `false` | 是否开启轻舟登录，默认关闭 |
 | useLdap | boolean |  | `false` | 是否开启LDAP登录，默认关闭 |

@@ -4,15 +4,6 @@
   labels: [runtime]
   description: 账号与权限中心的统一认证登录组件
   attrs:
-    - name: src
-      title: 登录页地址
-      type: string
-      default: 'http://nuims.vusion.top/clogin'
-      description: 登录页的目标地址
-    - name: domainName
-      title: 登录应用信息
-      type: string
-      description: 配置登录应用信息
     - name: useNormal
       title: 开启普通登录
       type: boolean

@@ -1,8 +1,6 @@
 {
   "lcap-login": {
     "attributes": [
-      "src",
-      "domainName",
       "useNormal",
       "useQZ",
       "useLdap",
