@@ -243,11 +243,7 @@ export default {
         const query = queryString.parse(search);
         const { code, userName, userId } = query;
         if (userName && userId && code) {
-            this.setCookie({
-                authorization: code,
-                userName,
-                userId,
-            });
+            this.setCookie({ authorization: code });
             this.$emit('success', {
                 Authorization: code,
                 UserName: userName,
@@ -266,16 +262,17 @@ export default {
                     url: this.nuimsUrl,
                     params: { TenantName: this.tenantName },
                 });
-                res.Data.forEach((type) => {
-                    if (Object.keys(TAB_MAP).includes(type) && this[type]) {
+                res.data.Data.forEach((type) => {
+                    const { LoginType } = type;
+                    if (Object.keys(TAB_MAP).includes(LoginType) && this[`use${LoginType}`]) {
                         tabs.push({
-                            title: TAB_MAP[type],
-                            value: type,
+                            title: TAB_MAP[LoginType],
+                            value: LoginType,
                         });
-                    } else if (AUTH_LIST.includes(type) && this[type]) {
+                    } else if (AUTH_LIST.includes(LoginType) && this[`use${LoginType}`]) {
                         authTypes.push({
-                            title: LOGIN_TYPES_MAP[type].Full,
-                            value: type,
+                            title: LOGIN_TYPES_MAP[LoginType].Full,
+                            value: LoginType,
                         });
                     }
                 });
@@ -321,10 +318,10 @@ export default {
                         env: this.env,
                     },
                 });
-                const { Authorization } = res.headers;
+                const { authorization } = res.headers;
                 const { UserName, UserId } = res.data.Data;
-                this.setCookie({ authorization: Authorization });
-                this.$emit('success', { Authorization, UserName, UserId, LoginType });
+                this.setCookie({ authorization });
+                this.$emit('success', { Authorization: authorization, UserName, UserId, LoginType });
             } catch (error) {
                 errMsg = error && error.message;
                 if (
