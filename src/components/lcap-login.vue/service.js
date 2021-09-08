@@ -25,11 +25,11 @@ export default {
         }).then(preprocess);
     },
     login(config) {
-        const { url, ...rest } = config;
+        const { url, headers, ...rest } = config;
         return axios({
             url,
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', ...headers },
             params: { Action: 'Login', Version: apiVersion },
             ...rest,
         }).then(preprocess);

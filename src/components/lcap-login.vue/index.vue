@@ -315,7 +315,7 @@ export default {
                         DomainName: this.domainName,
                     },
                     headers: {
-                        env: this.env,
+                        Env: this.env,
                     },
                 });
                 const { authorization } = res.headers;
