@@ -378,6 +378,7 @@ export default {
     width: 325px;
     margin: 0 auto;
     padding: 0;
+    text-align: left;
 }
 
 .prefix {
