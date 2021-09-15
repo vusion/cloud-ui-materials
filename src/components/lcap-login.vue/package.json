@@ -1,11 +1,11 @@
 {
   "name": "lcap-login",
   "description": "",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "main": "./index.js",
   "author": "daysai",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/lcap-login@0.4.3/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/lcap-login@0.4.4/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/lcap-login@0.4.3/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/lcap-login@0.4.4/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
