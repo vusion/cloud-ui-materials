@@ -1,0 +1,217 @@
+.ql-snow .ql-picker.ql-font .ql-picker-label::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item::before {
+    content: "默认字体";
+    font-family: "-apple-system","BlinkMacSystemFont","Segoe UI","Roboto","Helvetica Neue","Helvetica","Tahoma","Arial","Noto Sans","PingFang SC","Microsoft YaHei","Hiragino Sans GB","sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=SimSun]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=SimSun]::before {
+    content: "宋体";
+    font-family: "SimSum";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Hiragino-Sans-GB]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Hiragino-Sans-GB]::before {
+    content: "冬青黑简体中文";
+    font-family: "Hiragino Sans GB";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=PingFang-SC]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=PingFang-SC]::before {
+    content: "苹方";
+    font-family: "PingFang SC";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STSong]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STSong]::before {
+    content: "华文宋体";
+    font-family: "STSong";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STFangsong]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STFangsong]::before {
+    content: "华文仿宋";
+    font-family: "STFangsong";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=STKaiti]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=STKaiti]::before {
+    content: "华文楷体";
+    font-family: "STKaiti";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Arial]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Arial]::before {
+    content: "Arial";
+    font-family: "Arial";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Times-New-Roman]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Times-New-Roman]::before {
+    content: "Times New Roman";
+    font-family: "Times New Roman";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Comic-Sans-MS]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Comic-Sans-MS]::before {
+    content: "Comic Sans MS";
+    font-family: "Comic Sans MS";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Courier-New]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Courier-New]::before {
+    content: "Courier New";
+    font-family: "Courier New";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=Georgia]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=Georgia]::before {
+    content: "Georgia";
+    font-family: "Georgia";
+}
+
+.ql-font-SimSun {
+    font-family: "SimSum";
+}
+
+.ql-font-Hiragino-Sans-GB {
+    font-family: "Hiragino Sans GB";
+}
+
+.ql-font-PingFang-SC {
+    font-family: "PingFang SC";
+}
+
+.ql-font-STSong {
+    font-family: "STSong";
+}
+
+.ql-font-STFangsong {
+    font-family: "STFangsong";
+}
+
+.ql-font-STKaiti {
+    font-family: "STKaiti";
+}
+
+.ql-font-Arial {
+    font-family: "Arial";
+}
+
+.ql-font-Times-New-Roman {
+    font-family: "Times New Roman";
+}
+
+.ql-font-Comic-Sans-MS {
+    font-family: "Comic Sans MS";
+}
+
+.ql-font-Courier-New {
+    font-family: "Courier New";
+}
+
+.ql-font-Georgia {
+    font-family: "Georgia";
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+    content: '14px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="9px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="9px"]::before {
+    content: '9px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="10px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="10px"]::before {
+    content: '10px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="11px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="11px"]::before {
+    content: '11px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="12px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="12px"]::before {
+    content: '12px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="14px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="14px"]::before {
+    content: '14px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="16px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="16px"]::before {
+    content: '16px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="18px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="18px"]::before {
+    content: '18px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="20px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="20px"]::before {
+    content: '20px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="22px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="22px"]::before {
+    content: '22px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="24px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="24px"]::before {
+    content: '24px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="26px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="26px"]::before {
+    content: '26px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="28px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="28px"]::before {
+    content: '28px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="36px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="36px"]::before {
+    content: '36px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="42px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="42px"]::before {
+    content: '42px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="48px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="48px"]::before {
+    content: '48px';
+    font-size: 12px;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value="72px"]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value="72px"]::before {
+    content: '72px';
+    font-size: 12px;
+}
