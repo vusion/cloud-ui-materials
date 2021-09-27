@@ -5,8 +5,8 @@
 ``` vue
 <template>
 <div>
-<lcap-rich-text-editor :value.sync="tip"></lcap-rich-text-editor>
-<lcap-rich-text-editor :readOnly="bool" :value.sync="tip"></lcap-rich-text-editor>
+<lcap-rich-text-editor :value.sync="tip" :formula="true"></lcap-rich-text-editor>
+<lcap-rich-text-editor :value.sync="tip" :readOnly="bool"></lcap-rich-text-editor>
 </div>
 </template>
 

@@ -1,11 +1,11 @@
 {
   "name": "lcap-rich-text-editor",
   "description": "",
-  "version": "1.0.4",
+  "version": "1.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-rich-text-editor@1.0.4/index.html",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-rich-text-editor@1.1.4/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -32,7 +32,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-rich-text-editor@1.0.4/screenshots\\0.png"
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-rich-text-editor@1.1.4/screenshots\\0.png"
     ],
     "team": "",
     "access": "public"

@@ -23,8 +23,8 @@
 ``` vue
 <template>
 <div>
-<lcap-rich-text-editor :value.sync="tip"></lcap-rich-text-editor>
-<lcap-rich-text-editor :readOnly="bool" :value.sync="tip"></lcap-rich-text-editor>
+<lcap-rich-text-editor :value.sync="tip" :formula="true"></lcap-rich-text-editor>
+<lcap-rich-text-editor :value.sync="tip" :readOnly="bool"></lcap-rich-text-editor>
 </div>
 </template>
 
@@ -115,12 +115,13 @@ export default {
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| value.sync, v-model | string |  | `''` | 需要传入的文本内容 |
+| value.sync | string |  | `''` | 需要传入的文本内容 |
 | readOnly | boolean |  | `false` | 启用只读模式 |
 | textSub | boolean |  | `false` | 启用文本下标工具 |
 | textSuper | boolean |  | `false` | 启用文本上标工具 |
 | formula | boolean |  | `false` | 启用公式输入工具 |
 | placeholder | string |  | `''` | 输入提示 |
+| imgUploadUrl | string |  | `'/gateway/lowcode/api/v1/app/upload'` | 请填入上传图片的接口路径 |
 
 ### Slots
 
@@ -136,7 +137,7 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event.param1 | string | 参数1 |
+| $event | string | 当前输入区域的内容 |
 
 #### @input
 
@@ -144,5 +145,5 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event.param1 | string | 参数1 |
+| $event | string | 当前输入区域的内容 |
 

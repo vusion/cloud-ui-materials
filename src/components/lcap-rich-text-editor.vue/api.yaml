@@ -8,7 +8,7 @@
       type: string
       default: ""
       sync: true
-      model: true
+      model: false
       description: 需要传入的文本内容
     - name: readOnly
       default: false
@@ -35,20 +35,27 @@
       title: 输入占位符
       type: string
       description: 输入提示
+    - name: imgUploadUrl
+      default: "/gateway/lowcode/api/v1/app/upload"
+      title: 上传图片路径
+      type: string
+      description: 请填入上传图片的接口路径
   slots:
     - name: default
       advanced: true
       description: 插入文本或 HTML。
   events:
     - name: change
+      title: 内容改变时
       description: 内容修改时触发
       params:
-        - name: $event.param1
+        - name: $event
           type: string
-          description: 参数1
+          description: 当前输入区域的内容
     - name: input
+      title: 输入时
       description: 输入时触发
       params:
-        - name: $event.param1
+        - name: $event
           type: string
-          description: 参数1
+          description: 当前输入区域的内容

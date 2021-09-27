@@ -3,6 +3,9 @@
         <div class="in-editor">
             <slot></slot>
         </div>
+        <u-uploader @error="showErrorMsg($event)" @success="insertImg($event)" @size-exceed="errorSize($event)" style="display: none;" :url="uploadUrl" url-field="result" maxSize="100MB" :show-file-list="false"  extensions="jpg,png,gif">
+            <u-button style="display: none;" id="uploadButton" color="primary">Upload</u-button>
+        </u-uploader>
     </div>
 </template>
 
@@ -16,6 +19,10 @@ import './node_modules/katex/dist/katex.css';
 import Quill from "quill"
 import { addQuillTitle } from './js/addToolTip.js'
 import customIcon from './js/custom-Icon.js'
+import {UUploader, UButton, UToast} from 'cloud-ui.vusion'
+
+// 自定义工具栏图标
+customIcon();
 
 // 替换自定义字体设置
 let fonts = [false, 'SimSun','Hiragino-Sans-GB','PingFang-SC','STSong','STFangsong','STKaiti','Arial', 'Times-New-Roman', 'Comic-Sans-MS', 'Courier-New', 'Georgia'];
@@ -38,9 +45,18 @@ export default {
     name: 'lcap-rich-text-editor',
     props: {
         value: String,
-        textSub: Boolean,
-        textSuper: Boolean,
-        formula: Boolean,
+        textSub: {
+            type: Boolean,
+            default: false    
+        },
+        textSuper: {
+            type: Boolean,
+            default: false    
+        },
+        formula: {
+            type: Boolean,
+            default: false    
+        },
         placeholder: {
             type: String,
             default: ""
@@ -48,7 +64,16 @@ export default {
         readOnly: {
             type: Boolean,
             default: false
+        },
+        imgUploadUrl: {
+            type: String,
+            default: '/gateway/lowcode/api/v1/app/upload'
         }
+    },
+    components: {
+        UUploader,
+        UButton,
+        UToast
     },
     data() {
         return {
@@ -91,7 +116,8 @@ export default {
                 },
                 placeholder: this.placeholder,
                 readOnly: this.readOnly
-            }
+            },
+            uploadUrl: this.imgUploadUrl
         }
     },
     watch: {
@@ -107,8 +133,10 @@ export default {
                 return
             }
 
-            let content = this.editor.root.innerHTML;
-            if (val && val !== content) {
+            const content = this.editor.root.innerHTML;
+            if (this.readOnly) {
+                this.editor.root.innerHTML = val;
+            } else if (val && val !== content && val.slice(-11) !== "<p><br></p>") {
                 let delta = this.editor.clipboard.convert({
                     html: val
                 });
@@ -131,6 +159,9 @@ export default {
         placeholder() {
             this.options.placeholder = this.placeholder;
             this.reRender();
+        },
+        imgUploadUrl(val) {
+            this.uploadUrl = val;
         }
     },
     mounted() {
@@ -140,9 +171,9 @@ export default {
     },
     methods: {
         reRender() {
-            customIcon();
             this.init();
             this.isShowToolBar(this.readOnly);
+            // 添加气泡提示（暂时使用原生的title属性实现） 
             addQuillTitle();
         },
         init() {
@@ -167,18 +198,30 @@ export default {
 
             this.editor = new Quill(editorDom, this.options);
 
-            // 恢复内容区文本
-            let delta = this.editor.clipboard.convert({
-                html: content
+            // 自定义图片上传
+            let toolbar = this.editor.getModule('toolbar');
+            toolbar.addHandler('image', () => {
+                document.getElementById('uploadButton').click();
             });
-            this.editor.setContents(delta);
+
+            // 恢复内容区文本
+
+            if (this.readOnly) {
+                this.editor.root.innerHTML = content;
+            } else {
+                let delta = this.editor.clipboard.convert({
+                    html: content
+                });
+                this.editor.setContents(delta);
+            }
 
             this.editor.on('text-change', (delta, OldDelta, source) => {
+                const contentText = this.editor.root.innerHTML;
                 if (source === 'user') {
-                    this.$emit('input', this.editor.root.innerHTML);
-                    this.$emit('update:value', this.editor.root.innerHTML);
+                    this.$emit('update:value', contentText);
+                    this.$emit('input', contentText);
+                    this.$emit('change', contentText);
                 }
-                this.$emit('change', this.editor.root.innerHTML);
             });
         },
         configEditorToolBarOptions(val, arrIndex, insertItem) {
@@ -188,26 +231,38 @@ export default {
         configOptionsToolbar(val, arrIndex, insertItem) {
             let updateOptions = this.options.modules.toolbar.container[arrIndex];
             let deleteIndex = 0, insertIndex = 0;
+            let hasTextSub = false, hasTextSuper = false, hasFormula = false;
+            let currentHandleItem = false;
+            for (let i = 0; i < updateOptions.length; i++) {
+                if (updateOptions[i] === 'formula') {
+                    hasFormula = true;
+                } else if (updateOptions[i].script && updateOptions[i].script === 'sub') {
+                    hasTextSub = true;
+                } else if (updateOptions[i].script && updateOptions[i].script === 'super'){
+                    hasTextSuper = true;
+                }
+            }
             if (insertItem === 'formula') {
                 deleteIndex = -3;
                 insertIndex = 3;
+                currentHandleItem = hasFormula;
             } else if (insertItem.script === 'sub') {
                 deleteIndex = -1;
                 insertIndex = updateOptions.length;
+                currentHandleItem = hasTextSub;
             } else if (insertItem.script === 'super') {
-                for (let i = 0; i < updateOptions.length; i++) {
-                    if (updateOptions[i].script && updateOptions[i].script === 'sub') {
-                        deleteIndex = -2;
-                        insertIndex = -1;
-                    } else if (i === updateOptions.length - 1){
-                        deleteIndex = -1;
-                        insertIndex = updateOptions.length;
-                    }
+                if (hasTextSub) {
+                    deleteIndex = -2;
+                    insertIndex = -1;
+                } else {
+                    deleteIndex = -1;
+                    insertIndex = updateOptions.length;
                 }
+                currentHandleItem = hasTextSuper;
             }
-            if (!val) {
+            if (currentHandleItem && !val) {
                 updateOptions.splice(deleteIndex, 1);
-            } else {
+            } else if (!currentHandleItem && val) {
                 updateOptions.splice(insertIndex, 0, insertItem);
             }
         },
@@ -221,6 +276,20 @@ export default {
                 toolbar.style.display = 'block';
                 editorContext.style.borderTop = "0px";
             }
+        },
+        insertImg($event) {
+            console.log()
+            const range = this.editor.getSelection();
+            if (range) {
+                this.editor.insertEmbed(range.index, 'image',""+$event.item.url);
+                this.$emit('update:value', this.editor.root.innerHTML);
+            }
+        },
+        showErrorMsg($event) {
+            this.$toast['error']($event.name+" "+$event.message);
+        },
+        errorSize($event) {
+            this.$toast['warning']($event.message);
         }
     }
 };
