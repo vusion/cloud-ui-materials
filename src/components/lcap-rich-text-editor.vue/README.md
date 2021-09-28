@@ -23,7 +23,7 @@
 ``` vue
 <template>
 <div>
-<lcap-rich-text-editor :value.sync="tip" :formula="true"></lcap-rich-text-editor>
+<lcap-rich-text-editor :value.sync="tip" :formula="true" style="margin-bottom: 10px;"></lcap-rich-text-editor>
 <lcap-rich-text-editor :value.sync="tip" :readOnly="bool"></lcap-rich-text-editor>
 </div>
 </template>
@@ -45,7 +45,7 @@ export default {
 ``` vue
 <template>
 <div>
-<u-input v-model="tip"></u-input>
+<u-input v-model="tip" placeholder="请输入" style="margin-bottom: 10px;"></u-input>
 <lcap-rich-text-editor :placeholder="tip"></lcap-rich-text-editor>
 </div>
 </template>
@@ -68,8 +68,8 @@ export default {
 ``` vue
 <template>
 <div>
-<u-switch v-model="switchToggle">Switch</u-switch>
-<lcap-rich-text-editor :readOnly="switchToggle"></lcap-rich-text-editor>
+    <u-switch v-model="switchToggle" style="margin-bottom: 10px;">Switch</u-switch>
+    <lcap-rich-text-editor :readOnly="switchToggle"></lcap-rich-text-editor>
 </div>
 </template>
 
@@ -91,10 +91,12 @@ export default {
 ``` vue
 <template>
 <div>
-<u-switch v-model="showFormula">Switch</u-switch>
-<u-switch v-model="showTextSub">Switch</u-switch>
-<u-switch v-model="showTextSuper">Switch</u-switch>
-<lcap-rich-text-editor :formula="showFormula" :textSub="showTextSub" :textSuper="showTextSuper"></lcap-rich-text-editor>
+    <div style="margin-bottom: 10px;">
+        <u-switch v-model="showFormula">Switch</u-switch>
+        <u-switch v-model="showTextSub">Switch</u-switch>
+        <u-switch v-model="showTextSuper">Switch</u-switch>
+    </div>
+    <lcap-rich-text-editor :formula="showFormula" :textSub="showTextSub" :textSuper="showTextSuper"></lcap-rich-text-editor>
 </div>
 </template>
 

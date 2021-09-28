@@ -3,7 +3,7 @@
         <div class="in-editor">
             <slot></slot>
         </div>
-        <u-uploader @error="showErrorMsg($event)" @success="insertImg($event)" @size-exceed="errorSize($event)" style="display: none;" :url="uploadUrl" url-field="result" maxSize="100MB" :show-file-list="false"  extensions="jpg,png,gif">
+        <u-uploader @error="showErrorMsg($event)" @success="insertImg($event)" @size-exceed="errorSize($event)" style="display: none;" :url="uploadUrl" url-field="result" maxSize="100MB" :show-file-list="false"  accept="image/gif,image/png,image/jpeg">
             <u-button style="display: none;" id="uploadButton" color="primary">Upload</u-button>
         </u-uploader>
     </div>
@@ -271,17 +271,16 @@ export default {
             let editorContext = this.$refs.root.querySelector('.ql-toolbar.ql-snow + .ql-container.ql-snow');
             if (val) {
                 toolbar.style.display = 'none';
-                editorContext.style.borderTop = "1px solid #ccc";
+                editorContext.style.border = "0px";
             } else {
                 toolbar.style.display = 'block';
                 editorContext.style.borderTop = "0px";
             }
         },
         insertImg($event) {
-            console.log()
             const range = this.editor.getSelection();
             if (range) {
-                this.editor.insertEmbed(range.index, 'image',""+$event.item.url);
+                this.editor.insertEmbed(range.index, 'image', ""+$event.item.url);
                 this.$emit('update:value', this.editor.root.innerHTML);
             }
         },
