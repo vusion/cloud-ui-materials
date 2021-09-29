@@ -38,14 +38,14 @@ export default function () {
     </svg>`;
 
     icons['color'] = `<svg viewbox="0 0 20 20">
-    <line class="ql-color-label ql-stroke ql-transparent" x1="3" x2="17" y1="17" y2="17"></line>
+    <line class="ql-color-label ql-stroke" x1="3" x2="17" y1="17" y2="17" style="stroke-width:3"></line>
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path class="ql-fill" d="M12.5 10.6667H7.50001L5.96167 14H4.16667L9.16667 2.5H10.8333L15.8333 14H14.0383L12.5 10.6667ZM11.8333 9L10 4.90417L8.16667 9H11.8333Z"/>
     </svg>
     </svg>`;
 
     icons['background'] = `<svg viewbox="0 0 20 20">
-    <line class="ql-color-label ql-stroke ql-transparent" x1="3" x2="17" y1="17" y2="17"></line>
+    <line class="ql-color-label ql-stroke" x1="3" x2="17" y1="17" y2="17" style="stroke-width:3"></line>
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path class="ql-stroke" d="M9.81829 2.25346L16.2469 6.75485L11.7456 13.1835L5.31689 8.68211L9.81829 2.25346Z"/>
     <path class="ql-fill" d="M6.54858 9.62708L10.5001 12.394L9.29843 14.1102L3.68587 14.1102L6.54858 9.62708Z"/>

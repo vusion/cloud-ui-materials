@@ -274,6 +274,7 @@ export default {
                 editorContext.style.border = "0px";
             } else {
                 toolbar.style.display = 'block';
+                editorContext.style.border = "1px solid #e3e4e5";
                 editorContext.style.borderTop = "0px";
             }
         },

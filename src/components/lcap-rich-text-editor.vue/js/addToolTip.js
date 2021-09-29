@@ -48,7 +48,7 @@ export function addQuillTitle() {
     const fontPicker = document.querySelectorAll(".ql-font .ql-picker-label");
     const sizePicker = document.querySelectorAll(".ql-size .ql-picker-label");
     const dropIcon = `<svg width="6" height="4" viewBox="0 0 6 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path class="ql-fill" d="M3 4L1.30337e-06 -1.47821e-06L6 -4.76837e-07L3 4Z" />
+                    <path d="M3 4L1.30337e-06 -1.47821e-06L6 -4.76837e-07L3 4Z" fill="#BFBFBF"/>
                     </svg>`;
     sizePicker.forEach((item) => {
         item.innerHTML = dropIcon;
