@@ -42,6 +42,20 @@ export function addQuillTitle() {
     });
     aSelect.forEach(function (item) {
         let tipTitle = item.classList[0];
+        if (tipTitle === 'ql-align') {
+            item.querySelectorAll('.ql-picker-item').forEach((listItem) => {
+                 let alignValue = listItem.getAttribute('data-value')
+                if (alignValue === 'center') {
+                    listItem.title = "居中对齐";
+                } else if (alignValue === 'right') {
+                    listItem.title = "右对齐";
+                } else if (alignValue === 'justify') {
+                    listItem.title = "两端对齐";
+                } else {
+                    listItem.title = "左对齐";
+                }
+            })
+        }
         item.title = titleConfig[tipTitle];
     });
     // 替换下拉框的箭头svg
