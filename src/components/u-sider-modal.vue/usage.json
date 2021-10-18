@@ -1,0 +1,127 @@
+{
+    "symbol": "u-sider-modal",
+    "name": "侧边栏弹窗",
+    "version": "0.2.4",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "侧边栏弹窗组件",
+    "labels": [
+        "Container"
+    ],
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.4/screenshots/0.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-sider-modal></u-sider-modal>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "u-sider-modal",
+        "title": "侧边栏弹窗",
+        "description": "侧边栏弹窗组件",
+        "category": "Container",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.4/screenshots/0.png",
+        "drawings": "[]",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<u-sider-modal></u-sider-modal>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "position",
+                "type": "string",
+                "options": [
+                    {
+                        "value": "left",
+                        "title": "左边"
+                    },
+                    {
+                        "value": "right",
+                        "title": "右边"
+                    }
+                ],
+                "default": "right",
+                "description": "侧边栏弹窗停靠的位置（目前只支持左边和右边）"
+            },
+            {
+                "name": "toggleShow",
+                "type": "boolean",
+                "default": false,
+                "description": "是否显示侧边栏弹窗"
+            },
+            {
+                "name": "buttonText",
+                "type": "string",
+                "default": "侧边栏弹窗",
+                "description": "弹窗展开/收起按钮的显示文字"
+            },
+            {
+                "name": "positionY",
+                "type": "string",
+                "default": "0",
+                "description": "侧边栏弹窗Y轴的位置"
+            }
+        ],
+        "slots": [
+            {
+                "name": "default",
+                "description": "插入文本或 HTML。"
+            }
+        ],
+        "events": [
+            {
+                "name": "before-open",
+                "title": "打开前",
+                "description": "打开弹窗前触发",
+                "params": [
+                    {
+                        "name": "senderVM",
+                        "type": "UModal",
+                        "description": "发送事件实例"
+                    }
+                ]
+            },
+            {
+                "name": "open",
+                "title": "打开后",
+                "description": "打开弹窗后触发",
+                "params": [
+                    {
+                        "name": "senderVM",
+                        "type": "UModal",
+                        "description": "发送事件实例"
+                    }
+                ]
+            },
+            {
+                "name": "before-close",
+                "title": "关闭前",
+                "description": "关闭弹窗前触发",
+                "params": [
+                    {
+                        "name": "$event.preventDefault",
+                        "type": "Function",
+                        "description": "阻止关闭流程"
+                    },
+                    {
+                        "name": "senderVM",
+                        "type": "UModal",
+                        "description": "发送事件实例"
+                    }
+                ]
+            },
+            {
+                "name": "close",
+                "title": "关闭后",
+                "description": "关闭弹窗时触发",
+                "params": [
+                    {
+                        "name": "senderVM",
+                        "type": "UModal",
+                        "description": "发送事件实例"
+                    }
+                ]
+            }
+        ],
+        "children": []
+    }
+}

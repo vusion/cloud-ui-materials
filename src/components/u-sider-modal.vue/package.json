@@ -1,0 +1,61 @@
+{
+  "name": "u-sider-modal",
+  "description": "",
+  "version": "0.2.4",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/u-sider-modal@0.2.4/index.html",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "type": "component",
+    "title": "侧边栏弹窗",
+    "category": "Container",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.4/screenshots\\0.png"
+    ],
+    "team": "",
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "core-js": "^3.6.5",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.11.20"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.11.20"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  }
+}

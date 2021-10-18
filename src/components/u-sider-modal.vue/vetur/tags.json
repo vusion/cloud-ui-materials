@@ -1,0 +1,11 @@
+{
+  "u-sider-modal": {
+    "attributes": [
+      "position",
+      "toggleShow",
+      "buttonText",
+      "positionY"
+    ],
+    "description": "侧边栏弹窗组件"
+  }
+}
