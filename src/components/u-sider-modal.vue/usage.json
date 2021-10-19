@@ -1,7 +1,7 @@
 {
     "symbol": "u-sider-modal",
     "name": "侧边栏弹窗",
-    "version": "0.2.4",
+    "version": "0.2.7",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Container"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.4/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.7/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-sider-modal></u-sider-modal>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "u-sider-modal",
         "title": "侧边栏弹窗",
         "description": "侧边栏弹窗组件",
         "category": "Container",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.4/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.7/screenshots/0.png",
         "drawings": "[]",
         "blocks": [
             {
@@ -28,6 +28,7 @@
         "attrs": [
             {
                 "name": "position",
+                "title": "停靠位置",
                 "type": "string",
                 "options": [
                     {
@@ -44,18 +45,21 @@
             },
             {
                 "name": "toggleShow",
+                "title": "切换显示",
                 "type": "boolean",
                 "default": false,
                 "description": "是否显示侧边栏弹窗"
             },
             {
                 "name": "buttonText",
+                "title": "展开/收缩 按钮文本",
                 "type": "string",
                 "default": "侧边栏弹窗",
                 "description": "弹窗展开/收起按钮的显示文字"
             },
             {
                 "name": "positionY",
+                "title": "垂直方向位置",
                 "type": "string",
                 "default": "0",
                 "description": "侧边栏弹窗Y轴的位置"
