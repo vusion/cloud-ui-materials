@@ -1,36 +1,30 @@
 {
   "name": "lcap-video-flv",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.7",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.2/index.html",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-video-flv@0.1.7/index.html",
   "license": "MIT",
   "keywords": [
-    "vusion",
+    "lcap",
     "material",
     "component"
   ],
   "scripts": {
-    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
-    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
-    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
-    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "echo 'not run screenshot'",
-    "lcap": "node ./scripts/lcap",
-    "deploy": "vusion deploy && vusion deploy screenshots",
-    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && npm run lcap && git add . && vusion readme && vusion vetur",
-    "release": "vusion publish"
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
   },
-  "vuePlugins": {
-    "resolveFrom": "../../../"
-  },
-  "babel": {
-    "presets": [
-      "@vue/babel-preset-app"
-    ]
-  },
+  "vuePlugins": {},
+  "babel": {},
   "vusion": {
     "type": "component",
     "title": "时间",
@@ -38,8 +32,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.0/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.0/screenshots/1.png"
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.6/screenshots\\0.png",
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.6/screenshots\\1.png"
     ],
     "team": "",
     "access": "public"
@@ -47,10 +41,16 @@
   "dependencies": {
     "flv.js": "^1.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.10",
+    "vue-cli-plugin-vusion": "^0.13.3"
+  },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "vue-cli-plugin-vusion": "^0.11.9",
+    "vue-cli-plugin-vusion": "^0.13.3",
     "vue": "^2.6.10",
     "cloud-ui.vusion": "^0.11.2"
   },

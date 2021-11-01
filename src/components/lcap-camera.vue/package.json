@@ -1,36 +1,30 @@
 {
   "name": "lcap-camera",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.2/index.html",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-camera@0.1.4/index.html",
   "license": "MIT",
   "keywords": [
-    "vusion",
+    "lcap",
     "material",
     "component"
   ],
   "scripts": {
-    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
-    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
-    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
-    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
-    "lcap": "vusion lcap",
-    "deploy": "vusion deploy && vusion deploy dist-theme && vusion deploy screenshots && npm run lcap && git add .",
-    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && npm run lcap && git add . && vusion readme && vusion vetur",
-    "release": "vusion publish"
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
   },
-  "vuePlugins": {
-    "resolveFrom": "../../../"
-  },
-  "babel": {
-    "presets": [
-      "@vue/babel-preset-app"
-    ]
-  },
+  "vuePlugins": {},
+  "babel": {},
   "vusion": {
     "type": "component",
     "title": "摄像头",
@@ -38,14 +32,19 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/lcap-camera@0.1.2/screenshots/0.png",
-      "https://static-vusion.163yun.com/packages/lcap-camera@0.1.2/screenshots/1.png"
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-camera@0.1.4/screenshots\\0.png"
     ],
     "team": "",
     "access": "public"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.10",
+    "vue-cli-plugin-vusion": "^0.13.3"
+  },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
     "vue-cli-plugin-vusion": "^0.12.28",

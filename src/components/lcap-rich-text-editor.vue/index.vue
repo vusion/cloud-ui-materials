@@ -19,7 +19,7 @@ import './node_modules/katex/dist/katex.css';
 import Quill from "quill"
 import { addQuillTitle } from './js/addToolTip.js'
 import customIcon from './js/custom-Icon.js'
-import {UUploader, UButton, UToast} from 'cloud-ui.vusion'
+import {UUploader, UButton, UToast, MField} from 'cloud-ui.vusion'
 
 // 自定义工具栏图标
 customIcon();
@@ -43,6 +43,7 @@ let Colors = ['#ffffff', '#010101', '#e73521', '#f1a039', '#fffe54', '#b4f551', 
 
 export default {
     name: 'lcap-rich-text-editor',
+    mixins: [MField],
     props: {
         value: String,
         textSub: {

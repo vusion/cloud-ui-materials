@@ -5,6 +5,7 @@
   icon: default
   attrs:
     - name: value
+      title: 编辑内容
       type: string
       default: ""
       sync: true
