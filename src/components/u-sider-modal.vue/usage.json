@@ -1,7 +1,7 @@
 {
     "symbol": "u-sider-modal",
     "name": "侧边栏弹窗",
-    "version": "0.2.7",
+    "version": "0.2.22",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,15 +9,15 @@
     "labels": [
         "Container"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.7/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.22/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-sider-modal></u-sider-modal>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "u-sider-modal",
         "title": "侧边栏弹窗",
         "description": "侧边栏弹窗组件",
         "category": "Container",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.7/screenshots/0.png",
-        "drawings": "[]",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.22/screenshots/0.png",
+        "drawings": "",
         "blocks": [
             {
                 "title": "基本用法",

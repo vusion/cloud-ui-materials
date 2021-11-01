@@ -1,11 +1,11 @@
 {
   "name": "lcap-camera",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-camera@0.1.4/index.html",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-camera@0.1.7/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -32,7 +32,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-camera@0.1.4/screenshots\\0.png"
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-camera@0.1.7/screenshots\\0.png"
     ],
     "team": "",
     "access": "public"

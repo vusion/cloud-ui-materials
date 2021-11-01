@@ -1,7 +1,7 @@
 <template>
-    <div ref="container" v-on="$listeners" :class="[$style.root, $style.container, position === 'left' ? $style.posHideLeft : $style.posHideRight]" vusion-slot-name="default" :style="showOrHideStyle">
-        <div :class="[$style.showButton, position === 'left' ? $style.leftButton : $style.rightButton]" @click="toggle">{{buttonShowText}}</div>
-        <div :class="$style.content">
+    <div ref="container" v-on="$listeners" :class="[$style.root, $style.container, position === 'left' ? $style.posHideLeft : $style.posHideRight]" :style="showOrHideStyle">
+        <div :class="[$style.showButton, position === 'left' ? $style.leftButton : $style.rightButton]" vusion-click-enabled @click.stop="toggle">{{buttonShowText}}</div>
+        <div :class="$style.content" vusion-slot-name="default" :vusion-scope-id="$parent.$parent.$options._scopeId">
             <slot></slot>
             <s-empty v-if="(!$slots.default) && $env.VUE_APP_DESIGNER"></s-empty>
         </div>
@@ -57,7 +57,6 @@ export default {
             // 监听内容区dom元素的宽度变化，自适应定位的偏移量
             let resizeObserver = new ResizeObserver(() => {
                 this.updateView();
-                console.log("size change")
             })
             resizeObserver.observe(this.$refs.container);
         });
@@ -120,9 +119,9 @@ export default {
                 }
             }, delayTime);
         },
-        designerControl() {
-            this.toggle();
-        }
+        // designerControl($event) {
+        //     this.toggle();
+        // }
     },
     watch: {
         position(value) {
@@ -148,17 +147,17 @@ export default {
 .container {
     position: fixed;
     top: 0;
-    min-height: 600px;
     min-width: 400px;
     box-sizing: border-box;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
     border-radius: 2px;
     padding: 20px;
     background: white;
-    z-index: 999;
+    z-index: 9999;
 }
 
 .content {
+    min-height: 600px;
     height: 100%;
     overflow: auto;
 }
