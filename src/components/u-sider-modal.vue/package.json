@@ -1,11 +1,11 @@
 {
   "name": "u-sider-modal",
   "description": "",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/u-sider-modal@0.2.22/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.22/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -32,7 +32,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/u-sider-modal@0.2.22/screenshots\\0.png"
+      "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.22/screenshots\\0.png"
     ],
     "team": "",
     "access": "public"

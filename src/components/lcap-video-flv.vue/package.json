@@ -1,11 +1,11 @@
 {
   "name": "lcap-video-flv",
   "description": "",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-video-flv@0.1.7/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.7/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -32,8 +32,8 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.6/screenshots\\0.png",
-      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.6/screenshots\\1.png"
+      "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.6/screenshots\\0.png",
+      "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.6/screenshots\\1.png"
     ],
     "team": "",
     "access": "public"

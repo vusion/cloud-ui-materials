@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-video-flv",
     "name": "FLV 视频流播放器",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "icon": "video",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Media"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.7/screenshots/0.png,http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.7/screenshots/1.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.7/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.7/screenshots/1.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\"></lcap-video-flv>\\n</template>\\n\"},{\"title\":\"设置宽高样式\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video-flv src=\\\"https://docardmedia.iotdataserver.net/upload/media/2020/video/0C64723E852BD5C3CA60BD08C4E2033A.flv\\\" style=\\\"width:400px\\\"></lcap-video-flv>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-video-flv",
         "title": "FLV 视频流播放器",
         "description": "FLV 视频流播放器",
         "category": "Media",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.7/screenshots/0.png,http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video-flv@0.1.7/screenshots/1.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.7/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-video-flv@0.1.7/screenshots/1.png",
         "drawings": "",
         "blocks": [
             {
