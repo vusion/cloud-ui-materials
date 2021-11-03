@@ -114,7 +114,7 @@ export default {
     },
     methods: {
         getValidWidth(width) {
-            return width === 'string' && (width.includes('%') || width.includes('px') || width.includes('rem')) ? width : `${width}px`;
+            return typeof width === 'string' && (width.includes('%') || width.includes('px') || width.includes('rem')) ? width : `${width}px`;
         },
         getCells(children) {
             const { ths, startKey, endKey } = this;
