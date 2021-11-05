@@ -2,8 +2,8 @@
 
 ```html
 <u-calendar-table
-    firstTitle="姓名"
-    firstField="parent.name"
+    first-title="姓名"
+    first-field="parent.name"
     parent-key="parent.name"
     child-key="child.name"
     start-key="child.startTime"

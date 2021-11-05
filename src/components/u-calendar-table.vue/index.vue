@@ -21,11 +21,9 @@
             :min-day="minDay"
             :max-day="maxDay"
             :data="tableData"
-            :parent-data="parentData"
             :start-key="startKey"
             :end-key="endKey"
             :width="width"
-            :first-field="firstField"
             :first-title="firstTitle"
             :first-width="firstWidth"
             @select="$emit('select', $event, this)"
@@ -197,9 +195,9 @@ export default {
     },
     methods: {
         async load() {
-            const { dataSourceParent, dataSourceChild, parentKey, childKey } = this;
+            const { dataSourceParent, dataSourceChild, firstField, parentKey, childKey } = this;
             if (this.$env.VUE_APP_DESIGNER) {
-                this.tempData = [{ fieldValue: this.firstField, children: [{}] }];
+                this.tempData = [{ firstValue: firstField, children: [{}] }];
                 return;
             }
             if (!dataSourceParent || !dataSourceChild) {
@@ -214,10 +212,9 @@ export default {
                 return;
             }
             this.tempData = parentData.map((parentItem) => {
-                const fieldValue = get(parentItem, parentKey);
-                const children = childData.filter((childItem) => get(childItem, childKey) === fieldValue);
+                const children = childData.filter((childItem) => get(childItem, childKey) === get(parentItem, parentKey));
                 return {
-                    fieldValue,
+                    firstValue: get(parentItem, firstField),
                     children: children.map((child) => ({ ...child, ...parentItem })),
                 };
             });

@@ -22,7 +22,7 @@
             :key="i"
             :class="$style.tr"
         >
-            <td :class="$style.td">{{ row.fieldValue }}</td>
+            <td :class="$style.td">{{ row.firstValue }}</td>
             <td
                 v-for="cell in row.cells"
                 :key="cell.__key__"

@@ -3,8 +3,8 @@
 ```vue
 <template>
     <u-calendar-table
-        firstTitle="姓名"
-        firstField="parent.name"
+        first-title="姓名"
+        first-field="parent.name"
         :data-source-parent="dateSourceParent"
         :data-source-child="dateSourceChild"
         parent-key="parent.name"
@@ -19,7 +19,7 @@
     </u-calendar-table>
 </template>
 <script>
-export default{
+export default {
     data() {
         return {
             dateSourceParent: {
