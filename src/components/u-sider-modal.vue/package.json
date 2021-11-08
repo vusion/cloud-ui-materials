@@ -1,11 +1,11 @@
 {
   "name": "u-sider-modal",
   "description": "",
-  "version": "0.2.23",
+  "version": "0.2.24",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.22/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.24/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -19,7 +19,7 @@
     "build": "npm run build:theme && npm run build:doc",
     "usage": "lcap usage",
     "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
-    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "deploy": "lcap deploy --platform http://netease-template.lcap.163yun.com --username template-user --password template123 && lcap deploy dist-theme --platform http://netease-template.lcap.163yun.com --username template-user --password template123",
     "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
     "release": "lcap publish"
   },
@@ -32,7 +32,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.22/screenshots\\0.png"
+      "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.24/screenshots\\0.png"
     ],
     "team": "",
     "access": "public"

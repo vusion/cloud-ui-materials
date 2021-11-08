@@ -1,7 +1,7 @@
 {
     "symbol": "u-sider-modal",
     "name": "侧边栏弹窗",
-    "version": "0.2.23",
+    "version": "0.2.24",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Container"
     ],
-    "screenShot": "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.22/screenshots/0.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.24/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<u-sider-modal></u-sider-modal>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "u-sider-modal",
         "title": "侧边栏弹窗",
         "description": "侧边栏弹窗组件",
         "category": "Container",
-        "screenShot": "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.22/screenshots/0.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/u-sider-modal@0.2.24/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {

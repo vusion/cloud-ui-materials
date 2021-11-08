@@ -148,6 +148,7 @@ export default {
     position: fixed;
     top: 0;
     min-width: 400px;
+    max-width: 80%;
     box-sizing: border-box;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
     border-radius: 2px;
