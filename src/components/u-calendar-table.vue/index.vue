@@ -219,6 +219,9 @@ export default {
                 };
             });
         },
+        async reload() {
+            await this.load();
+        },
         async handleDataSource(dataSource, isParent) {
             if (!dataSource) {
                 return [];

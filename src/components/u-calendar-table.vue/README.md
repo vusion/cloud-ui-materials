@@ -7,6 +7,7 @@
 - [API]()
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
+    - [Methods](#methods)
 
 **Table**
 
@@ -101,4 +102,20 @@ export default {
 #### (default)
 
 插入文本或 HTML 至表格项
+
+Methods
+
+#### load()
+
+带缓存地加载
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
+
+#### reload()
+
+清除缓存，重新加载
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
 

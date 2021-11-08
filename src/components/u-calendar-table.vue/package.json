@@ -1,11 +1,11 @@
 {
   "name": "u-calendar-table",
   "description": "用于展示大量结构化数据。支持按月展示月内每天的数据。",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/u-calendar-table@0.1.4/index.html",
+  "homepage": "http://static-vusion.163yun.com/u-calendar-table@0.1.5/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -32,7 +32,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://static-vusion.163yun.com/packages/u-calendar-table@0.1.4/screenshots/0.png"
+      "http://static-vusion.163yun.com/packages/u-calendar-table@0.1.5/screenshots/0.png"
     ],
     "team": "",
     "access": "public"

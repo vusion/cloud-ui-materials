@@ -88,3 +88,10 @@
   slots:
     - name: default
       description: 插入文本或 HTML 至表格项
+  methods:
+    - name: load
+      description: 带缓存地加载
+      params: []
+    - name: reload
+      description: 清除缓存，重新加载
+      params: []
