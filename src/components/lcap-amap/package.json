@@ -1,0 +1,65 @@
+{
+  "name": "lcap-amap",
+  "description": "",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "usage": "lcap usage",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "component",
+    "title": "高德地图",
+    "category": "DataDisplay",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [],
+    "team": "",
+    "access": "public"
+  },
+  "dependencies": {
+    "vue-amap": "^0.5.10"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "core-js": "^3.6.5",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.12.1"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.12.1"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  }
+}
