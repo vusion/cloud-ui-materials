@@ -215,6 +215,7 @@ export default {
                 const children = childData.filter((childItem) => get(childItem, childKey) === get(parentItem, parentKey));
                 return {
                     firstValue: get(parentItem, firstField),
+                    parent: parentItem,
                     children: children.map((child) => ({ ...child, ...parentItem })),
                 };
             });

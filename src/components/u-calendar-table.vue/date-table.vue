@@ -95,6 +95,7 @@ export default {
                     const day = currentMonthDate.day();
                     const dayText = weekDayTexts[day === 0 ? 6 : day - 1];
                     ths.push({
+                        Date: currentMonthDate,
                         date: currentMonthDate.date(),
                         day: dayText,
                         weekend: day === 0 || day === 6,
@@ -107,7 +108,7 @@ export default {
         rows() {
             const rows = this.data.map((item) => ({
                 ...item,
-                cells: this.getCells(item.children),
+                cells: this.getCells(item.children, item.parent),
             }));
             return rows;
         },
@@ -116,12 +117,19 @@ export default {
         getValidWidth(width) {
             return typeof width === 'string' && (width.includes('%') || width.includes('px') || width.includes('rem')) ? width : `${width}px`;
         },
-        getCells(children) {
+        getCells(children, parent) {
             const { ths, startKey, endKey } = this;
             return ths.map((thItem) => {
                 const currentDate = dayjs(thItem.key, DefaultFormatType);
+                const commonProps = {
+                    __key__: thItem.key,
+                    year: thItem.Date.year(),
+                    month: thItem.Date.month() + 1,
+                    timestamp: thItem.Date.valueOf(),
+                    dateString: thItem.key,
+                };
                 if (!children || !children.length)
-                    return { __key__: thItem.key };
+                    return { ...parent, ...commonProps };
                 const validData = children.filter((item) => {
                     const startTime = get(item, startKey, null);
                     const endTime = get(item, endKey, null);
@@ -135,8 +143,8 @@ export default {
                     return currentDate.format(DefaultFormatType) === startDate.format(DefaultFormatType);
                 });
                 if (!validData.length)
-                    return { __key__: thItem.key };
-                return { ...validData[0], list: validData, __key__: thItem.key };
+                    return { ...parent, ...commonProps };
+                return { ...validData[0], list: validData, ...commonProps };
             });
         },
     },
