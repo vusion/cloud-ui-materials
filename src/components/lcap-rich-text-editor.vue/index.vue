@@ -3,7 +3,7 @@
         <div class="in-editor">
             <slot></slot>
         </div>
-        <u-uploader @error="showErrorMsg($event)" @success="insertImg($event)" @size-exceed="errorSize($event)" style="display: none;" :url="uploadUrl" url-field="result" maxSize="100MB" :show-file-list="false"  accept="image/gif,image/png,image/jpeg">
+        <u-uploader ref="uploader" @error="showErrorMsg($event)" @success="insertImg($event)" @size-exceed="errorSize($event)" style="display: none;" :url="uploadUrl" url-field="result" maxSize="100MB" :show-file-list="false"  accept="image/gif,image/png,image/jpeg">
             <u-button style="display: none;" id="uploadButton" color="primary">Upload</u-button>
         </u-uploader>
     </div>
@@ -204,6 +204,17 @@ export default {
             toolbar.addHandler('image', () => {
                 document.getElementById('uploadButton').click();
             });
+            // 兼容处理 截图自动上传
+            this.editor.root.addEventListener("paste", event => {
+                if (
+                    event.clipboardData &&
+                    event.clipboardData.files &&
+                    event.clipboardData.files.length
+                ) {
+                    event.preventDefault();
+                    this.$refs.uploader.uploadFiles(event.clipboardData.files);
+                }
+            }, true)
 
             // 恢复内容区文本
 
