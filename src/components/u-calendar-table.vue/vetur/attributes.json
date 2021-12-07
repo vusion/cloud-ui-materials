@@ -1,0 +1,58 @@
+{
+  "u-calendar-table/data-source-parent": {
+    "type": "Array<Item> | Function | object",
+    "description": "日历表格主数据源，数组方式表示直接的数据，函数需要返回一个 Promise"
+  },
+  "u-calendar-table/data-source-child": {
+    "type": "Array<Item> | Function | object",
+    "description": "日历表格子数据源，数组方式表示直接的数据，函数需要返回一个 Promise"
+  },
+  "u-calendar-table/first-title": {
+    "type": "string",
+    "description": "表格第一项内容的标题"
+  },
+  "u-calendar-table/first-field": {
+    "type": "string",
+    "description": "表格第一项内容的在 data-source 中的标识"
+  },
+  "u-calendar-table/parent-key": {
+    "type": "String",
+    "description": "主数据源中的关键字段，用来将主/子数据源的数据关联"
+  },
+  "u-calendar-table/child-key": {
+    "type": "String",
+    "description": "子数据源中的关键字段，用来将主/子数据源的数据关联"
+  },
+  "u-calendar-table/page-size": {
+    "type": "string | number",
+    "description": "每页条数"
+  },
+  "u-calendar-table/data-schema": {
+    "type": "schema",
+    "description": "日历表格中每项的数据类型"
+  },
+  "u-calendar-table/start-key": {
+    "type": "string",
+    "description": "数据内表示开始时间的字段"
+  },
+  "u-calendar-table/end-key": {
+    "type": "string",
+    "description": "数据内表示结束时间的字段"
+  },
+  "u-calendar-table/min-date": {
+    "type": "Date | string ｜ number",
+    "description": "最小日期，默认 5 年前"
+  },
+  "u-calendar-table/max-date": {
+    "type": "Date | string ｜ number",
+    "description": "最大日期，默认 4 年后"
+  },
+  "u-calendar-table/width": {
+    "type": "string | number",
+    "description": "表格每一项内容的宽度，默认 48 表示 '48px'"
+  },
+  "u-calendar-table/first-width": {
+    "type": "string | number",
+    "description": "表格首项宽度，默认 64 表示 '64px'"
+  }
+}

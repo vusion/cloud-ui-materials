@@ -1,0 +1,63 @@
+{
+  "name": "u-calendar-table",
+  "description": "用于展示大量结构化数据。支持按月展示月内每天的数据。",
+  "version": "0.1.5",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "http://static-vusion.163yun.com/u-calendar-table@0.1.5/index.html",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "type": "component",
+    "title": "日历表格",
+    "category": "Container",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [
+      "http://static-vusion.163yun.com/packages/u-calendar-table@0.1.5/screenshots/0.png"
+    ],
+    "team": "",
+    "access": "public"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.7"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "core-js": "^3.6.5",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.12.1"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.12.1"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  }
+}
