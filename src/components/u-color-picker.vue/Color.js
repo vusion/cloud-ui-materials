@@ -5,7 +5,7 @@ const RGB_RANGE_REG = /^(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)$/;
 // alpha范围
 const ALPHA_RANGE_REG = /^(1|1.0?|0|0.[0-9]?[0-9]?)$/;
 // 16进制
-const HEX_REG = /^#([0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{4}|[0-9a-fA-F]{3})$/;
+const HEX_REG = /^#([0-9a-fA-F]{3,8})$/;
 // rgb
 const RGB_REG = /^[rR][gG][Bb][\(]([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\s]*,){2}[\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\s]*[\)]{1}$/
 // rgba
@@ -137,6 +137,10 @@ class Color {
             throw new SyntaxError('Unexpected params of hex function');
         }
         value = value.trim().slice(1);
+        // 5位或者7位都直接忽略最后一位
+        if(value.length === 5 || value.length === 7) {
+            value = value.slice(0, -1); 
+        }
         // 3位或者4位都将位数补齐
         if (value.length === 3 || value.length === 4) {
             const arr = Array.from(value)
@@ -144,7 +148,7 @@ class Color {
                 return `${prev}${cur}${cur}`;
             }, '')
         }
-        let alphaStr = ''
+        let alphaStr;
         // 8位表示有透明度
         if (value.length === 8) {
             alphaStr = value.substr(value.length - 2, 2);
