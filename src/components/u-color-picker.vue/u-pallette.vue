@@ -61,10 +61,7 @@ function strToColor(value) {
     } catch(e) {
         console.warn(e);
     }
-    if(!color) {
-        color = new Color()
-    }
-    return color;
+    return color ||  new Color();
 }
 
 export default {
@@ -125,8 +122,14 @@ export default {
             this.onInput();
         },
         setHEX(hex) {
-            const color = Color.fromHEX(hex);
-            this.color.setRGB(color.r, color.g, color.b);
+            let color = null
+            try{
+                color = Color.fromHEX(hex);
+            } catch(e) {
+                console.warn(e)
+            }
+            color = color || new Color();
+            this.color.setRGBA(color.r, color.g, color.b, color.a);
         },
         setHue(hue) {
             this.color.setHSV(hue, this.color.s, this.color.v);

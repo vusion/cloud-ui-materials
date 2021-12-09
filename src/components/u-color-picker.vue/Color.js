@@ -64,16 +64,19 @@ class Color {
     }
 
     toHEX() {
-        const fix = (num) => (num.length === 1 ? '0' + num : num).toUpperCase();
         let opacityStr = ''
         if(!!this.a && this.a !== 1) {
             opacityStr = opacity2Hex(this.a);
         }
-        return `#${fix(this.r.toString(16))}${fix(this.g.toString(16))}${this.b.toString(16)}${opacityStr}`;
+        return `#${this.r.toString(16).padStart(2, '0')}${this.g.toString(16).padStart(2, '0')}${this.b.toString(16).padStart(2, '0')}${opacityStr}`;
     }
 
     getRGB() {
         return { r: this.r, g: this.g, b: this.b };
+    }
+
+    setRGBA(r, g, b, a) {
+        Object.assign(this, { r, g, b, a }, Color.RGB2HSV(r, g, b));
     }
 
     setRGB(r, g, b) {
