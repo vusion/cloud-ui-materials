@@ -9,7 +9,6 @@
         </div>
     </f-dragger>
     <div :class="$style.bar">
-        <!-- <div :class="$style.dropper"></div> -->
         <div :class="$style.sliders">
             <u-pallette-slider :min="0" :max="360" :value="color.h" @input="setHue($event), onInput()"
                 :style="{ background: `linear-gradient(to right, red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)` }"
@@ -55,6 +54,19 @@
 import { MField } from 'cloud-ui.vusion';
 import Color from './Color';
 
+function strToColor(value) {
+    let color = null;
+    try {
+        color = Color.parse(value)
+    } catch(e) {
+        console.warn(e);
+    }
+    if(!color) {
+        color = new Color()
+    }
+    return color;
+}
+
 export default {
     name: 'u-pallette',
     mixins: [MField],
@@ -74,7 +86,7 @@ export default {
     },
     data() {
         return {
-            color: this.value ? Color.parse(this.value) : new Color(),
+            color: strToColor(this.value),
             grid: { x: 1, y: 1 },
             handleEl: undefined,
         };
@@ -88,11 +100,7 @@ export default {
     },
     watch: {
         value(value, oldValue) {
-            if (!value) {
-                return '';
-            }
-
-            const color = Color.parse(this.value);
+            const color = strToColor(value);
             if (color.toRGBA() === this.color.toRGBA())
                 return;
 
