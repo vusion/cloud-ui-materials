@@ -19,31 +19,6 @@ function isString(value) {
     return Object.prototype.toString.call(value) === '[object String]';
 }
 
-/**
- * 透明度转十六进制
- * @param {*} opacity 
- * @returns 
- */
-function opacity2Hex(opacity) {
-    if (!ALPHA_RANGE_REG.test(opacity)) {
-        throw new SyntaxError('Invalid params');
-    }
-    const num = Math.round(255 * opacity);
-    // 十进制转十六进制，缺位补0
-    return num.toString(16).padStart(2, '0');
-}
-
-/**
- * 十六进制转透明度
- * @param {*} str 
- * @returns 
- */
-function hex2Opacity(str) {
-    // 十六进制转十进制
-    const num = `0x${str}`.toString(10);
-    return +(num / 255).toFixed(2);
-}
-
 class Color {
     // r, g, b, a
     constructor(r = 0, g = 0, b = 0, a = 1) {
@@ -65,8 +40,8 @@ class Color {
 
     toHEX() {
         let opacityStr = ''
-        if(!!this.a && this.a !== 1) {
-            opacityStr = opacity2Hex(this.a);
+        if (!!this.a && this.a !== 1) {
+            opacityStr = Color.opacity2Hex(this.a);
         }
         return `#${this.r.toString(16).padStart(2, '0')}${this.g.toString(16).padStart(2, '0')}${this.b.toString(16).padStart(2, '0')}${opacityStr}`;
     }
@@ -138,8 +113,8 @@ class Color {
         }
         value = value.trim().slice(1);
         // 5位或者7位都直接忽略最后一位
-        if(value.length === 5 || value.length === 7) {
-            value = value.slice(0, -1); 
+        if (value.length === 5 || value.length === 7) {
+            value = value.slice(0, -1);
         }
         // 3位或者4位都将位数补齐
         if (value.length === 3 || value.length === 4) {
@@ -158,7 +133,7 @@ class Color {
             parseInt(value.slice(0, 2), 16),
             parseInt(value.slice(2, 4), 16),
             parseInt(value.slice(4, 6), 16),
-            alphaStr ? hex2Opacity(alphaStr) : 1
+            alphaStr ? Color.hex2Opacity(alphaStr) : 1
         );
     }
 
@@ -201,7 +176,7 @@ class Color {
             throw new SyntaxError('Invalid params');
         }
         // 调用16进制
-        return this.fromHEX(value)
+        return Color.fromHEX(value)
     }
 
     /** @TODO: fromHSL */
@@ -214,7 +189,7 @@ class Color {
             throw new SyntaxError('Invalid: params should be a string');
         }
         // 颜色类型
-        const colorType = this.checkFormat(value)
+        const colorType = Color.checkFormat(value)
         if (!colorType) { // 不属于16进制/rgb(a)/hsl(a)/内置颜色
             throw new SyntaxError('Invalid params');
         }
@@ -343,6 +318,54 @@ class Color {
             s: sv * 100 >> 0,
             v: v * 100 >> 0,
         };
+    }
+
+    /**
+     * 透明度转十六进制
+     * @param {*} opacity 
+     * @returns 
+     */
+    static opacity2Hex(opacity) {
+        if (!ALPHA_RANGE_REG.test(opacity)) {
+            throw new SyntaxError('Invalid params');
+        }
+        const num = Math.round(255 * opacity);
+        // 十进制转十六进制，缺位补0
+        return num.toString(16).padStart(2, '0');
+    }
+
+    /**
+     * 十六进制转透明度
+     * @param {*} str 
+     * @returns 
+     */
+    static hex2Opacity(str) {
+        // 十六进制转十进制
+        const num = `0x${str}`.toString(10);
+        return +(num / 255).toFixed(2);
+    }
+
+    static str2Color(value) {
+        let color = null;
+        try {
+            color = Color.parse(value)
+        } catch (e) {
+            console.warn(e);
+        }
+        return color || new Color();
+    }
+    
+    static str2Hex(value) {
+        let color = null;
+        try {
+            color = Color.parse(value)
+        } catch (e) {
+            console.warn(e);
+        }
+        if (!color) {
+            color = new Color();
+        }
+        return color.toHEX();
     }
 }
 

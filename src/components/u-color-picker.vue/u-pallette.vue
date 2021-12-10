@@ -54,16 +54,6 @@
 import { MField } from 'cloud-ui.vusion';
 import Color from './Color';
 
-function strToColor(value) {
-    let color = null;
-    try {
-        color = Color.parse(value)
-    } catch(e) {
-        console.warn(e);
-    }
-    return color ||  new Color();
-}
-
 export default {
     name: 'u-pallette',
     mixins: [MField],
@@ -83,7 +73,7 @@ export default {
     },
     data() {
         return {
-            color: strToColor(this.value),
+            color: Color.str2Color(this.value),
             grid: { x: 1, y: 1 },
             handleEl: undefined,
         };
@@ -97,18 +87,13 @@ export default {
     },
     watch: {
         value(value, oldValue) {
-            const color = strToColor(value);
+            const color = Color.str2Color(value);
             if (color.toRGBA() === this.color.toRGBA())
                 return;
 
             this.color = color;
             this.handleEl.style.left = this.color.s + '%';
             this.handleEl.style.top = (100 - this.color.v) + '%';
-
-            this.$emit('change', {
-                value,
-                oldValue,
-            });
         },
     },
     mounted() {
@@ -135,14 +120,7 @@ export default {
             this.color.setHSV(hue, this.color.s, this.color.v);
         },
         onInput() {
-            let value;
-            if (this.format === 'hex,rgba') {
-                if (this.color.a)
-                    value = this.color.toHEX();
-                else
-                    value = this.color.toRGBA();
-            }
-
+            const value = this.color.toHEX(); 
             this.$emit('input', value);
             this.$emit('update:value', value);
         },
@@ -207,34 +185,10 @@ export default {
     margin-top: 4px;
 }
 
-/* .dropper {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15);
-    color: $gray-darker;
-    vertical-align: top;
-    text-align: center;
-    font-size: 14px;
-    line-height: 22px;
-    cursor: $cursor-pointer;
-}
-
-.dropper:before {
-    icon-font: url('./assets/eyedropper.svg');
-}
-
-.dropper:active {
-    background: var(--background-color-base);
-} */
-
 .sliders {
     display: inline-block;
     width: 172px;
     margin-right: 4px;
-    /* margin: 0 4px; */
 }
 
 .sliders > * + * {
