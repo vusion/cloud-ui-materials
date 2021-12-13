@@ -137,11 +137,19 @@ export default {
             const content = this.editor.root.innerHTML;
             if (this.readOnly) {
                 this.editor.root.innerHTML = val;
-            } else if (val && val !== content && val.slice(-11) !== "<p><br></p>") {
-                let delta = this.editor.clipboard.convert({
-                    html: val
-                });
-                this.editor.setContents(delta);
+            } else if (['number', 'string'].includes(typeof val)) {
+                if (val && val !== content && val.slice(-11) !== "<p><br></p>") {
+                    let delta = this.editor.clipboard.convert({
+                        html: val
+                    });
+                    this.editor.setContents(delta)
+                } else if (!val && val != 0) {
+                    this.editor.setContents('');
+                }
+            } else if (!val){
+                this.editor.setContents('');
+            } else {
+                this.$toast['warning']("编辑区目前只支持展示文本类型或数字类型的变量!");
             }
         },
         textSub(val) {
