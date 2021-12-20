@@ -1,5 +1,26 @@
 <template>
-<div :class="$style.root">
+<div >
+    <div v-if="getCompType() === 'pass'">
+        <div :class="$style.loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            请稍后...
+        </div>
+    </div>
+    <div v-else-if="getCompType() === 'cb'">
+        <div :class="$style.loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            登录中
+        </div>
+    </div>
+    <div v-else :class="$style.root">
     <u-linear-layout
         v-if="loading"
         type="flex"
@@ -8,112 +29,113 @@
         :class="$style.loading"
     >
         <u-spinner></u-spinner>正在加载中...
-    </u-linear-layout>
-    <div v-else-if="hasTabLoginTypes" :class="$style.form">
-        <u-linear-layout direction="vertical" gap="large">
-            <u-tabs v-model="account.LoginType">
-                <u-tab
-                    v-for="tab in tabs"
-                    :key="tab.value"
-                    :title="tab.title"
-                    :value="tab.value"
-                ></u-tab>
-            </u-tabs>
-            <u-linear-layout type="flex" justify="center">
-                <u-validator
-                    ref="accValidator"
-                    placement="bottom"
-                    style="max-width: 100%"
-                    :rules="accountRule"
-                >
-                    <u-input
-                        size="huge"
-                        name="account"
-                        v-model="account.AccountId"
-                        placeholder="请输入账号"
-                        maxlength="128"
-                        maxlength-message="账号最多输入128个字符"
-                        clearable
-                        prefix
-                        @change="rmErrMsg"
-                    >
-                        <span name="prefix" :class="$style.prefix">
-                            <icon-custom name="user"></icon-custom>
-                        </span>
-                    </u-input>
-                </u-validator>
-            </u-linear-layout>
-            <u-linear-layout type="flex" justify="center">
-                <u-validator
-                    ref="pwdValidator"
-                    placement="bottom"
-                    style="max-width: 100%"
-                    :rules="pwdRule"
-                >
-                    <u-input
-                        size="huge"
-                        name="password"
-                        :type="showPassword ? 'text' : 'password'"
-                        v-model="account.AccountPassword"
-                        @keyup.enter="login"
-                        @change="rmErrMsg"
-                        placeholder="请输入密码"
-                        maxlength="128"
-                        maxlength-message="密码最多输入128个字符"
-                        clearable
-                        prefix
-                        suffix
-                    >
-                        <span name="prefix" :class="$style.prefix">
-                            <icon-custom name="lock"></icon-custom>
-                        </span>
-                        <span
-                            name="suffix"
-                            :class="$style.suffix"
-                            @click="showPassword = !showPassword"
-                        >
-                            <icon-custom
-                                :name="
-                                    showPassword ? 'eye-close' : 'eye'
-                                "
-                            ></icon-custom>
-                        </span>
-                    </u-input>
-                </u-validator>
-            </u-linear-layout>
-            <u-linear-layout direction="vertical" gap="small">
-                <u-button
-                    color="primary"
-                    display="block"
-                    @click="login"
-                    :icon="loading ? 'loading' : undefined"
-                    :disabled="loading"
-                >登录</u-button>
-            </u-linear-layout>
-            <u-linear-layout
-                type="flex"
-                :justify="errMsg ? 'space-between' : 'end'"
-                alignment="center"
-            >
-                <span v-if="errMsg" :class="$style.error">{{ errMsg }}</span>
-                <u-link
-                    v-for="auth in authTypes"
-                    :key="auth.value"
-                    @click="jumpAuth(auth.value)"
-                    :class="$style.link"
-                >{{ auth.title }}</u-link>
-                <span v-if="showTips" :class="$style.tips">账号认证与权限中心</span>
-            </u-linear-layout>
         </u-linear-layout>
-    </div>
-    <div v-else :class="$style.links">
-        <u-link
-            v-for="auth in authTypes"
-            :key="auth.value"
-            @click="jumpAuth(auth.value)"
-            :class="$style.link"
-        >{{ auth.title }}</u-link>
-        <span v-if="showNoneTips" :class="$style.tips">请确认登录配置</span>
+        <div v-else-if="hasTabLoginTypes" :class="$style.form">
+            <u-linear-layout direction="vertical" gap="large">
+                <u-tabs v-model="account.LoginType">
+                    <u-tab
+                        v-for="tab in tabs"
+                        :key="tab.value"
+                        :title="tab.title"
+                        :value="tab.value"
+                    ></u-tab>
+                </u-tabs>
+                <u-linear-layout type="flex" justify="center">
+                    <u-validator
+                        ref="accValidator"
+                        placement="bottom"
+                        style="max-width: 100%"
+                        :rules="accountRule"
+                    >
+                        <u-input
+                            size="huge"
+                            name="account"
+                            v-model="account.AccountId"
+                            placeholder="请输入账号（测试）"
+                            maxlength="128"
+                            maxlength-message="账号最多输入128个字符"
+                            clearable
+                            prefix
+                            @change="rmErrMsg"
+                        >
+                            <span name="prefix" :class="$style.prefix">
+                                <icon-custom name="user"></icon-custom>
+                            </span>
+                        </u-input>
+                    </u-validator>
+                </u-linear-layout>
+                <u-linear-layout type="flex" justify="center">
+                    <u-validator
+                        ref="pwdValidator"
+                        placement="bottom"
+                        style="max-width: 100%"
+                        :rules="pwdRule"
+                    >
+                        <u-input
+                            size="huge"
+                            name="password"
+                            :type="showPassword ? 'text' : 'password'"
+                            v-model="account.AccountPassword"
+                            @keyup.enter="login"
+                            @change="rmErrMsg"
+                            placeholder="请输入密码"
+                            maxlength="128"
+                            maxlength-message="密码最多输入128个字符"
+                            clearable
+                            prefix
+                            suffix
+                        >
+                            <span name="prefix" :class="$style.prefix">
+                                <icon-custom name="lock"></icon-custom>
+                            </span>
+                            <span
+                                name="suffix"
+                                :class="$style.suffix"
+                                @click="showPassword = !showPassword"
+                            >
+                                <icon-custom
+                                    :name="
+                                        showPassword ? 'eye-close' : 'eye'
+                                    "
+                                ></icon-custom>
+                            </span>
+                        </u-input>
+                    </u-validator>
+                </u-linear-layout>
+                <u-linear-layout direction="vertical" gap="small">
+                    <u-button
+                        color="primary"
+                        display="block"
+                        @click="login"
+                        :icon="loading ? 'loading' : undefined"
+                        :disabled="loading"
+                    >登录</u-button>
+                </u-linear-layout>
+                <u-linear-layout
+                    type="flex"
+                    :justify="errMsg ? 'space-between' : 'end'"
+                    alignment="center"
+                >
+                    <span v-if="errMsg" :class="$style.error">{{ errMsg }}</span>
+                    <u-link
+                        v-for="auth in authTypes"
+                        :key="auth.value"
+                        @click="jumpAuth(auth.value)"
+                        :class="$style.link"
+                    >{{ auth.title }}</u-link>
+                    <span v-if="showTips" :class="$style.tips">账号认证与权限中心</span>
+                </u-linear-layout>
+            </u-linear-layout>
+        </div>
+        <div v-else :class="$style.links">
+            <u-link
+                v-for="auth in authTypes"
+                :key="auth.value"
+                @click="jumpAuth(auth.value)"
+                :class="$style.link"
+            >{{ auth.title }}</u-link>
+            <span v-if="showNoneTips" :class="$style.tips">请确认登录配置</span>
+        </div>
     </div>
 </div>
 </template>
@@ -121,12 +143,49 @@
 <script>
 import queryString from 'query-string';
 import iconCustom from './icon-custom.vue';
+import cookie from './cookie';
 import service from './service';
 import './iconfont.js';
+import token from './token';
+
+const NUIMS_DOMAIN_NAME = 'Nuims';
+
+function isType(type) {
+    return function (obj) {
+        return (
+            obj !== null
+            && (Array.isArray(type) ? type : [type]).some(
+                (t) => Object.prototype.toString.call(obj) === `[object ${t}]`,
+            )
+        );
+    };
+}
+
+const isObj = isType('Object');
+const getObj = (obj) => (isObj(obj) ? obj : {});
 
 const rmLastSlash = (str) => {
     const cStr = String(str);
     return cStr[cStr.length - 1] === '/' ? cStr.substring(0, cStr.length - 1) : cStr;
+};
+
+const getArr = (arr) => (Array.isArray(arr) ? arr : []);
+
+
+const isEnv = (env) => ['dev', 'online'].includes(env) || env.includes('test');
+
+const getTenant = () => {
+    return 'lcp';
+    // const hostArr = location.host.split('.');
+    // const userIndex = hostArr.indexOf('user');
+    // if (userIndex > 0)
+    //     return hostArr[userIndex - 1];
+    // const localIndex = hostArr.findIndex((h) => h.includes('localhost'));
+    // if (localIndex > 0)
+    //     return hostArr[localIndex - 1];
+    // if (hostArr.length <= 3)
+    //     return 'defaultTenant';
+    // return isEnv(hostArr[0]) ? hostArr[1] : hostArr[0];
 };
 
 // 登录相关配置
@@ -159,7 +218,7 @@ export default {
         // 账号认证与权限中心域名
         src: {
             type: String,
-            default: 'http://nuims.vusion.top',
+            default: 'http://lcp.localhost.vusion.top:8850/login',
         },
         // 账号认证与权限中心请求相对路径
         nuimsUrl: {
@@ -220,6 +279,7 @@ export default {
                 AccountId: '',
                 AccountPassword: '',
             },
+            AuthConfigMap: {},
             tabs: [],
             authTypes: [],
             hasTabLoginTypes: true,
@@ -232,35 +292,114 @@ export default {
     },
     computed: {
         passSrc() {
-            return `${rmLastSlash(this.src)}/pass`;
+            return `${rmLastSlash(this.src)}`;
         },
         showTips() {
             return !this.errMsg && this.authTypes.length === 0;
         },
     },
-    mounted() {
+    async mounted() {
         const { search } = location;
         const query = queryString.parse(search);
-        const { code, userName, userId } = query;
-        if (userName && userId && code) {
-            this.setCookie({ authorization: code });
-            this.$emit('success', {
-                Authorization: code,
-                UserName: userName,
-                UserId: userId,
-            });
+        const { code, userName, redirect, userId } = query;
+        const compType = localStorage.getItem('compType');
+        // 当前标记展示 pass 页面
+        if (compType === 'pass') {
+            this.getTenantConfigForPass();
+            this.jumpAuthPass();
+        } else if (compType === 'cb') {
+            localStorage.setItem('compType', '');
+            // 其他应用单点登录跳转
+            if (userName && userId && code) {
+                token.set(code);
+                localStorage.setItem('LoginType', 'Other');
+                cookie.set({ LoginType: 'Other' });
+                location.href = redirect ? decodeURIComponent(redirect) : `${origin}`;
+            } else {
+                // Auth 登录中转页
+                const LoginType = localStorage.getItem('LoginType') || cookie.get('LoginType');
+                const RedirectUri = localStorage.getItem('RedirectUri') || cookie.get('RedirectUri');
+                let params = {
+                    Code: code,
+                    RedirectUri,
+                    OAuthLoginType: 'Netease',
+                    TenantName: getTenant(),
+                    DomainName: NUIMS_DOMAIN_NAME,
+                };
+                let oAuthService = service.OauthLogin;
+                if (LoginType === 'Github' || LoginType === 'CGithub') {
+                    params.OAuthLoginType = 'Github';
+                } else if (LoginType === 'Wechat' || LoginType === 'CWechat') {
+                    params.OAuthLoginType = 'Wechat';
+                } else if (LoginType === 'Icbc' || LoginType === 'CIcbc') {
+                    // 工行登陆
+                    const { SSIAuth, SSISign } = query;
+                    params = {
+                        SsiAuth: SSIAuth,
+                        SsiSign: SSISign,
+                        LoginType: 'ICBC',
+                        TenantName: getTenant(),
+                        DomainName: NUIMS_DOMAIN_NAME,
+                    };
+                    oAuthService = service.IcbcLogin;
+                }
+                try {
+                    const res = await oAuthService({
+                        url: this.nuimsUrl,
+                        body: params,
+                    });
+                    const { Data } = getObj(res);
+                    const { UserName, UserId } = getObj(Data);
+                    let href;
+                    // 登录组件通过 Auth 登录中转页
+                    if (['CNetease', 'CGithub', 'CWechat', 'CIcbc'].includes(LoginType)) {
+                        href = decodeURIComponent(
+                            redirect || localStorage.getItem('From') || cookie.get('From'),
+                        );
+                        const Token = token.get();
+                        const Back = `${href}${
+                            href.includes('?') ? '&' : '?'
+                        }userName=${UserName}&userId=${UserId}&code=${Token}`;
+                        href = Back;
+                    } else {
+                        href = redirect ? decodeURIComponent(redirect) : `${origin}`;
+                    }
+                    // eslint-disable-next-line require-atomic-updates
+                    location.href = href;
+                } catch (error) {
+                    const { message } = error || {};
+                    if (message && message.includes('The user is not bound')) {
+                        // eslint-disable-next-line require-atomic-updates
+                        location.href = '/403';
+                    } else {
+                        this.$toast.show(message);
+                    }
+                }
+            }    
         } else {
-            this.getTenantConfig();
+            if (userName && userId && code) {
+                this.setCookie({ authorization: code });
+                this.$emit('success', {
+                    Authorization: code,
+                    UserName: userName,
+                    UserId: userId,
+                });
+            } else {
+                this.getTenantConfig();
+            }
         }
     },
     methods: {
+        getCompType() {
+            return localStorage.getItem('compType');
+        },
         async getTenantConfig() {
             let tabs = [];
             let authTypes = [];
             try {
                 const res = await service.getTenantLoginTypes({
                     url: this.nuimsUrl,
-                    params: { TenantName: this.tenantName },
+                    params: { TenantName: this.tenantName || getTenant() },
                 });
                 res.data.Data.forEach((type) => {
                     const { LoginType } = type;
@@ -312,7 +451,7 @@ export default {
                         Password: AccountPassword,
                         LoginType,
                         TenantName: this.tenantName,
-                        DomainName: this.domainName,
+                        DomainName: NUIMS_DOMAIN_NAME,
                     },
                     headers: {
                         Env: this.env,
@@ -337,8 +476,9 @@ export default {
         // Auth 登录
         jumpAuth(type) {
             const { search } = location;
+            localStorage.setItem('compType', 'pass');
             const { redirect = encodeURIComponent(location.href) } = queryString.parse(search);
-            location.href = `${this.passSrc}?redirect=${redirect}&loginType=C${type}`;
+            location.href = `${location.href}/?redirect=${redirect}&loginType=C${type}`;
         },
         rmErrMsg() {
             this.errMsg = '';
@@ -353,6 +493,86 @@ export default {
                     document.cookie = `${key}=${value}; expires=${expires}; path=/`;
                 }
             });
+        },
+
+        /* 跳转后执行的方法 */
+        async getTenantConfigForPass() {
+            const AuthConfigMap = {};
+            const res = await service.getTenantLoginTypes({
+                url: this.nuimsUrl,
+                params: {
+                    TenantName: getTenant()
+                },
+            });
+            getArr(getObj(res).Data).forEach((d) => {
+                const { LoginType, AppKey, IcbcConfig } = getObj(d);
+                if (AUTH_LIST.includes(LoginType)) {
+                    AuthConfigMap[LoginType] = AppKey || IcbcConfig;
+                }
+            });
+            this.AuthConfigMap = AuthConfigMap;
+        },
+        /* 执行跳转后的跳转地址*/
+        jumpAuthPass() {
+            const { origin, search } = location;
+            const query = queryString.parse(search);
+            let { redirect, loginType } = query;
+
+            if (redirect) {
+                localStorage.setItem('From', redirect);
+                cookie.set({ From: redirect });
+            }
+            localStorage.setItem('compType', 'cb');
+            const redirectUri = `${origin}/login?redirect=${redirect}`;
+            localStorage.setItem('LoginType', loginType);
+            localStorage.setItem('RedirectUri', redirectUri);
+            cookie.set({ RedirectUri: redirectUri, LoginType: loginType });
+
+            let authUrl;
+            switch (loginType) {
+                case 'Netease':
+                case 'CNetease': 
+                    authUrl = `https://login.netease.com/connect/authorize?${queryString.stringify({
+                        response_type: 'code',
+                        scope: 'openid nickname',
+                        client_id: this.AuthConfigMap.Netease,
+                        redirect_uri: redirectUri,
+                    })}`;
+                    break;
+                case 'Github':
+                case 'CGithub':
+                    authUrl = `https://github.com/login/oauth/authorize?${queryString.stringify({
+                        response_type: 'code',
+                        scope: 'user:email',
+                        client_id: this.AuthConfigMap.Github || '4876af6ccfbd04e8c501',
+                        redirect_uri: redirectUri,
+                    })}`;
+                    break;
+                case 'Wechat':
+                case 'CWechat':
+                    authUrl = `https://open.weixin.qq.com/connect/qrconnect?${queryString.stringify({
+                        response_type: 'code',
+                        scope: 'snsapi_login',
+                        appid: this.AuthConfigMap.Wechat,
+                        redirect_uri: redirectUri,
+                    })}`;
+                    break;
+                case 'Icbc':
+                case 'CIcbc':
+                    // eslint-disable-next-line no-case-declarations
+                    const { IcbcAAMUrl, Version, Style, Op, OpMode, Lang } = this.AuthConfigMap.Icbc;
+                    authUrl = `${IcbcAAMUrl}?${queryString.stringify({
+                        SERVICENAME: NUIMS_DOMAIN_NAME,
+                        SERVICEURL: redirectUri,
+                        VERSION: Version,
+                        STYLE: Style,
+                        OP: Op,
+                        OPMode: OpMode,
+                        lang: Lang,
+                    })}`;
+                    break;
+            }
+            location.href = authUrl;
         },
     },
 };
@@ -421,5 +641,49 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+
+.loading {
+    width: 80px;
+    height: 20px;
+    position: fixed;
+    left: 50%;
+    top: 20%;
+    margin-left: -40px;
+    text-align: center;
+}
+.loading span {
+    display: inline-block;
+    width: 8px;
+    margin-right: 8px;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--brand-primary);
+    animation: load 1.04s ease infinite;
+}
+@keyframes load {
+    0%,
+    100% {
+        height: 20px;
+        background: var(--brand-primary-light);
+    }
+    50% {
+        height: 30px;
+        margin-top: -10px;
+        background: var(--brand-primary-lightest);
+    }
+}
+.loading span:nth-child(2) {
+    animation-delay: 0.13s;
+}
+.loading span:nth-child(3) {
+    animation-delay: 0.26s;
+}
+.loading span:nth-child(4) {
+    animation-delay: 0.39s;
+}
+.loading span:nth-child(5) {
+    animation-delay: 0.52s;
 }
 </style>
