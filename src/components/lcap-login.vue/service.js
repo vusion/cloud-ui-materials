@@ -82,6 +82,7 @@ export default {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...headers },
             params: { Action: 'IcbcLogin', Version: apiVersion, ...params },
+            data: formatContentType(Headers['Content-Type'], body),
             ...rest,
         });
     },
