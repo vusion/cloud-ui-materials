@@ -144,11 +144,9 @@
 import queryString from 'query-string';
 import iconCustom from './icon-custom.vue';
 import cookie from './cookie';
-import service from './service';
+import service from './usercenter/service';
 import './iconfont.js';
 import token from './token';
-
-const NUIMS_DOMAIN_NAME = 'Nuims';
 
 function isType(type) {
     return function (obj) {
@@ -323,7 +321,6 @@ export default {
                     RedirectUri,
                     OAuthLoginType: 'Netease',
                     TenantName: getTenant(),
-                    DomainName: NUIMS_DOMAIN_NAME,
                 };
                 let oAuthService = service.OauthLogin;
                 if (LoginType === 'Github' || LoginType === 'CGithub') {
@@ -338,13 +335,12 @@ export default {
                         SsiSign: SSISign,
                         LoginType: 'ICBC',
                         TenantName: getTenant(),
-                        DomainName: NUIMS_DOMAIN_NAME,
                     };
                     oAuthService = service.IcbcLogin;
                 }
                 try {
                     const res = await oAuthService({
-                        url: this.nuimsUrl,
+                        url: '/system/oauthLogin',
                         body: params,
                     });
                     const { Data } = getObj(res);
@@ -397,9 +393,9 @@ export default {
             let authTypes = [];
             try {
                 const res = await service.getTenantLoginTypes({
-                    url: this.nuimsUrl,
-                    params: { TenantName: this.tenantName || getTenant() },
+                    url: '/system/loginTypes',
                 });
+                console.info('abc res', res);
                 res.data.Data.forEach((type) => {
                     const { LoginType } = type;
                     if (Object.keys(TAB_MAP).includes(LoginType) && this[`use${LoginType}`]) {
@@ -444,22 +440,21 @@ export default {
                 await this.$refs.pwdValidator.validate();
                 const { AccountId, AccountPassword, LoginType } = this.account;
                 const res = await service.login({
-                    url: this.nuimsUrl,
+                    url: '/system/login',
                     data: {
                         UserName: AccountId,
                         Password: AccountPassword,
                         LoginType,
                         TenantName: this.tenantName,
-                        DomainName: NUIMS_DOMAIN_NAME,
                     },
                     headers: {
                         Env: this.env,
                     },
                 });
                 const { authorization } = res.headers;
-                const { UserName, UserId } = res.data.Data;
+                const { userName, userId } = res;
                 this.setCookie({ authorization });
-                this.$emit('success', { Authorization: authorization, UserName, UserId, LoginType });
+                this.$emit('success', { Authorization: authorization, UserName: userName, UserId: userId, LoginType });
             } catch (error) {
                 errMsg = error && error.message;
                 if (
@@ -498,12 +493,9 @@ export default {
         async getTenantConfigForPass() {
             const AuthConfigMap = {};
             const res = await service.getTenantLoginTypes({
-                url: this.nuimsUrl,
-                params: {
-                    TenantName: getTenant()
-                },
+                url: '/system/loginTypes',
             });
-            getArr(getObj(res).Data).forEach((d) => {
+            res.data.Data.forEach((d) => {
                 const { LoginType, AppKey, IcbcConfig } = getObj(d);
                 if (AUTH_LIST.includes(LoginType)) {
                     AuthConfigMap[LoginType] = AppKey || IcbcConfig;
@@ -543,7 +535,7 @@ export default {
                     authUrl = `https://github.com/login/oauth/authorize?${queryString.stringify({
                         response_type: 'code',
                         scope: 'user:email',
-                        client_id: this.AuthConfigMap.Github || '4876af6ccfbd04e8c501',
+                        client_id: this.AuthConfigMap.Github,
                         redirect_uri: redirectUri,
                     })}`;
                     break;
@@ -561,7 +553,6 @@ export default {
                     // eslint-disable-next-line no-case-declarations
                     const { IcbcAAMUrl, Version, Style, Op, OpMode, Lang } = this.AuthConfigMap.Icbc;
                     authUrl = `${IcbcAAMUrl}?${queryString.stringify({
-                        SERVICENAME: NUIMS_DOMAIN_NAME,
                         SERVICEURL: redirectUri,
                         VERSION: Version,
                         STYLE: Style,

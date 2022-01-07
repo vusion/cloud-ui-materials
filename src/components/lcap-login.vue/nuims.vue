@@ -51,7 +51,7 @@
                             size="huge"
                             name="account"
                             v-model="account.AccountId"
-                            placeholder="请输入账号（测试）"
+                            placeholder="请输入账号"
                             maxlength="128"
                             maxlength-message="账号最多输入128个字符"
                             clearable
