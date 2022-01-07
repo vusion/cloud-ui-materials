@@ -1,24 +1,14 @@
 
-import { request, apiVersion } from './request';
+import { request } from '../request';
 
 export default {
-    getConfig(config) {
-        const { url, params, ...rest } = config;
-        return request({
-            url,
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            params: { ...params },
-            ...rest,
-        });
-    },
     getTenantLoginTypes(config) {
         const { url, params, ...rest } = config;
         const result = request({
             url,
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            params: { Action: 'GetTenantLoginTypes', Version: apiVersion, ...params },
+            params: {  ...params },
             ...rest,
         });
         return result;
@@ -29,7 +19,7 @@ export default {
             url,
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...headers },
-            params: { Action: 'Login', Version: apiVersion, },
+            params: {},
             ...rest,
         });
     },
@@ -37,10 +27,9 @@ export default {
         const { url, headers, params, body, ...rest } = config;
         const Headers = { 'Content-Type': 'application/json', ...headers };
         return request({
-            url,
+            url: url || '/system/oauthLogin',
             method: 'POST',
             headers: Headers,
-            params: { Action: 'OauthLogin', Version: apiVersion, },
             data: formatContentType(Headers['Content-Type'], body),
             ...rest,
         });
@@ -48,10 +37,10 @@ export default {
     IcbcLogin(config) {
         const { url, headers, ...rest } = config;
         return request({
-            url,
+            url: url || '/system/icbcLogin',
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...headers },
-            params: { Action: 'IcbcLogin', Version: apiVersion, ...params },
+            params: { ...params },
             data: formatContentType(Headers['Content-Type'], body),
             ...rest,
         });
