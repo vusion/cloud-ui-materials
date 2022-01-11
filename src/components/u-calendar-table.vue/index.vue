@@ -214,7 +214,8 @@ export default {
             this.tempData = parentData.map((parentItem) => {
                 const children = childData.filter((childItem) => get(childItem, childKey) === get(parentItem, parentKey));
                 return {
-                    firstValue: get(parentItem, firstField),
+                    firstValue: firstField.includes('${') ? firstField
+                        .replace(/\$\{(.*?)\}/g, (match, key) => get(parentItem, key.trim())) : get(parentItem, firstField),
                     parent: parentItem,
                     children: children.map((child) => ({ ...child, ...parentItem })),
                 };
