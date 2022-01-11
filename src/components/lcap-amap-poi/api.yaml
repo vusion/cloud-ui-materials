@@ -1,7 +1,7 @@
 - name: lcap-amap-poi
   title: 地图选点
   labels: [amap]
-  icon: amap
+  icon: amappoi
   description: 地图选点
   attrs:
     - name: city
