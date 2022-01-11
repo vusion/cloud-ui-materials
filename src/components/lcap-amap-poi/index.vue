@@ -40,13 +40,27 @@ export default {
         this.initMap();
     },
     created() {
+        // const config = this.getJSON(window.appInfo.appMapConfig);
+        // if (config && config.code) {
+        //     window._AMapSecurityConfig = {
+        //         securityJsCode: config.code,
+        //     };
+        // } else {
+        //     this.$toast.show('请先配置高德地图的code');
+        // }
         window._AMapSecurityConfig = {
             securityJsCode: 'aef6b461d527c3fb575e4e66a61c1d24',
         };
     },
     methods: {
         initMap() {
+            const config = this.getJSON(window.appInfo.appMapConfig);
+            if (!config || !config.key) {
+                this.$toast.show('请先配置高德地图的key');
+                return;
+            }
             AMapLoader.load({
+                // key: config.key,
                 key: 'cf96f8685c24cfd8f0cfe96336d34927',
                 version: '2.0',
                 AMapUI: {
@@ -114,6 +128,16 @@ export default {
                 this.$toast.show('请先选择POI信息');
             }
             return this.poiInfo;
+        },
+        getJSON(obj) {
+            try {
+                if (typeof obj === 'string') {
+                    return JSON.parse(obj);
+                }
+                return obj || null;
+            } catch (error) {
+                return null;
+            }
         },
     },
 };
