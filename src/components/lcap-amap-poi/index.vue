@@ -41,9 +41,9 @@ export default {
     },
     created() {
         // const config = this.getJSON(window.appInfo.appMapConfig);
-        // if (config && config.code) {
+        // if (config && config.amapCode) {
         //     window._AMapSecurityConfig = {
-        //         securityJsCode: config.code,
+        //         securityJsCode: config.amapCode,
         //     };
         // } else {
         //     this.$toast.show('请先配置高德地图的code');
@@ -54,11 +54,11 @@ export default {
     },
     methods: {
         initMap() {
-            const config = this.getJSON(window.appInfo.appMapConfig);
-            if (!config || !config.key) {
-                this.$toast.show('请先配置高德地图的key');
-                return;
-            }
+            // const config = this.getJSON(window.appInfo.appMapConfig);
+            // if (!config || !config.amapKey) {
+            //     this.$toast.show('请先配置高德地图的key');
+            //     return;
+            // }
             AMapLoader.load({
                 // key: config.key,
                 key: 'cf96f8685c24cfd8f0cfe96336d34927',
@@ -127,7 +127,7 @@ export default {
             if (!this.poiInfo) {
                 this.$toast.show('请先选择POI信息');
             }
-            return this.poiInfo;
+            return JSON.stringify(this.poiInfo);
         },
         getJSON(obj) {
             try {
