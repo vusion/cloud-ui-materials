@@ -1,9 +1,12 @@
 <template>
-<div class="root">
-    <div id="container-map" class="container">
+<div :class="$style.root">
+    <div id="container-map" :class="$style.container">
         <div id="pickerBox">
             <input id="pickerInput" placeholder="输入关键字选取地点">
             <div id="poiInfo"></div>
+        </div>
+        <div :class="$style.containertipwrap" v-show="show">
+            <div :class="$style.containertip">地图不可用，请前往「应用详情」页面「地图配置」，配置key和密钥</div>
         </div>
     </div>
 </div>
@@ -21,6 +24,7 @@ export default {
     },
     data() {
         return {
+            show: false,
             map: null,
             poiInfo: null,
         };
@@ -40,28 +44,30 @@ export default {
         this.initMap();
     },
     created() {
-        // const config = this.getJSON(window.appInfo.appMapConfig);
-        // if (config && config.amapCode) {
-        //     window._AMapSecurityConfig = {
-        //         securityJsCode: config.amapCode,
-        //     };
-        // } else {
-        //     this.$toast.show('请先配置高德地图的code');
-        // }
-        window._AMapSecurityConfig = {
-            securityJsCode: 'aef6b461d527c3fb575e4e66a61c1d24',
-        };
+        const config = this.getJSON(window.appInfo && window.appInfo.appMapConfig);
+        if (config && config.amapCode) {
+            window._AMapSecurityConfig = {
+                securityJsCode: config.amapCode,
+            };
+        } else {
+            this.show = true;
+            this.$toast.show('请先配置高德地图的code');
+        }
+        // window._AMapSecurityConfig = {
+        //     securityJsCode: 'aef6b461d527c3fb575e4e66a61c1d24',
+        // };
     },
     methods: {
         initMap() {
-            // const config = this.getJSON(window.appInfo.appMapConfig);
-            // if (!config || !config.amapKey) {
-            //     this.$toast.show('请先配置高德地图的key');
-            //     return;
-            // }
+            const config = this.getJSON(window.appInfo && window.appInfo.appMapConfig);
+            if (!config || !config.amapKey) {
+                this.$toast.show('请先配置高德地图的key');
+                this.show = true;
+                return;
+            }
             AMapLoader.load({
-                // key: config.key,
-                key: 'cf96f8685c24cfd8f0cfe96336d34927',
+                key: config.key,
+                // key: 'cf96f8685c24cfd8f0cfe96336d34927',
                 version: '2.0',
                 AMapUI: {
                     version: '1.1',
@@ -143,7 +149,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style module>
 .root {
     width: 100%;
     height: 500px;
@@ -155,6 +161,30 @@ export default {
     margin: 0px;
     font-size: 13px;
 }
+.containertipwrap {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.5);
+    align-items:center;
+    justify-content: center;
+}
+
+.containertip{
+    font-family: PingFang SC;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 14px;
+/* identical to box height, or 100% */
+
+
+color: #FFFFFF;
+}
+</style>
+<style>
 #pickerBox {
     position: absolute;
     z-index: 9999;

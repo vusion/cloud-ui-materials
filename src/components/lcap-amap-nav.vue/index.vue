@@ -1,7 +1,7 @@
 <template>
-<a class="root" @click="toDest" :href="currentHref" :target="target">
-    <van-iconv name="location"></van-iconv>
-    <span class="label">{{ label }}</span>
+<a :class="$style.root" @click="toDest" :href="currentHref" :target="target">
+    <van-iconv name="location" :class="$style.vaniconv"></van-iconv>
+    <span :class="$style.label">{{ label }}</span>
 </a>
 </template>
 
@@ -55,12 +55,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style module>
 .root {
     display: block;
     font-size: 16px;
 }
-.root .van-iconv{
+.vaniconv{
     font-size: 16px;
     color: #00c0cc;
 }
