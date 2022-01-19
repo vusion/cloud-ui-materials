@@ -1,16 +1,8 @@
 {
-  "lcap-video-flv": {
+  "lcap-amap-poi": {
     "attributes": [
-      "src",
-      "type",
-      "autoplay",
-      "isLive",
-      "hasVideo",
-      "hasAudio",
-      "cors",
-      "withCredentials",
-      "config"
+      "city"
     ],
-    "description": "FLV 视频流播放器"
+    "description": "地图选点"
   }
 }

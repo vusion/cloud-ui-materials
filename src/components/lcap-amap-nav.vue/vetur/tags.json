@@ -1,16 +1,12 @@
 {
-  "lcap-video-flv": {
+  "lcap-amap-nav": {
     "attributes": [
-      "src",
-      "type",
-      "autoplay",
-      "isLive",
-      "hasVideo",
-      "hasAudio",
-      "cors",
-      "withCredentials",
-      "config"
+      "canto",
+      "lalg",
+      "label",
+      "target",
+      "callnativet"
     ],
-    "description": "FLV 视频流播放器"
+    "description": "地图导航"
   }
 }

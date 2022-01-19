@@ -1,48 +1,40 @@
 {
-  "lcap-video-flv/src": {
-    "type": "string",
-    "description": "视频流地址"
+  "lcap-amap-nav/canto": {
+    "type": "boolean",
+    "description": "是否开启导航"
   },
-  "lcap-video-flv/type": {
+  "lcap-amap-nav/lalg": {
+    "type": "string",
+    "description": "位置坐标"
+  },
+  "lcap-amap-nav/label": {
+    "type": "string",
+    "description": "导航页标题显示的名称"
+  },
+  "lcap-amap-nav/target": {
     "type": "string",
     "options": [
       {
-        "name": "flv",
-        "title": "flv"
+        "value": "_blank",
+        "title": "新标签页"
       },
       {
-        "name": "mp4",
-        "title": "mp4"
+        "value": "_self",
+        "title": "当前窗口"
+      },
+      {
+        "value": "_parent",
+        "title": "父级窗口"
+      },
+      {
+        "value": "_top",
+        "title": "顶级窗口"
       }
     ],
-    "description": "视频编码格式"
+    "description": "链接打开方式"
   },
-  "lcap-video-flv/autoplay": {
+  "lcap-amap-nav/callnativet": {
     "type": "boolean",
-    "description": "是否自动播放"
-  },
-  "lcap-video-flv/isLive": {
-    "type": "boolean",
-    "description": "是否直播流"
-  },
-  "lcap-video-flv/hasVideo": {
-    "type": "boolean",
-    "description": "是否有视频"
-  },
-  "lcap-video-flv/hasAudio": {
-    "type": "boolean",
-    "description": "是否有音频"
-  },
-  "lcap-video-flv/cors": {
-    "type": "boolean",
-    "description": "是否支持第三方视频服务"
-  },
-  "lcap-video-flv/withCredentials": {
-    "type": "boolean",
-    "description": "是否向第三方视频服务传递登录凭证"
-  },
-  "lcap-video-flv/config": {
-    "type": "object",
-    "description": "flv.js 其他配置"
+    "description": "是否调起高德地图APP"
   }
 }

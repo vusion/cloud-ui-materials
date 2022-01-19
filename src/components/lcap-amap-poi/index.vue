@@ -44,7 +44,7 @@ export default {
         this.initMap();
     },
     created() {
-        const config = this.getJSON(window.appInfo && window.appInfo.appMapConfig);
+        const config = this.getJSON(window.appInfo && window.appInfo.extendedConfig);
         if (config && config.amapCode) {
             window._AMapSecurityConfig = {
                 securityJsCode: config.amapCode,
@@ -59,7 +59,7 @@ export default {
     },
     methods: {
         initMap() {
-            const config = this.getJSON(window.appInfo && window.appInfo.appMapConfig);
+            const config = this.getJSON(window.appInfo && window.appInfo.extendedConfig);
             if (!config || !config.amapKey) {
                 this.$toast.show('请先配置高德地图的key');
                 this.show = true;
