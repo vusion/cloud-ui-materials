@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-video",
     "name": "视频组件",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Media"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.0/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.1/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video :autoplay=\\\"false\\\" draggable :loop=\\\"false\\\"></lcap-video>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-video",
         "title": "视频组件",
         "description": "基于 video.js 的视频播放组件",
         "category": "Media",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.0/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.1/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -56,8 +56,20 @@
         ],
         "methods": [
             {
+                "name": "play",
+                "description": "继续播放",
+                "params": []
+            },
+            {
+                "name": "pause",
+                "description": "暂停播放",
+                "params": []
+            }
+        ],
+        "events": [
+            {
                 "name": "start",
-                "description": "播放开始时",
+                "title": "播放开始时",
                 "params": [
                     {
                         "name": "$event",
@@ -68,7 +80,7 @@
             },
             {
                 "name": "pause",
-                "description": "暂停播放时",
+                "title": "暂停播放时",
                 "params": [
                     {
                         "name": "$event",
@@ -79,7 +91,7 @@
             },
             {
                 "name": "play",
-                "description": "继续播放时",
+                "title": "继续播放时",
                 "params": [
                     {
                         "name": "$event",
@@ -90,7 +102,7 @@
             },
             {
                 "name": "ended",
-                "description": "播放结束时",
+                "title": "播放结束时",
                 "params": [
                     {
                         "name": "$event",

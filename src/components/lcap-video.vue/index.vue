@@ -134,6 +134,16 @@ export default {
             const ext = src.split('.').pop().toLowerCase();
             return MimetypesKind[ext];
         },
+        play() {
+            if (this.player) {
+                this.player.play();
+            }
+        },
+        pause() {
+            if (this.player) {
+                this.player.pause();
+            }
+        },
     },
 };
 </script>

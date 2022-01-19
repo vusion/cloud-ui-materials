@@ -6,6 +6,7 @@
     - [基本用法](#基本用法)
 - [API]()
     - [Props/Attrs](#propsattrs)
+    - [Events](#events)
     - [Methods](#methods)
 
 **Media**
@@ -29,37 +30,53 @@
 | draggable | boolean |  | `true` | 是否可拖放 |
 | loop | boolean |  | `false` | 是否循环播放 |
 
+### Events
+
+#### @start
+
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 播放器实例对象 |
+
+#### @pause
+
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 播放器实例对象 |
+
+#### @play
+
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 播放器实例对象 |
+
+#### @ended
+
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 播放器实例对象 |
+
 Methods
 
-#### start($event)
+#### play()
 
-播放开始时
-
-| Param | Type | Default | Description |
-| ----- | ---- | ------- | ----------- |
-| $event | object |  | 播放器实例对象 |
-
-#### pause($event)
-
-暂停播放时
+继续播放
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
-| $event | object |  | 播放器实例对象 |
 
-#### play($event)
+#### pause()
 
-继续播放时
-
-| Param | Type | Default | Description |
-| ----- | ---- | ------- | ----------- |
-| $event | object |  | 播放器实例对象 |
-
-#### ended($event)
-
-播放结束时
+暂停播放
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
-| $event | object |  | 播放器实例对象 |
 
