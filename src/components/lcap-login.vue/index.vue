@@ -318,10 +318,12 @@ export default {
                         Env: this.env,
                     },
                 });
-                const { authorization } = res.headers;
+                // eslint-disable-next-line camelcase
+                const { authorization, qz_t } = res.headers;
                 const { UserName, UserId } = res.data.Data;
                 this.setCookie({ authorization });
-                this.$emit('success', { Authorization: authorization, UserName, UserId, LoginType });
+                // eslint-disable-next-line camelcase
+                this.$emit('success', { Authorization: authorization, UserName, UserId, LoginType, qz_t });
             } catch (error) {
                 errMsg = error && error.message;
                 if (

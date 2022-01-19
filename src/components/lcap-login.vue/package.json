@@ -1,11 +1,11 @@
 {
   "name": "lcap-login",
   "description": "",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "main": "./index.js",
   "author": "daysai",
   "repository": "",
-  "homepage": "https://static-vusion.163yun.com/packages/lcap-login@0.4.4/index.html",
+  "homepage": "https://static-vusion.163yun.com/packages/lcap-login@0.4.5/index.html",
   "license": "MIT",
   "keywords": [
     "vusion",
@@ -13,15 +13,15 @@
     "component"
   ],
   "scripts": {
-    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
-    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
-    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
-    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html#examples --code-example --max-count 10 --smart-crop --package",
-    "lcap": "vusion lcap",
-    "deploy": "vusion deploy && vusion deploy dist-theme && vusion deploy screenshots && npm run lcap && git add .",
-    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && vusion readme && vusion vetur",
-    "release": "vusion publish"
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "https://static-vusion.163yun.com/packages/lcap-login@0.4.4/screenshots/0.png"
+      "https://static-vusion.163yun.com/packages/lcap-login@0.4.5/screenshots/0.png"
     ],
     "team": "网易云计算前端",
     "access": "public"
@@ -46,12 +46,18 @@
   "dependencies": {
     "query-string": "^6.13.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.12.1",
+    "axios": "^0.19.0"
+  },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "vue-cli-plugin-vusion": "^0.11.9",
+    "vue-cli-plugin-vusion": "^0.13.3",
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.9.12",
+    "cloud-ui.vusion": "^0.12.1",
     "axios": "^0.19.0"
   },
   "vetur": {

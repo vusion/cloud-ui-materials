@@ -1,8 +1,30 @@
 import { defineColor } from './colorsname.js';
 
+// rgb色值范围
+const RGB_RANGE_REG = /^(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)$/;
+// alpha范围
+const ALPHA_RANGE_REG = /^(1.?0?|0.?[0-9]*)$/;
+// 16进制
+const HEX_REG = /^#([0-9a-fA-F]{3,8})$/;
+// rgb
+const RGB_REG = /^[rR][gG][Bb][\(]([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\s]*,){2}[\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\s]*[\)]{1}$/
+// rgba
+const RGBA_REG = /^[rR][gG][Bb][Aa][\(]([\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\s]*,){3}[\s]*(1.?0?|0.?[0-9]*)[\s]*[\)]{1}$/;
+// hsl
+const HSL_REG = /^[hH][Ss][Ll][\(]([\s]*(2[0-9][0-9]|360|3[0-5][0-9]|[01]?[0-9][0-9]?)[\s]*,)([\s]*((100|[0-9][0-9]?)%|0)[\s]*,)([\s]*((100|[0-9][0-9]?)%|0)[\s]*)[\)]$/
+// hsla
+const HSLA_REG = /^[hH][Ss][Ll][Aa][\(]([\s]*(2[0-9][0-9]|360|3[0-5][0-9]|[01]?[0-9][0-9]?)[\s]*,)([\s]*((100|[0-9][0-9]?)%|0)[\s]*,){2}([\s]*(1.?0?|0.?[0-9]*)[\s]*)[\)]$/
+
+function isString(value) {
+    return Object.prototype.toString.call(value) === '[object String]';
+}
+
 class Color {
     // r, g, b, a
     constructor(r = 0, g = 0, b = 0, a = 1) {
+        if (!RGB_RANGE_REG.test(r) || !RGB_RANGE_REG.test(g) || !RGB_RANGE_REG.test(b) || !ALPHA_RANGE_REG.test(a)) {
+            throw new SyntaxError('Invalid params');
+        }
         this.r = r;
         this.g = g;
         this.b = b;
@@ -12,23 +34,24 @@ class Color {
         Object.assign(this, Color.RGB2HSV(this.r, this.g, this.b));
     }
 
-
     toArray() {
         return [this.r, this.g, this.b, this.a];
     }
 
-    // toString() {
-    //     Just use default
-    // }
-
-    toHEX(alpha) {
-        const fix = (num) => (num.length === 1 ? '0' + num : num).toUpperCase();
-
-        return '#' + fix(this.r.toString(16)) + fix(this.g.toString(16)) + fix(this.b.toString(16));
+    toHEX() {
+        let opacityStr = ''
+        if (!!this.a && this.a !== 1) {
+            opacityStr = Color.opacity2Hex(this.a);
+        }
+        return `#${this.r.toString(16).padStart(2, '0')}${this.g.toString(16).padStart(2, '0')}${this.b.toString(16).padStart(2, '0')}${opacityStr}`;
     }
 
     getRGB() {
         return { r: this.r, g: this.g, b: this.b };
+    }
+
+    setRGBA(r, g, b, a) {
+        Object.assign(this, { r, g, b, a }, Color.RGB2HSV(r, g, b));
     }
 
     setRGB(r, g, b) {
@@ -45,7 +68,6 @@ class Color {
 
     getHSV() {
         /* eslint-disable new-cap */
-        // return Color.RGB2HSV(this.r, this.g, this.b);
         return { h: this.h, s: this.s, v: this.v };
     }
 
@@ -58,7 +80,6 @@ class Color {
 
     getHSL() {
         /* eslint-disable new-cap */
-        // const hsv = Color.RGB2HSV(this.r, this.g, this.b);
         return Color.HSV2HSL(this.h, this.s, this.v);
     }
 
@@ -68,80 +89,129 @@ class Color {
 
     toHSL() {
         const hsl = this.getHSL();
+        if (!hsl) {
+            throw new SyntaxError('Invalid: something error');
+        }
         return `hsl(${hsl.h}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%)`;
     }
 
     toHSLA() {
         const hsl = this.getHSL();
+        if (!hsl) {
+            throw new SyntaxError('Invalid: something error');
+        }
         return `hsl(${hsl.h}, ${Math.round(hsl.s * 100)}%, ${Math.round(hsl.l * 100)}%, ${this.a})`;
     }
 
     static fromHEX(value) {
+        if (!value) {
+            return new Color();
+        }
+        // 不符合16进制规则
+        if (!HEX_REG.test(value)) {
+            throw new SyntaxError('Unexpected params of hex function');
+        }
         value = value.trim().slice(1);
-        if (value.length !== 6 && value.length !== 3)
-            throw new SyntaxError('Unexpected length of hex number');
-        else if (value.length === 3)
-            value = `${value[0]}${value[0]}${value[1]}${value[1]}${value[2]}${value[2]}`;
-
+        // 5位或者7位都直接忽略最后一位
+        if (value.length === 5 || value.length === 7) {
+            value = value.slice(0, -1);
+        }
+        // 3位或者4位都将位数补齐
+        if (value.length === 3 || value.length === 4) {
+            const arr = Array.from(value)
+            value = arr.reduce((prev, cur) => {
+                return `${prev}${cur}${cur}`;
+            }, '')
+        }
+        let alphaStr;
+        // 8位表示有透明度
+        if (value.length === 8) {
+            alphaStr = value.substr(value.length - 2, 2);
+            value = value.slice(0, -2);
+        }
         return new Color(
             parseInt(value.slice(0, 2), 16),
             parseInt(value.slice(2, 4), 16),
             parseInt(value.slice(4, 6), 16),
+            alphaStr ? Color.hex2Opacity(alphaStr) : 1
         );
     }
 
     static fromRGB(value) {
+        if (!value) {
+            return new Color();
+        }
+        // 不符合16进制规则
+        if (!RGB_REG.test(value)) {
+            throw new SyntaxError('Unexpected params of rgb function');
+        }
         value = value.trim().slice(4, -1);
         const arr = value.split(',').map((num) => +num);
-        if (arr.length !== 4)
-            throw new SyntaxError('Unexpected params of rgba function');
-
         return new Color(...arr);
     }
 
     static fromRGBA(value) {
+        if (!value) {
+            return new Color();
+        }
+        // 不符合16进制规则
+        if (!RGBA_REG.test(value)) {
+            throw new SyntaxError('Unexpected params of rgba function');
+        }
         value = value.trim().slice(5, -1);
         const arr = value.split(',').map((num) => +num);
-        if (arr.length !== 4)
-            throw new SyntaxError('Unexpected params of rgba function');
-
         return new Color(...arr);
     }
 
     static fromNAME(value) {
-        value = defineColor[value];
-        value = value.trim().slice(1);
-        if (value.length !== 6 && value.length !== 3) {
-            throw new SyntaxError('Unexpected params of name function');
-        } else if (value.length === 3) {
-            value = `${value[0]}${value[0]}${value[1]}${value[1]}${value[2]}${value[2]}`;
+        // value不存在的情况下返回默认color实例
+        if (!value) {
+            return new Color();
         }
-
-        return new Color(
-            parseInt(value.slice(0, 2), 16),
-            parseInt(value.slice(2, 4), 16),
-            parseInt(value.slice(4, 6), 16),
-        );
+        if (!isString(value)) {
+            throw new SyntaxError('Invalid: params should be a string');
+        }
+        value = defineColor[value];
+        if (!value) {
+            throw new SyntaxError('Invalid params');
+        }
+        // 调用16进制
+        return Color.fromHEX(value)
     }
 
     /** @TODO: fromHSL */
     static parse(value) {
-        value = value.trim();
-        return Color['from' + this.checkFormat(value)](value);
+        // value不存在的情况下返回默认color实例
+        if (!value) {
+            return new Color();
+        }
+        if (!isString(value)) {
+            throw new SyntaxError('Invalid: params should be a string');
+        }
+        // 颜色类型
+        const colorType = Color.checkFormat(value)
+        if (!colorType) { // 不属于16进制/rgb(a)/hsl(a)/内置颜色
+            throw new SyntaxError('Invalid params');
+        }
+        return Color[`from${colorType}`](value);
     }
 
     static checkFormat(value) {
-        if (value[0] === '#')
+        if (!isString(value)) {
+            throw new SyntaxError('Invalid: params should be a string');
+        }
+        value = value.trim();
+        if (HEX_REG.test(value))
             return 'HEX';
-        else if (value.startsWith('rgba('))
-            return 'RGBA';
-        else if (value.startsWith('rgb('))
+        else if (RGB_REG.test(value))
             return 'RGB';
-        else if (value.startsWith('hsla('))
-            return 'HSLA';
-        else if (value.startsWith('hsl('))
+        else if (RGBA_REG.test(value))
+            return 'RGBA';
+        else if (HSL_REG.test(value))
             return 'HSL';
-        else
+        else if (HSLA_REG.test(value))
+            return 'HSLA';
+        else if (defineColor[value])
             return 'NAME';
     }
 
@@ -154,7 +224,10 @@ class Color {
      * @param   Number  b       The blue, [0, 255]
      * @return  Object          The HSV representation
      */
-    static RGB2HSV(r, g, b) {
+    static RGB2HSV(r = 0, g = 0, b = 0) {
+        if (!RGB_RANGE_REG.test(r) || !RGB_RANGE_REG.test(g) || !RGB_RANGE_REG.test(b)) {
+            throw new SyntaxError('Invalid params');
+        }
         r = r / 255;
         g = g / 255;
         b = b / 255;
@@ -245,6 +318,54 @@ class Color {
             s: sv * 100 >> 0,
             v: v * 100 >> 0,
         };
+    }
+
+    /**
+     * 透明度转十六进制
+     * @param {*} opacity 
+     * @returns 
+     */
+    static opacity2Hex(opacity) {
+        if (!ALPHA_RANGE_REG.test(opacity)) {
+            throw new SyntaxError('Invalid params');
+        }
+        const num = Math.round(255 * opacity);
+        // 十进制转十六进制，缺位补0
+        return num.toString(16).padStart(2, '0');
+    }
+
+    /**
+     * 十六进制转透明度
+     * @param {*} str 
+     * @returns 
+     */
+    static hex2Opacity(str) {
+        // 十六进制转十进制
+        const num = `0x${str}`.toString(10);
+        return +(num / 255).toFixed(2);
+    }
+
+    static str2Color(value) {
+        let color = null;
+        try {
+            color = Color.parse(value)
+        } catch (e) {
+            console.warn(e);
+        }
+        return color || new Color();
+    }
+    
+    static str2Hex(value) {
+        let color = null;
+        try {
+            color = Color.parse(value)
+        } catch (e) {
+            console.warn(e);
+        }
+        if (!color) {
+            color = new Color();
+        }
+        return color.toHEX();
     }
 }
 

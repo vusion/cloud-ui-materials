@@ -26,7 +26,6 @@
                     </template>
                     <template #default>
                         <u-navbar-menu>
-                            <u-navbar-menu-item to="/account/center">个人中心</u-navbar-menu-item>
                             <u-navbar-menu-item @click="logout">安全退出</u-navbar-menu-item>
                         </u-navbar-menu>
                     </template>
