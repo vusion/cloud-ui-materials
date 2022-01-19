@@ -6,6 +6,7 @@
     - [基本用法](#基本用法)
 - [API]()
     - [Props/Attrs](#propsattrs)
+    - [Events](#events)
     - [Methods](#methods)
 
 **amap**
@@ -25,6 +26,12 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | city | string |  |  | 默认城市 |
+
+### Events
+
+#### @select
+
+点被选中后，可以调用逻辑（如，选择城北体育公园后，自动在详细地址输入框填充详细地址信息）
 
 Methods
 

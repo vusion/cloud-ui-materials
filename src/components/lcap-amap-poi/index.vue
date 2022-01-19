@@ -27,6 +27,7 @@ export default {
             show: false,
             map: null,
             poiInfo: null,
+            poiPicker: null,
         };
     },
     computed: {
@@ -34,7 +35,7 @@ export default {
     watch: {
         city: {
             handler(val) {
-                this.initMap();
+                this.changeCity(val);
             },
             immediate: false,
         },
@@ -58,6 +59,12 @@ export default {
         // };
     },
     methods: {
+        changeCity(val) {
+            window.lcapmap.setCity(val);
+            window.poiPicker.setCity(val);
+            window.poiPicker.searchByKeyword(val);
+            window.poiPicker.suggest('美食');
+        },
         initMap() {
             const config = this.getJSON(window.appInfo && window.appInfo.extendedConfig);
             if (!config || !config.amapKey) {
@@ -66,7 +73,7 @@ export default {
                 return;
             }
             AMapLoader.load({
-                key: config.key,
+                key: config.amapKey,
                 // key: 'cf96f8685c24cfd8f0cfe96336d34927',
                 version: '2.0',
                 AMapUI: {
@@ -74,11 +81,17 @@ export default {
                     plugins: ['misc/PoiPicker'],
                 },
             }).then((AMap) => {
-                this.map = new AMap.Map('container-map', {
-                    city: this.city || '杭州',
+                console.log(this.city, 777);
+                window.lcapmap = this.map = new AMap.Map('container-map', {
+                    city: this.city,
                     lang: 'zh_cn',
                     zoom: 10,
                 });
+                setTimeout(() => {
+                    this.map.setCity(this.city);
+                }, 3000);
+                // window.lcpAmap = this.map;
+                // console.log(this.map, 7777);
                 const map = this.map;
                 function poiPickerReady(poiPicker) {
                     window.poiPicker = poiPicker;
@@ -120,13 +133,13 @@ export default {
                         poiPicker.suggest('美食');
                     });
                 }
-                const poiPicker = new window.AMapUI.PoiPicker({
-                    city: '杭州',
+                this.poiPicker = new window.AMapUI.PoiPicker({
+                    city: this.city,
                     input: 'pickerInput',
                 });
 
                 // 初始化poiPicker
-                poiPickerReady.call(this, poiPicker);
+                poiPickerReady.call(this, this.poiPicker);
             });
         },
         poiPicked() {
