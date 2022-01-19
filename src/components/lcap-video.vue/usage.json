@@ -1,0 +1,105 @@
+{
+    "symbol": "lcap-video",
+    "name": "视频组件",
+    "version": "0.1.0",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "基于 video.js 的视频播放组件",
+    "labels": [
+        "Media"
+    ],
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.0/screenshots/0.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video :autoplay=\\\"false\\\" draggable :loop=\\\"false\\\"></lcap-video>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-video",
+        "title": "视频组件",
+        "description": "基于 video.js 的视频播放组件",
+        "category": "Media",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.0/screenshots/0.png",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-video :autoplay=\"false\" draggable :loop=\"false\"></lcap-video>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "src",
+                "title": "地址",
+                "type": "string",
+                "description": "视频流地址"
+            },
+            {
+                "name": "autoplay",
+                "title": "自动播放",
+                "type": "boolean",
+                "description": "是否自动播放",
+                "default": false
+            },
+            {
+                "name": "draggable",
+                "title": "可拖放",
+                "type": "boolean",
+                "description": "是否可拖放",
+                "default": true
+            },
+            {
+                "name": "loop",
+                "title": "循环播放",
+                "type": "boolean",
+                "description": "是否循环播放",
+                "default": false
+            }
+        ],
+        "methods": [
+            {
+                "name": "start",
+                "description": "播放开始时",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "播放器实例对象"
+                    }
+                ]
+            },
+            {
+                "name": "pause",
+                "description": "暂停播放时",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "播放器实例对象"
+                    }
+                ]
+            },
+            {
+                "name": "play",
+                "description": "继续播放时",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "播放器实例对象"
+                    }
+                ]
+            },
+            {
+                "name": "ended",
+                "description": "播放结束时",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "播放器实例对象"
+                    }
+                ]
+            }
+        ],
+        "children": []
+    }
+}
