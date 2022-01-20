@@ -1,5 +1,5 @@
 <template>
-<div :class="$style.root">
+<div :class="$style.root" vusion-disabled-copy>
     <div id="container-map" :class="$style.container">
         <div id="pickerBox">
             <input id="pickerInput" placeholder="输入关键字选取地点">
