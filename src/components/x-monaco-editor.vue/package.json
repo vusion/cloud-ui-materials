@@ -46,7 +46,7 @@
     "access": "public"
   },
   "dependencies": {
-    "monaco-editor": "^0.20.0"
+    "monaco-editor": "^0.32.0-dev.20220113"
   },
   "devDependencies": {
     "@vue/cli-service": ">=3.10.0",
