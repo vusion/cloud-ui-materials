@@ -1,5 +1,5 @@
 <template>
-<video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered"></video>
+<video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered video-js-max-width"></video>
 </template>
 
 <script>
