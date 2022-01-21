@@ -139,7 +139,7 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event | string | 当前输入区域的内容 |
+| $event.value | string | 当前输入区域的内容 |
 
 #### @input
 

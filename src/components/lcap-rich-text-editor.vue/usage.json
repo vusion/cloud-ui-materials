@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-rich-text-editor",
     "name": "富文本编辑器",
-    "version": "1.3.5",
+    "version": "1.3.9",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -92,7 +92,7 @@
                 "description": "内容修改时触发",
                 "params": [
                     {
-                        "name": "$event",
+                        "name": "$event.value",
                         "type": "string",
                         "description": "当前输入区域的内容"
                     }

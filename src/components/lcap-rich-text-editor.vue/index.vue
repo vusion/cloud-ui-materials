@@ -138,11 +138,22 @@ export default {
             if (this.readOnly) {
                 this.editor.root.innerHTML = val;
             } else if (['number', 'string'].includes(typeof val)) {
-                if (val && val !== content && val.slice(-11) !== "<p><br></p>") {
-                    let delta = this.editor.clipboard.convert({
-                        html: val
-                    });
-                    this.editor.setContents(delta)
+                if (val && val !== content) {
+                    let valEnd = val.slice(-11);
+                    let delta = null;
+                    if (valEnd !== "<p><br></p>") {
+                        delta = this.editor.clipboard.convert({
+                            html: val
+                        });
+                        this.editor.setContents(delta);
+                    } else if (val === valEnd) {
+                        this.editor.setContents('');
+                    } else {
+                        delta = this.editor.clipboard.convert({
+                            html: val
+                        });
+                        this.editor.setContents(delta);
+                    }
                 } else if (!val && val != 0) {
                     this.editor.setContents('');
                 }
@@ -222,7 +233,7 @@ export default {
                     event.preventDefault();
                     this.$refs.uploader.uploadFiles(event.clipboardData.files);
                 }
-            }, true)
+            }, true);
 
             // 恢复内容区文本
 
@@ -236,11 +247,14 @@ export default {
             }
 
             this.editor.on('text-change', (delta, OldDelta, source) => {
-                const contentText = this.editor.root.innerHTML;
+                let contentText = this.editor.root.innerHTML;
+                if (["<p><br></p>", "<p></p>"].includes(contentText)) {
+                    contentText = '';
+                }
                 if (source === 'user') {
                     this.$emit('update:value', contentText);
                     this.$emit('input', contentText);
-                    this.$emit('change', contentText);
+                    this.$emit('change', {'value': contentText});
                 }
             });
         },
