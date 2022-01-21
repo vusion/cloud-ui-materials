@@ -48,9 +48,11 @@ export default {
                 this.controlBar.progressControl.disable();
             }
         },
-        src() {
-            this.dispose();
-            this.init();
+        src(val) {
+            if (this.player && val) {
+                const sources = this.getSources(val);
+                this.player.src(sources);
+            }
         },
     },
     mounted() {
@@ -64,10 +66,7 @@ export default {
             const { src, width, height, autoplay, loop, draggable, muted, options } = this;
             if (!src)
                 return;
-            const sources = (Array.isArray(src) ? src : [src]).map((ele) => ({
-                src,
-                type: this.getType(src),
-            }));
+            const sources = this.getSources(src);
             const me = this;
             this.player = videojs(this.$refs.videoPlayer, {
                 ...options,
@@ -102,6 +101,12 @@ export default {
                     me.$emit('ended', e.target.player);
                 });
             });
+        },
+        getSources(src) {
+            return (Array.isArray(src) ? src : [src]).map((ele) => ({
+                src,
+                type: this.getType(src),
+            }));
         },
         dispose() {
             if (this.player) {

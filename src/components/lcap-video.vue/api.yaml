@@ -1,5 +1,5 @@
 - name: lcap-video
-  title: 视频组件
+  title: 视频
   description: 基于 video.js 的视频播放组件
   labels: [Media]
   icon: default
