@@ -1,0 +1,11 @@
+{
+  "lcap-amap-nav-pc": {
+    "attributes": [
+      "canto",
+      "lalg",
+      "label",
+      "target"
+    ],
+    "description": "地图导航"
+  }
+}

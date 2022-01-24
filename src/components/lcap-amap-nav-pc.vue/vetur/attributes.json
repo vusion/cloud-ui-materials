@@ -1,0 +1,36 @@
+{
+  "lcap-amap-nav-pc/canto": {
+    "type": "boolean",
+    "description": "是否开启导航"
+  },
+  "lcap-amap-nav-pc/lalg": {
+    "type": "string",
+    "description": "位置坐标"
+  },
+  "lcap-amap-nav-pc/label": {
+    "type": "string",
+    "description": "导航页标题显示的名称"
+  },
+  "lcap-amap-nav-pc/target": {
+    "type": "string",
+    "options": [
+      {
+        "value": "_blank",
+        "title": "新标签页"
+      },
+      {
+        "value": "_self",
+        "title": "当前窗口"
+      },
+      {
+        "value": "_parent",
+        "title": "父级窗口"
+      },
+      {
+        "value": "_top",
+        "title": "顶级窗口"
+      }
+    ],
+    "description": "链接打开方式"
+  }
+}

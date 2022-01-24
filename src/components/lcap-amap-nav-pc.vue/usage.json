@@ -1,0 +1,76 @@
+{
+    "symbol": "lcap-amap-nav-pc",
+    "name": "地图导航PC",
+    "version": "0.1.2",
+    "icon": "amapnav",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "地图导航",
+    "labels": [
+        "amap"
+    ],
+    "screenShot": "",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-amap-nav-pc></lcap-amap-nav-pc>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-amap-nav-pc",
+        "title": "地图导航PC",
+        "description": "地图导航",
+        "category": "amap",
+        "screenShot": "",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-amap-nav-pc></lcap-amap-nav-pc>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "canto",
+                "title": "是否开启导航",
+                "type": "boolean",
+                "default": true,
+                "description": "是否开启导航"
+            },
+            {
+                "name": "lalg",
+                "title": "位置坐标",
+                "type": "string",
+                "description": "位置坐标"
+            },
+            {
+                "name": "label",
+                "title": "导航名称",
+                "type": "string",
+                "description": "导航页标题显示的名称"
+            },
+            {
+                "name": "target",
+                "title": "打开方式",
+                "type": "string",
+                "options": [
+                    {
+                        "value": "_blank",
+                        "title": "新标签页"
+                    },
+                    {
+                        "value": "_self",
+                        "title": "当前窗口"
+                    },
+                    {
+                        "value": "_parent",
+                        "title": "父级窗口"
+                    },
+                    {
+                        "value": "_top",
+                        "title": "顶级窗口"
+                    }
+                ],
+                "default": "_self",
+                "description": "链接打开方式"
+            }
+        ],
+        "children": []
+    }
+}
