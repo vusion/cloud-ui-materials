@@ -1,11 +1,11 @@
 {
   "name": "lcap-video",
   "description": "",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-video@0.1.1/index.html",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-video@0.1.2/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -33,12 +33,12 @@
   },
   "vusion": {
     "type": "component",
-    "title": "视频组件",
+    "title": "视频",
     "category": "Media",
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.1/screenshots/0.png"
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.2/screenshots/0.png"
     ],
     "team": "",
     "access": "public"

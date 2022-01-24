@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-video",
-    "name": "视频组件",
-    "version": "0.1.1",
+    "name": "视频",
+    "version": "0.1.2",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Media"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.1/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.2/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-video :autoplay=\\\"false\\\" draggable :loop=\\\"false\\\"></lcap-video>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-video",
-        "title": "视频组件",
+        "title": "视频",
         "description": "基于 video.js 的视频播放组件",
         "category": "Media",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.1/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-video@0.1.2/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
