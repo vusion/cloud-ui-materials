@@ -146,8 +146,9 @@ export default {
         poiPicked() {
             if (!this.poiInfo) {
                 this.$toast.show('请先选择POI信息');
+                return {};
             }
-            return JSON.stringify(this.poiInfo);
+            return this.poiInfo;
         },
         getJSON(obj) {
             try {
