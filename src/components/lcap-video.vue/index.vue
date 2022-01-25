@@ -1,10 +1,15 @@
 <template>
-<video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered video-js-max-width"></video>
+<div :class="$style.root" :style="rootStyle">
+    <video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered vjs-fluid"></video>
+</div>
 </template>
 
 <script>
 import videojs from 'video.js';
 import './index.css';
+
+window.videojs = videojs;
+require('video.js/dist/lang/zh-CN');
 
 export default {
     name: 'lcap-video',
@@ -40,6 +45,21 @@ export default {
             player: null,
         };
     },
+    computed: {
+        rootStyle() {
+            const { width, height } = this;
+            const rootStyle = {};
+            const widthSize = this.fixSize(width);
+            const heightSize = this.fixSize(height);
+            if (widthSize) {
+                rootStyle.width = widthSize;
+            }
+            if (heightSize) {
+                rootStyle.height = heightSize;
+            }
+            return rootStyle;
+        },
+    },
     watch: {
         draggable(val) {
             if (val) {
@@ -63,15 +83,12 @@ export default {
     },
     methods: {
         init() {
-            const { src, width, height, autoplay, loop, draggable, muted, options } = this;
-            if (!src)
-                return;
+            const { src, autoplay, loop, draggable, muted, options } = this;
             const sources = this.getSources(src);
             const me = this;
             this.player = videojs(this.$refs.videoPlayer, {
                 ...options,
-                width,
-                height,
+                language: 'zh-CN',
                 autoplay,
                 sources,
                 loop,
@@ -88,7 +105,8 @@ export default {
                 this.on('play', (e) => {
                     const { player } = e.target;
                     const currentTime = player.currentTime();
-                    if (currentTime === 0) {
+                    // 初始播放时间 < 0.2s 认为是开始播放
+                    if (currentTime * 10 < 2) {
                         me.$emit('start', e.target.player);
                     } else {
                         me.$emit('play', player);
@@ -103,9 +121,12 @@ export default {
             });
         },
         getSources(src) {
+            if (!src) {
+                return [];
+            }
             return (Array.isArray(src) ? src : [src]).map((ele) => ({
                 src,
-                type: this.getType(src),
+                type: this.getType(ele),
             }));
         },
         dispose() {
@@ -149,9 +170,19 @@ export default {
                 this.player.pause();
             }
         },
+        fixSize(size) {
+            if (!size)
+                return null;
+            if (size.includes('px') || size.includes('%'))
+                return size;
+            return `${size}px`;
+        },
     },
 };
 </script>
 
 <style module>
+.root {
+    overflow: hidden;
+}
 </style>
