@@ -1,5 +1,5 @@
 <template>
-<div :style="rootStyle">
+<div :class="$style.root" :style="rootStyle">
     <video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered vjs-fluid"></video>
 </div>
 </template>
@@ -83,14 +83,12 @@ export default {
     },
     methods: {
         init() {
-            const { src, width, height, autoplay, loop, draggable, muted, options } = this;
+            const { src, autoplay, loop, draggable, muted, options } = this;
             const sources = this.getSources(src);
             const me = this;
             this.player = videojs(this.$refs.videoPlayer, {
                 ...options,
                 language: 'zh-CN',
-                width,
-                height,
                 autoplay,
                 sources,
                 loop,
@@ -184,4 +182,7 @@ export default {
 </script>
 
 <style module>
+.root {
+    overflow: hidden;
+}
 </style>
