@@ -1,7 +1,7 @@
 {
   "name": "lcap-x-echarts",
   "description": "本组件主要是给 Echarts 添加了主题，以及几个常见的 CSS 功能。",
-  "version": "0.9.3",
+  "version": "0.1.0",
   "author": "wt911122",
   "main": "./index.js",
   "repository": {
@@ -19,15 +19,15 @@
     "charts"
   ],
   "scripts": {
-    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
-    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
-    "build:raw": "../../../node_modules/.bin/vue-cli-service library-build --vusion-mode raw --dest dist-raw",
-    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "screenshot": "vusion screenshot public/index.html#blocks --code-example --max-count 11 --smart-crop --package",
-    "deploy": "vusion deploy && vusion deploy screenshots",
-    "lcap": "node ./scripts/lcap",
-    "prepublishOnly": "npm run build:theme && npm run build:raw && npm run build:doc && npm run screenshot && npm run lcap && git add . && vusion readme && vusion vetur",
-    "release": "vusion publish"
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -39,12 +39,17 @@
   },
   "dependencies": {
     "echarts": "^4.2.1",
-    "vue-echarts": "^4.0.3"
+    "vue-echarts": "^4.0.3",
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
   },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "vue-cli-plugin-vusion": "^0.11.11",
+    "vue-cli-plugin-vusion": "^0.13.3",
     "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10",
     "cloud-ui.vusion": "^0.9.13"
   },
   "vusion": {
