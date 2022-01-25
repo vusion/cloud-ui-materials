@@ -7,6 +7,7 @@
         </div>
         <div :class="$style.containertipwrap" v-show="show">
             <div :class="$style.containertip">地图不可用，请前往「应用详情」页面「地图配置」，配置key和密钥</div>
+            <div :class="$style.containertip">如果您已经配置Key，请重新打开可视化编辑页面</div>
         </div>
     </div>
 </div>
