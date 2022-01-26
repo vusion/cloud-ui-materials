@@ -184,5 +184,6 @@ export default {
 <style module>
 .root {
     overflow: hidden;
+    width: 100%;
 }
 </style>

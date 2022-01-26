@@ -12,12 +12,13 @@ export default {
     data() {
         const { tenant, domainName, env, nuimsDomain = 'user.lcap.163yun.com' } = window.appInfo;
         const envUri = env === 'dev' ? 'dev.' : '';
+        const tenantUri = tenant && tenant.toLowerCase() === 'defaulttenant' ? '' : `${tenant}.`;
         return {
             // window 等变量暂时不支持变成 ASL
             tenantName: tenant,
             domainName,
             env,
-            src: `${window.location.protocol}//${envUri}${tenant}.${nuimsDomain}`,
+            src: `${window.location.protocol}//${envUri}${tenantUri}${nuimsDomain}`,
         };
     },
     methods: {
