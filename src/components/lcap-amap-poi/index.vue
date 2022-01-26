@@ -7,6 +7,8 @@
         </div>
         <div :class="$style.containertipwrap" v-show="show">
             <div :class="$style.containertip">地图不可用，请前往「应用详情」页面「地图配置」，配置key和密钥</div>
+        </div>
+        <div :class="$style.containertipwrap" v-show="show">
             <div :class="$style.containertip">如果您已经配置Key，请重新打开可视化编辑页面</div>
         </div>
     </div>
@@ -53,7 +55,7 @@ export default {
             };
         } else {
             this.show = true;
-            this.$toast.show('请先配置高德地图的code');
+            // this.$toast.show('请先配置高德地图的code');
         }
         // window._AMapSecurityConfig = {
         //     securityJsCode: 'aef6b461d527c3fb575e4e66a61c1d24',
@@ -69,7 +71,7 @@ export default {
         initMap() {
             const config = this.getJSON(window.appInfo && window.appInfo.extendedConfig);
             if (!config || !config.amapKey) {
-                this.$toast.show('请先配置高德地图的key');
+                // this.$toast.show('请先配置高德地图的key');
                 this.show = true;
                 return;
             }
