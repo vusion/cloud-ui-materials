@@ -151,6 +151,9 @@ export default {
                             html: val,
                         });
                         this.editor.setContents(delta);
+                        this.$emit('update:value', val);
+                        this.$emit('input', val);
+                        this.$emit('change', { value: val });
                     }
                 } else if (!val && val != 0) {
                     this.editor.setContents('');

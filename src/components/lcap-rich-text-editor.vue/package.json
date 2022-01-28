@@ -19,7 +19,7 @@
     "build": "npm run build:theme && npm run build:doc",
     "usage": "lcap usage",
     "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
-    "deploy": "lcap deploy --platform http://netease-template.lcap.163yun.com --username template-user --password template123 --bucket static-vusion && lcap deploy dist-theme --platform http://netease-template.lcap.163yun.com --username template-user --password template123 --bucket static-vusion",
+    "deploy": "lcap deploy --platform && lcap deploy dist-theme",
     "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
     "release": "lcap publish"
   },
