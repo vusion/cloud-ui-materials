@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-rich-text-editor",
     "name": "富文本编辑器",
-    "version": "1.3.10",
+    "version": "1.3.11",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Editor"
     ],
-    "screenShot": "",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-rich-text-editor@1.3.11/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-rich-text-editor></lcap-rich-text-editor>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-rich-text-editor",
         "title": "富文本编辑器",
         "description": "基于第三方富文本插件Quill Editor进行封装",
         "category": "Editor",
-        "screenShot": "",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-rich-text-editor@1.3.11/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {

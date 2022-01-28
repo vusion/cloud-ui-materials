@@ -1,11 +1,11 @@
 {
   "name": "lcap-rich-text-editor",
   "description": "",
-  "version": "1.3.10",
+  "version": "1.3.11",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/lcap-rich-text-editor@1.3.10/index.html",
+  "homepage": "http://static-vusion.163yun.com/lcap-rich-text-editor@1.3.11/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

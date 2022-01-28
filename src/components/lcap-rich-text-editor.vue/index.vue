@@ -15,7 +15,7 @@ import 'quill/dist/quill.snow.css';
 import { MField } from 'cloud-ui.vusion';
 import './css/index.css';
 import './css/font.css';
-// import './node_modules/katex/dist/katex.css';
+import './node_modules/katex/dist/katex.css';
 
 import Quill from 'quill';
 import { addQuillTitle } from './js/addToolTip.js';
@@ -141,9 +141,9 @@ export default {
                             html: val,
                         });
                         this.editor.setContents(delta);
-                        this.$emit('update:value', valEnd);
-                        this.$emit('input', valEnd);
-                        this.$emit('change', { value: valEnd });
+                        this.$emit('update:value', val);
+                        this.$emit('input', val);
+                        this.$emit('change', { value: val });
                     } else if (val === valEnd) {
                         this.editor.setContents('');
                     } else {
