@@ -1,11 +1,11 @@
 {
   "name": "lcap-amap-poi",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-amap-poi@0.1.2/index.html",
+  "homepage": "http://static-vusion.163yun.com/lcap-amap-poi@0.1.3/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-amap-poi",
     "name": "地图选点",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "icon": "amappoi",
     "repoAddr": "",
     "depDescription": {},
