@@ -9,6 +9,7 @@ module.exports = {
                         options: {
                             plugins: [
                                 '@babel/plugin-proposal-optional-chaining',
+                                '@babel/plugin-proposal-class-properties'
                             ]
                         }
                     },
