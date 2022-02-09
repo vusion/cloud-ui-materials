@@ -1,9 +1,9 @@
 <template>
 <div :class="$style.root" vusion-disabled-copy>
-    <div id="container-map" :class="$style.container">
-        <div id="pickerBox">
-            <input id="pickerInput" placeholder="输入关键字选取地点">
-            <div id="poiInfo"></div>
+    <div id="container-map" :class="$style.container" ref="container-map">
+        <div id="pickerBox" ref="pickerBox">
+            <input id="pickerInput" placeholder="输入关键字选取地点" ref="pickerInput">
+            <div id="poiInfo" ref="poiInfo"></div>
         </div>
         <div :class="$style.containertipwrap" v-show="show">
             <div :class="$style.containertip">地图不可用，请前往「应用详情」页面「地图配置」，配置key和密钥。如果您已经配置Key，请重新打开可视化编辑页面。</div>
@@ -28,6 +28,7 @@ export default {
             map: null,
             poiInfo: null,
             poiPicker: null,
+            lcapmap: null,
         };
     },
     computed: {
@@ -60,10 +61,10 @@ export default {
     },
     methods: {
         changeCity(val) {
-            window.lcapmap.setCity(val);
-            window.poiPicker.setCity(val);
-            window.poiPicker.searchByKeyword(val);
-            window.poiPicker.suggest('美食');
+            this.lcapmap.setCity(val);
+            this.poiPicker.setCity(val);
+            this.poiPicker.searchByKeyword(val);
+            this.poiPicker.suggest('美食');
         },
         initMap() {
             const config = this.getJSON(window.appInfo && window.appInfo.extendedConfig);
@@ -81,20 +82,20 @@ export default {
                     plugins: ['misc/PoiPicker'],
                 },
             }).then((AMap) => {
-                console.log(this.city, 777);
-                window.lcapmap = this.map = new AMap.Map('container-map', {
+                const wrapper = this.$refs['container-map'];
+                this.lcapmap = this.map = new AMap.Map(wrapper, {
                     city: this.city,
                     lang: 'zh_cn',
                     zoom: 10,
                 });
                 setTimeout(() => {
                     this.map.setCity(this.city);
-                }, 3000);
+                }, 1500);
                 // window.lcpAmap = this.map;
                 // console.log(this.map, 7777);
                 const map = this.map;
                 function poiPickerReady(poiPicker) {
-                    window.poiPicker = poiPicker;
+                    this.poiPicker = poiPicker;
 
                     const marker = new AMap.Marker();
 
@@ -133,9 +134,10 @@ export default {
                         poiPicker.suggest('美食');
                     });
                 }
+                const inputWrapper = this.$refs.pickerInput;
                 this.poiPicker = new window.AMapUI.PoiPicker({
                     city: this.city,
-                    input: 'pickerInput',
+                    input: inputWrapper,
                 });
 
                 // 初始化poiPicker
