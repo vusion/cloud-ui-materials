@@ -228,6 +228,8 @@ export default {
             errMsg: '',
             accountRule: ['required'],
             pwdRule: ['required | minLength(8)'],
+            change: false,
+            changeConfig: {},
         };
     },
     computed: {
@@ -241,7 +243,9 @@ export default {
     mounted() {
         const { search } = location;
         const query = queryString.parse(search);
-        const { code, userName, userId } = query;
+        const { code, userName, userId } = query; 
+
+        this.getConfig();
         if (userName && userId && code) {
             this.setCookie({ authorization: code });
             this.$emit('success', {
@@ -254,6 +258,27 @@ export default {
         }
     },
     methods: {
+        async getConfig() {
+            try {
+                const res = await service.getConfig({
+                    url: '/config'
+                });
+                const obj = JSON.parse(res.data.userCenter);
+                // updata config
+                this.changeConfig = obj;
+                this.change = obj.change;
+            
+                if (this.change) {
+                    // 定位到第三方登录
+                    if (!window.location.href.includes('code')) {
+                        // redirect back with token
+                        window.location.href = this.changeConfig.login.pc;
+                    }
+                } 
+             } catch {
+                 console.info('no config');
+             }
+        },
         async getTenantConfig() {
             let tabs = [];
             let authTypes = [];
