@@ -272,7 +272,7 @@ export default {
                     // 定位到第三方登录
                     if (!window.location.href.includes('code')) {
                         // redirect back with token
-                        window.location.href = this.changeConfig.login.pc;
+                        window.location.href = `${this.changeConfig.login.pc}?from=${window.location.href}`;
                     }
                 } 
              } catch {
