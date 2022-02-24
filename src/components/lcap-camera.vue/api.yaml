@@ -5,20 +5,24 @@
   icon: demo
   attrs:
     - name: width
+      title: 宽度
       type: string
       default: 800
       description: 宽度
     - name: height
+      title: 高度
       type: string
       default: 600
       description: 高度
     - name: value
+      title: 当前文件列表
       type: Array
       model: true
       sync: true
       default: []
       description: 当前文件列表
     - name: url
+      title: 上传地址
       type: string
       required: true
       compType: interfaceSelect

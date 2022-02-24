@@ -5,6 +5,8 @@
       "type",
       "autoplay",
       "isLive",
+      "hasVideo",
+      "hasAudio",
       "cors",
       "withCredentials",
       "config"

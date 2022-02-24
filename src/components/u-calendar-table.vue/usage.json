@@ -1,7 +1,7 @@
 {
     "symbol": "u-calendar-table",
     "name": "日历表格",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "icon": "table-view",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Table"
     ],
-    "screenShot": "http://static-vusion.163yun.com/packages/u-calendar-table@0.1.5/screenshots/0.png",
+    "screenShot": "http://static-vusion.163yun.com/packages/u-calendar-table@0.1.6/screenshots/0.png",
     "blocks": "[{\"title\":\"普通日历\",\"description\":\"\",\"code\":\"<template>\\n<u-calendar-table\\n    first-title=\\\"姓名\\\"\\n    first-field=\\\"parent.name\\\"\\n    parent-key=\\\"parent.name\\\"\\n    child-key=\\\"child.name\\\"\\n    start-key=\\\"child.startTime\\\"\\n>\\n    <template #default=\\\"scope\\\">\\n        <u-linear-layout gap=\\\"small\\\"></u-linear-layout>\\n    </template>\\n</u-calendar-table>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "u-calendar-table",
         "title": "日历表格",
         "description": "用于展示大量结构化数据。支持按月展示月内每天的数据。",
         "category": "Table",
-        "screenShot": "http://static-vusion.163yun.com/packages/u-calendar-table@0.1.5/screenshots/0.png",
+        "screenShot": "http://static-vusion.163yun.com/packages/u-calendar-table@0.1.6/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {

@@ -2,7 +2,7 @@
 <span :class="$style.root">
     <span :class="$style.color" :style="{ backgroundColor: currentValue }"></span>
     <u-popup @open="onOpen" @close="onClose" :placement="placement">
-        <u-pallette :class="$style.pallette" slot="root" :value="currentValue" @input="onInput">
+        <u-pallette :class="$style.pallette" slot="root" :value="value" @input="onInput">
             <slot></slot>
         </u-pallette>
     </u-popup>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import Color from './Color';
+
 export default {
     name: 'u-color-picker',
     props: {
@@ -18,22 +20,23 @@ export default {
     },
     data() {
         return {
-            currentValue: this.value,
+            currentValue: this.str2Hex(),
         };
     },
     watch: {
         value(value) {
-            this.currentValue = this.value;
-        },
-        currentValue(value, oldValue) {
-            this.$emit('change', {
-                value,
-                oldValue,
-            });
+            this.currentValue = this.str2Hex()
         },
     },
     methods: {
+        str2Hex() {
+            return !!Color.checkFormat(this.value) ? Color.str2Hex(this.value) : '';
+        },
         onInput(value) {
+            this.$emit('change', {
+                value: value,
+                oldValue: this.currentValue,
+            });
             this.currentValue = value;
             this.$emit('input', value);
             this.$emit('update:value', value);

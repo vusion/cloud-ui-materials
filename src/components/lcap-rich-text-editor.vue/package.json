@@ -1,0 +1,64 @@
+{
+  "name": "lcap-rich-text-editor",
+  "description": "",
+  "version": "1.3.11",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "http://static-vusion.163yun.com/lcap-rich-text-editor@1.3.11/index.html",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy --platform && lcap deploy dist-theme",
+    "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "type": "component",
+    "title": "富文本编辑器",
+    "category": "Editor",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [
+      "https://static-vusion.163yun.com/packages/lcap-rich-text-editor@1.3.2/screenshots\\0.png"
+    ],
+    "team": "",
+    "access": "public"
+  },
+  "dependencies": {
+    "katex": "^0.13.18",
+    "quill": "^2.0.0-dev.4"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.10",
+    "vue-cli-plugin-vusion": "^0.13.3"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10",
+    "cloud-ui.vusion": "^0.11.20"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  }
+}

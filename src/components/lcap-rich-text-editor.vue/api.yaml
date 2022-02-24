@@ -1,0 +1,62 @@
+- name: lcap-rich-text-editor
+  title: 富文本编辑器
+  description: 基于第三方富文本插件Quill Editor进行封装
+  labels: [Editor]
+  icon: default
+  attrs:
+    - name: value
+      title: 编辑内容
+      type: string
+      default: ""
+      sync: true
+      model: false
+      description: 需要传入的文本内容
+    - name: readOnly
+      default: false
+      title: 启用只读模式
+      type: boolean
+      description: 启用只读模式
+    - name: textSub
+      title: 启用文本下标
+      default: false
+      type: boolean
+      description: 启用文本下标工具
+    - name: textSuper
+      default: false
+      title: 启用文本上标
+      type: boolean
+      description: 启用文本上标工具
+    - name: formula
+      default: false
+      title: 启用公式
+      type: boolean
+      description: 启用公式输入工具
+    - name: placeholder
+      default: ""
+      title: 输入占位符
+      type: string
+      description: 输入提示
+    - name: imgUploadUrl
+      default: "/gateway/lowcode/api/v1/app/upload"
+      title: 上传图片路径
+      type: string
+      description: 请填入上传图片的接口路径
+  slots:
+    - name: default
+      advanced: true
+      description: 插入文本或 HTML。
+  events:
+    - name: change
+      title: 内容改变时
+      description: 内容修改时触发
+      params:
+        - name: $event.value
+          type: string
+          description: 当前输入区域的内容
+    - name: input
+      title: 输入时
+      description: 输入时触发
+      params:
+        - name: $event
+          type: string
+          description: 当前输入区域的内容

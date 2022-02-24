@@ -20,12 +20,13 @@
 <template>
     <u-calendar-table
         first-title="姓名"
-        first-field="parent.name"
+        first-field="${parent.name} (${parent.age}) [${parent.home}]"
         :data-source-parent="dateSourceParent"
         :data-source-child="dateSourceChild"
         parent-key="parent.name"
         child-key="child.name"
         start-key="child.startTime"
+        first-width="160"
         width="88"
     >
         <template #default="scope">
@@ -40,11 +41,11 @@ export default {
         return {
             dateSourceParent: {
                 content: [
-                    { parent: { name: '张三' } },
-                    { parent: { name: '李四' } },
-                    { parent: { name: '王五' } },
-                    { parent: { name: '阿大' } },
-                    { parent: { name: '阿二' } },
+                    { parent: { name: '张三', age: 17, home: '浙江' } },
+                    { parent: { name: '李四', age: 18, home: '浙江' } },
+                    { parent: { name: '王五', age: 19, home: '浙江' } },
+                    { parent: { name: '阿大', age: 20, home: '浙江' } },
+                    { parent: { name: '阿二', age: 21, home: '浙江' } },
                 ],
                 number: 1,
                 size: 20,

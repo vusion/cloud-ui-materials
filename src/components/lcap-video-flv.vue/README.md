@@ -8,7 +8,7 @@
 - [API]()
     - [Props/Attrs](#propsattrs)
 
-**Display**
+**Media**
 
 FLV 视频流播放器
 
@@ -34,6 +34,8 @@ FLV 视频流播放器
 | type | string | `'flv'` ()<br/>`'mp4'` () | `'flv'` | 视频编码格式 |
 | autoplay | boolean |  | `false` | 是否自动播放 |
 | isLive | boolean |  | `false` | 是否直播流 |
+| hasVideo | boolean |  | `true` | 是否有视频 |
+| hasAudio | boolean |  | `true` | 是否有音频 |
 | cors | boolean |  | `true` | 是否支持第三方视频服务 |
 | withCredentials | boolean |  | `false` | 是否向第三方视频服务传递登录凭证 |
 | config | object |  |  | flv.js 其他配置 |
