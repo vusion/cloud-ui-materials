@@ -270,12 +270,11 @@ export default {
             
                 if (this.change) {
                     // 定位到第三方登录
-                    if (!window.location.href.includes('code')) {
+                    if (!window.location.href.includes('token=')) {
                         // redirect back with token
-                        window.location.href = `${this.changeConfig.login.pc?.url}?${queryString.stringify(Object.assign(
-                            ...this.changeConfig.login.pc?.params || {}, 
+                        window.location.href = `${this.changeConfig.pc?.url}?${queryString.stringify(Object.assign(
+                            this.changeConfig.pc?.params || {}, 
                         {
-                           
                             redirect_uri: window.location.href
                         }))}`;
                     }
