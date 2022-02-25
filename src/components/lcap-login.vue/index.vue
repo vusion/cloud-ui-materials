@@ -243,10 +243,16 @@ export default {
     mounted() {
         const { search } = location;
         const query = queryString.parse(search);
-        const { code, userName, userId } = query; 
+        const { code, userName, userId, token } = query; 
 
         this.getConfig();
-        if (userName && userId && code) {
+
+        if (token) {
+            this.setCookie({ authorization: token });
+            this.$emit('success', {
+                Authorization: token,
+            });
+        } else if(userName && userId && code) {
             this.setCookie({ authorization: code });
             this.$emit('success', {
                 Authorization: code,
