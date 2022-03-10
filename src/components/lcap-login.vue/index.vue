@@ -228,6 +228,8 @@ export default {
             errMsg: '',
             accountRule: ['required'],
             pwdRule: ['required | minLength(8)'],
+            change: false,
+            changeConfig: {},
         };
     },
     computed: {
@@ -241,8 +243,16 @@ export default {
     mounted() {
         const { search } = location;
         const query = queryString.parse(search);
-        const { code, userName, userId } = query;
-        if (userName && userId && code) {
+        const { code, userName, userId, token } = query; 
+
+        this.getConfig();
+
+        if (token) {
+            this.setCookie({ authorization: token });
+            this.$emit('success', {
+                Authorization: token,
+            });
+        } else if(userName && userId && code) {
             this.setCookie({ authorization: code });
             this.$emit('success', {
                 Authorization: code,
@@ -254,6 +264,31 @@ export default {
         }
     },
     methods: {
+        async getConfig() {
+            try {
+                const res = await service.getConfig({
+                    url: '/config'
+                });
+                const obj = JSON.parse(res.data.userCenter);
+                // updata config
+                this.changeConfig = obj;
+                this.change = obj.change;
+            
+                if (this.change) {
+                    // 定位到第三方登录
+                    if (!window.location.href.includes('token=')) {
+                        // redirect back with token
+                        window.location.href = `${this.changeConfig.pc?.url}?${queryString.stringify(Object.assign(
+                            this.changeConfig.pc?.params || {}, 
+                        {
+                            redirect_uri: window.location.href
+                        }))}`;
+                    }
+                } 
+             } catch {
+                 console.info('no config');
+             }
+        },
         async getTenantConfig() {
             let tabs = [];
             let authTypes = [];
@@ -285,7 +320,6 @@ export default {
             }
             this.tabs = tabs;
             this.authTypes = authTypes;
-            this.loading = false;
             if (tabs.length > 0) {
                 this.account.LoginType = tabs[0].value;
             } else {
@@ -297,6 +331,7 @@ export default {
                     this.showNoneTips = true;
                 }
             }
+            this.loading = false;
         },
         async login() {
             let errMsg;

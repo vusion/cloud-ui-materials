@@ -30,6 +30,16 @@ function request(config) {
 }
 
 export default {
+    getConfig(config) {
+        const { url, params, ...rest } = config;
+        return request({
+            url,
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            params: { ...params },
+            ...rest,
+        });
+    },
     getTenantLoginTypes(config) {
         const { url, params, ...rest } = config;
         return request({
