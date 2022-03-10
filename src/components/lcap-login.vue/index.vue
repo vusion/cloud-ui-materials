@@ -285,7 +285,6 @@ export default {
             }
             this.tabs = tabs;
             this.authTypes = authTypes;
-            this.loading = false;
             if (tabs.length > 0) {
                 this.account.LoginType = tabs[0].value;
             } else {
@@ -297,6 +296,7 @@ export default {
                     this.showNoneTips = true;
                 }
             }
+            this.loading = false;
         },
         async login() {
             let errMsg;
