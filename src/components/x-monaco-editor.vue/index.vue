@@ -19,6 +19,7 @@ export default {
         diff: { type: Boolean, default: false },
         amdRequire: Function,
         readonly: { type: Boolean, default: false },
+        options: { type: Object, default: () => ({}) },
     },
     watch: {
         options: {

@@ -25,6 +25,14 @@
     "type": "boolean",
     "description": "是否直播流"
   },
+  "lcap-video-flv/hasVideo": {
+    "type": "boolean",
+    "description": "是否有视频"
+  },
+  "lcap-video-flv/hasAudio": {
+    "type": "boolean",
+    "description": "是否有音频"
+  },
   "lcap-video-flv/cors": {
     "type": "boolean",
     "description": "是否支持第三方视频服务"

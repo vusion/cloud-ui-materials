@@ -1,5 +1,5 @@
 <template>
-<div >
+<div :class="$style.root">
     <div v-if="getCompType() === 'pass'">
         <div :class="$style.loading">
             <span></span>
@@ -151,13 +151,13 @@ import { NUIMS_DOMAIN_NAME, getTenant } from './util';
 import localService from './usercenter/service';
 
 export default {
-    name: 'nuims-login',
+    name: 'lcap-login',
     components: { iconCustom },
     props: {
         // 账号认证与权限中心域名
         src: {
             type: String,
-            default: 'http://lcp.localhost.vusion.top:8850/login',
+            default: 'http://nuims.vusion.top',
         },
         // 账号认证与权限中心请求相对路径
         nuimsUrl: {
@@ -213,11 +213,6 @@ export default {
             type: Number,
             default: 1,
         },
-        // 从 numis 接口获取配置参数
-        configFromNuims: {
-            type: Boolean,
-            default: false,
-        },
         // 开启在制品里面的登录
         hasUserCenter: {
             type: Boolean,
@@ -241,10 +236,9 @@ export default {
             errMsg: '',
             accountRule: ['required'],
             pwdRule: ['required | minLength(8)'],
-            // 学同判断是否需要跳转
             change: false,
             changeConfig: {},
-            
+            low: this.hasUserCenter, // 控制下沉模式（制品应用内部登录） 还是 集中模式（nuims集中登录）
         };
     },
     computed: {
@@ -265,10 +259,39 @@ export default {
             this.getConfig();
         }
 
+        if (this.useIcbc) { // 判断是否制品里面的登录
+
+        }
+
         if (compType === 'pass') {
             this.jumpAuthPass();
         } else if (compType === 'cb') {
             localStorage.setItem('compType', '');
+            await this.codeLogin(query);
+        } else {
+
+            if (token) {
+                // 对返回结果只包含 token 的解析方式，，目前主要是对接学同的场景
+                cookie.setCookie({ authorization: token });
+                this.$emit('success', {
+                    Authorization: token,
+                });
+            } else if (userName && userId && code) {
+                cookie.setCookie({ authorization: code });
+                this.$emit('success', {
+                    Authorization: code,
+                    UserName: userName,
+                    UserId: userId,
+                });
+            } else {
+                this.getTenantConfig();
+            }
+        }
+    },
+    methods: {
+        // 处理跳转返回的 code
+       async codeLogin(query) {
+            const { code, userName, redirect, userId, token } = query;
             // 其他应用单点登录跳转
             if (userName && userId && code) {
                 token.set(code);
@@ -288,13 +311,12 @@ export default {
                 };
 
                 let currentService;
-                if (this.hasUserCenter) {
+                if (this.low) {
                     currentService = localService;
                 } else {
                     currentService = service;
                 }
                 let oAuthService = currentService.OauthLogin;
-
                 if (LoginType === 'Github' || LoginType === 'CGithub') {
                     params.OAuthLoginType = 'Github';
                 } else if (LoginType === 'Wechat' || LoginType === 'CWechat') {
@@ -302,7 +324,7 @@ export default {
                 } else if (LoginType === 'Icbc' || LoginType === 'CIcbc') {
                     // 工行登陆
                     const { SSIAuth, SSISign } = query;
-                    if (this.hasUserCenter) {
+                    if (this.low) {
                         params = {
                             SsiAuth: SSIAuth,
                             SsiSign: SSISign,
@@ -323,7 +345,7 @@ export default {
                 }
                 try {
                     let res;
-                    if (this.hasUserCenter) {
+                    if (this.low) {
                         // 请求制品的接口
                         res = await oAuthService({
                             body: params,
@@ -362,28 +384,8 @@ export default {
                         this.$toast.show(message);
                     }
                 }
-            }    
-        } else {
-
-            if (token) {
-                // 对返回结果只包含 token 的解析方式，，目前主要是对接学同的场景
-                cookie.setCookie({ authorization: token });
-                this.$emit('success', {
-                    Authorization: token,
-                });
-            } else if (userName && userId && code) {
-                cookie.setCookie({ authorization: code });
-                this.$emit('success', {
-                    Authorization: code,
-                    UserName: userName,
-                    UserId: userId,
-                });
-            } else {
-                this.getTenantConfig();
-            }
-        }
-    },
-    methods: {
+            }   
+        },
         getCompType() {
             return localStorage.getItem('compType');
         },
@@ -418,7 +420,7 @@ export default {
             let authTypes = [];
             try {
                 let res;
-                if (this.hasUserCenter) {
+                if (this.low) {
                     res = await localService.getTenantLoginTypes({
                         url: `/system/loginTypes`,
                     });
@@ -472,7 +474,7 @@ export default {
                 await this.$refs.pwdValidator.validate();
                 const { AccountId, AccountPassword, LoginType } = this.account;
                 let res;
-                if (this.hasUserCenter) {
+                if (this.low) {
                     res = await service.login({
                         url: `/system/login`,
                         data: {
@@ -486,7 +488,7 @@ export default {
                         },
                     });
                     const { authorization } = res.headers;
-                    const { userName, userId } = res; // 制品返回的登录信息的结构
+                    const { userName, userId } = res.data; // 制品返回的登录信息的结构
                     cookie.setCookie({ authorization });
                     this.$emit('success', { Authorization: authorization, UserName: userName, UserId: userId, LoginType });
 
@@ -527,7 +529,8 @@ export default {
             const { search } = location;
             localStorage.setItem('compType', 'pass');
             const { redirect = encodeURIComponent(location.href) } = queryString.parse(search);
-            location.href = `${location.href}/?redirect=${redirect}&loginType=C${type}`;
+            // 非下沉模式，需要跳转到 nuims 的集中登录
+            location.href = `${this.low ? location.href: this.passSrc}/?redirect=${redirect}&loginType=C${type}`;
         },
         rmErrMsg() {
             this.errMsg = '';
@@ -536,7 +539,7 @@ export default {
             // 跳转回来，页面刷新，这时候需要请求一次配置
             const AuthConfigMap = {};
             let res;
-            if (this.hasUserCenter) {
+            if (this.low) {
                 res = await localService.getTenantLoginTypes({
                     url: `/system/loginTypes`,
                 });

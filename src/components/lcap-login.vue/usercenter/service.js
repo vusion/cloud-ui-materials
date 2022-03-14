@@ -5,7 +5,7 @@ export default {
     getTenantLoginTypes(config) {
         const { url, params, ...rest } = config;
         const result = request({
-            url,
+            url: url || '/system/loginTypes',
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             params: {  ...params },
@@ -16,10 +16,21 @@ export default {
     login(config) {
         const { url, headers, ...rest } = config;
         return request({
-            url,
+            url: url || '/system/login',
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...headers },
             params: {},
+            ...rest,
+        });
+    },
+    AuthTypes(config) {
+        const { url, headers, params, body, ...rest } = config;
+        const Headers = { 'Content-Type': 'application/json', ...headers };
+        return request({
+            url: url || '/system/authTypes',
+            method: 'POST',
+            headers: Headers,
+            data: formatContentType(Headers['Content-Type'], body),
             ...rest,
         });
     },

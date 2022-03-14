@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-camera",
     "name": "摄像头",
-    "version": "0.1.2",
+    "version": "0.1.7",
     "icon": "demo",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,15 @@
     "labels": [
         "Form"
     ],
-    "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.2/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-camera@0.1.2/screenshots/1.png",
+    "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.7/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-camera list-type=\\\"image\\\"\\n    url=\\\"/gateway/lowcode/api/v1/app/upload\\\" url-field=\\\"result\\\"\\n    converter=\\\"json\\\">\\n</lcap-camera>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-camera",
         "title": "摄像头",
         "description": "开启/关闭摄影头，支持截图、上传等功能",
         "category": "Form",
-        "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.2/screenshots/0.png,https://static-vusion.163yun.com/packages/lcap-camera@0.1.2/screenshots/1.png",
+        "screenShot": "https://static-vusion.163yun.com/packages/lcap-camera@0.1.7/screenshots/0.png",
+        "drawings": "",
         "blocks": [
             {
                 "title": "基本用法",
@@ -27,18 +28,21 @@
         "attrs": [
             {
                 "name": "width",
+                "title": "宽度",
                 "type": "string",
                 "default": 800,
                 "description": "宽度"
             },
             {
                 "name": "height",
+                "title": "高度",
                 "type": "string",
                 "default": 600,
                 "description": "高度"
             },
             {
                 "name": "value",
+                "title": "当前文件列表",
                 "type": "Array",
                 "model": true,
                 "sync": true,
@@ -47,8 +51,10 @@
             },
             {
                 "name": "url",
+                "title": "上传地址",
                 "type": "string",
                 "required": true,
+                "compType": "interfaceSelect",
                 "default": null,
                 "description": "上传的地址"
             }

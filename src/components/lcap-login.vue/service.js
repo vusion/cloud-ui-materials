@@ -14,6 +14,16 @@ export default {
     },
     getTenantLoginTypes(config) {
         const { url, params, ...rest } = config;
+        return request({
+            url,
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            params: { ...params },
+            ...rest,
+        });
+    },
+    getTenantLoginTypes(config) {
+        const { url, params, ...rest } = config;
         const result = request({
             url,
             method: 'GET',
