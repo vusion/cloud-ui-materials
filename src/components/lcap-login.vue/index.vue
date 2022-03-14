@@ -147,7 +147,7 @@ import cookie from './cookie';
 import service from './service';
 import './iconfont.js';
 import token from './token';
-import { NUIMS_DOMAIN_NAME, getTenant } from './util';
+import { NUIMS_DOMAIN_NAME, LOGIN_TYPES_MAP, AUTH_LIST, TAB_MAP, getArr, getTenant, rmLastSlash, getObj } from './util';
 import localService from './usercenter/service';
 
 export default {
@@ -259,10 +259,6 @@ export default {
             this.getConfig();
         }
 
-        if (this.useIcbc) { // 判断是否制品里面的登录
-
-        }
-
         if (compType === 'pass') {
             this.jumpAuthPass();
         } else if (compType === 'cb') {
@@ -272,12 +268,12 @@ export default {
 
             if (token) {
                 // 对返回结果只包含 token 的解析方式，，目前主要是对接学同的场景
-                cookie.setCookie({ authorization: token });
+                cookie.set({ authorization: token });
                 this.$emit('success', {
                     Authorization: token,
                 });
             } else if (userName && userId && code) {
-                cookie.setCookie({ authorization: code });
+                cookie.set({ authorization: code });
                 this.$emit('success', {
                     Authorization: code,
                     UserName: userName,
@@ -430,7 +426,7 @@ export default {
                         params: { TenantName: this.tenantName || getTenant() },
                     });
                 }
-                res.data.Data.forEach((type) => {
+                res?.data?.Data.forEach((type) => {
                     const { LoginType } = type;
                     if (Object.keys(TAB_MAP).includes(LoginType) && this[`use${LoginType}`]) {
                         tabs.push({
@@ -445,6 +441,7 @@ export default {
                     }
                 });
             } catch (error) {
+                console.info(error);
                 tabs = [{
                     title: '普通登录',
                     value: 'Normal',
@@ -475,7 +472,7 @@ export default {
                 const { AccountId, AccountPassword, LoginType } = this.account;
                 let res;
                 if (this.low) {
-                    res = await service.login({
+                    res = await localService.login({
                         url: `/system/login`,
                         data: {
                             UserName: AccountId,
@@ -488,8 +485,8 @@ export default {
                         },
                     });
                     const { authorization } = res.headers;
-                    const { userName, userId } = res.data; // 制品返回的登录信息的结构
-                    cookie.setCookie({ authorization });
+                    const { userName, userId } = res; // 制品返回的登录信息的结构
+                    cookie.set({ authorization });
                     this.$emit('success', { Authorization: authorization, UserName: userName, UserId: userId, LoginType });
 
                 } else {
@@ -508,7 +505,7 @@ export default {
                     });
                     const { authorization } = res.headers;
                     const { UserName, UserId } = res.data.Data;
-                    cookie.setCookie({ authorization });
+                    cookie.set({ authorization });
                     this.$emit('success', { Authorization: authorization, UserName, UserId, LoginType });
                 }
    

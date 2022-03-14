@@ -1,5 +1,5 @@
 
-import { request } from '../request';
+import { request, formatContentType } from '../request';
 
 export default {
     getTenantLoginTypes(config) {
@@ -19,7 +19,6 @@ export default {
             url: url || '/system/login',
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...headers },
-            params: {},
             ...rest,
         });
     },
