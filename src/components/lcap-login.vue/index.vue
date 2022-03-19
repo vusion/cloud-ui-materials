@@ -146,7 +146,7 @@ import iconCustom from './icon-custom.vue';
 import cookie from './cookie';
 import service from './service';
 import './iconfont.js';
-import token from './token';
+import tokenMethod from './token';
 import { NUIMS_DOMAIN_NAME, LOGIN_TYPES_MAP, AUTH_LIST, TAB_MAP, getArr, getTenant, rmLastSlash, getObj } from './util';
 import localService from './usercenter/service';
 
@@ -203,7 +203,7 @@ export default {
         // 开启工行登录
         useIcbc: {
             type: Boolean,
-            default: false,
+            default: true,
         },
         useXuetong: {
             type: Boolean,
@@ -290,7 +290,7 @@ export default {
             const { code, userName, redirect, userId, token } = query;
             // 其他应用单点登录跳转
             if (userName && userId && code) {
-                token.set(code);
+                tokenMethod.set(code);
                 localStorage.setItem('LoginType', 'Other');
                 cookie.set({ LoginType: 'Other' });
                 location.href = redirect ? decodeURIComponent(redirect) : `${origin}`;
@@ -361,7 +361,7 @@ export default {
                         href = decodeURIComponent(
                             redirect || localStorage.getItem('From') || cookie.get('From'),
                         );
-                        const Token = token.get();
+                        const Token = tokenMethod.get();
                         const Back = `${href}${
                             href.includes('?') ? '&' : '?'
                         }userName=${UserName}&userId=${UserId}&code=${Token}`;
@@ -450,6 +450,7 @@ export default {
             }
             this.tabs = tabs;
             this.authTypes = authTypes;
+            
             if (tabs.length > 0) {
                 this.account.LoginType = tabs[0].value;
             } else {
@@ -604,9 +605,9 @@ export default {
                 case 'Icbc':
                 case 'CIcbc':
                     // eslint-disable-next-line no-case-declarations
-                    const { IcbcAAMUrl, Version, Style, Op, OpMode, Lang } = this.AuthConfigMap.Icbc;
+                    const { IcbcAAMUrl, Version, Style, Op, OpMode, Lang, ServiceName } = this.AuthConfigMap.Icbc;
                     authUrl = `${IcbcAAMUrl}?${queryString.stringify({
-                        SERVICENAME: NUIMS_DOMAIN_NAME,
+                        SERVICENAME: ServiceName,
                         SERVICEURL: redirectUri,
                         VERSION: Version,
                         STYLE: Style,

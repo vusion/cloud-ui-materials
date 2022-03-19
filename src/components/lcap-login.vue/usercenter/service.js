@@ -45,11 +45,12 @@ export default {
         });
     },
     IcbcLogin(config) {
-        const { url, headers, ...rest } = config;
+        const { url, headers, params, body, ...rest } = config;
+        const Headers = { 'Content-Type': 'application/json', ...headers };
         return request({
             url: url || '/system/icbcLogin',
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...headers },
+            headers: Headers,
             params: { ...params },
             data: formatContentType(Headers['Content-Type'], body),
             ...rest,

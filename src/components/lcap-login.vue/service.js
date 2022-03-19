@@ -1,5 +1,5 @@
 
-import { request, apiVersion } from './request';
+import { request, apiVersion, formatContentType } from './request';
 
 export default {
     getConfig(config) {
@@ -46,6 +46,7 @@ export default {
     OauthLogin(config) {
         const { url, headers, params, body, ...rest } = config;
         const Headers = { 'Content-Type': 'application/json', ...headers };
+
         return request({
             url,
             method: 'POST',
@@ -56,11 +57,13 @@ export default {
         });
     },
     IcbcLogin(config) {
-        const { url, headers, ...rest } = config;
+        const { url, headers, params, body, ...rest } = config;
+        const Headers = { 'Content-Type': 'application/json', ...headers };
+        
         return request({
             url,
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...headers },
+            headers: Headers,
             params: { Action: 'IcbcLogin', Version: apiVersion, ...params },
             data: formatContentType(Headers['Content-Type'], body),
             ...rest,
