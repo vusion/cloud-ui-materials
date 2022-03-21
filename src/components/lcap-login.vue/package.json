@@ -1,7 +1,7 @@
 {
   "name": "lcap-login",
   "description": "",
-  "version": "0.4.7",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "daysai",
   "repository": "",
