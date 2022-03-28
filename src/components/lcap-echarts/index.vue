@@ -1,0 +1,118 @@
+<template>
+  <div :class="$style.root">
+    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData" :size="size" @getAxisData="getAxisList" :xAxis="xAxis" :yAxis="yAxis"></component>
+  </div>
+</template>
+
+<script>
+import { fakeData } from "@/fakeData";
+import echartBar from "@/component/echartBar";
+import echartPie from "@/component/echartPie";
+import echartLine from "@/component/echartLine";
+import echarts from 'echarts';
+Vue.prototype.$echarts = echarts
+
+export default {
+  name: 'lcap-echarts',
+  components: { echartBar, echartLine, echartPie},
+  props: {
+    rawData: {
+      type: Object,
+      default() {
+        return fakeData;
+      },
+    },
+    chartType: {
+      type: String,
+      default: 'bar',
+    },
+    width: {
+      type: String,
+      default: '400px',
+    },
+    height: {
+      type: String,
+      default: '300px',
+    },
+    xAxis: {
+      type: String,
+      default: '',
+    },
+    yAxis: {
+      type: String,
+      default: '',
+    },
+    title: {
+      type: String,
+      default: '默认标题',
+    },
+    titleFontSize: {
+      type: Number,
+      default: 18,
+    }
+
+  },
+  data() {
+    return {
+      sourceData: undefined,
+      echarTypeMap: {
+        'bar' : echartBar,
+        'line': echartLine,
+        'pie': echartPie,
+      },
+      xAxisList: [],
+      yAxisList: [],
+    }
+  },
+  watch: {
+  },
+  created() {
+    this.sourceData = this.processRawData(this.rawData);
+  },
+  computed: {
+    currentType() {
+      return this.echarTypeMap[this.chartType];
+    },
+    size() {
+      return {
+        width: this.width,
+        height: this.height,
+      }
+    },
+    baseConfig() {
+      const myConfig = {
+        title: {
+          text: this.title,
+          textStyle: {
+            fontSize: this.fontSize,
+          }
+        },
+      };
+      return myConfig;
+    }
+  },
+  mounted() {
+    // console.log(this.xAxisList);
+  },
+  methods: {
+    init() {
+    },
+    getAxisList(data) {
+      this.xAxisList = data[0];
+      this.yAxisList = data[1];
+    },
+    processRawData(data) {
+      console.log(data);
+      return data;
+    },
+  }
+
+
+
+};
+</script>
+
+<style module>
+.root {
+}
+</style>

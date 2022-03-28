@@ -1,0 +1,54 @@
+- name: lcap-echarts
+  title: 低代码数据可视化图表
+  description: 本组件根据表格生成的数据，自动转化成可视化图表
+  labels: [Chart]
+  icon: chart
+  attrs:
+    - name: chartType
+      type: string
+      default: bar
+      description: 图表类型
+      options:
+        - value: bar
+          title: 柱状图
+        - value: line
+          title: 折线图
+        - value: bar
+          title: 饼图
+    - name: width
+      type: string
+      default: 100%
+      description: 宽度
+    - name: height
+      type: string
+      default: 80%
+      description: 高度
+    - name: xAxis
+      type: string
+      default: ''
+      description: x轴(分类轴)
+    - name: yAxis
+      type: string
+      default: ''
+      description: y轴（数值轴）
+    - name: title
+      type: string
+      default: 默认标题
+      description: 标题
+    - name: titleFontSize
+      type: number
+      default: 18
+      description: 标题字体大小
+  slots:
+    - name: default
+      description: 插入文本或 HTML。
+  events:
+    - name: change
+      description: 修改时触发
+      params:
+        - name: $event.param1
+          type: string
+          description: 参数1
+        - name: $event.param2
+          type: number
+          description: 参数2
