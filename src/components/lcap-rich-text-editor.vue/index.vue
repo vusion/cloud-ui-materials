@@ -1,5 +1,5 @@
 <template>
-<div ref="root" :class="$style.root" :dscroll="dscroll">
+<div ref="root" :class="$style.root" :disablescroll="disablescroll">
     <div class="in-editor">
         <slot></slot>
     </div>
@@ -70,7 +70,7 @@ export default {
             type: String,
             default: '/gateway/lowcode/api/v1/app/upload',
         },
-        dscroll: {
+        disablescroll: {
             type: Boolean,
             default: false,
         },
@@ -338,7 +338,7 @@ export default {
 
 <style module>
 .root {}
-.root[dscroll="true"] .ql-editor {
+.root[disablescroll="true"] .ql-editor {
    overflow: hidden !important;
 }
 </style>

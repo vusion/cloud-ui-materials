@@ -31,7 +31,7 @@
       title: 启用公式
       type: boolean
       description: 启用公式输入工具
-    - name: dscroll
+    - name: disablescroll
       default: false
       title: 禁用滚动
       type: boolean
