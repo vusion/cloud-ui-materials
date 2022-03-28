@@ -1,0 +1,16 @@
+{
+  "lcap-echarts": {
+    "attributes": [
+      "chartType",
+      "width",
+      "height",
+      "xAxis",
+      "yAxis",
+      "title",
+      "titleFontSize",
+      "data-source",
+      "data-schema"
+    ],
+    "description": "本组件根据表格生成的数据，自动转化成可视化图表"
+  }
+}

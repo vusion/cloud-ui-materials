@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData" :size="size" @getAxisData="getAxisList" :xAxis="xAxis" :yAxis="yAxis"></component>
+    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData"  :size="size" @getAxisData="getAxisList" :xAxis="xAxis" :yAxis="yAxis"></component>
   </div>
 </template>
 
@@ -12,16 +12,16 @@ import echartLine from "@/component/echartLine";
 import echarts from 'echarts';
 Vue.prototype.$echarts = echarts
 
+const echarTypeMap = {
+  bar : 'echartBar',
+  line: 'echartLine',
+  pie: 'echartPie',
+};
 export default {
   name: 'lcap-echarts',
   components: { echartBar, echartLine, echartPie},
   props: {
-    rawData: {
-      type: Object,
-      default() {
-        return fakeData;
-      },
-    },
+    dataSource: [Function, Array, Object],
     chartType: {
       type: String,
       default: 'bar',
@@ -55,23 +55,17 @@ export default {
   data() {
     return {
       sourceData: undefined,
-      echarTypeMap: {
-        'bar' : echartBar,
-        'line': echartLine,
-        'pie': echartPie,
-      },
       xAxisList: [],
       yAxisList: [],
-    }
+    };
   },
-  watch: {
-  },
-  created() {
-    this.sourceData = this.processRawData(this.rawData);
+  async created() {
+    const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
+    this.sourceData = await this.handleDataSource(fnDataSource);
   },
   computed: {
     currentType() {
-      return this.echarTypeMap[this.chartType];
+      return echarTypeMap[this.chartType];
     },
     size() {
       return {
@@ -105,10 +99,28 @@ export default {
       console.log(data);
       return data;
     },
+    async handleDataSource(dataSource) {
+      if (!dataSource) {
+        return [];
+      }
+      if (dataSource instanceof Promise || typeof dataSource === 'function') {
+        const result = await dataSource();
+        return this.getData(result);
+      }
+      return this.getData(dataSource);
+    },
+    isDataSource(data) {
+      return Object.prototype.toString.call(data) === '[object Object]' && data.content;
+    },
+    getData(dataSource) {
+      if (Array.isArray(dataSource)) {
+        return dataSource;
+      } else if (this.isDataSource(dataSource)) {
+        return dataSource;
+      }
+      return [];
+    },
   }
-
-
-
 };
 </script>
 

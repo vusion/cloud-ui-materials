@@ -81,6 +81,7 @@ export default {
 
     processBarData(data) {
       const content = data.content;
+      if (!content) return;
       const key = Object.keys(content[0])[0];
       const attrDict = {};
       // 删除自带的，不必要的属性, 根据数据类型分类x轴， y轴
@@ -112,7 +113,7 @@ export default {
         },
         series: [
           {
-            type: 'line',
+            type: 'bar',
             data: attrDict[yAxis],
             showBackground: true,
             emphasis: {

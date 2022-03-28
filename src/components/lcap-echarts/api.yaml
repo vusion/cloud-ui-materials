@@ -4,7 +4,8 @@
   labels: [Chart]
   icon: chart
   attrs:
-    - name: chartType
+    - title: 图类型
+      name: chartType
       type: string
       default: bar
       description: 图表类型
@@ -13,32 +14,57 @@
           title: 柱状图
         - value: line
           title: 折线图
-        - value: bar
+        - value: pie
           title: 饼图
+      group: 图属性
     - name: width
+      title: 宽度
       type: string
-      default: 100%
+      default: 400px
       description: 宽度
+      group: 图属性
     - name: height
+      title: 高度
       type: string
-      default: 80%
+      default: 300px
       description: 高度
+      group: 图属性
     - name: xAxis
+      title: 分类轴
       type: string
       default: ''
       description: x轴(分类轴)
+      group: 图属性
     - name: yAxis
+      title: 数值轴
       type: string
       default: ''
       description: y轴（数值轴）
+      group: 图属性
     - name: title
+      title: 图表题
       type: string
       default: 默认标题
       description: 标题
+      group: 图属性
     - name: titleFontSize
+      title: 字体大小
       type: number
       default: 18
       description: 标题字体大小
+      group: 图属性
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 表格的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据属性
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 表格每一行的数据类型
+      group: 数据属性
+      compType: dataTypeSelect
   slots:
     - name: default
       description: 插入文本或 HTML。

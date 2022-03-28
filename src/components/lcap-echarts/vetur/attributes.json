@@ -1,0 +1,52 @@
+{
+  "lcap-echarts/chartType": {
+    "type": "string",
+    "options": [
+      {
+        "value": "bar",
+        "title": "柱状图"
+      },
+      {
+        "value": "line",
+        "title": "折线图"
+      },
+      {
+        "value": "bar",
+        "title": "饼图"
+      }
+    ],
+    "description": "图表类型"
+  },
+  "lcap-echarts/width": {
+    "type": "string",
+    "description": "宽度"
+  },
+  "lcap-echarts/height": {
+    "type": "string",
+    "description": "高度"
+  },
+  "lcap-echarts/xAxis": {
+    "type": "string",
+    "description": "x轴(分类轴)"
+  },
+  "lcap-echarts/yAxis": {
+    "type": "string",
+    "description": "y轴（数值轴）"
+  },
+  "lcap-echarts/title": {
+    "type": "string",
+    "description": "标题"
+  },
+  "lcap-echarts/titleFontSize": {
+    "type": "number",
+    "description": "标题字体大小"
+  },
+  "lcap-echarts/data-source": {
+    "type": "Array<Item> | Function | object | DataSource",
+    "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
+  },
+  "lcap-echarts/data-schema": {
+    "type": "schema",
+    "description": "表格每一行的数据类型"
+  }
+}
