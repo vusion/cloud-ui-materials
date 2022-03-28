@@ -31,6 +31,11 @@
       title: 启用公式
       type: boolean
       description: 启用公式输入工具
+    - name: dscroll
+      default: false
+      title: 禁用滚动
+      type: boolean
+      description: 禁用滚动
     - name: placeholder
       default: ""
       title: 输入占位符

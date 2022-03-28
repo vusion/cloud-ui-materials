@@ -1,5 +1,5 @@
 <template>
-<div ref="root" :class="$style.root">
+<div ref="root" :class="$style.root" :dscroll="dscroll">
     <div class="in-editor">
         <slot></slot>
     </div>
@@ -69,6 +69,10 @@ export default {
         imgUploadUrl: {
             type: String,
             default: '/gateway/lowcode/api/v1/app/upload',
+        },
+        dscroll: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -334,4 +338,7 @@ export default {
 
 <style module>
 .root {}
+.root[dscroll="true"] .ql-editor {
+   overflow: hidden !important;
+}
 </style>
