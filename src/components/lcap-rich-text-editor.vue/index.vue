@@ -13,9 +13,9 @@
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import { MField } from 'cloud-ui.vusion';
+import './css/katex.css';
 import './css/index.css';
 import './css/font.css';
-import './node_modules/katex/dist/katex.css';
 
 import Quill from 'quill';
 import { addQuillTitle } from './js/addToolTip.js';
