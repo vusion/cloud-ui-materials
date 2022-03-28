@@ -1,5 +1,5 @@
 <template>
-<div ref="root" :class="$style.root" :disablescroll="disablescroll">
+<div ref="root" :class="$style.root" :disablescroll="disablescroll ? 'can': 'no'">
     <div class="in-editor">
         <slot></slot>
     </div>
@@ -338,7 +338,4 @@ export default {
 
 <style module>
 .root {}
-.root[disablescroll="true"] .ql-editor {
-   overflow: hidden !important;
-}
 </style>

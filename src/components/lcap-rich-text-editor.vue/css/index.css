@@ -337,3 +337,6 @@
 .ql-editor li[data-list=ordered].ql-indent-8 > .ql-ui:before {
     content: counter(list-8, decimal) '. ';
 }
+[disablescroll="can"] .ql-editor {
+    overflow: hidden !important;
+ }
