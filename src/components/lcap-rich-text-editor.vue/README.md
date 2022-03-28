@@ -122,6 +122,7 @@ export default {
 | textSub | boolean |  | `false` | 启用文本下标工具 |
 | textSuper | boolean |  | `false` | 启用文本上标工具 |
 | formula | boolean |  | `false` | 启用公式输入工具 |
+| disablescroll | boolean |  | `false` | 禁用滚动 |
 | placeholder | string |  | `''` | 输入提示 |
 | imgUploadUrl | string |  | `'/gateway/lowcode/api/v1/app/upload'` | 请填入上传图片的接口路径 |
 
