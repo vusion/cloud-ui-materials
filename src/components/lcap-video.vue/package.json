@@ -20,7 +20,7 @@
     "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
     "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
     "usage": "lcap usage",
-    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
     "release": "lcap publish"
   },
   "vuePlugins": {
