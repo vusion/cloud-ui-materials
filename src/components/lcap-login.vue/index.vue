@@ -216,7 +216,7 @@ export default {
         // 开启在制品里面的登录
         hasUserCenter: {
             type: Boolean,
-            default: true, 
+            default: true,
         }
     },
     data() {
@@ -254,7 +254,7 @@ export default {
         const query = queryString.parse(search);
         const { code, userName, redirect, userId, token } = query;
         const compType = localStorage.getItem('compType');
-        
+
         if (this.useXuetong) {
             this.getConfig();
         }
@@ -336,7 +336,7 @@ export default {
                             DomainName: NUIMS_DOMAIN_NAME,
                         };
                     }
-                    
+
                     oAuthService = currentService.IcbcLogin;
                 }
                 try {
@@ -380,7 +380,7 @@ export default {
                         this.$toast.show(message);
                     }
                 }
-            }   
+            }
         },
         getCompType() {
             return localStorage.getItem('compType');
@@ -395,18 +395,18 @@ export default {
                 // updata config
                 this.changeConfig = obj;
                 this.change = obj.change;
-            
+
                 if (this.change) {
                     // 定位到第三方登录
                     if (!window.location.href.includes('token=')) {
                         // redirect back with token
                         window.location.href = `${this.changeConfig.pc?.url}?${queryString.stringify(Object.assign(
-                            this.changeConfig.pc?.params || {}, 
+                            this.changeConfig.pc?.params || {},
                         {
                             redirect_uri: window.location.href
                         }))}`;
                     }
-                } 
+                }
              } catch {
                  console.info('no config');
              }
@@ -450,7 +450,6 @@ export default {
             }
             this.tabs = tabs;
             this.authTypes = authTypes;
-            
             if (tabs.length > 0) {
                 this.account.LoginType = tabs[0].value;
             } else {
@@ -509,7 +508,7 @@ export default {
                     cookie.set({ authorization });
                     this.$emit('success', { Authorization: authorization, UserName, UserId, LoginType });
                 }
-   
+
             } catch (error) {
                 errMsg = error && error.message;
                 if (
@@ -547,7 +546,7 @@ export default {
                     params: { TenantName: this.tenantName || getTenant() },
                 });
             }
-            
+
             getArr(getObj(res).data.Data).forEach((d) => {
                 const { LoginType, AppKey, IcbcConfig } = getObj(d);
                 if (AUTH_LIST.includes(LoginType)) {
@@ -576,7 +575,7 @@ export default {
             let authUrl;
             switch (loginType) {
                 case 'Netease':
-                case 'CNetease': 
+                case 'CNetease':
                     authUrl = `https://login.netease.com/connect/authorize?${queryString.stringify({
                         response_type: 'code',
                         scope: 'openid nickname',
