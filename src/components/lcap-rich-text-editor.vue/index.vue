@@ -136,6 +136,9 @@ export default {
             const content = this.editor.root.innerHTML;
             if (this.readOnly) {
                 this.editor.root.innerHTML = val;
+                this.$emit('update:value', val);
+                this.$emit('input', val);
+                this.$emit('change', { value: val });
             } else if (['number', 'string'].includes(typeof val)) {
                 if (val && val !== content) {
                     const valEnd = val.slice(-11);
