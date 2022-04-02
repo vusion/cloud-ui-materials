@@ -7,16 +7,12 @@
 <script>
 // import {initChart} from "@/tools";
 import * as echarts from 'echarts/core'
+import {processEchartData} from "@/tools";
 
 export default {
   name: "echartLine",
   props: {
-    sourceData: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
+    sourceData: [Array, Object],
     baseConfig: {
       type: Object,
       default() {
@@ -29,14 +25,7 @@ export default {
         return {};
       },
     },
-    xAxis: {
-      type: String,
-      default: '',
-    },
-    yAxis: {
-      type: String,
-      default: '',
-    },
+    axisData: [Object],
   },
   data() {
     return {
@@ -49,8 +38,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {xAxis, yAxis, baseConfig, sourceData} = this;
-      return {xAxis, yAxis, baseConfig, sourceData};
+      let {axisData, baseConfig, sourceData} = this;
+      return {axisData, baseConfig, sourceData};
     }
   },
   watch: {
@@ -67,7 +56,6 @@ export default {
       const myChart = this.$refs.myChart;
       this.processLineData(this.sourceData);
       this.initChart(myChart, this.lineOption);
-      console.log(this.size);
     },
     initChart(chart, config) {
       if (chart) {
@@ -78,38 +66,21 @@ export default {
         });
       }
     },
-
     processLineData(data) {
-      const content = data.content;
-      const key = Object.keys(content[0])[0];
-      const attrDict = {};
-      // 删除自带的，不必要的属性, 根据数据类型分类
-      for (let item of content) {
-        const tempAttr = item[key];
-        delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
-        for (let attr in tempAttr) {
-          if (!attrDict[attr]) attrDict[attr] = [];
-          tempAttr[attr] ? attrDict[attr].push(tempAttr[attr]) : attrDict[attr].push('');
-        }
+      const content = data && data.content;
+      if (!content) return;
+      const [attrDict, xAxisList, yAxisList] = processEchartData(data);
+      if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)) {
+        this.$toast.show('请检查参数轴设置是否正确');
+        return;
       }
-      console.log(attrDict);
-      const attrList = Object.keys(attrDict);
-      // x轴必须是非数字类型， y轴必须是数字类型
-      const xAxisList = [], yAxisList = [];
-      for (let attr of attrList) {
-        typeof (attrDict[attr][0]) === 'string' ? xAxisList.push(attr) : yAxisList.push(attr);
-      }
-      this.$emit('getAxisData', [xAxisList, yAxisList]);
-      // 初始化默认第一个x,y列表里的值
-      const xAxis = xAxisList.length > 0 ? xAxisList[0] : '';
-      const yAxis = yAxisList.length > 0 ? yAxisList[0] : '';
-      const tempOption = {
+      this.lineOption = {
         legend: {
           top: '5%',
           left: 'center'
         },
         xAxis: {
-          data: attrDict[xAxis],
+          data: attrDict[this.axisData.xAxis],
         },
         yAxis: {
           type: 'value',
@@ -117,12 +88,11 @@ export default {
         series: [
           {
             type: 'line',
-            data: attrDict[yAxis],
+            data: attrDict[this.axisData.yAxis],
           }
         ],
         ...this.baseConfig,
-      }
-      this.lineOption = tempOption;
+      };
     },
   },
 

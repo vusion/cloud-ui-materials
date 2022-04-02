@@ -60,7 +60,7 @@ export const fakeData = {
         "studentName": "李同学",
         "age": 23,
         "sex": "男",
-        "averageScore": 65,
+        "averageScore": 5,
         "mentor": "王老师",
         "donation": 4000
       }

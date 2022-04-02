@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData"  :size="size" @getAxisData="getAxisList" :xAxis="xAxis" :yAxis="yAxis"></component>
+    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData"  :size="size" @getAxisData="getAxisList" :axisData="axisData"></component>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import echartLine from "@/component/echartLine";
 import echarts from 'echarts';
 Vue.prototype.$echarts = echarts
 
-const echarTypeMap = {
+const echartTypeMap = {
   bar : 'echartBar',
   line: 'echartLine',
   pie: 'echartPie',
@@ -24,7 +24,7 @@ export default {
     dataSource: [Function, Array, Object],
     chartType: {
       type: String,
-      default: 'bar',
+      default: 'pie',
     },
     width: {
       type: String,
@@ -60,17 +60,26 @@ export default {
     };
   },
   async created() {
-    const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-    this.sourceData = await this.handleDataSource(fnDataSource);
+    const fnDataSource = this.$env.VUE_APP_DESIGNER ? this.dataSource: fakeData;
+    // const fnDataSource = fakeData;
+    console.log(fnDataSource);
+    const rawData = await this.handleDataSource(fnDataSource);
+    this.sourceData = this.processRawData(rawData);
   },
   computed: {
     currentType() {
-      return echarTypeMap[this.chartType];
+      return echartTypeMap[this.chartType];
     },
     size() {
       return {
         width: this.width,
         height: this.height,
+      }
+    },
+    axisData() {
+      return {
+        xAxis: this.xAxis,
+        yAxis: this.yAxis,
       }
     },
     baseConfig() {
@@ -86,7 +95,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.xAxisList);
   },
   methods: {
     init() {
@@ -95,8 +103,15 @@ export default {
       this.xAxisList = data[0];
       this.yAxisList = data[1];
     },
+    // 删除不必要字段
     processRawData(data) {
-      console.log(data);
+      const content = data.content;
+      const key = Object.keys(content[0])[0];
+      // 删除自带的，不必要的属性
+      for (let item of content) {
+        const tempAttr = item[key];
+        delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
+      }
       return data;
     },
     async handleDataSource(dataSource) {

@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-echarts@0.1.6/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -17,10 +17,9 @@
     "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "build": "npm run build:theme && npm run build:doc",
-    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
-    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "deploy": "lcap deploy && lcap deploy dist-theme",
     "usage": "lcap usage",
-    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
     "release": "lcap publish"
   },
   "vuePlugins": {
@@ -37,7 +36,9 @@
     "category": "Chart",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts@0.1.5/screenshots/0.png"
+    ],
     "team": "",
     "access": "public"
   },
