@@ -1,53 +1,111 @@
 <template>
-<div :class="$style.root">
-    <f-dragger :disabled="readonly || disabled" :transfer="handleEl" immediate
-        range="offset-parent" range-mode="center"
-        @dragstart="onDrag($event)"
-        @drag="onDrag($event)">
-        <div :class="$style.sv" :style="{ background: hueColor.toRGB() }">
-            <div ref="handle" :class="$style.handle"></div>
+    <div :class="$style.root">
+        <!-- 方形拖拉选择区 -->
+        <f-dragger immediate range="offset-parent" range-mode="center" 
+            :disabled="readonly || disabled"
+            :transfer="handleEl"
+            @dragstart="onDrag($event), onChange()"
+            @drag="onDrag($event), onChange()">
+            <div :class="$style.sv"
+                :style="{
+                    background: hueColor.toRGB()
+                }">
+                <div ref="handle" :class="$style.handle"></div>
+            </div>
+        </f-dragger>
+        <div :class="$style.bar">
+            <!-- 条形拖拉选择区 -->
+            <div :class="$style.sliders">
+                <!-- 颜色选择 -->
+                <u-pallette-slider :min="0"
+                    :max="360"
+                    :value="color.h"
+                    :style="{
+                        background: `linear-gradient(to right, red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)` 
+                    }"
+                    @input="onSetHue($event), onChange()">
+                </u-pallette-slider>
+                <!-- 透明度选择 -->
+                <u-pallette-slider :min="0"
+                    :max="1"
+                    :step="0.01"
+                    :precision="0.01"
+                    :value="color.a"
+                    :style="{
+                        background: `linear-gradient(to right, ${`rgba(${color.r}, ${color.g}, ${color.b}, 0)` }, ${color.toRGB()})`
+                    }"
+                    @input="onSetRGBA('a', $event), onChange()">
+                </u-pallette-slider>
+            </div>
+            <!-- 展示区 -->
+            <div :class="$style.color" :style="{
+                backgroundColor: color.toRGBA()
+            }">
+            </div>
         </div>
-    </f-dragger>
-    <div :class="$style.bar">
-        <div :class="$style.sliders">
-            <u-pallette-slider :min="0" :max="360" :value="color.h" @input="setHue($event), onInput()"
-                :style="{ background: `linear-gradient(to right, red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)` }"
-            ></u-pallette-slider>
-            <u-pallette-slider :min="0" :max="1" :step="0.01" :precision="0.01" v-model="color.a" @input="onInput()"
-                :style="{ background: `linear-gradient(to right, ${`rgba(${color.r}, ${color.g}, ${color.b}, 0)` }, ${color.toRGB()})` }"
-            ></u-pallette-slider>
+        <div :class="$style.items">
+            <!-- 16进制 -->
+            <div :class="$style.item">
+                <u-input size="mini" role="hex"
+                    :class="$style.input"
+                    :value="color.toHEX()"
+                    @input="onSetHEX($event)"
+                    @blur="onChange()">
+                </u-input>
+                <div :class="$style['item-label']">Hex</div>
+            </div>
+            <!-- r -->
+            <div :class="$style.item">
+                <u-number-input size="mini" hide-buttons
+                    :class="$style.input"
+                    :min="0"
+                    :max="255"
+                    :value="color.r"
+                    @input="onSetRGBA('r', $event)"
+                    @blur="onChange()">
+                </u-number-input>
+                <div :class="$style['item-label']">R</div>
+            </div>
+            <!-- g -->
+            <div :class="$style.item">
+                <u-number-input size="mini" hide-buttons
+                    :class="$style.input"
+                    :min="0"
+                    :max="255"
+                    :value="color.g"
+                    @input="onSetRGBA('g', $event)"
+                    @blur="onChange()">
+                </u-number-input>
+                <div :class="$style['item-label']">G</div>
+            </div>
+            <!-- b -->
+            <div :class="$style.item">
+                <u-number-input size="mini" hide-buttons
+                    :class="$style.input"
+                    :min="0"
+                    :max="255"
+                    :value="color.b"
+                    @input="onSetRGBA('b', $event)"
+                    @blur="onChange()">
+                </u-number-input>
+                <div :class="$style['item-label']">B</div>
+            </div>
+            <!-- a -->
+            <div :class="$style.item">
+                <u-number-input size="mini" hide-buttons
+                    :value="color.a"
+                    :class="$style.input"
+                    :min="0"
+                    :max="1"
+                    :step="0.1"
+                    :precision="0.01"
+                    @input="onSetRGBA('a', $event)"
+                    @blur="onChange()">
+                </u-number-input>
+                <div :class="$style['item-label']">A</div>
+            </div>
         </div>
-        <div :class="$style.color" :style="{ backgroundColor: color.toRGBA() }"></div>
     </div>
-    <div :class="$style.items">
-        <div :class="$style.item">
-            <u-input size="mini" :class="$style.input" role="hex" :value="color.toHEX()" @input="setHEX($event), onInput()"></u-input>
-            <div :class="$style['item-label']">Hex</div>
-        </div>
-        <div :class="$style.item">
-            <u-number-input size="mini" :class="$style.input" hide-buttons :min="0" :max="255"
-                :value="color.r" @input="color.setRGB($event, color.g, color.b), onInput()">
-            </u-number-input>
-            <div :class="$style['item-label']">R</div>
-        </div>
-        <div :class="$style.item">
-            <u-number-input size="mini" :class="$style.input" hide-buttons :min="0" :max="255"
-                :value="color.g" @input="color.setRGB(color.r, $event, color.b), onInput()">
-            </u-number-input>
-            <div :class="$style['item-label']">G</div>
-        </div>
-        <div :class="$style.item">
-            <u-number-input size="mini" :class="$style.input" hide-buttons :min="0" :max="255"
-                :value="color.b" @input="color.setRGB(color.r, color.g, $event), onInput()">
-            </u-number-input>
-            <div :class="$style['item-label']">B</div>
-        </div>
-        <div :class="$style.item">
-            <u-number-input size="mini" :class="$style.input" hide-buttons :min="0" :max="1" :step="0.1" :precision="0.01" v-model="color.a" @input="onInput()"></u-number-input>
-            <div :class="$style['item-label']">A</div>
-        </div>
-    </div>
-</div>
 </template>
 
 <script>
@@ -74,8 +132,12 @@ export default {
     data() {
         return {
             color: Color.str2Color(this.value),
-            grid: { x: 1, y: 1 },
+            grid: {
+                x: 1,
+                y: 1
+            },
             handleEl: undefined,
+            tempColor: Color.str2Color(this.value),
         };
     },
     computed: {
@@ -86,14 +148,14 @@ export default {
         },
     },
     watch: {
-        value(value, oldValue) {
+        value(value) {
             const color = Color.str2Color(value);
             if (color.toRGBA() === this.color.toRGBA())
                 return;
-
-            this.color = color;
-            this.handleEl.style.left = this.color.s + '%';
-            this.handleEl.style.top = (100 - this.color.v) + '%';
+            this.color = Color.str2Color(value);
+            this.tempColor = Color.str2Color(value);
+            this.handleEl.style.left = color.s + '%';
+            this.handleEl.style.top = (100 - color.v) + '%';
         },
     },
     mounted() {
@@ -103,24 +165,33 @@ export default {
     },
     methods: {
         onDrag($event) {
-            this.color.setHSV(this.color.h, $event.left / $event.range.width * 100, (1 - $event.top / $event.range.height) * 100);
-            this.onInput();
+            const { range, top, left } = $event || {};
+            const { width, height } = range || {};
+            const { h } = this.tempColor || {};
+            this.tempColor.setHSV(h, left / width * 100, (1 - top / height) * 100);
         },
-        setHEX(hex) {
-            let color = null
+        onSetHue(hue) {
+            const { s, v } = this.tempColor || {};
+            this.tempColor.setHSV(hue, s, v);
+        },
+        onSetHEX(hex) {
+            let color = null;
             try{
                 color = Color.fromHEX(hex);
             } catch(e) {
-                console.warn(e)
+                console.warn(e);
             }
             color = color || new Color();
-            this.color.setRGBA(color.r, color.g, color.b, color.a);
+            const { r, g, b, a } = color;
+            this.tempColor.setRGBA(r, g, b, a);
         },
-        setHue(hue) {
-            this.color.setHSV(hue, this.color.s, this.color.v);
+        onSetRGBA(type, value) {
+            this.tempColor[type] = value;
         },
-        onInput() {
-            const value = this.color.toHEX(); 
+        onChange() {
+            const { r, g, b, a } = this.tempColor;
+            this.color.setRGBA(r, g, b, a);
+            const value = this.color.toHEX();
             this.$emit('input', value);
             this.$emit('update:value', value);
         },
