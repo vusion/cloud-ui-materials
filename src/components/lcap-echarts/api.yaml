@@ -16,6 +16,8 @@
           title: 折线图
         - value: pie
           title: 饼图
+        - value: scatter
+          title: 散点图
       group: 图属性
     - name: width
       title: 宽度

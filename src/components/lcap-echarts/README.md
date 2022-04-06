@@ -7,8 +7,6 @@
     - [基本属性](#基本属性)
 - [API]()
     - [Props/Attrs](#propsattrs)
-    - [Slots](#slots)
-    - [Events](#events)
 
 **Chart**
 
@@ -53,28 +51,11 @@ lcap-echart用于低代码平台中数据可视化的基本呈现，基于原生
 | chartType | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'bar'` | 图表类型 |
 | width | string |  | `'400px'` | 宽度 |
 | height | string |  | `'300px'` | 高度 |
-| theme | string |  |  | 设置主题 |
+| theme | string |  | `'cloud-ui'` | 设置主题 |
 | xAxis | string |  | `''` | x轴(分类轴) |
 | yAxis | string |  | `''` | y轴（数值轴） |
 | title | string |  | `'默认标题'` | 标题 |
 | titleFontSize | number |  | `18` | 标题字体大小 |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
 | data-schema | schema |  |  | 表格每一行的数据类型 |
-
-### Slots
-
-#### (default)
-
-插入文本或 HTML。
-
-### Events
-
-#### @change
-
-修改时触发
-
-| Param | Type | Description |
-| ----- | ---- | ----------- |
-| $event.param1 | string | 参数1 |
-| $event.param2 | number | 参数2 |
 

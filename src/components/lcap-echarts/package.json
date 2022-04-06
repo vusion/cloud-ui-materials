@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts",
   "description": "",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-echarts@0.1.7/index.html",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-echarts@0.1.8/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

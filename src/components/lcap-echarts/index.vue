@@ -26,7 +26,7 @@ export default {
     dataSource: [Function, Array, Object],
     chartType: {
       type: String,
-      default: 'pie',
+      default: 'bar',
     },
     theme: { type: [String, Object], default: 'cloud-ui' },
     width: {
