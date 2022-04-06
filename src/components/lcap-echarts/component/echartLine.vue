@@ -74,6 +74,13 @@ export default {
         return;
       }
       this.lineOption = {
+        toolbox: {
+          show: true,
+          feature: {
+            magicType: { type: ['line', 'bar'] },
+            saveAsImage: {},
+          }
+        },
         legend: {
           top: '5%',
           left: 'center'

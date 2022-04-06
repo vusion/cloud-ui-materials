@@ -76,6 +76,12 @@ export default {
       }
       console.log(scatterData);
       this.scatterOption = {
+        toolbox: {
+          show: true,
+          feature: {
+            saveAsImage: {},
+          }
+        },
         legend: {
           top: '5%',
           left: 'center'

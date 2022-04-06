@@ -81,6 +81,12 @@ export default {
         );
       }
       this.pieOption = {
+        toolbox: {
+          show: true,
+          feature: {
+            saveAsImage: {},
+          }
+        },
         legend: {
           top: '3%',
           left: 'center'

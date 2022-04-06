@@ -62,7 +62,6 @@ const styles = {
 };
 
 const variables = Array(20).fill(1).map((_, i) => `theme-chart-color${i + 1}`);
-console.log(echarts);
 echarts.registerTheme('cloud-ui', {
     color: variables.map((v) => styles[v]),
     backgroundColor: 'rgba(252,252,252,0)',

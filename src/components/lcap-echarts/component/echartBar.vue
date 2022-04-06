@@ -75,6 +75,13 @@ export default {
         return;
       }
       this.barOption = {
+        toolbox: {
+          show: true,
+          feature: {
+            magicType: { type: ['line', 'bar'] },
+            saveAsImage: {},
+          }
+        },
         xAxis: {
           data: attrDict[this.axisData.xAxis],
         },
