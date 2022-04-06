@@ -29,6 +29,12 @@
       default: 300px
       description: 高度
       group: 图属性
+    - name: theme
+      title: 主题
+      type: string
+      default: null
+      description: 设置主题
+      group: 图属性
     - name: xAxis
       title: 分类轴
       type: string
@@ -48,7 +54,7 @@
       description: 标题
       group: 图属性
     - name: titleFontSize
-      title: 字体大小
+      title: 标题字体大小
       type: number
       default: 18
       description: 标题字体大小

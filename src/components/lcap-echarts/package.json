@@ -43,7 +43,7 @@
     "access": "public"
   },
   "dependencies": {
-    "echarts": "^5.3.1",
+    "echarts": "^5.3.2",
     "vue-echarts": "^6.0.2"
   },
   "peerDependencies": {

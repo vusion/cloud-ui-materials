@@ -58,7 +58,7 @@ export default {
     },
     initChart(chart, config) {
       if (chart) {
-        const thisChart = echarts.init(chart);
+        const thisChart = echarts.init(chart, 'cloud-ui');
         thisChart.setOption(config);
         window.addEventListener("resize", function () {
           thisChart.resize();

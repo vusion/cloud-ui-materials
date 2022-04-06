@@ -5,19 +5,14 @@
 </template>
 
 <script>
-import {processEchartData} from "@/tools";
 import * as echarts from 'echarts/core'
+import {processEchartData} from "@/tools";
 
 export default {
-  name: "echartPie",
+  name: "echartScatter",
   props: {
     sourceData: [Array, Object],
-    baseConfig: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
+    baseConfig: [Object],
     size: {
       type: Object,
       default() {
@@ -28,8 +23,8 @@ export default {
   },
   data() {
     return {
-      pieData: {},
-      pieOption: {},
+      scatterData: {},
+      scatterOption: {},
     }
   },
   mounted() {
@@ -53,8 +48,8 @@ export default {
   methods: {
     createMyChart() {
       const myChart = this.$refs.myChart;
-      this.processPieData(this.sourceData);
-      this.initChart(myChart, this.pieOption);
+      this.processScatterData(this.sourceData);
+      this.initChart(myChart, this.scatterOption);
     },
     initChart(chart, config) {
       if (chart) {
@@ -65,43 +60,45 @@ export default {
         });
       }
     },
-    processPieData(data) {
+    processScatterData(data) {
       const content = data && data.content;
       if (!content) return;
       const key = Object.keys(content[0])[0];
-      processEchartData(data);
-      const pieData = [];
+      const [attrDict, xAxisList, yAxisList] = processEchartData(data);
+      if (!yAxisList.includes(this.axisData.yAxis) || !yAxisList.includes(this.axisData.xAxis)) {
+        this.$toast.show('请检查参数轴设置是否正确');
+        return;
+      }
+      const scatterData = [];
       for (let item of content) {
         const tempAttr = item[key];
-        pieData.push(
-          {
-            value: tempAttr[this.axisData.yAxis],
-            name: tempAttr[this.axisData.xAxis],
-          }
-        );
+        scatterData.push([tempAttr[this.axisData.xAxis], tempAttr[this.axisData.yAxis]])
       }
-      this.pieOption = {
+      console.log(scatterData);
+      this.scatterOption = {
         legend: {
-          top: '3%',
+          top: '5%',
           left: 'center'
+        },
+        xAxis: {
+          type: 'value',
+        },
+        yAxis: {
+          type: 'value',
         },
         series: [
           {
-            type: 'pie',
-            data: pieData,
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
+            type: 'scatter',
+            symbolSize: 20,
+            data: scatterData,
           }
         ],
         ...this.baseConfig,
       };
     },
   },
+
+
 }
 </script>
 

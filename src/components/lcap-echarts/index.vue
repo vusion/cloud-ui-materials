@@ -1,31 +1,34 @@
 <template>
   <div :class="$style.root">
-    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData"  :size="size" @getAxisData="getAxisList" :axisData="axisData"></component>
+    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData" :size="size" :axisData="axisData"></component>
   </div>
 </template>
 
 <script>
-import { fakeData } from "@/fakeData";
+import {fakeData} from "@/fakeData";
 import echartBar from "@/component/echartBar";
 import echartPie from "@/component/echartPie";
 import echartLine from "@/component/echartLine";
+import echartScatter from "@/component/echartScatter";
 import echarts from 'echarts';
+import './theme';
 Vue.prototype.$echarts = echarts
-
 const echartTypeMap = {
-  bar : 'echartBar',
+  bar: 'echartBar',
   line: 'echartLine',
   pie: 'echartPie',
+  scatter: 'echartScatter'
 };
 export default {
   name: 'lcap-echarts',
-  components: { echartBar, echartLine, echartPie},
+  components: {echartBar, echartLine, echartPie, echartScatter},
   props: {
     dataSource: [Function, Array, Object],
     chartType: {
       type: String,
       default: 'pie',
     },
+    theme: { type: [String, Object], default: 'cloud-ui' },
     width: {
       type: String,
       default: '400px',
@@ -55,14 +58,11 @@ export default {
   data() {
     return {
       sourceData: undefined,
-      xAxisList: [],
-      yAxisList: [],
     };
   },
   async created() {
-    const fnDataSource = this.$env.VUE_APP_DESIGNER ? this.dataSource: fakeData;
+    const fnDataSource = this.$env.VUE_APP_DESIGNER ? this.dataSource : fakeData;
     // const fnDataSource = fakeData;
-    console.log(fnDataSource);
     const rawData = await this.handleDataSource(fnDataSource);
     this.sourceData = this.processRawData(rawData);
   },
@@ -98,10 +98,6 @@ export default {
   },
   methods: {
     init() {
-    },
-    getAxisList(data) {
-      this.xAxisList = data[0];
-      this.yAxisList = data[1];
     },
     // 删除不必要字段
     processRawData(data) {
@@ -141,5 +137,11 @@ export default {
 
 <style module>
 .root {
+  display: inline-block;
+}
+
+.root[border] {
+  border: 1px solid var(--border-color-base);
+  padding: 15px;
 }
 </style>
