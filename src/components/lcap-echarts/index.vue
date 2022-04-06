@@ -61,7 +61,7 @@ export default {
     };
   },
   async created() {
-    const fnDataSource = this.$env.VUE_APP_DESIGNER ? this.dataSource : fakeData;
+    const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
     // const fnDataSource = fakeData;
     const rawData = await this.handleDataSource(fnDataSource);
     this.sourceData = this.processRawData(rawData);

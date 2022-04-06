@@ -4,6 +4,7 @@
       "chartType",
       "width",
       "height",
+      "theme",
       "xAxis",
       "yAxis",
       "title",

@@ -11,7 +11,7 @@
         "title": "折线图"
       },
       {
-        "value": "bar",
+        "value": "pie",
         "title": "饼图"
       }
     ],
@@ -24,6 +24,10 @@
   "lcap-echarts/height": {
     "type": "string",
     "description": "高度"
+  },
+  "lcap-echarts/theme": {
+    "type": "string",
+    "description": "设置主题"
   },
   "lcap-echarts/xAxis": {
     "type": "string",
