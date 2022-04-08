@@ -7,7 +7,6 @@
 <script>
 import {processEchartData} from "@/tools";
 import * as echarts from 'echarts/core'
-
 export default {
   name: "echartBar",
   props: {
@@ -49,7 +48,14 @@ export default {
       deep: true,
     }
   },
-
+  beforeDestroy() {
+    let thisChart = echarts.init(this.$refs.myChart, 'cloud-ui');
+    removeEventListener("resize", function () {
+      thisChart.resize();
+    });
+    thisChart.dispose();
+    thisChart = null;
+  },
   methods: {
     createMyChart() {
       const myChart = this.$refs.myChart;
@@ -65,7 +71,6 @@ export default {
         });
       }
     },
-
     processBarData(data) {
       const content = data && data.content;
       if (!content) return;

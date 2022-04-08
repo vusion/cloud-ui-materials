@@ -7,7 +7,6 @@
 <script>
 import * as echarts from 'echarts/core'
 import {processEchartData} from "@/tools";
-
 export default {
   name: "echartScatter",
   props: {
@@ -44,7 +43,14 @@ export default {
       deep: true,
     }
   },
-
+  beforeDestroy() {
+    let thisChart = echarts.init(this.$refs.myChart, 'cloud-ui');
+    removeEventListener("resize", function () {
+      thisChart.resize();
+    });
+    thisChart.dispose();
+    thisChart = null;
+  },
   methods: {
     createMyChart() {
       const myChart = this.$refs.myChart;
