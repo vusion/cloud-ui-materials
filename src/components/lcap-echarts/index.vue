@@ -1,6 +1,7 @@
 <template>
-  <div :class="$style.root">
-    <component :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData" :size="size" :axisData="axisData"></component>
+  <div :class="$style.root" border>
+    <component v-if="!loading" :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData" :size="size" :axisData="axisData"></component>
+    <div :style="size" v-else :class="$style.loading"><u-loading size="large"></u-loading>正在加载或配置中...</div>
   </div>
 </template>
 
@@ -53,18 +54,19 @@ export default {
       type: Number,
       default: 18,
     }
-
   },
   data() {
     return {
       sourceData: undefined,
+      loading: false,
     };
   },
   async created() {
-    const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
+    this.loading = true;
     // const fnDataSource = fakeData;
     const rawData = await this.handleDataSource(fnDataSource);
     this.sourceData = this.processRawData(rawData);
+    this.loading = false;
   },
   computed: {
     currentType() {
@@ -111,6 +113,7 @@ export default {
       return data;
     },
     async handleDataSource(dataSource) {
+      this.loading = true;
       if (!dataSource) {
         return [];
       }
@@ -139,7 +142,11 @@ export default {
 .root {
   display: inline-block;
 }
-
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .root[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;

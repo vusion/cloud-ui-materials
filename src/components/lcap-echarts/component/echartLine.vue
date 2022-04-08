@@ -108,7 +108,6 @@ export default {
     },
   },
 
-
 }
 </script>
 

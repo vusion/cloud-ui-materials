@@ -9,7 +9,7 @@ lcap-echart用于低代码平台中数据可视化的基本呈现，基于原生
 #### 图类型
 通过设置`chart-type`可以修改基本的图类型，目前支持基本的柱状图，饼图和折线图
 ``` html
-<lcap-echarts chart-type="line" xAxis="studentName" yAxis="averageScore" border></lcap-echarts>
+<lcap-echarts chart-type="line" xAxis="studentName" yAxis="averageScore"></lcap-echarts>
 <lcap-echarts chart-type="bar" xAxis="studentName" yAxis="averageScore"></lcap-echarts>
 <lcap-echarts chart-type="pie" xAxis="studentName" yAxis="averageScore"></lcap-echarts>
 <lcap-echarts chart-type="scatter" xAxis="age" yAxis="averageScore"></lcap-echarts>
