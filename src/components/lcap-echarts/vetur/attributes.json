@@ -13,44 +13,62 @@
       {
         "value": "pie",
         "title": "饼图"
+      },
+      {
+        "value": "scatter",
+        "title": "散点图"
       }
     ],
-    "description": "图表类型"
+    "description": "设置图表类型"
   },
   "lcap-echarts/width": {
     "type": "string",
-    "description": "宽度"
+    "description": "设置图宽度"
   },
   "lcap-echarts/height": {
     "type": "string",
-    "description": "高度"
+    "description": "设置图高度"
   },
   "lcap-echarts/theme": {
     "type": "string",
-    "description": "设置主题"
+    "options": [
+      {
+        "value": "cloud-ui",
+        "title": "cloud-ui主题"
+      },
+      {
+        "value": "dark",
+        "title": "深色主题"
+      }
+    ],
+    "description": "设置主题模式"
   },
   "lcap-echarts/xAxis": {
     "type": "string",
-    "description": "x轴(分类轴)"
+    "description": "设置x轴(分类轴)"
+  },
+  "lcap-echarts/xAxisTitle": {
+    "type": "string",
+    "description": "设置x轴(分类轴)标题"
   },
   "lcap-echarts/yAxis": {
     "type": "string",
-    "description": "y轴（数值轴）"
+    "description": "设置y轴（数值轴）"
+  },
+  "lcap-echarts/yAxisTitle": {
+    "type": "string",
+    "description": "设置y轴(数值轴)标题"
   },
   "lcap-echarts/title": {
     "type": "string",
-    "description": "标题"
+    "description": "设置主标题"
   },
   "lcap-echarts/titleFontSize": {
     "type": "number",
-    "description": "标题字体大小"
+    "description": "设置标题字体大小"
   },
   "lcap-echarts/data-source": {
     "type": "Array<Item> | Function | object | DataSource",
     "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
-  },
-  "lcap-echarts/data-schema": {
-    "type": "schema",
-    "description": "表格每一行的数据类型"
   }
 }

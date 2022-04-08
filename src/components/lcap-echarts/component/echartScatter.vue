@@ -34,6 +34,8 @@ export default {
   watch: {
     changedObj: {
       handler() {
+        const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
+        thisChart.dispose();
         this.createMyChart();
       },
       deep: true,
@@ -68,7 +70,7 @@ export default {
       const key = Object.keys(content[0])[0];
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
       if (!yAxisList.includes(this.axisData.yAxis) || !yAxisList.includes(this.axisData.xAxis)) {
-        this.$toast.show('请检查参数轴设置是否正确');
+        this.$toast.show('请检查参数轴设置是否正确, 散点图两个坐标轴需要均是数值轴');
         return;
       }
       const scatterData = [];

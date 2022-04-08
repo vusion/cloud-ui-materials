@@ -34,6 +34,8 @@ export default {
   watch: {
     changedObj: {
       handler() {
+        const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
+        thisChart.dispose();
         this.createMyChart();
       },
       deep: true,

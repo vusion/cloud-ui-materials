@@ -77,8 +77,8 @@ export default {
       }
     },
     changedObj() {
-      let {xAxis, yAxis, theme} = this;
-      return {xAxis, yAxis, theme};
+      let {xAxis, yAxis} = this;
+      return {xAxis, yAxis};
     },
     baseConfig() {
       const myConfig = {
