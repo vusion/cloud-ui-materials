@@ -1,7 +1,10 @@
 <template>
   <div :class="$style.root" border>
     <component v-if="!loading" :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData" :size="size" :axisData="axisData"></component>
-    <div :style="size" v-else :class="$style.loading"><u-loading size="large"></u-loading>正在加载或配置中...</div>
+    <div :style="size" v-else :class="$style.loading">
+      <u-loading size="large"></u-loading>
+      正在加载或配置中...
+    </div>
   </div>
 </template>
 
@@ -13,6 +16,7 @@ import echartLine from "@/component/echartLine";
 import echartScatter from "@/component/echartScatter";
 import echarts from 'echarts';
 import './theme';
+
 Vue.prototype.$echarts = echarts
 const echartTypeMap = {
   bar: 'echartBar',
@@ -25,11 +29,11 @@ export default {
   components: {echartBar, echartLine, echartPie, echartScatter},
   props: {
     dataSource: [Function, Array, Object],
+    theme: {type: [String, Object], default: 'cloud-ui'},
     chartType: {
       type: String,
       default: 'bar',
     },
-    theme: { type: [String, Object], default: 'cloud-ui' },
     width: {
       type: String,
       default: '400px',
@@ -43,6 +47,14 @@ export default {
       default: '',
     },
     yAxis: {
+      type: String,
+      default: '',
+    },
+    xAxisTitle: {
+      type: String,
+      default: '',
+    },
+    yAxisTitle: {
       type: String,
       default: '',
     },
@@ -82,6 +94,8 @@ export default {
       return {
         xAxis: this.xAxis,
         yAxis: this.yAxis,
+        xAxisTitle: this.xAxisTitle,
+        yAxisTitle: this.yAxisTitle,
       }
     },
     baseConfig() {
@@ -96,11 +110,7 @@ export default {
       return myConfig;
     }
   },
-  mounted() {
-  },
   methods: {
-    init() {
-    },
     // 删除不必要字段
     processRawData(data) {
       const content = data.content;
@@ -142,11 +152,13 @@ export default {
 .root {
   display: inline-block;
 }
+
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .root[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;

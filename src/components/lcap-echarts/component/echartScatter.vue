@@ -7,17 +7,13 @@
 <script>
 import * as echarts from 'echarts/core'
 import {processEchartData} from "@/tools";
+
 export default {
   name: "echartScatter",
   props: {
     sourceData: [Array, Object],
     baseConfig: [Object],
-    size: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
+    size: [Object],
     axisData: [Object],
   },
   data() {
@@ -94,9 +90,13 @@ export default {
         },
         xAxis: {
           type: 'value',
+          name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
+          nameLocation: 'end',
         },
         yAxis: {
           type: 'value',
+          name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
+          nameLocation: 'end',
         },
         series: [
           {

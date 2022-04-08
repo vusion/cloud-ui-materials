@@ -7,22 +7,13 @@
 <script>
 import {processEchartData} from "@/tools";
 import * as echarts from 'echarts/core'
+
 export default {
   name: "echartBar",
   props: {
     sourceData: [Array, Object],
-    baseConfig: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
-    size: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
+    baseConfig: [Object],
+    size: [Object],
     axisData: [Object],
   },
   data() {
@@ -83,15 +74,19 @@ export default {
         toolbox: {
           show: true,
           feature: {
-            magicType: { type: ['line', 'bar'] },
+            magicType: {type: ['line', 'bar']},
             saveAsImage: {},
           }
         },
         xAxis: {
           data: attrDict[this.axisData.xAxis],
+          name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
+          nameLocation: 'end',
         },
         yAxis: {
           type: 'value',
+          name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
+          nameLocation: 'end',
         },
         series: [
           {

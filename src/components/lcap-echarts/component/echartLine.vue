@@ -7,22 +7,13 @@
 <script>
 import * as echarts from 'echarts/core'
 import {processEchartData} from "@/tools";
+
 export default {
   name: "echartLine",
   props: {
     sourceData: [Array, Object],
-    baseConfig: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
-    size: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
+    baseConfig: [Object],
+    size: [Object],
     axisData: [Object],
   },
   data() {
@@ -83,7 +74,7 @@ export default {
         toolbox: {
           show: true,
           feature: {
-            magicType: { type: ['line', 'bar'] },
+            magicType: {type: ['line', 'bar']},
             saveAsImage: {},
           }
         },
@@ -93,9 +84,13 @@ export default {
         },
         xAxis: {
           data: attrDict[this.axisData.xAxis],
+          name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
+          nameLocation: 'end',
         },
         yAxis: {
           type: 'value',
+          name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
+          nameLocation: 'end',
         },
         series: [
           {
