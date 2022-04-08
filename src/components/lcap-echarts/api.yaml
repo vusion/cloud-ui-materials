@@ -32,10 +32,15 @@
       description: 设置图高度
       group: 基本属性
     - name: theme
-      title: 主题
+      title: 主题设置
       type: string
       default: cloud-ui
-      description: 设置主题
+      description: 设置主题模式
+      options:
+        - value: cloud-ui
+          title: cloud-ui主题
+        - value: dark
+          title: 深色主题
       group: 基本属性
     - name: xAxis
       title: 分类轴

@@ -1,7 +1,15 @@
 <template>
   <div :class="$style.root" border>
-    <component v-if="!loading" :is="currentType" :baseConfig="baseConfig" :sourceData="sourceData" :size="size" :axisData="axisData"></component>
-    <div :style="size" v-else :class="$style.loading">
+    <component
+      :is="currentType"
+      v-if="!loading"
+      :axisData="axisData"
+      :baseConfig="baseConfig"
+      :size="size"
+      :sourceData="sourceData"
+    >
+    </component>
+    <div v-else :class="$style.loading" :style="size">
       <u-loading size="large"></u-loading>
       正在加载或配置中...
     </div>
@@ -29,43 +37,16 @@ export default {
   components: {echartBar, echartLine, echartPie, echartScatter},
   props: {
     dataSource: [Function, Array, Object],
-    theme: {type: [String, Object], default: 'cloud-ui'},
-    chartType: {
-      type: String,
-      default: 'bar',
-    },
-    width: {
-      type: String,
-      default: '400px',
-    },
-    height: {
-      type: String,
-      default: '300px',
-    },
-    xAxis: {
-      type: String,
-      default: '',
-    },
-    yAxis: {
-      type: String,
-      default: '',
-    },
-    xAxisTitle: {
-      type: String,
-      default: '',
-    },
-    yAxisTitle: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '默认标题',
-    },
-    titleFontSize: {
-      type: Number,
-      default: 18,
-    }
+    theme: {type: String, default: 'cloud-ui'},
+    chartType: {type: String, default: 'bar'},
+    width: {type: String, default: '400px'},
+    height: {type: String, default: '300px'},
+    xAxis: {type: String, default: ''},
+    yAxis: {type: String, default: ''},
+    xAxisTitle: {type: String, default: ''},
+    yAxisTitle: {type: String, default: ''},
+    title: {type: String, default: '默认标题'},
+    titleFontSize: {type: Number, default: 18}
   },
   data() {
     return {
@@ -92,11 +73,12 @@ export default {
         yAxis: this.yAxis,
         xAxisTitle: this.xAxisTitle,
         yAxisTitle: this.yAxisTitle,
+        theme: this.theme,
       }
     },
     changedObj() {
-      let {xAxis, yAxis} = this;
-      return {xAxis, yAxis};
+      let {xAxis, yAxis, theme} = this;
+      return {xAxis, yAxis, theme};
     },
     baseConfig() {
       const myConfig = {
