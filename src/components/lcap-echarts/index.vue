@@ -73,12 +73,8 @@ export default {
       loading: false,
     };
   },
-  async created() {
-    this.loading = true;
-    // const fnDataSource = fakeData;
-    const rawData = await this.handleDataSource(fnDataSource);
-    this.sourceData = this.processRawData(rawData);
-    this.loading = false;
+  created() {
+    this.init();
   },
   computed: {
     currentType() {
@@ -98,6 +94,10 @@ export default {
         yAxisTitle: this.yAxisTitle,
       }
     },
+    changedObj() {
+      let {xAxis, yAxis} = this;
+      return {xAxis, yAxis};
+    },
     baseConfig() {
       const myConfig = {
         title: {
@@ -110,7 +110,21 @@ export default {
       return myConfig;
     }
   },
+  watch: {
+    changedObj: {
+      handler() {
+        this.init();
+      }
+    }
+  },
   methods: {
+    async init() {
+      this.loading = true;
+      const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
+      // const fnDataSource = fakeData;
+      const rawData = await this.handleDataSource(fnDataSource);
+      this.sourceData = this.processRawData(rawData);
+    },
     // 删除不必要字段
     processRawData(data) {
       const content = data.content;
@@ -120,6 +134,11 @@ export default {
         const tempAttr = item[key];
         delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
       }
+      if (!this.xAxis || !this.yAxis) {
+        this.loading = true;
+        return
+      }
+      this.loading = false;
       return data;
     },
     async handleDataSource(dataSource) {
@@ -129,8 +148,10 @@ export default {
       }
       if (dataSource instanceof Promise || typeof dataSource === 'function') {
         const result = await dataSource();
+        this.loading = false;
         return this.getData(result);
       }
+      this.loading = false;
       return this.getData(dataSource);
     },
     isDataSource(data) {
