@@ -9,8 +9,8 @@ lcap-echart用于低代码平台中数据可视化的基本呈现，基于原生
 #### 图类型
 通过设置`chart-type`可以修改基本的图类型，目前支持基本的柱状图，饼图和折线图
 ``` html
-<lcap-echarts chart-type="line" xAxis="studentName" yAxis="averageScore"></lcap-echarts>
-<lcap-echarts chart-type="bar" xAxis="studentName" yAxis="averageScore"></lcap-echarts>
+<lcap-echarts chart-type="line" xAxis="studentName" yAxis="math, english, science"></lcap-echarts>
+<lcap-echarts chart-type="bar" xAxis="studentName" yAxis="math, english, science"></lcap-echarts>
 <lcap-echarts chart-type="pie" xAxis="studentName" yAxis="averageScore"></lcap-echarts>
 <lcap-echarts chart-type="scatter" xAxis="age" yAxis="averageScore"></lcap-echarts>
 ```
@@ -32,7 +32,7 @@ lcap-echart用于低代码平台中数据可视化的基本呈现，基于原生
 #### 图标题和标题字体大小
 图标题和标题字体大小用于设置标题的内容和基本格式, 默认标题字体大小为18
 ``` html
-<lcap-echarts chart-type="line" xAxis="studentName" yAxis="age" xAxisTitle="姓名" yAxisTitle="年龄/岁" title="学生年龄统计" titleFontSize="22"></lcap-echarts>
+<lcap-echarts chart-type="line" xAxis="studentName" yAxis="age" xAxisTitle="姓名" yAxisTitle="年龄/岁" title="学生年龄统计"></lcap-echarts>
 ```
 #### 工具栏
 柱状图和折线图支持通过工具栏一键切换，所有图均支持通过工具栏一键下载

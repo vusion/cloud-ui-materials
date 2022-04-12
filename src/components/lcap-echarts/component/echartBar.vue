@@ -68,17 +68,43 @@ export default {
       const content = data && data.content;
       if (!content) return;
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
-      if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)) {
-        this.$toast.show('请检查参数轴设置是否正确');
+      if (!xAxisList.includes(this.axisData.xAxis)) {
+        this.$toast.show('请检查维度设置是否正确');
         return;
       }
+      const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
+      const multiAxisTitleList = this.axisData.yAxisTitle.replace(/\s+/g, '').split(',') || [];
+      const legendData = (multiAxisTitleList.length !== 0 && multiAxisTitleList.length === multiAxisList.length) ? multiAxisTitleList : multiAxisList;
+      for (let axis of multiAxisList) {
+        if (!yAxisList.includes(axis)) {
+          this.$toast.show('请检查指标设置是否正确');
+          return;
+        }
+      }
+      const seriesData = [];
+      multiAxisList.forEach((item) => {
+        seriesData.push({
+          name: item,
+          type: 'bar',
+          data: attrDict[item],
+          showBackground: true,
+          emphasis: {
+            focus: 'series',
+          },
+          label: {
+            show: true,
+          },
+        })
+      })
       this.barOption = {
         toolbox: {
           show: true,
           feature: {
-            magicType: {type: ['line', 'bar']},
             saveAsImage: {},
           }
+        },
+        legend: {
+          data: legendData,
         },
         xAxis: {
           data: attrDict[this.axisData.xAxis],
@@ -87,25 +113,8 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
-          nameLocation: 'end',
         },
-        series: [
-          {
-            type: 'bar',
-            data: attrDict[this.axisData.yAxis],
-            showBackground: true,
-            emphasis: {
-              focus: 'series',
-            },
-            label: {
-              show: true,
-            },
-            backgroundStyle: {
-              color: 'rgba(180, 180, 180, 0.2)'
-            }
-          }
-        ],
+        series: seriesData,
         ...this.baseConfig,
       };
     },
