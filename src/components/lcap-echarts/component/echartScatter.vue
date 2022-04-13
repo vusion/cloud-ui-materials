@@ -75,7 +75,7 @@ export default {
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
       if (multiAxisList.length > 1) {
-        this.$toast.show('饼图无法设置一个以上的维度');
+        this.$toast.show('散点图无法设置一个以上的维度');
         return;
       }
       const scatterData = [];

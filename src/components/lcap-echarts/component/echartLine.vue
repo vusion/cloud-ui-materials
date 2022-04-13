@@ -73,8 +73,7 @@ export default {
         return;
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      const legendData = multiAxisList || [];
-      const legendData = (multiAxisTitleList.length !== 0 && multiAxisTitleList.length === multiAxisList.length) ? multiAxisTitleList : multiAxisList;
+      const legendData = multiAxisList.length > 1 ? multiAxisList : []
       for (let axis of multiAxisList) {
         if (!yAxisList.includes(axis)) {
           this.$toast.show('请检查指标设置是否正确');
