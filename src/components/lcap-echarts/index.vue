@@ -46,7 +46,8 @@ export default {
     xAxisTitle: {type: String, default: ''},
     yAxisTitle: {type: String, default: ''},
     title: {type: String, default: '默认标题'},
-    titleFontSize: {type: Number, default: 18}
+    titleFontSize: {type: Number, default: 18},
+    allowDownload: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -74,6 +75,7 @@ export default {
         xAxisTitle: this.xAxisTitle,
         yAxisTitle: this.yAxisTitle,
         theme: this.theme,
+        allowDownload: this.allowDownload,
       }
     },
     changedObj() {
@@ -102,8 +104,8 @@ export default {
   methods: {
     async init() {
       this.loading = true;
-      const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-      // const fnDataSource = fakeData;
+      // const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
+      const fnDataSource = fakeData;
       const rawData = await this.handleDataSource(fnDataSource);
       this.sourceData = this.processRawData(rawData);
     },

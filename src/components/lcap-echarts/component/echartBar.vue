@@ -74,7 +74,7 @@ export default {
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
       const multiAxisTitleList = this.axisData.yAxisTitle.replace(/\s+/g, '').split(',') || [];
-      const legendData = (multiAxisTitleList.length !== 0 && multiAxisTitleList.length === multiAxisList.length) ? multiAxisTitleList : multiAxisList;
+      const legendData = multiAxisList.length > 1 ? multiAxisList : []
       for (let axis of multiAxisList) {
         if (!yAxisList.includes(axis)) {
           this.$toast.show('请检查指标设置是否正确');
@@ -98,7 +98,7 @@ export default {
       })
       this.barOption = {
         toolbox: {
-          show: true,
+          show: this.axisData.allowDownload,
           feature: {
             saveAsImage: {},
           }
@@ -113,6 +113,7 @@ export default {
         },
         yAxis: {
           type: 'value',
+          name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
         },
         series: seriesData,
         ...this.baseConfig,

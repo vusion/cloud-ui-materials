@@ -73,7 +73,7 @@ export default {
         return;
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      const multiAxisTitleList = this.axisData.yAxisTitle.replace(/\s+/g, '').split(',') || [];
+      const legendData = multiAxisList || [];
       const legendData = (multiAxisTitleList.length !== 0 && multiAxisTitleList.length === multiAxisList.length) ? multiAxisTitleList : multiAxisList;
       for (let axis of multiAxisList) {
         if (!yAxisList.includes(axis)) {
@@ -98,7 +98,7 @@ export default {
       })
       this.lineOption = {
         toolbox: {
-          show: true,
+          show: this.axisData.allowDownload,
           feature: {
             saveAsImage: {},
           }
@@ -115,6 +115,7 @@ export default {
         },
         yAxis: {
           type: 'value',
+          name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
         },
         series: seriesData,
         ...this.baseConfig,

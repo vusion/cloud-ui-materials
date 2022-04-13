@@ -78,6 +78,12 @@
       default: 18
       description: 设置标题字体大小
       group: 基本属性
+    - name: allowDownload
+      title: 允许保存为图片
+      type: boolean
+      default: false
+      description: 允许用户直接保存图片
+      group: 基本属性
     - name: data-source
       title: 数据源
       type: Array<Item> | Function | object | DataSource

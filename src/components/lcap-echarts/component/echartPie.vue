@@ -74,6 +74,11 @@ export default {
         this.$toast.show('请检查参数轴设置是否正确');
         return;
       }
+      const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
+      if (multiAxisList.length > 1) {
+        this.$toast.show('饼图无法设置一个以上的维度');
+        return;
+      }
       if (this.axisData.xAxisTitle || this.axisData.yAxisTitle) {
         this.$toast.show('饼图无法设置坐标轴标题');
       }
@@ -88,7 +93,7 @@ export default {
       }
       this.pieOption = {
         toolbox: {
-          show: true,
+          show: this.axisData.allowDownload,
           feature: {
             saveAsImage: {},
           }

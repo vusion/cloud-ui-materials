@@ -73,6 +73,11 @@ export default {
         this.$toast.show('请检查参数轴设置是否正确, 散点图两个坐标轴需要均是数值轴');
         return;
       }
+      const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
+      if (multiAxisList.length > 1) {
+        this.$toast.show('饼图无法设置一个以上的维度');
+        return;
+      }
       const scatterData = [];
       for (let item of content) {
         const tempAttr = item[key];
@@ -81,7 +86,7 @@ export default {
       console.log(scatterData);
       this.scatterOption = {
         toolbox: {
-          show: true,
+          show: this.axisData.allowDownload,
           feature: {
             saveAsImage: {},
           }
