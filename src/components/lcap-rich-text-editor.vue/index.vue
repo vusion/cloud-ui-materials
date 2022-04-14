@@ -133,7 +133,8 @@ export default {
                 return;
             }
 
-            const content = this.editor.root.innerHTML;
+            let content = this.editor.root.innerHTML;
+            content = this.removeMathTag(content);
             if (this.readOnly) {
                 this.editor.root.innerHTML = val;
                 this.$emit('update:value', val);
@@ -249,7 +250,7 @@ export default {
                 this.editor.root.innerHTML = content;
             } else {
                 const delta = this.editor.clipboard.convert({
-                    html: content,
+                    html: this.removeMathTag(content),
                 });
                 this.editor.setContents(delta);
             }
@@ -259,6 +260,7 @@ export default {
                 if (['<p><br></p>', '<p></p>'].includes(contentText)) {
                     contentText = '';
                 }
+                contentText = this.removeMathTag(contentText);
                 if (source === 'user') {
                     this.$emit('update:value', contentText);
                     this.$emit('input', contentText);
@@ -335,6 +337,16 @@ export default {
         errorSize($event) {
             this.$toast.warning($event.message);
         },
+        /**
+         * 插入公式后会有<math></math>标签，导致渲染报错，去除
+         */
+        removeMathTag(content) {
+            const mathReg = new RegExp('<math.*?>.*?<\\/math>', 'g');
+            if(mathReg.test(content)){
+                content = content.replace(mathReg, '');
+            }
+            return content;
+        }
     },
 };
 </script>
