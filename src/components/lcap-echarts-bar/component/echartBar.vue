@@ -12,7 +12,6 @@ export default {
   name: "echartBar",
   props: {
     sourceData: [Array, Object],
-    baseConfig: [Object],
     size: [Object],
     axisData: [Object],
   },
@@ -27,8 +26,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {axisData, baseConfig, sourceData} = this;
-      return {axisData, baseConfig, sourceData};
+      let {axisData, sourceData} = this;
+      return {axisData, sourceData};
     }
   },
   watch: {
@@ -42,7 +41,7 @@ export default {
     }
   },
   beforeDestroy() {
-    let thisChart = echarts.init(this.$refs.myChart, 'cloud-ui');
+    let thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
     removeEventListener("resize", function () {
       thisChart.resize();
     });
@@ -88,11 +87,8 @@ export default {
           type: 'bar',
           data: attrDict[item],
           showBackground: true,
-          emphasis: {
-            focus: 'series',
-          },
           label: {
-            show: true,
+            show: this.axisData.allowShowLabel,
           },
         })
       })
@@ -104,19 +100,49 @@ export default {
           }
         },
         legend: {
+          show: this.axisData.allowShowLegend,
           data: legendData,
+        },
+        tooltip: {
+          show: this.axisData.allowShowHint,
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        emphasis: {
+          focus: 'series',
+        },
+        title: {
+          text: this.axisData.title,
+          textStyle: {
+            fontSize: this.axisData.titleFontSize,
+            fontStyle: this.axisData.titleFontStyle,
+          }
         },
         xAxis: {
           data: attrDict[this.axisData.xAxis],
           name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
           nameLocation: 'end',
+          axisLine: {
+            show: this.axisData.showXAxisLine,
+          },
+          axisLabel: {
+            show: this.axisData.showXAxisLabel,
+            rotate: this.axisData.xAxisLabelRotate
+          },
         },
         yAxis: {
           type: 'value',
           name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
+          axisLine: {
+            show: this.axisData.showYAxisLine,
+          },
+          axisLabel: {
+            show: this.axisData.showYAxisLabel,
+          },
         },
         series: seriesData,
-        ...this.baseConfig,
       };
     },
   },
