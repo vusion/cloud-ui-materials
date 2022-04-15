@@ -5,6 +5,36 @@
   icon: default
   attrs:
     - title: 图类型
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 表格的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据属性
+    - name: xAxis
+      title: 维度
+      type: string
+      default: ''
+      description: 设置维度(x轴)
+      group: 维度指标
+    - name: xAxisTitle
+      title: 维度标题
+      type: string
+      default: ''
+      description: 设置维度(x轴)标题
+      group: 维度指标
+    - name: yAxis
+      title: 指标
+      type: string
+      default: ''
+      description: 设置指标（y轴）
+      group: 维度指标
+    - name: yAxisTitle
+      title: 指标标题
+      type: string
+      default: ''
+      description: 设置指标(y轴)标题
+      group: 维度指标
     - name: width
       title: 宽度
       type: string
@@ -17,62 +47,79 @@
       default: 300px
       description: 设置图高度
       group: 基本属性
-    - name: theme
-      title: 主题设置
-      type: string
-      default: cloud-ui
-      description: 设置主题模式
-      options:
-        - value: cloud-ui
-          title: cloud-ui主题
-        - value: dark
-          title: 深色主题
-      group: 基本属性
-    - name: xAxis
-      title: 分类轴
-      type: string
-      default: ''
-      description: 设置x轴(分类轴)
-      group: 基本属性
-    - name: xAxisTitle
-      title: 分类轴标题
-      type: string
-      default: ''
-      description: 设置x轴(分类轴)标题
-      group: 基本属性
-    - name: yAxis
-      title: 数值轴
-      type: string
-      default: ''
-      description: 设置y轴（数值轴）
-      group: 基本属性
-    - name: yAxisTitle
-      title: 分类轴标题
-      type: string
-      default: ''
-      description: 设置y轴(数值轴)标题
-      group: 基本属性
     - name: title
-      title: 图表题
+      title: 标题
       type: string
       default: 默认标题
       description: 设置主标题
-      group: 基本属性
+      group: 图表基础
+    - name: theme
+      title: 主题设置
+      type: string
+      default:
+      description: 设置主题模式
+      options:
+        - value: vintage
+          title: vintage
+        - value: chalk
+          title: chalk
+      group: 图表基础
+    - name: allowShowLabel
+      title: 显示标签
+      type: boolean
+      default: true
+      description: 设置是否显示标签
+      group: 图表基础
+    - name: showLabelName
+      title: 显示维度标签
+      type: boolean
+      default: true
+      description: 设置是否显示维度标签
+      group: 图表基础
+    - name: showLabelValue
+      title: 显示数值标签
+      type: boolean
+      default: true
+      description: 设置是否显示数值标签
+      group: 图表基础
+    - name: showLabelPercent
+      title: 显示占比标签
+      type: boolean
+      default: true
+      description: 设置是否显示占比标签
+      group: 图表基础
+    - name: allowShowHint
+      title: 显示提示
+      type: boolean
+      default: true
+      description: 设置是否显示提示
+      group: 图表基础
+    - name: allowShowLegend
+      title: 显示提示
+      type: boolean
+      default: true
+      description: 设置是否显示图例
+      group: 图表基础
     - name: titleFontSize
-      title: 标题字体大小
+      title: 标题文字字号
       type: number
       default: 18
-      description: 设置标题字体大小
-      group: 基本属性
+      description: 设置标题文字字号
+      group: 字体
+    - name: titleFontStyle
+      title: 标题文字字体风格
+      type: string
+      default: normal
+      description: 设置普通文字字号
+      options:
+        - value: normal
+          title: 正常
+        - value: italic
+          title: 斜体
+      group: 字体
     - name: allowDownload
-      title: 允许保存为图片
+      title: 允许下载
       type: boolean
-      default: false
-      description: 允许用户直接保存图片
-      group: 基本属性
-    - name: data-source
-      title: 数据源
-      type: Array<Item> | Function | object | DataSource
-      designer-value: "[{}, {}, {}]"
-      description: 表格的数据源，数据集对象或者返回数据集的逻辑
-      group: 数据属性
+      default: true
+      description: 允许用户设置保存图片
+      group: 图表功能

@@ -1,4 +1,8 @@
-import * as echarts from 'echarts/core'
+import * as echarts from 'echarts/core';
+import chalk from './theme/chalk.json';
+import vintage from './theme/vintage.json';
+import walden from './theme/walden.json';
+
 const styles = {
     'theme-chart-color1': 'rgb(103, 170, 245)',
     'theme-chart-rgba-color1': 'rgba(103, 170, 245, 0.1)',
@@ -544,3 +548,7 @@ echarts.registerTheme('cloud-ui', {
         },
     },
 });
+
+echarts.registerTheme('chalk', chalk);
+echarts.registerTheme('vintage', vintage);
+echarts.registerTheme('walden', walden);

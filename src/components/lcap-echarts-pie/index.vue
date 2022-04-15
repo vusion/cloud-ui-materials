@@ -3,7 +3,6 @@
     <echart-pie
       v-if="!loading"
       :axisData="axisData"
-      :baseConfig="baseConfig"
       :size="size"
       :sourceData="sourceData"
     ></echart-pie>
@@ -27,7 +26,6 @@ export default {
   props: {
     dataSource: [Function, Array, Object],
     theme: {type: String, default: 'cloud-ui'},
-    chartType: {type: String, default: 'pie'},
     width: {type: String, default: '400px'},
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
@@ -36,7 +34,14 @@ export default {
     yAxisTitle: {type: String, default: ''},
     title: {type: String, default: '默认标题'},
     titleFontSize: {type: Number, default: 18},
+    titleFontStyle: {type: String, default: 'normal'},
     allowDownload: {type: Boolean, default: false},
+    allowShowLabel: {type: Boolean, default: true},
+    allowShowHint: {type: Boolean, default: true},
+    allowShowLegend: {type: Boolean, default: true},
+    showLabelName: {type: Boolean, default: true},
+    showLabelValue: {type: Boolean, default: true},
+    showLabelPercent: {type: Boolean, default: true},
   },
   data() {
     return {
@@ -61,7 +66,16 @@ export default {
         xAxisTitle: this.xAxisTitle,
         yAxisTitle: this.yAxisTitle,
         theme: this.theme,
+        title: this.title,
+        titleFontSize: this.titleFontSize,
+        titleFontStyle: this.titleFontStyle,
         allowDownload: this.allowDownload,
+        allowShowLabel: this.allowShowLabel,
+        allowShowHint: this.allowShowHint,
+        allowShowLegend: this.allowShowLegend,
+        showLabelName: this.showLabelName,
+        showLabelValue: this.showLabelValue,
+        showLabelPercent: this.showLabelPercent,
       }
     },
     changedObj() {

@@ -12,7 +12,6 @@ export default {
   name: "echartPie",
   props: {
     sourceData: [Array, Object],
-    baseConfig: [Object],
     size: [Object],
     axisData: [Object],
   },
@@ -27,8 +26,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {axisData, baseConfig, sourceData} = this;
-      return {axisData, baseConfig, sourceData};
+      let {axisData, sourceData} = this;
+      return {axisData, sourceData};
     }
   },
   watch: {
@@ -42,7 +41,7 @@ export default {
     }
   },
   beforeDestroy() {
-    let thisChart = echarts.init(this.$refs.myChart, 'cloud-ui');
+    let thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
     removeEventListener("resize", function () {
       thisChart.resize();
     });
@@ -91,6 +90,11 @@ export default {
           }
         );
       }
+      let labelData = '';
+      labelData = this.axisData.showLabelName ? labelData + '{b}' : labelData + '';
+      labelData = this.axisData.showLabelValue ? labelData + '{c}' : labelData + '';
+      labelData = this.axisData.showLabelPercent ? labelData + '({d})' : labelData + '';
+
       this.pieOption = {
         toolbox: {
           show: this.axisData.allowDownload,
@@ -99,23 +103,41 @@ export default {
           }
         },
         legend: {
+          show: this.axisData.allowShowLegend,
           bottom: '1%',
           left: 'center'
+        },
+        tooltip: {
+          show: this.axisData.allowShowHint,
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        label: {
+          formatter: labelData,
+        },
+        emphasis: {
+          focus: 'series',
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          },
+        },
+        title: {
+          text: this.axisData.title,
+          textStyle: {
+            fontSize: this.axisData.titleFontSize,
+            fontStyle: this.axisData.titleFontStyle,
+          }
         },
         series: [
           {
             type: 'pie',
             data: pieData,
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
           }
         ],
-        ...this.baseConfig,
       };
     },
   },
