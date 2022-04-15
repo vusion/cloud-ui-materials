@@ -13,3 +13,4 @@ test-reports/
 
 yarn.lock
 package-lock.json
+.idea/

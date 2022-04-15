@@ -3,7 +3,6 @@
     <echart-line
       v-if="!loading"
       :axisData="axisData"
-      :baseConfig="baseConfig"
       :size="size"
       :sourceData="sourceData"
     ></echart-line>
@@ -26,8 +25,7 @@ export default {
   components: {echartLine},
   props: {
     dataSource: [Function, Array, Object],
-    theme: {type: String, default: 'cloud-ui'},
-    chartType: {type: String, default: 'line'},
+    theme: {type: String, default: ''},
     width: {type: String, default: '400px'},
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
@@ -36,7 +34,16 @@ export default {
     yAxisTitle: {type: String, default: ''},
     title: {type: String, default: '默认标题'},
     titleFontSize: {type: Number, default: 18},
+    titleFontStyle: {type: String, default: 'normal'},
     allowDownload: {type: Boolean, default: false},
+    allowShowLabel: {type: Boolean, default: true},
+    allowShowHint: {type: Boolean, default: true},
+    allowShowLegend: {type: Boolean, default: true},
+    showXAxisLine: {type: Boolean, default: true},
+    showYAxisLine: {type: Boolean, default: true},
+    showXAxisLabel: {type: Boolean, default: true},
+    showYAxisLabel: {type: Boolean, default: true},
+    xAxisLabelRotate: {type: Number, default: 0},
   },
   data() {
     return {
@@ -61,24 +68,24 @@ export default {
         xAxisTitle: this.xAxisTitle,
         yAxisTitle: this.yAxisTitle,
         theme: this.theme,
+        title: this.title,
+        titleFontSize: this.titleFontSize,
+        titleFontStyle: this.titleFontStyle,
         allowDownload: this.allowDownload,
+        allowShowLabel: this.allowShowLabel,
+        allowShowHint: this.allowShowHint,
+        allowShowLegend: this.allowShowLegend,
+        showXAxisLine: this.showXAxisLine,
+        showYAxisLine: this.showYAxisLine,
+        showXAxisLabel: this.showXAxisLabel,
+        showYAxisLabel: this.showYAxisLabel,
+        xAxisLabelRotate: this.xAxisLabelRotate,
       }
     },
     changedObj() {
       let {xAxis, yAxis} = this;
       return {xAxis, yAxis};
     },
-    baseConfig() {
-      const myConfig = {
-        title: {
-          text: this.title,
-          textStyle: {
-            fontSize: this.fontSize,
-          }
-        },
-      };
-      return myConfig;
-    }
   },
   watch: {
     changedObj: {
