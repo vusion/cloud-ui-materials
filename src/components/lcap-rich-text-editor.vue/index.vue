@@ -213,6 +213,9 @@ export default {
             if (this.editor !== null) {
                 content = this.editor.root.innerHTML;
                 this.$refs.root.querySelector('.ql-toolbar.ql-snow').remove();
+                /** readOnly由true变为false时， ql-disabled类没有删除，导致公式编辑框看不见*/
+                const container = this.$refs.root.querySelector('.in-editor.ql-container.ql-snow.ql-disabled');
+                container && container.classList.remove('ql-disabled');
                 this.editor = null;
                 editorDom.innerHTML = '';
             } else {
