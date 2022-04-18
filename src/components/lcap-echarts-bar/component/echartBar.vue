@@ -72,7 +72,6 @@ export default {
         return;
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      const multiAxisTitleList = this.axisData.yAxisTitle.replace(/\s+/g, '').split(',') || [];
       const legendData = multiAxisList.length > 1 ? multiAxisList : []
       for (let axis of multiAxisList) {
         if (!yAxisList.includes(axis)) {

@@ -70,7 +70,7 @@ export default {
       const key = Object.keys(content[0])[0];
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
       if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)) {
-        this.$toast.show('请检查参数轴设置是否正确');
+        this.$toast.show('请检查指标设置是否正确');
         return;
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
@@ -79,7 +79,7 @@ export default {
         return;
       }
       if (this.axisData.xAxisTitle || this.axisData.yAxisTitle) {
-        this.$toast.show('饼图无法设置坐标轴标题');
+        this.$toast.show('饼图无法设置维度和指标的标题');
       }
       for (let item of content) {
         const tempAttr = item[key];
@@ -91,9 +91,9 @@ export default {
         );
       }
       let labelData = '';
-      labelData = this.axisData.showLabelName ? labelData + '{b}' : labelData + '';
-      labelData = this.axisData.showLabelValue ? labelData + '{c}' : labelData + '';
-      labelData = this.axisData.showLabelPercent ? labelData + '({d})' : labelData + '';
+      labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
+      labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
+      labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
 
       this.pieOption = {
         toolbox: {
@@ -104,7 +104,7 @@ export default {
         },
         legend: {
           show: this.axisData.allowShowLegend,
-          bottom: '1%',
+          bottom: '-2%',
           left: 'center'
         },
         tooltip: {

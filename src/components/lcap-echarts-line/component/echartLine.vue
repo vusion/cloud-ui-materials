@@ -68,7 +68,7 @@ export default {
       if (!content) return;
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
       if (!xAxisList.includes(this.axisData.xAxis)) {
-        this.$toast.show('请检查参数轴设置是否正确');
+        this.$toast.show('请检查维度设置是否正确');
         return;
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];

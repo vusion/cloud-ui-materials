@@ -4,7 +4,6 @@
   labels: [Chart]
   icon: default
   attrs:
-    - title: 图类型
     - name: data-source
       title: 数据源
       type: Array<Item> | Function | object | DataSource
@@ -40,13 +39,13 @@
       type: string
       default: 400px
       description: 设置图宽度
-      group: 基本属性
+      group: 图表基础
     - name: height
       title: 高度
       type: string
       default: 300px
       description: 设置图高度
-      group: 基本属性
+      group: 图表基础
     - name: title
       title: 标题
       type: string
@@ -54,10 +53,10 @@
       description: 设置主标题
       group: 图表基础
     - name: theme
-      title: 主题设置
+      title: 配色方案
       type: string
       default:
-      description: 设置主题模式
+      description: 设置图表配色方案
       options:
         - value: vintage
           title: vintage

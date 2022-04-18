@@ -8,7 +8,7 @@
     ></echart-pie>
     <div v-else :class="$style.loading" :style="size">
       <u-loading size="large"></u-loading>
-      正在加载或配置中...
+      正在加载或配置饼图中...
     </div>
   </div>
 </template>
@@ -104,8 +104,8 @@ export default {
   methods: {
     async init() {
       this.loading = true;
-      // const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-      const fnDataSource = fakeData;
+      const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
+      // const fnDataSource = fakeData;
       const rawData = await this.handleDataSource(fnDataSource);
       this.sourceData = this.processRawData(rawData);
     },
