@@ -109,10 +109,7 @@ export default {
         },
         tooltip: {
           show: this.axisData.allowShowHint,
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          }
+          trigger: 'item',
         },
         label: {
           formatter: labelData,

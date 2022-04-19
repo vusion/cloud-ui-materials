@@ -1,0 +1,25 @@
+{
+  "lcap-echarts-pie": {
+    "attributes": [
+      "data-source",
+      "xAxis",
+      "xAxisTitle",
+      "yAxis",
+      "yAxisTitle",
+      "width",
+      "height",
+      "title",
+      "theme",
+      "allowShowLabel",
+      "showLabelName",
+      "showLabelValue",
+      "showLabelPercent",
+      "allowShowHint",
+      "allowShowLegend",
+      "titleFontSize",
+      "titleFontStyle",
+      "allowDownload"
+    ],
+    "description": "饼图"
+  }
+}

@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-pie",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-echarts-pie@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -37,7 +37,9 @@
     "category": "Chart",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.1/screenshots/0.png"
+    ],
     "team": "",
     "access": "public"
   },

@@ -80,7 +80,7 @@
       description: 设置是否显示提示
       group: 图表基础
     - name: allowShowLegend
-      title: 显示提示
+      title: 显示图例
       type: boolean
       default: true
       description: 设置是否显示图例
