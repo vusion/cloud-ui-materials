@@ -14,25 +14,25 @@
       title: 维度
       type: string
       default: ''
-      description: 设置维度(x轴)
+      description: 设置维度
       group: 维度指标
     - name: xAxisTitle
       title: 维度标题
       type: string
       default: ''
-      description: 设置维度(x轴)标题
+      description: 设置维度标题
       group: 维度指标
     - name: yAxis
       title: 指标
       type: string
       default: ''
-      description: 设置指标（y轴）
+      description: 设置指标
       group: 维度指标
     - name: yAxisTitle
       title: 指标标题
       type: string
       default: ''
-      description: 设置指标(y轴)标题
+      description: 设置指标标题
       group: 维度指标
     - name: width
       title: 宽度

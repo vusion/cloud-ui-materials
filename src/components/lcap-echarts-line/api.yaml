@@ -89,7 +89,7 @@
       title: 显示X轴轴线
       type: boolean
       default: true
-      description: 设置是否显示图例
+      description: 设置显示X轴轴线
       group: 坐标轴
     - name: showXAxisLabel
       title: 显示X轴文字标签
@@ -116,7 +116,7 @@
       title: 显示Y轴轴线
       type: boolean
       default: true
-      description: 设置是否显示图例
+      description: 设置显示Y轴轴线
       group: 坐标轴
     - name: showYAxisLabel
       title: 显示Y轴文字标签

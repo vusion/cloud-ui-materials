@@ -67,7 +67,7 @@
   },
   "lcap-echarts-bar/showXAxisLine": {
     "type": "boolean",
-    "description": "设置是否显示图例"
+    "description": "设置是否显示X轴轴线"
   },
   "lcap-echarts-bar/showXAxisLabel": {
     "type": "boolean",
@@ -97,7 +97,7 @@
   },
   "lcap-echarts-bar/showYAxisLine": {
     "type": "boolean",
-    "description": "设置是否显示图例"
+    "description": "设置是否显示Y轴轴线"
   },
   "lcap-echarts-bar/showYAxisLabel": {
     "type": "boolean",
