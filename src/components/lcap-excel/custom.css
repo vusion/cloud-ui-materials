@@ -4,4 +4,5 @@
 
 .ribbon-button-welcome {
     background-size: 35px 35px;
+    background-image: url('./assets/welcome.png');
 }
