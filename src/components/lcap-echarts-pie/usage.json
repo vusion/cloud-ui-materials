@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-pie",
     "name": "饼图",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "icon": "piechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.1/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.2/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie></lcap-echarts-pie>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-pie",
         "title": "饼图",
         "description": "饼图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.1/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.2/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -39,7 +39,7 @@
                 "title": "维度",
                 "type": "string",
                 "default": "",
-                "description": "设置维度(x轴)",
+                "description": "设置维度",
                 "group": "维度指标"
             },
             {
@@ -47,7 +47,7 @@
                 "title": "维度标题",
                 "type": "string",
                 "default": "",
-                "description": "设置维度(x轴)标题",
+                "description": "设置维度标题",
                 "group": "维度指标"
             },
             {
@@ -55,7 +55,7 @@
                 "title": "指标",
                 "type": "string",
                 "default": "",
-                "description": "设置指标（y轴）",
+                "description": "设置指标",
                 "group": "维度指标"
             },
             {
@@ -63,7 +63,7 @@
                 "title": "指标标题",
                 "type": "string",
                 "default": "",
-                "description": "设置指标(y轴)标题",
+                "description": "设置指标标题",
                 "group": "维度指标"
             },
             {
@@ -158,7 +158,7 @@
             },
             {
                 "name": "allowShowLegend",
-                "title": "显示提示",
+                "title": "显示图例",
                 "type": "boolean",
                 "default": true,
                 "description": "设置是否显示图例",

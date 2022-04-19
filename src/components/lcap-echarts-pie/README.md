@@ -37,10 +37,10 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
-| xAxis | string |  | `''` | 设置维度(x轴) |
-| xAxisTitle | string |  | `''` | 设置维度(x轴)标题 |
-| yAxis | string |  | `''` | 设置指标（y轴） |
-| yAxisTitle | string |  | `''` | 设置指标(y轴)标题 |
+| xAxis | string |  | `''` | 设置维度 |
+| xAxisTitle | string |  | `''` | 设置维度标题 |
+| yAxis | string |  | `''` | 设置指标 |
+| yAxisTitle | string |  | `''` | 设置指标标题 |
 | width | string |  | `'400px'` | 设置图宽度 |
 | height | string |  | `'300px'` | 设置图高度 |
 | title | string |  | `'默认标题'` | 设置主标题 |

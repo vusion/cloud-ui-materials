@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-line",
     "name": "折线图",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "icon": "linechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-line@0.1.1/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-line@0.1.2/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-line></lcap-echarts-line>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-line",
         "title": "折线图",
         "description": "折线图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-line@0.1.1/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-line@0.1.2/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -134,7 +134,7 @@
             },
             {
                 "name": "allowShowLegend",
-                "title": "显示提示",
+                "title": "显示图例",
                 "type": "boolean",
                 "default": true,
                 "description": "设置是否显示图例",
@@ -145,7 +145,7 @@
                 "title": "显示X轴轴线",
                 "type": "boolean",
                 "default": true,
-                "description": "设置是否显示图例",
+                "description": "设置显示X轴轴线",
                 "group": "坐标轴"
             },
             {
@@ -187,7 +187,7 @@
                 "title": "显示Y轴轴线",
                 "type": "boolean",
                 "default": true,
-                "description": "设置是否显示图例",
+                "description": "设置显示Y轴轴线",
                 "group": "坐标轴"
             },
             {
