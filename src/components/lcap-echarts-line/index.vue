@@ -25,7 +25,7 @@ export default {
   components: {echartLine},
   props: {
     dataSource: [Function, Array, Object],
-    theme: {type: String, default: ''},
+    theme: {type: String, default: 'theme1'},
     width: {type: String, default: '400px'},
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},

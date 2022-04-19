@@ -1,8 +1,8 @@
 - name: lcap-echarts-line
   title: 折线图
-  description: 请在这里添加描述
+  description: 折线图
   labels: [Chart]
-  icon: default
+  icon: linechart
   attrs:
     - name: data-source
       title: 数据源
@@ -55,13 +55,17 @@
     - name: theme
       title: 配色方案
       type: string
-      default:
+      default: theme1
       description: 设置图表配色方案
       options:
-        - value: vintage
-          title: vintage
-        - value: chalk
-          title: chalk
+        - value: theme1
+          title: 配色方案1
+        - value: theme2
+          title: 配色方案2
+        - value: theme3
+          title: 配色方案3
+        - value: theme4
+          title: 配色方案4
       group: 图表基础
     - name: allowShowLabel
       title: 显示标签
