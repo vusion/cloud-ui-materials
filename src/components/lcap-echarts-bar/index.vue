@@ -5,10 +5,11 @@
       :axisData="axisData"
       :size="size"
       :sourceData="sourceData"
+      @startLoading="startLoading"
+
     ></echart-bar>
     <div v-else :class="$style.loading" :style="size">
-      <u-loading size="large"></u-loading>
-      正在加载或配置柱状图中...
+      <img src="./assets/barEmpty.png" :class="$style.emptyImage">
     </div>
   </div>
 </template>
@@ -104,6 +105,7 @@ export default {
     },
     // 删除不必要字段
     processRawData(data) {
+      if (data.length === 0) return;
       const content = data.content;
       const key = Object.keys(content[0])[0];
       // 删除自带的，不必要的属性
@@ -142,6 +144,9 @@ export default {
       }
       return [];
     },
+    startLoading() {
+      this.loading = true;
+    },
   }
 };
 </script>
@@ -160,5 +165,10 @@ export default {
 .root[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;
+}
+
+.emptyImage {
+  width: 100%;
+  height: 100%;
 }
 </style>

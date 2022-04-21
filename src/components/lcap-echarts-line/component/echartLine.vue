@@ -68,6 +68,7 @@ export default {
       if (!content) return;
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
       if (!xAxisList.includes(this.axisData.xAxis)) {
+        this.$emit("startLoading");
         this.$toast.show('请检查维度设置是否正确');
         return;
       }
@@ -76,6 +77,7 @@ export default {
       for (let axis of multiAxisList) {
         if (!yAxisList.includes(axis)) {
           this.$toast.show('请检查指标设置是否正确');
+          this.$emit("startLoading");
           return;
         }
       }

@@ -59,13 +59,13 @@
       description: 设置图表配色方案
       options:
         - value: theme1
-          title: 配色方案1
+          title: 科技
         - value: theme2
-          title: 配色方案2
+          title: 清新
         - value: theme3
-          title: 配色方案3
+          title: 淡雅
         - value: theme4
-          title: 配色方案4
+          title: 经典
       group: 图表基础
     - name: allowShowLabel
       title: 显示标签
@@ -97,7 +97,7 @@
       default: true
       description: 设置是否显示X轴文字标签
       group: 坐标轴
-    - name: showXAxisLabelRotate
+    - name: xAxisLabelRotate
       title: X轴文字标签方向
       type: number
       options:
