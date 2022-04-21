@@ -1,11 +1,11 @@
 {
   "name": "lcap-excel",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-excel@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

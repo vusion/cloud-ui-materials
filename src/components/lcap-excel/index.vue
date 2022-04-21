@@ -17,12 +17,14 @@ import "@grapecity/spread-sheets-shapes"
 import "@grapecity/spread-sheets-pivot-addon"
 import "@grapecity/spread-sheets-tablesheet"
 import "@grapecity/spread-sheets-resources-zh"
+
 GC.Spread.Common.CultureManager.culture("zh-cn")
 import "@grapecity/spread-sheets-designer-resources-cn"
 import "./custom.css"
+import {fakeData} from "./data";
 import * as ExcelIO from "@grapecity/spread-excelio"
 
-import { Designer } from "@grapecity/spread-sheets-designer-vue"
+import {Designer} from "@grapecity/spread-sheets-designer-vue"
 
 export default {
   name: "lcap-excel",
@@ -30,7 +32,7 @@ export default {
     var config = GC.Spread.Sheets.Designer.DefaultConfig
     config.commandMap = {
       Welcome: {
-        title: "Welcome",
+        title: "导入逻辑",
         text: "Welcome",
         iconClass: "ribbon-button-welcome",
         bigButton: "true",
@@ -41,7 +43,7 @@ export default {
       },
     }
     config.ribbon[0].buttonGroups.unshift({
-      label: "NewDesigner",
+      label: "导入逻辑",
       thumbnailClass: "welcome",
       commandGroup: {
         children: [
@@ -54,7 +56,7 @@ export default {
       },
     })
     return {
-      styleInfo: { height: "98vh", width: "100%" },
+      styleInfo: {height: "98vh", width: "100%"},
       config: config,
       spreadOptions: {
         sheetCount: 2,
@@ -62,10 +64,43 @@ export default {
       designer: null,
     }
   },
+  created() {
+    var spread = new GC.Spread.Sheets.Workbook(document.getElementById("ss"));
+    this.refresh();
+  },
   methods: {
     designerInitialized(value) {
-      this.designer = value
+      this.designer = fakeData
     },
+
+    loadTable(ss, data) {
+      ss.suspendPaint;
+      try {
+        var sheet = ss.getActiveSheet;
+        var table = sheet.tables.addFromDataSource(
+          "Table1",
+          0,
+          0,
+          data,
+          GC.Spread.Sheets.Tables.TableThemes.medium2
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
+      ss.resumePaint;
+    },
+
+    //4:- 创建refresh函数
+    refresh() {
+      var ss = GC.Spread.Sheets.findControl(document.getElementById("ss"));
+      var sheet = ss.getActiveSheet();
+      sheet.reset();
+      sheet.setColumnCount(7);
+      var data = fakeData;
+      this.loadTable(ss, data);
+    }
+
+
   },
 }
 </script>
