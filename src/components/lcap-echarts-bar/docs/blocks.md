@@ -16,7 +16,7 @@
     :allowShowLegend=false
     :showXAxisLine=false
     :showYAxisLine=false
-    :showXAxisLabel=true
+    :showXAxisLabel=false
     :showYAxisLabel=false
     :xAxisLabelRotate=0 ></lcap-echarts-bar>
 ```

@@ -119,10 +119,10 @@
       description: 设置是否显示Y轴轴线
       group: 坐标轴
     - name: showYAxisLabel
-      title: 显示Y轴文字标签
+      title: 显示Y轴数值标签
       type: boolean
       default: true
-      description: 设置是否显示Y轴文字标签
+      description: 设置是否显示Y轴数值标签
       group: 坐标轴
     - name: titleFontSize
       title: 标题文字字号

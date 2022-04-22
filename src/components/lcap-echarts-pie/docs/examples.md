@@ -7,12 +7,11 @@
     yAxis="averageScore"
     :titleFontSize=18
     :allowDownload=true
-    :allowShowLabel=true
     :allowShowHint=true
     :allowShowLegend=true
-    :showLabelName=true
+    :showLabelName=false
     :showLabelValue=true
-    :showLabelPercent=true
+    :showLabelPercent=false
 ></lcap-echarts-pie>
 
 ```

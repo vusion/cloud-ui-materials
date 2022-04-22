@@ -65,7 +65,10 @@ export default {
     },
     processLineData(data) {
       const content = data && data.content;
-      if (!content) return;
+      if (!content) {
+        this.$emit("startLoading");
+        return;
+      }
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
       if (!xAxisList.includes(this.axisData.xAxis)) {
         this.$emit("startLoading");

@@ -65,7 +65,10 @@ export default {
     },
     processPieData(data) {
       const content = data && data.content;
-      if (!content) return;
+      if (!content) {
+        this.$emit("startLoading");
+        return;
+      }
       const pieData = [];
       const key = Object.keys(content[0])[0];
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
@@ -96,9 +99,7 @@ export default {
       labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
       labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
       labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
-      if (!this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent) {
-        this.axisData.allowShowLabel = false;
-      }
+      const showLabel =  !this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent ? false : true;
       this.pieOption = {
         toolbox: {
           show: this.axisData.allowDownload,
@@ -114,10 +115,6 @@ export default {
         tooltip: {
           show: this.axisData.allowShowHint,
           trigger: 'item',
-        },
-        label: {
-          show: this.axisData.allowShowLabel,
-          formatter: labelData,
         },
         emphasis: {
           focus: 'self',
@@ -138,6 +135,10 @@ export default {
           {
             type: 'pie',
             data: pieData,
+            label: {
+              show: showLabel,
+              formatter: labelData,
+            }
           }
         ],
       };

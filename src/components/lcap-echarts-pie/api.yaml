@@ -67,12 +67,6 @@
         - value: theme4
           title: 经典
       group: 图表基础
-    - name: allowShowLabel
-      title: 显示标签
-      type: boolean
-      default: true
-      description: 设置是否显示标签
-      group: 图表基础
     - name: showLabelName
       title: 显示维度标签
       type: boolean

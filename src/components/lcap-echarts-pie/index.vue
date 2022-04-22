@@ -9,7 +9,6 @@
     ></echart-pie>
     <div v-else :class="$style.loading" :style="size">
       <img src="./assets/pieEmpty.png" :class="$style.emptyImage">
-      正在加载或配置饼图中...
     </div>
   </div>
 </template>
@@ -37,7 +36,6 @@ export default {
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
     allowDownload: {type: Boolean, default: false},
-    allowShowLabel: {type: Boolean, default: true},
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
     showLabelName: {type: Boolean, default: true},
@@ -71,7 +69,6 @@ export default {
         titleFontSize: this.titleFontSize,
         titleFontStyle: this.titleFontStyle,
         allowDownload: this.allowDownload,
-        allowShowLabel: this.allowShowLabel,
         allowShowHint: this.allowShowHint,
         allowShowLegend: this.allowShowLegend,
         showLabelName: this.showLabelName,

@@ -6,7 +6,6 @@
       :size="size"
       :sourceData="sourceData"
       @startLoading="startLoading"
-
     ></echart-bar>
     <div v-else :class="$style.loading" :style="size">
       <img src="./assets/barEmpty.png" :class="$style.emptyImage">
