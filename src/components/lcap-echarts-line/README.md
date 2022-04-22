@@ -55,9 +55,9 @@
 | allowShowLegend | boolean |  | `true` | 设置是否显示图例 |
 | showXAxisLine | boolean |  | `true` | 设置显示X轴轴线 |
 | showXAxisLabel | boolean |  | `true` | 设置是否显示X轴文字标签 |
-| showXAxisLabelRotate | number | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `0` | 设置是否显示X轴文字标签方向 |
+| xAxisLabelRotate | number | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `0` | 设置是否显示X轴文字标签方向 |
 | showYAxisLine | boolean |  | `true` | 设置显示Y轴轴线 |
-| showYAxisLabel | boolean |  | `true` | 设置是否显示Y轴文字标签 |
+| showYAxisLabel | boolean |  | `true` | 设置是否显示Y轴数值标签 |
 | titleFontSize | number |  | `18` | 设置标题文字字号 |
 | titleFontStyle | string | `[object Object]`<br/>`[object Object]` | `'normal'` | 设置普通文字字号 |
 | allowDownload | boolean |  | `true` | 允许用户设置保存图片 |

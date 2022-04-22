@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-pie",
     "name": "饼图",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "icon": "piechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.2/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.3/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie></lcap-echarts-pie>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-pie",
         "title": "饼图",
         "description": "饼图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.2/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.3/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -99,29 +99,21 @@
                 "options": [
                     {
                         "value": "theme1",
-                        "title": "配色方案1"
+                        "title": "科技"
                     },
                     {
                         "value": "theme2",
-                        "title": "配色方案2"
+                        "title": "清新"
                     },
                     {
                         "value": "theme3",
-                        "title": "配色方案3"
+                        "title": "淡雅"
                     },
                     {
                         "value": "theme4",
-                        "title": "配色方案4"
+                        "title": "经典"
                     }
                 ],
-                "group": "图表基础"
-            },
-            {
-                "name": "allowShowLabel",
-                "title": "显示标签",
-                "type": "boolean",
-                "default": true,
-                "description": "设置是否显示标签",
                 "group": "图表基础"
             },
             {

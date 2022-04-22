@@ -36,19 +36,19 @@
     "options": [
       {
         "value": "theme1",
-        "title": "配色方案1"
+        "title": "科技"
       },
       {
         "value": "theme2",
-        "title": "配色方案2"
+        "title": "清新"
       },
       {
         "value": "theme3",
-        "title": "配色方案3"
+        "title": "淡雅"
       },
       {
         "value": "theme4",
-        "title": "配色方案4"
+        "title": "经典"
       }
     ],
     "description": "设置图表配色方案"
@@ -73,7 +73,7 @@
     "type": "boolean",
     "description": "设置是否显示X轴文字标签"
   },
-  "lcap-echarts-line/showXAxisLabelRotate": {
+  "lcap-echarts-line/xAxisLabelRotate": {
     "type": "number",
     "options": [
       {
@@ -101,7 +101,7 @@
   },
   "lcap-echarts-line/showYAxisLabel": {
     "type": "boolean",
-    "description": "设置是否显示Y轴文字标签"
+    "description": "设置是否显示Y轴数值标签"
   },
   "lcap-echarts-line/titleFontSize": {
     "type": "number",

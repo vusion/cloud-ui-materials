@@ -21,12 +21,11 @@
     yAxis="averageScore"
     :titleFontSize=18
     :allowDownload=true
-    :allowShowLabel=true
     :allowShowHint=true
     :allowShowLegend=true
-    :showLabelName=true
+    :showLabelName=false
     :showLabelValue=true
-    :showLabelPercent=true
+    :showLabelPercent=false
 ></lcap-echarts-pie>
 
 ```
@@ -45,7 +44,6 @@
 | height | string |  | `'300px'` | 设置图高度 |
 | title | string |  | `'默认标题'` | 设置主标题 |
 | theme | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'theme1'` | 设置图表配色方案 |
-| allowShowLabel | boolean |  | `true` | 设置是否显示标签 |
 | showLabelName | boolean |  | `true` | 设置是否显示维度标签 |
 | showLabelValue | boolean |  | `true` | 设置是否显示数值标签 |
 | showLabelPercent | boolean |  | `true` | 设置是否显示占比标签 |
