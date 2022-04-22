@@ -5,9 +5,10 @@
       :axisData="axisData"
       :size="size"
       :sourceData="sourceData"
+      @startLoading="startLoading"
     ></echart-pie>
     <div v-else :class="$style.loading" :style="size">
-      <u-loading size="large"></u-loading>
+      <img src="./assets/pieEmpty.png" :class="$style.emptyImage">
       正在加载或配置饼图中...
     </div>
   </div>
@@ -111,6 +112,7 @@ export default {
     },
     // 删除不必要字段
     processRawData(data) {
+      if (data.length === 0) return;
       const content = data.content;
       const key = Object.keys(content[0])[0];
       // 删除自带的，不必要的属性
@@ -149,6 +151,9 @@ export default {
       }
       return [];
     },
+    startLoading() {
+      this.loading = true;
+    },
   }
 };
 </script>
@@ -167,5 +172,10 @@ export default {
 .root[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;
+}
+
+.emptyImage {
+  width: 100%;
+  height: 100%;
 }
 </style>

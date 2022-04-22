@@ -70,11 +70,13 @@ export default {
       const key = Object.keys(content[0])[0];
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
       if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)) {
+        this.$emit("startLoading");
         this.$toast.show('请检查指标设置是否正确');
         return;
       }
       const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
       if (multiAxisList.length > 1) {
+        this.$emit("startLoading");
         this.$toast.show('饼图无法设置一个以上的维度');
         return;
       }
@@ -94,7 +96,9 @@ export default {
       labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
       labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
       labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
-
+      if (!this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent) {
+        this.axisData.allowShowLabel = false;
+      }
       this.pieOption = {
         toolbox: {
           show: this.axisData.allowDownload,
@@ -112,10 +116,11 @@ export default {
           trigger: 'item',
         },
         label: {
+          show: this.axisData.allowShowLabel,
           formatter: labelData,
         },
         emphasis: {
-          focus: 'series',
+          focus: 'self',
           itemStyle: {
             shadowBlur: 10,
             shadowOffsetX: 0,
