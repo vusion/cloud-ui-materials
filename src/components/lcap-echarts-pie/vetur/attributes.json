@@ -7,17 +7,9 @@
     "type": "string",
     "description": "设置维度"
   },
-  "lcap-echarts-pie/xAxisTitle": {
-    "type": "string",
-    "description": "设置维度标题"
-  },
   "lcap-echarts-pie/yAxis": {
     "type": "string",
     "description": "设置指标"
-  },
-  "lcap-echarts-pie/yAxisTitle": {
-    "type": "string",
-    "description": "设置指标标题"
   },
   "lcap-echarts-pie/width": {
     "type": "string",

@@ -15,13 +15,25 @@
 ### 基本用法
 
 ``` html
-<lcap-echarts-bar xAxis="studentName" yAxis="math, english, science" xAxisTitle="姓名" yAxisTitle="年龄/岁" title="成绩统计"></lcap-echarts-bar>
-```
-#### 主题
-``` html
-<lcap-echarts-bar theme="theme1" xAxis="studentName" yAxis="math, english, science" xAxisTitle="姓名" yAxisTitle="年龄/岁" title="成绩统计"></lcap-echarts-bar>
-<lcap-echarts-bar theme="theme2" xAxis="studentName" yAxis="math, english, science" xAxisTitle="姓名" yAxisTitle="年龄/岁" title="成绩统计"></lcap-echarts-bar>
-<lcap-echarts-bar theme="theme3" xAxis="studentName" yAxis="math, english, science" xAxisTitle="姓名" yAxisTitle="年龄/岁" title="成绩统计"></lcap-echarts-bar>
+<lcap-echarts-bar 
+    xAxis="" 
+    yAxis="" 
+    xAxisTitle="维度" 
+    yAxisTitle="指标" 
+    title="标题"
+    theme="theme1"
+    :titleFontSize=16
+    titleFontStyle="italic"
+    :allowDownload=true
+    :allowShowLabel=true
+    :allowShowHint=true
+    :allowShowLegend=true
+    :showXAxisLine=true
+    :showYAxisLine=true
+    :showXAxisLabel=true
+    :showYAxisLabel=true
+    :xAxisLabelRotate=0 >
+</lcap-echarts-bar>
 ```
 
 ## API
@@ -31,12 +43,12 @@
 | --------- | ---- | ------- | ------- | ----------- |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
 | xAxis | string |  | `''` | 设置维度(x轴) |
-| xAxisTitle | string |  | `''` | 设置维度(x轴)标题 |
+| xAxisTitle | string |  | `'维度标题'` | 设置维度(x轴)标题 |
 | yAxis | string |  | `''` | 设置指标（y轴） |
-| yAxisTitle | string |  | `''` | 设置指标(y轴)标题 |
+| yAxisTitle | string |  | `'指标标题'` | 设置指标(y轴)标题 |
 | width | string |  | `'400px'` | 设置图宽度 |
 | height | string |  | `'300px'` | 设置图高度 |
-| title | string |  | `'默认标题'` | 设置主标题 |
+| title | string |  | `'标题'` | 设置主标题 |
 | theme | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'theme1'` | 设置图表配色方案 |
 | allowShowLabel | boolean |  | `true` | 设置是否显示标签 |
 | allowShowHint | boolean |  | `true` | 设置是否显示提示 |

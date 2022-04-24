@@ -17,15 +17,16 @@
 ``` html
 <lcap-echarts-pie
     theme=""  
-    xAxis="studentName" 
-    yAxis="averageScore"
+    xAxis="" 
+    yAxis=""
     :titleFontSize=18
+    titleFontStyle="normal"
     :allowDownload=true
     :allowShowHint=true
     :allowShowLegend=true
-    :showLabelName=false
+    :showLabelName=true
     :showLabelValue=true
-    :showLabelPercent=false
+    :showLabelPercent=true
 ></lcap-echarts-pie>
 
 ```
@@ -37,12 +38,10 @@
 | --------- | ---- | ------- | ------- | ----------- |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
 | xAxis | string |  | `''` | 设置维度 |
-| xAxisTitle | string |  | `''` | 设置维度标题 |
 | yAxis | string |  | `''` | 设置指标 |
-| yAxisTitle | string |  | `''` | 设置指标标题 |
 | width | string |  | `'400px'` | 设置图宽度 |
 | height | string |  | `'300px'` | 设置图高度 |
-| title | string |  | `'默认标题'` | 设置主标题 |
+| title | string |  | `'标题'` | 设置主标题 |
 | theme | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'theme1'` | 设置图表配色方案 |
 | showLabelName | boolean |  | `true` | 设置是否显示维度标签 |
 | showLabelValue | boolean |  | `true` | 设置是否显示数值标签 |

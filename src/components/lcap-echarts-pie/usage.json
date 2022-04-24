@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-pie",
     "name": "饼图",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "icon": "piechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,20 +9,20 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.3/screenshots/0.png",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie></lcap-echarts-pie>\\n</template>\\n\"}]",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.4/screenshots/0.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie title:\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-pie>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-pie",
         "title": "饼图",
         "description": "饼图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.3/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@0.1.4/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n<lcap-echarts-pie></lcap-echarts-pie>\n</template>\n"
+                "code": "<template>\n<lcap-echarts-pie title:\"标题\" theme=\"theme1\"></lcap-echarts-pie>\n</template>\n"
             }
         ],
         "attrs": [
@@ -43,27 +43,11 @@
                 "group": "维度指标"
             },
             {
-                "name": "xAxisTitle",
-                "title": "维度标题",
-                "type": "string",
-                "default": "",
-                "description": "设置维度标题",
-                "group": "维度指标"
-            },
-            {
                 "name": "yAxis",
                 "title": "指标",
                 "type": "string",
                 "default": "",
                 "description": "设置指标",
-                "group": "维度指标"
-            },
-            {
-                "name": "yAxisTitle",
-                "title": "指标标题",
-                "type": "string",
-                "default": "",
-                "description": "设置指标标题",
                 "group": "维度指标"
             },
             {
@@ -86,7 +70,7 @@
                 "name": "title",
                 "title": "标题",
                 "type": "string",
-                "default": "默认标题",
+                "default": "标题",
                 "description": "设置主标题",
                 "group": "图表基础"
             },

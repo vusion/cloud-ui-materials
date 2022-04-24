@@ -3,9 +3,7 @@
     "attributes": [
       "data-source",
       "xAxis",
-      "xAxisTitle",
       "yAxis",
-      "yAxisTitle",
       "width",
       "height",
       "title",
