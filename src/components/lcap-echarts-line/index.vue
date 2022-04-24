@@ -1,15 +1,15 @@
 <template>
   <div :class="$style.root" border>
     <echart-line
-      v-if="!loading"
       :axisData="axisData"
       :size="size"
       :sourceData="sourceData"
       @startLoading="startLoading"
     ></echart-line>
-    <div v-else :class="$style.loading" :style="size">
-      <img src="./assets/lineEmpty.png" :class="$style.emptyImage">
-    </div>
+<!-- 目前应用开发过程中，无法实时导入数据，暂时取消loading加载图片 -->
+<!--    <div v-else :style="size">-->
+<!--      <img src="./assets/lineEmpty.png" :class="$style.emptyImage">-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -112,10 +112,6 @@ export default {
         const tempAttr = item[key];
         delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
       }
-      if (!this.xAxis || !this.yAxis) {
-        this.loading = true;
-        return
-      }
       this.loading = false;
       return data;
     },
@@ -153,12 +149,6 @@ export default {
 <style module>
 .root {
   display: inline-block;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .root[border] {

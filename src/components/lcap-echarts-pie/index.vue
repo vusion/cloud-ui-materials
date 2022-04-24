@@ -7,9 +7,10 @@
       :sourceData="sourceData"
       @startLoading="startLoading"
     ></echart-pie>
-    <div v-else :class="$style.loading" :style="size">
-      <img src="./assets/pieEmpty.png" :class="$style.emptyImage">
-    </div>
+<!-- 目前应用开发过程中，无法实时导入数据，暂时取消loading加载图片 -->
+<!--    <div v-else :style="size">-->
+<!--      <img src="./assets/pieEmpty.png" :class="$style.emptyImage">-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -30,8 +31,6 @@ export default {
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
-    xAxisTitle: {type: String, default: ''},
-    yAxisTitle: {type: String, default: ''},
     title: {type: String, default: '默认标题'},
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
@@ -62,8 +61,6 @@ export default {
       return {
         xAxis: this.xAxis,
         yAxis: this.yAxis,
-        xAxisTitle: this.xAxisTitle,
-        yAxisTitle: this.yAxisTitle,
         theme: this.theme,
         title: this.title,
         titleFontSize: this.titleFontSize,
@@ -117,10 +114,6 @@ export default {
         const tempAttr = item[key];
         delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
       }
-      if (!this.xAxis || !this.yAxis) {
-        this.loading = true;
-        return
-      }
       this.loading = false;
       return data;
     },
@@ -160,19 +153,9 @@ export default {
   display: inline-block;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .root[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;
 }
 
-.emptyImage {
-  width: 100%;
-  height: 100%;
-}
 </style>

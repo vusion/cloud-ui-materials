@@ -7,9 +7,10 @@
       :sourceData="sourceData"
       @startLoading="startLoading"
     ></echart-bar>
-    <div v-else :class="$style.loading" :style="size">
-      <img src="./assets/barEmpty.png" :class="$style.emptyImage">
-    </div>
+<!-- 目前应用开发过程中，无法实时导入数据，暂时取消loading加载图片 -->
+<!--    <div v-else :style="size">-->
+<!--      <img src="./assets/barEmpty.png" :class="$style.emptyImage">-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -30,8 +31,8 @@ export default {
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
-    xAxisTitle: {type: String, default: ''},
-    yAxisTitle: {type: String, default: ''},
+    xAxisTitle: {type: String, default: '维度'},
+    yAxisTitle: {type: String, default: '指标'},
     title: {type: String, default: '默认标题'},
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
@@ -112,10 +113,6 @@ export default {
         const tempAttr = item[key];
         delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
       }
-      if (!this.xAxis || !this.yAxis) {
-        this.loading = true;
-        return
-      }
       this.loading = false;
       return data;
     },
@@ -153,12 +150,6 @@ export default {
 <style module>
 .root {
   display: inline-block;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .root[border] {

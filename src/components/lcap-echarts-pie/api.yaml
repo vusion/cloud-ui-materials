@@ -16,23 +16,11 @@
       default: ''
       description: 设置维度
       group: 维度指标
-    - name: xAxisTitle
-      title: 维度标题
-      type: string
-      default: ''
-      description: 设置维度标题
-      group: 维度指标
     - name: yAxis
       title: 指标
       type: string
       default: ''
       description: 设置指标
-      group: 维度指标
-    - name: yAxisTitle
-      title: 指标标题
-      type: string
-      default: ''
-      description: 设置指标标题
       group: 维度指标
     - name: width
       title: 宽度
@@ -49,7 +37,7 @@
     - name: title
       title: 标题
       type: string
-      default: 默认标题
+      default: 标题
       description: 设置主标题
       group: 图表基础
     - name: theme

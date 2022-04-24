@@ -3,15 +3,16 @@
 ``` html
 <lcap-echarts-pie
     theme=""  
-    xAxis="studentName" 
-    yAxis="averageScore"
+    xAxis="" 
+    yAxis=""
     :titleFontSize=18
+    titleFontStyle="normal"
     :allowDownload=true
     :allowShowHint=true
     :allowShowLegend=true
-    :showLabelName=false
+    :showLabelName=true
     :showLabelValue=true
-    :showLabelPercent=false
+    :showLabelPercent=true
 ></lcap-echarts-pie>
 
 ```

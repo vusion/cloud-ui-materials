@@ -1,22 +1,5 @@
 ### 基本用法
 
 ``` html
-<lcap-echarts-bar 
-    xAxis="studentName" 
-    yAxis="math, english, science" 
-    xAxisTitle="姓名" 
-    yAxisTitle="年龄/岁" 
-    title="成绩统计"
-    theme=""
-    :titleFontSize=16
-    titleFontStyle="italic"
-    :allowDownload=false
-    :allowShowLabel=false
-    :allowShowHint=false
-    :allowShowLegend=false
-    :showXAxisLine=false
-    :showYAxisLine=false
-    :showXAxisLabel=false
-    :showYAxisLabel=false
-    :xAxisLabelRotate=0 ></lcap-echarts-bar>
+<lcap-echarts-bar xAxisTitle="维度" yAxisTitle="指标" title="标题" theme="theme1"></lcap-echarts-bar>
 ```

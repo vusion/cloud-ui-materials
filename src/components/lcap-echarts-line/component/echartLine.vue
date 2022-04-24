@@ -70,20 +70,15 @@ export default {
         return;
       }
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
-      if (!xAxisList.includes(this.axisData.xAxis)) {
-        this.$emit("startLoading");
-        this.$toast.show('请检查维度设置是否正确');
-        return;
+      let multiAxisList = [];
+      if (this.$env.VUE_APP_DESIGNER) {
+        multiAxisList = ['指标1', '指标2', '指标3'];
+        this.axisData.xAxis = 'fakeXAxis';
+      } else {
+        multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
       }
-      const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      const legendData = multiAxisList.length > 1 ? multiAxisList : []
-      for (let axis of multiAxisList) {
-        if (!yAxisList.includes(axis)) {
-          this.$toast.show('请检查指标设置是否正确');
-          this.$emit("startLoading");
-          return;
-        }
-      }
+      let legendData = multiAxisList.length > 1 ? multiAxisList : [];
+      legendData = this.$env.VUE_APP_DESIGNER ? ['指标1', '指标2', '指标3'] : legendData;
       const seriesData = [];
       multiAxisList.forEach((item) => {
         seriesData.push({

@@ -72,19 +72,17 @@ export default {
       const pieData = [];
       const key = Object.keys(content[0])[0];
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
-      if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)) {
+      const multiXAxisList = this.axisData.xAxis.replace(/\s+/g, '').split(',') || [];
+      const multiYAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
+      if (multiYAxisList.length > 1 || multiXAxisList.length > 1) {
         this.$emit("startLoading");
-        this.$toast.show('请检查指标设置是否正确');
+        this.$toast.single = true;
+        this.$toast.show('饼图无法设置一个以上的维度', 3000);
         return;
       }
-      const multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      if (multiAxisList.length > 1) {
-        this.$emit("startLoading");
-        this.$toast.show('饼图无法设置一个以上的维度');
-        return;
-      }
-      if (this.axisData.xAxisTitle || this.axisData.yAxisTitle) {
-        this.$toast.show('饼图无法设置维度和指标的标题');
+      if (this.$env.VUE_APP_DESIGNER) {
+        this.axisData.xAxis = 'fakeXAxis';
+        this.axisData.yAxis = '指标1';
       }
       for (let item of content) {
         const tempAttr = item[key];
@@ -99,7 +97,7 @@ export default {
       labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
       labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
       labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
-      const showLabel =  !this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent ? false : true;
+      const showLabel = !this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent ? false : true;
       this.pieOption = {
         toolbox: {
           show: this.axisData.allowDownload,
