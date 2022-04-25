@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <div ref="myChart" :style="size"></div>
+    <div ref="myChart" :style="formattedSize" :class="$style.canvasWrap"></div>
   </div>
 </template>
 
@@ -26,13 +26,22 @@ export default {
   },
   computed: {
     changedObj() {
-      let {axisData, sourceData} = this;
-      return {axisData, sourceData};
+      let {size, axisData, sourceData} = this;
+      return {size, axisData, sourceData};
+    },
+    formattedSize() {
+      let width = this.size.width.replace("px", "") || 400;
+      let height = this.size.height.replace("px", "") || 300;
+      return {
+        width: `${width}px`,
+        height: `${height}px`,
+      }
     }
   },
   watch: {
     changedObj: {
       handler() {
+        this.$refs.myChart.removeAttribute('_echarts_instance_');
         const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
         thisChart.dispose();
         this.createMyChart();
@@ -42,9 +51,6 @@ export default {
   },
   beforeDestroy() {
     let thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-    removeEventListener("resize", function () {
-      thisChart.resize();
-    });
     thisChart.dispose();
     thisChart = null;
   },
@@ -56,9 +62,10 @@ export default {
     },
     initChart(chart, config) {
       if (chart) {
+        this.$refs.myChart.removeAttribute('_echarts_instance_');
         const thisChart = echarts.init(chart, this.axisData.theme);
         thisChart.setOption(config);
-        window.addEventListener("resize", function () {
+        this.$nextTick(() => {
           thisChart.resize();
         });
       }
@@ -146,5 +153,10 @@ export default {
 </script>
 <style module>
 .root {
+}
+
+.canvasWrap {
+  width: 100%;
+  height: 100%;
 }
 </style>

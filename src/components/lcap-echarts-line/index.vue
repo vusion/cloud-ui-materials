@@ -43,7 +43,7 @@ export default {
     showYAxisLine: {type: Boolean, default: true},
     showXAxisLabel: {type: Boolean, default: true},
     showYAxisLabel: {type: Boolean, default: true},
-    xAxisLabelRotate: {type: Number, default: 0},
+    xAxisLabelRotate: {type: String, default: '0'},
   },
   data() {
     return {

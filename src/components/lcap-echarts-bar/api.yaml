@@ -26,7 +26,7 @@
       title: 指标
       type: string
       default: ''
-      description: 设置指标（y轴）
+      description: 设置指标（y轴），多个指标以逗号分隔
       group: 维度指标
     - name: yAxisTitle
       title: 指标标题
@@ -99,7 +99,7 @@
       group: 坐标轴
     - name: xAxisLabelRotate
       title: X轴文字标签方向
-      type: number
+      type: string
       default: 0
       options:
         - value: 0
@@ -110,7 +110,7 @@
           title: 左倾斜
         - value: -45
           title: 右倾斜
-      description: 设置是否显示X轴文字标签方向
+      description: 设置显示X轴文字标签的方向
       group: 坐标轴
     - name: showYAxisLine
       title: 显示Y轴轴线

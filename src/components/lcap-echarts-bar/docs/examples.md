@@ -3,11 +3,11 @@
 ``` html
 <lcap-echarts-bar 
     xAxis="" 
-    yAxis="" 
+    yAxis=""
     xAxisTitle="维度" 
     yAxisTitle="指标" 
     title="标题"
-    theme="theme1"
+    theme="theme3"
     :titleFontSize=16
     titleFontStyle="italic"
     :allowDownload=true
@@ -18,6 +18,6 @@
     :showYAxisLine=true
     :showXAxisLabel=true
     :showYAxisLabel=true
-    :xAxisLabelRotate=0 >
+    xAxisLabelRotate="0">
 </lcap-echarts-bar>
 ```
