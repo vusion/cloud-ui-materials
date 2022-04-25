@@ -1,0 +1,27 @@
+{
+  "lcap-echarts-line": {
+    "attributes": [
+      "data-source",
+      "xAxis",
+      "xAxisTitle",
+      "yAxis",
+      "yAxisTitle",
+      "width",
+      "height",
+      "title",
+      "theme",
+      "allowShowLabel",
+      "allowShowHint",
+      "allowShowLegend",
+      "showXAxisLine",
+      "showXAxisLabel",
+      "xAxisLabelRotate",
+      "showYAxisLine",
+      "showYAxisLabel",
+      "titleFontSize",
+      "titleFontStyle",
+      "allowDownload"
+    ],
+    "description": "折线图"
+  }
+}

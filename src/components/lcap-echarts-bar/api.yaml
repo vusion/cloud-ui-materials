@@ -1,0 +1,149 @@
+- name: lcap-echarts-bar
+  title: 柱状图
+  description: 柱状图
+  labels: [Chart]
+  icon: barchart
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 表格的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据属性
+    - name: xAxis
+      title: 维度
+      type: string
+      default: ''
+      description: 设置维度(x轴)
+      group: 维度指标
+    - name: xAxisTitle
+      title: 维度标题
+      type: string
+      default: 维度标题
+      description: 设置维度(x轴)标题
+      group: 维度指标
+    - name: yAxis
+      title: 指标
+      type: string
+      default: ''
+      description: 设置指标（y轴），多个指标以逗号分隔
+      group: 维度指标
+    - name: yAxisTitle
+      title: 指标标题
+      type: string
+      default: 指标标题
+      description: 设置指标(y轴)标题
+      group: 维度指标
+    - name: width
+      title: 宽度
+      type: string
+      default: 400px
+      description: 设置图宽度
+      group: 图表基础
+    - name: height
+      title: 高度
+      type: string
+      default: 300px
+      description: 设置图高度
+      group: 图表基础
+    - name: title
+      title: 标题
+      type: string
+      default: 标题
+      description: 设置主标题
+      group: 图表基础
+    - name: theme
+      title: 配色方案
+      type: string
+      default: theme1
+      description: 设置图表配色方案
+      options:
+        - value: theme1
+          title: 科技
+        - value: theme2
+          title: 清新
+        - value: theme3
+          title: 淡雅
+        - value: theme4
+          title: 经典
+      group: 图表基础
+    - name: allowShowLabel
+      title: 显示标签
+      type: boolean
+      default: true
+      description: 设置是否显示标签
+      group: 图表基础
+    - name: allowShowHint
+      title: 显示提示
+      type: boolean
+      default: true
+      description: 设置是否显示提示
+      group: 图表基础
+    - name: allowShowLegend
+      title: 显示图例
+      type: boolean
+      default: true
+      description: 设置是否显示图例
+      group: 图表基础
+    - name: showXAxisLine
+      title: 显示X轴轴线
+      type: boolean
+      default: true
+      description: 设置是否显示X轴轴线
+      group: 坐标轴
+    - name: showXAxisLabel
+      title: 显示X轴文字标签
+      type: boolean
+      default: true
+      description: 设置是否显示X轴文字标签
+      group: 坐标轴
+    - name: xAxisLabelRotate
+      title: X轴文字标签方向
+      type: string
+      default: '0'
+      options:
+        - value: '0'
+          title: 横向
+        - value: '90'
+          title: 纵向
+        - value: '45'
+          title: 左倾斜
+        - value: '-45'
+          title: 右倾斜
+      description: 设置显示X轴文字标签的方向
+      group: 坐标轴
+    - name: showYAxisLine
+      title: 显示Y轴轴线
+      type: boolean
+      default: true
+      description: 设置是否显示Y轴轴线
+      group: 坐标轴
+    - name: showYAxisLabel
+      title: 显示Y轴数值标签
+      type: boolean
+      default: true
+      description: 设置是否显示Y轴数值标签
+      group: 坐标轴
+    - name: titleFontSize
+      title: 标题文字字号
+      type: number
+      default: 18
+      description: 设置标题文字字号
+      group: 字体
+    - name: titleFontStyle
+      title: 标题文字字体风格
+      type: string
+      default: normal
+      description: 设置普通文字字号
+      options:
+        - value: normal
+          title: 正常
+        - value: italic
+          title: 斜体
+      group: 字体
+    - name: allowDownload
+      title: 允许下载
+      type: boolean
+      default: true
+      description: 允许用户设置保存图片
+      group: 图表功能

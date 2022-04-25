@@ -4,14 +4,13 @@ vusion_packages/
 npm-debug.log
 lerna-debug.log
 
-dist/
-dist-theme/
-dist-raw/
-public/
-screenshots/
+!dist/
+!dist-theme/
+!dist-raw/
+!public/
+!screenshots/
 test-reports/
 
 yarn.lock
 package-lock.json
-
-.idea
+.idea/

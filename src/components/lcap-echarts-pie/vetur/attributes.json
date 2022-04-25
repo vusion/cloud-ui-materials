@@ -1,0 +1,90 @@
+{
+  "lcap-echarts-pie/data-source": {
+    "type": "Array<Item> | Function | object | DataSource",
+    "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
+  },
+  "lcap-echarts-pie/xAxis": {
+    "type": "string",
+    "description": "设置维度"
+  },
+  "lcap-echarts-pie/yAxis": {
+    "type": "string",
+    "description": "设置指标"
+  },
+  "lcap-echarts-pie/width": {
+    "type": "string",
+    "description": "设置图宽度"
+  },
+  "lcap-echarts-pie/height": {
+    "type": "string",
+    "description": "设置图高度"
+  },
+  "lcap-echarts-pie/title": {
+    "type": "string",
+    "description": "设置主标题"
+  },
+  "lcap-echarts-pie/theme": {
+    "type": "string",
+    "options": [
+      {
+        "value": "theme1",
+        "title": "科技"
+      },
+      {
+        "value": "theme2",
+        "title": "清新"
+      },
+      {
+        "value": "theme3",
+        "title": "淡雅"
+      },
+      {
+        "value": "theme4",
+        "title": "经典"
+      }
+    ],
+    "description": "设置图表配色方案"
+  },
+  "lcap-echarts-pie/showLabelName": {
+    "type": "boolean",
+    "description": "设置是否显示维度标签"
+  },
+  "lcap-echarts-pie/showLabelValue": {
+    "type": "boolean",
+    "description": "设置是否显示数值标签"
+  },
+  "lcap-echarts-pie/showLabelPercent": {
+    "type": "boolean",
+    "description": "设置是否显示占比标签"
+  },
+  "lcap-echarts-pie/allowShowHint": {
+    "type": "boolean",
+    "description": "设置是否显示提示"
+  },
+  "lcap-echarts-pie/allowShowLegend": {
+    "type": "boolean",
+    "description": "设置是否显示图例"
+  },
+  "lcap-echarts-pie/titleFontSize": {
+    "type": "number",
+    "description": "设置标题文字字号"
+  },
+  "lcap-echarts-pie/titleFontStyle": {
+    "type": "string",
+    "options": [
+      {
+        "value": "normal",
+        "title": "正常"
+      },
+      {
+        "value": "italic",
+        "title": "斜体"
+      }
+    ],
+    "description": "设置普通文字字号"
+  },
+  "lcap-echarts-pie/allowDownload": {
+    "type": "boolean",
+    "description": "允许用户设置保存图片"
+  }
+}
