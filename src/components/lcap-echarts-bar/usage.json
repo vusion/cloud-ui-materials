@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-bar",
     "name": "柱状图",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "icon": "barchart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.1/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.2/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-bar xAxisTitle=\\\"维度\\\" yAxisTitle=\\\"指标\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-bar>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-bar",
         "title": "柱状图",
         "description": "柱状图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.1/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.2/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -160,22 +160,22 @@
                 "name": "xAxisLabelRotate",
                 "title": "X轴文字标签方向",
                 "type": "string",
-                "default": 0,
+                "default": "0",
                 "options": [
                     {
-                        "value": 0,
+                        "value": "0",
                         "title": "横向"
                     },
                     {
-                        "value": 90,
+                        "value": "90",
                         "title": "纵向"
                     },
                     {
-                        "value": 45,
+                        "value": "45",
                         "title": "左倾斜"
                     },
                     {
-                        "value": -45,
+                        "value": "-45",
                         "title": "右倾斜"
                     }
                 ],

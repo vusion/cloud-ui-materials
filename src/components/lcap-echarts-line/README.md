@@ -45,7 +45,7 @@
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
 | xAxis | string |  | `''` | 设置维度(x轴) |
 | xAxisTitle | string |  | `'维度标题'` | 设置维度(x轴)标题 |
-| yAxis | string |  | `''` | 设置指标（y轴） |
+| yAxis | string |  | `''` | 设置指标（y轴），多个指标以逗号分隔 |
 | yAxisTitle | string |  | `'指标标题'` | 设置指标(y轴)标题 |
 | width | string |  | `'400px'` | 设置图宽度 |
 | height | string |  | `'300px'` | 设置图高度 |
@@ -56,7 +56,7 @@
 | allowShowLegend | boolean |  | `true` | 设置是否显示图例 |
 | showXAxisLine | boolean |  | `true` | 设置显示X轴轴线 |
 | showXAxisLabel | boolean |  | `true` | 设置是否显示X轴文字标签 |
-| xAxisLabelRotate | number | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `0` | 设置是否显示X轴文字标签方向 |
+| xAxisLabelRotate | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'0'` | 设置显示X轴文字标签的方向 |
 | showYAxisLine | boolean |  | `true` | 设置显示Y轴轴线 |
 | showYAxisLabel | boolean |  | `true` | 设置是否显示Y轴数值标签 |
 | titleFontSize | number |  | `18` | 设置标题文字字号 |
