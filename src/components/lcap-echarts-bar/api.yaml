@@ -100,6 +100,7 @@
     - name: xAxisLabelRotate
       title: X轴文字标签方向
       type: number
+      default: 0
       options:
         - value: 0
           title: 横向
@@ -109,7 +110,6 @@
           title: 左倾斜
         - value: -45
           title: 右倾斜
-      default: 0
       description: 设置是否显示X轴文字标签方向
       group: 坐标轴
     - name: showYAxisLine

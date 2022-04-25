@@ -34,7 +34,7 @@ export default {
     title: {type: String, default: '默认标题'},
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
-    allowDownload: {type: Boolean, default: false},
+    allowDownload: {type: Boolean, default: true},
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
     showLabelName: {type: Boolean, default: true},
