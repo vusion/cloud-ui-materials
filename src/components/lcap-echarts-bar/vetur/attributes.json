@@ -13,7 +13,7 @@
   },
   "lcap-echarts-bar/yAxis": {
     "type": "string",
-    "description": "设置指标（y轴）"
+    "description": "设置指标（y轴），多个指标以逗号分隔"
   },
   "lcap-echarts-bar/yAxisTitle": {
     "type": "string",
@@ -74,7 +74,7 @@
     "description": "设置是否显示X轴文字标签"
   },
   "lcap-echarts-bar/xAxisLabelRotate": {
-    "type": "number",
+    "type": "string",
     "options": [
       {
         "value": 0,
@@ -93,7 +93,7 @@
         "title": "右倾斜"
       }
     ],
-    "description": "设置是否显示X轴文字标签方向"
+    "description": "设置显示X轴文字标签的方向"
   },
   "lcap-echarts-bar/showYAxisLine": {
     "type": "boolean",

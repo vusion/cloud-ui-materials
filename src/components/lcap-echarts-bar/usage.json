@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-bar",
     "name": "柱状图",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "barchart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.0/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.1/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-bar xAxisTitle=\\\"维度\\\" yAxisTitle=\\\"指标\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-bar>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-bar",
         "title": "柱状图",
         "description": "柱状图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.0/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.1/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -55,7 +55,7 @@
                 "title": "指标",
                 "type": "string",
                 "default": "",
-                "description": "设置指标（y轴）",
+                "description": "设置指标（y轴），多个指标以逗号分隔",
                 "group": "维度指标"
             },
             {
@@ -159,7 +159,7 @@
             {
                 "name": "xAxisLabelRotate",
                 "title": "X轴文字标签方向",
-                "type": "number",
+                "type": "string",
                 "default": 0,
                 "options": [
                     {
@@ -179,7 +179,7 @@
                         "title": "右倾斜"
                     }
                 ],
-                "description": "设置是否显示X轴文字标签方向",
+                "description": "设置显示X轴文字标签的方向",
                 "group": "坐标轴"
             },
             {
