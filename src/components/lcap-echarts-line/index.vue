@@ -1,15 +1,15 @@
 <template>
   <div :class="$style.root" border>
     <echart-line
+      v-if="!loading"
       :axisData="axisData"
       :size="size"
       :sourceData="sourceData"
       @startLoading="startLoading"
     ></echart-line>
-<!-- 目前应用开发过程中，无法实时导入数据，暂时取消loading加载图片 -->
-<!--    <div v-else :style="size">-->
-<!--      <img src="./assets/lineEmpty.png" :class="$style.emptyImage">-->
-<!--    </div>-->
+    <div v-else :style="size">
+      <img src="./assets/lineEmpty.png" :class="$style.emptyImage">
+    </div>
   </div>
 </template>
 
@@ -97,9 +97,8 @@ export default {
   },
   methods: {
     async init() {
-      this.loading = true;
       const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-      // const fnDataSource = fakeData;
+      // const fnDataSource = fakeDataList;
       const rawData = await this.handleDataSource(fnDataSource);
       this.sourceData = this.processRawData(rawData);
     },
@@ -113,20 +112,16 @@ export default {
         const tempAttr = item[key];
         delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
       }
-      this.loading = false;
       return data;
     },
     async handleDataSource(dataSource) {
-      this.loading = true;
       if (!dataSource) {
         return [];
       }
       if (dataSource instanceof Promise || typeof dataSource === 'function') {
         const result = await dataSource();
-        this.loading = false;
         return this.getData(result);
       }
-      this.loading = false;
       return this.getData(dataSource);
     },
     isDataSource(data) {

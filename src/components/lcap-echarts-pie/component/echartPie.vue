@@ -72,7 +72,9 @@ export default {
     },
     processPieData(data) {
       if (!data) {
-        this.$emit("startLoading");
+        if (!this.$env.VUE_APP_DESIGNER) {
+          this.$emit("startLoading");
+        }
         return;
       }
       const content = Array.isArray(data) ? data: data.content;
@@ -81,12 +83,6 @@ export default {
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
       const multiXAxisList = this.axisData.xAxis.replace(/\s+/g, '').split(',') || [];
       const multiYAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      if (multiYAxisList.length > 1 || multiXAxisList.length > 1) {
-        this.$emit("startLoading");
-        this.$toast.single = true;
-        this.$toast.show('饼图无法设置一个以上的维度', 3000);
-        return;
-      }
       if (this.$env.VUE_APP_DESIGNER) {
         this.axisData.xAxis = 'fakeXAxis';
         this.axisData.yAxis = '指标1';
@@ -107,6 +103,17 @@ export default {
       labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
       labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
       const showLabel = !this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent ? false : true;
+      // 发布部署后，如果字段不合法，加载默认图片
+      if (!this.$env.VUE_APP_DESIGNER) {
+        if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)){
+          this.$emit("startLoading");
+          return;
+        }
+        if (multiYAxisList.length > 1 || multiXAxisList.length > 1) {
+          this.$emit("startLoading");
+          return;
+        }
+      }
       this.pieOption = {
         toolbox: {
           show: this.axisData.allowDownload,

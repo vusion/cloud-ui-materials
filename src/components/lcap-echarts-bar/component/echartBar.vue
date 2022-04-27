@@ -72,7 +72,9 @@ export default {
     },
     processBarData(data) {
       if (!data) {
-        this.$emit("startLoading");
+        if (!this.$env.VUE_APP_DESIGNER) {
+          this.$emit("startLoading");
+        }
         return;
       }
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
@@ -103,6 +105,19 @@ export default {
           },
         })
       })
+      // 发布部署后，如果字段不合法，加载默认图片
+      if (!this.$env.VUE_APP_DESIGNER) {
+        if (!xAxisList.includes(this.axisData.xAxis)) {
+          this.$emit("startLoading");
+          return;
+        }
+        for (let axis of multiAxisList) {
+          if (!yAxisList.includes(axis)) {
+            this.$emit("startLoading");
+            return;
+          }
+        }
+      }
       this.barOption = {
         toolbox: {
           show: this.axisData.allowDownload,
