@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-bar",
     "name": "柱状图",
-    "version": "1.0.2",
+    "version": "1.0.5",
     "icon": "barchart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.2/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.5/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-bar xAxisTitle=\\\"维度\\\" yAxisTitle=\\\"指标\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-bar>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-bar",
         "title": "柱状图",
         "description": "柱状图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.2/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.5/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -43,27 +43,11 @@
                 "group": "维度指标"
             },
             {
-                "name": "xAxisTitle",
-                "title": "维度标题",
-                "type": "string",
-                "default": "维度标题",
-                "description": "设置维度(x轴)标题",
-                "group": "维度指标"
-            },
-            {
                 "name": "yAxis",
                 "title": "指标",
                 "type": "string",
                 "default": "",
                 "description": "设置指标（y轴），多个指标以逗号分隔",
-                "group": "维度指标"
-            },
-            {
-                "name": "yAxisTitle",
-                "title": "指标标题",
-                "type": "string",
-                "default": "指标标题",
-                "description": "设置指标(y轴)标题",
                 "group": "维度指标"
             },
             {
@@ -141,6 +125,14 @@
                 "group": "图表基础"
             },
             {
+                "name": "xAxisTitle",
+                "title": "X轴标题",
+                "type": "string",
+                "default": "X轴标题",
+                "description": "设置x轴标题",
+                "group": "坐标轴"
+            },
+            {
                 "name": "showXAxisLine",
                 "title": "显示X轴轴线",
                 "type": "boolean",
@@ -180,6 +172,14 @@
                     }
                 ],
                 "description": "设置显示X轴文字标签的方向",
+                "group": "坐标轴"
+            },
+            {
+                "name": "yAxisTitle",
+                "title": "Y轴标题",
+                "type": "string",
+                "default": "Y轴标题",
+                "description": "设置Y轴标题",
                 "group": "坐标轴"
             },
             {

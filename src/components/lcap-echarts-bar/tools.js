@@ -1,7 +1,6 @@
 // 处理数据为坐标轴信息
 export function processEchartData(data) {
-  const content = data && data.content;
-  if (!content) return;
+  const content = Array.isArray(data) ? data: data.content;
   const key = Object.keys(content[0])[0];
   const attrDict = {};
   // 删除自带的，不必要的属性, 根据数据类型分类x轴， y轴

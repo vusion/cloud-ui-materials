@@ -7,10 +7,9 @@
       :sourceData="sourceData"
       @startLoading="startLoading"
     ></echart-pie>
-<!-- 目前应用开发过程中，无法实时导入数据，暂时取消loading加载图片 -->
-<!--    <div v-else :style="size">-->
-<!--      <img src="./assets/pieEmpty.png" :class="$style.emptyImage">-->
-<!--    </div>-->
+    <div v-else :style="size">
+      <img :src="require('./assets/pieEmpty.png')" :class="$style.emptyImage">
+    </div>
   </div>
 </template>
 
@@ -98,7 +97,6 @@ export default {
   },
   methods: {
     async init() {
-      this.loading = true;
       const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
       // const fnDataSource = fakeData;
       const rawData = await this.handleDataSource(fnDataSource);
@@ -106,28 +104,27 @@ export default {
     },
     // 删除不必要字段
     processRawData(data) {
-      if (data.length === 0) return;
-      const content = data.content;
+      if (data.length === 0) {
+        this.loading = true;
+        return;
+      }
+      const content = Array.isArray(data) ? data: data.content;
       const key = Object.keys(content[0])[0];
       // 删除自带的，不必要的属性
       for (let item of content) {
         const tempAttr = item[key];
         delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
       }
-      this.loading = false;
       return data;
     },
     async handleDataSource(dataSource) {
-      this.loading = true;
       if (!dataSource) {
         return [];
       }
       if (dataSource instanceof Promise || typeof dataSource === 'function') {
         const result = await dataSource();
-        this.loading = false;
         return this.getData(result);
       }
-      this.loading = false;
       return this.getData(dataSource);
     },
     isDataSource(data) {
@@ -156,6 +153,11 @@ export default {
 .root[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;
+}
+
+.emptyImage {
+  width: 100%;
+  height: 100%;
 }
 
 </style>

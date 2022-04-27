@@ -71,9 +71,7 @@ export default {
       }
     },
     processBarData(data) {
-      const content = data && data.content;
-      if (!content) {
-        this.$emit("startLoading");
+      if (!data) {
         return;
       }
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
@@ -84,7 +82,12 @@ export default {
         this.axisData.xAxis = 'fakeXAxis';
       } else {
         multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
+        if (multiAxisList.length === 1) {
+          const temp = multiAxisList[0];
+          multiAxisList = [temp.split('.')[temp.split('.').length - 1]];
+        }
       }
+      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
       let legendData = multiAxisList.length > 1 ? multiAxisList : [];
       legendData = this.$env.VUE_APP_DESIGNER ? ['指标1', '指标2', '指标3'] : legendData;
       const seriesData = [];
@@ -99,6 +102,19 @@ export default {
           },
         })
       })
+      // 发布部署后，如果字段不合法，加载默认图片
+      if (!this.$env.VUE_APP_DESIGNER) {
+        if (!xAxisList.includes(this.axisData.xAxis)) {
+          this.$emit("startLoading");
+          return;
+        }
+        for (let axis of multiAxisList) {
+          if (!yAxisList.includes(axis)) {
+            this.$emit("startLoading");
+            return;
+          }
+        }
+      }
       this.barOption = {
         toolbox: {
           show: this.axisData.allowDownload,

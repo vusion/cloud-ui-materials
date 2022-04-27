@@ -2,8 +2,8 @@
 
 ``` html
 <lcap-echarts-line 
-    xAxis="" 
-    yAxis="" 
+    xAxis="fakeXAxis" 
+    yAxis="age" 
     xAxisTitle="维度" 
     yAxisTitle="指标" 
     title="标题"
@@ -18,7 +18,17 @@
     :showYAxisLine=true
     :showXAxisLabel=true
     :showYAxisLabel=true
-    :xAxisLabelRotate=0 >
+    >
 </lcap-echarts-line>
+<lcap-echarts-line 
+    xAxis="property1" 
+    yAxis="property2" 
+    xAxisTitle="维度" 
+    yAxisTitle="指标" 
+    title="标题"
+    theme="theme1"
+    >
+</lcap-echarts-line>
+
 ```
 

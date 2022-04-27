@@ -7,17 +7,9 @@
     "type": "string",
     "description": "设置维度(x轴)"
   },
-  "lcap-echarts-bar/xAxisTitle": {
-    "type": "string",
-    "description": "设置维度(x轴)标题"
-  },
   "lcap-echarts-bar/yAxis": {
     "type": "string",
     "description": "设置指标（y轴），多个指标以逗号分隔"
-  },
-  "lcap-echarts-bar/yAxisTitle": {
-    "type": "string",
-    "description": "设置指标(y轴)标题"
   },
   "lcap-echarts-bar/width": {
     "type": "string",
@@ -65,6 +57,10 @@
     "type": "boolean",
     "description": "设置是否显示图例"
   },
+  "lcap-echarts-bar/xAxisTitle": {
+    "type": "string",
+    "description": "设置x轴标题"
+  },
   "lcap-echarts-bar/showXAxisLine": {
     "type": "boolean",
     "description": "设置是否显示X轴轴线"
@@ -94,6 +90,10 @@
       }
     ],
     "description": "设置显示X轴文字标签的方向"
+  },
+  "lcap-echarts-bar/yAxisTitle": {
+    "type": "string",
+    "description": "设置Y轴标题"
   },
   "lcap-echarts-bar/showYAxisLine": {
     "type": "boolean",
