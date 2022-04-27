@@ -8,7 +8,7 @@
       @startLoading="startLoading"
     ></echart-line>
     <div v-else :style="size">
-      <img src="./assets/lineEmpty.png" :class="$style.emptyImage">
+      <img :src="require('./assets/lineEmpty.png')" :class="$style.emptyImage">
     </div>
   </div>
 </template>
@@ -98,13 +98,16 @@ export default {
   methods: {
     async init() {
       const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-      // const fnDataSource = fakeDataList;
+      // const fnDataSource = fakeData;
       const rawData = await this.handleDataSource(fnDataSource);
       this.sourceData = this.processRawData(rawData);
     },
     // 删除不必要字段
     processRawData(data) {
-      if (data.length === 0) return;
+      if (data.length === 0) {
+        this.loading = true;
+        return;
+      }
       const content = Array.isArray(data) ? data: data.content;
       const key = Object.keys(content[0])[0];
       // 删除自带的，不必要的属性

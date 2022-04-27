@@ -72,9 +72,6 @@ export default {
     },
     processBarData(data) {
       if (!data) {
-        if (!this.$env.VUE_APP_DESIGNER) {
-          this.$emit("startLoading");
-        }
         return;
       }
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);

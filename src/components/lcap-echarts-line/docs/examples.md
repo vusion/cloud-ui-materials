@@ -2,8 +2,8 @@
 
 ``` html
 <lcap-echarts-line 
-    xAxis="" 
-    yAxis="" 
+    xAxis="fakeXAxis" 
+    yAxis="age" 
     xAxisTitle="维度" 
     yAxisTitle="指标" 
     title="标题"

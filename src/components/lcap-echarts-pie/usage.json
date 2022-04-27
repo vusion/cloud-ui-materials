@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-pie",
     "name": "饼图",
-    "version": "1.0.1",
+    "version": "1.1.1",
     "icon": "piechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@1.0.1/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@1.1.1/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-pie>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-pie",
         "title": "饼图",
         "description": "饼图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@1.0.1/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@1.1.1/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {

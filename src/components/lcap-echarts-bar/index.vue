@@ -8,7 +8,7 @@
       @startLoading="startLoading"
     ></echart-bar>
     <div v-else :style="size">
-      <img src="./assets/barEmpty.png" :class="$style.emptyImage">
+      <img :src="require('./assets/barEmpty.png')" :class="$style.emptyImage">
     </div>
   </div>
 </template>
@@ -103,7 +103,10 @@ export default {
     },
     // 删除不必要字段
     processRawData(data) {
-      if (data.length === 0) return;
+      if (data.length === 0) {
+        this.loading = true;
+        return;
+      }
       const content = Array.isArray(data) ? data: data.content;
       const key = Object.keys(content[0])[0];
       // 删除自带的，不必要的属性

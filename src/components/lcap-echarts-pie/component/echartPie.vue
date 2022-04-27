@@ -72,9 +72,6 @@ export default {
     },
     processPieData(data) {
       if (!data) {
-        if (!this.$env.VUE_APP_DESIGNER) {
-          this.$emit("startLoading");
-        }
         return;
       }
       const content = Array.isArray(data) ? data: data.content;
