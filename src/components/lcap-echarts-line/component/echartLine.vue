@@ -71,8 +71,7 @@ export default {
       }
     },
     processLineData(data) {
-      const content = data && data.content;
-      if (!content) {
+      if (!data) {
         this.$emit("startLoading");
         return;
       }
@@ -84,7 +83,12 @@ export default {
         this.axisData.xAxis = 'fakeXAxis';
       } else {
         multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
+        if (multiAxisList.length === 1) {
+          const temp = multiAxisList[0];
+          multiAxisList = [temp.split('.')[temp.split('.').length - 1]];
+        }
       }
+      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
       let legendData = multiAxisList.length > 1 ? multiAxisList : [];
       legendData = this.$env.VUE_APP_DESIGNER ? ['指标1', '指标2', '指标3'] : legendData;
       const seriesData = [];

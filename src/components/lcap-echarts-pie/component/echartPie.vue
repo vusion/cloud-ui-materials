@@ -71,11 +71,11 @@ export default {
       }
     },
     processPieData(data) {
-      const content = data && data.content;
-      if (!content) {
+      if (!data) {
         this.$emit("startLoading");
         return;
       }
+      const content = Array.isArray(data) ? data: data.content;
       const pieData = [];
       const key = Object.keys(content[0])[0];
       const [attrDict, xAxisList, yAxisList] = processEchartData(data);
@@ -91,6 +91,8 @@ export default {
         this.axisData.xAxis = 'fakeXAxis';
         this.axisData.yAxis = '指标1';
       }
+      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
+      this.axisData.yAxis = this.axisData.yAxis.split('.')[this.axisData.yAxis.split('.').length - 1] || '';
       for (let item of content) {
         const tempAttr = item[key];
         pieData.push(

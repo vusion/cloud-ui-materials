@@ -15,6 +15,7 @@
 
 <script>
 import {fakeData} from "@/fakeData";
+import {fakeDataList} from "@/fakeDataList";
 import echartLine from "@/component/echartLine";
 import echarts from 'echarts';
 import './theme';
@@ -105,7 +106,7 @@ export default {
     // 删除不必要字段
     processRawData(data) {
       if (data.length === 0) return;
-      const content = data.content;
+      const content = Array.isArray(data) ? data: data.content;
       const key = Object.keys(content[0])[0];
       // 删除自带的，不必要的属性
       for (let item of content) {

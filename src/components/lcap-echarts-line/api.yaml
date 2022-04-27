@@ -16,23 +16,11 @@
       default: ''
       description: 设置维度(x轴)
       group: 维度指标
-    - name: xAxisTitle
-      title: 维度标题
-      type: string
-      default: 维度标题
-      description: 设置维度(x轴)标题
-      group: 维度指标
     - name: yAxis
       title: 指标
       type: string
       default: ''
       description: 设置指标（y轴），多个指标以逗号分隔
-      group: 维度指标
-    - name: yAxisTitle
-      title: 指标标题
-      type: string
-      default: 指标标题
-      description: 设置指标(y轴)标题
       group: 维度指标
     - name: width
       title: 宽度
@@ -85,6 +73,12 @@
       default: true
       description: 设置是否显示图例
       group: 图表基础
+    - name: xAxisTitle
+      title: X轴标题
+      type: string
+      default: X轴标题
+      description: 设置x轴标题
+      group: 坐标轴
     - name: showXAxisLine
       title: 显示X轴轴线
       type: boolean
@@ -111,6 +105,12 @@
         - value: '-45'
           title: 右倾斜
       description: 设置显示X轴文字标签的方向
+      group: 坐标轴
+    - name: yAxisTitle
+      title: Y轴标题
+      type: string
+      default: Y轴标题
+      description: 设置Y轴标题
       group: 坐标轴
     - name: showYAxisLine
       title: 显示Y轴轴线
