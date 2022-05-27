@@ -26,8 +26,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {axisData, sourceData} = this;
-      return {axisData, sourceData};
+      let {size, axisData, sourceData} = this;
+      return {size, axisData, sourceData};
     },
     formattedSize() {
       let width = this.size.width.replace("px", "") || 400;
