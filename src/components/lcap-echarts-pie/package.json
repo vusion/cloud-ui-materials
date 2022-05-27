@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-pie",
   "description": "",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/lcap-echarts-pie@1.1.3/index.html",
+  "homepage": "http://static-vusion.163yun.com/lcap-echarts-pie@1.1.4/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-pie@1.1.3/screenshots/0.png"
+      "http://static-vusion.163yun.com/packages/lcap-echarts-pie@1.1.4/screenshots/0.png"
     ],
     "team": "",
     "access": "public"

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-bar",
     "name": "柱状图",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "icon": "barchart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.5/screenshots/0.png",
+    "screenShot": "http://test-lcpapp-static.nos-eastchina1.126.net/packages/lcap-echarts-bar@1.0.6/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-bar xAxisTitle=\\\"维度\\\" yAxisTitle=\\\"指标\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-bar>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-bar",
         "title": "柱状图",
         "description": "柱状图",
         "category": "Chart",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-echarts-bar@1.0.5/screenshots/0.png",
+        "screenShot": "http://test-lcpapp-static.nos-eastchina1.126.net/packages/lcap-echarts-bar@1.0.6/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
