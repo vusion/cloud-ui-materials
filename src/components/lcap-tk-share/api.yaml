@@ -5,19 +5,30 @@
   icon: default
   attrs:
     - name: value
-      type: number
-      default: 0
+      type: number, string, object
+      sync: true
+      model: true
+      advanced: true
       description: 需要传入的值
+    - name: secret
+      type: string
+      description: 秘钥,字母或数字,不使用可不填
+    - name: shareUrl
+      type: string
+      description: 分享地址(默认为当前页地址)
+    - name: shareTitle
+      type: string
+      description: 微信朋友圈标题(默认为当前页标题)
+    - name: shareBitmap
+      type: string
+      description: 分享图片的URL(过大或者不可访问会导致失败)
+    - name: shareIntroduce
+      type: string
+      description: 朋友圈简介
   slots:
     - name: default
       description: 插入文本或 HTML。
-  events:
-    - name: change
-      description: 修改时触发
-      params:
-        - name: $event.param1
-          type: string
-          description: 参数1
-        - name: $event.param2
-          type: number
-          description: 参数2
+  methods:
+    - name: getMsg
+      title: 获取分享后回调信息
+      description: 获取分享后回调信息

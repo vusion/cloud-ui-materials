@@ -1,0 +1,43 @@
+{
+    "symbol": "lcap-tk-scan",
+    "name": "泰康sdk扫码",
+    "version": "0.1.1",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "请在这里添加描述",
+    "labels": [
+        "Runtime"
+    ],
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-scan@0.1.1/screenshots/0.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tk-scan></lcap-tk-scan>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-tk-scan",
+        "title": "泰康sdk扫码",
+        "description": "请在这里添加描述",
+        "category": "Runtime",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-scan@0.1.1/screenshots/0.png",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-tk-scan></lcap-tk-scan>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "value",
+                "type": "string",
+                "description": "需要传入的值"
+            }
+        ],
+        "slots": [
+            {
+                "name": "default",
+                "description": "插入文本或 HTML。"
+            }
+        ],
+        "children": []
+    }
+}

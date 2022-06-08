@@ -8,6 +8,22 @@
 
 export default {
     name: 'lcap-tk-scan',
+    props: {
+        value: {
+            type: String,
+            default: '',
+        },
+    },
+    data() {
+        return {
+            msg: '',
+        };
+    },
+    watch: {
+        msg(val) {
+            this.$emit('update:value', val);
+        },
+    },
     created() {
         if (!window.ISALES) {
             this.loadScript('https://f.taikang.com/static/assets/js/sdk/isales/2.0.26-beta/isales.min.js');
@@ -27,13 +43,18 @@ export default {
                         console.log(info);
                         // eslint-disable-next-line eqeqeq
                         if (info.code == 0) {
+                            this.msg = info.msg;
                             resolve(info.msg);
                         } else {
+                            this.msg = '';
                             reject(info);
                         }
                     },
                 });
             }));
+        },
+        getMsg() {
+            return this.msg;
         },
     },
 };
