@@ -37,13 +37,15 @@ export default {
             document.body.appendChild(script);
         },
         tkScan() {
+            // eslint-disable-next-line consistent-this
+            const that = this;
             return new Promise(((resolve, reject) => {
                 window.ISALES.callApp('scanByNative', {
                     callback(info) {
                         console.log(info);
                         // eslint-disable-next-line eqeqeq
                         if (info.code == 0) {
-                            this.msg = info.msg;
+                            that.msg = info.msg;
                             resolve(info.msg);
                         } else {
                             this.msg = '';

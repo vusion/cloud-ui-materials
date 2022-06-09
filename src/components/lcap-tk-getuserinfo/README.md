@@ -1,6 +1,6 @@
 <!-- 该 README.md 根据 api.yaml 和 docs/*.md 自动生成，为了方便在 GitHub 和 NPM 上查阅。如需修改，请查看源文件 -->
 
-# LcapTkScan 泰康sdk扫码
+# LcapTkGetuserinfo 泰康sdk获取用户信息
 
 - [示例](#示例)
     - [基本用法](#基本用法)
@@ -17,7 +17,7 @@
 ### 基本用法
 
 ``` html
-<lcap-tk-scan></lcap-tk-scan>
+<lcap-tk-getuserinfo></lcap-tk-getuserinfo>
 ```
 
 ## API
@@ -25,7 +25,7 @@
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| value.sync, v-model | string |  |  | 需要传入的值 |
+| value.sync, v-model | number, string, object |  |  | 需要传入的值 |
 
 ### Slots
 

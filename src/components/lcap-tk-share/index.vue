@@ -56,6 +56,8 @@ export default {
         },
         tkShare() {
             return new Promise(((resolve, reject) => {
+                // eslint-disable-next-line consistent-this
+                const that = this;
                 window.ISALES.sharePannel({
                     baseMenu: ['1'], // ['0', '1', '2', '3', '10', '11'],
                     // otherMenu: ['6', '7', '8', '9'],
@@ -68,7 +70,7 @@ export default {
                         shareIntroduce: this.shareIntroduce || '', // 分享简介
                         callback(res) {
                             console.log('分享微信朋友圈——回调：：：', res);
-                            this.msg = JSON.stringify(res);
+                            that.msg = JSON.stringify(res);
                             resolve(res);
                         },
                     },

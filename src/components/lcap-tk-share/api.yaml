@@ -20,7 +20,7 @@
       type: string
       description: 微信朋友圈标题(默认为当前页标题)
     - name: shareBitmap
-      type: string
+      type: image
       description: 分享图片的URL(过大或者不可访问会导致失败)
     - name: shareIntroduce
       type: string

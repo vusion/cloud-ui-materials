@@ -36,12 +36,13 @@ export default {
         },
         tkUser() {
             return new Promise(((resolve, reject) => {
-                window.ISALES.callApp('userInfo', {
+                // eslint-disable-next-line consistent-this
+                const that = this;
+                window.ISALES.callApp('getUserInfoExternal', {
                     callback(info) {
-                        console.log(info);
                         // eslint-disable-next-line eqeqeq
                         if (info.code == 0) {
-                            this.msg = JSON.stringify(info.msg);
+                            that.msg = JSON.stringify(info.msg);
                             resolve(info.msg);
                         } else {
                             this.msg = '';

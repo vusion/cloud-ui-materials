@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tk-scan",
     "name": "泰康sdk扫码",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Runtime"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-scan@0.1.1/screenshots/0.png",
+    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-scan@0.1.2/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tk-scan></lcap-tk-scan>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tk-scan",
         "title": "泰康sdk扫码",
         "description": "请在这里添加描述",
         "category": "Runtime",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-scan@0.1.1/screenshots/0.png",
+        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-scan@0.1.2/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -29,6 +29,8 @@
             {
                 "name": "value",
                 "type": "string",
+                "sync": true,
+                "model": true,
                 "description": "需要传入的值"
             }
         ],
@@ -36,6 +38,13 @@
             {
                 "name": "default",
                 "description": "插入文本或 HTML。"
+            }
+        ],
+        "methods": [
+            {
+                "name": "getMsg",
+                "title": "获取扫码后信息",
+                "description": "获取扫码后信息"
             }
         ],
         "children": []
