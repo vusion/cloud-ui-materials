@@ -95,6 +95,7 @@ export default {
                 muted,
                 controls: true,
                 responsive: true,
+                playbackRates: [0.5, 0.75 ,1 ,1.25 ,1.5 , 2]
             }, function onPlayerReady() {
                 if (!draggable) {
                     this.controlBar.progressControl.disable();
