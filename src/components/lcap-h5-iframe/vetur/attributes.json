@@ -1,0 +1,6 @@
+{
+  "lcap-h5-iframe/src": {
+    "type": "string",
+    "description": "需要嵌入的网页地址"
+  }
+}
