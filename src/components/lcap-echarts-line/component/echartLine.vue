@@ -6,7 +6,6 @@
 
 <script>
 import * as echarts from 'echarts/core'
-import {processEchartData} from "@/tools";
 
 export default {
   name: "echartLine",
@@ -70,52 +69,87 @@ export default {
         });
       }
     },
+    // 递归列表中的数据，查找对应属性的值
+    recurGetValue(obj, val) {
+      if (!obj) return;
+      if (obj.hasOwnProperty(val)) {
+        return obj[val];
+      }
+      for (let item in obj) {
+        if (Object.prototype.toString.call(obj[item]) === '[object Object]') {
+          return this.recurGetValue(obj[item], val);
+        }
+      }
+    },
+    // 根据用户输入的坐标轴属性，返还对应数据
+    getAxisData(data, axis) {
+      if (!data || !data instanceof Object) return [];
+      const res = [];
+      if (Array.isArray(data)) {
+        for (let item of data) {
+          let axisData = this.recurGetValue(item, axis);
+          if (axisData) {
+            res.push(this.recurGetValue(item, axis));
+          }
+        }
+      } else {
+        for (let item in data) {
+          res.push(...this.getAxisData(data[item], axis))
+        }
+      }
+      return res;
+    },
+    // 处理不同环境下的数据展示
     processLineData(data) {
       if (!data) {
         return;
       }
-      const [attrDict, xAxisList, yAxisList] = processEchartData(data);
-      let multiAxisList = [];
-      this.axisData.yAxis = this.axisData.yAxis.replace(/，/g, ",");
-      if (this.$env.VUE_APP_DESIGNER) {
+      let multiAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let legendData = multiAxisList.length > 1 ? multiAxisList : [];
+      // IDE开发环境坐标轴替换为假数据坐标轴字段
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         multiAxisList = ['指标1', '指标2', '指标3'];
+        legendData = ['指标1', '指标2', '指标3'];
         this.axisData.xAxis = 'fakeXAxis';
       } else {
-        multiAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
+        // 制品应用生产环境
         if (multiAxisList.length === 1) {
           const temp = multiAxisList[0];
           multiAxisList = [temp.split('.')[temp.split('.').length - 1]];
         }
+        legendData = multiAxisList;
       }
       this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
-      let legendData = multiAxisList.length > 1 ? multiAxisList : [];
-      legendData = this.$env.VUE_APP_DESIGNER ? ['指标1', '指标2', '指标3'] : legendData;
       const seriesData = [];
-      multiAxisList.forEach((item) => {
+      const xAxisData = this.getAxisData(data, this.axisData.xAxis);
+      for (const item of multiAxisList) {
         seriesData.push({
           name: item,
           type: 'line',
-          data: attrDict[item],
+          data: this.getAxisData(data, item),
           showBackground: true,
           label: {
             show: this.axisData.allowShowLabel,
           },
         })
-      })
+      }
       // 发布部署后，如果字段不合法，加载默认图片
       if (!this.$env.VUE_APP_DESIGNER) {
-        if (!xAxisList.includes(this.axisData.xAxis)) {
+        if (this.getAxisData(data, this.axisData.xAxis).length === 0) {
           this.$emit("startLoading");
           return;
         }
         for (let axis of multiAxisList) {
-          if (!yAxisList.includes(axis)) {
+          if (this.getAxisData(data, axis).length === 0) {
             this.$emit("startLoading");
             return;
           }
         }
       }
-      this.lineOption = {
+      this.lineOption = this.generateEchartOption(legendData, seriesData, xAxisData);
+    },
+    generateEchartOption(legendData, seriesData, xAxisData) {
+      return {
         toolbox: {
           show: this.axisData.allowDownload,
           feature: {
@@ -146,7 +180,7 @@ export default {
           }
         },
         xAxis: {
-          data: attrDict[this.axisData.xAxis],
+          data: xAxisData,
           name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
           nameLocation: 'end',
           axisLine: {
@@ -168,7 +202,7 @@ export default {
           },
         },
         series: seriesData,
-      };
+      }
     },
   },
 
@@ -178,6 +212,7 @@ export default {
 <style module>
 .root {
 }
+
 .canvasWrap {
   width: 100%;
   height: 100%;

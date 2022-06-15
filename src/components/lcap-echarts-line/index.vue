@@ -97,26 +97,11 @@ export default {
   },
   methods: {
     async init() {
-      const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-      // const fnDataSource = fakeData;
-      const rawData = await this.handleDataSource(fnDataSource);
-      this.sourceData = this.processRawData(rawData);
+      // 本地启动和开发环境使用假数据，生产环境替换为真数据
+      const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
+      this.sourceData = await this.handleDataSource(fnDataSource);
     },
     // 删除不必要字段
-    processRawData(data) {
-      if (data.length === 0) {
-        this.loading = true;
-        return;
-      }
-      const content = Array.isArray(data) ? data: data.content;
-      const key = Object.keys(content[0])[0];
-      // 删除自带的，不必要的属性
-      for (let item of content) {
-        const tempAttr = item[key];
-        delete tempAttr.id && delete tempAttr.createdTime && delete tempAttr.updatedTime && delete tempAttr.createdBy && delete tempAttr.updatedBy
-      }
-      return data;
-    },
     async handleDataSource(dataSource) {
       if (!dataSource) {
         return [];
