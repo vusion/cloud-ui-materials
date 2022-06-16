@@ -3,11 +3,12 @@
 ``` html
 <lcap-echarts-line 
     xAxis="fakeXAxis" 
-    yAxis="age" 
+    yAxis="指标1，指标2，指标3" 
     xAxisTitle="维度" 
     yAxisTitle="指标" 
     title="标题"
     theme="theme1"
+    legendName="数学，语文，英语"
     :titleFontSize=16
     titleFontStyle="italic"
     :allowDownload=true
@@ -21,7 +22,8 @@
     >
 </lcap-echarts-line>
 <lcap-echarts-line 
-    xAxis="property1" 
+    xAxis="" 
+    legendName=""
     yAxis="property2" 
     xAxisTitle="维度" 
     yAxisTitle="指标" 

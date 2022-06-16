@@ -17,7 +17,7 @@
 import {fakeData} from "@/fakeData";
 import {fakeDataList} from "@/fakeDataList";
 import echartLine from "@/component/echartLine";
-import echarts from 'echarts';
+import * as echarts from 'echarts';
 import './theme';
 
 Vue.prototype.$echarts = echarts
@@ -40,6 +40,7 @@ export default {
     allowShowLabel: {type: Boolean, default: true},
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
+    legendName: {type: String, default: ''},
     showXAxisLine: {type: Boolean, default: true},
     showYAxisLine: {type: Boolean, default: true},
     showXAxisLabel: {type: Boolean, default: true},
@@ -70,6 +71,7 @@ export default {
         yAxisTitle: this.yAxisTitle,
         theme: this.theme,
         title: this.title,
+        legendName: this.legendName,
         titleFontSize: this.titleFontSize,
         titleFontStyle: this.titleFontStyle,
         allowDownload: this.allowDownload,

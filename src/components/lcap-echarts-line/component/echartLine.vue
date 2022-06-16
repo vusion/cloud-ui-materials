@@ -104,22 +104,23 @@ export default {
       if (!data) {
         return;
       }
+      console.log('x', this.axisData.xAxis);
+      console.log('y', this.axisData.yAxis);
+      let legendData;
       let multiAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      let legendData = multiAxisList.length > 1 ? multiAxisList : [];
+      // 针对多层嵌套的坐标轴输入，取最后一个值
+      multiAxisList = multiAxisList.map((item)=> {
+        return item.split('.')[item.split('.').length -1];
+      })
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         multiAxisList = ['指标1', '指标2', '指标3'];
         legendData = ['指标1', '指标2', '指标3'];
         this.axisData.xAxis = 'fakeXAxis';
       } else {
-        // 制品应用生产环境
-        if (multiAxisList.length === 1) {
-          const temp = multiAxisList[0];
-          multiAxisList = [temp.split('.')[temp.split('.').length - 1]];
-        }
         legendData = multiAxisList;
+        this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
       }
-      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
       const seriesData = [];
       const xAxisData = this.getAxisData(data, this.axisData.xAxis);
       for (const item of multiAxisList) {
@@ -148,6 +149,21 @@ export default {
       }
       this.lineOption = this.generateEchartOption(legendData, seriesData, xAxisData);
     },
+    // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
+    legendFormatter(name) {
+      let multiAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let legendAliasList = this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      legendAliasList = legendAliasList.filter((item) => item!== '');
+      let fakeAliasList = ['别名1', '别名2', '别名3'];
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+        const showAxisList = ['指标1', '指标2', '指标3'];
+        return (legendAliasList.length !== 0 && multiAxisList.length === legendAliasList.length) ?
+          fakeAliasList[showAxisList.indexOf(name)] : showAxisList[showAxisList.indexOf(name)];
+      } else {
+        return (legendAliasList.length !== 0 && multiAxisList.length === legendAliasList.length) ?
+          legendAliasList[multiAxisList.indexOf(name)] : name;
+      }
+    },
     generateEchartOption(legendData, seriesData, xAxisData) {
       return {
         toolbox: {
@@ -161,6 +177,7 @@ export default {
           top: '5%',
           left: 'center',
           data: legendData,
+          formatter: this.legendFormatter,
         },
         tooltip: {
           show: this.axisData.allowShowHint,
