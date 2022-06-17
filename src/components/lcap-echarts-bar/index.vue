@@ -16,7 +16,7 @@
 <script>
 import {fakeData} from "@/fakeData";
 import echartBar from "@/component/echartBar";
-import echarts from 'echarts';
+import * as echarts from 'echarts';
 import './theme';
 
 Vue.prototype.$echarts = echarts
@@ -39,6 +39,7 @@ export default {
     allowShowLabel: {type: Boolean, default: true},
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
+    legendName: {type: String, default: ''},
     showXAxisLine: {type: Boolean, default: true},
     showYAxisLine: {type: Boolean, default: true},
     showXAxisLabel: {type: Boolean, default: true},
@@ -69,6 +70,7 @@ export default {
         yAxisTitle: this.yAxisTitle,
         theme: this.theme,
         title: this.title,
+        legendName: this.legendName,
         titleFontSize: this.titleFontSize,
         titleFontStyle: this.titleFontStyle,
         allowDownload: this.allowDownload,
@@ -96,10 +98,9 @@ export default {
   },
   methods: {
     async init() {
-      const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-      // const fnDataSource = fakeData;
-      const rawData = await this.handleDataSource(fnDataSource);
-      this.sourceData = this.processRawData(rawData);
+      // 本地启动和开发环境使用假数据，生产环境替换为真数据
+      const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
+      this.sourceData = await this.handleDataSource(fnDataSource);
     },
     // 删除不必要字段
     processRawData(data) {

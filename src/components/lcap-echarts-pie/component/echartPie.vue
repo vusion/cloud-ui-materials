@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import {processEchartData} from "@/tools";
 import * as echarts from 'echarts/core'
 
 export default {
@@ -70,28 +69,55 @@ export default {
         });
       }
     },
+    // 递归列表中的数据，查找对应属性的值
+    recurGetValue(obj, val) {
+      if (!obj) return;
+      if (obj.hasOwnProperty(val)) {
+        return obj[val];
+      }
+      for (let item in obj) {
+        if (Object.prototype.toString.call(obj[item]) === '[object Object]') {
+          return this.recurGetValue(obj[item], val);
+        }
+      }
+    },
+    // 根据用户输入的坐标轴属性，返还对应数据
+    getAxisData(data, axis) {
+      if (!data || !data instanceof Object) return [];
+      const res = [];
+      if (Array.isArray(data)) {
+        for (let item of data) {
+          let axisData = this.recurGetValue(item, axis);
+          if (axisData) {
+            res.push(this.recurGetValue(item, axis));
+          }
+        }
+      } else {
+        for (let item in data) {
+          res.push(...this.getAxisData(data[item], axis))
+        }
+      }
+      return res;
+    },
     processPieData(data) {
       if (!data) {
         return;
       }
-      const content = Array.isArray(data) ? data: data.content;
       const pieData = [];
-      const key = Object.keys(content[0])[0];
-      const [attrDict, xAxisList, yAxisList] = processEchartData(data);
-      const multiXAxisList = this.axisData.xAxis.replace(/\s+/g, '').split(',') || [];
-      const multiYAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      if (this.$env.VUE_APP_DESIGNER) {
+      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
+      this.axisData.yAxis = this.axisData.yAxis.split('.')[this.axisData.yAxis.split('.').length - 1] || '';
+      // IDE开发环境坐标轴替换为假数据坐标轴字段
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         this.axisData.xAxis = 'fakeXAxis';
         this.axisData.yAxis = '指标1';
       }
-      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
-      this.axisData.yAxis = this.axisData.yAxis.split('.')[this.axisData.yAxis.split('.').length - 1] || '';
-      for (let item of content) {
-        const tempAttr = item[key];
+      let xAxisData = this.getAxisData(data, this.axisData.xAxis);
+      let yAxisData = this.getAxisData(data, this.axisData.yAxis);
+      for (let index = 0; index < xAxisData.length; index++) {
         pieData.push(
           {
-            value: tempAttr[this.axisData.yAxis],
-            name: tempAttr[this.axisData.xAxis],
+            value: yAxisData[index],
+            name: xAxisData[index],
           }
         );
       }
@@ -100,9 +126,11 @@ export default {
       labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
       labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
       const showLabel = !this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent ? false : true;
-      // 发布部署后，如果字段不合法，加载默认图片
+      const multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      const multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      // 发布部署后，如果无数据和维度指标多于一个，加载默认图片
       if (!this.$env.VUE_APP_DESIGNER) {
-        if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)){
+        if (xAxisData.length === 0 || yAxisData.length === 0) {
           this.$emit("startLoading");
           return;
         }
@@ -111,7 +139,10 @@ export default {
           return;
         }
       }
-      this.pieOption = {
+      this.pieOption = this.generateEchartOption(pieData, showLabel, labelData);
+    },
+    generateEchartOption(pieData, showLabel, labelData) {
+      return {
         toolbox: {
           show: this.axisData.allowDownload,
           feature: {
@@ -121,7 +152,7 @@ export default {
         legend: {
           show: this.axisData.allowShowLegend,
           bottom: '-2%',
-          left: 'center'
+          left: 'center',
         },
         tooltip: {
           show: this.axisData.allowShowHint,
@@ -153,7 +184,7 @@ export default {
           }
         ],
       };
-    },
+    }
   },
 }
 </script>
