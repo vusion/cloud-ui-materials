@@ -62,10 +62,11 @@ export default {
     },
     watch: {
         draggable(val) {
+            if (!this.player) return;
             if (val) {
-                this.controlBar.progressControl.enable();
+                this.player.controlBar.progressControl.enable();
             } else {
-                this.controlBar.progressControl.disable();
+                this.player.controlBar.progressControl.disable();
             }
         },
         src(val) {
