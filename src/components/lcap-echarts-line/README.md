@@ -64,7 +64,7 @@
 | allowShowLabel | boolean |  | `true` | 设置是否显示标签 |
 | allowShowHint | boolean |  | `true` | 设置是否显示提示 |
 | allowShowLegend | boolean |  | `true` | 设置是否显示图例 |
-| legendName | string |  | `''` | 设置图例别名 |
+| legendName | string |  | `''` | 设置图例别名；修改成功后，图例名字会从"指标"改为"别名" |
 | xAxisTitle | string |  | `'X轴标题'` | 设置x轴标题 |
 | showXAxisLine | boolean |  | `true` | 设置显示X轴轴线 |
 | showXAxisLabel | boolean |  | `true` | 设置是否显示X轴文字标签 |

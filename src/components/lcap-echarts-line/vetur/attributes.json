@@ -59,7 +59,7 @@
   },
   "lcap-echarts-line/legendName": {
     "type": "string",
-    "description": "设置图例别名"
+    "description": "设置图例别名；修改成功后，图例名字会从\"指标\"改为\"别名\""
   },
   "lcap-echarts-line/xAxisTitle": {
     "type": "string",

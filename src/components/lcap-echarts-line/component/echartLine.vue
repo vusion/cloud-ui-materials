@@ -99,32 +99,27 @@ export default {
       }
       return res;
     },
-    // 处理不同环境下的数据展示
-    processLineData(data) {
-      if (!data) {
-        return;
+    generateXAxisData(data, multiXAxisList) {
+      let xAxisData = [];
+      for (const item of multiXAxisList) {
+        xAxisData.push({
+          data: this.getAxisData(data, item),
+          name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
+          nameLocation: 'end',
+          axisLine: {
+            show: this.axisData.showXAxisLine,
+          },
+          axisLabel: {
+            show: this.axisData.showXAxisLabel,
+            rotate: Number(this.axisData.xAxisLabelRotate)
+          },
+        })
       }
-      console.log('x', this.axisData.xAxis);
-      console.log('y', this.axisData.yAxis);
-      let legendData;
-      let multiAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      // 针对多层嵌套的坐标轴输入，取最后一个值
-      multiAxisList = multiAxisList.map((item)=> {
-        return item.split('.')[item.split('.').length -1];
-      })
-      // IDE开发环境坐标轴替换为假数据坐标轴字段
-      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        multiAxisList = ['指标1', '指标2', '指标3'];
-        legendData = ['指标1', '指标2', '指标3'];
-        this.axisData.xAxis = 'fakeXAxis';
-      } else {
-        // 制品应用生产环境
-        legendData = multiAxisList;
-        this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
-      }
-      const seriesData = [];
-      const xAxisData = this.getAxisData(data, this.axisData.xAxis);
-      for (const item of multiAxisList) {
+      return xAxisData;
+    },
+    generateSeriesData(data, multiYAxisList) {
+      let seriesData = [];
+      for (const item of multiYAxisList) {
         seriesData.push({
           name: item,
           type: 'line',
@@ -135,13 +130,42 @@ export default {
           },
         })
       }
+      return seriesData;
+    },
+    // 处理不同环境下的数据展示
+    processLineData(data) {
+      if (!data) {
+        return;
+      }
+      console.log('x', this.axisData.xAxis);
+      console.log('y', this.axisData.yAxis);
+      let legendData;
+      let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      // 针对多层嵌套的坐标轴输入，取最后一个值
+      multiYAxisList = multiYAxisList.map((item) => item.split('.')[item.split('.').length -1])
+      multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length -1])
+      // IDE开发环境坐标轴替换为假数据坐标轴字段
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+        multiYAxisList = ['指标1', '指标2', '指标3'];
+        multiXAxisList = ['fakeXAxis'];
+        legendData = ['指标1', '指标2', '指标3'];
+      } else {
+        // 制品应用生产环境
+        legendData = multiYAxisList;
+        this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
+      }
+      const seriesData = this.generateSeriesData(data, multiYAxisList);
+      const xAxisData = this.generateXAxisData(data, multiXAxisList);
       // 发布部署后，如果字段不合法，加载默认图片
       if (!this.$env.VUE_APP_DESIGNER) {
-        if (this.getAxisData(data, this.axisData.xAxis).length === 0) {
-          this.$emit("startLoading");
-          return;
+        for (let axis of multiXAxisList) {
+          if (this.getAxisData(data, axis).length === 0) {
+            this.$emit("startLoading");
+            return;
+          }
         }
-        for (let axis of multiAxisList) {
+        for (let axis of multiYAxisList) {
           if (this.getAxisData(data, axis).length === 0) {
             this.$emit("startLoading");
             return;
@@ -152,19 +176,19 @@ export default {
     },
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
-      let multiAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       legendAliasList = legendAliasList.filter((item) => item!== '');
       let fakeAliasList = ['别名1', '别名2', '别名3'];
       // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示三个图例，通过更改值提示用户修改成功
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         const showAxisList = ['指标1', '指标2', '指标3'];
-        return (legendAliasList.length !== 0 && multiAxisList.length === legendAliasList.length) ?
+        return (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ?
           fakeAliasList[showAxisList.indexOf(name)] : showAxisList[showAxisList.indexOf(name)];
       } else {
         // 如果数量匹配则显示别名，不匹配显示指标原始值
-        return (legendAliasList.length !== 0 && multiAxisList.length === legendAliasList.length) ?
-          legendAliasList[multiAxisList.indexOf(name)] : name;
+        return (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ?
+          legendAliasList[multiYAxisList.indexOf(name)] : name;
       }
     },
     generateEchartOption(legendData, seriesData, xAxisData) {
@@ -199,18 +223,7 @@ export default {
             fontStyle: this.axisData.titleFontStyle,
           }
         },
-        xAxis: {
-          data: xAxisData,
-          name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
-          nameLocation: 'end',
-          axisLine: {
-            show: this.axisData.showXAxisLine,
-          },
-          axisLabel: {
-            show: this.axisData.showXAxisLabel,
-            rotate: Number(this.axisData.xAxisLabelRotate)
-          },
-        },
+        xAxis: xAxisData,
         yAxis: {
           type: 'value',
           name: this.axisData.yAxisTitle || this.axisData.yAxis || '',

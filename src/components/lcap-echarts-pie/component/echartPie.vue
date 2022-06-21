@@ -99,11 +99,27 @@ export default {
       }
       return res;
     },
+    generatePieData(data, xAxisData, yAxisData) {
+      let pieData = [];
+      for (let index = 0; index < xAxisData.length; index++) {
+        pieData.push({
+            value: yAxisData[index],
+            name: xAxisData[index],
+          });
+      }
+      return pieData;
+    },
+    generateLabelData() {
+      let labelData = '';
+      labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
+      labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
+      labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
+      return labelData;
+    },
     processPieData(data) {
       if (!data) {
         return;
       }
-      const pieData = [];
       this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
       this.axisData.yAxis = this.axisData.yAxis.split('.')[this.axisData.yAxis.split('.').length - 1] || '';
       // IDE开发环境坐标轴替换为假数据坐标轴字段
@@ -113,18 +129,8 @@ export default {
       }
       let xAxisData = this.getAxisData(data, this.axisData.xAxis);
       let yAxisData = this.getAxisData(data, this.axisData.yAxis);
-      for (let index = 0; index < xAxisData.length; index++) {
-        pieData.push(
-          {
-            value: yAxisData[index],
-            name: xAxisData[index],
-          }
-        );
-      }
-      let labelData = '';
-      labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
-      labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
-      labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
+      const pieData = this.generatePieData(data, xAxisData, yAxisData);
+      let labelData = this.generateLabelData();
       const showLabel = !this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent ? false : true;
       const multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       const multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];

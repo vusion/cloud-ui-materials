@@ -11,6 +11,7 @@
       "allowShowLabel",
       "allowShowHint",
       "allowShowLegend",
+      "legendName",
       "xAxisTitle",
       "showXAxisLine",
       "showXAxisLabel",

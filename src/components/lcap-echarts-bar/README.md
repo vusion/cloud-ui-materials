@@ -16,12 +16,13 @@
 
 ``` html
 <lcap-echarts-bar 
-    xAxis="" 
-    yAxis=""
+    xAxis="fakeXAxis" 
+    yAxis="指标1，指标2，指标3"
     xAxisTitle="维度" 
     yAxisTitle="指标" 
     title="标题"
     theme="theme3"
+    legendName="数学，语文，英语"
     :titleFontSize=16
     titleFontStyle="italic"
     :allowDownload=true
@@ -33,6 +34,16 @@
     :showXAxisLabel=true
     :showYAxisLabel=true
     xAxisLabelRotate="0">
+</lcap-echarts-bar>
+<lcap-echarts-bar 
+    xAxis="" 
+    legendName=""
+    yAxis="property2" 
+    xAxisTitle="维度" 
+    yAxisTitle="指标" 
+    title="标题"
+    theme="theme1"
+    >
 </lcap-echarts-bar>
 ```
 
@@ -51,6 +62,7 @@
 | allowShowLabel | boolean |  | `true` | 设置是否显示标签 |
 | allowShowHint | boolean |  | `true` | 设置是否显示提示 |
 | allowShowLegend | boolean |  | `true` | 设置是否显示图例 |
+| legendName | string |  | `''` | 设置图例别名；修改成功后，图例名字会从"指标"改为"别名" |
 | xAxisTitle | string |  | `'X轴标题'` | 设置x轴标题 |
 | showXAxisLine | boolean |  | `true` | 设置是否显示X轴轴线 |
 | showXAxisLabel | boolean |  | `true` | 设置是否显示X轴文字标签 |

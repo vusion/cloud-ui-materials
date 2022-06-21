@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-bar",
   "description": "",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://test-lcpapp-static.nos-eastchina1.126.net/lcap-echarts-bar@1.0.6/index.html",
+  "homepage": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/lcap-echarts-bar@2.0.0/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://test-lcpapp-static.nos-eastchina1.126.net/packages/lcap-echarts-bar@1.0.6/screenshots/0.png"
+      "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-bar@2.0.0/screenshots/0.png"
     ],
     "team": "",
     "access": "public"
