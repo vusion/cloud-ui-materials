@@ -4,10 +4,11 @@
 <lcap-echarts-line 
     xAxis="fakeXAxis" 
     yAxis="指标1，指标2，指标3" 
-    xAxisTitle="维度" 
+    xAxisTitle="维度1, 维度2" 
     yAxisTitle="指标" 
     title="标题"
     theme="theme1"
+    width="450px"
     legendName="数学，语文，英语"
     :titleFontSize=16
     titleFontStyle="italic"

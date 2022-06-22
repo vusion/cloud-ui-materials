@@ -101,10 +101,15 @@ export default {
     },
     generateXAxisData(data, multiXAxisList) {
       let xAxisData = [];
-      for (const item of multiXAxisList) {
+      let xAxisTitleList = this.axisData.xAxisTitle.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let xData = [];
+      for (let item of multiXAxisList) {
+        xData.push(this.getAxisData(data, item))
+      }
+      for (let index = 0; index < xData.length; index++) {
         xAxisData.push({
-            data: this.getAxisData(data, item),
-            name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
+            data: xData[index],
+            name: xAxisTitleList[index] ||  multiXAxisList[index] || '',
             nameLocation: 'end',
             axisLine: {
               show: this.axisData.showXAxisLine,

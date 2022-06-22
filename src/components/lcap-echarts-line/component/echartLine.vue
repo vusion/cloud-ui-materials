@@ -101,10 +101,15 @@ export default {
     },
     generateXAxisData(data, multiXAxisList) {
       let xAxisData = [];
-      for (const item of multiXAxisList) {
+      let xAxisTitleList = this.axisData.xAxisTitle.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let xData = [];
+      for (let item of multiXAxisList) {
+        xData.push(this.getAxisData(data, item))
+      }
+      for (let index=0; index < xData.length; index++) {
         xAxisData.push({
-          data: this.getAxisData(data, item),
-          name: this.axisData.xAxisTitle || this.axisData.xAxis || '',
+          data: xData[index],
+          name: xAxisTitleList[index] || multiXAxisList[index] || '',
           nameLocation: 'end',
           axisLine: {
             show: this.axisData.showXAxisLine,
@@ -148,7 +153,7 @@ export default {
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         multiYAxisList = ['指标1', '指标2', '指标3'];
-        multiXAxisList = ['fakeXAxis'];
+        multiXAxisList = ['fakeXAxis', 'mentor'];
         legendData = ['指标1', '指标2', '指标3'];
       } else {
         // 制品应用生产环境
