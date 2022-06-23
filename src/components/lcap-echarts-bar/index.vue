@@ -127,16 +127,11 @@ export default {
       }
       return this.getData(dataSource);
     },
-    isDataSource(data) {
-      return Object.prototype.toString.call(data) === '[object Object]' && data.content;
-    },
     getData(dataSource) {
-      if (Array.isArray(dataSource)) {
-        return dataSource;
-      } else if (this.isDataSource(dataSource)) {
-        return dataSource;
+      if (typeof (dataSource) === 'string') {
+        return JSON.parse(dataSource);
       }
-      return [];
+      return dataSource;
     },
     startLoading() {
       this.loading = true;
