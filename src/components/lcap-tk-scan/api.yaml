@@ -1,4 +1,4 @@
-- name: lcap-tk-scan
+- name: lcap-h5-tk-scan
   title: 泰康sdk扫码
   description: 请在这里添加描述
   labels: [Runtime]

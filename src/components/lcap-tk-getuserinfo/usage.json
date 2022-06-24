@@ -1,7 +1,7 @@
 {
-    "symbol": "lcap-tk-getuserinfo",
+    "symbol": "lcap-h5-tk-getuserinfo",
     "name": "泰康sdk获取用户信息",
-    "version": "0.1.1",
+    "version": "0.1.4",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Runtime"
     ],
-    "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-getuserinfo@0.1.1/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-getuserinfo@0.1.4/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tk-getuserinfo></lcap-tk-getuserinfo>\\n</template>\\n\"}]",
     "jsonSchema": {
-        "name": "lcap-tk-getuserinfo",
+        "name": "lcap-h5-tk-getuserinfo",
         "title": "泰康sdk获取用户信息",
         "description": "请在这里添加描述",
         "category": "Runtime",
-        "screenShot": "http://haproxy-ceph-rgw.qa-ci-lowcode.service.163.org/test/packages/lcap-tk-getuserinfo@0.1.1/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-getuserinfo@0.1.4/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
