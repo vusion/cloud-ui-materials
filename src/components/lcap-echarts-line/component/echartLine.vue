@@ -40,10 +40,7 @@ export default {
   watch: {
     changedObj: {
       handler() {
-        this.$refs.myChart.removeAttribute('_echarts_instance_');
-        const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-        thisChart.dispose();
-        this.createMyChart();
+        this.reload();
       },
       deep: true,
     },
@@ -54,8 +51,15 @@ export default {
     thisChart = null;
   },
   methods: {
+    reload() {
+      this.$refs.myChart.removeAttribute('_echarts_instance_');
+      const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
+      thisChart.dispose();
+      this.createMyChart();
+    },
     createMyChart() {
       const myChart = this.$refs.myChart;
+      console.log('source-data', this.sourceData);
       this.processLineData(this.sourceData);
       this.initChart(myChart, this.lineOption);
     },
@@ -153,7 +157,7 @@ export default {
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         multiYAxisList = ['指标1', '指标2', '指标3'];
-        multiXAxisList = ['fakeXAxis', 'mentor'];
+        multiXAxisList = ['fakeXAxis'];
         legendData = ['指标1', '指标2', '指标3'];
       } else {
         // 制品应用生产环境

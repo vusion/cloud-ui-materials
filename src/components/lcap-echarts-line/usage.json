@@ -241,6 +241,14 @@
                 "group": "图表功能"
             }
         ],
+        "methods": [
+            {
+                "name": "reload",
+                "title": "reload",
+                "description": "刷新数据",
+                "params": []
+            }
+        ],
         "children": []
     }
 }

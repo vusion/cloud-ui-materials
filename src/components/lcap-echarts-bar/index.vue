@@ -129,6 +129,7 @@ export default {
     },
     getData(dataSource) {
       if (typeof (dataSource) === 'string') {
+        dataSource = dataSource.replace(/'/g, '"');
         return JSON.parse(dataSource);
       }
       return dataSource;

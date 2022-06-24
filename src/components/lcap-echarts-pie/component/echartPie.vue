@@ -40,10 +40,7 @@ export default {
   watch: {
     changedObj: {
       handler() {
-        this.$refs.myChart.removeAttribute('_echarts_instance_');
-        const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-        thisChart.dispose();
-        this.createMyChart();
+        this.reload();
       },
       deep: true,
     }
@@ -54,6 +51,12 @@ export default {
     thisChart = null;
   },
   methods: {
+    reload() {
+      this.$refs.myChart.removeAttribute('_echarts_instance_');
+      const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
+      thisChart.dispose();
+      this.createMyChart();
+    },
     createMyChart() {
       const myChart = this.$refs.myChart;
       this.processPieData(this.sourceData);
@@ -157,7 +160,7 @@ export default {
         },
         legend: {
           show: this.axisData.allowShowLegend,
-          bottom: '-2%',
+          bottom: '-1%',
           left: 'center',
         },
         tooltip: {

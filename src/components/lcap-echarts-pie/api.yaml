@@ -108,3 +108,8 @@
       default: true
       description: 允许用户设置保存图片
       group: 图表功能
+  methods:
+    - name: reload
+      title: reload
+      description: 刷新数据
+      params: []

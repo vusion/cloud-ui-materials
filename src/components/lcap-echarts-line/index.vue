@@ -101,6 +101,7 @@ export default {
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
       const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
+      console.log('fnDataSource', fnDataSource);
       this.sourceData = await this.handleDataSource(fnDataSource);
     },
     // 删除不必要字段
@@ -116,6 +117,7 @@ export default {
     },
     getData(dataSource) {
       if (typeof (dataSource) === 'string') {
+        dataSource = dataSource.replace(/'/g, '"');
         return JSON.parse(dataSource);
       }
       return dataSource;
