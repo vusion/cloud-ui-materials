@@ -96,6 +96,9 @@ export default {
     }
   },
   methods: {
+    reload() {
+      this.init();
+    },
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
       const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
