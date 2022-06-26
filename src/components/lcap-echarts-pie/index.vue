@@ -6,6 +6,7 @@
       :size="size"
       :sourceData="sourceData"
       @startLoading="startLoading"
+      ref="echart"
     ></echart-pie>
     <div v-else :style="size">
       <img :src="require('./assets/pieEmpty.png')" :class="$style.emptyImage">
@@ -26,7 +27,7 @@ export default {
   props: {
     dataSource: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
-    width: {type: String, default: '400px'},
+    width: {type: String, default: '380px'},
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
@@ -97,7 +98,13 @@ export default {
   },
   methods: {
     reload() {
-      this.init();
+      this.sourceData = 'fakeData';
+      this.$nextTick(async () => {
+        this.sourceData = await this.handleDataSource(this.dataSource);
+        this.loading = false;
+        this.$refs.echart && this.$refs.echart.reload();
+        console.log('source', this.sourceData);
+      });
     },
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据

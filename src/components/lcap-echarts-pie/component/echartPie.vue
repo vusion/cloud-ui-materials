@@ -29,7 +29,7 @@ export default {
       return {size, axisData, sourceData};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 400;
+      let width = this.size.width.replace("px", "") || 380;
       let height = this.size.height.replace("px", "") || 300;
       return {
         width: `${width}px`,
