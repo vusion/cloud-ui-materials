@@ -11,18 +11,23 @@
       advanced: true
       description: 需要传入的值
     - name: secret
+      title: 秘钥
       type: string
       description: 秘钥,字母或数字,不使用可不填
     - name: shareUrl
+      title: 分享地址
       type: string
       description: 分享地址(默认为当前页地址)
     - name: shareTitle
+      title: 分享标题
       type: string
       description: 微信朋友圈标题(默认为当前页标题)
     - name: shareBitmap
+      title: 分享题图
       type: image
       description: 分享图片的URL(过大或者不可访问会导致失败)
     - name: shareIntroduce
+      title: 简介
       type: string
       description: 朋友圈简介
   slots:

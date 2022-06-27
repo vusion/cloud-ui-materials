@@ -5,6 +5,7 @@
   icon: default
   attrs:
     - name: value
+      title: 值
       type: string
       sync: true
       model: true
