@@ -14,11 +14,13 @@
       title: 维度
       type: string
       default: ''
+      bindHide: true
       description: 设置维度(x轴)
       group: 维度指标
     - name: yAxis
       title: 指标
       type: string
+      bindHide: true
       default: ''
       description: 设置指标（y轴），多个指标以逗号分隔
       group: 维度指标

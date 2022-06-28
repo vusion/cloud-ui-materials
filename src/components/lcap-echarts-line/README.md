@@ -59,7 +59,7 @@
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
 | xAxis | string |  | `''` | 设置维度(x轴) |
 | yAxis | string |  | `''` | 设置指标（y轴），多个指标以逗号分隔 |
-| width | string |  | `'400px'` | 设置图宽度 |
+| width | string |  | `'380px'` | 设置图宽度 |
 | height | string |  | `'300px'` | 设置图高度 |
 | title | string |  | `'标题'` | 设置主标题 |
 | theme | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'theme1'` | 设置图表配色方案 |

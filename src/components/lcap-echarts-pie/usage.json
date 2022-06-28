@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-pie",
     "name": "饼图",
-    "version": "2.0.1",
+    "version": "2.0.3",
     "icon": "piechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-pie@2.0.1/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-pie@2.0.3/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-pie>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-pie",
         "title": "饼图",
         "description": "饼图",
         "category": "Chart",
-        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-pie@2.0.1/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-pie@2.0.3/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -38,6 +38,7 @@
                 "name": "xAxis",
                 "title": "维度",
                 "type": "string",
+                "bindHide": true,
                 "default": "",
                 "description": "设置维度",
                 "group": "维度指标"
@@ -46,6 +47,7 @@
                 "name": "yAxis",
                 "title": "指标",
                 "type": "string",
+                "bindHide": true,
                 "default": "",
                 "description": "设置指标",
                 "group": "维度指标"
@@ -54,7 +56,7 @@
                 "name": "width",
                 "title": "宽度",
                 "type": "string",
-                "default": "400px",
+                "default": "380px",
                 "description": "设置图宽度",
                 "group": "图表基础"
             },
@@ -173,6 +175,14 @@
                 "default": true,
                 "description": "允许用户设置保存图片",
                 "group": "图表功能"
+            }
+        ],
+        "methods": [
+            {
+                "name": "reload",
+                "title": "reload",
+                "description": "刷新数据",
+                "params": []
             }
         ],
         "children": []

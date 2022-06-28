@@ -13,12 +13,14 @@
     - name: xAxis
       title: 维度
       type: string
+      bindHide: true
       default: ''
       description: 设置维度
       group: 维度指标
     - name: yAxis
       title: 指标
       type: string
+      bindHide: true
       default: ''
       description: 设置指标
       group: 维度指标
