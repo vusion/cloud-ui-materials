@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-line",
     "name": "折线图",
-    "version": "1.0.9",
+    "version": "2.0.3",
     "icon": "linechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://static-vusion.163yun.com/packages/lcap-echarts-line@1.0.9/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-line@2.0.3/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-line xAxisTitle=\\\"维度\\\" yAxisTitle=\\\"指标\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-line>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-line",
         "title": "折线图",
         "description": "折线图",
         "category": "Chart",
-        "screenShot": "http://static-vusion.163yun.com/packages/lcap-echarts-line@1.0.9/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-line@2.0.3/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -39,6 +39,7 @@
                 "title": "维度",
                 "type": "string",
                 "default": "",
+                "bindHide": true,
                 "description": "设置维度(x轴)",
                 "group": "维度指标"
             },
@@ -46,6 +47,7 @@
                 "name": "yAxis",
                 "title": "指标",
                 "type": "string",
+                "bindHide": true,
                 "default": "",
                 "description": "设置指标（y轴），多个指标以逗号分隔",
                 "group": "维度指标"
@@ -54,7 +56,7 @@
                 "name": "width",
                 "title": "宽度",
                 "type": "string",
-                "default": "400px",
+                "default": "380px",
                 "description": "设置图宽度",
                 "group": "图表基础"
             },
@@ -122,6 +124,14 @@
                 "type": "boolean",
                 "default": true,
                 "description": "设置是否显示图例",
+                "group": "图表基础"
+            },
+            {
+                "name": "legendName",
+                "title": "图例别名",
+                "type": "string",
+                "default": "",
+                "description": "设置图例别名；修改成功后，图例名字会从\"指标\"改为\"别名\"",
                 "group": "图表基础"
             },
             {
@@ -231,6 +241,14 @@
                 "default": true,
                 "description": "允许用户设置保存图片",
                 "group": "图表功能"
+            }
+        ],
+        "methods": [
+            {
+                "name": "reload",
+                "title": "reload",
+                "description": "刷新数据",
+                "params": []
             }
         ],
         "children": []
