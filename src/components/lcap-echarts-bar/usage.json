@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-bar@2.0.3/screenshots/0.png",
+    "screenShot": "http://static-vusion.163yun.com/packages/lcap-echarts-bar@2.0.3/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-bar xAxisTitle=\\\"维度\\\" yAxisTitle=\\\"指标\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-bar>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-bar",
         "title": "柱状图",
         "description": "柱状图",
         "category": "Chart",
-        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-bar@2.0.3/screenshots/0.png",
+        "screenShot": "http://static-vusion.163yun.com/packages/lcap-echarts-bar@2.0.3/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {

@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-line@2.0.3/screenshots/0.png",
+    "screenShot": "http://static-vusion.163yun.com/packages/lcap-echarts-line@2.0.3/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-line xAxisTitle=\\\"维度\\\" yAxisTitle=\\\"指标\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-line>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-line",
         "title": "折线图",
         "description": "折线图",
         "category": "Chart",
-        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-echarts-line@2.0.3/screenshots/0.png",
+        "screenShot": "http://static-vusion.163yun.com/packages/lcap-echarts-line@2.0.3/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
