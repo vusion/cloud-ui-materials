@@ -1,0 +1,6 @@
+{
+  "lcap-h5-tk-scan/value": {
+    "type": "string",
+    "description": "需要传入的值"
+  }
+}

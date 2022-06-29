@@ -1,0 +1,26 @@
+{
+  "lcap-h5-tk-share/value": {
+    "type": "number, string, object",
+    "description": "需要传入的值"
+  },
+  "lcap-h5-tk-share/secret": {
+    "type": "string",
+    "description": "秘钥,字母或数字,不使用可不填"
+  },
+  "lcap-h5-tk-share/shareUrl": {
+    "type": "string",
+    "description": "分享地址(默认为当前页地址)"
+  },
+  "lcap-h5-tk-share/shareTitle": {
+    "type": "string",
+    "description": "微信朋友圈标题(默认为当前页标题)"
+  },
+  "lcap-h5-tk-share/shareBitmap": {
+    "type": "image",
+    "description": "分享图片的URL(过大或者不可访问会导致失败)"
+  },
+  "lcap-h5-tk-share/shareIntroduce": {
+    "type": "string",
+    "description": "朋友圈简介"
+  }
+}

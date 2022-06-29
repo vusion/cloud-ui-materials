@@ -1,4 +1,4 @@
-import * as echarts from 'echarts/core';
+import * as echarts from 'echarts';
 import theme1 from './theme/theme1.json';
 import theme2 from './theme/theme2.json';
 import theme3 from './theme/theme3.json';

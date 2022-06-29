@@ -6,6 +6,7 @@
       :size="size"
       :sourceData="sourceData"
       @startLoading="startLoading"
+      ref="echart"
     ></echart-bar>
     <div v-else :style="size">
       <img :src="require('./assets/barEmpty.png')" :class="$style.emptyImage">
@@ -16,7 +17,7 @@
 <script>
 import {fakeData} from "@/fakeData";
 import echartBar from "@/component/echartBar";
-import echarts from 'echarts';
+import * as echarts from 'echarts';
 import './theme';
 
 Vue.prototype.$echarts = echarts
@@ -26,7 +27,7 @@ export default {
   props: {
     dataSource: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
-    width: {type: String, default: '400px'},
+    width: {type: String, default: '380px'},
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
@@ -39,6 +40,7 @@ export default {
     allowShowLabel: {type: Boolean, default: true},
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
+    legendName: {type: String, default: ''},
     showXAxisLine: {type: Boolean, default: true},
     showYAxisLine: {type: Boolean, default: true},
     showXAxisLabel: {type: Boolean, default: true},
@@ -69,6 +71,7 @@ export default {
         yAxisTitle: this.yAxisTitle,
         theme: this.theme,
         title: this.title,
+        legendName: this.legendName,
         titleFontSize: this.titleFontSize,
         titleFontStyle: this.titleFontStyle,
         allowDownload: this.allowDownload,
@@ -95,11 +98,19 @@ export default {
     }
   },
   methods: {
+    reload() {
+      this.sourceData = 'fakeData';
+      this.$nextTick(async () => {
+        this.sourceData = await this.handleDataSource(this.dataSource);
+        this.loading = false;
+        this.$refs.echart && this.$refs.echart.reload();
+        console.log('source', this.sourceData);
+      });
+    },
     async init() {
-      const fnDataSource = this.$env.VUE_APP_DESIGNER ? fakeData : this.dataSource;
-      // const fnDataSource = fakeData;
-      const rawData = await this.handleDataSource(fnDataSource);
-      this.sourceData = this.processRawData(rawData);
+      // 本地启动和开发环境使用假数据，生产环境替换为真数据
+      const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
+      this.sourceData = await this.handleDataSource(fnDataSource);
     },
     // 删除不必要字段
     processRawData(data) {
@@ -126,16 +137,12 @@ export default {
       }
       return this.getData(dataSource);
     },
-    isDataSource(data) {
-      return Object.prototype.toString.call(data) === '[object Object]' && data.content;
-    },
     getData(dataSource) {
-      if (Array.isArray(dataSource)) {
-        return dataSource;
-      } else if (this.isDataSource(dataSource)) {
-        return dataSource;
+      if (typeof (dataSource) === 'string') {
+        dataSource = dataSource.replace(/'/g, '"');
+        return JSON.parse(dataSource);
       }
-      return [];
+      return dataSource;
     },
     startLoading() {
       this.loading = true;

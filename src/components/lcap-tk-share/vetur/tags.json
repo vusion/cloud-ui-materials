@@ -1,0 +1,13 @@
+{
+  "lcap-h5-tk-share": {
+    "attributes": [
+      "value",
+      "secret",
+      "shareUrl",
+      "shareTitle",
+      "shareBitmap",
+      "shareIntroduce"
+    ],
+    "description": "请在这里添加描述"
+  }
+}

@@ -1,0 +1,78 @@
+{
+    "symbol": "lcap-h5-tk-share",
+    "name": "泰康sdk分享",
+    "version": "0.1.5",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "请在这里添加描述",
+    "labels": [
+        "Runtime"
+    ],
+    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-share@0.1.5/screenshots/0.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tk-share></lcap-tk-share>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-h5-tk-share",
+        "title": "泰康sdk分享",
+        "description": "请在这里添加描述",
+        "category": "Runtime",
+        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-share@0.1.5/screenshots/0.png",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-tk-share></lcap-tk-share>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "value",
+                "type": "number, string, object",
+                "sync": true,
+                "model": true,
+                "advanced": true,
+                "description": "需要传入的值"
+            },
+            {
+                "name": "secret",
+                "type": "string",
+                "description": "秘钥,字母或数字,不使用可不填"
+            },
+            {
+                "name": "shareUrl",
+                "type": "string",
+                "description": "分享地址(默认为当前页地址)"
+            },
+            {
+                "name": "shareTitle",
+                "type": "string",
+                "description": "微信朋友圈标题(默认为当前页标题)"
+            },
+            {
+                "name": "shareBitmap",
+                "type": "image",
+                "description": "分享图片的URL(过大或者不可访问会导致失败)"
+            },
+            {
+                "name": "shareIntroduce",
+                "type": "string",
+                "description": "朋友圈简介"
+            }
+        ],
+        "slots": [
+            {
+                "name": "default",
+                "description": "插入文本或 HTML。"
+            }
+        ],
+        "methods": [
+            {
+                "name": "getMsg",
+                "title": "获取分享后回调信息",
+                "description": "获取分享后回调信息"
+            }
+        ],
+        "children": []
+    }
+}

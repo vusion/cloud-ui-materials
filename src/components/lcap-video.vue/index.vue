@@ -62,10 +62,11 @@ export default {
     },
     watch: {
         draggable(val) {
+            if (!this.player) return;
             if (val) {
-                this.controlBar.progressControl.enable();
+                this.player.controlBar.progressControl.enable();
             } else {
-                this.controlBar.progressControl.disable();
+                this.player.controlBar.progressControl.disable();
             }
         },
         src(val) {
@@ -95,6 +96,7 @@ export default {
                 muted,
                 controls: true,
                 responsive: true,
+                playbackRates: [0.5, 0.75 ,1 ,1.25 ,1.5 , 2]
             }, function onPlayerReady() {
                 if (!draggable) {
                     this.controlBar.progressControl.disable();
