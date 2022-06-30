@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import {processEchartData} from "@/tools";
 import * as echarts from 'echarts/core'
 
 export default {
@@ -30,7 +29,7 @@ export default {
       return {size, axisData, sourceData};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 400;
+      let width = this.size.width.replace("px", "") || 380;
       let height = this.size.height.replace("px", "") || 300;
       return {
         width: `${width}px`,
@@ -41,10 +40,7 @@ export default {
   watch: {
     changedObj: {
       handler() {
-        this.$refs.myChart.removeAttribute('_echarts_instance_');
-        const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-        thisChart.dispose();
-        this.createMyChart();
+        this.reload();
       },
       deep: true,
     }
@@ -55,6 +51,12 @@ export default {
     thisChart = null;
   },
   methods: {
+    reload() {
+      this.$refs.myChart.removeAttribute('_echarts_instance_');
+      const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
+      thisChart.dispose();
+      this.createMyChart();
+    },
     createMyChart() {
       const myChart = this.$refs.myChart;
       this.processPieData(this.sourceData);
@@ -70,39 +72,74 @@ export default {
         });
       }
     },
-    processPieData(data) {
-      if (!data) {
-        return;
+    // 递归列表中的数据，查找对应属性的值
+    recurGetValue(obj, val) {
+      if (!obj) return;
+      if (obj.hasOwnProperty(val)) {
+        return obj[val];
       }
-      const content = Array.isArray(data) ? data: data.content;
-      const pieData = [];
-      const key = Object.keys(content[0])[0];
-      const [attrDict, xAxisList, yAxisList] = processEchartData(data);
-      const multiXAxisList = this.axisData.xAxis.replace(/\s+/g, '').split(',') || [];
-      const multiYAxisList = this.axisData.yAxis.replace(/\s+/g, '').split(',') || [];
-      if (this.$env.VUE_APP_DESIGNER) {
-        this.axisData.xAxis = 'fakeXAxis';
-        this.axisData.yAxis = '指标1';
+      for (let item in obj) {
+        if (Object.prototype.toString.call(obj[item]) === '[object Object]') {
+          return this.recurGetValue(obj[item], val);
+        }
       }
-      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
-      this.axisData.yAxis = this.axisData.yAxis.split('.')[this.axisData.yAxis.split('.').length - 1] || '';
-      for (let item of content) {
-        const tempAttr = item[key];
-        pieData.push(
-          {
-            value: tempAttr[this.axisData.yAxis],
-            name: tempAttr[this.axisData.xAxis],
+    },
+    // 根据用户输入的坐标轴属性，返还对应数据
+    getAxisData(data, axis) {
+      if (!data || !data instanceof Object) return [];
+      const res = [];
+      if (Array.isArray(data)) {
+        for (let item of data) {
+          let axisData = this.recurGetValue(item, axis);
+          if (axisData) {
+            res.push(this.recurGetValue(item, axis));
           }
-        );
+        }
+      } else {
+        for (let item in data) {
+          res.push(...this.getAxisData(data[item], axis))
+        }
       }
+      return res;
+    },
+    generatePieData(data, xAxisData, yAxisData) {
+      let pieData = [];
+      for (let index = 0; index < xAxisData.length; index++) {
+        pieData.push({
+            value: yAxisData[index],
+            name: xAxisData[index],
+          });
+      }
+      return pieData;
+    },
+    generateLabelData() {
       let labelData = '';
       labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
       labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
       labelData = this.axisData.showLabelPercent ? labelData + '{d}%' : labelData + '';
+      return labelData;
+    },
+    processPieData(data) {
+      if (!data) {
+        return;
+      }
+      this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
+      this.axisData.yAxis = this.axisData.yAxis.split('.')[this.axisData.yAxis.split('.').length - 1] || '';
+      // IDE开发环境坐标轴替换为假数据坐标轴字段
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+        this.axisData.xAxis = 'fakeXAxis';
+        this.axisData.yAxis = '指标1';
+      }
+      let xAxisData = this.getAxisData(data, this.axisData.xAxis);
+      let yAxisData = this.getAxisData(data, this.axisData.yAxis);
+      const pieData = this.generatePieData(data, xAxisData, yAxisData);
+      let labelData = this.generateLabelData();
       const showLabel = !this.axisData.showLabelName && !this.axisData.showLabelValue && !this.axisData.showLabelPercent ? false : true;
-      // 发布部署后，如果字段不合法，加载默认图片
+      const multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      const multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      // 发布部署后，如果无数据和维度指标多于一个，加载默认图片
       if (!this.$env.VUE_APP_DESIGNER) {
-        if (!yAxisList.includes(this.axisData.yAxis) || !xAxisList.includes(this.axisData.xAxis)){
+        if (xAxisData.length === 0 || yAxisData.length === 0) {
           this.$emit("startLoading");
           return;
         }
@@ -111,7 +148,10 @@ export default {
           return;
         }
       }
-      this.pieOption = {
+      this.pieOption = this.generateEchartOption(pieData, showLabel, labelData);
+    },
+    generateEchartOption(pieData, showLabel, labelData) {
+      return {
         toolbox: {
           show: this.axisData.allowDownload,
           feature: {
@@ -120,8 +160,8 @@ export default {
         },
         legend: {
           show: this.axisData.allowShowLegend,
-          bottom: '-2%',
-          left: 'center'
+          bottom: '-1%',
+          left: 'center',
         },
         tooltip: {
           show: this.axisData.allowShowHint,
@@ -153,7 +193,7 @@ export default {
           }
         ],
       };
-    },
+    }
   },
 }
 </script>
