@@ -17,3 +17,6 @@
     - name: getMsg
       title: 获取扫码后信息
       description: 获取扫码后信息
+    - name: invoke
+      title: 调起扫码
+      description: 调起扫码

@@ -15,5 +15,8 @@
       description: 插入文本或 HTML。
   methods:
     - name: getMsg
-      title: 获取扫码后信息
+      title: 获取用户信息
       description: 获取扫码后信息
+    - name: invoke
+      title: 调起获取用户信息
+      description: 调起获取用户信息

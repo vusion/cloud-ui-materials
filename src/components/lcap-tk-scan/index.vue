@@ -7,7 +7,7 @@
 <script>
 
 export default {
-    name: 'lcap-tk-scan',
+    name: 'lcap-h5-tk-scan',
     props: {
         value: {
             type: String,
@@ -57,6 +57,9 @@ export default {
         },
         getMsg() {
             return this.msg;
+        },
+        invoke() {
+            this.tkScan();
         },
     },
 };

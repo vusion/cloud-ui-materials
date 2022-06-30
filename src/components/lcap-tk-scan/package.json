@@ -1,11 +1,11 @@
 {
   "name": "lcap-h5-tk-scan",
   "description": "",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/lcap-h5-tk-scan@0.1.5/index.html",
+  "homepage": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/lcap-h5-tk-scan@0.1.7/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-scan@0.1.5/screenshots\\0.png"
+      "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-scan@0.1.7/screenshots\\0.png"
     ],
     "team": "",
     "access": "public"

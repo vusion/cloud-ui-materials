@@ -1,11 +1,11 @@
 {
   "name": "lcap-h5-tk-getuserinfo",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/lcap-h5-tk-getuserinfo@0.1.4/index.html",
+  "homepage": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/lcap-h5-tk-getuserinfo@0.1.6/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-getuserinfo@0.1.4/screenshots\\0.png"
+      "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-getuserinfo@0.1.6/screenshots\\0.png"
     ],
     "team": "",
     "access": "public"

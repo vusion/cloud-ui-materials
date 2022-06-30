@@ -1,5 +1,5 @@
 ### 基本用法
 
 ``` html
-<lcap-tk-getuserinfo></lcap-tk-getuserinfo>
+<lcap-h5-tk-getuserinfo></lcap-h5-tk-getuserinfo>
 ```

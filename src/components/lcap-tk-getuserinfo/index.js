@@ -1,7 +1,7 @@
-import LcapTkGetuserinfo from './index.vue';
+import LcapH5TkGetuserinfo from './index.vue';
 
 export {
-    LcapTkGetuserinfo,
+    LcapH5TkGetuserinfo,
 };
 
-export default LcapTkGetuserinfo;
+export default LcapH5TkGetuserinfo;

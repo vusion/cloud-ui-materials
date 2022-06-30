@@ -5,8 +5,9 @@
 </template>
 
 <script>
+require('./isales.min.js');
 export default {
-    name: 'lcap-tk-getuserinfo',
+    name: 'lcap-h5-tk-getuserinfo',
     props: {
         value: {
             type: [String, Object],
@@ -23,9 +24,9 @@ export default {
         },
     },
     created() {
-        if (!window.ISALES) {
-            this.loadScript('https://f.taikang.com/static/assets/js/sdk/isales/2.0.26-beta/isales.min.js');
-        }
+        // if (!window.ISALES) {
+        //     this.loadScript('https://f.taikang.com/static/assets/js/sdk/isales/2.0.26-beta/isales.min.js');
+        // }
     },
     methods: {
         loadScript(url) {
@@ -54,6 +55,9 @@ export default {
         },
         getMsg() {
             return this.msg;
+        },
+        invoke() {
+            this.tkUser();
         },
     },
 };

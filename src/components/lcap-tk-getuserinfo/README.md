@@ -17,7 +17,7 @@
 ### 基本用法
 
 ``` html
-<lcap-tk-getuserinfo></lcap-tk-getuserinfo>
+<lcap-h5-tk-getuserinfo></lcap-h5-tk-getuserinfo>
 ```
 
 ## API
@@ -38,4 +38,8 @@ Methods
 #### getMsg()
 
 获取扫码后信息
+
+#### invoke()
+
+调起获取用户信息
 

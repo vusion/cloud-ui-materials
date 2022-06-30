@@ -1,7 +1,7 @@
-import LcapTkScan from './index.vue';
+import LcapH5TkScan from './index.vue';
 
 export {
-    LcapTkScan,
+    LcapH5TkScan,
 };
 
-export default LcapTkScan;
+export default LcapH5TkScan;

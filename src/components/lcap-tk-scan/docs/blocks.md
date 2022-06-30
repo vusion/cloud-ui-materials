@@ -1,5 +1,5 @@
 ### 基本用法
 
 ``` html
-<lcap-tk-scan></lcap-tk-scan>
+<lcap-h5-tk-scan></lcap-h5-tk-scan>
 ```

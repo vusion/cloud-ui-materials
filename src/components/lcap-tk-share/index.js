@@ -1,7 +1,7 @@
-import LcapTkShare from './index.vue';
+import LcapH5TkShare from './index.vue';
 
 export {
-    LcapTkShare,
+    LcapH5TkShare,
 };
 
-export default LcapTkShare;
+export default LcapH5TkShare;

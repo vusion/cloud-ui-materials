@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'lcap-tk-share',
+    name: 'lcap-h5-tk-share',
     props: {
         value: {
             type: [String, Object],
@@ -80,6 +80,9 @@ export default {
         },
         getMsg() {
             return this.msg;
+        },
+        invoke() {
+            this.tkShare();
         },
     },
 };

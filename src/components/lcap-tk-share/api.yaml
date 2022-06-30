@@ -37,3 +37,6 @@
     - name: getMsg
       title: 获取分享后回调信息
       description: 获取分享后回调信息
+    - name: invoke
+      title: 调起分享
+      description: 调起分享
