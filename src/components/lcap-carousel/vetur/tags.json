@@ -1,0 +1,11 @@
+{
+  "lcap-carousel": {
+    "attributes": [
+      "data-source",
+      "speed",
+      "hoverStop",
+      "gap"
+    ],
+    "description": "文字滚动条"
+  }
+}
