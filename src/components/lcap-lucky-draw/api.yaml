@@ -1,0 +1,165 @@
+- name: lcap-lucky-draw
+  title: 九宫格抽奖
+  description: 九宫格抽奖组价
+  labels: [Other]
+  icon: default
+  attrs:
+    - name: block1_name
+      title: 格子1名称
+      type: string
+      default: '奖品1'
+      description: 设置格子1的奖品名字
+      group: 格子1配置信息
+    - name: block1_chance
+      title: 格子1中奖概率
+      type: number
+      default: '10'
+      description: 设置奖品1的中奖概率
+      group: 格子1配置信息
+    - name: block1_fontSize
+      title: 格子1字体大小
+      type: string
+      default: '22px'
+      description: 设置格子1的字体大小
+      group: 格子1配置信息
+
+    - name: block2_name
+      title: 格子2名称
+      type: string
+      default: '奖品2'
+      description: 设置格子2的奖品名字
+      group: 格子2配置信息
+    - name: block2_chance
+      title: 格子2中奖概率
+      type: number
+      default: '10'
+      description: 设置奖品2的中奖概率
+      group: 格子2配置信息
+    - name: block2_fontSize
+      title: 格子2字体大小
+      type: string
+      default: '22px'
+      description: 设置格子2的字体大小
+      group: 格子2配置信息
+
+    - name: block3_name
+      title: 格子3名称
+      type: string
+      default: '奖品3'
+      description: 设置格子3的奖品名字
+      group: 格子3配置信息
+    - name: block3_chance
+      title: 格子3中奖概率
+      type: number
+      default: '10'
+      description: 设置奖品3的中奖概率
+      group: 格子3配置信息
+    - name: block3_fontSize
+      title: 格子3字体大小
+      type: string
+      default: '22px'
+      description: 设置格子3的字体大小
+      group: 格子3配置信息
+
+    - name: block4_name
+      title: 格子4名称
+      type: string
+      default: '奖品4'
+      description: 设置格子4的奖品名字
+      group: 格子4配置信息
+    - name: block4_chance
+      title: 格子4中奖概率
+      type: number
+      default: '10'
+      description: 设置奖品4的概率
+      group: 格子4配置信息
+    - name: block4_fontSize
+      title: 格子4字体大小
+      type: string
+      default: '22px'
+      description: 设置格子4的字体大小
+      group: 格子4配置信息
+
+    - name: block5_name
+      title: 格子5名称
+      type: string
+      default: '奖品5'
+      description: 设置格子5的奖品名字
+      group: 格子5配置信息
+    - name: block5_chance
+      title: 格子5中奖概率
+      type: number
+      default: '10'
+      description: 设置奖品5的中奖概率
+      group: 格子5配置信息
+    - name: block5_fontSize
+      title: 格子5字体大小
+      type: string
+      default: '22px'
+      description: 设置格子5的字体大小
+      group: 格子5配置信息
+
+    - name: block6_name
+      title: 格子6名称
+      type: string
+      default: '奖品6'
+      description: 设置格子6的奖品名字
+      group: 格子6配置信息
+    - name: block6_chance
+      title: 格子6中奖概率
+      type: number
+      default: '10'
+      description: 设置奖品6的中奖概率
+      group: 格子6配置信息
+    - name: block6_fontSize
+      title: 格子6字体大小
+      type: string
+      default: '22px'
+      description: 设置格子6的字体大小
+      group: 格子6配置信息
+
+    - name: block7_name
+      title: 格子7名称
+      type: string
+      default: '奖品7'
+      description: 设置格子7的奖品名字
+      group: 格子7配置信息
+    - name: block7_chance
+      title: 格子7中奖概率
+      type: number
+      default: '10'
+      description: 设置奖品7的中奖概率
+      group: 格子7配置信息
+    - name: block7_fontSize
+      title: 格子7字体大小
+      type: string
+      default: '22px'
+      description: 设置格子7的字体大小
+      group: 格子7配置信息
+
+    - name: block8_name
+      title: 格子8名称
+      type: string
+      default: '奖品8'
+      description: 设置格子8的奖品名字
+      group: 格子8配置信息
+    - name: block8_chance
+      title: 格子8概率
+      type: number
+      default: '10'
+      description: 设置奖品8的中奖概率
+      group: 格子8配置信息
+    - name: block8_fontSize
+      title: 格子8字体大小
+      type: string
+      default: '22px'
+      description: 设置格子8的字体大小
+      group: 格子8配置信息
+
+  events:
+    - name: start
+      title: 抽奖开始时
+      description: 倒计时开始时触发
+    - name: end
+      title: 抽奖结束时
+      description: 倒计时结束时触发
