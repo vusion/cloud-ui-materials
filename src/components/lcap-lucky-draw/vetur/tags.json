@@ -1,0 +1,31 @@
+{
+  "lcap-lucky-draw": {
+    "attributes": [
+      "block1_name",
+      "block1_chance",
+      "block1_fontSize",
+      "block2_name",
+      "block2_chance",
+      "block2_fontSize",
+      "block3_name",
+      "block3_chance",
+      "block3_fontSize",
+      "block4_name",
+      "block4_chance",
+      "block4_fontSize",
+      "block5_name",
+      "block5_chance",
+      "block5_fontSize",
+      "block6_name",
+      "block6_chance",
+      "block6_fontSize",
+      "block7_name",
+      "block7_chance",
+      "block7_fontSize",
+      "block8_name",
+      "block8_chance",
+      "block8_fontSize"
+    ],
+    "description": "九宫格抽奖组价"
+  }
+}

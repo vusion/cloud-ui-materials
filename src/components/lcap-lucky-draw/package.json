@@ -1,16 +1,17 @@
 {
   "name": "lcap-lucky-draw",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "main": "./index.js",
-  "author": "",
+  "author": "Zanning",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://ceph.lcap.ha.test.com/lcap-test-static/lcap-lucky-draw@0.1.3/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
     "material",
-    "component"
+    "component",
+    "luck-draw"
   ],
   "scripts": {
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
@@ -37,7 +38,9 @@
     "category": "Other",
     "base": "vue",
     "ui": "cloud-ui.vusion",
-    "screenshots": [],
+    "screenshots": [
+      "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-lucky-draw@0.1.3/screenshots/0.png"
+    ],
     "team": "",
     "access": "public"
   },

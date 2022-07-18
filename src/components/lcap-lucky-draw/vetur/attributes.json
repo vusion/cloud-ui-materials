@@ -1,0 +1,98 @@
+{
+  "lcap-lucky-draw/block1_name": {
+    "type": "string",
+    "description": "设置格子1的奖品名字"
+  },
+  "lcap-lucky-draw/block1_chance": {
+    "type": "number",
+    "description": "设置奖品1的中奖概率"
+  },
+  "lcap-lucky-draw/block1_fontSize": {
+    "type": "string",
+    "description": "设置格子1的字体大小"
+  },
+  "lcap-lucky-draw/block2_name": {
+    "type": "string",
+    "description": "设置格子2的奖品名字"
+  },
+  "lcap-lucky-draw/block2_chance": {
+    "type": "number",
+    "description": "设置奖品2的中奖概率"
+  },
+  "lcap-lucky-draw/block2_fontSize": {
+    "type": "string",
+    "description": "设置格子2的字体大小"
+  },
+  "lcap-lucky-draw/block3_name": {
+    "type": "string",
+    "description": "设置格子3的奖品名字"
+  },
+  "lcap-lucky-draw/block3_chance": {
+    "type": "number",
+    "description": "设置奖品3的中奖概率"
+  },
+  "lcap-lucky-draw/block3_fontSize": {
+    "type": "string",
+    "description": "设置格子3的字体大小"
+  },
+  "lcap-lucky-draw/block4_name": {
+    "type": "string",
+    "description": "设置格子4的奖品名字"
+  },
+  "lcap-lucky-draw/block4_chance": {
+    "type": "number",
+    "description": "设置奖品4的概率"
+  },
+  "lcap-lucky-draw/block4_fontSize": {
+    "type": "string",
+    "description": "设置格子4的字体大小"
+  },
+  "lcap-lucky-draw/block5_name": {
+    "type": "string",
+    "description": "设置格子5的奖品名字"
+  },
+  "lcap-lucky-draw/block5_chance": {
+    "type": "number",
+    "description": "设置奖品5的中奖概率"
+  },
+  "lcap-lucky-draw/block5_fontSize": {
+    "type": "string",
+    "description": "设置格子5的字体大小"
+  },
+  "lcap-lucky-draw/block6_name": {
+    "type": "string",
+    "description": "设置格子6的奖品名字"
+  },
+  "lcap-lucky-draw/block6_chance": {
+    "type": "number",
+    "description": "设置奖品6的中奖概率"
+  },
+  "lcap-lucky-draw/block6_fontSize": {
+    "type": "string",
+    "description": "设置格子6的字体大小"
+  },
+  "lcap-lucky-draw/block7_name": {
+    "type": "string",
+    "description": "设置格子7的奖品名字"
+  },
+  "lcap-lucky-draw/block7_chance": {
+    "type": "number",
+    "description": "设置奖品7的中奖概率"
+  },
+  "lcap-lucky-draw/block7_fontSize": {
+    "type": "string",
+    "description": "设置格子7的字体大小"
+  },
+  "lcap-lucky-draw/block8_name": {
+    "type": "string",
+    "description": "设置格子8的奖品名字"
+  },
+  "lcap-lucky-draw/block8_chance": {
+    "type": "number",
+    "description": "设置奖品8的中奖概率"
+  },
+  "lcap-lucky-draw/block8_fontSize": {
+    "type": "string",
+    "description": "设置格子8的字体大小"
+  }
+}
