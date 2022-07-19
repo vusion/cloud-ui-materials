@@ -166,5 +166,6 @@ export default {
 
 <style module>
 .root {
+  display: inline-block;
 }
 </style>
