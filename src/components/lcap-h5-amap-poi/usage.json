@@ -1,0 +1,52 @@
+{
+    "symbol": "lcap-h5-amap-poi",
+    "name": "地图选点",
+    "version": "0.1.5",
+    "icon": "amappoi",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "地图选点",
+    "labels": [
+        "amap"
+    ],
+    "screenShot": "",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-h5-amap-poi></lcap-h5-amap-poi>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-h5-amap-poi",
+        "title": "地图选点",
+        "description": "地图选点",
+        "category": "amap",
+        "screenShot": "",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-h5-amap-poi></lcap-h5-amap-poi>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "city",
+                "title": "默认城市",
+                "type": "string",
+                "description": "默认城市"
+            }
+        ],
+        "methods": [
+            {
+                "name": "poiPicked",
+                "title": "POI点",
+                "description": "POI点被选中后，获取经纬度以及详细地址信息"
+            }
+        ],
+        "events": [
+            {
+                "name": "select",
+                "title": "选择后",
+                "description": "点被选中后，可以调用逻辑（如，选择城北体育公园后，自动在详细地址输入框填充详细地址信息）"
+            }
+        ],
+        "children": []
+    }
+}

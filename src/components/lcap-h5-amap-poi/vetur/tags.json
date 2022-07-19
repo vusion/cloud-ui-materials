@@ -1,0 +1,8 @@
+{
+  "lcap-h5-amap-poi": {
+    "attributes": [
+      "city"
+    ],
+    "description": "地图选点"
+  }
+}
