@@ -168,7 +168,11 @@ export default {
 <style module>
 .root {
     width: 100%;
-    height: 500px;
+    height: 700px;
+    word-break: normal;
+    white-space: normal;
+    text-align: left;
+    word-wrap: normal;
 }
 .container {
     position: relative;
@@ -205,8 +209,8 @@ color: #FFFFFF;
     position: absolute;
     z-index: 9999;
     top: 50px;
-    right: 30px;
-    width: 300px;
+    left: 0;
+    width: 80%;
 }
 
 #pickerInput {
@@ -225,4 +229,9 @@ color: #FFFFFF;
 .amap_lib_placeSearch .poi-more {
     display: none!important;
 }
+.amap-info {
+    width: 90%;
+    left: 144px !important;
+}
+div[lcap-h5-amap-dialog="lcap-h5-amap-dialog"] .van-dialog__content>div {overflow-y: scroll !important;}
 </style>

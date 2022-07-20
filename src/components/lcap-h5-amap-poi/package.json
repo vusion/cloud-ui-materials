@@ -1,11 +1,11 @@
 {
   "name": "lcap-h5-amap-poi",
   "description": "",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/lcap-h5-amap-poi@0.1.5/index.html",
+  "homepage": "http://static-vusion.163yun.com/lcap-h5-amap-poi@0.1.6/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
