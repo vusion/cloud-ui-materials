@@ -14,6 +14,7 @@
       :visible.sync="visible"
       cancel-button
       @ok="handleOk"
+      :mode=false
       title="抽奖结果"
     >
       <div slot="body">
@@ -39,14 +40,10 @@ export default {
         {padding: '10px', background: '#617df2'},
         {padding: '10px', background: '#e9e8fe'},
       ],
-      buttons: [
-        {
+      buttons: [{
           x: 1, y: 1,
-          // background: '#7074f6',
-          // fonts: [{text: '开始', top: '25%'}],
           imgs: [{src: require('./assets/start.png'), width: '100%', height: '100%'}],
-        },
-      ],
+        }],
     }
   },
   computed: {
@@ -57,6 +54,8 @@ export default {
           y: 0,
           background: '#899df3',
           fonts: [{text: this.block1_name, top: '15px', fontSize: this.block1_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block1_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block1_chance
         },
         {
@@ -64,6 +63,8 @@ export default {
           y: 0,
           background: '#9c9dd8',
           fonts: [{text: this.block2_name, top: '15px', fontSize: this.block2_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block2_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block2_chance
         },
         {
@@ -71,6 +72,8 @@ export default {
           y: 0,
           background: '#899df3',
           fonts: [{text: this.block3_name, top: '15px', fontSize: this.block3_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block3_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block3_chance
         },
         {
@@ -78,6 +81,8 @@ export default {
           y: 1,
           background: '#9c9dd8',
           fonts: [{text: this.block4_name, top: '15px', fontSize: this.block4_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block4_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block4_chance
         },
         {
@@ -85,6 +90,8 @@ export default {
           y: 2,
           background: '#899df3',
           fonts: [{text: this.block5_name, top: '15px', fontSize: this.block5_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block5_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block5_chance
         },
         {
@@ -92,6 +99,8 @@ export default {
           y: 2,
           background: '#9c9dd8',
           fonts: [{text: this.block6_name, top: '15px', fontSize: this.block6_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block6_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block6_chance
         },
         {
@@ -99,6 +108,8 @@ export default {
           y: 2,
           background: '#899df3',
           fonts: [{text: this.block7_name, top: '15px', fontSize: this.block7_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block7_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block7_chance
         },
         {
@@ -106,6 +117,8 @@ export default {
           y: 1,
           background: '#9c9dd8',
           fonts: [{text: this.block8_name, top: '15px', fontSize: this.block8_fontSize}],
+          borderRadius: '5px',
+          imgs: [{src: this.block8_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
           range: this.block8_chance
         },
       ]
@@ -136,6 +149,14 @@ export default {
     block6_fontSize: {type: String, default: '22px'},
     block7_fontSize: {type: String, default: '22px'},
     block8_fontSize: {type: String, default: '22px'},
+    block1_img: {type: String, default: '', required: true},
+    block2_img: {type: String, default: '', required: true},
+    block3_img: {type: String, default: '', required: true},
+    block4_img: {type: String, default: '', required: true},
+    block5_img: {type: String, default: '', required: true},
+    block6_img: {type: String, default: '', required: true},
+    block7_img: {type: String, default: '', required: true},
+    block8_img: {type: String, default: '', required: true},
   },
   methods: {
     // 点击抽奖按钮会触发star回调

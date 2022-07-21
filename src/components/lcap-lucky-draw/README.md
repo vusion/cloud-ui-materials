@@ -25,8 +25,15 @@
     block6_name="四等奖"
     block7_name="一等奖"
     block8_name="二等奖"
-    
-
+    block1_chance="10"
+    block2_chance="20"
+    block3_chance="30"
+    block4_chance="20"
+    block5_chance="30"
+    block6_chance="40"
+    block7_chance="10"
+    block8_chance="20"
+    block1_img="http://ceph.lcap.ha.test.com/lcap-test-static/user/defaultTenant/Shandong_Lanxiang_Vocational_School.jpg?AWSAccessKeyId=UN69TIB66SLGEX3DXFV5&Expires=1689055206&Signature=FTkOyvxu%2BujUsjsCvaAsx9z4Ogg%3D"
 >
 </lcap-lucky-draw>
 ```
@@ -36,38 +43,38 @@
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
+| block1_img | image |  | `''` | 设置格子1奖品图片 |
 | block1_name | string |  | `'奖品1'` | 设置格子1的奖品名字 |
 | block1_chance | number |  | `'10'` | 设置奖品1的中奖概率 |
-| block1_fontSize | string |  | `'22px'` | 设置格子1的字体大小 |
+| block2_img | image |  | `''` | 设置格子2奖品图片 |
 | block2_name | string |  | `'奖品2'` | 设置格子2的奖品名字 |
 | block2_chance | number |  | `'10'` | 设置奖品2的中奖概率 |
-| block2_fontSize | string |  | `'22px'` | 设置格子2的字体大小 |
+| block3_img | image |  | `''` | 设置格子3奖品图片 |
 | block3_name | string |  | `'奖品3'` | 设置格子3的奖品名字 |
 | block3_chance | number |  | `'10'` | 设置奖品3的中奖概率 |
-| block3_fontSize | string |  | `'22px'` | 设置格子3的字体大小 |
+| block4_img | image |  | `''` | 设置格子4奖品图片 |
 | block4_name | string |  | `'奖品4'` | 设置格子4的奖品名字 |
 | block4_chance | number |  | `'10'` | 设置奖品4的概率 |
-| block4_fontSize | string |  | `'22px'` | 设置格子4的字体大小 |
+| block5_img | image |  | `''` | 设置格子5奖品图片 |
 | block5_name | string |  | `'奖品5'` | 设置格子5的奖品名字 |
 | block5_chance | number |  | `'10'` | 设置奖品5的中奖概率 |
-| block5_fontSize | string |  | `'22px'` | 设置格子5的字体大小 |
+| block6_img | image |  | `''` | 设置格子6奖品图片 |
 | block6_name | string |  | `'奖品6'` | 设置格子6的奖品名字 |
 | block6_chance | number |  | `'10'` | 设置奖品6的中奖概率 |
-| block6_fontSize | string |  | `'22px'` | 设置格子6的字体大小 |
+| block7_img | image |  | `''` | 设置格子7奖品图片 |
 | block7_name | string |  | `'奖品7'` | 设置格子7的奖品名字 |
 | block7_chance | number |  | `'10'` | 设置奖品7的中奖概率 |
-| block7_fontSize | string |  | `'22px'` | 设置格子7的字体大小 |
+| block8_img | image |  | `''` | 设置格子8奖品图片 |
 | block8_name | string |  | `'奖品8'` | 设置格子8的奖品名字 |
 | block8_chance | number |  | `'10'` | 设置奖品8的中奖概率 |
-| block8_fontSize | string |  | `'22px'` | 设置格子8的字体大小 |
 
 ### Events
 
 #### @start
 
-倒计时开始时触发
+抽奖时开始时触发
 
 #### @end
 
-倒计时结束时触发
+抽奖时结束时触发
 

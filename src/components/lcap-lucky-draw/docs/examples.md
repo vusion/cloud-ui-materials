@@ -18,6 +18,7 @@
     block6_chance="40"
     block7_chance="10"
     block8_chance="20"
+    block1_img="http://ceph.lcap.ha.test.com/lcap-test-static/user/defaultTenant/Shandong_Lanxiang_Vocational_School.jpg?AWSAccessKeyId=UN69TIB66SLGEX3DXFV5&Expires=1689055206&Signature=FTkOyvxu%2BujUsjsCvaAsx9z4Ogg%3D"
 >
 </lcap-lucky-draw>
 ```
