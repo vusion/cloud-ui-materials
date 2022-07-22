@@ -1,6 +1,8 @@
 {
   "lcap-lucky-draw": {
     "attributes": [
+      "width",
+      "height",
       "block1_img",
       "block1_name",
       "block1_chance",

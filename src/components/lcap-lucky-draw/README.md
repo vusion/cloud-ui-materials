@@ -17,6 +17,7 @@
 
 ``` html
 <lcap-lucky-draw
+    width="300px"
     block1_name="一等奖"
     block2_name="二等奖"
     block3_name="三等奖"
@@ -25,14 +26,6 @@
     block6_name="四等奖"
     block7_name="一等奖"
     block8_name="二等奖"
-    block1_chance="10"
-    block2_chance="20"
-    block3_chance="30"
-    block4_chance="20"
-    block5_chance="30"
-    block6_chance="40"
-    block7_chance="10"
-    block8_chance="20"
     block1_img="http://ceph.lcap.ha.test.com/lcap-test-static/user/defaultTenant/Shandong_Lanxiang_Vocational_School.jpg?AWSAccessKeyId=UN69TIB66SLGEX3DXFV5&Expires=1689055206&Signature=FTkOyvxu%2BujUsjsCvaAsx9z4Ogg%3D"
 >
 </lcap-lucky-draw>
@@ -43,6 +36,8 @@
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
+| width | string |  | `'300px'` | 设置九宫格宽度 |
+| height | string |  | `'300px'` | 设置九宫格高度 |
 | block1_img | image |  | `''` | 设置格子1奖品图片 |
 | block1_name | string |  | `'奖品1'` | 设置格子1的奖品名字 |
 | block1_chance | number |  | `'10'` | 设置奖品1的中奖概率 |

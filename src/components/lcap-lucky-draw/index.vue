@@ -1,9 +1,10 @@
 <template>
   <div :class="$style.root">
     <LuckyGrid
+      v-if="showGrid"
       ref="myLucky"
-      width="300px"
-      height="300px"
+      :width="width"
+      :height="height"
       :prizes="prizes"
       :blocks="blocks"
       :buttons="buttons"
@@ -34,6 +35,7 @@ export default {
   name: 'lcap-lucky-draw',
   data() {
     return {
+      showGrid: true,
       visible: false,
       currentPrize: '',
       blocks: [
@@ -44,6 +46,20 @@ export default {
           x: 1, y: 1,
           imgs: [{src: require('./assets/start.png'), width: '100%', height: '100%'}],
         }],
+    }
+  },
+  watch: {
+    width() {
+      this.$nextTick(() => {
+        this.showGrid = true;
+      });
+      this.showGrid = false;
+    },
+    height() {
+      this.$nextTick(() => {
+        this.showGrid = true;
+      });
+      this.showGrid = false;
     }
   },
   computed: {
@@ -125,6 +141,8 @@ export default {
     },
   },
   props: {
+    width: {type: String, default: '300px'},
+    height: {type: String, default: '300px'},
     block1_name: {type: String, default: '奖品1'},
     block2_name: {type: String, default: '奖品2'},
     block3_name: {type: String, default: '奖品3'},
@@ -149,14 +167,14 @@ export default {
     block6_fontSize: {type: String, default: '22px'},
     block7_fontSize: {type: String, default: '22px'},
     block8_fontSize: {type: String, default: '22px'},
-    block1_img: {type: String, default: '', required: true},
-    block2_img: {type: String, default: '', required: true},
-    block3_img: {type: String, default: '', required: true},
-    block4_img: {type: String, default: '', required: true},
-    block5_img: {type: String, default: '', required: true},
-    block6_img: {type: String, default: '', required: true},
-    block7_img: {type: String, default: '', required: true},
-    block8_img: {type: String, default: '', required: true},
+    block1_img: {type: String, default: ''},
+    block2_img: {type: String, default: ''},
+    block3_img: {type: String, default: ''},
+    block4_img: {type: String, default: ''},
+    block5_img: {type: String, default: ''},
+    block6_img: {type: String, default: ''},
+    block7_img: {type: String, default: ''},
+    block8_img: {type: String, default: ''},
   },
   methods: {
     // 点击抽奖按钮会触发star回调
