@@ -1,6 +1,6 @@
 <template>
 <div :class="$style.root">
-    <div @click="tkUser"><slot></slot></div>
+    <div @click="tkUser" :class="$style.btn">关闭当前页面</div>
 </div>
 </template>
 
@@ -62,3 +62,12 @@ export default {
     },
 };
 </script>
+<style module>
+.root {}
+.btn {
+    line-height: 50px;
+    color: #fff;
+    background-color: red;
+    text-align: center;
+}
+</style>
