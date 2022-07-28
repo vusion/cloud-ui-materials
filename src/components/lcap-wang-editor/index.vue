@@ -36,6 +36,8 @@ export default {
         editorStyle: String,
     },
     data() {
+        const authorization = this.getCookie('authorization');
+        const headers = authorization ? { Authorization: authorization } : {};
         return {
             editor: null,
             toolbarConfig: {},
@@ -45,12 +47,13 @@ export default {
                 placeholder: this.placeholder,
                 MENU_CONF: {
                     uploadImage: {
-                        url: '/gateway/lowcode/api/v1/app/upload',
+                        server: '/gateway/lowcode/api/v1/app/upload',
+                        fieldName: 'file',
                         maxFileSize: 50 * 1024 * 1024, // 50M
+                        // 自定义增加 http  header
+                        headers,
                         // 自定义插入图片
                         customInsert(res, insertFn) {
-                            console.log('res', res);
-                            // 从 res 中找到 url alt href ，然后插图图片
                             const url = res.result;
                             insertFn(url);
                         },
@@ -60,9 +63,7 @@ export default {
             mode: 'default', // or 'simple'
         };
     },
-    computed: {
-
-    },
+    computed: {},
     beforeDestroy() {
         const { editor } = this;
         if (editor === null)
@@ -87,15 +88,25 @@ export default {
         onBlur(editor) {
             this.$emit('blur', { value: this.value, editor });
         },
+        getCookie(cname) {
+            const name = `${cname}=`;
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                const c = ca[i].trim();
+                if (c.indexOf(name) === 0)
+                    return c.substring(name.length, c.length);
+            }
+            return '';
+        },
     },
 };
 </script>
 
 <style module>
-.root {
-}
+    .root {
+    }
 
-.border {
-    border: 1px solid #ccc;
-}
+    .border {
+        border: 1px solid #ccc;
+    }
 </style>
