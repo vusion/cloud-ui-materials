@@ -118,6 +118,7 @@ export default {
                 readOnly: this.readOnly,
             },
             uploadUrl: this.imgUploadUrl,
+            write: true, //Bug-51423 光标左移
         };
     },
     watch: {
@@ -129,9 +130,12 @@ export default {
             this.reRender();
         },
         value(val) {
-            if (!this.editor) {
+            if (!this.editor || !this.write) {
+                this.write = true;
                 return;
             }
+            const node = document.getElementsByClassName('ql-cursor')[0];
+            node?.parentElement.removeChild(node);
 
             let content = this.editor.root.innerHTML;
             content = this.removeMathTag(content);
@@ -196,6 +200,14 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.reRender();
+            this.editor.root.addEventListener('keydown', (event) => {
+                const e = event || window.event;
+                const keyCode = e.keyCode;
+                if (keyCode === 13) {
+                    this.write = false;
+                    e.stopPropagation();
+                }
+            }, true);
         });
     },
     methods: {
