@@ -1,0 +1,22 @@
+{
+  "lcap-wang-editor/value": {
+    "type": "string",
+    "description": "需要传入的文本内容"
+  },
+  "lcap-wang-editor/readOnly": {
+    "type": "boolean",
+    "description": "启用只读模式"
+  },
+  "lcap-wang-editor/scroll": {
+    "type": "boolean",
+    "description": "启用滚动"
+  },
+  "lcap-wang-editor/placeholder": {
+    "type": "string",
+    "description": "输入提示"
+  },
+  "lcap-wang-editor/editorStyle": {
+    "type": "string",
+    "description": "编辑器样式CSS"
+  }
+}

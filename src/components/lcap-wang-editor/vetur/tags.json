@@ -1,0 +1,12 @@
+{
+  "lcap-wang-editor": {
+    "attributes": [
+      "value",
+      "readOnly",
+      "scroll",
+      "placeholder",
+      "editorStyle"
+    ],
+    "description": "请在这里添加描述"
+  }
+}

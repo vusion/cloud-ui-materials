@@ -1,0 +1,51 @@
+- name: lcap-wang-editor
+  title: 富文本
+  description: 请在这里添加描述
+  labels: [Form]
+  icon: default
+  attrs:
+    - name: value
+      title: 编辑内容
+      type: string
+      default: ""
+      sync: true
+      model: false
+      description: 需要传入的文本内容
+    - name: readOnly
+      default: false
+      title: 启用只读模式
+      type: boolean
+      description: 启用只读模式
+    - name: scroll
+      default: true
+      title: 启用滚动
+      type: boolean
+      description: 启用滚动
+    - name: placeholder
+      default: ""
+      title: 输入占位符
+      type: string
+      description: 输入提示
+    - name: editorStyle
+      default: ""
+      title: 编辑器样式
+      type: string
+      description: 编辑器样式CSS
+  events:
+    - name: change
+      title: 内容改变时
+      description: 内容修改时触发
+      params:
+        - name: $event.value
+          type: string
+          description: 当前输入区域的内容
+        - name: $event.editor
+          type: string
+          description: wangeditor 实例
+    - name: input
+      title: 输入时
+      description: 输入时触发
+      params:
+        - name: value
+          type: string
+          description: 当前输入区域的内容
