@@ -135,7 +135,8 @@ export default {
                 return;
             }
             const node = document.getElementsByClassName('ql-cursor')[0];
-            node?.parentElement.removeChild(node);
+            if(node)
+                node.parentElement.removeChild(node);
 
             let content = this.editor.root.innerHTML;
             content = this.removeMathTag(content);
