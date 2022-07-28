@@ -130,13 +130,14 @@ export default {
             this.reRender();
         },
         value(val) {
+            const nodes = document.getElementsByClassName('ql-cursor');
+            nodes.forEach((node) => {
+                node.parentElement.removeChild(node);
+            });
             if (!this.editor || !this.write) {
                 this.write = true;
                 return;
             }
-            const node = document.getElementsByClassName('ql-cursor')[0];
-            if(node)
-                node.parentElement.removeChild(node);
 
             let content = this.editor.root.innerHTML;
             content = this.removeMathTag(content);
