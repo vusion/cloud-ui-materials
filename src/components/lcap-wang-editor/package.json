@@ -13,9 +13,9 @@
     "component"
   ],
   "scripts": {
-    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
-    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
-    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
     "build": "npm run build:theme && npm run build:doc",
     "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
     "deploy": "lcap deploy && lcap deploy dist-theme",
@@ -45,7 +45,13 @@
     "@wangeditor/editor": "^5.1.14",
     "@wangeditor/editor-for-vue": "^1.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.10",
+    "vue-cli-plugin-vusion": "^0.13.3"
+  },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
     "vue-cli-plugin-vusion": "^0.13.3",
