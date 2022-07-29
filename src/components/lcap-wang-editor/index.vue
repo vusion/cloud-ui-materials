@@ -1,14 +1,15 @@
 <template>
-<div :class="{ [$style.root]: true, [$style.border]: !readOnly }">
+<div :class="{ [$style.root]: true, [$style.border]: !readOnly }" ref='root'>
     <toolbar
+        ref="toolbar"
         style="border-bottom: 1px solid #ccc"
         :editor="editor"
         :default-config="toolbarConfig"
         :mode="mode"
-        v-if="!readOnly"
+        v-show="!readOnly"
     ></toolbar>
     <editor
-        :style="editorStyle"
+        :style="[rootStyle, editorHeight]"
         :value="value"
         :default-config="editorConfig"
         :mode="mode"
@@ -31,9 +32,9 @@ export default {
     props: {
         value: String,
         readOnly: Boolean,
-        scroll: Boolean,
+        scroll: { type: Boolean, default: true },
         placeholder: String,
-        editorStyle: String,
+        editorStyle: { type: String, default: '' },
     },
     data() {
         const authorization = this.getCookie('authorization');
@@ -60,10 +61,20 @@ export default {
                     },
                 },
             },
-            mode: 'default', // or 'simple'
+            mode: 'default', // or 'simple',
+            editorHeight: {
+                height: '180px',
+            },
         };
     },
-    computed: {},
+    watch: {
+        readOnly(val) {
+            val ? this.editor.disable() : this.editor.enable();
+        },
+    },
+    created() {
+        this.rootStyle = this.parseStyleAttr(this.editorStyle)
+    },
     beforeDestroy() {
         const { editor } = this;
         if (editor === null)
@@ -75,6 +86,15 @@ export default {
         onCreated(editor) {
             // 一定要用 Object.seal() ，否则会报错
             this.editor = Object.seal(editor);
+            let height = this.$refs.root.style.height;
+            setTimeout(() => {
+                if (height) {
+                    const toolHeight = this.$refs.toolbar.$el.getBoundingClientRect().height;
+                    height = height.substring(0, height.length - 2);
+                    this.editorHeight.height = height - toolHeight + 'px';
+                    this.$refs.root.style.removeProperty('height');
+                }
+            });
         },
         onChange(editor) {
             const value = editor.isEmpty() ? '' : editor.getHtml();
@@ -98,12 +118,24 @@ export default {
             }
             return '';
         },
+        parseStyleAttr(styleStr) {
+            const styleObj = styleStr.split(/;/gim).reduce((obj, item) => {
+                const arrs = item.trim().split(/:/gim);
+                if (arrs.length > 1) {
+                    obj[arrs[0].trim()] = arrs[1].trim();
+                }
+                return obj;
+            }, {});
+
+            return styleObj;
+        },
     },
 };
 </script>
 
 <style module>
     .root {
+        z-index: 1000;
     }
 
     .border {
