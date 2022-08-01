@@ -73,7 +73,7 @@ export default {
         },
     },
     created() {
-        this.rootStyle = this.parseStyleAttr(this.editorStyle)
+        this.rootStyle = this.parseStyleAttr(this.editorStyle);
     },
     beforeDestroy() {
         const { editor } = this;
@@ -97,10 +97,15 @@ export default {
             });
         },
         onChange(editor) {
+            // 内容为空时不重复赋值，防止表单错误校验
+            if (editor.isEmpty() && (!this.value && this.value !== 0))
+                return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
-            this.$emit('change', { value, editor });
-            this.$emit('update:value', value);
-            this.$emit('input', value);
+            if (value !== this.value) {
+                this.$emit('change', { value, editor });
+                this.$emit('update:value', value);
+                this.$emit('input', value);
+            }
         },
         onFocus(editor) {
             this.$emit('focus', { value: this.value, editor });
