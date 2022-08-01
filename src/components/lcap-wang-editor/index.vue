@@ -46,6 +46,7 @@ export default {
                 readOnly: this.readOnly,
                 scroll: this.scroll,
                 placeholder: this.placeholder,
+                autoFocus: false,
                 MENU_CONF: {
                     uploadImage: {
                         server: '/gateway/lowcode/api/v1/app/upload',
