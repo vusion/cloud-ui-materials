@@ -64,8 +64,10 @@ export default {
                 },
             },
             mode: 'default', // or 'simple',
+            defaultHeight: '',
             editorHeight: {
                 height: '180px',
+                'min-height': null,
             },
         };
     },
@@ -96,6 +98,7 @@ export default {
                     this.editorHeight.height = height - toolHeight + 'px';
                     this.$refs.root.style.removeProperty('height');
                 }
+                this.defaultHeight = this.editorHeight.height;
             });
         },
         onChange(editor) {
@@ -103,13 +106,17 @@ export default {
             if (editor.isEmpty() && (!this.value && this.value !== 0))
                 return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
-            //不滚动时，内容高度大于默认高度时需要扩大面板。
+            //添加min-height时，container容器小于editor编辑器高度，click事件需精确触发，体验较差。所以当container容器大于editor编辑器高度时再添加min-height属性
             if (!this.scroll) {
-                const editorNode = this.$refs.editor.$el;
-                const textarea = editorNode.querySelector('[data-slate-editor]');
-                const currentheight = textarea.getBoundingClientRect().height;
-                if (currentheight > this.removePX(this.editorHeight.height))
-                    this.editorHeight.height = currentheight + 'px';
+                const textareaNode = this.$refs.editor.$el.querySelector('[data-slate-editor]');
+                const currentheight = textareaNode.getBoundingClientRect().height;
+                const height = this.editorHeight.height || '';
+                if (height && currentheight > this.removePX(height)) {
+                    this.editorHeight['min-height'] = this.editorHeight.height;
+                    this.editorHeight.height = null;
+                } else if (currentheight <= this.removePX(this.defaultHeight)) {
+                    this.editorHeight.height = this.defaultHeight;
+                }
             }
             if (value !== this.value) {
                 this.$emit('change', { value, editor });
