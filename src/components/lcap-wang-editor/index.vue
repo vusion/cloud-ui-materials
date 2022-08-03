@@ -9,6 +9,7 @@
         v-show="!readOnly"
     ></toolbar>
     <editor
+        ref='editor'
         :style="[rootStyle, editorHeight]"
         :value="value"
         :default-config="editorConfig"
@@ -91,7 +92,7 @@ export default {
             setTimeout(() => {
                 if (height) {
                     const toolHeight = this.$refs.toolbar.$el.getBoundingClientRect().height;
-                    height = height.substring(0, height.length - 2);
+                    height = this.removePX(height);
                     this.editorHeight.height = height - toolHeight + 'px';
                     this.$refs.root.style.removeProperty('height');
                 }
@@ -102,6 +103,14 @@ export default {
             if (editor.isEmpty() && (!this.value && this.value !== 0))
                 return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
+            //不滚动时，内容高度大于默认高度时需要扩大面板。
+            if (!this.scroll) {
+                const editorNode = this.$refs.editor.$el;
+                const textarea = editorNode.querySelector('[data-slate-editor]');
+                const currentheight = textarea.getBoundingClientRect().height;
+                if (currentheight > this.removePX(this.editorHeight.height))
+                    this.editorHeight.height = currentheight + 'px';
+            }
             if (value !== this.value) {
                 this.$emit('change', { value, editor });
                 this.$emit('update:value', value);
@@ -134,6 +143,9 @@ export default {
             }, {});
 
             return styleObj;
+        },
+        removePX(str) {
+            return str.substring(0, str.length - 2);
         },
     },
 };
