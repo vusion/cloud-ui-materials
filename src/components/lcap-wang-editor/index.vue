@@ -118,11 +118,9 @@ export default {
             if (editor.isEmpty() && (!this.value && this.value !== 0))
                 return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
-            if (value !== this.value) {
-                this.$emit('change', { value, editor });
-                this.$emit('update:value', value);
-                this.$emit('input', value);
-            }
+            this.$emit('change', { value, editor });
+            this.$emit('update:value', value);
+            this.$emit('input', value);
         },
         onFocus(editor) {
             this.$emit('focus', { value: this.value, editor });
