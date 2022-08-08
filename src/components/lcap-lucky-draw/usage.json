@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-lucky-draw",
     "name": "九宫格抽奖",
-    "version": "0.1.8",
+    "version": "0.1.15",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,20 +9,20 @@
     "labels": [
         "Other"
     ],
-    "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-lucky-draw@0.1.8/screenshots/0.png",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-lucky-draw></lcap-lucky-draw>\\n</template>\\n\"}]",
+    "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-lucky-draw@0.1.15/screenshots/0.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-lucky-draw\\n    block1_name=\\\"奖品1\\\"\\n    block2_name=\\\"奖品2\\\"\\n    block3_name=\\\"奖品3\\\"\\n    block4_name=\\\"奖品4\\\"\\n    block5_name=\\\"奖品5\\\"\\n    block6_name=\\\"奖品6\\\"\\n    block7_name=\\\"奖品7\\\"\\n    block8_name=\\\"奖品8\\\"\\n>\\n</lcap-lucky-draw>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-lucky-draw",
         "title": "九宫格抽奖",
         "description": "九宫格抽奖组价",
         "category": "Other",
-        "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-lucky-draw@0.1.8/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-lucky-draw@0.1.15/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n<lcap-lucky-draw></lcap-lucky-draw>\n</template>\n"
+                "code": "<template>\n<lcap-lucky-draw\n    block1_name=\"奖品1\"\n    block2_name=\"奖品2\"\n    block3_name=\"奖品3\"\n    block4_name=\"奖品4\"\n    block5_name=\"奖品5\"\n    block6_name=\"奖品6\"\n    block7_name=\"奖品7\"\n    block8_name=\"奖品8\"\n>\n</lcap-lucky-draw>\n</template>\n"
             }
         ],
         "attrs": [
@@ -30,7 +30,7 @@
                 "name": "width",
                 "type": "string",
                 "title": "宽度",
-                "default": "300px",
+                "default": "375px",
                 "description": "设置九宫格宽度",
                 "group": "基础配置信息"
             },
@@ -38,7 +38,7 @@
                 "name": "height",
                 "type": "string",
                 "title": "高度",
-                "default": "300px",
+                "default": "375px",
                 "description": "设置九宫格高度",
                 "group": "基础配置信息"
             },
