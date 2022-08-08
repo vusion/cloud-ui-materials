@@ -102,11 +102,7 @@ export default {
             });
         },
         onChange(editor) {
-            // 内容为空时不重复赋值，防止表单错误校验
-            if (editor.isEmpty() && (!this.value && this.value !== 0))
-                return;
-            const value = editor.isEmpty() ? '' : editor.getHtml();
-            //添加min-height时，container容器小于editor编辑器高度，click事件需精确触发，体验较差。所以当container容器大于editor编辑器高度时再添加min-height属性
+            // 添加min-height时，container容器小于editor编辑器高度，click事件需精确触发，体验较差。所以当container容器大于editor编辑器高度时再添加min-height属性
             if (!this.scroll) {
                 const textareaNode = this.$refs.editor.$el.querySelector('[data-slate-editor]');
                 const currentheight = textareaNode.getBoundingClientRect().height;
@@ -118,11 +114,13 @@ export default {
                     this.editorHeight.height = this.defaultHeight;
                 }
             }
-            if (value !== this.value) {
-                this.$emit('change', { value, editor });
-                this.$emit('update:value', value);
-                this.$emit('input', value);
-            }
+            // 内容为空时不重复赋值，防止表单错误校验
+            if (editor.isEmpty() && (!this.value && this.value !== 0))
+                return;
+            const value = editor.isEmpty() ? '' : editor.getHtml();
+            this.$emit('change', { value, editor });
+            this.$emit('update:value', value);
+            this.$emit('input', value);
         },
         onFocus(editor) {
             this.$emit('focus', { value: this.value, editor });
