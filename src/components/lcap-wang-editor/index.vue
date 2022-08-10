@@ -99,20 +99,15 @@ export default {
                     this.$refs.root.style.removeProperty('height');
                 }
                 this.defaultHeight = this.editorHeight.height;
+                if (!this.scroll) {
+                    this.setHeight();
+                }
             });
         },
         onChange(editor) {
             // 添加min-height时，container容器小于editor编辑器高度，click事件需精确触发，体验较差。所以当container容器大于editor编辑器高度时再添加min-height属性
             if (!this.scroll) {
-                const textareaNode = this.$refs.editor.$el.querySelector('[data-slate-editor]');
-                const currentheight = textareaNode.getBoundingClientRect().height;
-                const height = this.editorHeight.height || '';
-                if (height && currentheight > this.removePX(height)) {
-                    this.editorHeight['min-height'] = this.editorHeight.height;
-                    this.editorHeight.height = null;
-                } else if (currentheight <= this.removePX(this.defaultHeight)) {
-                    this.editorHeight.height = this.defaultHeight;
-                }
+                this.setHeight();
             }
             // 内容为空时不重复赋值，防止表单错误校验
             if (editor.isEmpty() && (!this.value && this.value !== 0))
@@ -151,6 +146,17 @@ export default {
         },
         removePX(str) {
             return str.substring(0, str.length - 2);
+        },
+        setHeight() {
+            const textareaNode = this.$refs.editor.$el.querySelector('[data-slate-editor]');
+            const currentheight = textareaNode.getBoundingClientRect().height;
+            const height = this.editorHeight.height || '';
+            if (height && currentheight > this.removePX(height)) {
+                this.editorHeight['min-height'] = this.editorHeight.height;
+                this.editorHeight.height = null;
+            } else if (currentheight <= this.removePX(this.defaultHeight)) {
+                this.editorHeight.height = this.defaultHeight;
+            }
         },
     },
 };
