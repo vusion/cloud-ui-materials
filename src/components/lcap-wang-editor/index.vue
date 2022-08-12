@@ -1,25 +1,25 @@
 <template>
-<div :class="{ [$style.root]: true, [$style.border]: !readOnly }" ref='root'>
-    <toolbar
-        ref="toolbar"
-        style="border-bottom: 1px solid #ccc"
-        :editor="editor"
-        :default-config="toolbarConfig"
-        :mode="mode"
-        v-show="!readOnly"
-    ></toolbar>
-    <editor
-        ref='editor'
-        :style="[rootStyle, editorHeight]"
-        :value="value"
-        :default-config="editorConfig"
-        :mode="mode"
-        @onCreated="onCreated"
-        @onChange="onChange"
-        @onFocus="onFocus"
-        @onBlur="onBlur"
-    ></editor>
-</div>
+    <div :class="{ [$style.root]: true, [$style.border]: !readOnly }" ref="root">
+        <toolbar
+            ref="toolbar"
+            style="border-bottom: 1px solid #ccc"
+            :editor="editor"
+            :default-config="toolbarConfig"
+            :mode="mode"
+            v-show="!readOnly"
+        ></toolbar>
+        <editor
+            ref="editor"
+            :style="[rootStyle, editorHeight]"
+            :value="currentValue"
+            :default-config="editorConfig"
+            :mode="mode"
+            @onCreated="onCreated"
+            @onChange="onChange"
+            @onFocus="onFocus"
+            @onBlur="onBlur"
+        ></editor>
+    </div>
 </template>
 
 <script>
@@ -41,6 +41,7 @@ export default {
         const authorization = this.getCookie('authorization');
         const headers = authorization ? { Authorization: authorization } : {};
         return {
+            currentValue: '',
             editor: null,
             toolbarConfig: {},
             editorConfig: {
@@ -74,6 +75,12 @@ export default {
     watch: {
         readOnly(val) {
             val ? this.editor.disable() : this.editor.enable();
+        },
+        value: {
+            handler(v) {
+                this.currentValue = v;
+            },
+            immediate: true,
         },
     },
     created() {
@@ -110,18 +117,19 @@ export default {
                 this.setHeight();
             }
             // 内容为空时不重复赋值，防止表单错误校验
-            if (editor.isEmpty() && (!this.value && this.value !== 0))
+            if (editor.isEmpty() && (!this.currentValue && this.currentValue !== 0))
                 return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
+            this.currentValue = value;
             this.$emit('change', { value, editor });
             this.$emit('update:value', value);
             this.$emit('input', value);
         },
         onFocus(editor) {
-            this.$emit('focus', { value: this.value, editor });
+            this.$emit('focus', { value: this.currentValue, editor });
         },
         onBlur(editor) {
-            this.$emit('blur', { value: this.value, editor });
+            this.$emit('blur', { value: this.currentValue, editor });
         },
         getCookie(cname) {
             const name = `${cname}=`;
