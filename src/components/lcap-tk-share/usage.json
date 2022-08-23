@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-h5-tk-share",
     "name": "泰康sdk分享",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Runtime"
     ],
-    "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-share@0.1.7/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-h5-tk-share@0.1.8/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-h5-tk-share></lcap-h5-tk-share>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-h5-tk-share",
         "title": "泰康sdk分享",
         "description": "请在这里添加描述",
         "category": "Runtime",
-        "screenShot": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-share@0.1.7/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-h5-tk-share@0.1.8/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
