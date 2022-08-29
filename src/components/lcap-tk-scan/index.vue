@@ -5,7 +5,7 @@
 </template>
 
 <script>
-
+require('./isales.min.js');
 export default {
     name: 'lcap-h5-tk-scan',
     props: {
@@ -23,11 +23,6 @@ export default {
         msg(val) {
             this.$emit('update:value', val);
         },
-    },
-    created() {
-        if (!window.ISALES) {
-            this.loadScript('https://f.taikang.com/static/assets/js/sdk/isales/2.0.28-beta/isales.min.js');
-        }
     },
     methods: {
         loadScript(url) {
