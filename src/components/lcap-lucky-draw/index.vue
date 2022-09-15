@@ -16,6 +16,7 @@
       cancel-button
       @ok="handleOk"
       :mode=false
+      size="small"
       title="抽奖结果"
     >
       <div slot="body">
