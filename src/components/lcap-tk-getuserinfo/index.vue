@@ -23,11 +23,6 @@ export default {
             this.$emit('update:value', val);
         },
     },
-    created() {
-        // if (!window.ISALES) {
-        //     this.loadScript('https://f.taikang.com/static/assets/js/sdk/isales/2.0.26-beta/isales.min.js');
-        // }
-    },
     methods: {
         loadScript(url) {
             const script = document.createElement('script');

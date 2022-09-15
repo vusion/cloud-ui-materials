@@ -1,7 +1,7 @@
 {
   "name": "lcap-h5-tk-scan",
   "description": "",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "./index.js",
   "author": "",
   "repository": "",

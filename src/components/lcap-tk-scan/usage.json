@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-h5-tk-scan",
     "name": "泰康sdk扫码",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Runtime"
     ],
-    "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-h5-tk-scan@0.1.8/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-h5-tk-scan@0.1.9/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-h5-tk-scan></lcap-h5-tk-scan>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-h5-tk-scan",
         "title": "泰康sdk扫码",
         "description": "请在这里添加描述",
         "category": "Runtime",
-        "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-h5-tk-scan@0.1.8/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.ha.test.com/lcap-test-static/packages/lcap-h5-tk-scan@0.1.9/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {

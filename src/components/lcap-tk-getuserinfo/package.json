@@ -1,7 +1,7 @@
 {
   "name": "lcap-h5-tk-getuserinfo",
   "description": "",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "main": "./index.js",
   "author": "",
   "repository": "",
