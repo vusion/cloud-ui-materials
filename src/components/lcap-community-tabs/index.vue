@@ -119,6 +119,10 @@ export default {
     margin: 20px;
 }
 
+.root [class^="u-tabs__"] [class^="u-tabs_item__"] {
+    padding-bottom: 30px !important;
+}
+
 .root .tabs [class^="u-tabs_head__"] {
     border-bottom-width: 0;
 }
@@ -166,7 +170,7 @@ export default {
 }
 
 .root .tabs [class^="u-tabs_nav__"] {
-    height: 300px;
+    height: 300px !important;
 }
 
 .root .contentImage {

@@ -1,0 +1,62 @@
+{
+    "symbol": "lcap-community-tabs",
+    "name": "社区定制选项卡",
+    "version": "0.0.1",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "请在这里添加描述",
+    "labels": [
+        "InfoDisplay"
+    ],
+    "screenShot": "",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-community-tabs></lcap-community-tabs>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-community-tabs",
+        "title": "社区定制选项卡",
+        "description": "请在这里添加描述",
+        "category": "InfoDisplay",
+        "screenShot": "",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-community-tabs></lcap-community-tabs>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "value",
+                "type": "number",
+                "default": 0,
+                "description": "需要传入的值"
+            }
+        ],
+        "slots": [
+            {
+                "name": "default",
+                "description": "插入文本或 HTML。"
+            }
+        ],
+        "events": [
+            {
+                "name": "change",
+                "description": "修改时触发",
+                "params": [
+                    {
+                        "name": "$event.param1",
+                        "type": "string",
+                        "description": "参数1"
+                    },
+                    {
+                        "name": "$event.param2",
+                        "type": "number",
+                        "description": "参数2"
+                    }
+                ]
+            }
+        ],
+        "children": []
+    }
+}

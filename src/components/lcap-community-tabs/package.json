@@ -1,11 +1,11 @@
 {
   "name": "lcap-community-tabs",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://lcap-static-saas.nos-eastchina1.126.net/lcap-community-tabs@0.0.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
