@@ -91,7 +91,7 @@ export default {
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
-          if (axisData) {
+          if (axisData || axisData === 0) {
             res.push(this.recurGetValue(item, axis));
           }
         }
