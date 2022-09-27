@@ -10,8 +10,8 @@
                 </u-linear-layout>
             </template>
             <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center">
-                <u-linear-layout style="width: 800px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
-                    <u-linear-layout direction="vertical" display="inline" style="width: 300px;" :class="$style.contentLeft">
+                <u-linear-layout style="width: 1200px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
+                    <u-linear-layout direction="vertical" display="inline" style="width: 350px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码开发者论坛</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
                             全渠道接入，统一接待<br>
@@ -20,8 +20,9 @@
                             快捷回复、内部知识库高效接待<br>
                             2小时内解答 100%解答<br>
                         </u-text>
+                        <u-button color="primary" :class="$style.button">进入论坛 <img :src="require('./assets/arrow.svg')"></u-button>
                     </u-linear-layout>
-                    <u-linear-layout display="inline" style="width: 400px">
+                    <u-linear-layout display="inline" style="width: 450px">
                         <img :src="require('./assets/community_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
@@ -36,9 +37,9 @@
                 </u-linear-layout>
             </template>
             <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center">
-                <u-linear-layout style="width: 800px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
-                    <u-linear-layout direction="vertical" display="inline" style="width: 300px;" :class="$style.contentLeft">
-                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码学习中心</u-text>
+                <u-linear-layout style="width: 1200px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
+                    <u-linear-layout direction="vertical" display="inline" style="width: 350px;" :class="$style.contentLeft">
+                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码开发者论坛</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
                             全渠道接入，统一接待<br>
                             精确洞察客户信息及行为轨迹<br>
@@ -46,8 +47,9 @@
                             快捷回复、内部知识库高效接待<br>
                             2小时内解答 100%解答<br>
                         </u-text>
+                        <u-button color="primary" :class="$style.button">进入论坛 <img :src="require('./assets/arrow.svg')"></u-button>
                     </u-linear-layout>
-                    <u-linear-layout display="inline" style="width: 400px">
+                    <u-linear-layout display="inline" style="width: 450px">
                         <img :src="require('./assets/community_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
@@ -62,9 +64,9 @@
                 </u-linear-layout>
             </template>
             <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center">
-                <u-linear-layout style="width: 800px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
-                    <u-linear-layout direction="vertical" display="inline" style="width: 300px;" :class="$style.contentLeft">
-                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码帮助文档</u-text>
+                <u-linear-layout style="width: 1200px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
+                    <u-linear-layout direction="vertical" display="inline" style="width: 350px;" :class="$style.contentLeft">
+                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码开发者论坛</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
                             全渠道接入，统一接待<br>
                             精确洞察客户信息及行为轨迹<br>
@@ -72,8 +74,9 @@
                             快捷回复、内部知识库高效接待<br>
                             2小时内解答 100%解答<br>
                         </u-text>
+                        <u-button color="primary" :class="$style.button">进入论坛 <img :src="require('./assets/arrow.svg')"></u-button>
                     </u-linear-layout>
-                    <u-linear-layout display="inline" style="width: 400px">
+                    <u-linear-layout display="inline" style="width: 450px">
                         <img :src="require('./assets/community_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
@@ -94,23 +97,34 @@ export default {
 <style module>
 .root {}
 
+.root [class^="u-tabs_head__"] {
+  background-color: #FFFFFF;
+}
+
 .root .tabBox {
     position: relative;
 }
-/*.root [class^="u-tabs_nav__"] [class^="u-linear-layout__"]{*/
-/*    color: red;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*}*/
+.root [class^="u-tabs_tab__"] {
+    margin: 0 !important;
+}
 
 .root .contentLeft {
     width: 300px;
     position: relative;
-    top: -30%;
+    top: -20%;
+}
+
+.contentLeft .button {
+    display: block;
+    background: #0056FF;
+    margin-left: 40px;
+    border-radius: 4px;
+    width: 140px;
+    height: 36px;
 }
 
 .root .innerContent {
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 20px 60px rgba(47, 56, 111, 0.1);
     border-radius: 16px;
 
@@ -128,7 +142,7 @@ export default {
 }
 
 .root .tabText {
-    width: 200px;
+    width: 300px;
     white-space: normal;
 }
 .root .contentWidth {
