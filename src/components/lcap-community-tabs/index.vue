@@ -1,16 +1,39 @@
 <template>
 <div :class="$style.root">
-    <u-tabs :class="$style.tabs" appear="line">
-        <u-tab :class="$style.tabCard">
+    <u-tabs :class="$style.tabs" appear="line" v-model="tabId">
+        <u-tab :class="$style.tabCard" :value="0">
             <template slot="title">
-                <u-linear-layout  direction="vertical" :class="$style.tabBox" justify="center">
+                <u-linear-layout direction="vertical" :class="$style.tabBox" justify="center">
                     <img :src="require('./assets/community_tab.png')" :class="$style.tabImage">
                     <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">论坛</u-text>
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">2小时内解答<br>100%解答</u-text>
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">2 小时内解答<br>100%解答</u-text>
                 </u-linear-layout>
             </template>
-            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center" :class="$style.transitionAnimation">
-                <u-linear-layout style="width: 1200px; height: 380px; margin-bottom:50px" justify="center" :class="$style.innerContent" display="inline">
+        </u-tab>
+        <u-tab :class="$style.tabCard" :value="1">
+            <template slot="title">
+                <u-linear-layout direction="vertical" :class="$style.tabBox" justify="center">
+                    <img :src="require('./assets/studyCenter_tab.png')" :class="$style.tabImage">
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">学习中心</u-text>
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">根据您的需要，定制自己的学习路线<br>一周上手搭建完整应用</u-text>
+                </u-linear-layout>
+            </template>
+        </u-tab>
+        <u-tab :class="$style.tabCard" :value="2">
+            <template slot="title">
+                <u-linear-layout direction="vertical" :class="$style.tabBox" justify="center">
+                    <img :src="require('./assets/helpDoc_tab.png')" :class="$style.tabImage">
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">帮助文档</u-text>
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">产品手册，产品答疑文档<br>最佳实践</u-text>
+                </u-linear-layout>
+            </template>
+        </u-tab>
+    </u-tabs>
+
+    <div :class="$style.pages">
+        <u-linear-layout :style="containerStyle" type="flex" gap="none" justify="center" :class="$style.transitionAnimation">
+            <div :class="$style.page" style="padding: 30px;width: 100%">
+                <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 500px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">开发者论坛</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
@@ -26,18 +49,9 @@
                         <img :src="require('./assets/community_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
-            </u-linear-layout>
-        </u-tab>
-        <u-tab :class="$style.tabCard">
-            <template slot="title">
-                <u-linear-layout  direction="vertical" :class="$style.tabBox" justify="center">
-                    <img :src="require('./assets/studyCenter_tab.png')" :class="$style.tabImage">
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">学习中心</u-text>
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">根据您的需要，定制自己的学习路线<br>一周上手搭建完整应用</u-text>
-                </u-linear-layout>
-            </template>
-            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center" :class="$style.transitionAnimation">
-                <u-linear-layout style="width: 1200px; height: 380px; margin-bottom:50px" justify="center" :class="$style.innerContent" display="inline">
+            </div>
+            <div :class="$style.page" style="padding: 30px;width: 100%">
+                <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 500px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">学习中心</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
@@ -52,18 +66,9 @@
                         <img :src="require('./assets/studyCenter_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
-            </u-linear-layout>
-        </u-tab>
-        <u-tab :class="$style.tabCard">
-            <template slot="title">
-                <u-linear-layout  direction="vertical" :class="$style.tabBox" justify="center">
-                    <img :src="require('./assets/helpDoc_tab.png')" :class="$style.tabImage">
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">帮助文档</u-text>
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">产品手册，产品答疑文档<br>最佳实践</u-text>
-                </u-linear-layout>
-            </template>
-            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center" :class="$style.transitionAnimation">
-                <u-linear-layout style="width: 1200px; height: 380px; margin-bottom:50px" justify="center" :class="$style.innerContent" display="inline">
+            </div>
+            <div :class="$style.page" style="padding: 30px;width: 100%">
+                <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 500px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">文档中心</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
@@ -78,27 +83,38 @@
                         <img :src="require('./assets/helpDoc_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
-            </u-linear-layout>
-
-        </u-tab>
-    </u-tabs>
+            </div></u-linear-layout>
+    </div>
+</div>
 </div>
 </template>
 
 <script>
 export default {
     name: 'lcap-community-tabs',
+    data() {
+        return {
+            tabId: 0,
+        };
+    },
+    computed: {
+        containerStyle() {
+            return {
+                transform: `translateX(-${(this.tabId) * 100 / 3}%`,
+            };
+        },
+    },
     methods: {
         jumpCommunity() {
-            window.open('/CommunityParent/Community', '_self')
+            window.open('/CommunityParent/Community', '_self');
         },
-        jumpLearning () {
-            window.open('/CommunityParent/Learning', '_self')
+        jumpLearning() {
+            window.open('/CommunityParent/Learning', '_self');
         },
         jumpDoc() {
-            window.open('/CommunityParent/fileIndex', '_self')
+            window.open('/CommunityParent/fileIndex', '_self');
         },
-    }
+    },
 };
 </script>
 
@@ -120,6 +136,14 @@ export default {
     width: 300px;
     position: relative;
     top: -20%;
+}
+.root .pages {
+  width: 100%;
+  overflow: hidden;
+}
+.root .page {
+  display: flex;
+  justify-content: center;
 }
 
 .contentLeft .button {
@@ -204,9 +228,10 @@ export default {
     height: 100px;
 }
 .root .transitionAnimation {
-    transition-property: all;
-    transition-duration: 2s;
-    transition-timing-function:ease;
+    transition: 0.2s;
+    background: #F6F7FD;
+    width: 300%;
+    min-width: 3780px;
 }
 
 </style>
