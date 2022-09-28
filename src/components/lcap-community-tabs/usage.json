@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-community-tabs",
     "name": "社区定制选项卡",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},

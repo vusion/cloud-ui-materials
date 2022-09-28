@@ -6,23 +6,23 @@
                 <u-linear-layout  direction="vertical" :class="$style.tabBox" justify="center">
                     <img :src="require('./assets/community_tab.png')" :class="$style.tabImage">
                     <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">论坛</u-text>
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">2小时内解答，100%解答</u-text>
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">2小时内解答<br>100%解答</u-text>
                 </u-linear-layout>
             </template>
-            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center">
-                <u-linear-layout style="width: 1200px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
-                    <u-linear-layout direction="vertical" display="inline" style="width: 350px;" :class="$style.contentLeft">
-                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码开发者论坛</u-text>
+            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center" :class="$style.transitionAnimation">
+                <u-linear-layout style="width: 1200px; height: 380px; margin-bottom:50px" justify="center" :class="$style.innerContent" display="inline">
+                    <u-linear-layout direction="vertical" display="inline" style="width: 500px;" :class="$style.contentLeft">
+                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">开发者论坛</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
-                            全渠道接入，统一接待<br>
-                            精确洞察客户信息及行为轨迹<br>
-                            智能分配，个性化服务<br>
-                            快捷回复、内部知识库高效接待<br>
-                            2小时内解答 100%解答<br>
+                            使用中遇到的问题，可以在论坛获得及时、官方的解答，<br>
+                            使用中积累的心得，可以在论坛与同行交流分享，<br>
+                            在论坛，与更多开发者共同进步。<br>
                         </u-text>
-                        <u-button color="primary" :class="$style.button">进入论坛 <img :src="require('./assets/arrow.svg')"></u-button>
+                        <u-button color="primary" :class="$style.button" @click="jumpCommunity" style="margin-top: 75px">
+                            进入论坛 <img :src="require('./assets/arrow.svg')">
+                        </u-button>
                     </u-linear-layout>
-                    <u-linear-layout display="inline" style="width: 450px">
+                    <u-linear-layout display="inline" style="width: 500px; position: relative; top: 5.2%">
                         <img :src="require('./assets/community_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
@@ -33,24 +33,23 @@
                 <u-linear-layout  direction="vertical" :class="$style.tabBox" justify="center">
                     <img :src="require('./assets/studyCenter_tab.png')" :class="$style.tabImage">
                     <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">学习中心</u-text>
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-bottom: 0">根据您的需要，定制自己的学习路线<br>一周上手搭建完整应用</u-text>
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">根据您的需要，定制自己的学习路线<br>一周上手搭建完整应用</u-text>
                 </u-linear-layout>
             </template>
-            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center">
-                <u-linear-layout style="width: 1200px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
-                    <u-linear-layout direction="vertical" display="inline" style="width: 350px;" :class="$style.contentLeft">
-                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码开发者论坛</u-text>
+            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center" :class="$style.transitionAnimation">
+                <u-linear-layout style="width: 1200px; height: 380px; margin-bottom:50px" justify="center" :class="$style.innerContent" display="inline">
+                    <u-linear-layout direction="vertical" display="inline" style="width: 500px;" :class="$style.contentLeft">
+                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">学习中心</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
-                            全渠道接入，统一接待<br>
-                            精确洞察客户信息及行为轨迹<br>
-                            智能分配，个性化服务<br>
-                            快捷回复、内部知识库高效接待<br>
-                            2小时内解答 100%解答<br>
+                            全方位的视频课程，提供从需求沟通到应用搭建的全流程课程，<br>
+                            根据您的需要，选取您的学习课程，快速解锁低代码开发技能。<br>
                         </u-text>
-                        <u-button color="primary" :class="$style.button">进入论坛 <img :src="require('./assets/arrow.svg')"></u-button>
+                        <u-button color="primary" :class="$style.button" @click="jumpLearning" style="margin-top: 95px">
+                            开始学习 <img :src="require('./assets/arrow.svg')">
+                        </u-button>
                     </u-linear-layout>
-                    <u-linear-layout display="inline" style="width: 450px">
-                        <img :src="require('./assets/community_content.png')" :class="$style.contentImage">
+                    <u-linear-layout display="inline" style="width: 500px; position: relative; top: 5.2%">
+                        <img :src="require('./assets/studyCenter_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
             </u-linear-layout>
@@ -60,37 +59,46 @@
                 <u-linear-layout  direction="vertical" :class="$style.tabBox" justify="center">
                     <img :src="require('./assets/helpDoc_tab.png')" :class="$style.tabImage">
                     <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">帮助文档</u-text>
-                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]">产品手册，产品答疑文档最佳实践</u-text>
+                    <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">产品手册，产品答疑文档<br>最佳实践</u-text>
                 </u-linear-layout>
             </template>
-            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center">
-                <u-linear-layout style="width: 1200px; height: 380px" justify="center" :class="$style.innerContent" display="inline">
-                    <u-linear-layout direction="vertical" display="inline" style="width: 350px;" :class="$style.contentLeft">
-                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">低代码开发者论坛</u-text>
+            <u-linear-layout style="width: auto; background: #F6F7FD; padding: 30px" justify="center" :class="$style.transitionAnimation">
+                <u-linear-layout style="width: 1200px; height: 380px; margin-bottom:50px" justify="center" :class="$style.innerContent" display="inline">
+                    <u-linear-layout direction="vertical" display="inline" style="width: 500px;" :class="$style.contentLeft">
+                        <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">文档中心</u-text>
                         <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
-                            全渠道接入，统一接待<br>
-                            精确洞察客户信息及行为轨迹<br>
-                            智能分配，个性化服务<br>
-                            快捷回复、内部知识库高效接待<br>
-                            2小时内解答 100%解答<br>
+                            丰富的产品文档，包括使用指南、常见问题、功能介绍等文档，<br>
+                            提供部署、配置、开发、上线的全部指导信息，方便您查阅学习。<br>
                         </u-text>
-                        <u-button color="primary" :class="$style.button">进入论坛 <img :src="require('./assets/arrow.svg')"></u-button>
+                        <u-button color="primary" :class="$style.button" @click="jumpDoc" style="margin-top: 75px">
+                            查看详情 <img :src="require('./assets/arrow.svg')">
+                        </u-button>
                     </u-linear-layout>
-                    <u-linear-layout display="inline" style="width: 450px">
-                        <img :src="require('./assets/community_content.png')" :class="$style.contentImage">
+                    <u-linear-layout display="inline" style="width: 500px; position: relative; top: 5.2%">
+                        <img :src="require('./assets/helpDoc_content.png')" :class="$style.contentImage">
                     </u-linear-layout>
                 </u-linear-layout>
             </u-linear-layout>
+
         </u-tab>
     </u-tabs>
-
-
 </div>
 </template>
 
 <script>
 export default {
     name: 'lcap-community-tabs',
+    methods: {
+        jumpCommunity() {
+            window.open('/CommunityParent/Community', '_self')
+        },
+        jumpLearning () {
+            window.open('/CommunityParent/Learning', '_self')
+        },
+        jumpDoc() {
+            window.open('/CommunityParent/fileIndex', '_self')
+        },
+    }
 };
 </script>
 
@@ -195,4 +203,10 @@ export default {
     width: 100px;
     height: 100px;
 }
+.root .transitionAnimation {
+    transition-property: all;
+    transition-duration: 2s;
+    transition-timing-function:ease;
+}
+
 </style>
