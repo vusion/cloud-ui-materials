@@ -147,6 +147,7 @@ export default {
 .root .pages {
   width: 100%;
   overflow: hidden;
+  background: #F6F7FD;
 }
 .root .page {
   display: flex;
@@ -172,11 +173,15 @@ export default {
 .root [class^="u-tabs__"] [class^="u-tabs_item__"] {
     padding-bottom: 10px !important;
 }
+.root [class^="u-tabs__"] [class^="u-tabs_item__"]:after {
+    height: 4px;
+    border-radius: 10px;
+}
 .root .tabs [class^="u-tabs_head__"] {
     border-bottom-width: 0;
 }
 .root .tabText {
-    width: 300px;
+    width: 335px;
     white-space: normal;
 }
 .root .contentWidth {
@@ -231,8 +236,7 @@ export default {
     height: 100px;
 }
 .root .transitionAnimation {
-    transition: 0.2s;
-    background: #F6F7FD;
+    transition: 0.2s ease-in-out;
     width: 300%;
     min-width: 3780px;
 }
