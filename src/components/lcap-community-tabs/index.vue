@@ -173,9 +173,8 @@ export default {
 .root [class^="u-tabs__"] [class^="u-tabs_item__"] {
     padding-bottom: 10px !important;
 }
-.root [class^="u-tabs__"] [class^="u-tabs_item__"]:after {
+.root [class^="u-tabs__"] [class^="u-tabs_item__"][class]:after {
     height: 4px;
-    border-radius: 10px;
 }
 .root .tabs [class^="u-tabs_head__"] {
     border-bottom-width: 0;
@@ -222,8 +221,9 @@ export default {
     padding-top: 30px;
 }
 .root [class^="u-tabs_body__"] {
-    margin-top: 0 !important;
+    display: none;
 }
+.root [class^="u-tabs_item__"]:hover,
 .root [class^="u-tabs_item__"][selected] {
     color: #1F2F4D !important;
 }
