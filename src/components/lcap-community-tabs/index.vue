@@ -51,7 +51,7 @@
                             在论坛，与更多开发者共同进步。<br>
                         </u-text>
                         <u-button color="primary" :class="$style.button" @click="jumpCommunity" style="margin-top: 75px">
-                            进入论坛 <img :src="require('./assets/arrow.png')">
+                            进入论坛 <img :src="require('./assets/arrow.png')" :class="$style.arrow">
                         </u-button>
                     </u-linear-layout>
                     <u-linear-layout display="inline" style="width: 500px; position: relative; top: 5.2%">
@@ -68,7 +68,7 @@
                             根据您的需要，选取您的学习课程，快速解锁低代码开发技能。<br>
                         </u-text>
                         <u-button color="primary" :class="$style.button" @click="jumpLearning" style="margin-top: 95px">
-                            开始学习 <img :src="require('./assets/arrow.png')">
+                            开始学习 <img :src="require('./assets/arrow.png')" :class="$style.arrow">
                         </u-button>
                     </u-linear-layout>
                     <u-linear-layout display="inline" style="width: 500px; position: relative; top: 5.2%">
@@ -85,7 +85,7 @@
                             提供部署、配置、开发、上线的全部指导信息，方便您查阅学习。<br>
                         </u-text>
                         <u-button color="primary" :class="$style.button" @click="jumpDoc" style="margin-top: 75px">
-                            查看详情 <img :src="require('./assets/arrow.png')">
+                            查看详情 <img :src="require('./assets/arrow.png')" :class="$style.arrow">
                         </u-button>
                     </u-linear-layout>
                     <u-linear-layout display="inline" style="width: 500px; position: relative; top: 5.2%">
@@ -171,7 +171,7 @@ export default {
     margin: 20px;
 }
 .root [class^="u-tabs__"] [class^="u-tabs_item__"] {
-    padding-bottom: 10px !important;
+    padding-bottom: 27px !important;
 }
 .root [class^="u-tabs__"] [class^="u-tabs_item__"][class]:after {
     height: 4px;
@@ -193,7 +193,6 @@ export default {
     font-weight: 600;
     font-size: 20px;
     line-height: 28px;
-    color: #596780;
 }
 .root .tabTextContent {
     font-family: 'PingFang SC';
@@ -202,6 +201,7 @@ export default {
     font-size: 16px;
     line-height: 24px;
     margin-bottom: 30px;
+;
 }
 .root .contentTitle {
     font-family: 'PingFang TC';
@@ -223,10 +223,15 @@ export default {
 .root [class^="u-tabs_body__"] {
     display: none;
 }
+.root [class^="u-tabs_item__"] {
+    color: #778399;
+}
 .root [class^="u-tabs_item__"]:hover,
 .root [class^="u-tabs_item__"][selected] {
     color: #1F2F4D !important;
 }
+
+
 .root .contentImage {
     width: 480px;
     height: 360px;
@@ -234,11 +239,19 @@ export default {
 .root .tabImage {
     width: 100px;
     height: 100px;
+    margin-bottom: 10px;
 }
 .root .transitionAnimation {
     transition: 0.2s ease-in-out;
     width: 300%;
     min-width: 3780px;
 }
-
+.root [class^="u-linear-layout__"][direction=vertical]>:not(:last-child) {
+    margin-bottom: 4px;
+}
+.root .arrow {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
 </style>
