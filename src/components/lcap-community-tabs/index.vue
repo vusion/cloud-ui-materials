@@ -41,7 +41,7 @@
 
     <div :class="$style.pages">
         <u-linear-layout :style="containerStyle" type="flex" gap="none" justify="center" :class="$style.transitionAnimation">
-            <div :class="$style.page" style="padding: 30px;width: 100%">
+            <div :class="$style.page" style="padding: 30px 30px 50px 30px; width: 100%">
                 <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 510px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">开发者论坛</u-text>
@@ -59,7 +59,7 @@
                     </u-linear-layout>
                 </u-linear-layout>
             </div>
-            <div :class="$style.page" style="padding: 30px;width: 100%">
+            <div :class="$style.page" style="padding: 30px 30px 50px 30px; width: 100%">
                 <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 510px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">学习中心</u-text>
@@ -76,7 +76,7 @@
                     </u-linear-layout>
                 </u-linear-layout>
             </div>
-            <div :class="$style.page" style="padding: 30px;width: 100%">
+            <div :class="$style.page" style="padding: 30px 30px 50px 30px; width: 100%">
                 <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 510px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">文档中心</u-text>
@@ -133,14 +133,12 @@ export default {
 .root [class^="u-tabs_head__"] {
   background-color: #FFFFFF;
 }
-
 .root .tabBox {
     position: relative;
 }
 .root [class^="u-tabs_tab__"] {
     margin: 0 !important;
 }
-
 .root .contentLeft {
     width: 300px;
     position: relative;
@@ -154,7 +152,6 @@ export default {
   display: flex;
   justify-content: center;
 }
-
 .contentLeft .button {
     display: block;
     background: #0056FF;
@@ -163,25 +160,21 @@ export default {
     width: 140px;
     height: 36px;
 }
-
 .root .innerContent {
     background: #ffffff;
     box-shadow: 0px 20px 60px rgba(47, 56, 111, 0.1);
     border-radius: 16px;
-
 }
 .root .tabCard {
+    width: 400px;
     margin: 20px;
 }
-
 .root [class^="u-tabs__"] [class^="u-tabs_item__"] {
-    padding-bottom: 30px !important;
+    padding-bottom: 10px !important;
 }
-
 .root .tabs [class^="u-tabs_head__"] {
     border-bottom-width: 0;
 }
-
 .root .tabText {
     width: 300px;
     white-space: normal;
@@ -190,7 +183,6 @@ export default {
     text-align: left;
     margin-left: 40px;
 }
-
 .root .tabTextTitle {
     font-family: 'PingFang SC';
     font-style: normal;
@@ -199,7 +191,6 @@ export default {
     line-height: 28px;
     color: #596780;
 }
-
 .root .tabTextContent {
     font-family: 'PingFang SC';
     font-style: normal;
@@ -208,7 +199,6 @@ export default {
     line-height: 24px;
     margin-bottom: 30px;
 }
-
 .root .contentTitle {
     font-family: 'PingFang TC';
     font-style: normal;
@@ -217,17 +207,21 @@ export default {
     line-height: 34px;
     color: #1F2F4D;
 }
-
 .root .tabs [class^="u-tabs_scroll__"] {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .root .tabs [class^="u-tabs_nav__"] {
     height: 300px !important;
+    padding-top: 30px;
 }
-
+.root [class^="u-tabs_body__"] {
+    margin-top: 0 !important;
+}
+.root [class^="u-tabs_item__"][selected] {
+    color: #1F2F4D !important;
+}
 .root .contentImage {
     width: 480px;
     height: 360px;
