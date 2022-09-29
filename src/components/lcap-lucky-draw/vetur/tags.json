@@ -3,6 +3,7 @@
     "attributes": [
       "width",
       "height",
+      "start_img",
       "block1_img",
       "block1_name",
       "block1_chance",

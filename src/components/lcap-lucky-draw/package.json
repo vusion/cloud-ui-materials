@@ -1,11 +1,11 @@
 {
   "name": "lcap-lucky-draw",
   "description": "",
-  "version": "0.1.15",
+  "version": "0.1.18",
   "main": "./index.js",
   "author": "Zanning",
   "repository": "",
-  "homepage": "http://ceph.lcap.ha.test.com/lcap-test-static/lcap-lucky-draw@0.1.15/index.html",
+  "homepage": "http://lcap-static-saas.nos-eastchina1.126.net/lcap-lucky-draw@0.1.18/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -18,10 +18,10 @@
     "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "build": "npm run build:theme && npm run build:doc",
-    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 20 --smart-crop --package",
     "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
     "usage": "lcap usage",
-    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
     "release": "lcap publish"
   },
   "vuePlugins": {

@@ -40,12 +40,12 @@ export default {
       visible: false,
       currentPrize: '',
       blocks: [
-        {padding: '10px', background: '#617df2'},
-        {padding: '10px', background: '#e9e8fe'},
+        {padding: '10px', background: '#2850c4'},
+        {padding: '10px', background: '#2850c4'},
       ],
       buttons: [{
           x: 1, y: 1,
-          imgs: [{src: require('./assets/start.png'), width: '100%', height: '100%'}],
+          imgs: [{src: this.start_img || require('./assets/start_huyu.png'), width: '100%', height: '100%'}],
         }],
     }
   },
@@ -70,72 +70,72 @@ export default {
           x: 0,
           y: 0,
           background: '#899df3',
-          fonts: [{text: this.block1_name, top: '15px', fontSize: this.block1_fontSize}],
+          fonts: [{text: this.block1_name, top: '60px', fontSize: this.block1_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block1_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block1_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block1_chance
         },
         {
           x: 1,
           y: 0,
           background: '#9c9dd8',
-          fonts: [{text: this.block2_name, top: '15px', fontSize: this.block2_fontSize}],
+          fonts: [{text: this.block2_name, top: '60px', fontSize: this.block2_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block2_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block2_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block2_chance
         },
         {
           x: 2,
           y: 0,
           background: '#899df3',
-          fonts: [{text: this.block3_name, top: '15px', fontSize: this.block3_fontSize}],
+          fonts: [{text: this.block3_name, top: '60px', fontSize: this.block3_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block3_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block3_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block3_chance
         },
         {
           x: 2,
           y: 1,
           background: '#9c9dd8',
-          fonts: [{text: this.block4_name, top: '15px', fontSize: this.block4_fontSize}],
+          fonts: [{text: this.block4_name, top: '60px', fontSize: this.block4_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block4_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block4_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block4_chance
         },
         {
           x: 2,
           y: 2,
           background: '#899df3',
-          fonts: [{text: this.block5_name, top: '15px', fontSize: this.block5_fontSize}],
+          fonts: [{text: this.block5_name, top: '60px', fontSize: this.block5_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block5_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block5_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block5_chance
         },
         {
           x: 1,
           y: 2,
           background: '#9c9dd8',
-          fonts: [{text: this.block6_name, top: '15px', fontSize: this.block6_fontSize}],
+          fonts: [{text: this.block6_name, top: '60px', fontSize: this.block6_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block6_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block6_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block6_chance
         },
         {
           x: 0,
           y: 2,
           background: '#899df3',
-          fonts: [{text: this.block7_name, top: '15px', fontSize: this.block7_fontSize}],
+          fonts: [{text: this.block7_name, top: '60px', fontSize: this.block7_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block7_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block7_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block7_chance
         },
         {
           x: 0,
           y: 1,
           background: '#9c9dd8',
-          fonts: [{text: this.block8_name, top: '15px', fontSize: this.block8_fontSize}],
+          fonts: [{text: this.block8_name, top: '60px', fontSize: this.block8_fontSize, fontColor: '#EB4528'}],
           borderRadius: '5px',
-          imgs: [{src: this.block8_img || require('./assets/prize.png'), width: '80%', height: '80%', top: '10%' }],
+          imgs: [{src: this.block8_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block8_chance
         },
       ]
@@ -176,6 +176,7 @@ export default {
     block6_img: {type: String, default: ''},
     block7_img: {type: String, default: ''},
     block8_img: {type: String, default: ''},
+    start_img: {type: String, default: ''},
   },
   methods: {
     // 点击抽奖按钮会触发star回调
@@ -190,9 +191,9 @@ export default {
     },
     // 抽奖结束会触发end回调
     endCallback(prize) {
-      this.$emit('end', prize);
       this.visible = true;
       this.currentPrize = prize.fonts[0].text;
+      this.$emit('end', this.currentPrize);
       console.log(prize);
     },
     handleOk() {
