@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-lucky-draw",
     "name": "九宫格抽奖",
-    "version": "0.1.18",
+    "version": "0.3.0",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Other"
     ],
-    "screenShot": "http://lcap-static-saas.nos-eastchina1.126.net/packages/lcap-lucky-draw@0.1.18/screenshots/0.png",
+    "screenShot": "http://lcap-static-saas.nos-eastchina1.126.net/packages/lcap-lucky-draw@0.3.0/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-lucky-draw\\n    block1_name=\\\"奖品1\\\"\\n    block2_name=\\\"奖品2\\\"\\n    block3_name=\\\"奖品3\\\"\\n    block4_name=\\\"奖品4\\\"\\n    block5_name=\\\"奖品5\\\"\\n    block6_name=\\\"奖品6\\\"\\n    block7_name=\\\"奖品7\\\"\\n    block8_name=\\\"奖品8\\\"\\n>\\n</lcap-lucky-draw>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-lucky-draw",
         "title": "九宫格抽奖",
         "description": "九宫格抽奖组价",
         "category": "Other",
-        "screenShot": "http://lcap-static-saas.nos-eastchina1.126.net/packages/lcap-lucky-draw@0.1.18/screenshots/0.png",
+        "screenShot": "http://lcap-static-saas.nos-eastchina1.126.net/packages/lcap-lucky-draw@0.3.0/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -43,12 +43,44 @@
                 "group": "基础配置信息"
             },
             {
+                "name": "background_color",
+                "title": "背景颜色",
+                "type": "string",
+                "default": "",
+                "description": "设置背景颜色（例：#FFFFFF）",
+                "group": "基础配置信息"
+            },
+            {
                 "name": "start_img",
                 "title": "抽奖开始按钮图片",
                 "type": "image",
                 "compType": "linkInput",
                 "default": "",
                 "description": "设置抽奖开始按钮图片",
+                "group": "基础配置信息"
+            },
+            {
+                "name": "font_color",
+                "title": "奖品字体颜色",
+                "type": "string",
+                "default": "",
+                "description": "设置所有奖品文字的图片颜色",
+                "group": "基础配置信息"
+            },
+            {
+                "name": "font_top_padding",
+                "title": "奖品文字距离顶部的距离（px）",
+                "type": "string",
+                "default": "60px",
+                "description": "设置奖品文字距离顶部的距离（默认：60px）",
+                "group": "基础配置信息"
+            },
+            {
+                "name": "font_size",
+                "title": "奖品文字字体大小（px）",
+                "type": "string",
+                "default": "22px",
+                "description": "设置奖品文字距离顶部的距离（默认：22px）",
                 "group": "基础配置信息"
             },
             {

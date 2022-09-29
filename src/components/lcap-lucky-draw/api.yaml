@@ -16,12 +16,36 @@
       default: 375px
       description: 设置九宫格高度
       group: 基础配置信息
+    - name: background_color
+      title: 背景颜色
+      type: string
+      default: ""
+      description: 设置背景颜色（例：#FFFFFF）
+      group: 基础配置信息
     - name: start_img
       title: 抽奖开始按钮图片
       type: image
       compType: linkInput
       default: ""
       description: 设置抽奖开始按钮图片
+      group: 基础配置信息
+    - name: font_color
+      title: 奖品字体颜色
+      type: string
+      default: ""
+      description: 设置所有奖品文字的图片颜色
+      group: 基础配置信息
+    - name: font_top_padding
+      title: 奖品文字距离顶部的距离（px）
+      type: string
+      default: "60px"
+      description: 设置奖品文字距离顶部的距离（默认：60px）
+      group: 基础配置信息
+    - name: font_size
+      title: 奖品文字字体大小（px）
+      type: string
+      default: "22px"
+      description: 设置奖品文字距离顶部的距离（默认：22px）
       group: 基础配置信息
 
     - name: block1_img

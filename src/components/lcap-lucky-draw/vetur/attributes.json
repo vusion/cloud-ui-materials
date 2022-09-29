@@ -7,9 +7,25 @@
     "type": "string",
     "description": "设置九宫格高度"
   },
+  "lcap-lucky-draw/background_color": {
+    "type": "string",
+    "description": "设置背景颜色（例：#FFFFFF）"
+  },
   "lcap-lucky-draw/start_img": {
     "type": "image",
     "description": "设置抽奖开始按钮图片"
+  },
+  "lcap-lucky-draw/font_color": {
+    "type": "string",
+    "description": "设置所有奖品文字的图片颜色"
+  },
+  "lcap-lucky-draw/font_top_padding": {
+    "type": "string",
+    "description": "设置奖品文字距离顶部的距离（默认：60px）"
+  },
+  "lcap-lucky-draw/font_size": {
+    "type": "string",
+    "description": "设置奖品文字距离顶部的距离（默认：22px）"
   },
   "lcap-lucky-draw/block1_img": {
     "type": "image",

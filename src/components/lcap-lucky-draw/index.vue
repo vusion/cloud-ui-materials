@@ -40,8 +40,8 @@ export default {
       visible: false,
       currentPrize: '',
       blocks: [
-        {padding: '10px', background: '#2850c4'},
-        {padding: '10px', background: '#2850c4'},
+        {padding: '10px', background: this.background_color || '#2850c4'},
+        {padding: '10px', background: this.background_color || '#2850c4'},
       ],
       buttons: [{
           x: 1, y: 1,
@@ -70,7 +70,7 @@ export default {
           x: 0,
           y: 0,
           background: '#899df3',
-          fonts: [{text: this.block1_name, top: '60px', fontSize: this.block1_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block1_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block1_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block1_chance
@@ -79,7 +79,7 @@ export default {
           x: 1,
           y: 0,
           background: '#9c9dd8',
-          fonts: [{text: this.block2_name, top: '60px', fontSize: this.block2_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block2_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block2_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block2_chance
@@ -88,7 +88,7 @@ export default {
           x: 2,
           y: 0,
           background: '#899df3',
-          fonts: [{text: this.block3_name, top: '60px', fontSize: this.block3_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block3_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block3_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block3_chance
@@ -97,7 +97,7 @@ export default {
           x: 2,
           y: 1,
           background: '#9c9dd8',
-          fonts: [{text: this.block4_name, top: '60px', fontSize: this.block4_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block4_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block4_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block4_chance
@@ -106,7 +106,7 @@ export default {
           x: 2,
           y: 2,
           background: '#899df3',
-          fonts: [{text: this.block5_name, top: '60px', fontSize: this.block5_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block5_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block5_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block5_chance
@@ -115,7 +115,7 @@ export default {
           x: 1,
           y: 2,
           background: '#9c9dd8',
-          fonts: [{text: this.block6_name, top: '60px', fontSize: this.block6_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block6_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block6_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block6_chance
@@ -124,7 +124,7 @@ export default {
           x: 0,
           y: 2,
           background: '#899df3',
-          fonts: [{text: this.block7_name, top: '60px', fontSize: this.block7_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block7_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block7_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block7_chance
@@ -133,7 +133,7 @@ export default {
           x: 0,
           y: 1,
           background: '#9c9dd8',
-          fonts: [{text: this.block8_name, top: '60px', fontSize: this.block8_fontSize, fontColor: '#EB4528'}],
+          fonts: [{text: this.block8_name, top: this.font_top_padding, fontSize: this.font_size, fontColor: this.font_color || '#EB4528'}],
           borderRadius: '5px',
           imgs: [{src: this.block8_img || require('./assets/prize.png'), width: '90%', height: '90%', top: '5%' }],
           range: this.block8_chance
@@ -160,14 +160,6 @@ export default {
     block6_chance: {type: Number, default: 10},
     block7_chance: {type: Number, default: 10},
     block8_chance: {type: Number, default: 10},
-    block1_fontSize: {type: String, default: '22px'},
-    block2_fontSize: {type: String, default: '22px'},
-    block3_fontSize: {type: String, default: '22px'},
-    block4_fontSize: {type: String, default: '22px'},
-    block5_fontSize: {type: String, default: '22px'},
-    block6_fontSize: {type: String, default: '22px'},
-    block7_fontSize: {type: String, default: '22px'},
-    block8_fontSize: {type: String, default: '22px'},
     block1_img: {type: String, default: ''},
     block2_img: {type: String, default: ''},
     block3_img: {type: String, default: ''},
@@ -177,6 +169,10 @@ export default {
     block7_img: {type: String, default: ''},
     block8_img: {type: String, default: ''},
     start_img: {type: String, default: ''},
+    background_color: {type: String, default: ''},
+    font_color: {type: String, default: ''},
+    font_top_padding: {type: String, default: '60px'},
+    font_size: {type: String, default: '22px'},
   },
   methods: {
     // 点击抽奖按钮会触发star回调

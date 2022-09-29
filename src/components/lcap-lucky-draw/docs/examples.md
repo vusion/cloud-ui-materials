@@ -9,6 +9,9 @@
     block6_name="奖品6"
     block7_name="奖品7"
     block8_name="奖品8"
+    font_color="#FFFFFF"
+    font_top_padding="20px"
+    font_size="10px"
 >
 </lcap-lucky-draw>
 ```

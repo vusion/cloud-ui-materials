@@ -3,7 +3,11 @@
     "attributes": [
       "width",
       "height",
+      "background_color",
       "start_img",
+      "font_color",
+      "font_top_padding",
+      "font_size",
       "block1_img",
       "block1_name",
       "block1_chance",

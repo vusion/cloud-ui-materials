@@ -24,6 +24,9 @@
     block6_name="奖品6"
     block7_name="奖品7"
     block8_name="奖品8"
+    font_color="#FFFFFF"
+    font_top_padding="20px"
+    font_size="10px"
 >
 </lcap-lucky-draw>
 ```
@@ -35,7 +38,11 @@
 | --------- | ---- | ------- | ------- | ----------- |
 | width | string |  | `'375px'` | 设置九宫格宽度 |
 | height | string |  | `'375px'` | 设置九宫格高度 |
+| background_color | string |  | `''` | 设置背景颜色（例：#FFFFFF） |
 | start_img | image |  | `''` | 设置抽奖开始按钮图片 |
+| font_color | string |  | `''` | 设置所有奖品文字的图片颜色 |
+| font_top_padding | string |  | `'60px'` | 设置奖品文字距离顶部的距离（默认：60px） |
+| font_size | string |  | `'22px'` | 设置奖品文字距离顶部的距离（默认：22px） |
 | block1_img | image |  | `''` | 设置格子1奖品图片 |
 | block1_name | string |  | `'奖品1'` | 设置格子1的奖品名字 |
 | block1_chance | number |  | `'10'` | 设置奖品1的中奖概率 |

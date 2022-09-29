@@ -1,7 +1,7 @@
 {
   "name": "lcap-lucky-draw",
   "description": "",
-  "version": "0.1.18",
+  "version": "0.3.0",
   "main": "./index.js",
   "author": "Zanning",
   "repository": "",
