@@ -43,6 +43,7 @@
 | font_color | string |  | `''` | 设置所有奖品文字的图片颜色 |
 | font_top_padding | string |  | `'60px'` | 设置奖品文字距离顶部的距离（默认：60px） |
 | font_size | string |  | `'22px'` | 设置奖品文字距离顶部的距离（默认：22px） |
+| prize_popup | boolean |  | `false` | 是否开启默认中奖弹窗 |
 | block1_img | image |  | `''` | 设置格子1奖品图片 |
 | block1_name | string |  | `'奖品1'` | 设置格子1的奖品名字 |
 | block1_chance | number |  | `'10'` | 设置奖品1的中奖概率 |

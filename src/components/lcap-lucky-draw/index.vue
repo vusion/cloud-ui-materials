@@ -12,6 +12,7 @@
       @end="endCallback"
     />
     <u-modal
+      v-if="prize_popup"
       :visible.sync="visible"
       cancel-button
       @ok="handleOk"
@@ -173,6 +174,7 @@ export default {
     font_color: {type: String, default: ''},
     font_top_padding: {type: String, default: '60px'},
     font_size: {type: String, default: '22px'},
+    prize_popup: {type:Boolean, default: false},
   },
   methods: {
     // 点击抽奖按钮会触发star回调
