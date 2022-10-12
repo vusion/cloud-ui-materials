@@ -55,7 +55,7 @@ export default {
                 // eslint-disable-next-line consistent-this
                 const that = this;
                 window.ISALES.sharePannel({
-                    baseMenu: ['1'], // ['0', '1', '2', '3', '10', '11'],
+                    baseMenu: ['0'], // ['0', '1', '2', '3', '10', '11'],
                     // otherMenu: ['6', '7', '8', '9'],
                     h5BtnShare: true,
                     friends: { // 分享微信朋友

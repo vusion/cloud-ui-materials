@@ -1,7 +1,7 @@
-import lcapH5TkSfriends from './index.vue';
+import LcapH5TkSfriends from './index.vue';
 
 export {
-    lcapH5TkSfriends,
+    LcapH5TkSfriends,
 };
 
-export default lcapH5TkSfriends;
+export default LcapH5TkSfriends;
