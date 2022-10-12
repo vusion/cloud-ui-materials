@@ -1,0 +1,64 @@
+{
+  "name": "lcap-h5-tk-sfriends",
+  "description": "",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/lcap-h5-tk-sfriends@0.1.0/index.html",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "usage": "lcap usage",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "component",
+    "title": "泰康sdk分享",
+    "category": "Runtime",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [
+      "http://ceph.lcap.qa-ci.lcap.group/lcap-test-static/packages/lcap-h5-tk-sfriends@0.1.0/screenshots\\0.png"
+    ],
+    "team": "",
+    "access": "public"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue": "^2.6.10"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  }
+}

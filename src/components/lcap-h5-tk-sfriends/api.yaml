@@ -1,0 +1,42 @@
+- name: lcap-h5-tk-sfriends
+  title: 泰康sdk分享朋友
+  description: 请在这里添加描述
+  labels: [Runtime]
+  icon: default
+  attrs:
+    - name: value
+      type: number, string, object
+      sync: true
+      model: true
+      advanced: true
+      description: 需要传入的值
+    - name: secret
+      title: 秘钥
+      type: string
+      description: 秘钥,字母或数字,不使用可不填
+    - name: shareUrl
+      title: 分享地址
+      type: string
+      description: 分享地址(默认为当前页地址)
+    - name: shareTitle
+      title: 分享标题
+      type: string
+      description: 微信标题(默认为当前页标题)
+    - name: shareBitmap
+      title: 分享题图
+      type: image
+      description: 分享图片的URL(过大或者不可访问会导致失败)
+    - name: shareIntroduce
+      title: 简介
+      type: string
+      description: 分享简介
+  slots:
+    - name: default
+      description: 插入文本或 HTML。
+  methods:
+    - name: getMsg
+      title: 获取分享后回调信息
+      description: 获取分享后回调信息
+    - name: invoke
+      title: 调起分享
+      description: 调起分享
