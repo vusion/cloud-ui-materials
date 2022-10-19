@@ -1,11 +1,11 @@
 {
   "name": "lcap-lucky-draw",
   "description": "",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "./index.js",
   "author": "Zanning",
   "repository": "",
-  "homepage": "http://lcap-static-saas.nos-eastchina1.126.net/lcap-lucky-draw@0.1.18/index.html",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-lucky-draw@0.3.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

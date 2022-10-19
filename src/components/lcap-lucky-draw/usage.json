@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-lucky-draw",
     "name": "九宫格抽奖",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Other"
     ],
-    "screenShot": "http://ceph.lcap.hadri.163yun.com/lcap-dri-static/packages/lcap-lucky-draw@0.3.0/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-lucky-draw@0.3.1/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-lucky-draw\\n    block1_name=\\\"奖品1\\\"\\n    block2_name=\\\"奖品2\\\"\\n    block3_name=\\\"奖品3\\\"\\n    block4_name=\\\"奖品4\\\"\\n    block5_name=\\\"奖品5\\\"\\n    block6_name=\\\"奖品6\\\"\\n    block7_name=\\\"奖品7\\\"\\n    block8_name=\\\"奖品8\\\"\\n>\\n</lcap-lucky-draw>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-lucky-draw",
         "title": "九宫格抽奖",
         "description": "九宫格抽奖组价",
         "category": "Other",
-        "screenShot": "http://ceph.lcap.hadri.163yun.com/lcap-dri-static/packages/lcap-lucky-draw@0.3.0/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-lucky-draw@0.3.1/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -301,6 +301,16 @@
             {
                 "name": "end",
                 "title": "抽奖结束时",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "any",
+                        "description": "返还奖品",
+                        "schema": {
+                            "$ref": "#/basicTypes/String"
+                        }
+                    }
+                ],
                 "description": "抽奖时结束时触发"
             }
         ],

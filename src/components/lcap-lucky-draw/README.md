@@ -79,3 +79,7 @@
 
 抽奖时结束时触发
 
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | any | 返还奖品 |
+
