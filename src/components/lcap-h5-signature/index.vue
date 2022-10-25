@@ -2,7 +2,9 @@
 <div :class="$style.root">
   <div :class="$style.wrapper">
     <div :class="$style.empty" v-if="!signaturePNG" @click="openSignatureModal">
-      <div>Please click here to sign</div>
+      <div>
+        {{ this.language === 'english' ? 'Please click here to sign': '请在此处签名'}}
+      </div>
     </div>
     <div v-else :class="$style.signatureWrapper">
       <i-icon name="close" :class="$style.closeIcon" @click="clearSignature"></i-icon>
@@ -11,17 +13,21 @@
   </div>
   <u-modal
     :visible.sync="showSignatureModal"
-    :class="$style.modal"
+    :class="[$style.modal, $style.rotate]"
     size="auto"
     :mode=false
   >
     <div slot="title">
-      Please Sign Below
+      {{ this.language === 'english' ? 'Please Sign Below': '请在下方签名'}}
     </div>
     <div slot="foot">
       <u-linear-layout justify="space-between">
-        <u-text @click="clearSignature" :class="$style.clearText">Clear</u-text>
-        <u-button color="primary" @click="handleOk">Save</u-button>
+        <u-text @click="clearSignature" :class="$style.clearText">
+          {{ this.language === 'english' ? 'Clear': '清除'}}
+        </u-text>
+        <u-button color="primary" @click="handleOk">
+          {{ this.language === 'english' ? 'Save': '保存'}}
+        </u-button>
       </u-linear-layout>
     </div>
     <canvas id="canvas" width="800" height="300" style="border: 2px solid #CCD3DE"></canvas>
@@ -42,10 +48,12 @@ export default {
       signaturePNG: null,
     };
   },
+  props: {
+    language: {type: String, default: 'english'},
+  },
   mounted() {
-    // this.signature = new SmoothSignature(document.getElementById("canvas1"));
-
     this.signature = new SmoothSignature(document.getElementById("canvas"), {bgColor: '#F8F9FA'});
+    // document.getElementById("canvas").style.transform = "rotate(180deg)"
 
   },
   computed: {
@@ -58,6 +66,7 @@ export default {
       this.showSignatureModal = true;
       setTimeout(() => {
         this.signature = new SmoothSignature(document.getElementById("canvas"), {bgColor: '#F8F9FA'});
+        // document.getElementById("canvas").style.transform = "rotate(180deg)"
       }, 200);
     },
     clear() {
@@ -132,6 +141,12 @@ export default {
   cursor: pointer;
   color: #2574FC;
   padding:3px 0 0 8px;
+}
+
+.rotate {
+  /*-webkit-transform: rotate(90deg);*/
+  /*transform: rotate(90deg);*/
+
 }
 
 .root .signaturePNG {

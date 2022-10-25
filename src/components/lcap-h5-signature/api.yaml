@@ -4,10 +4,15 @@
   labels: [Form]
   icon: default
   attrs:
-    - name: value
-      type: number
-      default: 0
-      description: 需要传入的值
+    - name: language
+      type: string
+      default: english
+      options:
+        - value: english
+          title: 英文
+        - value: chinese
+          title: 中文
+      description: 语言版本
   slots:
     - name: default
       description: 插入文本或 HTML。
