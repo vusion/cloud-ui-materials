@@ -1,11 +1,11 @@
 {
   "name": "lcap-h5-printPage",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-h5-printPage@0.1.2/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

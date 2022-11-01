@@ -1,0 +1,10 @@
+{
+  "lcap-h5-printPage/download": {
+    "type": "boolean",
+    "description": "是否自动下载打印的文件"
+  },
+  "lcap-h5-printPage/fileName": {
+    "type": "string",
+    "description": "设置打印的文件名称"
+  }
+}

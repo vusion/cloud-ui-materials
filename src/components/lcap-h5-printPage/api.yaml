@@ -1,23 +1,33 @@
 - name: lcap-h5-printPage
-  title: H5页面打印
-  description: 请在这里添加描述
+  title: 页面打印
+  description: 打印当前页面内容生成PDF文件
   labels: [Other]
   icon: default
   attrs:
-    - name: value
-      type: number
-      default: 0
-      description: 需要传入的值
-  slots:
-    - name: default
-      description: 插入文本或 HTML。
+    - name: download
+      title: 是否自动下载文件
+      type: boolean
+      default: false
+      description: 是否自动下载打印的文件
+    - name: fileName
+      title: 文件名称
+      type: string
+      default: 文件导出
+      description: 设置打印的文件名称
+  methods:
+    - name: printPage
+      title: 打印当前页面
+      description: 打印当前页面
+      params: []
   events:
-    - name: change
-      description: 修改时触发
+    - name: print
+      title: 打印时
       params:
-        - name: $event.param1
-          type: string
-          description: 参数1
-        - name: $event.param2
-          type: number
-          description: 参数2
+        - name: $event.file
+          type: any
+          description: 返还打印的文件流
+          schema:
+            $ref: "#/basicTypes/Binary"
+      description: 打印时触发
+
+
