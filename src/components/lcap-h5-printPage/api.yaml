@@ -14,6 +14,22 @@
       type: string
       default: 文件导出
       description: 设置打印的文件名称
+    - name: printDOM
+      title: 打印的DOM节点
+      type: string
+      default: body
+      description: 设置打印的DOM节点
+    - name: fileType
+      title: 文件类型
+      options:
+        - value: pdf
+          title: PDF
+        - value: png
+          title: PNG
+      type: string
+      default: pdf
+      description: 设置打印的文件类型
+
   methods:
     - name: printPage
       title: 打印当前页面

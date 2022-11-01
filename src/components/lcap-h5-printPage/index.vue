@@ -9,6 +9,7 @@
 <script>
 import html2Canvas from 'html2canvas';
 import JsPDF from 'jspdf';
+import { saveAs } from 'file-saver';
 export default {
   name: 'lcap-h5-printPage',
   data() {
@@ -19,6 +20,10 @@ export default {
   props: {
     download: {type: Boolean, default: false},
     fileName: {type: String, default: '文件导出'},
+    canvasWidth: {type: Number},
+    canvasHeight: {type: Number},
+    fileType: {type: String, default: 'pdf'},
+    printDOM: {type: String, default: 'body'},
   },
   mounted() {
     const appendJs = () => {
@@ -28,28 +33,31 @@ export default {
       node.parentNode.insertBefore(script, node);
     };
     appendJs();
-    console.log('5555', this.printPage());
   },
   methods: {
     async printPage() {
-      setTimeout(() => {
-        this.getPdf({
-          element: document.querySelector('body'),  // pdf模板节点：上面第一步中的模板内容节点
-          title: this.fileName,  // pdf文件名
-          allowDownload: this.download,  // 是否允许下载
-          isFullPage: true,   // pdf尺寸：true为不分页的长文件，false为A4分页的文件
-          canvasOptions: {
-            width: 1000   // 画布尺寸
-          }
-        }).then((res) => {
-          this.$emit('print', res);
-          this.base64PdfData = res;
-          return '123';
-        });
-      }, 500);
+      return new Promise((resolve) => {
+         setTimeout(() => {
+          this.getPdf({
+            element: document.querySelector('body'),  // pdf模板节点：上面第一步中的模板内容节点
+            title: this.fileName,  // pdf文件名
+            allowDownload: this.download,  // 是否允许下载
+            fileType: this.fileType,  // 文件类型
+            isFullPage: true,   // pdf尺寸：true为不分页的长文件，false为A4分页的文件
+            canvasOptions: {
+              height: document.body.scrollHeight,
+              width: document.body.scrollWidth   // 画布尺寸
+            }
+          }).then((res) => {
+            this.$emit('print', res);
+            this.base64PdfData = res;
+            resolve(res);
+          });
+        }, 500);
+      });
     },
 
-    getPdf({ element, title, allowDownload, isFullPage, canvasOptions = {} })  {
+    getPdf({ element, title, allowDownload, fileType, isFullPage, canvasOptions = {} })  {
       return new Promise((resolve, reject) => {
         // 定义canvas画布的属性，避免生成的pdf文件尺寸不统一
         let { scale = 2, width, height } = canvasOptions;
@@ -100,29 +108,20 @@ export default {
                 }
               }
             }
-            if (allowDownload) {
+            const fileURL = PDF.output('blob');  // 生成pdf文件的url
+            // console.log('file', fileURL);
+            if(fileType === 'png' && allowDownload) {
+                canvas.toBlob(function(blob) {
+                  saveAs(blob, title + '.png');
+              });
+            } else if (fileType === 'pdf' && allowDownload) {
               PDF.save(title + '.pdf');  // 保存pdf文件
             }
-            const fileURL = PDF.output('dataurl');  // 生成pdf文件的url
-            console.log('file', fileURL);
-
-            // const pdfUrl = PDF.output('datauri').substring(PDF.output('datauri').indexOf(',') + 1);
-            // const binary = atob(pdfUrl.replace(/\s/g, ''));
-            // const len = binary.length;
-            // const buffer = new ArrayBuffer(len);
-            // const view = new Uint8Array(buffer);
-            // for (let i = 0; i < len; i++) {
-            //   view[i] = binary.charCodeAt(i);
-            // }
-            // const blob = new Blob([view], { type: "application/pdf" });
-            // const fileURL = PDF.output('blob');
-            // console.log('file', blob);
-            // window.open(PDF.output('blob'), '_blank');
             resolve(fileURL);
           })
           .catch(err => reject(err));
       });
-    }
+    },
   },
 };
 

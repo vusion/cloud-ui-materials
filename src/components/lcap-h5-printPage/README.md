@@ -27,6 +27,8 @@
 | --------- | ---- | ------- | ------- | ----------- |
 | download | boolean |  | `false` | 是否自动下载打印的文件 |
 | fileName | string |  | `'文件导出'` | 设置打印的文件名称 |
+| printDOM | string |  | `'body'` | 设置打印的DOM节点 |
+| fileType | string | `[object Object]`<br/>`[object Object]` | `'pdf'` | 设置打印的文件类型 |
 
 ### Events
 

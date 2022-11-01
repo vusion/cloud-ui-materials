@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-h5-printPage",
     "name": "页面打印",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -39,6 +39,30 @@
                 "type": "string",
                 "default": "文件导出",
                 "description": "设置打印的文件名称"
+            },
+            {
+                "name": "printDOM",
+                "title": "打印的DOM节点",
+                "type": "string",
+                "default": "body",
+                "description": "设置打印的DOM节点"
+            },
+            {
+                "name": "fileType",
+                "title": "文件类型",
+                "options": [
+                    {
+                        "value": "pdf",
+                        "title": "PDF"
+                    },
+                    {
+                        "value": "png",
+                        "title": "PNG"
+                    }
+                ],
+                "type": "string",
+                "default": "pdf",
+                "description": "设置打印的文件类型"
             }
         ],
         "methods": [
