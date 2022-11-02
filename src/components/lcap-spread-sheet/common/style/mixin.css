@@ -1,0 +1,7 @@
+/* timing function */
+/* 结束慢 */
+/* 开始慢 */
+/* functions */
+.antModalWithNoCancel :global .ant-modal-footer .ant-btn:first-child {
+  display: none;
+}

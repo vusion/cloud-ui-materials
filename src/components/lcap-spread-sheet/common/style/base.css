@@ -1,0 +1,313 @@
+/* timing function */
+/* 结束慢 */
+/* 开始慢 */
+/* functions */
+.antModalWithNoCancel :global .ant-modal-footer .ant-btn:first-child {
+  display: none;
+}
+:export {
+  baseFont: "Helvetica Neue", Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  primaryColor: #103ffa;
+}
+@font-face {
+  font-family: "iconfont";
+  /* Project id 3377053 */
+  src: url("iconfont.woff2") format("woff2"), url("iconfont.woff") format("woff"), url("iconfont.ttf") format("truetype");
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-multiChoice:before {
+  content: "\e641";
+}
+.icon-drag:before {
+  content: "\e63f";
+}
+.icon-fujian:before {
+  content: "\e704";
+}
+.icon-del2:before {
+  content: "\e635";
+}
+.icon-serialNumber:before {
+  content: "\e636";
+}
+.icon-Email:before {
+  content: "\e634";
+}
+.icon-checkbox:before {
+  content: "\e629";
+}
+.icon-Phone:before {
+  content: "\e62a";
+}
+.icon-Date:before {
+  content: "\e62c";
+}
+.icon-subsurvey:before {
+  content: "\e62d";
+}
+.icon-Num:before {
+  content: "\e62e";
+}
+.icon-Choice:before {
+  content: "\e62f";
+}
+.icon-upload:before {
+  content: "\e630";
+}
+.icon-Str:before {
+  content: "\e631";
+}
+.icon-sex:before {
+  content: "\e632";
+}
+.icon-Tel:before {
+  content: "\e633";
+}
+.icon-caret-down:before {
+  content: "\e623";
+}
+.icon-close-small:before {
+  content: "\e624";
+}
+.icon-nav-top-user:before {
+  content: "\e625";
+}
+.icon-del:before {
+  content: "\e626";
+}
+.icon-nav-help:before {
+  content: "\e627";
+}
+.icon-set:before {
+  content: "\e628";
+}
+/* reset */
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -ms-overflow-style: auto;
+}
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+p,
+blockquote,
+pre,
+hr,
+figure,
+table,
+caption,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+button,
+select,
+textarea,
+menu {
+  margin: 0;
+  padding: 0;
+}
+header,
+footer,
+section,
+article,
+aside,
+nav,
+hgroup,
+address,
+figure,
+figcaption,
+menu,
+details {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+caption,
+th {
+  text-align: left;
+  font-weight: normal;
+}
+html,
+body,
+fieldset,
+img,
+iframe,
+abbr {
+  border: 0;
+}
+i,
+cite,
+em,
+var,
+address,
+dfn {
+  font-style: normal;
+}
+[hidefocus],
+summary {
+  outline: 0;
+}
+ol,
+ul {
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small {
+  font-size: 100%;
+}
+sup,
+sub {
+  font-size: 83%;
+}
+pre,
+code,
+kbd,
+samp {
+  font-family: inherit;
+}
+q:before,
+q:after {
+  content: none;
+}
+textarea {
+  overflow: auto;
+  resize: none;
+}
+label,
+summary {
+  cursor: default;
+}
+a,
+button {
+  cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,
+strong,
+b {
+  font-weight: normal;
+}
+del,
+ins,
+u,
+s,
+a,
+a:hover {
+  text-decoration: none;
+}
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  -webkit-appearance: none;
+}
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+}
+input[disabled] {
+  background-color: #f3f3f3;
+  cursor: not-allowed;
+  border: 1px solid #efefef;
+}
+:-moz-placeholder {
+  color: #C0C0CA !important;
+  font-weight: normal !important;
+}
+::-moz-placeholder {
+  color: #C0C0CA !important;
+  font-weight: normal !important;
+}
+:-ms-input-placeholder {
+  color: #C0C0CA !important;
+  font-weight: normal !important;
+}
+::-webkit-input-placeholder {
+  color: #C0C0CA !important;
+  font-weight: normal !important;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+div::-webkit-scrollbar,
+ul::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.m-report::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.g-report::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.15);
+}
+textarea,
+input,
+button,
+select,
+keygen,
+legend {
+  outline: 0;
+}
+a,
+a:hover {
+  color: #333;
+}
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.iconfont {
+  font-size: 1em;
+}

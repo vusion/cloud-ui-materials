@@ -1,0 +1,85 @@
+@import './config.less';
+@nvWidth: 40px;
+@sdWidth: 220px;
+html {
+  // position: relative;
+  height: 100%;
+  -ms-overflow-style: none;
+}
+.g-app {
+  background-color: #fff;
+  position: unset !important;
+  overflow: hidden;
+  -ms-overflow-style: none;
+  .g-body {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+  }
+
+  &.with-sub-nav {
+    &.mobile {
+      .g-body {
+        top: 0;
+      }
+    }
+    .g-body {
+      top: @sub-nav-height;
+    }
+  }
+}
+
+.g-pg {
+  position: fixed;
+  z-index: 95;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 60px;
+  padding: 16px 30px 0;
+  border-top: 1px solid #ddd;
+  box-shadow: inset 0 1px #fff;
+  background: #f1f1f1;
+}
+.m-ctxMenu {
+  left: 0;
+  max-height: 366px;
+  width: 200px;
+  background-color: @white-color;
+  box-shadow: 0px 4px 8px rgba(141, 139, 158, 0.15);
+  position: absolute;
+  .search-ctn {
+    width: 90%;
+    .height(30px);
+    margin: 8px 10px;
+  }
+  .project-list,
+  .list-wrap {
+    max-height: 320px;
+    overflow-y: auto;
+    li {
+      .height(40px);
+    }
+  }
+  .list-ctn {
+    margin-bottom: 0;
+    li {
+      padding: 0;
+      &:hover {
+        background-color: @primary-color;
+        a {
+          color: @white-color;
+        }
+      }
+    }
+    a {
+      display: block;
+      padding: 0 8px 0 24px;
+      .ellipsis();
+      color: #333;
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+@import './mixin.less';
+
+@font-base: "Helvetica Neue", Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+@font-code: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+@color-logo: #3cb4e6;
+@color-logo-hover: #359fcc;
+@color-accepted: #359a68;
+@color-unaccepted: #d0594b;
+@color-error: #FF0000;
+@color-help: #C0C0CA;
+@base-placeholder: @color-help;
+@vp-w-md: 1024px;
+@vp-w-sm: 768px;
+@vp-w-xs: 320px;
+@vp-h-md: 768px;
+@vp-h-sm: 640px;
+@vp-h-xs: 500px;
+
+@gutter-x: 28px;
+@nav-height: 48px;
+@sub-nav-height: 56px;
+@fixed-pagination-bottom: 70px;
+@submit-actionbar-height: 56px;
+@inner-wrapper-padding-y: 30px;
+@input-placeholder: #C0C0CA;
+
+@primary-color: #103ffa;
+@content-color: #102048;
+@subcontent-color: #79809A;
+@img-description-color: #7880A0;
+@border-color: #e8e8f0;
+@link-color: @primary-color;
+@link-hover-color: @primary-color;
+@nav-background: #141720;
+@sider-border: #e2e2e2;
+@permission-bar: #7880A0;
+
+@settings-sidebar-width: 200px;
+@settings-sidebar-background: #f9fafc;
+@settings-sub-header-height: 0;
+
+@white-color: #ffffff;
+@gridlineColor: #d4d4d4;
+@spreadHoverColor: #e7ecff;
+@spreadHoverColorBolder: #d9def3;
+@spreadSelectedColor: #e4e7ee;
+@spreadHoverBorderRadius: 4px;
+@spreadHoverBorderPadding: 2px 4px;
+@spreadDesignerBackColor: #f6f7fa;
+@spreadDisabledColor: #A9A9B8;
+@spreadIconHover: #E4E7EE;
+@spreadArrowHover: #D5DAE4;
+@color-error: #F04346;
+@activeBackColor: #F6F7FA;
+@panelBorder: #dcdfe2;
+
+@surveyUnpublished: #FFAF0F;
+@surveyCollecting: #1890FF;
+@surveyStopped: #C0C0CA;
+@formuaBoxHeight: 85px;
+
+@pillContainerPadding: 10px;
+
+@homepage-siderbar-width: 224px;
+
+.popupShadow() {
+  box-shadow: 0 2px 4px 2px rgba(217, 218, 222, 0.45);
+}
+
+:export {
+  baseFont: @font-base;
+  primaryColor: @primary-color;
+}

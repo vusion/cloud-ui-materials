@@ -1,0 +1,275 @@
+/* timing function */
+
+/* 结束慢 */
+
+@endslowly: cubic-bezier(0, 0.5, 0, 1);
+/* 开始慢 */
+
+@beginslowly: cubic-bezier(1, 0, 0.5, 0);
+/* functions */
+
+.table(@layout: fixed) {
+  display: table;
+  table-layout: @layout;
+  border-spacing: 0;
+}
+
+.yahei() {
+  font-family: @ff1;
+}
+
+.simsun() {
+  font-family: @ff0;
+}
+
+.justify() {
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+.nowrap() {
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+.wrap() {
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.pre() {
+  overflow: hidden;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.ellipsis() {
+  overflow: hidden;
+  .nowrap();
+  text-overflow: ellipsis;
+}
+
+.opacity(@oc) {
+  opacity: @oc;
+  filter: ~"alpha(opacity=round(@{oc * 100}))";
+}
+
+.hideText() {
+  overflow: hidden;
+  text-indent: -20000px;
+}
+
+.scrollY() {
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.height(@height) {
+  height: @height;
+  line-height: @height;
+}
+
+.zoomin() {
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: pointer\9;
+}
+
+.smoothing() {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.blacker(@alpha) {
+  @temp: @alpha * 10;
+  background: url("../image/@{temp}.png");
+  background: rgba(#000, @alpha);
+}
+
+.border-top-radius(@br) {
+  border-top-left-radius: @br;
+  border-top-right-radius: @br;
+}
+
+.border-bottom-radius(@br) {
+  border-bottom-left-radius: @br;
+  border-bottom-right-radius: @br;
+}
+
+.border-left-radius(@br) {
+  border-top-left-radius: @br;
+  border-bottom-left-radius: @br;
+}
+
+.border-right-radius(@br) {
+  border-top-right-radius: @br;
+  border-bottom-right-radius: @br;
+}
+
+.background-linear(@value) {
+  background-image: -webkit-linear-gradient(@value);
+  background-image: -moz-linear-gradient(@value);
+  background-image: -ms-linear-gradient(@value);
+  background-image: -o-linear-gradient(@value);
+  background-image: linear-gradient(@value);
+}
+
+.lh(@height) {
+  height: @height;
+  line-height: @height;
+}
+
+.size(@width, @height) {
+  width: @width;
+  height: @height;
+}
+
+.clearfix() {
+  zoom: 1;
+  &:after {
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    content: ".";
+  }
+}
+
+@subMenuPaddingLeft: 26px;
+@menuLineheight: 32px;
+.menuBase() {
+  line-height: @menuLineheight;
+  padding-left: 14px;
+}
+
+.flexCenter() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.antModalWithNoCancel {
+  :global {
+    .ant-modal-footer {
+      .ant-btn:first-child {
+        display: none;
+      }
+    }
+  }
+}
+
+.circleWraningCommon(@height, @fontSize) {
+  background: @color-error;
+  text-align: center;
+  color: #fff;
+  .height(@height);
+  min-width: @height;
+  padding: 0 4px;
+  border-radius: @height;
+  font-size: @fontSize;
+}
+
+.wholeScreenModal() {
+  top: 0;
+  padding-bottom: 0;
+  :global {
+    .ant-modal-content {
+      width: 100vw;
+      height: 100vh;
+    }
+    .ant-modal-body {
+      padding-top: 0;
+      height: calc(100vh - 55px - 53px);
+    }
+    .ant-modal-footer {
+      text-align: center;
+    }
+  }
+}
+
+.required() {
+  &::before {
+    display: inline-block;
+    margin-right: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: "*";
+  }
+}
+
+.requiredAfter() {
+  &::after {
+    display: inline-block;
+    margin-left: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    line-height: 1;
+    content: "*";
+  }
+}
+
+.operateListLevel(@n, @i: 1) when (@i =< @n) {
+  .listItemOperateLevel@{i} {
+    max-width: 150px - (@i * 12px);
+  }
+  .operateListLevel(@n, (@i + 1));
+}
+
+// antd弹窗禁用确定按钮，当存在canSave类时取消禁用
+.modalDisableConfirm() {
+  :global {
+    .ant-modal-footer {
+      .ant-btn-primary {
+        color: @subcontent-color;
+        background-color: @border-color;
+        border-color: @border-color;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &.canSave {
+    :global {
+      .ant-modal-footer {
+        .ant-btn-primary {
+          color: @white-color;
+          background-color: @primary-color;
+          border-color: @primary-color;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.triangleDown() {
+  &::after {
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-color: rgb(121, 128, 154) transparent transparent;
+    border-image: initial;
+    content: " ";
+    border-width: 4px;
+  }
+}
+
+
+.triangleUp() {
+  &::after {
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-color: transparent transparent rgb(121, 128, 154);
+    border-image: initial;
+    content: " ";
+    border-width: 4px;
+  }
+}

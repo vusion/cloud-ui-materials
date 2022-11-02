@@ -1,0 +1,29 @@
+
+.u-menu {
+  @y-offset: 5px;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: @y-offset;
+  box-sizing: border-box;
+  min-width: 100%;
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16);
+  cursor: default;
+  li {
+    padding: 0 24px;
+    height: 40px;
+    line-height: 40px;
+    white-space: nowrap;
+    cursor: pointer;
+    &:hover {
+      background: #eee;
+    }
+    a {
+      display: block;
+    }
+  }
+}
