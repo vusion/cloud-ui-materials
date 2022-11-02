@@ -1,5 +1,7 @@
 <template>
 <div>
+    <div ref="tabbar"></div>
+    <div>111</div>
     <div ref="main"></div>
 </div>
 </template>
@@ -18,7 +20,11 @@ export default {
     },
     methods: {
         loadSpread() {
-            return new GC.Spread.Sheets.Workbook(this.$refs.main, this.tabbarOption);
+            const option = {
+                ...this.tabbarOption,
+                tabStripHost: this.$refs.tabbar,
+            };
+            return new GC.Spread.Sheets.Workbook(this.$refs.main, option);
         },
     },
 };

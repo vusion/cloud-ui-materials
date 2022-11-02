@@ -3467,7 +3467,11 @@ Core_1.Workbook._registerFeature('contextmenu', {
             self.contextMenu = new ContextMenu();
         }
         if (this.options.tabStripHost) {
-            host.push(document.querySelector(this.options.tabStripHost));
+            var tabStripHost = this.options.tabStripHost;
+            if (typeof tabStripHost === 'string') {
+                tabStripHost = document.querySelector(tabStripHost);
+            }
+            host.push(tabStripHost);
         }
         $(host).bind('contextmenu.gcSheet', function (event) {
             if (self.options.allowContextMenu) {
