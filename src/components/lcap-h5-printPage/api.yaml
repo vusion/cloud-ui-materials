@@ -4,11 +4,11 @@
   labels: [Other]
   icon: default
   attrs:
-    - name: download
-      title: 是否自动下载文件
+    - name: hidden
+      title: 隐藏组件
       type: boolean
       default: false
-      description: 是否自动下载打印的文件
+      description: 是否显示打印按钮
     - name: fileName
       title: 文件名称
       type: string
@@ -19,6 +19,11 @@
       type: string
       default: body
       description: 设置打印的DOM节点
+    - name: download
+      title: 是否自动下载文件
+      type: boolean
+      default: false
+      description: 是否自动下载打印的文件
     - name: fileType
       title: 文件类型
       options:

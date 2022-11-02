@@ -1,10 +1,11 @@
 - name: lcap-h5-signature
-  title: H5签名板
-  description: 请在这里添加描述
+  title: 签名板
+  description: 用于获取电子签名
   labels: [Form]
   icon: default
   attrs:
     - name: language
+      title: 语言
       type: string
       default: english
       options:
@@ -13,16 +14,41 @@
         - value: chinese
           title: 中文
       description: 语言版本
-  slots:
-    - name: default
-      description: 插入文本或 HTML。
+    - name: openSmooth
+      title: 是否开启笔锋
+      type: boolean
+      default: true
+      description: 是否开启笔锋
+    - name: penColor
+      title: 画笔颜色
+      type: string
+      default: black
+      description: 设置画笔颜色
+    - name: penWidth
+      title: 画笔宽度
+      type: number
+      default: 2
+      description: 设置画笔宽度
+    - name: bgColor
+      title: 画布背景颜色
+      type: string
+      default: #F8F9FA
+      description: 设置画布背景颜色
+  methods:
+    - name: openSignatureModal
+      title: 打开签名版
+      description: 打开签名版
+      params: []
   events:
-    - name: change
-      description: 修改时触发
+    - name: openSignatureModal
+      title: 打开签名版时
+      description: 打开签名版时触发
+    - name: saveSignature
+      title: 保存签名时
       params:
-        - name: $event.param1
-          type: string
-          description: 参数1
-        - name: $event.param2
-          type: number
-          description: 参数2
+        - name: $event.signature
+          type: any
+          description: 返还签名的base64
+          schema:
+            $ref: "#/basicTypes/Binary"
+      description: 保存签名时触发

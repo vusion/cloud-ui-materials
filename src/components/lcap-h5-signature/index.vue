@@ -13,7 +13,7 @@
   </div>
   <u-modal
     :visible.sync="showSignatureModal"
-    :class="[$style.modal, $style.rotate]"
+    :class="[$style.modal]"
     size="auto"
     :mode=false
   >
@@ -50,11 +50,18 @@ export default {
   },
   props: {
     language: {type: String, default: 'english'},
+    bgColor: {type: String, default: '#F8F9FA'},
+    penColor: {type: String, default: 'black'},
+    penWidth: {type: Number, default: 2},
+    openSmooth: {type: Boolean, default: true},
   },
   mounted() {
-    this.signature = new SmoothSignature(document.getElementById("canvas"), {bgColor: '#F8F9FA'});
-    // document.getElementById("canvas").style.transform = "rotate(180deg)"
-
+    this.signature = new SmoothSignature(document.getElementById("canvas"), {
+      bgColor: this.bgColor,
+      openSmooth: this.openSmooth,
+      penColor: this.penColor,
+      minWidth: this.penWidth,
+    });
   },
   computed: {
     isEmpty() {
@@ -63,23 +70,19 @@ export default {
   },
   methods: {
     openSignatureModal() {
+      this.$emit('openSignatureModal');
       this.showSignatureModal = true;
       setTimeout(() => {
-        this.signature = new SmoothSignature(document.getElementById("canvas"), {bgColor: '#F8F9FA'});
-        // document.getElementById("canvas").style.transform = "rotate(180deg)"
+        this.signature = new SmoothSignature(document.getElementById("canvas"), {
+          bgColor: this.bgColor,
+          openSmooth: this.openSmooth,
+          color: this.penColor,
+          minWidth: this.penWidth,
+        });
       }, 200);
     },
     clear() {
       this.signature.clear();
-    },
-    save() {
-      this.signature.save();
-    },
-    undo() {
-      this.signature.undo();
-    },
-    redo() {
-      this.signature.redo();
     },
     getSignature() {
       return this.signature.getPNG();
@@ -87,8 +90,7 @@ export default {
     handleOk() {
       this.showSignatureModal = false;
       this.signaturePNG = this.getSignature();
-      console.log(this.signaturePNG);
-
+      this.$emit('saveSignature', this.signaturePNG);
     },
     clearSignature() {
       this.signature.clear();
@@ -141,12 +143,6 @@ export default {
   cursor: pointer;
   color: #2574FC;
   padding:3px 0 0 8px;
-}
-
-.rotate {
-  /*-webkit-transform: rotate(90deg);*/
-  /*transform: rotate(90deg);*/
-
 }
 
 .root .signaturePNG {

@@ -1,0 +1,32 @@
+{
+  "lcap-h5-signature/language": {
+    "type": "string",
+    "options": [
+      {
+        "value": "english",
+        "title": "英文"
+      },
+      {
+        "value": "chinese",
+        "title": "中文"
+      }
+    ],
+    "description": "语言版本"
+  },
+  "lcap-h5-signature/openSmooth": {
+    "type": "boolean",
+    "description": "是否开启笔锋"
+  },
+  "lcap-h5-signature/penColor": {
+    "type": "string",
+    "description": "设置画笔颜色"
+  },
+  "lcap-h5-signature/penWidth": {
+    "type": "number",
+    "description": "设置画笔宽度"
+  },
+  "lcap-h5-signature/bgColor": {
+    "type": "string",
+    "description": "设置画布背景颜色"
+  }
+}

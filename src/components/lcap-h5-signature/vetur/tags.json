@@ -1,0 +1,12 @@
+{
+  "lcap-h5-signature": {
+    "attributes": [
+      "language",
+      "openSmooth",
+      "penColor",
+      "penWidth",
+      "bgColor"
+    ],
+    "description": "用于获取电子签名"
+  }
+}

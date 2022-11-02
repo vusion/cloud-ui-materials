@@ -1,11 +1,11 @@
 {
   "name": "lcap-h5-signature",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-h5-signature@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

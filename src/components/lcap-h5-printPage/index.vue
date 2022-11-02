@@ -1,7 +1,6 @@
 <template>
-  <div :class="$style.root">
-    <u-button :class="$style.button" @click="printPage">
-      打印
+  <div :class="$style.root" v-show="!hidden">
+    <u-button :class="$style.button" color="primary" text="打印" @click="printPage">
     </u-button>
   </div>
 </template>
@@ -19,6 +18,7 @@ export default {
   },
   props: {
     download: {type: Boolean, default: false},
+    hidden: {type: Boolean, default: false},
     fileName: {type: String, default: '文件导出'},
     canvasWidth: {type: Number},
     canvasHeight: {type: Number},
@@ -129,5 +129,6 @@ export default {
 
 <style module>
 .root {
+  display: inline;
 }
 </style>
