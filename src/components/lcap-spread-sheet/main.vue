@@ -1,7 +1,7 @@
 <template>
 <div>
     <div ref="tabbar"></div>
-    <slot></slot>
+    <slot :spread="{workbook}"></slot>
     <div ref="main"></div>
 </div>
 </template>
@@ -37,7 +37,7 @@ export default {
     },
     data() {
         return {
-            spread: null,
+            workbook: null,
         };
     },
     watch: {
@@ -53,14 +53,14 @@ export default {
     methods: {
         loadSpread() {
             if (this.$refs.main) {
-                if (this.spread) {
-                    this.spread.destroy();
+                if (this.workbook) {
+                    this.workbook.destroy();
                 }
                 const options = {
                     ...this.option,
                     tabStripHost: this.$refs.tabbar,
                 };
-                this.spread = new GC.Spread.Sheets.Workbook(this.$refs.main, options);
+                this.workbook = new GC.Spread.Sheets.Workbook(this.$refs.main, options);
             }
         },
     },
