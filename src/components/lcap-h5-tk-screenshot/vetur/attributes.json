@@ -1,0 +1,28 @@
+{
+  "lcap-h5-printPage/download": {
+    "type": "boolean",
+    "description": "是否自动下载打印的文件"
+  },
+  "lcap-h5-printPage/fileName": {
+    "type": "string",
+    "description": "设置打印的文件名称"
+  },
+  "lcap-h5-printPage/printDOM": {
+    "type": "string",
+    "description": "设置打印的DOM节点"
+  },
+  "lcap-h5-printPage/fileType": {
+    "type": "string",
+    "options": [
+      {
+        "value": "pdf",
+        "title": "PDF"
+      },
+      {
+        "value": "png",
+        "title": "PNG"
+      }
+    ],
+    "description": "设置打印的文件类型"
+  }
+}
