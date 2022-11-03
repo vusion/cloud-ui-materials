@@ -115,6 +115,7 @@ export default {
           data: xData[index],
           name: xAxisTitleList[index] || multiXAxisList[index] || '',
           nameLocation: 'end',
+          boundaryGap: false,
           axisLine: {
             show: this.axisData.showXAxisLine,
           },
