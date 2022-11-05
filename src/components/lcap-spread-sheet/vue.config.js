@@ -7,5 +7,6 @@ module.exports = {
                 '@spread': path.resolve(__dirname, 'spreadjs/src/index.js'),
             },
         },
+        devtool: 'source-map',
     },
 };

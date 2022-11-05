@@ -53,14 +53,21 @@ export default {
     methods: {
         loadSpread() {
             if (this.$refs.main) {
-                if (this.workbook) {
-                    this.workbook.destroy();
-                }
+                // if (this.workbook) {
+                //     this.workbook.destroy();
+                // }
                 const options = {
-                    ...this.option,
                     tabStripHost: this.$refs.tabbar,
                 };
-                this.workbook = new GC.Spread.Sheets.Workbook(this.$refs.main, options);
+                if(this.option) {
+                   Object.assign(options, this.option);
+                }
+                if(!this.workbook) {
+                    this.workbook = new GC.Spread.Sheets.Workbook(this.$refs.main, options);
+                } else {
+                    this.workbook.refresh();
+                }
+                
             }
         },
     },

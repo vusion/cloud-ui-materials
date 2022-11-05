@@ -9209,7 +9209,9 @@ var _DPIHelper = (function () {
 exports._DPIHelper = _DPIHelper;
 function _WordWrapHelper_getCtx() {
     if (!_WordWrapHelper._ctx) {
-        _WordWrapHelper._ctx = createElement('canvas').getContext('2d');
+        var c = createElement('canvas');
+        document.body.append(c);
+        _WordWrapHelper._ctx = c.getContext('2d');
     }
     return _WordWrapHelper._ctx;
 }
@@ -14265,8 +14267,10 @@ var _SheetTabBase = (function () {
         if (!buffer || buffer && (buffer.width !== canvas.width || buffer.height !== canvas.height) || !buffer && (buffer.width !== rect.width || buffer.height !== rect.height)) {
             if (buffer) {
                 common_1._DPIHelper._disposeCanvasForSpread(self._workbook, buffer);
+                buffer.remove();
             }
             self.buffer = buffer = createElement(tag_canvas);
+            document.body.append(buffer);
             common_1._DPIHelper._adjustDevicePixel(buffer, self._workbook);
             common_1._DPIHelper._setSize(buffer, rect.width, rect.height);
         }
@@ -22842,6 +22846,7 @@ var _StyleHelper = (function () {
         var pattern = _PatternMap[fill.type];
         var h = pattern.length, w = pattern[0].length;
         var buff = document.createElement('canvas');
+        document.body.append(buff);
         buff.width = w;
         buff.height = h;
         var buffCtx = buff.getContext('2d');
@@ -40108,8 +40113,10 @@ var _SheetRender = (function () {
         if (!buffer || getWidth(buffer) !== width || getHeight(buffer) !== height) {
             if (buffer) {
                 common_1._DPIHelper._disposeCanvasForSheet(sheet, buffer);
+                buffer.remove();
             }
             self._buffer = buffer = common_1._util._createElement('canvas');
+            document.body.append(buffer);
             if (buffer.getContext) {
                 self._bufferCtx = buffer.getContext('2d');
                 common_1._DPIHelper._adjustDevicePixel(buffer, keyword_null, sheet);
