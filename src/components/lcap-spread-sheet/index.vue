@@ -26,26 +26,23 @@ export default {
     },
     data() {
         return {
-            option: null,
-        };
-    },
-    mounted() {
-        this.option = {
-            scrollByPixel: true,
-            showResizeTip: 3,
-            allowUserDragFill: false,
-            allowUndo: true,
-            scrollbarAppearance: 1,
-            allowExtendPasteRange: true,
-            copyPasteHeaderOptions: 0,
-            scrollbarMaxAlign: true,
-            showDragDropTip: false,
-            cutCopyIndicatorBorderColor: '#103FFA',
-            tabStripVisible: true,
-            tabStripPosition: 1,
-            tabNavigationVisible: false,
-            tabEditable: true,
-            newTabVisible: true,
+            option: {
+                scrollByPixel: true,
+                showResizeTip: 3,
+                allowUserDragFill: false,
+                allowUndo: true,
+                scrollbarAppearance: 1,
+                allowExtendPasteRange: true,
+                copyPasteHeaderOptions: 0,
+                scrollbarMaxAlign: true,
+                showDragDropTip: false,
+                cutCopyIndicatorBorderColor: '#103FFA',
+                tabStripVisible: true,
+                tabStripPosition: 1,
+                tabNavigationVisible: false,
+                tabEditable: true,
+                newTabVisible: true,
+            },
         };
     },
 };

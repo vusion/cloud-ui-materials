@@ -45,11 +45,11 @@ export default {
             deep: true,
             handler(value) {
                 if (this.spread) {
-                    this.workbook = this.spread?.workbook;
-                    this.sheet = this.workbook?.getActiveSheet();
-                    this.sels = this.sheet?.getSelections();
-                    const { widgetList, showWidgetList } = getWidgetList(this.sheet, this.sels);
-                    this.widgetList = widgetList;
+                    // this.workbook = this.spread?.workbook;
+                    // this.sheet = this.workbook?.getActiveSheet();
+                    // this.sels = this.sheet?.getSelections();
+                    // const { widgetList, showWidgetList } = getWidgetList(this.sheet, this.sels);
+                    // this.widgetList = widgetList;
                     // console.log(_widgetList, showWidgetList);
                 }
             },
