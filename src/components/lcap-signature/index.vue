@@ -103,14 +103,14 @@ export default {
 
 <style module>
 .root {
-  position: absolute;
   width: 210px;
   height: 48px;
 }
 
 .root .wrapper {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  width: inherit;
+  height: inherit;
 }
 
 .root .empty {
