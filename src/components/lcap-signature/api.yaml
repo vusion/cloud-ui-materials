@@ -1,4 +1,4 @@
-- name: lcap-h5-signature
+- name: lcap-signature
   title: 签名板
   description: 用于获取电子签名
   labels: [Form]

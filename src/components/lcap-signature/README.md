@@ -1,6 +1,6 @@
 <!-- 该 README.md 根据 api.yaml 和 docs/*.md 自动生成，为了方便在 GitHub 和 NPM 上查阅。如需修改，请查看源文件 -->
 
-# LcapH5Signature 签名板
+# LcapSignature 签名板
 
 - [示例](#示例)
     - [基本用法](#基本用法)
@@ -22,33 +22,33 @@
 ### 基本用法
 
 ``` html
-<lcap-h5-signature></lcap-h5-signature>
+<lcap-signature></lcap-signature>
 ```
 
 ### 切换语言版本
 ``` html
-<lcap-h5-signature language="english"></lcap-h5-signature>
-<lcap-h5-signature language="chinese"></lcap-h5-signature>
+<lcap-signature language="english"></lcap-signature>
+<lcap-signature language="chinese"></lcap-signature>
 ```
 
 ### 关闭笔锋
 ``` html
-<lcap-h5-signature :openSmooth=false></lcap-h5-signature>
+<lcap-signature :openSmooth=false></lcap-signature>
 ```
 
 ### 改变画笔颜色
 ``` html
-<lcap-h5-signature penColor="red"></lcap-h5-signature>
+<lcap-signature penColor="red"></lcap-signature>
 ```
 
 ### 改变画笔粗细
 ``` html
-<lcap-h5-signature penWidth=20></lcap-h5-signature>
+<lcap-signature :penWidth=20></lcap-signature>
 ```
 
 ### 改变背景颜色
 ``` html
-<lcap-h5-signature bgColor="#FFFFFF"></lcap-h5-signature>
+<lcap-signature bgColor="#FFFFFF"></lcap-signature>
 ```
 
 ## API

@@ -1,7 +1,7 @@
 {
-    "symbol": "lcap-h5-signature",
+    "symbol": "lcap-signature",
     "name": "签名板",
-    "version": "0.1.1",
+    "version": "0.1.0",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -10,9 +10,9 @@
         "Form"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-h5-signature></lcap-h5-signature>\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-signature></lcap-signature>\\n</template>\\n\"}]",
     "jsonSchema": {
-        "name": "lcap-h5-signature",
+        "name": "lcap-signature",
         "title": "签名板",
         "description": "用于获取电子签名",
         "category": "Form",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n<lcap-h5-signature></lcap-h5-signature>\n</template>\n"
+                "code": "<template>\n<lcap-signature></lcap-signature>\n</template>\n"
             }
         ],
         "attrs": [

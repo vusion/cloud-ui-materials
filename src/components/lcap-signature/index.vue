@@ -38,7 +38,7 @@
 <script>
 import SmoothSignature from "smooth-signature";
 export default {
-  name: 'lcap-h5-signature',
+  name: 'lcap-signature',
   components: {
   },
   data() {
