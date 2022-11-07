@@ -1,9 +1,10 @@
 {
-  "lcap-h5-printPage": {
+  "lcap-printPage": {
     "attributes": [
-      "download",
+      "hidden",
       "fileName",
       "printDOM",
+      "download",
       "fileType"
     ],
     "description": "打印当前页面内容生成PDF文件"

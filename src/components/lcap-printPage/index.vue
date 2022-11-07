@@ -10,7 +10,7 @@ import html2Canvas from 'html2canvas';
 import JsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
 export default {
-  name: 'lcap-h5-printPage',
+  name: 'lcap-printPage',
   data() {
     return {
       base64PdfData: '',
@@ -45,8 +45,8 @@ export default {
             fileType: this.fileType,  // 文件类型
             isFullPage: true,   // pdf尺寸：true为不分页的长文件，false为A4分页的文件
             canvasOptions: {
-              height: document.body.scrollHeight,
-              width: document.body.scrollWidth   // 画布尺寸
+              // height: document.body.scrollHeight,
+              width: document.body.clientWidth   // 画布尺寸
             }
           }).then((res) => {
             this.$emit('print', res);

@@ -1,17 +1,21 @@
 {
-  "lcap-h5-printPage/download": {
+  "lcap-printPage/hidden": {
     "type": "boolean",
-    "description": "是否自动下载打印的文件"
+    "description": "是否显示打印按钮"
   },
-  "lcap-h5-printPage/fileName": {
+  "lcap-printPage/fileName": {
     "type": "string",
     "description": "设置打印的文件名称"
   },
-  "lcap-h5-printPage/printDOM": {
+  "lcap-printPage/printDOM": {
     "type": "string",
     "description": "设置打印的DOM节点"
   },
-  "lcap-h5-printPage/fileType": {
+  "lcap-printPage/download": {
+    "type": "boolean",
+    "description": "是否自动下载打印的文件"
+  },
+  "lcap-printPage/fileType": {
     "type": "string",
     "options": [
       {
