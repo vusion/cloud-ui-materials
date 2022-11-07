@@ -103,6 +103,7 @@ export default {
 
 <style module>
 .root {
+  position: absolute;
   width: 210px;
   height: 48px;
 }
