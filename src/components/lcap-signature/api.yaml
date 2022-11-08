@@ -32,7 +32,7 @@
     - name: bgColor
       title: 画布背景颜色
       type: string
-      default: #F8F9FA
+      default: "#F8F9FA"
       description: 设置画布背景颜色
   methods:
     - name: openSignatureModal

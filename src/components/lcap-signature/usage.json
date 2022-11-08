@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-signature",
     "name": "签名板",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -68,7 +68,7 @@
                 "name": "bgColor",
                 "title": "画布背景颜色",
                 "type": "string",
-                "default": null,
+                "default": "#F8F9FA",
                 "description": "设置画布背景颜色"
             }
         ],

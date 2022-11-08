@@ -2,6 +2,7 @@
 
 ``` html
 <lcap-signature></lcap-signature>
+<u-button ref="button1" color="primary" text="确定"></u-button>
 ```
 
 ### 切换语言版本

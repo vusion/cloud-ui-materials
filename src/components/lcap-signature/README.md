@@ -23,6 +23,7 @@
 
 ``` html
 <lcap-signature></lcap-signature>
+<u-button ref="button1" color="primary" text="确定"></u-button>
 ```
 
 ### 切换语言版本
@@ -60,7 +61,7 @@
 | openSmooth | boolean |  | `true` | 是否开启笔锋 |
 | penColor | string |  | `'black'` | 设置画笔颜色 |
 | penWidth | number |  | `2` | 设置画笔宽度 |
-| bgColor | string |  |  | 设置画布背景颜色 |
+| bgColor | string |  | `'#F8F9FA'` | 设置画布背景颜色 |
 
 ### Events
 

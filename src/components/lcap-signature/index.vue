@@ -105,10 +105,10 @@ export default {
 .root {
   width: 210px;
   height: 48px;
+  display: inline-block;
 }
 
 .root .wrapper {
-  position: absolute;
   width: inherit;
   height: inherit;
 }
