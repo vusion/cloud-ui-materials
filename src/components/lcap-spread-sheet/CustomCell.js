@@ -1,5 +1,9 @@
-import GC from '@spread';
+import Vue from 'vue';
 import _ from 'lodash';
+
+import GC from '@spread';
+
+import Demo from './demo.vue';
 import './index.css';
 
 export function isSelectWidget(type) {
@@ -39,10 +43,18 @@ export default class CustomCell extends GC.Spread.Sheets.CellTypes.Text {
             widgetType: this.widgetType,
             widgetSetting: this.widgetSetting,
             items: (ctrl) => {
-                const div = document.createElement('div');
-                const str = '<div><div class="ant-select-dropdown ant-select-dropdown--multiple"><input placeholder="查找选项" type="text" class="ant-input ant-input-sm" value=""><ul class="ant-select-dropdown-menu ant-select-dropdown-menu-light ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical" role="menu"><li class="ant-select-dropdown-menu-item" role="menuitem">选项1<svg class="icon icon-check ant-select-selected-icon" aria-hidden="true"><use xlink:href="#icon-check"></use></svg></li><li class="ant-select-dropdown-menu-item" role="menuitem">选项2<svg class="icon icon-check ant-select-selected-icon" aria-hidden="true"><use xlink:href="#icon-check"></use></svg></li><li class="ant-select-dropdown-menu-item" role="menuitem">选项3<svg class="icon icon-check ant-select-selected-icon" aria-hidden="true"><use xlink:href="#icon-check"></use></svg></li></ul></div></div>';
-                div.innerHTML = str;
-                return div;
+                const ctnElem = document.createElement('div');
+                const app = new Vue({
+                    ...Demo,
+                });
+                app.$mount(ctnElem);
+                const originDispose = ctrl.dispose;
+                ctrl.dispose = () => {
+                    app.$destroy();
+                    originDispose.call(ctrl);
+                    delete ctrl.dispose;
+                };
+                return app.$el;
             },
         };
         if (isSelectWidget(this.widgetType)) {
