@@ -1,0 +1,71 @@
+/* timing function */
+/* 结束慢 */
+/* 开始慢 */
+/* functions */
+.antModalWithNoCancel :global .ant-modal-footer .ant-btn:first-child {
+  display: none;
+}
+:export {
+  baseFont: "Helvetica Neue", Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  primaryColor: #103ffa;
+}
+.sheetContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 0;
+}
+.sheetContainer .spin {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: -10px;
+  width: 100%;
+  height: calc(100% + 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.sheetContainer .tabbarContainer {
+  flex: 0 0 32px;
+  overflow: hidden;
+}
+.sheetContainer .tabbarContainer :global(.gc-tabStrip-inputContainer) input {
+  line-height: 1;
+}
+.sheetContainer .main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  min-height: 0;
+}
+.sheetContainer .mainWrap {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  flex: 1;
+  min-width: 0;
+}
+.sheetContainer :global .gc-ui-contextmenu-menuitem-content .menuitem-with-input {
+  display: flex;
+  align-items: center;
+}
+.sheetContainer :global .gc-ui-contextmenu-menuitem-content .menuitem-with-input .ant-input {
+  margin: 0 4px;
+  padding: 1 4px;
+  font-size: 12px;
+}
+.designerContainer {
+  flex: 0 0 64px;
+  display: flex;
+  min-width: 1600px;
+  border-bottom: 1px #e8e8f0 solid;
+  background-color: #f6f7fa;
+  min-height: 0;
+}

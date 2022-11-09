@@ -4,6 +4,8 @@
     <u-button @click="toJSON">转为json</u-button>
     <u-button @click="editable">选定区域可编辑</u-button>
     <u-button @click="setBackColor">设置背景</u-button>
+    <u-button @click="setWidget">设置控件</u-button>
+    <u-button @click="save">导出excel</u-button>
     <div ref="tabbar"></div>
     <slot :spread="{spread}"></slot>
     <div ref="main"></div>
@@ -12,6 +14,13 @@
 
 <script>
 import GC from '@spread';
+
+import './dataValidator';
+import consts from './consts';
+import { traverseCellRange, transformWidgetSettingToCell, setWidgetValidator, getActualRange, isSingleCell } from './utils';
+import { setWidgetDefaultValue, setWidgetStyle, getSelectedWidget } from './widget.util';
+import { getTable } from './dynamicTable.util';
+import { data } from './demoData';
 
 export default {
     name: 'lcap-excel-main',
@@ -40,6 +49,7 @@ export default {
     },
     data() {
         return {
+            index: 0,
             type: 16,
             spread: null,
         };
@@ -55,242 +65,72 @@ export default {
         this.loadSpread();
     },
     methods: {
-        fromJSON() {
-            this.spread.fromJSON({
-                "version": "14.2.5",
-                "scrollbarMaxAlign": true,
-                "tabStripPosition": 1,
-                "cutCopyIndicatorBorderColor": "#103FFA",
-                "tabNavigationVisible": false,
-                "showResizeTip": 3,
-                "showDragDropTip": false,
-                "allowExtendPasteRange": true,
-                "copyPasteHeaderOptions": 0,
-                "scrollByPixel": true,
-                "scrollbarAppearance": 1,
-                "customList": [],
-                "sheets": {
-                    "Sheet1": {
-                        "name": "Sheet1",
-                        "isSelected": true,
-                        "activeRow": 2,
-                        "activeCol": 7,
-                        "zoomFactor": 0.25,
-                        "frozenTrailingRowStickToEdge": true,
-                        "frozenTrailingColumnStickToEdge": true,
-                        "theme": "Office",
-                        "data": {
-                            "dataTable": {
-                                "1": {
-                                    "1": {
-                                        "value": "s",
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "2": {
-                                        "value": "s",
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "3": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    }
-                                },
-                                "2": {
-                                    "1": {
-                                        "value": "s",
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "2": {
-                                        "value": "s",
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "3": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "7": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            }
-                                        }
-                                    }
-                                },
-                                "3": {
-                                    "1": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "2": {
-                                        "value": "ss",
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "3": {
-                                        "value": "s",
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "5": {
-                                        "value": "ssss",
-                                        "style": {
-                                            "locked": false
-                                        }
-                                    }
-                                },
-                                "4": {
-                                    "1": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "2": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "3": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    }
-                                },
-                                "5": {
-                                    "1": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "2": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    },
-                                    "3": {
-                                        "style": {
-                                            "backColor": {
-                                                "type": 16,
-                                                "patternColor": "#D9D9D9"
-                                            },
-                                            "locked": false
-                                        }
-                                    }
-                                }
-                            },
-                            "defaultDataNode": {
-                                "style": {
-                                    "themeFont": "Body"
-                                }
-                            }
-                        },
-                        "rowHeaderData": {
-                            "defaultDataNode": {
-                                "style": {
-                                    "themeFont": "Body"
-                                }
-                            }
-                        },
-                        "colHeaderData": {
-                            "defaultDataNode": {
-                                "style": {
-                                    "themeFont": "Body"
-                                }
-                            }
-                        },
-                        "leftCellIndex": 0,
-                        "topCellIndex": 1,
-                        "selections": {
-                            "0": {
-                                "row": 2,
-                                "rowCount": 1,
-                                "col": 7,
-                                "colCount": 1
-                            },
-                            "length": 1
-                        },
-                        "cellStates": {},
-                        "states": {},
-                        "isProtected": true,
-                        "index": 0
-                    }
-                }
+        save() {
+            const excelIo = new GC.Spread.Excel.IO();
+            const json = this.toJSON();
+            excelIo.save(json, function (blob) {
+                console.log(blob)
+
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                // link.download = fileName;
+                link.click();
+                window.URL.revokeObjectURL(link.href);
+
+
+
+
+                //do whatever you want with blob
+                //such as you can save it
+            }, function (e) {
+                //process error
+                console.log(e);
             });
+        },
+        setWidget() {
+            const { widgetList } = consts;
+            const widget = widgetList[this.index];
+            this.index++;
+             if(this.index > widgetList.length - 1) {
+                this.index = 0;
+            }
+            const sheet = this.spread.getActiveSheet();
+             // 一些选中区域
+            const sels = sheet.getSelections();
+            this.applySetting(widget, {}, this.spread, 'edit', sels);
+        },
+        applySetting(target, option = {}, workbook, mode, ranges) {
+            const sheet = workbook.getActiveSheet();
+            sheet.suspendPaint();
+            setWidgetValidator(target, workbook, ranges);
+            // 设置校验、样式、defaultValue
+            ranges && ranges.forEach((range) => {
+                range = getActualRange(sheet, range);
+                traverseCellRange(range, (row, col) => {
+                    let cellProps = transformWidgetSettingToCell(target, option) || {};
+                    const dataModel = cellProps.cellType && cellProps.cellType.widgetSetting && cellProps.cellType.widgetSetting.dataModel;
+                    // 清空默认值, 有模型的控件不删除
+                    if (mode !== 'edit' && sheet.getValue(row, col) && !dataModel) {
+                        sheet.setValue(row, col);
+                    }
+                    if (target.type === 'SerialNumber') {
+                        sheet.setValue(row, col, 1);
+                    }
+                    setWidgetDefaultValue(sheet, target, row, col);
+                    setWidgetStyle(sheet, cellProps, row, col);
+                });
+            });
+            sheet.resumePaint();
+        },
+        fromJSON() {
+            this.spread.fromJSON(data);
         },
         toJSON() {
             const json = this.spread.toJSON({
                 includeBindingSource: true,
             });
             console.log(json);
+            return json;
         },
         editable() {
             const sheet = this.spread.getActiveSheet();
@@ -343,6 +183,29 @@ export default {
                 }
                 const sheet = this.spread.getActiveSheet();
                 sheet.options.isProtected = true;
+                this.fromJSON();
+
+                const widgetSwitchEvent = GC.Spread.Sheets.Events.SelectionChanged + '.widgetSwitch';
+                sheet.unbind(widgetSwitchEvent);
+                sheet.bind(widgetSwitchEvent, (e, info) => {
+                    let sels = info.newSelections;
+                    if (isSingleCell(sheet, sels)) {
+                        let widget = getSelectedWidget(sheet.getCellType(sels[0].row, sels[0].col));
+                        if (widget && widget.type === 'Select') {
+                        if (_.get(widget, 'settings.selectionMethod.value') === 'multiple') {
+                            widget.type = 'MultipleSelect';
+                        }
+                        }
+                        let table = getTable(sheet, sels);
+                        let dynamicTable = table && table.name();
+                        console.log(widget, table, dynamicTable)
+                        if (widget && widget.type !== 'SerialNumber' || dynamicTable) {
+                        
+                        } else {
+                       
+                        }
+                    }
+                });
             }
         },
     },

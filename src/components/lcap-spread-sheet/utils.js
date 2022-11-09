@@ -1,7 +1,9 @@
 import GC from '@spread';
+import _, { uniqBy } from 'lodash';
 
 import spreadConsts from './consts';
 import { inDynamicTableArea, tableWithData } from './dynamicTable.util';
+import CustomCell from './CustomCell';
 
 export const fieldSupportWidgetMap = {
     Whole: ['Checkbox', 'Cellphone', 'Number', 'SerialNumber'],
@@ -119,6 +121,132 @@ export function isFirstCellInSpan(sheet, row, col) {
         return true;
     }
     return false;
+}
+
+export function processSelectOptionsWithDatasourceOptions(selectOptions, datasourceItems) {
+    let dataSourceIndex = -1;
+    let dataSourceLength = 0;
+    selectOptions.forEach((item, index) => {
+        if (item.type === 'dataSource') {
+            dataSourceIndex = dataSourceIndex === -1 ? index : dataSourceIndex;
+            dataSourceLength++;
+        }
+    });
+    selectOptions.splice(dataSourceIndex, dataSourceLength, ...datasourceItems);
+    // 对 选项进行去重操作
+    selectOptions = uniqBy(selectOptions, 'text');
+    return selectOptions;
+}
+
+/** @returns {GCTYPE.Spread.Sheets.Worksheet} */
+export function getSheetBySheetId(workbook, id) {
+    return workbook.sheets.find((sheet) => sheet._id === id);
+}
+
+/** @type {GCTYPE.Spread.Sheets.DataValidation.DefaultDataValidator} */
+export function validatorCommonSetting(validator, options = { ignoreBlank: false }) {
+    const { DataValidation } = GC.Spread.Sheets;
+    validator.highlightStyle({
+        type: DataValidation.HighlightType.dogEar,
+        color: 'red',
+        position: DataValidation.HighlightPosition.topRight,
+    });
+    if (options.isCustom) {
+        validator.type(GC.Spread.Sheets.DataValidation.CriteriaType.custom);
+    }
+    validator.ignoreBlank(!!options.ignoreBlank);
+}
+
+// 设置控件校验器
+export function setWidgetValidator(target, workbook, ranges) {
+    if (!workbook)
+        return;
+    const sheet = workbook.getActiveSheet();
+    const condition = new GC.Spread.Sheets.ConditionalFormatting.Condition();
+    const widgetDataValidator = new GC.Spread.Sheets.DataValidation.DefaultDataValidator(condition);
+    widgetDataValidator.type(spreadConsts.customDataValidatorTypesMap.widget);
+    validatorCommonSetting(widgetDataValidator, { ignoreBlank: true });
+    widgetDataValidator.initWidgetValidator(target.type, target.settings);
+    ranges && ranges.forEach((range) => {
+        if (sheet) {
+            range = getActualRange(sheet, range);
+            traverseCellRange(range, (row, col) => {
+                sheet.setDataValidator(row, col, widgetDataValidator);
+            });
+        }
+    });
+}
+
+// 根据控件配置转换类型
+export function transformWidgetSettingToCell(widget, option = {}) {
+    const cellProps = {};
+    const setting = widget.settings;
+    let cellType;
+
+    switch (widget.type) {
+        case 'Select':
+        case 'MultipleSelect':
+            if (option.dataSourceOptions) {
+                const datasourceItems = option.dataSourceOptions.map((item) => ({ text: item }));
+                let manualItems = _.cloneDeep(setting.manualItems.value);
+                manualItems = processSelectOptionsWithDatasourceOptions(manualItems, datasourceItems);
+                setting.items = manualItems;
+            }
+            cellProps.cellButtons = [
+                {
+                    imageType: GC.Spread.Sheets.ButtonImageType.dropdown,
+                    command: 'openList',
+                },
+            ];
+            cellProps.watermark = '请选择';
+            break;
+        case 'Date':
+            cellProps.cellButtons = [
+                {
+                    imageType: GC.Spread.Sheets.ButtonImageType.calendar,
+                    command: 'openList',
+                },
+            ];
+            cellProps.watermark = '请选择日期';
+            cellProps.showEllipsis = true;
+            break;
+        case 'Number':
+            cellProps.watermark = '请输入数字';
+            break;
+        case 'Text':
+            cellProps.watermark = '请输入文本';
+            break;
+        case 'Email':
+            cellProps.watermark = '请输入邮箱';
+            break;
+        case 'Cellphone':
+            cellProps.watermark = '请输入手机号';
+            break;
+        default:
+            break;
+    }
+    if (['Date', 'Select', 'MultipleSelect', 'SerialNumber'].includes(widget.type)) {
+        cellType = new CustomCell(widget.type, setting);
+        cellProps.cellType = cellType;
+        if (widget.type === 'SerialNumber') {
+            cellProps.hAlign = GC.Spread.Sheets.HorizontalAlign.center;
+        }
+    } else if (['Number', 'Text', 'Email', 'Cellphone'].includes(widget.type)) {
+        cellType = new GC.Spread.Sheets.CellTypes.Text();
+        cellType.widgetType = widget.type;
+        cellType.widgetSetting = setting;
+        cellProps.cellType = cellType;
+    } else if (widget.type === 'Checkbox') {
+        const description = setting.description && setting.description.value || '';
+        cellType = new GC.Spread.Sheets.CellTypes.CheckBox();
+        cellType.widgetType = widget.type;
+        if (description) {
+            cellType.caption(description);
+        }
+        cellType.boxSize(14);
+        cellProps.cellType = cellType;
+    }
+    return cellProps;
 }
 
 export function getTagKeys(tag = {}) {

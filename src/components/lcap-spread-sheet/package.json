@@ -72,6 +72,7 @@
   ],
   "dependencies": {
     "css-loader": "^6.7.1",
+    "moment": "^2.29.4",
     "style-loader": "^3.3.1"
   }
 }
