@@ -100,6 +100,12 @@ const data = {
             cellStates: {},
             states: {},
             isProtected: true,
+            protectionOptions: {
+                allowInsertRows: true,
+                allowInsertColumns: true,
+                allowDeleteRows: true,
+                allowDeleteColumns: true,
+            },
             index: 0,
         },
     },

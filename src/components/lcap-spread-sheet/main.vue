@@ -208,10 +208,8 @@ export default {
                     spread.invalidateLayout();
 		            spread.repaint();
                 }
-                const sheet = this.spread.getActiveSheet();
-                sheet.options.isProtected = true;
                 this.fromJSON();
-
+                const sheet = this.spread.getActiveSheet();
                 const widgetSwitchEvent = GC.Spread.Sheets.Events.SelectionChanged + '.widgetSwitch';
                 sheet.unbind(widgetSwitchEvent);
                 sheet.bind(widgetSwitchEvent, (e, info) => {
