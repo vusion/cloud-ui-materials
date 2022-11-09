@@ -19,8 +19,8 @@
                     <img :src="require('./assets/studyCenter_tab.png')" :class="$style.tabImage">
                     <u-text display="block" :class="[$style.tabText, $style.tabTextTitle]">学习中心</u-text>
                     <u-text display="block" :class="[$style.tabText, $style.tabTextContent]" style="margin-top: 20px">
-                        定制自己的学习路线<br>
-                        1周搭建基础应用，3周搭建复杂应用<br>
+                        定制化的学习路线、丰富的课程设计<br>
+                        助你玩转低代码<br>
                     </u-text>
                 </u-linear-layout>
             </template>
