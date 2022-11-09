@@ -13,6 +13,45 @@ export const fieldSupportWidgetMap = {
     DateTime: ['Date', 'Text'],
 };
 
+export function traverseSheetCell(sheet, cb, breakFn, options = {}) {
+    if (!cb) {
+        return;
+    }
+    const { dataTable } = options.sheetType === 'json' ? sheet.data : sheet._modelManager.sheetModels[3];
+    if (Object.prototype.toString.call(dataTable) === '[object Object]' && Object.keys(dataTable).length) {
+        const rows = Object.keys(dataTable);
+        for (let row = 0; row < rows.length; row++) {
+            const rowNumber = rows[row];
+            if (typeof dataTable[rowNumber] === 'object') {
+                const rowObj = dataTable[rowNumber];
+                if (!rowObj) {
+                    continue;
+                }
+                const cols = Object.keys(rowObj);
+                for (let col = 0; col < cols.length; col++) {
+                    const colNumber = cols[col];
+                    const cellInfo = {
+                        ...dataTable[rowNumber][colNumber],
+                        row: +rowNumber,
+                        col: +colNumber,
+                    };
+                    if (breakFn && breakFn(row, col, cellInfo)) {
+                        return false;
+                    }
+                    if (cb(sheet, cellInfo) === false) {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
+export function traverseWorkbookCell(workbook, cb) {
+    const { sheets } = workbook;
+    sheets.forEach((sheet) => traverseSheetCell(sheet, cb));
+}
+
 /**
  * 获取范围(将-1替换成真实行列数)，4个值都有可能为-1
  * @param {GCTYPE.Spread.Sheets.Worksheet} sheet
@@ -187,8 +226,10 @@ export function transformWidgetSettingToCell(widget, option = {}) {
         case 'Select':
         case 'MultipleSelect':
             if (option.dataSourceOptions) {
-                const datasourceItems = option.dataSourceOptions.map((item) => ({ text: item }));
-                let manualItems = _.cloneDeep(setting.manualItems.value);
+                const datasourceItems = option.dataSourceOptions?.map((item) => ({
+                    text: item,
+                }));
+                let manualItems = _.cloneDeep(setting?.manualItems?.value) || [];
                 manualItems = processSelectOptionsWithDatasourceOptions(manualItems, datasourceItems);
                 setting.items = manualItems;
             }

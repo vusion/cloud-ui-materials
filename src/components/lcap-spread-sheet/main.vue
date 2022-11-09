@@ -17,10 +17,18 @@ import GC from '@spread';
 
 import './dataValidator';
 import consts from './consts';
-import { traverseCellRange, transformWidgetSettingToCell, setWidgetValidator, getActualRange, isSingleCell } from './utils';
-import { setWidgetDefaultValue, setWidgetStyle, getSelectedWidget } from './widget.util';
+import { traverseWorkbookCell, traverseCellRange, transformWidgetSettingToCell, setWidgetValidator, getActualRange, isSingleCell } from './utils';
+import { setWidgetDefaultValue,  setWidgetStyle, getSelectedWidget } from './widget.util';
 import { getTable } from './dynamicTable.util';
 import { data } from './demoData';
+import CustomCell from './CustomCell';
+
+export function isSelectWidget(type) {
+    return ['Select', 'MultipleSelect'].includes(type);
+}
+
+// 为了让spritejs能识别我们自定义的CustomCell类型，需要挂载到它的_typeDict上去
+GC.Spread.Sheets.CellTypes._typeDict[201] = CustomCell;
 
 export default {
     name: 'lcap-excel-main',
@@ -65,23 +73,41 @@ export default {
         this.loadSpread();
     },
     methods: {
+        // select和date控件时自定义的,需要在重新加载时设置
+        initSelectAndDatepicker(workbook) {
+            const sheet = workbook.getActiveSheet();
+            sheet.suspendPaint();
+            traverseWorkbookCell(workbook, (sheet, cellInfo) => {
+                if (cellInfo.style && cellInfo.style.cellType) {
+                    let widget = getSelectedWidget(cellInfo.style.cellType);
+                    let { row } = cellInfo, { col } = cellInfo;
+                    if (widget) {
+                        // if (isSelectWidget(widget.type) && widget.settings.sourceType && widget.settings.sourceType.value === 'dataSource') {
+                           
+                        // } else if (isSelectWidget(widget.type) || widget.type === 'Date') {
+                        //     if (widget.type === 'Date') {
+                        //         setWidgetDefaultValue(sheet, widget, row, col);
+                        //     }
+                        // }
+
+                        let cellProps = transformWidgetSettingToCell(widget,  {
+                            dataSourceOptions: []
+                        }) || {};
+                        setWidgetStyle(sheet, cellProps, row, col);
+                    }
+                }
+            });
+            sheet.resumePaint();
+        },
         save() {
             const excelIo = new GC.Spread.Excel.IO();
             const json = this.toJSON();
             excelIo.save(json, function (blob) {
-                console.log(blob)
-
                 const link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
                 // link.download = fileName;
                 link.click();
                 window.URL.revokeObjectURL(link.href);
-
-
-
-
-                //do whatever you want with blob
-                //such as you can save it
             }, function (e) {
                 //process error
                 console.log(e);
@@ -124,6 +150,7 @@ export default {
         },
         fromJSON() {
             this.spread.fromJSON(data);
+            this.initSelectAndDatepicker(this.spread);
         },
         toJSON() {
             const json = this.spread.toJSON({

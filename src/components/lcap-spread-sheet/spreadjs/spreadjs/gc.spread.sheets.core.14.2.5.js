@@ -36794,10 +36794,13 @@ module.exports = function (GC) {
                     var self = this;
                     self._init();
                     self._dirtySuspended++;
-                    var data = setting.dataTable, r, c;
+                    var data = setting.dataTable;
+                    var r;
+                    var c;
                     var rowCount = self._rowCount;
                     var colCount = self._colCount;
-                    var dr, node;
+                    var dr;
+                    var node;
                     if (data) {
                         if (incrementalLoading && area === 3) {
                             loadCellDataAsync(self, data, rowCount, colCount, options, noSchema, keyword_undefined, callback);
@@ -47087,13 +47090,39 @@ module.exports = function (GC) {
             var defProperty = common_1.util._defProperty;
             var createOptions = common_1.util._createOptions;
             var isValidSheetName = common_1.util._isValidSheetName;
-            var $_each = domUtil_1.GC$.each, $_isEmptyObject = domUtil_1.GC$.isEmptyObject;
+            var $_each = domUtil_1.GC$.each;
+            var $_isEmptyObject = domUtil_1.GC$.isEmptyObject;
             var hasOwnProperty = Common_1.Common._hasOwnProperty;
             var tryConvertDateToOADate = common_1.util._tryConvertDateToOADate;
             var tryConvertOADateToDate = common_1.util._tryConvertOADateToDate;
             var starSizeReg = new RegExp('^\\d*(\\.\\d+)?\\*$');
             var _StringHelper = Common_1.Common._StringHelper;
-            var DOCUMENT = document, convertToInt = parseInt, convertToFloat = parseFloat, isNotANumber = isNaN, keyword_null = null, keyword_undefined = void 0, Math_min = Math.min, Math_max = Math.max, Math_floor = Math.floor, Math_ceil = Math.ceil, Math_abs = Math.abs, Math_round = Math.round, const_undefined = 'undefined', const_string = 'string', cssWidth = 'width', cssHeight = 'height', cssBlack = 'black', const_tag = 'tag', const_onLayoutChanged = 'onLayoutChanged', const_beforeLayoutChanged = 'beforeLayoutChanged', const_onPaintSuspend = 'onPaintSuspend', const_isVisible = 'isVisible', const_starSize = 'starSize', const_resizable = 'resizable', _gcSheet = '.gcSheet', _gcSheetInternal = '.gcSheetInternal';
+            var DOCUMENT = document;
+            var convertToInt = parseInt;
+            var convertToFloat = parseFloat;
+            var isNotANumber = isNaN;
+            var keyword_null = null;
+            var keyword_undefined = void 0;
+            var Math_min = Math.min;
+            var Math_max = Math.max;
+            var Math_floor = Math.floor;
+            var Math_ceil = Math.ceil;
+            var Math_abs = Math.abs;
+            var Math_round = Math.round;
+            var const_undefined = 'undefined';
+            var const_string = 'string';
+            var cssWidth = 'width';
+            var cssHeight = 'height';
+            var cssBlack = 'black';
+            var const_tag = 'tag';
+            var const_onLayoutChanged = 'onLayoutChanged';
+            var const_beforeLayoutChanged = 'beforeLayoutChanged';
+            var const_onPaintSuspend = 'onPaintSuspend';
+            var const_isVisible = 'isVisible';
+            var const_starSize = 'starSize';
+            var const_resizable = 'resizable';
+            var _gcSheet = '.gcSheet';
+            var _gcSheetInternal = '.gcSheetInternal';
             var tableStyleProperties = {
                 backColor: true,
                 foreColor: true,
