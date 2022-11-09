@@ -1,23 +1,6 @@
 <template>
 <div>
-    <u-dropdown trigger="hover"> 
-        <template #title="scope">
-            <div>
-                <svg :class="$style.icon" aria-hidden="true">
-                    <use xlink:href="#icon-add-form-item" />
-                </svg>
-                <svg :class="[$style.icon, $style.iconArrowDown]" aria-hidden="true">
-                    <use xlink:href="#icon-arrow-down" />
-                </svg>
-            </div>
-            <div :class="$style.bottomTxt">
-                填报控件
-            </div>
-        </template>
-        <u-dropdown-item v-for="widget in widgetList" @click="onClick(widget)">
-            {{widget.alias}}
-        </u-dropdown-item>
-    </u-dropdown>
+    填报控件
 </div>
 </template>
 

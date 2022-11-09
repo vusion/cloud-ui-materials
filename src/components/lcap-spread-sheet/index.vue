@@ -29,7 +29,6 @@ export default {
             option: {
                 scrollByPixel: true,
                 showResizeTip: 3,
-                allowUserDragFill: false,
                 allowUndo: true,
                 scrollbarAppearance: 1,
                 allowExtendPasteRange: true,
