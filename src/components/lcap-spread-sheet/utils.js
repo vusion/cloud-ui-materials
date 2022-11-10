@@ -4,6 +4,119 @@ import _, { uniqBy } from 'lodash';
 import spreadConsts from './consts';
 import { inDynamicTableArea, tableWithData } from './dynamicTable.util';
 import CustomCell from './CustomCell';
+import {isBindFieldCell} from "@/command/cellStyle";
+
+export function clearCellStyle(sheet, row, col) {
+    if (isWidgetCell(sheet, row, col)) {
+        let cell = sheet.getCell(row, col);
+        let cellProps = {};
+        const ignoreStyles = spreadConsts.ignoreStyles;
+        ignoreStyles.forEach(prop => {
+            cellProps[prop] = cell[prop]();
+        });
+        sheet.setStyle(row, col, null);
+        ignoreStyles.forEach(prop => {
+            if (cellProps[prop]) {
+                cell[prop](cellProps[prop]);
+            }
+        });
+    }
+    else {
+        sheet.setStyle(row, col, null);
+    }
+}
+
+export function isWidgetCell(sheet, row, col) {
+    let cellType = sheet.getCellType(row, col);
+    if (cellType) {
+        return !!cellType.widgetType || (cellType instanceof GC.Spread.Sheets.CellTypes.CheckBox);
+    }
+    return false;
+}
+
+export function clearSerialNumber(sheet, row, col) {
+    sheet.setFormula(row, col, undefined);
+    sheet.setValue(row, col, null);
+}
+
+export function clearCellWidget(sheet, row, col) {
+    let style = sheet.getStyle(row, col);
+    let cellType = sheet.getCellType(row, col);
+    if (cellType.widgetType === 'SerialNumber') {
+        clearSerialNumber(sheet, row, col);
+    }
+    if (+cellType.typeName === 5) {
+        delete style.cellType;
+        sheet.setStyle(row, col, style);
+        sheet.clear(row, col, 1, 1, 3, 1);
+    }
+    else if (style) {
+        // 数字填报控件指标的标识删除
+        if (cellType.widgetSetting && cellType.widgetSetting.dataModel) {
+            delete style.backColor;
+            delete style.foreColor;
+            sheet.setValue(row, col, '');
+        }
+        spreadConsts.ignoreStyles.forEach((prop) => {
+            delete style[prop];
+        });
+        sheet.setStyle(row, col, style);
+    }
+}
+
+export function getActualCellRange(sheet, range) {
+    range = getActualRange(sheet, range);
+    return sheet.getRange(range.row, range.col, range.rowCount, range.colCount);
+}
+
+
+export function getFieldValidator(fieldType) {
+    let dv;
+    switch (fieldType) {
+        case 'Whole':
+        case 'Decimal':
+            dv = GC.Spread.Sheets.DataValidation.createNumberValidator(6, -Number.MAX_VALUE, Number.MAX_VALUE);
+            dv.errorMessage('请输入数字类型数据');
+            break;
+      // case 'String':
+      //   dv = GC.Spread.Sheets.DataValidation.createTextLengthValidator(6, 0, 20000);
+      //   dv.errorMessage('请输入文本类型数据');
+      //   break;
+        case 'Date':
+        case 'DateTime':
+            dv = GC.Spread.Sheets.DataValidation.createDateValidator(GC.Spread.Sheets.ConditionalFormatting.ComparisonOperators.between, new Date('1970/01/01 00:00:00'), new Date('2200/01/01 00:00:00'));
+            dv.errorMessage('请输入时间类型数据');
+            break;
+        default:
+            break;
+    }
+    if (dv) {
+        validatorCommonSetting(dv, {ignoreBlank: true});
+    }
+    return dv;
+}
+
+
+// 获取tag上所有的字段
+export function getFieldsFromTag(sheet, row, col) {
+    let fields = [];
+    if (isBindFieldCell(sheet, row, col)) {
+        let tablesMap = sheet.getTag(row, col).tablesMap;
+        let tableNames = getTagKeys(tablesMap);
+        tableNames.forEach((tableName) => {
+            let fieldMap = tablesMap[tableName].fieldMap;
+            if (fieldMap) {
+                let fieldNames = getTagKeys(fieldMap);
+                if (fieldNames.length) {
+                    fieldNames.forEach((fieldName) => {
+                        fields.push(fieldMap[fieldName]);
+                    });
+                }
+            }
+        });
+    }
+    return fields;
+}
 
 export const fieldSupportWidgetMap = {
     Whole: ['Checkbox', 'Cellphone', 'Number', 'SerialNumber'],

@@ -1,16 +1,19 @@
 <template>
 <div :class="$style.root">
     <form-items :spread="spread"></form-items>
+    <cell-style :spread="spread"></cell-style>
 </div>
 </template>
 
 <script>
 import FormItems from './blocks/form-items';
+import CellStyle from './blocks/cell-style';
 
 export default {
     name: 'lcap-excel-designer',
     components: {
         FormItems,
+        CellStyle,
     },
     props: {
         spread: Object,

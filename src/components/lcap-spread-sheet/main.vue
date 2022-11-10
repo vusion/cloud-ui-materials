@@ -1,15 +1,16 @@
 <template>
-<div>
-    <u-button @click="fromJSON">导入json</u-button>
-    <u-button @click="toJSON">转为json</u-button>
-    <u-button @click="editable">选定区域可编辑</u-button>
-    <u-button @click="setBackColor">设置背景</u-button>
-    <u-button @click="setWidget">设置控件</u-button>
-    <u-button @click="save">导出excel</u-button>
-    <div ref="tabbar"></div>
-    <slot :spread="{spread}"></slot>
-    <div ref="main"></div>
-</div>
+    <div>
+        <u-button @click="fromJSON">导入json</u-button>
+        <u-button @click="toJSON">转为json</u-button>
+        <u-button @click="editable">选定区域可编辑</u-button>
+        <u-button @click="setBackColor">设置背景</u-button>
+        <u-button @click="setWidget">设置控件</u-button>
+        <u-button @click="save">导出excel</u-button>
+        <u-button @click="setUnderline">设置下划线</u-button>
+        <div ref="tabbar"></div>
+        <slot :spread="spread"></slot>
+        <div ref="main"></div>
+    </div>
 </template>
 
 <script>
@@ -17,11 +18,19 @@ import GC from '@spread';
 
 import './dataValidator';
 import consts from './consts';
-import { traverseWorkbookCell, traverseCellRange, transformWidgetSettingToCell, setWidgetValidator, getActualRange, isSingleCell } from './utils';
-import { setWidgetDefaultValue,  setWidgetStyle, getSelectedWidget } from './widget.util';
-import { getTable } from './dynamicTable.util';
-import { data } from './demoData';
+import {
+    traverseWorkbookCell,
+    traverseCellRange,
+    transformWidgetSettingToCell,
+    setWidgetValidator,
+    getActualRange,
+    isSingleCell
+} from './utils';
+import {setWidgetDefaultValue, setWidgetStyle, getSelectedWidget} from './widget.util';
+import {getTable} from './dynamicTable.util';
+import {data} from './demoData';
 import CustomCell from './CustomCell';
+import initCommand from "@/command";
 
 export function isSelectWidget(type) {
     return ['Select', 'MultipleSelect'].includes(type);
@@ -60,17 +69,21 @@ export default {
             index: 0,
             type: 16,
             spread: null,
+            active: true,
         };
     },
     watch: {
         option: {
             handler(value) {
                 this.loadSpread();
+                initCommand(this.spread);
             },
         },
     },
-    mounted() {
-        this.loadSpread();
+    async mounted() {
+        await this.loadSpread();
+        console.log('this.spread');
+        initCommand(this.spread);
     },
     methods: {
         // select和date控件时自定义的,需要在重新加载时设置
@@ -80,17 +93,17 @@ export default {
             traverseWorkbookCell(workbook, (sheet, cellInfo) => {
                 if (cellInfo.style && cellInfo.style.cellType) {
                     let widget = getSelectedWidget(cellInfo.style.cellType);
-                    let { row } = cellInfo, { col } = cellInfo;
+                    let {row} = cellInfo, {col} = cellInfo;
                     if (widget) {
                         // if (isSelectWidget(widget.type) && widget.settings.sourceType && widget.settings.sourceType.value === 'dataSource') {
-                           
+
                         // } else if (isSelectWidget(widget.type) || widget.type === 'Date') {
                         //     if (widget.type === 'Date') {
                         //         setWidgetDefaultValue(sheet, widget, row, col);
                         //     }
                         // }
 
-                        let cellProps = transformWidgetSettingToCell(widget,  {
+                        let cellProps = transformWidgetSettingToCell(widget, {
                             dataSourceOptions: []
                         }) || {};
                         setWidgetStyle(sheet, cellProps, row, col);
@@ -114,14 +127,14 @@ export default {
             });
         },
         setWidget() {
-            const { widgetList } = consts;
+            const {widgetList} = consts;
             const widget = widgetList[this.index];
             this.index++;
-             if(this.index > widgetList.length - 1) {
+            if (this.index > widgetList.length - 1) {
                 this.index = 0;
             }
             const sheet = this.spread.getActiveSheet();
-             // 一些选中区域
+            // 一些选中区域
             const sels = sheet.getSelections();
             this.applySetting(widget, {}, this.spread, 'edit', sels);
         },
@@ -172,41 +185,60 @@ export default {
             sheet.resumePaint();
         },
         setBackColor() {
+            console.log('main', this.spread);
             const sheet = this.spread.getActiveSheet();
             sheet.suspendPaint();
             // 一些选中区域
             const sels = sheet.getSelections();
+            console.log('sels', sels);
             for (let n = 0; n < sels.length; n++) {
                 const sel = sels[n];
                 const cellRange = sheet.getRange(sel.row, sel.col, sel.rowCount, sel.colCount);
                 cellRange.backColor({
-                    type: this.type, 
+                    type: this.type,
                     patternColor: '#D9D9D9'
                 });
             }
             sheet.resumePaint();
             this.type++;
-            if(this.type > 18) {
+            if (this.type > 18) {
                 this.type = 1;
             }
+        },
+        setUnderline() {
+            const sheet = this.spread.getActiveSheet();
+            this.setTextDecoration(sheet, GC.Spread.Sheets.TextDecorationType.underline, this.spread);
+        },
+        setTextDecoration(sheet, flag, workbook) {
+            console.log('sheet', sheet);
+            const sels = sheet.getSelections();
+            debugger
+            const commandManager = workbook.commandManager();
+            commandManager.execute({
+                cmd: 'setTextDecoration',
+                sheetName: 'Sheet1',
+                sheet,
+                flag,
+                sels,
+            });
         },
         loadSpread() {
             if (this.$refs.main) {
                 const options = {
-                   tabStripHost: this.$refs.tabbar
+                    tabStripHost: this.$refs.tabbar
                 };
-                if(this.option) {
-                   Object.assign(options, this.option);
+                if (this.option) {
+                    Object.assign(options, this.option);
                 }
                 const spread = this.spread;
-                if(!spread) {
+                if (!spread) {
                     this.spread = new GC.Spread.Sheets.Workbook(this.$refs.main, options);
                 } else {
-                    for(let key in options) {
+                    for (let key in options) {
                         spread.options[key] = options[key];
                     }
                     spread.invalidateLayout();
-		            spread.repaint();
+                    spread.repaint();
                 }
                 this.fromJSON();
                 const sheet = this.spread.getActiveSheet();
@@ -217,17 +249,17 @@ export default {
                     if (isSingleCell(sheet, sels)) {
                         let widget = getSelectedWidget(sheet.getCellType(sels[0].row, sels[0].col));
                         if (widget && widget.type === 'Select') {
-                        if (_.get(widget, 'settings.selectionMethod.value') === 'multiple') {
-                            widget.type = 'MultipleSelect';
-                        }
+                            if (_.get(widget, 'settings.selectionMethod.value') === 'multiple') {
+                                widget.type = 'MultipleSelect';
+                            }
                         }
                         let table = getTable(sheet, sels);
                         let dynamicTable = table && table.name();
                         console.log(widget, table, dynamicTable)
                         if (widget && widget.type !== 'SerialNumber' || dynamicTable) {
-                        
+
                         } else {
-                       
+
                         }
                     }
                 });
