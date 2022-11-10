@@ -3,7 +3,30 @@ import moment from 'moment';
 import { cloneDeep } from 'lodash';
 
 import consts from './consts';
-import { traverseCellRange, transformWidgetSettingToCell, getActualRange } from './utils';
+import { isWidgetCell, traverseCellRange, transformWidgetSettingToCell, getActualRange } from './utils';
+
+export function rangeContainsWidget(sheet, range) {
+    let hasWidget = false;
+    range = getActualRange(sheet, range);
+    traverseCellRange(range, (row, col) => {
+        if (isWidgetCell(sheet, row, col)) {
+            hasWidget = true;
+        }
+    }, () => hasWidget);
+    if (hasWidget) {
+        return true;
+    }
+    return false;
+}
+
+export function selectionsContainerWidget(sheet, sels) {
+    for (let i = 0; i < sels.length; i++) {
+        if (rangeContainsWidget(sheet, sels[i])) {
+            return true;
+        }
+    }
+    return false;
+}
 
 // 设置控件默认值
 export function setWidgetDefaultValue(sheet, target, row, col) {

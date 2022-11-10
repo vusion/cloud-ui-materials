@@ -1,7 +1,7 @@
 import GC from '@spread';
 import _, { uniqBy } from 'lodash';
 
-import spreadConsts from './consts';
+import consts from './consts';
 import { inDynamicTableArea, tableWithData } from './dynamicTable.util';
 import CustomCell from './CustomCell';
 
@@ -12,6 +12,140 @@ export const fieldSupportWidgetMap = {
     Date: ['Date', 'Text'],
     DateTime: ['Date', 'Text'],
 };
+
+/**
+ * 获取动态表中合并之后的单元格
+ * @param {*} params
+ */
+export function traverseTableActualCell(sheet, table, cb) {
+    const range = table.range();
+    const rowStart = range.row;
+    const colStart = range.col;
+    let actualColIndex = 0;
+    const result = [];
+    for (let i = 0; i < range.rowCount; i++) {
+        for (let j = 0; j < range.colCount; j++) {
+            const row = rowStart + i;
+            const col = colStart + j;
+            if (cb) {
+                cb(row, col, actualColIndex);
+            }
+            result.push({
+                row, col, actualColIndex,
+            });
+            actualColIndex += 1;
+            const span = sheet.getSpan(row, col);
+            // 合并的单元格跳过，只取其第一个单元格
+            if (span) {
+                j = j + span.colCount - 1;
+            }
+        }
+    }
+    return result;
+}
+
+/**
+ * 查找某范围的各方向的坐标
+ * @param {GCTYPE.Spread.Sheets.Worksheet} sheet 表单
+ * @param {GCTYPE.Spread.Sheets.Range} range 范围
+ * @param {'row' | 'col'} direction 行或列
+ * @param {-1 | 1} step 负方向或正方向
+ * @returns {number}
+ */
+export function getIndexByRangeStep(sheet, range, direction, step) {
+    range = getActualRange(sheet, range);
+    if (direction === 'row') {
+        if (step === 1) {
+            return range.row + range.rowCount;
+        }
+        return range.row;
+    }
+
+    if (step === 1) {
+        return range.col + range.colCount;
+    }
+    return range.col;
+}
+
+/**
+ * 将数字列转换为字符串，如 1 -> B
+ *
+ * @param {number} num 列号，0开始
+ */
+export function num2Letter(num) {
+    let letters = '';
+    const AZLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    while (num >= 0) {
+        letters = AZLetters[num % 26] + letters;
+        num = Math.floor(num / 26) - 1;
+    }
+    return letters;
+}
+
+/**
+ * 获取范围对应的行列描述，如第 3 - 8 行
+ *
+ * @param {Array.<GCTYPE.Spread.Sheets.Range>} ranges 范围列表
+ * @param {'row'|'col'} direction 行或列
+ */
+export function getRangeRowOrColDesc(ranges, direction) {
+    if (!Array.isArray(ranges)) {
+        ranges = [ranges];
+    }
+    let rangeText = '';
+    if (direction === 'row') {
+        if (ranges.length === 1) {
+            if (ranges[0].rowCount === 1) {
+                rangeText = '行';
+            } else {
+                rangeText = '第 ' + (ranges[0].row + 1) + ' - ' + (ranges[0].row + ranges[0].rowCount) + ' 行';
+            }
+        } else {
+            rangeText = '所选行';
+        }
+    } else if (ranges.length === 1) {
+        if (ranges[0].colCount === 1) {
+            rangeText = '列';
+        } else {
+            rangeText = '第 ' + num2Letter(ranges[0].col) + ' - ' + num2Letter(ranges[0].col + ranges[0].colCount - 1) + ' 列';
+        }
+    } else {
+        rangeText = '所选列';
+    }
+    return rangeText;
+}
+
+/**
+ * 检测单元格是否为控件
+ * @param {GCTYPE.Spread.Sheets.Worksheet} sheet 表单
+ * @param {number} row
+ * @param {number} col
+ */
+export function isWidgetCell(sheet, row, col) {
+    const cellType = sheet.getCellType(row, col);
+    if (cellType) {
+        return !!cellType.widgetType || (cellType instanceof GC.Spread.Sheets.CellTypes.CheckBox);
+    }
+    return false;
+}
+
+/**
+ * 根据行列获取单元格的tag内容
+ * @param {GCTYPE.Spread.Sheets.Worksheet} sheet 表单
+ * @param {number} row
+ * @param {number} col
+ * @param {string} path 路径字符串
+ */
+export function getTagContentByRange(sheet, row, col, path) {
+    const tagInfo = sheet.getTag(row, col);
+    if (!tagInfo)
+        return;
+    return _.get(tagInfo, path);
+}
+
+export function isSelectWidget(type) {
+    return ['Select', 'MultipleSelect'].includes(type);
+}
 
 export function traverseSheetCell(sheet, cb, breakFn, options = {}) {
     if (!cb) {
@@ -203,8 +337,10 @@ export function setWidgetValidator(target, workbook, ranges) {
     const sheet = workbook.getActiveSheet();
     const condition = new GC.Spread.Sheets.ConditionalFormatting.Condition();
     const widgetDataValidator = new GC.Spread.Sheets.DataValidation.DefaultDataValidator(condition);
-    widgetDataValidator.type(spreadConsts.customDataValidatorTypesMap.widget);
-    validatorCommonSetting(widgetDataValidator, { ignoreBlank: true });
+    widgetDataValidator.type(consts.customDataValidatorTypesMap.widget);
+    validatorCommonSetting(widgetDataValidator, {
+        ignoreBlank: true,
+    });
     widgetDataValidator.initWidgetValidator(target.type, target.settings);
     ranges && ranges.forEach((range) => {
         if (sheet) {
@@ -214,6 +350,31 @@ export function setWidgetValidator(target, workbook, ranges) {
             });
         }
     });
+}
+
+export function validateTargets(targets) {
+    targets = targets || this.props.form.targets;
+    const targetsError = targets.some((target) => target.error);
+    let hasError = false;
+    const newTargets = targets.map((target) => {
+        const validator = getValidator(target.type);
+        if (validator) {
+            target.error = validator(target.settings, targets);
+            hasError = target.error || hasError;
+        }
+        return target;
+    });
+    if (hasError || (!hasError && targetsError)) {
+        // this.props.dispatch({ type: 'form/resetTargets', payload: newTargets });
+    }
+    return hasError;
+}
+
+const WidgetsWithValidators = consts.widgetList.filter((w) => w.validate);
+
+export function getValidator(widgetType) {
+    const widget = WidgetsWithValidators.find((w) => w.type === widgetType);
+    return widget && widget.validate;
 }
 
 // 根据控件配置转换类型
@@ -342,7 +503,7 @@ export function getFieldTypeInRanges(sheet, ranges, filterFieldIds = []) {
 export function getWidgetList(sheet, sels) {
     const showWidgetList = isSingleCell(sheet, sels) || (!isFullRowOrCol(sheet, sels, 'row') && !isFullRowOrCol(sheet, sels, 'col'));
     const prevFieldTypes = getFieldTypeInRanges(sheet, sels);
-    let widgetList = spreadConsts.widgetList;
+    let widgetList = consts.widgetList;
     for (let i = 0; i < prevFieldTypes.length; i++) {
         widgetList = widgetList.filter((item) => fieldSupportWidgetMap[prevFieldTypes[i]].includes(item.type));
     }

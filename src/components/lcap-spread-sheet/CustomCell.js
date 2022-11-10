@@ -6,9 +6,7 @@ import GC from '@spread';
 import Demo from './demo.vue';
 import './index.css';
 
-export function isSelectWidget(type) {
-    return ['Select', 'MultipleSelect'].includes(type);
-}
+import { isSelectWidget } from './utils';
 
 export function isSingleSelect(schemaOrSchemaType) {
     return typeof schemaOrSchemaType === 'object' ? schemaOrSchemaType.type === 'Select' : schemaOrSchemaType === 'Select';

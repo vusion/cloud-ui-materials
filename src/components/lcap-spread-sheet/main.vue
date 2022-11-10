@@ -7,7 +7,7 @@
     <u-button @click="setWidget">设置控件</u-button>
     <u-button @click="save">导出excel</u-button>
     <div ref="tabbar"></div>
-    <slot :spread="{spread}"></slot>
+    <slot :workbook="{workbook}"></slot>
     <div ref="main"></div>
 </div>
 </template>
@@ -22,6 +22,8 @@ import { setWidgetDefaultValue,  setWidgetStyle, getSelectedWidget } from './wid
 import { getTable } from './dynamicTable.util';
 import { data } from './demoData';
 import CustomCell from './CustomCell';
+import initMenu from './initMenu';
+import initCellHoverValidate from './initCellHoverValidate';
 
 export function isSelectWidget(type) {
     return ['Select', 'MultipleSelect'].includes(type);
@@ -59,7 +61,7 @@ export default {
         return {
             index: 0,
             type: 16,
-            spread: null,
+            workbook: null,
         };
     },
     watch: {
@@ -80,7 +82,14 @@ export default {
             traverseWorkbookCell(workbook, (sheet, cellInfo) => {
                 if (cellInfo.style && cellInfo.style.cellType) {
                     let widget = getSelectedWidget(cellInfo.style.cellType);
-                    let { row } = cellInfo, { col } = cellInfo;
+                    let { row, col } = cellInfo;
+                
+                    // console.log(cellInfo)
+
+
+                    setWidgetValidator(widget, workbook, [getActualRange(sheet, cellInfo)]);
+
+
                     if (widget) {
                         // if (isSelectWidget(widget.type) && widget.settings.sourceType && widget.settings.sourceType.value === 'dataSource') {
                            
@@ -120,10 +129,10 @@ export default {
              if(this.index > widgetList.length - 1) {
                 this.index = 0;
             }
-            const sheet = this.spread.getActiveSheet();
+            const sheet = this.workbook.getActiveSheet();
              // 一些选中区域
             const sels = sheet.getSelections();
-            this.applySetting(widget, {}, this.spread, 'edit', sels);
+            this.applySetting(widget, {}, this.workbook, 'edit', sels);
         },
         applySetting(target, option = {}, workbook, mode, ranges) {
             const sheet = workbook.getActiveSheet();
@@ -149,18 +158,18 @@ export default {
             sheet.resumePaint();
         },
         fromJSON() {
-            this.spread.fromJSON(data);
-            this.initSelectAndDatepicker(this.spread);
+            this.workbook.fromJSON(data);
+            this.initSelectAndDatepicker(this.workbook);
         },
         toJSON() {
-            const json = this.spread.toJSON({
+            const json = this.workbook.toJSON({
                 includeBindingSource: true,
             });
             console.log(json);
             return json;
         },
         editable() {
-            const sheet = this.spread.getActiveSheet();
+            const sheet = this.workbook.getActiveSheet();
             sheet.suspendPaint();
             // 一些选中区域
             const sels = sheet.getSelections();
@@ -172,7 +181,7 @@ export default {
             sheet.resumePaint();
         },
         setBackColor() {
-            const sheet = this.spread.getActiveSheet();
+            const sheet = this.workbook.getActiveSheet();
             sheet.suspendPaint();
             // 一些选中区域
             const sels = sheet.getSelections();
@@ -198,18 +207,26 @@ export default {
                 if(this.option) {
                    Object.assign(options, this.option);
                 }
-                const spread = this.spread;
-                if(!spread) {
-                    this.spread = new GC.Spread.Sheets.Workbook(this.$refs.main, options);
+                let workbook = this.workbook;
+                if(!workbook) {
+                   workbook = this.workbook = new GC.Spread.Sheets.Workbook(this.$refs.main, options);
                 } else {
                     for(let key in options) {
-                        spread.options[key] = options[key];
+                        workbook.options[key] = options[key];
                     }
-                    spread.invalidateLayout();
-		            spread.repaint();
+                    workbook.invalidateLayout();
+		            workbook.repaint();
                 }
                 this.fromJSON();
-                const sheet = this.spread.getActiveSheet();
+                initMenu(workbook, {
+                    tabEditable: true
+                }, false, false);
+
+                initCellHoverValidate(workbook, {
+                    isImport: true
+                });
+
+                const sheet = this.workbook.getActiveSheet();
                 const widgetSwitchEvent = GC.Spread.Sheets.Events.SelectionChanged + '.widgetSwitch';
                 sheet.unbind(widgetSwitchEvent);
                 sheet.bind(widgetSwitchEvent, (e, info) => {

@@ -5,6 +5,13 @@ export function getTable(sheet, sels) {
     return sheet.tables.find(row, col);
 }
 
+// 遍历动态表第一行
+export function traverseDynamicTableHeader(sheet, table, cb, breakFn) {
+    traverseCellRange({ row: table._row, col: table._col, rowCount: 1, colCount: table._colCount }, (row, col, rowIndex, colIndex) => {
+        cb(row, col, rowIndex, colIndex);
+    });
+}
+
 export function inDynamicTableArea(sheet, sels) {
     if (!sheet.tables.all().length || sels.length !== 1) {
         return false;
