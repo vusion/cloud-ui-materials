@@ -62,6 +62,18 @@ export default {
                             insertFn(url);
                         },
                     },
+                    uploadVideo: {
+                        server: '/gateway/lowcode/api/v1/app/upload',
+                        fieldName: 'file',
+                        maxFileSize: 1000 * 1024 * 1024, // 1000M
+                        // 自定义增加 http  header
+                        headers,
+                        // 自定义插入视频
+                        customInsert(res, insertFn) {
+                            const url = res.result;
+                            insertFn(url);
+                        },
+                    },
                 },
             },
             mode: 'default', // or 'simple',
