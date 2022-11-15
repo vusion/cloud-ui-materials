@@ -10,7 +10,7 @@
         ></toolbar>
         <editor
             ref="editor"
-            :style="[rootStyle, editorHeight]"
+            :style="rootStyle"
             :value="currentValue"
             :default-config="editorConfig"
             :mode="mode"
@@ -84,6 +84,14 @@ export default {
             },
         };
     },
+    computed: {
+        rootStyle() {
+            return {
+                ...this.editorHeight,
+                ...this.parseStyleAttr(this.editorStyle),
+            };
+        },
+    },
     watch: {
         readOnly(val) {
             val ? this.editor.disable() : this.editor.enable();
@@ -94,9 +102,6 @@ export default {
             },
             immediate: true,
         },
-    },
-    created() {
-        this.rootStyle = this.parseStyleAttr(this.editorStyle);
     },
     beforeDestroy() {
         const { editor } = this;
