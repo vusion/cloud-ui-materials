@@ -10,7 +10,7 @@
         ></toolbar>
         <editor
             ref="editor"
-            :style="[rootStyle, editorHeight]"
+            :style="rootStyle"
             :value="currentValue"
             :default-config="editorConfig"
             :mode="mode"
@@ -62,6 +62,18 @@ export default {
                             insertFn(url);
                         },
                     },
+                    uploadVideo: {
+                        server: '/gateway/lowcode/api/v1/app/upload',
+                        fieldName: 'file',
+                        maxFileSize: 1000 * 1024 * 1024, // 1000M
+                        // 自定义增加 http  header
+                        headers,
+                        // 自定义插入视频
+                        customInsert(res, insertFn) {
+                            const url = res.result;
+                            insertFn(url);
+                        },
+                    },
                 },
             },
             mode: 'default', // or 'simple',
@@ -71,6 +83,14 @@ export default {
                 'min-height': null,
             },
         };
+    },
+    computed: {
+        rootStyle() {
+            return {
+                ...this.editorHeight,
+                ...this.parseStyleAttr(this.editorStyle),
+            };
+        },
     },
     watch: {
         readOnly(val) {
@@ -82,9 +102,6 @@ export default {
             },
             immediate: true,
         },
-    },
-    created() {
-        this.rootStyle = this.parseStyleAttr(this.editorStyle);
     },
     beforeDestroy() {
         const { editor } = this;
