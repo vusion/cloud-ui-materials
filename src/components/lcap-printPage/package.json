@@ -1,11 +1,11 @@
 {
   "name": "lcap-printPage",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-printPage@0.1.0/index.html",
+  "homepage": "http://static-vusion.163yun.com/lcap-printPage@0.1.2/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -33,7 +33,7 @@
   },
   "vusion": {
     "type": "component",
-    "title": "H5页面打印",
+    "title": "页面打印",
     "category": "Other",
     "base": "vue",
     "ui": "cloud-ui.vusion",

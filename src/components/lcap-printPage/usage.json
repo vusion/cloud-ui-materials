@@ -1,11 +1,11 @@
 {
     "symbol": "lcap-printPage",
     "name": "页面打印",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
-    "description": "打印当前页面内容生成PDF文件",
+    "description": "打印当前页面内容生成PDF或图片",
     "labels": [
         "Other"
     ],
@@ -14,7 +14,7 @@
     "jsonSchema": {
         "name": "lcap-printPage",
         "title": "页面打印",
-        "description": "打印当前页面内容生成PDF文件",
+        "description": "打印当前页面内容生成PDF或图片",
         "category": "Other",
         "screenShot": "",
         "drawings": "",
@@ -46,6 +46,20 @@
                 "type": "string",
                 "default": "body",
                 "description": "设置打印的DOM节点"
+            },
+            {
+                "name": "canvasWidth",
+                "title": "打印文件宽度",
+                "type": "number",
+                "default": 1000,
+                "description": "设置打印文件的宽度"
+            },
+            {
+                "name": "canvasHeight",
+                "title": "打印文件高度",
+                "type": "number",
+                "default": 800,
+                "description": "设置打印文件的高度"
             },
             {
                 "name": "download",

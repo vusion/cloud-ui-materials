@@ -28,3 +28,9 @@
 ``` html
 <lcap-printPage :hidden=true></lcap-printPage>
 ```
+
+### 控制打印宽度
+``` html
+<lcap-printPage :download=true :canvasWidth=1200></lcap-printPage>
+```
+

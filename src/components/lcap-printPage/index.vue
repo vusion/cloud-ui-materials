@@ -46,7 +46,8 @@ export default {
             isFullPage: true,   // pdf尺寸：true为不分页的长文件，false为A4分页的文件
             canvasOptions: {
               // height: document.body.scrollHeight,
-              width: document.body.clientWidth   // 画布尺寸
+              height: this.canvasHeight,
+              width: this.canvasWidth   // 画布尺寸
             }
           }).then((res) => {
             this.$emit('print', res);

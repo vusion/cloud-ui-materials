@@ -19,6 +19,16 @@
       type: string
       default: body
       description: 设置打印的DOM节点
+    - name: canvasWidth
+      title: 打印文件宽度
+      type: number
+      default: 1000
+      description: 设置打印文件的宽度
+    - name: canvasHeight
+      title: 打印文件高度
+      type: number
+      default: 800
+      description: 设置打印文件的高度
     - name: download
       title: 是否自动下载文件
       type: boolean
