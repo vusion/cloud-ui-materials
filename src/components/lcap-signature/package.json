@@ -33,7 +33,7 @@
   },
   "vusion": {
     "type": "component",
-    "title": "H5签名板",
+    "title": "签名板",
     "category": "Form",
     "base": "vue",
     "ui": "cloud-ui.vusion",
