@@ -34,3 +34,7 @@
 <lcap-printPage :download=true :canvasWidth=1200></lcap-printPage>
 ```
 
+### 控制打印宽度,根据页面宽高自动调整
+``` html
+<lcap-printPage :download=true canvasWidth="auto" canvasHeight="auto"></lcap-printPage>
+```

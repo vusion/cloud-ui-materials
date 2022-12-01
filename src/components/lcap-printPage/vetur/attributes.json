@@ -12,11 +12,11 @@
     "description": "设置打印的DOM节点"
   },
   "lcap-printPage/canvasWidth": {
-    "type": "number",
+    "type": "number|string",
     "description": "设置打印文件的宽度"
   },
   "lcap-printPage/canvasHeight": {
-    "type": "number",
+    "type": "number|string",
     "description": "设置打印文件的高度"
   },
   "lcap-printPage/download": {

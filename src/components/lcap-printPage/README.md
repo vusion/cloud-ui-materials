@@ -10,6 +10,7 @@
     - [设置生成的文件名称](#设置生成的文件名称)
     - [设置隐藏组件](#设置隐藏组件)
     - [控制打印宽度](#控制打印宽度)
+    - [控制打印宽度,根据页面宽高自动调整](#控制打印宽度根据页面宽高自动调整)
 - [API]()
     - [Props/Attrs](#propsattrs)
     - [Events](#events)
@@ -56,6 +57,10 @@
 <lcap-printPage :download=true :canvasWidth=1200></lcap-printPage>
 ```
 
+### 控制打印宽度,根据页面宽高自动调整
+``` html
+<lcap-printPage :download=true canvasWidth="auto" canvasHeight="auto"></lcap-printPage>
+```
 
 ## API
 ### Props/Attrs
@@ -65,8 +70,8 @@
 | hidden | boolean |  | `false` | 是否显示打印按钮 |
 | fileName | string |  | `'文件导出'` | 设置打印的文件名称 |
 | printDOM | string |  | `'body'` | 设置打印的DOM节点 |
-| canvasWidth | number |  | `1000` | 设置打印文件的宽度 |
-| canvasHeight | number |  | `800` | 设置打印文件的高度 |
+| canvasWidth | number\|string |  | `1000` | 设置打印文件的宽度 |
+| canvasHeight | number\|string |  | `800` | 设置打印文件的高度 |
 | download | boolean |  | `false` | 是否自动下载打印的文件 |
 | fileType | string | `[object Object]`<br/>`[object Object]` | `'pdf'` | 设置打印的文件类型 |
 

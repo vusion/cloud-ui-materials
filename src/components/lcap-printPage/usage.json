@@ -50,14 +50,14 @@
             {
                 "name": "canvasWidth",
                 "title": "打印文件宽度",
-                "type": "number",
+                "type": "number|string",
                 "default": 1000,
                 "description": "设置打印文件的宽度"
             },
             {
                 "name": "canvasHeight",
                 "title": "打印文件高度",
-                "type": "number",
+                "type": "number|string",
                 "default": 800,
                 "description": "设置打印文件的高度"
             },
