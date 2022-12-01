@@ -25,6 +25,7 @@ export default {
         canvasHeight: undefined,
         fileType: {type: String, default: 'pdf'},
         printDOM: {type: String, default: 'body'},
+        isNotFullPage: {type: Boolean, default: false},
     },
     mounted() {
         const appendJs = () => {
@@ -46,7 +47,7 @@ export default {
                         title: this.fileName,  // pdf文件名
                         allowDownload: this.download,  // 是否允许下载
                         fileType: this.fileType,  // 文件类型
-                        isFullPage: true,   // pdf尺寸：true为不分页的长文件，false为A4分页的文件
+                        isFullPage: !this.isNotFullPage,   // pdf尺寸：true为不分页的长文件，false为A4分页的文件
                         canvasOptions: {
                             height: canvasHeight,
                             width: canvasWidth, // 画布尺寸
@@ -86,7 +87,6 @@ export default {
                         let PDF;
                         let imgWidth;
                         let imgHeight;
-
                         if (isFullPage) {
                             // 全屏长图
                             imgWidth = (contentWidth / scale) * 0.75;

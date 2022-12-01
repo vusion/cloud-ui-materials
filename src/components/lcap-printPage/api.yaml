@@ -19,6 +19,11 @@
       type: string
       default: body
       description: 设置打印的DOM节点
+    - name: isNotFullPage
+      title: PDF是否分页
+      type: boolean
+      default: false
+      description: 打印的PDF是否分页
     - name: canvasWidth
       title: 打印文件宽度
       type: number|string

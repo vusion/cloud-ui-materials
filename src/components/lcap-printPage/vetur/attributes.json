@@ -11,6 +11,10 @@
     "type": "string",
     "description": "设置打印的DOM节点"
   },
+  "lcap-printPage/isNotFullPage": {
+    "type": "boolean",
+    "description": "打印的PDF是否分页"
+  },
   "lcap-printPage/canvasWidth": {
     "type": "number|string",
     "description": "设置打印文件的宽度"

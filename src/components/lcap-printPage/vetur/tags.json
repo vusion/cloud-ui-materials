@@ -4,6 +4,7 @@
       "hidden",
       "fileName",
       "printDOM",
+      "isNotFullPage",
       "canvasWidth",
       "canvasHeight",
       "download",

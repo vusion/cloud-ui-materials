@@ -19,6 +19,11 @@
 <lcap-printPage :download=true printDOM="body"></lcap-printPage>
 ```
 
+### 开启PDF分页
+``` html
+<lcap-printPage :download=true canvasWidth="auto" canvasHeight="auto" :isNotFullPage=true></lcap-printPage>
+```
+
 ### 设置生成的文件名称
 ``` html
 <lcap-printPage :download=true fileName="自定义文件名"></lcap-printPage>

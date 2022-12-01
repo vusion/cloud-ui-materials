@@ -7,6 +7,7 @@
     - [开启自动下载](#开启自动下载)
     - [修改生成的文件类型为图片](#修改生成的文件类型为图片)
     - [控制打印的DOM元素](#控制打印的dom元素)
+    - [开启PDF分页](#开启pdf分页)
     - [设置生成的文件名称](#设置生成的文件名称)
     - [设置隐藏组件](#设置隐藏组件)
     - [控制打印宽度](#控制打印宽度)
@@ -42,6 +43,11 @@
 <lcap-printPage :download=true printDOM="body"></lcap-printPage>
 ```
 
+### 开启PDF分页
+``` html
+<lcap-printPage :download=true canvasWidth="auto" canvasHeight="auto" :isNotFullPage=true></lcap-printPage>
+```
+
 ### 设置生成的文件名称
 ``` html
 <lcap-printPage :download=true fileName="自定义文件名"></lcap-printPage>
@@ -70,6 +76,7 @@
 | hidden | boolean |  | `false` | 是否显示打印按钮 |
 | fileName | string |  | `'文件导出'` | 设置打印的文件名称 |
 | printDOM | string |  | `'body'` | 设置打印的DOM节点 |
+| isNotFullPage | boolean |  | `false` | 打印的PDF是否分页 |
 | canvasWidth | number\|string |  | `1000` | 设置打印文件的宽度 |
 | canvasHeight | number\|string |  | `800` | 设置打印文件的高度 |
 | download | boolean |  | `false` | 是否自动下载打印的文件 |
