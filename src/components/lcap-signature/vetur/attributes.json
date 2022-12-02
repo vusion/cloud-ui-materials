@@ -21,6 +21,10 @@
     "type": "string",
     "description": "设置画笔颜色"
   },
+  "lcap-signature/reSignName": {
+    "type": "boolean",
+    "description": "是否允许用户重新签名"
+  },
   "lcap-signature/penWidth": {
     "type": "number",
     "description": "设置画笔宽度"

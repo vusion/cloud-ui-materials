@@ -7,8 +7,8 @@
                 </div>
             </div>
             <div v-else :class="$style.signatureWrapper">
-                <i-icon name="close" :class="$style.closeIcon" @click="clearSignature"></i-icon>
-                <img :class="$style.signaturePNG" :src="this.signaturePNG"/>
+                <i-icon name="close" v-show="reSignName" :class="$style.closeIcon" @click="clearSignature"></i-icon>
+                <img :class="$style.signaturePNG" :src="this.signaturePNG" @click="handleReopenModal"/>
             </div>
         </div>
         <u-modal
@@ -56,6 +56,7 @@ export default {
         penColor: {type: String, default: 'black'},
         penWidth: {type: Number, default: 2},
         openSmooth: {type: Boolean, default: true},
+        reSignName: {type:Boolean, default: false},
     },
     mounted() {
         this.signature = new SmoothSignature(document.getElementById("canvas"), {
@@ -85,6 +86,7 @@ export default {
         },
         clear() {
             this.signature.clear();
+            this.$emit('clearSignature');
         },
         getSignature() {
             return this.signature.getPNG();
@@ -98,13 +100,18 @@ export default {
             this.signature.clear();
             this.signaturePNG = null;
             this.disabled = true;
+            this.$emit('clearSignature');
         },
         handleWriteDown() {
             this.disabled = false;
         },
         closeSignatureModal() {
             this.disabled = true;
-            this.showSignatureModal = false;
+            this.clearSignature();
+        },
+        handleReopenModal() {
+            this.clearSignature();
+            this.openSignatureModal();
         },
      },
 };

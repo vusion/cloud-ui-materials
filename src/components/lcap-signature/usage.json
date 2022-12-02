@@ -58,6 +58,13 @@
                 "description": "设置画笔颜色"
             },
             {
+                "name": "reSignName",
+                "title": "是否允许重新签名",
+                "type": "boolean",
+                "default": false,
+                "description": "是否允许用户重新签名"
+            },
+            {
                 "name": "penWidth",
                 "title": "画笔宽度",
                 "type": "number",
@@ -85,6 +92,11 @@
                 "name": "openSignatureModal",
                 "title": "打开签名版时",
                 "description": "打开签名版时触发"
+            },
+            {
+                "name": "clearSignature",
+                "title": "清空签名版时",
+                "description": "清空签名版时触发"
             },
             {
                 "name": "saveSignature",

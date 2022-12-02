@@ -6,6 +6,7 @@
     - [基本用法](#基本用法)
     - [切换语言版本](#切换语言版本)
     - [关闭笔锋](#关闭笔锋)
+    - [是否允许重新签名](#是否允许重新签名)
     - [改变画笔颜色](#改变画笔颜色)
     - [改变画笔粗细](#改变画笔粗细)
     - [改变背景颜色](#改变背景颜色)
@@ -37,6 +38,11 @@
 <lcap-signature :openSmooth=false></lcap-signature>
 ```
 
+### 是否允许重新签名
+``` html
+<lcap-signature :openSmooth=false :reSignName=true></lcap-signature>
+```
+
 ### 改变画笔颜色
 ``` html
 <lcap-signature penColor="red"></lcap-signature>
@@ -60,6 +66,7 @@
 | language | string | `[object Object]`<br/>`[object Object]` | `'english'` | 语言版本 |
 | openSmooth | boolean |  | `true` | 是否开启笔锋 |
 | penColor | string |  | `'black'` | 设置画笔颜色 |
+| reSignName | boolean |  | `false` | 是否允许用户重新签名 |
 | penWidth | number |  | `2` | 设置画笔宽度 |
 | bgColor | string |  | `'#F8F9FA'` | 设置画布背景颜色 |
 
@@ -68,6 +75,10 @@
 #### @openSignatureModal
 
 打开签名版时触发
+
+#### @clearSignature
+
+清空签名版时触发
 
 #### @saveSignature
 

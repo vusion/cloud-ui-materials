@@ -16,6 +16,11 @@
 <lcap-signature :openSmooth=false></lcap-signature>
 ```
 
+### 是否允许重新签名
+``` html
+<lcap-signature :openSmooth=false :reSignName=true></lcap-signature>
+```
+
 ### 改变画笔颜色
 ``` html
 <lcap-signature penColor="red"></lcap-signature>
