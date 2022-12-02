@@ -16,6 +16,7 @@
             :class="[$style.modal]"
             size="auto"
             :mode=false
+            @close="closeSignatureModal"
         >
             <div slot="title">
                 {{ this.language === 'english' ? 'Please Sign Below' : '请在下方签名' }}
@@ -25,12 +26,12 @@
                     <u-text @click="clearSignature" :class="$style.clearText">
                         {{ this.language === 'english' ? 'Clear' : '清除' }}
                     </u-text>
-                    <u-button color="primary" @click="handleOk">
+                    <u-button color="primary" @click="handleOk" :disabled="disabled">
                         {{ this.language === 'english' ? 'Save' : '保存' }}
                     </u-button>
                 </u-linear-layout>
             </div>
-            <canvas id="canvas" width="800" height="300" style="border: 2px solid #CCD3DE"></canvas>
+            <canvas id="canvas" width="800" height="300" style="border: 2px solid #CCD3DE" @mousedown="handleWriteDown"></canvas>
         </u-modal>
     </div>
 </template>
@@ -46,6 +47,7 @@ export default {
             signature: null,
             showSignatureModal: false,
             signaturePNG: null,
+            disabled: true,
         };
     },
     props: {
@@ -95,8 +97,16 @@ export default {
         clearSignature() {
             this.signature.clear();
             this.signaturePNG = null;
-        }
-    },
+            this.disabled = true;
+        },
+        handleWriteDown() {
+            this.disabled = false;
+        },
+        closeSignatureModal() {
+            this.disabled = true;
+            this.showSignatureModal = false;
+        },
+     },
 };
 
 </script>
