@@ -1,7 +1,7 @@
 {
   "name": "lcap-wang-editor",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -42,7 +42,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@wangeditor/editor": "^5.1.14",
+    "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^1.0.2"
   },
   "devDependencies": {
