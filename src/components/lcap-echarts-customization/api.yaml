@@ -45,7 +45,7 @@
     - name: title
       title: 标题
       type: string
-      default: 标题
+      default: ""
       description: 设置主标题
       group: 图表基础
     - name: theme

@@ -19,6 +19,8 @@ export default {
     return {
       barData: {},
       barOption: {},
+      currDataLength: 0,
+      predictDataLength: 0,
     }
   },
   mounted() {
@@ -101,7 +103,7 @@ export default {
           res.push(...this.getAxisData(data[item], axis))
         }
       }
-      // res = this.arrValue2objValue(res, '#a90000');
+      // res = this.generateCurrentColorData(res, '#a90000');
       return res;
     },
     generateXAxisData(data, multiXAxisList, predictData) {
@@ -115,10 +117,10 @@ export default {
       }
       for (let index = 0; index < xData.length; index++) {
         xAxisData.push({
-            data: xData[index],
-            name: xAxisTitleList[index] ||  multiXAxisList[index] || '',
-            nameLocation: 'end',
-            axisLine: {
+          data: xData[index],
+          name: xAxisTitleList[index] ||  multiXAxisList[index] || '',
+          nameLocation: 'end',
+          axisLine: {
               show: this.axisData.showXAxisLine,
             },
             axisLabel: {
@@ -134,39 +136,74 @@ export default {
       let seriesData = [];
       for (const item of multiYAxisList) {
         const seriesDataItem = this.getAxisData(data, item);
-        const seriesDataColor = this.arrValue2objValue(seriesDataItem, '#a90000');
+        this.currDataLength = seriesDataItem.length;
+        const seriesDataColor = this.generateCurrentColorData(seriesDataItem);
         const seriesDataPredicted = this.getAxisData(predictData, item);
-        const seriesDataPredictedColor = this.arrValue2objValue(seriesDataPredicted, '#489efc');
-        console.log('seriesData', seriesDataColor);
+        this.predictDataLength = seriesDataPredicted.length;
+        console.log(this.currDataLength, this.predictDataLength);
+        const seriesDataPredictedColor = this.generatePredictColorData(seriesDataPredicted);
         seriesData.push({
           name: item,
-          type: 'bar',
+          type: 'line',
           data: [...seriesDataColor, ...seriesDataPredictedColor],
           showBackground: true,
           label: {
             show: this.axisData.allowShowLabel,
           },
-        })
+          stack: 'Total',
+          lineStyle: {      // 阴影部分
+            shadowOffsetX: 0, // 折线的X偏移
+            shadowOffsetY: 6,// 折线的Y偏移
+            shadowBlur: 10,  // 折线模糊
+            shadowColor: "rgba(145, 132, 132, 1)", //折线颜色
+          },
+          },
+        )
       }
-      console.log('seriesData', seriesData);
       return seriesData;
     },
-    objValue2arrValue(list) {
-      let arr = [];
-      for (let item in list) {
-        arr.push(item[value]);
-      }
-      return arr;
-    },
-    arrValue2objValue(list, color) {
+    generateCurrentColorData(list) {
       let objList = [];
       for (let item of list) {
         objList.push({
           value: item,
-          itemStyle: {color: color,}
+          itemStyle: {
+              color: 'rgb(0, 110, 229)',
+          },
         })
       }
       return objList;
+    },
+    generatePredictColorData(list) {
+      let objList = [];
+      for (let item of list) {
+        objList.push({
+          value: item,
+          itemStyle: {
+            color: 'rgb(132, 211, 93)'
+          },
+        })
+      }
+      return objList;
+    },
+    generateVisualMap(cur, pre){
+      return [{
+        type: 'piecewise',
+        show: false,
+        dimension: 0,
+        seriesIndex:0, //第一部分数据
+        pieces: [{
+          gt: 0,
+          lte: cur,
+          color: 'rgb(0, 103, 230, 0.7)',
+        }, {
+          gt: cur,
+          lte: cur+ pre ,
+          color: 'rgb(103, 202, 56, 0.7)',
+
+        }]
+      }]
+
     },
     processBarData(data, predictData) {
       if (!data) {
@@ -191,7 +228,13 @@ export default {
         this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
       }
       const seriesData = this.generateSeriesData(data, multiYAxisList, predictData);
+      console.log('xAxisData', xAxisData);
       const xAxisData = this.generateXAxisData(data, multiXAxisList, predictData);
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+        xAxisData[0].data = ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"]
+      }
+      let visualMapData = this.generateVisualMap(this.currDataLength, this.predictDataLength);
+      console.log('xAxisData', xAxisData);
       // 发布部署后，如果字段不合法，加载默认图片
       if (!this.$env.VUE_APP_DESIGNER) {
         for (let axis of multiXAxisList) {
@@ -207,7 +250,7 @@ export default {
           }
         }
       }
-      this.barOption = this.generateEchartOption(legendData, seriesData, xAxisData);
+      this.barOption = this.generateEchartOption(legendData, seriesData, xAxisData, visualMapData);
     },
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
@@ -226,7 +269,7 @@ export default {
           legendAliasList[multiYAxisList.indexOf(name)] : name;
       }
     },
-    generateEchartOption(legendData, seriesData, xAxisData) {
+    generateEchartOption(legendData, seriesData, xAxisData, visualMapData) {
       return {
         toolbox: {
           show: this.axisData.allowDownload,
@@ -257,6 +300,7 @@ export default {
             fontStyle: this.axisData.titleFontStyle,
           }
         },
+        visualMap: visualMapData,
         xAxis: xAxisData,
         yAxis: {
           type: 'value',
