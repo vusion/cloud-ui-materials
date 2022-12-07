@@ -11,6 +11,7 @@ export default {
   name: "echartBar",
   props: {
     sourceData: [Array, Object],
+    sourceDataPredict: [Array, Object],
     size: [Object],
     axisData: [Object],
   },
@@ -25,8 +26,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData} = this;
-      return {size, axisData, sourceData};
+      let {size, axisData, sourceData, sourceDataPredict} = this;
+      return {size, axisData, sourceData, sourceDataPredict};
     },
     formattedSize() {
       let width = this.size.width.replace("px", "") || 380;
@@ -59,7 +60,7 @@ export default {
     },
     createMyChart() {
       const myChart = this.$refs.myChart;
-      this.processBarData(this.sourceData);
+      this.processBarData(this.sourceData, this.sourceDataPredict);
       this.initChart(myChart, this.barOption);
     },
     initChart(chart, config) {
@@ -87,7 +88,7 @@ export default {
     // 根据用户输入的坐标轴属性，返还对应数据
     getAxisData(data, axis) {
       if (!data || !data instanceof Object) return [];
-      const res = [];
+      let res = [];
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
@@ -100,14 +101,17 @@ export default {
           res.push(...this.getAxisData(data[item], axis))
         }
       }
+      // res = this.arrValue2objValue(res, '#a90000');
       return res;
     },
-    generateXAxisData(data, multiXAxisList) {
+    generateXAxisData(data, multiXAxisList, predictData) {
       let xAxisData = [];
       let xAxisTitleList = this.axisData.xAxisTitle.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let xData = [];
       for (let item of multiXAxisList) {
-        xData.push(this.getAxisData(data, item))
+        let xAxisData = this.getAxisData(data, item);
+        let xAxisDataPredict = this.getAxisData(predictData, item);
+        xData.push([...xAxisData, ...xAxisDataPredict]);
       }
       for (let index = 0; index < xData.length; index++) {
         xAxisData.push({
@@ -126,25 +130,45 @@ export default {
       }
       return xAxisData;
     },
-    generateSeriesData(data, multiYAxisList) {
+    generateSeriesData(data, multiYAxisList, predictData) {
       let seriesData = [];
       for (const item of multiYAxisList) {
+        const seriesDataItem = this.getAxisData(data, item);
+        const seriesDataColor = this.arrValue2objValue(seriesDataItem, '#a90000');
+        const seriesDataPredicted = this.getAxisData(predictData, item);
+        const seriesDataPredictedColor = this.arrValue2objValue(seriesDataPredicted, '#489efc');
+        console.log('seriesData', seriesDataColor);
         seriesData.push({
           name: item,
           type: 'bar',
-          data: this.getAxisData(data, item),
+          data: [...seriesDataColor, ...seriesDataPredictedColor],
           showBackground: true,
-          itemStyle: {
-            color: '#a90000'
-          },
           label: {
             show: this.axisData.allowShowLabel,
           },
         })
       }
+      console.log('seriesData', seriesData);
       return seriesData;
     },
-    processBarData(data) {
+    objValue2arrValue(list) {
+      let arr = [];
+      for (let item in list) {
+        arr.push(item[value]);
+      }
+      return arr;
+    },
+    arrValue2objValue(list, color) {
+      let objList = [];
+      for (let item of list) {
+        objList.push({
+          value: item,
+          itemStyle: {color: color,}
+        })
+      }
+      return objList;
+    },
+    processBarData(data, predictData) {
       if (!data) {
         return;
       }
@@ -158,16 +182,16 @@ export default {
       multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length -1])
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        multiYAxisList = ['指标1', '指标2', '指标3'];
+        multiYAxisList = ['指标1'];
         multiXAxisList = ['fakeXAxis'];
-        legendData = ['指标1', '指标2', '指标3'];
+        legendData = ['指标1'];
       } else {
         // 制品应用生产环境
         legendData = multiYAxisList;
         this.axisData.xAxis = this.axisData.xAxis.split('.')[this.axisData.xAxis.split('.').length - 1] || '';
       }
-      const seriesData = this.generateSeriesData(data, multiYAxisList);
-      const xAxisData = this.generateXAxisData(data, multiXAxisList);
+      const seriesData = this.generateSeriesData(data, multiYAxisList, predictData);
+      const xAxisData = this.generateXAxisData(data, multiXAxisList, predictData);
       // 发布部署后，如果字段不合法，加载默认图片
       if (!this.$env.VUE_APP_DESIGNER) {
         for (let axis of multiXAxisList) {
@@ -208,6 +232,7 @@ export default {
           show: this.axisData.allowDownload,
           feature: {
             saveAsImage: {},
+            magicType: { type: ['line', 'bar'] },
           }
         },
         legend: {

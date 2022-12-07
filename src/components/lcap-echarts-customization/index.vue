@@ -5,6 +5,7 @@
       :axisData="axisData"
       :size="size"
       :sourceData="sourceData"
+      :sourceDataPredict="sourceDataPredict"
       @startLoading="startLoading"
       ref="echart"
     ></echart-bar>
@@ -26,6 +27,7 @@ export default {
   components: {echartBar},
   props: {
     dataSource: [Function, Array, Object],
+    dataSourcePredict: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
     width: {type: String, default: '380px'},
     height: {type: String, default: '300px'},
@@ -50,6 +52,7 @@ export default {
   data() {
     return {
       sourceData: undefined,
+      sourceDataPredict: undefined,
       loading: false,
     };
   },
@@ -100,8 +103,10 @@ export default {
   methods: {
     reload() {
       this.sourceData = 'fakeData';
+      this.sourceDataPredict = 'fakeData';
       this.$nextTick(async () => {
         this.sourceData = await this.handleDataSource(this.dataSource);
+        this.sourceDataPredict = await this.handleDataSource(this.dataSourcePredict);
         this.loading = false;
         this.$refs.echart && this.$refs.echart.reload();
         console.log('source', this.sourceData);
@@ -110,7 +115,9 @@ export default {
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
       const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
+      const fnDataSourcePredict = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSourcePredict;
       this.sourceData = await this.handleDataSource(fnDataSource);
+      this.sourceDataPredict = await this.handleDataSource(fnDataSourcePredict);
     },
     // 删除不必要字段
     processRawData(data) {
