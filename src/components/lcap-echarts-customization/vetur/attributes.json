@@ -1,0 +1,136 @@
+{
+  "lcap-echarts-customization/data-source": {
+    "type": "Array<Item> | Function | object | DataSource",
+    "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
+  },
+  "lcap-echarts-customization/check-file": {
+    "type": "Array<Item> | Function | object | DataSource",
+    "description": "表格的预测数据源，数据集对象或者返回数据集的逻辑"
+  },
+  "lcap-echarts-customization/xAxis": {
+    "type": "string",
+    "description": "设置维度(x轴)"
+  },
+  "lcap-echarts-customization/yAxis": {
+    "type": "string",
+    "description": "设置指标（y轴），多个指标以逗号分隔"
+  },
+  "lcap-echarts-customization/width": {
+    "type": "string",
+    "description": "设置图宽度"
+  },
+  "lcap-echarts-customization/height": {
+    "type": "string",
+    "description": "设置图高度"
+  },
+  "lcap-echarts-customization/title": {
+    "type": "string",
+    "description": "设置主标题"
+  },
+  "lcap-echarts-customization/theme": {
+    "type": "string",
+    "options": [
+      {
+        "value": "theme1",
+        "title": "科技"
+      },
+      {
+        "value": "theme2",
+        "title": "清新"
+      },
+      {
+        "value": "theme3",
+        "title": "淡雅"
+      },
+      {
+        "value": "theme4",
+        "title": "经典"
+      }
+    ],
+    "description": "设置图表配色方案"
+  },
+  "lcap-echarts-customization/allowShowLabel": {
+    "type": "boolean",
+    "description": "设置是否显示标签"
+  },
+  "lcap-echarts-customization/allowShowHint": {
+    "type": "boolean",
+    "description": "设置是否显示提示"
+  },
+  "lcap-echarts-customization/allowShowLegend": {
+    "type": "boolean",
+    "description": "设置是否显示图例"
+  },
+  "lcap-echarts-customization/legendName": {
+    "type": "string",
+    "description": "设置图例别名；修改成功后，图例名字会从\"指标\"改为\"别名\""
+  },
+  "lcap-echarts-customization/xAxisTitle": {
+    "type": "string",
+    "description": "设置x轴标题"
+  },
+  "lcap-echarts-customization/showXAxisLine": {
+    "type": "boolean",
+    "description": "设置是否显示X轴轴线"
+  },
+  "lcap-echarts-customization/showXAxisLabel": {
+    "type": "boolean",
+    "description": "设置是否显示X轴文字标签"
+  },
+  "lcap-echarts-customization/xAxisLabelRotate": {
+    "type": "string",
+    "options": [
+      {
+        "value": "0",
+        "title": "横向"
+      },
+      {
+        "value": "90",
+        "title": "纵向"
+      },
+      {
+        "value": "45",
+        "title": "左倾斜"
+      },
+      {
+        "value": "-45",
+        "title": "右倾斜"
+      }
+    ],
+    "description": "设置显示X轴文字标签的方向"
+  },
+  "lcap-echarts-customization/yAxisTitle": {
+    "type": "string",
+    "description": "设置Y轴标题"
+  },
+  "lcap-echarts-customization/showYAxisLine": {
+    "type": "boolean",
+    "description": "设置是否显示Y轴轴线"
+  },
+  "lcap-echarts-customization/showYAxisLabel": {
+    "type": "boolean",
+    "description": "设置是否显示Y轴数值标签"
+  },
+  "lcap-echarts-customization/titleFontSize": {
+    "type": "number",
+    "description": "设置标题文字字号"
+  },
+  "lcap-echarts-customization/titleFontStyle": {
+    "type": "string",
+    "options": [
+      {
+        "value": "normal",
+        "title": "正常"
+      },
+      {
+        "value": "italic",
+        "title": "斜体"
+      }
+    ],
+    "description": "设置普通文字字号"
+  },
+  "lcap-echarts-customization/allowDownload": {
+    "type": "boolean",
+    "description": "允许用户设置保存图片"
+  }
+}

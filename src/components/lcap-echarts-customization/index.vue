@@ -27,7 +27,7 @@ export default {
   components: {echartBar},
   props: {
     dataSource: [Function, Array, Object],
-    dataSourcePredict: [Function, Array, Object],
+    checkFile: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
     width: {type: String, default: '380px'},
     height: {type: String, default: '300px'},
@@ -106,7 +106,7 @@ export default {
       this.sourceDataPredict = 'fakeData';
       this.$nextTick(async () => {
         this.sourceData = await this.handleDataSource(this.dataSource);
-        this.sourceDataPredict = await this.handleDataSource(this.dataSourcePredict);
+        this.sourceDataPredict = await this.handleDataSource(this.checkFile);
         this.loading = false;
         this.$refs.echart && this.$refs.echart.reload();
         console.log('source', this.sourceData);
@@ -115,7 +115,7 @@ export default {
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
       const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
-      const fnDataSourcePredict = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSourcePredict;
+      const fnDataSourcePredict = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.checkFile;
       this.sourceData = await this.handleDataSource(fnDataSource);
       this.sourceDataPredict = await this.handleDataSource(fnDataSourcePredict);
     },

@@ -10,7 +10,7 @@
       designer-value: "[{}, {}, {}]"
       description: 表格的数据源，数据集对象或者返回数据集的逻辑
       group: 数据属性
-    - name: data-source-predict
+    - name: check-file
       title: 预测数据源
       type: Array<Item> | Function | object | DataSource
       designer-value: "[{}, {}, {}]"

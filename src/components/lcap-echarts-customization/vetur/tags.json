@@ -1,0 +1,29 @@
+{
+  "lcap-echarts-customization": {
+    "attributes": [
+      "data-source",
+      "check-file",
+      "xAxis",
+      "yAxis",
+      "width",
+      "height",
+      "title",
+      "theme",
+      "allowShowLabel",
+      "allowShowHint",
+      "allowShowLegend",
+      "legendName",
+      "xAxisTitle",
+      "showXAxisLine",
+      "showXAxisLabel",
+      "xAxisLabelRotate",
+      "yAxisTitle",
+      "showYAxisLine",
+      "showYAxisLabel",
+      "titleFontSize",
+      "titleFontStyle",
+      "allowDownload"
+    ],
+    "description": "echarts定制组件"
+  }
+}
