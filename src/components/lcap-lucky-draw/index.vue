@@ -31,6 +31,7 @@
 
 <script>
 import VueLuckyCanvas from '@lucky-canvas/vue';
+import Vue from 'vue';
 
 Vue.use(VueLuckyCanvas);
 export default {
