@@ -19,6 +19,7 @@ import {fakeData} from "@/fakeData";
 import echartPie from "@/component/echartPie";
 import * as echarts from 'echarts';
 import './theme';
+import Vue from 'vue';
 
 Vue.prototype.$echarts = echarts
 export default {
