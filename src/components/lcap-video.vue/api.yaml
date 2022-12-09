@@ -48,6 +48,12 @@
         - name: $event
           type: object
           description: 播放器实例对象
+    - name: videoProgress
+      title: 更新播放进度时
+      params:
+        - name: $event
+          type: string
+          description: 播放进度百分比
   methods:
     - name: play
       description: 继续播放

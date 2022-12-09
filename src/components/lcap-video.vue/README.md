@@ -84,6 +84,14 @@ export default {
 | ----- | ---- | ----------- |
 | $event | object | 播放器实例对象 |
 
+#### @videoProgress
+
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | string | 播放进度百分比 |
+
 Methods
 
 #### play()
