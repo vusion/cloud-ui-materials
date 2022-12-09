@@ -96,7 +96,7 @@ export default {
         // 仅第一次播放跳转到上次播放位置
         if (this.breakProgress) {
             this.player.on('loadedmetadata', () => {
-                this.$refs.videoPlayer.currentTime = this.player.duration() * this.player.duration() * percent;
+                this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
             });
             this.player.on('play', () => {
                 if (this.firstPlay) {
