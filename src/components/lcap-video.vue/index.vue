@@ -33,6 +33,10 @@ export default {
             type: Boolean,
             default: true,
         },
+        breakProgress: {
+            type: String,
+            default: '',
+        },
         options: {
             type: Object,
             default() {
@@ -44,6 +48,7 @@ export default {
         return {
             player: null,
             progressTimer: undefined,
+            firstPlay: true,
         };
     },
     computed: {
@@ -80,13 +85,27 @@ export default {
     mounted() {
         this.init();
         clearInterval(this.progressTimer);
-        // 每20s同步视频播放进度
+        // 每15s同步视频播放进度
         this.progressTimer = setInterval(() => {
             const videoDuration = this.player && this.player.duration();
             const remainTime = this.player && this.player.remainingTime();
             let videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
             this.$emit('videoProgress', videoProgress);
-        }, 20000)
+        }, 15000);
+        const percent = this.breakProgress.replace('%', '') / 100;
+        // 仅第一次播放跳转到上次播放位置
+        if (this.breakProgress) {
+            this.player.on('loadedmetadata', () => {
+                this.$refs.videoPlayer.currentTime = this.player.duration() * this.player.duration() * percent;
+            });
+            this.player.on('play', () => {
+                if (this.firstPlay) {
+                    this.$toast.success('已为您跳转到上次观看位置');
+                    this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
+                    this.firstPlay = false;
+                }
+            });
+        }
     },
     beforeDestroy() {
         clearInterval(this.progressTimer);
@@ -116,7 +135,7 @@ export default {
                 }
                 this.on('play', (e) => {
                     const {player} = e.target;
-                    const currentTime = player.currentTime();
+                    let currentTime = player.currentTime();
                     // 初始播放时间 < 0.2s 认为是开始播放
                     if (currentTime * 10 < 2) {
                         me.$emit('start', e.target.player);
