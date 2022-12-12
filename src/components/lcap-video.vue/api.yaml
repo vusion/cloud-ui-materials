@@ -23,6 +23,11 @@
       type: boolean
       description: 是否循环播放
       default: false
+    - name: breakProgress
+      title: 中断进度
+      type: string
+      description: 响应式配置
+      advanced: true
   events:
     - name: start
       title: 播放开始时
@@ -48,6 +53,12 @@
         - name: $event
           type: object
           description: 播放器实例对象
+    - name: videoProgress
+      title: 更新播放进度时
+      params:
+        - name: $event
+          type: string
+          description: 播放进度百分比
   methods:
     - name: play
       description: 继续播放

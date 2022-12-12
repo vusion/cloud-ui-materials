@@ -137,7 +137,7 @@ export default {
             if (editor.isEmpty() && (!this.currentValue && this.currentValue !== 0))
                 return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
-            this.currentValue = this.splicing(value);
+            this.currentValue = value;
             this.$emit('change', { value: this.currentValue, editor });
             this.$emit('update:value', this.currentValue);
             this.$emit('input', this.currentValue);
@@ -185,40 +185,40 @@ export default {
         },
         // 下面的函数属于hack： 新富文本组件，有序列表缩进，无法保存 https://overmind-project.netease.com/v2/my_workbench/bugdetail/Bug-53081
         // 已向editor-wang提交issues，当bug解决时需删除以下所有函数。
-        splicing(oldVal) {
-            const tagArr = [
-                { openingTag: '<ul>', closingTag: '</ul>' },
-                { openingTag: '<ol>', closingTag: '</ol>' },
-            ];
-            let newVal = oldVal;
-            tagArr.forEach(({ openingTag, closingTag }) => {
-                let joinValue = '';
-                let stack = [];
-                newVal.split(openingTag).forEach((str) => {
-                    stack.push(true);
-                    const endSplitArr = str.split(closingTag);
-                    if (endSplitArr.length > 1) {
-                        if (stack.length > 2)
-                            joinValue = joinValue.slice(0, -openingTag.length);
-                        stack = [];
-                        if (endSplitArr[1].includes('<p>')) {
-                            joinValue += endSplitArr[0] + closingTag + endSplitArr[1];
-                        } else {
-                            joinValue += endSplitArr[0] + endSplitArr[1] + closingTag;
-                        }
-                    } else {
-                        joinValue += str;
-                    }
-                    joinValue += openingTag;
-                });
-                joinValue = joinValue.slice(0, -openingTag.length);
-                newVal = joinValue;
-            });
-            // 内部实现逻辑不兼容，需要重新聚焦光标点
-            if (newVal !== oldVal && this.editor.isFocused())
-                this.hackfix(newVal);
-            return newVal;
-        },
+        // splicing(oldVal) {
+        //     const tagArr = [
+        //         { openingTag: '<ul>', closingTag: '</ul>' },
+        //         { openingTag: '<ol>', closingTag: '</ol>' },
+        //     ];
+        //     let newVal = oldVal;
+        //     tagArr.forEach(({ openingTag, closingTag }) => {
+        //         let joinValue = '';
+        //         let stack = [];
+        //         newVal.split(openingTag).forEach((str) => {
+        //             stack.push(true);
+        //             const endSplitArr = str.split(closingTag);
+        //             if (endSplitArr.length > 1) {
+        //                 if (stack.length > 2)
+        //                     joinValue = joinValue.slice(0, -openingTag.length);
+        //                 stack = [];
+        //                 if (endSplitArr[1].includes('<p>')) {
+        //                     joinValue += endSplitArr[0] + closingTag + endSplitArr[1];
+        //                 } else {
+        //                     joinValue += endSplitArr[0] + endSplitArr[1] + closingTag;
+        //                 }
+        //             } else {
+        //                 joinValue += str;
+        //             }
+        //             joinValue += openingTag;
+        //         });
+        //         joinValue = joinValue.slice(0, -openingTag.length);
+        //         newVal = joinValue;
+        //     });
+        //     // 内部实现逻辑不兼容，需要重新聚焦光标点
+        //     if (newVal !== oldVal && this.editor.isFocused())
+        //         this.hackfix(newVal);
+        //     return newVal;
+        // },
         hackfix(newVal) {
             this.editor.clear();
             this.editor.setHtml(newVal);

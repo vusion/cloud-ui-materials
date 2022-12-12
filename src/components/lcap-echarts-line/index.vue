@@ -20,6 +20,7 @@ import {fakeDataList} from "@/fakeDataList";
 import echartLine from "@/component/echartLine";
 import * as echarts from 'echarts';
 import './theme';
+import Vue from 'vue';
 
 Vue.prototype.$echarts = echarts
 export default {

@@ -14,5 +14,9 @@
   "lcap-video/loop": {
     "type": "boolean",
     "description": "是否循环播放"
+  },
+  "lcap-video/breakProgress": {
+    "type": "string",
+    "description": "响应式配置"
   }
 }

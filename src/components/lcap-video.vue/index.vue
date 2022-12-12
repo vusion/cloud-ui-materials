@@ -1,7 +1,7 @@
 <template>
-<div :class="$style.root" :style="rootStyle">
-    <video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered vjs-fluid"></video>
-</div>
+    <div :class="$style.root" :style="rootStyle">
+        <video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered vjs-fluid"></video>
+    </div>
 </template>
 
 <script>
@@ -33,6 +33,10 @@ export default {
             type: Boolean,
             default: true,
         },
+        breakProgress: {
+            type: String,
+            default: '',
+        },
         options: {
             type: Object,
             default() {
@@ -43,11 +47,13 @@ export default {
     data() {
         return {
             player: null,
+            progressTimer: undefined,
+            firstPlay: true,
         };
     },
     computed: {
         rootStyle() {
-            const { width, height } = this;
+            const {width, height} = this;
             const rootStyle = {};
             const widthSize = this.fixSize(width);
             const heightSize = this.fixSize(height);
@@ -78,13 +84,36 @@ export default {
     },
     mounted() {
         this.init();
+        clearInterval(this.progressTimer);
+        // 每15s同步视频播放进度
+        this.progressTimer = setInterval(() => {
+            const videoDuration = this.player && this.player.duration();
+            const remainTime = this.player && this.player.remainingTime();
+            let videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
+            this.$emit('videoProgress', videoProgress);
+        }, 15000);
+        const percent = this.breakProgress.replace('%', '') / 100;
+        // 仅第一次播放跳转到上次播放位置
+        if (this.breakProgress) {
+            this.player.on('loadedmetadata', () => {
+                this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
+            });
+            this.player.on('play', () => {
+                if (this.firstPlay) {
+                    this.$toast.success('已为您跳转到上次观看位置');
+                    this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
+                    this.firstPlay = false;
+                }
+            });
+        }
     },
     beforeDestroy() {
+        clearInterval(this.progressTimer);
         this.dispose();
     },
     methods: {
         init() {
-            const { src, autoplay, loop, draggable, muted, options } = this;
+            const {src, autoplay, loop, draggable, muted, options} = this;
             const sources = this.getSources(src);
             const me = this;
             this.player = videojs(this.$refs.videoPlayer, {
@@ -96,7 +125,7 @@ export default {
                 muted,
                 controls: true,
                 responsive: true,
-                playbackRates: [0.5, 0.75 ,1 ,1.25 ,1.5 , 2]
+                playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2]
             }, function onPlayerReady() {
                 if (!draggable) {
                     this.controlBar.progressControl.disable();
@@ -105,8 +134,8 @@ export default {
                     this.play();
                 }
                 this.on('play', (e) => {
-                    const { player } = e.target;
-                    const currentTime = player.currentTime();
+                    const {player} = e.target;
+                    let currentTime = player.currentTime();
                     // 初始播放时间 < 0.2s 认为是开始播放
                     if (currentTime * 10 < 2) {
                         me.$emit('start', e.target.player);
