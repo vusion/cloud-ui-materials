@@ -2,5 +2,9 @@
   "lcap-h5-popo-location/value": {
     "type": "string",
     "description": "值"
+  },
+  "lcap-h5-popo-location/deviceid": {
+    "type": "string",
+    "description": "设备id"
   }
 }
