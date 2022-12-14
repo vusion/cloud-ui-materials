@@ -1,7 +1,7 @@
 ### 基本用法
 
 ``` html
-<lcap-wang-editor value="<p>hello</p>"></lcap-wang-editor>
+<lcap-wang-editor value="<p>hello</p><img src='https://p3-passport.byteimg.com/img/user-avatar/834687b5e4137f4d998a95be7330f543~180x180.awebp'>"></lcap-wang-editor>
 ```
 
 ### 只读模式
@@ -10,7 +10,7 @@
 
 ``` vue
 <template>
-  <lcap-wang-editor value="<p>hello</p>" :readOnly="readOnly"></lcap-wang-editor>
+    <lcap-wang-editor :readOnly="readOnly" value="<p>hello</p><img src='https://p3-passport.byteimg.com/img/user-avatar/834687b5e4137f4d998a95be7330f543~180x180.awebp'>"></lcap-wang-editor>
 </template>
 
 <script>

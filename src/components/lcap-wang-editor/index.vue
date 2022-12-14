@@ -8,17 +8,34 @@
             :mode="mode"
             v-show="!readOnly"
         ></toolbar>
-        <editor
-            ref="editor"
-            :style="rootStyle"
-            :value="currentValue"
-            :default-config="editorConfig"
-            :mode="mode"
-            @onCreated="onCreated"
-            @onChange="onChange"
-            @onFocus="onFocus"
-            @onBlur="onBlur"
-        ></editor>
+        <!-- v-viewer下所有图片能够进行放大操作 -->
+        <div v-if="readOnly"
+             v-viewer="{movable: false}">
+            <editor
+                ref="editor"
+                :style="rootStyle"
+                :value="currentValue"
+                :default-config="editorConfig"
+                :mode="mode"
+                @onCreated="onCreated"
+                @onChange="onChange"
+                @onFocus="onFocus"
+                @onBlur="onBlur"
+            ></editor>
+        </div>
+        <div v-else>
+            <editor
+                ref="editor"
+                :style="rootStyle"
+                :value="currentValue"
+                :default-config="editorConfig"
+                :mode="mode"
+                @onCreated="onCreated"
+                @onChange="onChange"
+                @onFocus="onFocus"
+                @onBlur="onBlur"
+            ></editor>
+        </div>
     </div>
 </template>
 
@@ -26,9 +43,13 @@
 import { MField } from 'cloud-ui.vusion';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import '@wangeditor/editor/dist/css/style.css';
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer';
+import Vue from 'vue';
+Vue.use(Viewer);
 
 export default {
-    components: { Editor, Toolbar },
+    components: { Editor, Toolbar, Viewer },
     mixins: [MField],
     props: {
         value: String,
