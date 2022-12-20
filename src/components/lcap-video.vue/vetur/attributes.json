@@ -5,7 +5,7 @@
   },
   "lcap-video/breakProgress": {
     "type": "string",
-    "description": "响应式配置"
+    "description": "从中断的进度开始播放"
   },
   "lcap-video/autoplay": {
     "type": "boolean",
