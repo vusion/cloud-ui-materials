@@ -3,6 +3,10 @@
     "type": "string",
     "description": "视频流地址"
   },
+  "lcap-video/breakProgress": {
+    "type": "string",
+    "description": "响应式配置"
+  },
   "lcap-video/autoplay": {
     "type": "boolean",
     "description": "是否自动播放"
@@ -14,9 +18,5 @@
   "lcap-video/loop": {
     "type": "boolean",
     "description": "是否循环播放"
-  },
-  "lcap-video/breakProgress": {
-    "type": "string",
-    "description": "响应式配置"
   }
 }

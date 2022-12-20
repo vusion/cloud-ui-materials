@@ -8,6 +8,10 @@
       title: 地址
       type: string
       description: 视频流地址
+    - name: breakProgress
+      title: 中断进度
+      type: string
+      description: 响应式配置
     - name: autoplay
       title: 自动播放
       type: boolean
@@ -23,11 +27,6 @@
       type: boolean
       description: 是否循环播放
       default: false
-    - name: breakProgress
-      title: 中断进度
-      type: string
-      description: 响应式配置
-      advanced: true
   events:
     - name: start
       title: 播放开始时

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-video",
     "name": "视频",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -33,6 +33,12 @@
                 "description": "视频流地址"
             },
             {
+                "name": "breakProgress",
+                "title": "中断进度",
+                "type": "string",
+                "description": "响应式配置"
+            },
+            {
                 "name": "autoplay",
                 "title": "自动播放",
                 "type": "boolean",
@@ -52,13 +58,6 @@
                 "type": "boolean",
                 "description": "是否循环播放",
                 "default": false
-            },
-            {
-                "name": "breakProgress",
-                "title": "中断进度",
-                "type": "string",
-                "description": "响应式配置",
-                "advanced": true
             }
         ],
         "methods": [

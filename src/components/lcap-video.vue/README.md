@@ -72,10 +72,10 @@ export default {
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | src | string |  |  | 视频流地址 |
+| breakProgress | string |  |  | 响应式配置 |
 | autoplay | boolean |  | `false` | 是否自动播放 |
 | draggable | boolean |  | `true` | 是否可拖放 |
 | loop | boolean |  | `false` | 是否循环播放 |
-| breakProgress | string |  |  | 响应式配置 |
 
 ### Events
 

@@ -2,10 +2,10 @@
   "lcap-video": {
     "attributes": [
       "src",
+      "breakProgress",
       "autoplay",
       "draggable",
-      "loop",
-      "breakProgress"
+      "loop"
     ],
     "description": "基于 video.js 的视频播放组件"
   }
