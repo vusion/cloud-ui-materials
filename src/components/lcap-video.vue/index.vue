@@ -85,13 +85,13 @@ export default {
     mounted() {
         this.init();
         clearInterval(this.progressTimer);
-        // 每15s同步视频播放进度
+        // 每10s同步视频播放进度
         this.progressTimer = setInterval(() => {
             const videoDuration = this.player && this.player.duration();
             const remainTime = this.player && this.player.remainingTime();
             let videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
             this.$emit('videoProgress', videoProgress);
-        }, 15000);
+        }, 10000);
         const percent = this.breakProgress.replace('%', '') / 100;
         // 仅第一次播放跳转到上次播放位置
         if (this.breakProgress) {
@@ -106,6 +106,19 @@ export default {
                 }
             });
         }
+        // 拖动进度条时记录进度, 时间差大于3s视为拖动进度条
+        let lastDragProgress = 0
+        this.player.on('timeupdate', (e)=> {
+            let currentTime = this.$refs.videoPlayer.currentTime
+            if (currentTime - lastDragProgress > 3 || lastDragProgress - currentTime > 3) {
+                const videoDuration = this.player && this.player.duration();
+                const remainTime = this.player && this.player.remainingTime();
+                let videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
+                this.$emit('videoProgress', videoProgress);
+            }
+            lastDragProgress = currentTime;
+        })
+
     },
     beforeDestroy() {
         clearInterval(this.progressTimer);
