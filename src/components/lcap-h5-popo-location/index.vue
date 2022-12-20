@@ -17,21 +17,21 @@ export default {
   data() {
     return {
       where: "",
+      deviceId: "",
     };
   },
   watch: {
     where(val) {
       this.$emit("update:value", JSON.stringify(val));
     },
+    deviceId(val) {
+      this.$emit("update:deviceid", val);
+    },
   },
   mounted() {
-    this.where = "6666";
   },
   methods: {
     async getLocation() {
-        window.vant.VanDialog.confirm({
-          message: "88888?",
-        })
       // 判断 POPO是否对应用授权
       const { status } = await pp.checkSetting({
         scope: "location",
@@ -79,6 +79,10 @@ export default {
         pp.showToast({ title: e.message, durationType: 2 });
       }
     },
+    async getDeviceID() {
+      const ret = await pp.getDeviceID();
+      this.deviceId = ret;
+    }
   },
 };
 </script>

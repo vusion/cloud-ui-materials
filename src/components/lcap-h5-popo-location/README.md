@@ -26,6 +26,7 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | value, v-model | string |  |  | 值 |
+| deviceid, v-model | string |  |  | 设备id |
 
 ### Slots
 
@@ -38,4 +39,8 @@ Methods
 #### getLocation()
 
 获取地理位置
+
+#### getDeviceID()
+
+获取设备id
 

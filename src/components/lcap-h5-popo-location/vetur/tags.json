@@ -1,7 +1,8 @@
 {
   "lcap-h5-popo-location": {
     "attributes": [
-      "value"
+      "value",
+      "deviceid"
     ],
     "description": "请在这里添加描述"
   }
