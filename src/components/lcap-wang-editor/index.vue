@@ -9,21 +9,7 @@
             v-show="!readOnly"
         ></toolbar>
         <!-- v-viewer下所有图片能够进行放大操作 -->
-        <div v-if="readOnly"
-             v-viewer="{movable: false}">
-            <editor
-                ref="editor"
-                :style="rootStyle"
-                :value="currentValue"
-                :default-config="editorConfig"
-                :mode="mode"
-                @onCreated="onCreated"
-                @onChange="onChange"
-                @onFocus="onFocus"
-                @onBlur="onBlur"
-            ></editor>
-        </div>
-        <div v-else>
+        <div v-viewer="{movable: false}">
             <editor
                 ref="editor"
                 :style="rootStyle"
