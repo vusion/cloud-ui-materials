@@ -111,9 +111,14 @@ export default {
       }
       for (let index = 0; index < xData.length; index++) {
         xAxisData.push({
-            data: xData[index],
-            name: xAxisTitleList[index] ||  multiXAxisList[index] || '',
-            nameLocation: 'end',
+          data: xData[index],
+          name: xAxisTitleList[index] ||  multiXAxisList[index] || '',
+          nameLocation: "middle",
+          nameTextStyle: {
+            padding: [15, 0, 0, 0],
+            fontWeight: "bolder",
+            fontSize: 14
+          },
             axisLine: {
               show: this.axisData.showXAxisLine,
             },
@@ -238,6 +243,10 @@ export default {
           },
           axisLabel: {
             show: this.axisData.showYAxisLabel,
+          },
+          nameTextStyle: {
+            fontWeight: "bolder",
+            fontSize: 14,
           },
         },
         series: seriesData,

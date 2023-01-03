@@ -114,7 +114,12 @@ export default {
         xAxisData.push({
           data: xData[index],
           name: xAxisTitleList[index] || multiXAxisList[index] || '',
-          nameLocation: 'end',
+          nameLocation: "middle",
+          nameTextStyle: {
+            padding: [15, 0, 0, 0],
+            fontWeight: "bolder",
+            fontSize: 14
+          },
           boundaryGap: false,
           axisLine: {
             show: this.axisData.showXAxisLine,
@@ -242,6 +247,10 @@ export default {
           },
           axisLabel: {
             show: this.axisData.showYAxisLabel,
+          },
+          nameTextStyle: {
+            fontWeight: "bolder",
+            fontSize: 14,
           },
         },
         series: seriesData,

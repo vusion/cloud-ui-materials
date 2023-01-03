@@ -9,6 +9,7 @@
     title="标题"
     theme="theme1"
     width="450px"
+    height="300px"
     legendName="数学，语文，英语"
     :titleFontSize=16
     titleFontStyle="italic"

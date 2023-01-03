@@ -34,7 +34,7 @@ export default {
     yAxis: {type: String, default: ''},
     xAxisTitle: {type: String, default: '维度'},
     yAxisTitle: {type: String, default: '指标'},
-    title: {type: String, default: '默认标题'},
+    title: {type: String, default: ''},
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
     allowDownload: {type: Boolean, default: true},
