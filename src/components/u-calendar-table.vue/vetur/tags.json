@@ -2,7 +2,7 @@
   "u-calendar-table": {
     "attributes": [
       "data-source-parent",
-      "data-source-child",
+      "data-source",
       "first-title",
       "first-field",
       "parent-key",
