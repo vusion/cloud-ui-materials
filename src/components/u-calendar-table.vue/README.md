@@ -18,62 +18,66 @@
 
 ```vue
 <template>
-    <u-calendar-table
-        first-title="姓名"
-        first-field="${parent.name} (${parent.age}) [${parent.home}]"
-        :data-source-parent="dateSourceParent"
-        :data-source-child="dateSourceChild"
-        parent-key="parent.name"
-        child-key="child.name"
-        start-key="child.startTime"
-        first-width="160"
-        width="88"
-    >
-        <template #default="scope">
-            <p v-if="scope.item.child && scope.item.child.count">Count: {{scope.item.child.count}}</p>
-            <p v-if="scope.item.child && scope.item.child.name">Name: {{scope.item.child.name}}</p>
-        </template>
-    </u-calendar-table>
+  <u-calendar-table
+    first-title="姓名"
+    first-field="${parent.name} (${parent.age}) [${parent.home}]"
+    :data-source-parent="dateSourceParent"
+    :data-source="dateSourceChild"
+    parent-key="parent.name"
+    child-key="child.name"
+    start-key="child.startTime"
+    first-width="160"
+    width="88"
+  >
+    <template #default="scope">
+      <p v-if="scope.item.child && scope.item.child.count">
+        Count: {{ scope.item.child.count }}
+      </p>
+      <p v-if="scope.item.child && scope.item.child.name">
+        Name: {{ scope.item.child.name }}
+      </p>
+    </template>
+  </u-calendar-table>
 </template>
 <script>
 export default {
-    data() {
-        return {
-            dateSourceParent: {
-                content: [
-                    { parent: { name: '张三', age: 17, home: '浙江' } },
-                    { parent: { name: '李四', age: 18, home: '浙江' } },
-                    { parent: { name: '王五', age: 19, home: '浙江' } },
-                    { parent: { name: '阿大', age: 20, home: '浙江' } },
-                    { parent: { name: '阿二', age: 21, home: '浙江' } },
-                ],
-                number: 1,
-                size: 20,
-                totalElements: 5,
-                totalPages: 1,
-            },
-            dateSourceChild: {
-                content: [
-                    { child: { name: '张三', count: 3, startTime: '2021-10-14' } },
-                    { child: { name: '李四', count: 4, startTime: '2021-10-01' } },
-                    { child: { name: '王五', count: 5, startTime: '2021-10-02' } },
-                    { child: { name: '阿大', count: 1, startTime: '2021-10-03' } },
-                    { child: { name: '阿二', count: 2, startTime: '2021-10-04' } },
-                    { child: { name: '张三', count: 3, startTime: '2021-10-01' } },
-                    { child: { name: '李四', count: 4, startTime: '2021-10-04' } },
-                    { child: { name: '张三', count: 8, startTime: '2021-10-13' } },
-                    { child: { name: '王五', count: 5, startTime: '2021-10-01' } },
-                    { child: { name: '张三', count: 9, startTime: '2021-10-12' } },
-                    { child: { name: '李四', count: 4, startTime: '2021-10-05' } },
-                ],
-                number: 1,
-                size: 20,
-                totalElements: 11,
-                totalPages: 1,
-            },
-        };
-    },
-    methods: {},
+  data() {
+    return {
+      dateSourceParent: {
+        content: [
+          { parent: { name: "张三", age: 17, home: "浙江" } },
+          { parent: { name: "李四", age: 18, home: "浙江" } },
+          { parent: { name: "王五", age: 19, home: "浙江" } },
+          { parent: { name: "阿大", age: 20, home: "浙江" } },
+          { parent: { name: "阿二", age: 21, home: "浙江" } },
+        ],
+        number: 1,
+        size: 20,
+        totalElements: 5,
+        totalPages: 1,
+      },
+      dateSourceChild: {
+        content: [
+          { child: { name: "张三", count: 3, startTime: "2021-10-14" } },
+          { child: { name: "李四", count: 4, startTime: "2021-10-01" } },
+          { child: { name: "王五", count: 5, startTime: "2021-10-02" } },
+          { child: { name: "阿大", count: 1, startTime: "2021-10-03" } },
+          { child: { name: "阿二", count: 2, startTime: "2021-10-04" } },
+          { child: { name: "张三", count: 3, startTime: "2021-10-01" } },
+          { child: { name: "李四", count: 4, startTime: "2021-10-04" } },
+          { child: { name: "张三", count: 8, startTime: "2021-10-13" } },
+          { child: { name: "王五", count: 5, startTime: "2021-10-01" } },
+          { child: { name: "张三", count: 9, startTime: "2021-10-12" } },
+          { child: { name: "李四", count: 4, startTime: "2021-10-05" } },
+        ],
+        number: 1,
+        size: 20,
+        totalElements: 11,
+        totalPages: 1,
+      },
+    };
+  },
+  methods: {},
 };
 </script>
 ```
@@ -84,7 +88,7 @@ export default {
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | data-source-parent | Array\<Item\> \| Function \| object |  |  | 日历表格主数据源，数组方式表示直接的数据，函数需要返回一个 Promise |
-| data-source-child | Array\<Item\> \| Function \| object |  |  | 日历表格子数据源，数组方式表示直接的数据，函数需要返回一个 Promise |
+| data-source | Array\<Item\> \| Function \| object |  |  | 日历表格子数据源，数组方式表示直接的数据，函数需要返回一个 Promise |
 | first-title | string |  | `'姓名'` | 表格第一项内容的标题 |
 | first-field | string |  | `'parent.name'` | 表格第一项内容的在 data-source 中的标识 |
 | parent-key | String |  | `'parent.name'` | 主数据源中的关键字段，用来将主/子数据源的数据关联 |
@@ -102,7 +106,7 @@ export default {
 
 #### (default)
 
-插入文本或 HTML 至表格项
+自定义选项的结构和样式
 
 Methods
 

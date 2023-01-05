@@ -10,13 +10,13 @@
     - name: data-source-parent
       title: 主数据源
       type: Array<Item> | Function | object
-      designer-value: '[{}, {}, {}]'
+      designer-value: "[{}, {}, {}]"
       description: 日历表格主数据源，数组方式表示直接的数据，函数需要返回一个 Promise
       group: 数据属性
-    - name: data-source-child
+    - name: data-source
       title: 子数据源
       type: Array<Item> | Function | object
-      designer-value: '[{}, {}, {}]'
+      designer-value: "[{}, {}, {}]"
       description: 日历表格子数据源，数组方式表示直接的数据，函数需要返回一个 Promise
       group: 数据属性
     - name: first-title
@@ -86,8 +86,21 @@
       default: 64
       description: 表格首项宽度，默认 64 表示 '64px'
   slots:
-    - name: default
-      description: 插入文本或 HTML 至表格项
+    - concept: Slot
+      name: default
+      description: 自定义选项的结构和样式
+      slotProps:
+        concept: Param
+        name: scope
+        typeAnnotation:
+          concept: TypeAnnotation
+          typeKind: generic
+          typeNamespace: nasl.ui
+          typeName: ScopeOf
+          typeArguments:
+            - concept: TypeAnnotation
+              typeKind: typeParam
+              typeName: T
   methods:
     - name: load
       description: 带缓存地加载
