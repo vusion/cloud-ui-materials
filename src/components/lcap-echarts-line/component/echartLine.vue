@@ -116,7 +116,7 @@ export default {
           name: xAxisTitleList[index] || multiXAxisList[index] || '',
           nameLocation: "middle",
           nameTextStyle: {
-            padding: [15, 0, 0, 0],
+            padding: [12, 0, 0, 0],
             fontWeight: "bolder",
             fontSize: 14
           },
@@ -248,7 +248,10 @@ export default {
           axisLabel: {
             show: this.axisData.showYAxisLabel,
           },
+          nameLocation: "middle",
+          nameRotate: 90,
           nameTextStyle: {
+            padding: [0, 0, 8, 0],
             fontWeight: "bolder",
             fontSize: 14,
           },
