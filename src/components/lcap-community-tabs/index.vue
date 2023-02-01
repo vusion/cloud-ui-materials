@@ -118,7 +118,7 @@ export default {
             window.open('/CommunityParent/Community', '_self');
         },
         jumpLearning() {
-            window.open('/CommunityParent/Learning', '_self');
+            window.open('/CommunityParent/learncenter', '_self');
         },
         jumpDoc() {
             window.open('/CommunityParent/fileIndex', '_self');
