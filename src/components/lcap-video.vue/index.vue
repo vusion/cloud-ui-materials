@@ -81,6 +81,14 @@ export default {
                 this.player.src(sources);
             }
         },
+        breakProgress(val) {
+            if(!val) return;
+            setTimeout(()=>{
+                const percent = val.replace('%', '') / 100;
+                this.$toast.success('检测到学习进度，已为您跳转到上次观看位置');
+                this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
+            }, 1500)
+        },
     },
     mounted() {
         this.init();
