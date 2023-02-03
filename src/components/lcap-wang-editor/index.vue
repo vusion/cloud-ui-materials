@@ -50,7 +50,9 @@ export default {
         return {
             currentValue: '',
             editor: null,
-            toolbarConfig: {},
+            toolbarConfig: {
+                excludeKeys: ['fullScreen'],
+            },
             editorConfig: {
                 readOnly: this.readOnly,
                 scroll: this.scroll,
