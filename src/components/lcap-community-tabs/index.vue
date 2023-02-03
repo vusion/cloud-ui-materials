@@ -174,6 +174,7 @@ export default {
     padding-bottom: 27px !important;
 }
 .root [class^="u-tabs__"] [class^="u-tabs_item__"][class]:after {
+    bottom: 5px;
     height: 4px;
 }
 .root .tabs [class^="u-tabs_head__"] {
