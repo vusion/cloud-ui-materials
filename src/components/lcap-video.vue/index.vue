@@ -108,7 +108,7 @@ export default {
             });
             this.player.on('play', () => {
                 if (this.firstPlay) {
-                    this.$toast.success('已为您跳转到上次观看位置');
+                    // this.$toast.success('已为您跳转到上次观看位置');
                     this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
                     this.firstPlay = false;
                 }
