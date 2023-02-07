@@ -1,0 +1,37 @@
+{
+    "symbol": "lcap-h5-horizontal-screen",
+    "name": "H5横屏容器",
+    "version": "0.0.7",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "强制页面旋转90度展示",
+    "labels": [
+        "Container"
+    ],
+    "screenShot": "",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-h5-horizontal-screen></lcap-h5-horizontal-screen>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-h5-horizontal-screen",
+        "title": "H5横屏容器",
+        "description": "强制页面旋转90度展示",
+        "category": "Container",
+        "screenShot": "",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-h5-horizontal-screen></lcap-h5-horizontal-screen>\n</template>\n"
+            }
+        ],
+        "slots": [
+            {
+                "concept": "Slot",
+                "name": "default",
+                "description": "内容"
+            }
+        ],
+        "children": []
+    }
+}

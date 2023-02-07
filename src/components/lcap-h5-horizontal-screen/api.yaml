@@ -1,0 +1,11 @@
+- name: lcap-h5-horizontal-screen
+  title: H5横屏容器
+  description: 强制页面旋转90度展示
+  labels: [Container]
+  icon: default
+  next: true
+  nested: true
+  slots:
+    - concept: Slot
+      name: default
+      description: 内容
