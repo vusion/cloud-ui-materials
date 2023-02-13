@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-wang-editor",
     "name": "富文本",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -62,6 +62,13 @@
                 "title": "编辑器样式",
                 "type": "string",
                 "description": "编辑器样式CSS"
+            },
+            {
+                "name": "uploadImgServer",
+                "default": "",
+                "title": "上传图片地址",
+                "type": "string",
+                "description": "上传图片地址"
             }
         ],
         "events": [

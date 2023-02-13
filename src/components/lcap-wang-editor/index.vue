@@ -43,6 +43,7 @@ export default {
         scroll: { type: Boolean, default: true },
         placeholder: String,
         editorStyle: { type: String, default: '' },
+        uploadImgServer: { type: String, default: '' },
     },
     data() {
         const authorization = this.getCookie('authorization');
@@ -60,7 +61,7 @@ export default {
                 autoFocus: false,
                 MENU_CONF: {
                     uploadImage: {
-                        server: '/gateway/lowcode/api/v1/app/upload',
+                        server: this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
                         fieldName: 'file',
                         maxFileSize: 50 * 1024 * 1024, // 50M
                         // 自定义增加 http  header
@@ -72,7 +73,7 @@ export default {
                         },
                     },
                     uploadVideo: {
-                        server: '/gateway/lowcode/api/v1/app/upload',
+                        server: this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
                         fieldName: 'file',
                         maxFileSize: 1000 * 1024 * 1024, // 1000M
                         // 自定义增加 http  header

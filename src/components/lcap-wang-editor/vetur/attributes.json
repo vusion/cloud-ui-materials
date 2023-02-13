@@ -18,5 +18,9 @@
   "lcap-wang-editor/editorStyle": {
     "type": "string",
     "description": "编辑器样式CSS"
+  },
+  "lcap-wang-editor/uploadImgServer": {
+    "type": "string",
+    "description": "上传图片地址"
   }
 }
