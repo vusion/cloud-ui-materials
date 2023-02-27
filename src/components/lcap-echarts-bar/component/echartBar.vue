@@ -204,6 +204,21 @@ export default {
           legendAliasList[multiYAxisList.indexOf(name)] : name;
       }
     },
+    toolTipFormatter(params) {
+      let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let legendAliasList = this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      console.log('param', params);
+      let template= ''
+      for (let index=0; index<params.length; index++) {
+        if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+          legendAliasList = ['别名1', '别名2', '别名3'];
+        } else if(legendAliasList.length !== 0 && multiYAxisList.length !== legendAliasList.length) {
+          legendAliasList = multiYAxisList;
+        }
+        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${params[index].value}</b></div>`
+      }
+      return template;
+    },
     generateEchartOption(legendData, seriesData, xAxisData) {
       return {
         toolbox: {
@@ -222,7 +237,8 @@ export default {
           trigger: 'axis',
           axisPointer: {
             type: 'shadow'
-          }
+          },
+          formatter: this.toolTipFormatter,
         },
         emphasis: {
           focus: 'series',
