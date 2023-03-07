@@ -150,8 +150,6 @@ export default {
       if (!data) {
         return;
       }
-      console.log('x', this.axisData.xAxis);
-      console.log('y', this.axisData.yAxis);
       let legendData;
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
@@ -207,11 +205,13 @@ export default {
     toolTipFormatter(params) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      console.log('param', params);
       let template= ''
       for (let index=0; index<params.length; index++) {
         if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
           legendAliasList = ['别名1', '别名2', '别名3'];
+          if (legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
+            legendAliasList = ['指标1', '指标2', '指标3'];
+          }
         } else if(legendAliasList.length !== 0 && multiYAxisList.length !== legendAliasList.length) {
           legendAliasList = multiYAxisList;
         }
