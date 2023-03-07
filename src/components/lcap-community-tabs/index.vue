@@ -50,7 +50,7 @@
                             使用中积累的心得，可以在论坛与同行交流分享，<br>
                             在论坛，与更多开发者共同进步。<br>
                         </u-text>
-                        <u-button color="primary" :class="$style.button" @click="jumpCommunity" style="margin-top: 75px">
+                        <u-button color="primary" :class="$style.button" @click="jumpCommunity" style="margin-top: 75px; line-height: 34px">
                             进入论坛 <img :src="require('./assets/arrow.png')" :class="$style.arrow">
                         </u-button>
                     </u-linear-layout>
@@ -67,7 +67,7 @@
                             全方位的视频课程，提供从需求沟通到应用搭建的全流程课程，<br>
                             根据您的需要，选取您的学习课程，快速解锁低代码开发技能。<br>
                         </u-text>
-                        <u-button color="primary" :class="$style.button" @click="jumpLearning" style="margin-top: 95px">
+                        <u-button color="primary" :class="$style.button" @click="jumpLearning" style="margin-top: 95px; line-height: 34px">
                             开始学习 <img :src="require('./assets/arrow.png')" :class="$style.arrow">
                         </u-button>
                     </u-linear-layout>
@@ -84,7 +84,7 @@
                             丰富的产品文档，包括使用指南、常见问题、功能介绍等文档，<br>
                             提供部署、配置、开发、上线的全部指导信息，方便您查阅学习。<br>
                         </u-text>
-                        <u-button color="primary" :class="$style.button" @click="jumpDoc" style="margin-top: 75px">
+                        <u-button color="primary" :class="$style.button" @click="jumpDoc" style="margin-top: 75px; line-height: 34px">
                             查看详情 <img :src="require('./assets/arrow.png')" :class="$style.arrow">
                         </u-button>
                     </u-linear-layout>
@@ -160,6 +160,9 @@ export default {
     border-radius: 4px;
     width: 140px;
     height: 36px;
+    font-family: 'PingFang SC';
+    font-style: normal;
+    font-weight: 500;
 }
 .root .innerContent {
     background: #ffffff;
@@ -170,11 +173,9 @@ export default {
     width: 400px;
     margin: 20px;
 }
-.root [class^="u-tabs__"] [class^="u-tabs_item__"] {
-    padding-bottom: 27px !important;
-}
+
 .root [class^="u-tabs__"] [class^="u-tabs_item__"][class]:after {
-    bottom: 5px;
+    bottom: 6px;
     height: 4px;
 }
 .root .tabs [class^="u-tabs_head__"] {
@@ -193,7 +194,7 @@ export default {
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
-    line-height: 28px;
+    line-height: 17px;
 }
 .root .tabTextContent {
     font-family: 'PingFang SC';
@@ -202,7 +203,6 @@ export default {
     font-size: 16px;
     line-height: 24px;
     margin-bottom: 30px;
-;
 }
 .root .contentTitle {
     font-family: 'PingFang TC';
@@ -218,7 +218,7 @@ export default {
     align-items: center;
 }
 .root .tabs [class^="u-tabs_nav__"] {
-    height: 300px !important;
+    height: 260px !important;
     padding-top: 30px;
 }
 .root [class^="u-tabs_body__"] {
@@ -232,14 +232,14 @@ export default {
     color: #1F2F4D !important;
 }
 
-
 .root .contentImage {
     width: 480px;
     height: 360px;
 }
 .root .tabImage {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    margin-top: 15px;
     margin-bottom: 10px;
 }
 .root .transitionAnimation {
@@ -253,6 +253,7 @@ export default {
 .root .arrow {
     width: 10px;
     height: 10px;
+    margin-left: 4px;
     display: inline-block;
 }
 </style>
