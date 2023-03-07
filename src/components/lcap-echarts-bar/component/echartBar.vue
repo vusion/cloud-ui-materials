@@ -188,7 +188,7 @@ export default {
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      let legendAliasList = this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       legendAliasList = legendAliasList.filter((item) => item!== '');
       let fakeAliasList = ['别名1', '别名2', '别名3'];
       // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示三个图例，通过更改值提示用户修改成功
@@ -204,7 +204,7 @@ export default {
     },
     toolTipFormatter(params) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      let legendAliasList = this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let template= ''
       for (let index=0; index<params.length; index++) {
         if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
@@ -212,7 +212,7 @@ export default {
           if (legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
             legendAliasList = ['指标1', '指标2', '指标3'];
           }
-        } else if(legendAliasList.length !== 0 && multiYAxisList.length !== legendAliasList.length) {
+        } else if(legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
           legendAliasList = multiYAxisList;
         }
         template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${params[index].value}</b></div>`
@@ -221,6 +221,9 @@ export default {
     },
     generateEchartOption(legendData, seriesData, xAxisData) {
       return {
+        grid: {
+          left: '14%',
+        },
         toolbox: {
           show: this.axisData.allowDownload,
           feature: {
@@ -263,7 +266,7 @@ export default {
           nameLocation: "middle",
           nameRotate: 90,
           nameTextStyle: {
-            padding: [0, 0, 8, 0],
+            padding: [0, 0, 22, 0],
             fontWeight: "bolder",
             fontSize: 14,
           },
