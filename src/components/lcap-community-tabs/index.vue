@@ -45,7 +45,7 @@
                 <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 510px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">开发者论坛</u-text>
-                        <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
+                        <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent, $style.tabLineHeight]" overflow="break">
                             使用中遇到的问题，可以在论坛获得及时、官方的解答，<br>
                             使用中积累的心得，可以在论坛与同行交流分享，<br>
                             在论坛，与更多开发者共同进步。<br>
@@ -63,7 +63,7 @@
                 <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 510px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">学习中心</u-text>
-                        <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
+                        <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent, $style.tabLineHeight]" overflow="break">
                             全方位的视频课程，提供从需求沟通到应用搭建的全流程课程，<br>
                             根据您的需要，选取您的学习课程，快速解锁低代码开发技能。<br>
                         </u-text>
@@ -80,7 +80,7 @@
                 <u-linear-layout style="width: 1200px; height: 380px;" justify="center" :class="$style.innerContent" display="inline">
                     <u-linear-layout direction="vertical" display="inline" style="width: 510px;" :class="$style.contentLeft">
                         <u-text display="block" :class="[$style.contentWidth, $style.contentTitle]">文档中心</u-text>
-                        <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent]" overflow="break">
+                        <u-text display="block" :class="[$style.contentWidth, $style.tabTextContent, $style.tabLineHeight]" overflow="break">
                             丰富的产品文档，包括使用指南、常见问题、功能介绍等文档，<br>
                             提供部署、配置、开发、上线的全部指导信息，方便您查阅学习。<br>
                         </u-text>
@@ -204,6 +204,9 @@ export default {
     line-height: 24px;
     margin-bottom: 30px;
 }
+.root .tabLineHeight {
+  line-height: 30px;
+}
 .root .contentTitle {
     font-family: 'PingFang TC';
     font-style: normal;
@@ -211,6 +214,7 @@ export default {
     font-size: 24px;
     line-height: 34px;
     color: #1F2F4D;
+    padding-bottom: 10px;
 }
 .root .tabs [class^="u-tabs_scroll__"] {
     display: flex;
