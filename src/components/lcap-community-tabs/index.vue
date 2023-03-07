@@ -142,7 +142,7 @@ export default {
 .root .contentLeft {
     width: 300px;
     position: relative;
-    top: -20%;
+    top: -17%;
 }
 .root .pages {
   width: 100%;
