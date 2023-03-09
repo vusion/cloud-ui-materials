@@ -27,7 +27,7 @@
     - name: width
       title: 宽度
       type: string
-      default: 380px
+      default: 340px
       description: 设置图宽度
       group: 图表基础
     - name: height

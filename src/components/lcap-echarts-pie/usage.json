@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-pie",
     "name": "饼图",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "icon": "piechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-pie@2.0.7/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-pie@2.0.8/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-pie>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-pie",
         "title": "饼图",
         "description": "饼图",
         "category": "Chart",
-        "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-pie@2.0.7/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-pie@2.0.8/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -56,7 +56,7 @@
                 "name": "width",
                 "title": "宽度",
                 "type": "string",
-                "default": "380px",
+                "default": "340px",
                 "description": "设置图宽度",
                 "group": "图表基础"
             },

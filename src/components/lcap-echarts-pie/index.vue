@@ -28,7 +28,7 @@ export default {
   props: {
     dataSource: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
-    width: {type: String, default: '380px'},
+    width: {type: String, default: '340px'},
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
