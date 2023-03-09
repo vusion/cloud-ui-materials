@@ -32,7 +32,7 @@ export default {
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
-    title: {type: String, default: '默认标题'},
+    title: {type: String, default: '标题'},
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
     allowDownload: {type: Boolean, default: true},
