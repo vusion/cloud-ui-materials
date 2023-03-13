@@ -25,30 +25,12 @@ export const fakeData = {
     },
     {
       "student": {
-        "id": 1186271644877824,
-        "createdTime": "2022-03-25T08:28:16.000Z",
-        "updatedTime": "2022-03-25T08:59:05.000Z",
-        "createdBy": null,
-        "updatedBy": null,
-        "fakeXAxis": "数据2",
-        "指标1": 75,
-        "指标2": 100,
-        "指标3": 85,
-        "age": 20,
-        "sex": "女",
-        "averageScore": 95,
-        "mentor": "张老师",
-        "donation": 1000
-      }
-    },
-    {
-      "student": {
         "id": 1186279085573120,
         "createdTime": "2022-03-25T08:57:51.000Z",
         "updatedTime": "2022-03-25T08:57:51.000Z",
         "createdBy": null,
         "updatedBy": null,
-        "fakeXAxis": "数据3",
+        "fakeXAxis": "数据2",
         "指标1": 60,
         "指标2": 90,
         "指标3": 80,
@@ -61,20 +43,20 @@ export const fakeData = {
     },
     {
       "student": {
-        "id": 1186279186236416,
-        "createdTime": "2022-03-25T08:58:15.000Z",
-        "updatedTime": "2022-03-25T08:58:15.000Z",
+        "id": 1186271644877824,
+        "createdTime": "2022-03-25T08:28:16.000Z",
+        "updatedTime": "2022-03-25T08:59:05.000Z",
         "createdBy": null,
         "updatedBy": null,
-        "fakeXAxis": "数据4",
-        "指标1": 55,
-        "指标2": 75,
-        "指标3": 67,
-        "age": 23,
-        "sex": "男",
-        "averageScore": 65,
-        "mentor": "王老师",
-        "donation": 4000
+        "fakeXAxis": "数据3",
+        "指标1": 75,
+        "指标2": 100,
+        "指标3": 85,
+        "age": 20,
+        "sex": "女",
+        "averageScore": 95,
+        "mentor": "张老师",
+        "donation": 1000
       }
     },
     {
@@ -84,7 +66,7 @@ export const fakeData = {
         "updatedTime": "2022-03-25T08:58:45.000Z",
         "createdBy": null,
         "updatedBy": null,
-        "fakeXAxis": "数据5",
+        "fakeXAxis": "数据4",
         "指标1": 88,
         "指标2": 65,
         "指标3": 82,
