@@ -219,7 +219,7 @@ export default {
     generateEchartOption(legendData, seriesData, xAxisData) {
       return {
         grid: {
-          left: '14%',
+          left: '15%',
         },
         toolbox: {
           show: this.axisData.allowDownload,
@@ -263,7 +263,7 @@ export default {
           nameLocation: "middle",
           nameRotate: 90,
           nameTextStyle: {
-            padding: [0, 0, 22, 0],
+            padding: [0, 0, 20, 0],
             fontWeight: "bolder",
             fontSize: 14,
           },
