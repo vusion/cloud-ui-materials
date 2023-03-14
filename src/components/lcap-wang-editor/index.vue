@@ -111,7 +111,7 @@ export default {
         },
         value: {
             handler(v) {
-                this.currentValue = v;
+                this.currentValue = myxss.process(v);
             },
             immediate: true,
         },
@@ -125,6 +125,7 @@ export default {
     },
     methods: {
         onCreated(editor) {
+            console.log('new');
             // 一定要用 Object.seal() ，否则会报错
             this.editor = Object.seal(editor);
             let height = this.$refs.root.style.height;

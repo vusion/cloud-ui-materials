@@ -18,7 +18,7 @@ export default {
     strong: ["style"],
     img: ["src", "alt", "title", "width", "height", "style"],
     input: ["type", "style", "disabled", "checked", "value"],
-    p: [],
+    p: [ "line-height", "style"],
     table: ["style"],
     tr: ["style"],
     td: ["style"],
