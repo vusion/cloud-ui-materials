@@ -44,7 +44,8 @@
   "dependencies": {
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^1.0.2",
-    "v-viewer": "^1.6.4"
+    "v-viewer": "^1.6.4",
+    "xss": "^1.0.14"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",

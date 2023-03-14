@@ -30,8 +30,11 @@ import { MField } from 'cloud-ui.vusion';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import '@wangeditor/editor/dist/css/style.css';
 import 'viewerjs/dist/viewer.css'
+import whiteListOption from './whiteListTag'
 import Viewer from 'v-viewer';
 import Vue from 'vue';
+import xss from 'xss';
+const myxss = new xss.FilterXSS({whiteList: whiteListOption});
 Vue.use(Viewer);
 
 export default {
@@ -52,7 +55,7 @@ export default {
             currentValue: '',
             editor: null,
             toolbarConfig: {
-                excludeKeys: ['fullScreen'],
+                excludeKeys: ['fullScreen', 'codeBlock'],
             },
             editorConfig: {
                 readOnly: this.readOnly,
@@ -147,7 +150,7 @@ export default {
             if (editor.isEmpty() && (!this.currentValue && this.currentValue !== 0))
                 return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
-            this.currentValue = value;
+            this.currentValue = myxss.process(value);
             this.$emit('change', { value: this.currentValue, editor });
             this.$emit('update:value', this.currentValue);
             this.$emit('input', this.currentValue);
