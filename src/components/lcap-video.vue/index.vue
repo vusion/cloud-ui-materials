@@ -31,7 +31,7 @@ export default {
         },
         muted: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         breakProgress: {
             type: String,
