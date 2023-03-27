@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import '@lcap/mobile-ui/lib/index.css';
+import '@lcap/mobile-ui/es/icon/index.css';
 import Iconv from '@lcap/mobile-ui/es/icon/index';
 export default {
     name: 'lcap-amap-nav',
