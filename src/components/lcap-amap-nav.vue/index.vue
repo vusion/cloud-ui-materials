@@ -1,13 +1,13 @@
 <template>
 <a :class="$style.root" @click="toDest" :href="currentHref" :target="target">
-    <van-iconv name="location" :class="$style.vaniconv"></van-iconv>
+    <van-icon name="location" :class="$style.vaniconv"></van-icon>
     <span :class="$style.label">{{ label }}</span>
 </a>
 </template>
 
 <script>
-import '@lcap/mobile-ui/lib/index.css';
-import Iconv from '@lcap/mobile-ui/es/iconv/index';
+import '@lcap/mobile-ui/es/icon/index.css';
+import Iconv from '@lcap/mobile-ui/es/icon/index';
 export default {
     name: 'lcap-amap-nav',
     components: {

@@ -31,6 +31,7 @@
 
 <script>
 import VueLuckyCanvas from '@lucky-canvas/vue';
+import Vue from 'vue';
 
 Vue.use(VueLuckyCanvas);
 export default {
@@ -175,6 +176,7 @@ export default {
     font_top_padding: {type: String, default: '60px'},
     font_size: {type: String, default: '22px'},
     prize_popup: {type:Boolean, default: false},
+    return_prize: {type: String, default: ""},
   },
   methods: {
     // 点击抽奖按钮会触发star回调
@@ -184,7 +186,12 @@ export default {
       this.currentPrize = '';
       this.$refs.myLucky.play();
       setTimeout(() => {
-        this.$refs.myLucky.stop();
+        if (this.return_prize) {
+          const prizeIndex = this.transPrize2Index(this.return_prize);
+          this.$refs.myLucky.stop(prizeIndex);
+        } else {
+          this.$refs.myLucky.stop();
+        }
       }, 1500);
     },
     // 抽奖结束会触发end回调
@@ -192,11 +199,15 @@ export default {
       this.visible = true;
       this.currentPrize = prize.fonts[0].text;
       this.$emit('end', this.currentPrize);
-      console.log(prize);
     },
     handleOk() {
       this.visible = false;
       this.currentPrize = '';
+    },
+    transPrize2Index(prize) {
+      const prizeList = [this.block1_name, this.block2_name, this.block3_name, this.block4_name,
+                         this.block5_name, this.block6_name, this.block7_name, this.block8_name]
+      return prizeList.indexOf(prize) || '';
     },
   }
 

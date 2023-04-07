@@ -7,6 +7,14 @@
     "type": "string",
     "description": "设置九宫格高度"
   },
+  "lcap-lucky-draw/return_prize": {
+    "type": "string",
+    "description": "后端返还的奖品信息，设置后各自的抽奖概率无效"
+  },
+  "lcap-lucky-draw/prize_popup": {
+    "type": "boolean",
+    "description": "是否开启默认中奖弹窗"
+  },
   "lcap-lucky-draw/background_color": {
     "type": "string",
     "description": "设置背景颜色（例：#FFFFFF）"
@@ -26,10 +34,6 @@
   "lcap-lucky-draw/font_size": {
     "type": "string",
     "description": "设置奖品文字距离顶部的距离（默认：22px）"
-  },
-  "lcap-lucky-draw/prize_popup": {
-    "type": "boolean",
-    "description": "是否开启默认中奖弹窗"
   },
   "lcap-lucky-draw/block1_img": {
     "type": "image",

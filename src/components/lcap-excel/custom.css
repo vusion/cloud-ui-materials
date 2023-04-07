@@ -1,0 +1,8 @@
+.designer {
+    height: calc(100% - 15px);
+}
+
+.ribbon-button-welcome {
+    background-size: 35px 35px;
+    background-image: url('./assets/welcome.png');
+}

@@ -3,13 +3,14 @@
 ``` html
 <lcap-echarts-line 
     xAxis="fakeXAxis" 
-    yAxis="指标1，指标2，指标3" 
-    xAxisTitle="维度1, 维度2" 
-    yAxisTitle="指标" 
-    title="标题"
+    yAxis="指标1，指标" 
+    xAxisTitle="维度1111" 
+    yAxisTitle="指标1222" 
+    title="标题111"
     theme="theme1"
     width="450px"
-    legendName="数学，语文，英语"
+    height="300px"
+    legendName="数学"
     :titleFontSize=16
     titleFontStyle="italic"
     :allowDownload=true

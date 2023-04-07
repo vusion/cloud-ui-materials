@@ -1,16 +1,26 @@
 ### 基本用法
 
 ``` html
-<lcap-wang-editor value="<p>hello</p>"></lcap-wang-editor>
+<lcap-wang-editor value="<p>hello</p><img src='https://p3-passport.byteimg.com/img/user-avatar/834687b5e4137f4d998a95be7330f543~180x180.awebp'>"></lcap-wang-editor>
 ```
+
+### 自定义上传地址
+
+```html
+<lcap-wang-editor value="<p>hello</p><img src='https://p3-passport.byteimg.com/img/user-avatar/834687b5e4137f4d998a95be7330f543~180x180.awebp'" uploadImgServer="/upload/test"></lcap-wang-editor>
+```
+
 
 ### 只读模式
 
 只读模式可以作为富文本编辑器的内容展示区，默认隐藏工具栏，通过`readOnly`设置
 
-``` vue
+```vue
 <template>
-  <lcap-wang-editor value="<p>hello</p>" :readOnly="readOnly"></lcap-wang-editor>
+    <div>
+        <lcap-wang-editor :readOnly="readOnly" value="<p>hello</p><img src='https://p3-passport.byteimg.com/img/user-avatar/834687b5e4137f4d998a95be7330f543~180x180.awebp'>"></lcap-wang-editor>
+        <u-button @click="handleReadOnly">切换</u-button>
+    </div>
 </template>
 
 <script>
@@ -19,6 +29,11 @@ export default {
         return {
             readOnly: true
         }
+    },
+    methods:{
+        handleReadOnly() {
+            this.readOnly = !this.readOnly;
+        },
     }
 }
 </script>

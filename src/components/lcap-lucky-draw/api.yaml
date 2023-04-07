@@ -16,6 +16,18 @@
       default: 375px
       description: 设置九宫格高度
       group: 基础配置信息
+    - name: return_prize
+      title: 后端返还的奖品名称
+      type: string
+      default: ""
+      description: 后端返还的奖品信息，设置后各自的抽奖概率无效
+      group: 基础配置信息
+    - name: prize_popup
+      title: 开启默认中奖弹窗
+      type: boolean
+      default: false
+      description: 是否开启默认中奖弹窗
+      group: 基础配置信息
     - name: background_color
       title: 背景颜色
       type: string
@@ -46,12 +58,6 @@
       type: string
       default: "22px"
       description: 设置奖品文字距离顶部的距离（默认：22px）
-      group: 基础配置信息
-    - name: prize_popup
-      title: 开启默认中奖弹窗
-      type: boolean
-      default: false
-      description: 是否开启默认中奖弹窗
       group: 基础配置信息
 
     - name: block1_img

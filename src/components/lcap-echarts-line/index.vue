@@ -20,6 +20,7 @@ import {fakeDataList} from "@/fakeDataList";
 import echartLine from "@/component/echartLine";
 import * as echarts from 'echarts';
 import './theme';
+import Vue from 'vue';
 
 Vue.prototype.$echarts = echarts
 export default {
@@ -28,13 +29,13 @@ export default {
   props: {
     dataSource: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
-    width: {type: String, default: '380px'},
+    width: {type: String, default: '340px'},
     height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
-    xAxisTitle: {type: String, default: ''},
-    yAxisTitle: {type: String, default: ''},
-    title: {type: String, default: '默认标题'},
+    xAxisTitle: {type: String, default: 'X轴标题'},
+    yAxisTitle: {type: String, default: 'Y轴标题'},
+    title: {type: String, default: '标题'},
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
     allowDownload: {type: Boolean, default: true},

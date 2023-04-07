@@ -5,7 +5,8 @@
       "readOnly",
       "scroll",
       "placeholder",
-      "editorStyle"
+      "editorStyle",
+      "uploadImgServer"
     ],
     "description": "请在这里添加描述"
   }

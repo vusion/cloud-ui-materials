@@ -3,7 +3,7 @@
     "type": "Array<Item> | Function | object",
     "description": "日历表格主数据源，数组方式表示直接的数据，函数需要返回一个 Promise"
   },
-  "u-calendar-table/data-source-child": {
+  "u-calendar-table/data-source": {
     "type": "Array<Item> | Function | object",
     "description": "日历表格子数据源，数组方式表示直接的数据，函数需要返回一个 Promise"
   },

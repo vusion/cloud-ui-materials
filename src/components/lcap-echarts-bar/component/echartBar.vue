@@ -29,7 +29,7 @@ export default {
       return {size, axisData, sourceData};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 380;
+      let width = this.size.width.replace("px", "") || 340;
       let height = this.size.height.replace("px", "") || 300;
       return {
         width: `${width}px`,
@@ -111,9 +111,14 @@ export default {
       }
       for (let index = 0; index < xData.length; index++) {
         xAxisData.push({
-            data: xData[index],
-            name: xAxisTitleList[index] ||  multiXAxisList[index] || '',
-            nameLocation: 'end',
+          data: xData[index],
+          name: xAxisTitleList[index] || '',
+          nameLocation: "middle",
+          nameTextStyle: {
+            padding: [12, 0, 0, 0],
+            fontWeight: "bolder",
+            fontSize: 14
+          },
             axisLine: {
               show: this.axisData.showXAxisLine,
             },
@@ -145,8 +150,6 @@ export default {
       if (!data) {
         return;
       }
-      console.log('x', this.axisData.xAxis);
-      console.log('y', this.axisData.yAxis);
       let legendData;
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
@@ -185,7 +188,7 @@ export default {
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      let legendAliasList = this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       legendAliasList = legendAliasList.filter((item) => item!== '');
       let fakeAliasList = ['别名1', '别名2', '别名3'];
       // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示三个图例，通过更改值提示用户修改成功
@@ -199,8 +202,25 @@ export default {
           legendAliasList[multiYAxisList.indexOf(name)] : name;
       }
     },
+    toolTipFormatter(params) {
+      let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let template= '';
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+        legendAliasList = (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ? ['别名1', '别名2', '别名3'] : ['指标1', '指标2', '指标3'];
+      } else if(legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
+        legendAliasList = multiYAxisList;
+      }
+      for (let index=0; index<params.length; index++) {
+        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${params[index].value}</b></div>`
+      }
+      return template;
+    },
     generateEchartOption(legendData, seriesData, xAxisData) {
       return {
+        grid: {
+          left: '15%',
+        },
         toolbox: {
           show: this.axisData.allowDownload,
           feature: {
@@ -217,7 +237,8 @@ export default {
           trigger: 'axis',
           axisPointer: {
             type: 'shadow'
-          }
+          },
+          formatter: this.toolTipFormatter,
         },
         emphasis: {
           focus: 'series',
@@ -232,12 +253,19 @@ export default {
         xAxis: xAxisData,
         yAxis: {
           type: 'value',
-          name: this.axisData.yAxisTitle || this.axisData.yAxis || '',
+          name: this.axisData.yAxisTitle || '',
           axisLine: {
             show: this.axisData.showYAxisLine,
           },
           axisLabel: {
             show: this.axisData.showYAxisLabel,
+          },
+          nameLocation: "middle",
+          nameRotate: 90,
+          nameTextStyle: {
+            padding: [0, 0, 20, 0],
+            fontWeight: "bolder",
+            fontSize: 14,
           },
         },
         series: seriesData,

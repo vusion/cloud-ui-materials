@@ -1,0 +1,15 @@
+{
+  "lcap-printPage": {
+    "attributes": [
+      "hidden",
+      "fileName",
+      "printDOM",
+      "isNotFullPage",
+      "canvasWidth",
+      "canvasHeight",
+      "download",
+      "fileType"
+    ],
+    "description": "打印当前页面内容生成PDF或图片"
+  }
+}

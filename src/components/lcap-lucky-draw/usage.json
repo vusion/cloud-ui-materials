@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-lucky-draw",
     "name": "九宫格抽奖",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Other"
     ],
-    "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-lucky-draw@0.3.1/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-lucky-draw@0.3.2/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-lucky-draw\\n    block1_name=\\\"奖品1\\\"\\n    block2_name=\\\"奖品2\\\"\\n    block3_name=\\\"奖品3\\\"\\n    block4_name=\\\"奖品4\\\"\\n    block5_name=\\\"奖品5\\\"\\n    block6_name=\\\"奖品6\\\"\\n    block7_name=\\\"奖品7\\\"\\n    block8_name=\\\"奖品8\\\"\\n>\\n</lcap-lucky-draw>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-lucky-draw",
         "title": "九宫格抽奖",
         "description": "九宫格抽奖组价",
         "category": "Other",
-        "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-lucky-draw@0.3.1/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-lucky-draw@0.3.2/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -40,6 +40,22 @@
                 "title": "高度",
                 "default": "375px",
                 "description": "设置九宫格高度",
+                "group": "基础配置信息"
+            },
+            {
+                "name": "return_prize",
+                "title": "后端返还的奖品名称",
+                "type": "string",
+                "default": "",
+                "description": "后端返还的奖品信息，设置后各自的抽奖概率无效",
+                "group": "基础配置信息"
+            },
+            {
+                "name": "prize_popup",
+                "title": "开启默认中奖弹窗",
+                "type": "boolean",
+                "default": false,
+                "description": "是否开启默认中奖弹窗",
                 "group": "基础配置信息"
             },
             {
@@ -81,14 +97,6 @@
                 "type": "string",
                 "default": "22px",
                 "description": "设置奖品文字距离顶部的距离（默认：22px）",
-                "group": "基础配置信息"
-            },
-            {
-                "name": "prize_popup",
-                "title": "开启默认中奖弹窗",
-                "type": "boolean",
-                "default": false,
-                "description": "是否开启默认中奖弹窗",
                 "group": "基础配置信息"
             },
             {

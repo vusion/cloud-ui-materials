@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-pie",
   "description": "",
-  "version": "2.0.4",
+  "version": "2.0.8",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/lcap-echarts-pie@2.0.3/index.html",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-echarts-pie@2.0.7/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -38,7 +38,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://static-vusion.163yun.com/packages/lcap-echarts-pie@2.0.3/screenshots/0.png"
+      "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-pie@2.0.7/screenshots/0.png"
     ],
     "team": "",
     "access": "public"

@@ -8,17 +8,20 @@
             :mode="mode"
             v-show="!readOnly"
         ></toolbar>
-        <editor
-            ref="editor"
-            :style="[rootStyle, editorHeight]"
-            :value="currentValue"
-            :default-config="editorConfig"
-            :mode="mode"
-            @onCreated="onCreated"
-            @onChange="onChange"
-            @onFocus="onFocus"
-            @onBlur="onBlur"
-        ></editor>
+        <!-- v-viewer下所有图片能够进行放大操作 -->
+        <div v-viewer="{movable: false}">
+            <editor
+                ref="editor"
+                :style="rootStyle"
+                :value="currentValue"
+                :default-config="editorConfig"
+                :mode="mode"
+                @onCreated="onCreated"
+                @onChange="onChange"
+                @onFocus="onFocus"
+                @onBlur="onBlur"
+            ></editor>
+        </div>
     </div>
 </template>
 
@@ -26,9 +29,16 @@
 import { MField } from 'cloud-ui.vusion';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import '@wangeditor/editor/dist/css/style.css';
+import 'viewerjs/dist/viewer.css'
+import whiteListOption from './whiteListTag'
+import Viewer from 'v-viewer';
+import Vue from 'vue';
+import xss from 'xss';
+const myxss = new xss.FilterXSS({whiteList: whiteListOption});
+Vue.use(Viewer);
 
 export default {
-    components: { Editor, Toolbar },
+    components: { Editor, Toolbar, Viewer },
     mixins: [MField],
     props: {
         value: String,
@@ -36,6 +46,7 @@ export default {
         scroll: { type: Boolean, default: true },
         placeholder: String,
         editorStyle: { type: String, default: '' },
+        uploadImgServer: { type: String, default: '' },
     },
     data() {
         const authorization = this.getCookie('authorization');
@@ -43,7 +54,9 @@ export default {
         return {
             currentValue: '',
             editor: null,
-            toolbarConfig: {},
+            toolbarConfig: {
+                excludeKeys: ['fullScreen', 'codeBlock', 'uploadVideo'],
+            },
             editorConfig: {
                 readOnly: this.readOnly,
                 scroll: this.scroll,
@@ -51,12 +64,24 @@ export default {
                 autoFocus: false,
                 MENU_CONF: {
                     uploadImage: {
-                        server: '/gateway/lowcode/api/v1/app/upload',
+                        server: this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
                         fieldName: 'file',
                         maxFileSize: 50 * 1024 * 1024, // 50M
                         // 自定义增加 http  header
                         headers,
                         // 自定义插入图片
+                        customInsert(res, insertFn) {
+                            const url = res.result;
+                            insertFn(url);
+                        },
+                    },
+                    uploadVideo: {
+                        server: this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
+                        fieldName: 'file',
+                        maxFileSize: 1000 * 1024 * 1024, // 1000M
+                        // 自定义增加 http  header
+                        headers,
+                        // 自定义插入视频
                         customInsert(res, insertFn) {
                             const url = res.result;
                             insertFn(url);
@@ -72,19 +97,24 @@ export default {
             },
         };
     },
+    computed: {
+        rootStyle() {
+            return {
+                ...this.editorHeight,
+                ...this.parseStyleAttr(this.editorStyle),
+            };
+        },
+    },
     watch: {
         readOnly(val) {
             val ? this.editor.disable() : this.editor.enable();
         },
         value: {
             handler(v) {
-                this.currentValue = v;
+                this.currentValue = myxss.process(v);
             },
             immediate: true,
         },
-    },
-    created() {
-        this.rootStyle = this.parseStyleAttr(this.editorStyle);
     },
     beforeDestroy() {
         const { editor } = this;
@@ -95,6 +125,7 @@ export default {
     },
     methods: {
         onCreated(editor) {
+            console.log('new');
             // 一定要用 Object.seal() ，否则会报错
             this.editor = Object.seal(editor);
             let height = this.$refs.root.style.height;
@@ -120,7 +151,7 @@ export default {
             if (editor.isEmpty() && (!this.currentValue && this.currentValue !== 0))
                 return;
             const value = editor.isEmpty() ? '' : editor.getHtml();
-            this.currentValue = this.splicing(value);
+            this.currentValue = myxss.process(value);
             this.$emit('change', { value: this.currentValue, editor });
             this.$emit('update:value', this.currentValue);
             this.$emit('input', this.currentValue);
@@ -168,40 +199,40 @@ export default {
         },
         // 下面的函数属于hack： 新富文本组件，有序列表缩进，无法保存 https://overmind-project.netease.com/v2/my_workbench/bugdetail/Bug-53081
         // 已向editor-wang提交issues，当bug解决时需删除以下所有函数。
-        splicing(oldVal) {
-            const tagArr = [
-                { openingTag: '<ul>', closingTag: '</ul>' },
-                { openingTag: '<ol>', closingTag: '</ol>' },
-            ];
-            let newVal = oldVal;
-            tagArr.forEach(({ openingTag, closingTag }) => {
-                let joinValue = '';
-                let stack = [];
-                newVal.split(openingTag).forEach((str) => {
-                    stack.push(true);
-                    const endSplitArr = str.split(closingTag);
-                    if (endSplitArr.length > 1) {
-                        if (stack.length > 2)
-                            joinValue = joinValue.slice(0, -openingTag.length);
-                        stack = [];
-                        if (endSplitArr[1].includes('<p>')) {
-                            joinValue += endSplitArr[0] + closingTag + endSplitArr[1];
-                        } else {
-                            joinValue += endSplitArr[0] + endSplitArr[1] + closingTag;
-                        }
-                    } else {
-                        joinValue += str;
-                    }
-                    joinValue += openingTag;
-                });
-                joinValue = joinValue.slice(0, -openingTag.length);
-                newVal = joinValue;
-            });
-            // 内部实现逻辑不兼容，需要重新聚焦光标点
-            if (newVal !== oldVal && this.editor.isFocused())
-                this.hackfix(newVal);
-            return newVal;
-        },
+        // splicing(oldVal) {
+        //     const tagArr = [
+        //         { openingTag: '<ul>', closingTag: '</ul>' },
+        //         { openingTag: '<ol>', closingTag: '</ol>' },
+        //     ];
+        //     let newVal = oldVal;
+        //     tagArr.forEach(({ openingTag, closingTag }) => {
+        //         let joinValue = '';
+        //         let stack = [];
+        //         newVal.split(openingTag).forEach((str) => {
+        //             stack.push(true);
+        //             const endSplitArr = str.split(closingTag);
+        //             if (endSplitArr.length > 1) {
+        //                 if (stack.length > 2)
+        //                     joinValue = joinValue.slice(0, -openingTag.length);
+        //                 stack = [];
+        //                 if (endSplitArr[1].includes('<p>')) {
+        //                     joinValue += endSplitArr[0] + closingTag + endSplitArr[1];
+        //                 } else {
+        //                     joinValue += endSplitArr[0] + endSplitArr[1] + closingTag;
+        //                 }
+        //             } else {
+        //                 joinValue += str;
+        //             }
+        //             joinValue += openingTag;
+        //         });
+        //         joinValue = joinValue.slice(0, -openingTag.length);
+        //         newVal = joinValue;
+        //     });
+        //     // 内部实现逻辑不兼容，需要重新聚焦光标点
+        //     if (newVal !== oldVal && this.editor.isFocused())
+        //         this.hackfix(newVal);
+        //     return newVal;
+        // },
         hackfix(newVal) {
             this.editor.clear();
             this.editor.setHtml(newVal);

@@ -1,0 +1,64 @@
+{
+    "symbol": "lcap-h5-popo-location",
+    "name": "popo定位",
+    "version": "0.1.7",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "请在这里添加描述",
+    "labels": [
+        "Runtime"
+    ],
+    "screenShot": "http://static-vusion.163yun.com/packages/lcap-h5-popo-location@0.1.7/screenshots/0.png",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-h5-popo-location></lcap-h5-popo-location>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-h5-popo-location",
+        "title": "popo定位",
+        "description": "请在这里添加描述",
+        "category": "Runtime",
+        "screenShot": "http://static-vusion.163yun.com/packages/lcap-h5-popo-location@0.1.7/screenshots/0.png",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-h5-popo-location></lcap-h5-popo-location>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "value",
+                "title": "值",
+                "type": "string",
+                "model": true,
+                "description": "值"
+            },
+            {
+                "name": "deviceid",
+                "title": "设备id",
+                "type": "string",
+                "model": true,
+                "description": "设备id"
+            }
+        ],
+        "slots": [
+            {
+                "name": "default",
+                "description": "插入文本或 HTML。"
+            }
+        ],
+        "methods": [
+            {
+                "name": "getLocation",
+                "title": "获取地理位置",
+                "description": "获取地理位置"
+            },
+            {
+                "name": "getDeviceID",
+                "title": "获取设备id",
+                "description": "获取设备id"
+            }
+        ],
+        "children": []
+    }
+}
