@@ -55,7 +55,7 @@ export default {
             currentValue: '',
             editor: null,
             toolbarConfig: {
-                excludeKeys: ['fullScreen', 'codeBlock'],
+                excludeKeys: ['fullScreen', 'codeBlock', 'uploadVideo'],
             },
             editorConfig: {
                 readOnly: this.readOnly,
