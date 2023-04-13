@@ -1,0 +1,65 @@
+{
+  "name": "lcap-echarts-radar",
+  "description": "",
+  "version": "2.0.8",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-echarts-radar@2.0.7/index.html",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
+    "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
+    "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
+    "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "usage": "lcap usage",
+    "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {
+    "resolveFrom": "../../../"
+  },
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "type": "component",
+    "title": "折线图",
+    "category": "Chart",
+    "base": "vue",
+    "ui": "cloud-ui.vusion",
+    "screenshots": [
+      "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-radar@2.0.7/screenshots/0.png"
+    ],
+    "team": "",
+    "access": "public"
+  },
+  "dependencies": {
+    "echarts": "^5.3.2"
+  },
+  "peerDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.10",
+    "vue-cli-plugin-vusion": "^0.13.3"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  },
+  "devDependencies": {
+    "@vue/composition-api": "^1.4.9"
+  }
+}
