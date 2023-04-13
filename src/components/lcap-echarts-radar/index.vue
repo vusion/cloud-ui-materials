@@ -30,7 +30,7 @@ export default {
     dataSource: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
     width: {type: String, default: '340px'},
-    height: {type: String, default: '300px'},
+    height: {type: String, default: '320px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
     xAxisTitle: {type: String, default: 'X轴标题'},
@@ -45,11 +45,6 @@ export default {
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
     legendName: {type: String, default: ''},
-    showXAxisLine: {type: Boolean, default: true},
-    showYAxisLine: {type: Boolean, default: true},
-    showXAxisLabel: {type: Boolean, default: true},
-    showYAxisLabel: {type: Boolean, default: true},
-    xAxisLabelRotate: {type: String, default: '0'},
   },
   data() {
     return {
@@ -84,11 +79,6 @@ export default {
         allowShowLabel: this.allowShowLabel,
         allowShowHint: this.allowShowHint,
         allowShowLegend: this.allowShowLegend,
-        showXAxisLine: this.showXAxisLine,
-        showYAxisLine: this.showYAxisLine,
-        showXAxisLabel: this.showXAxisLabel,
-        showYAxisLabel: this.showYAxisLabel,
-        xAxisLabelRotate: this.xAxisLabelRotate,
       }
     },
     changedObj() {

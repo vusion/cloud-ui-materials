@@ -134,10 +134,9 @@ export default {
     },
     generateSeriesData(data, multiXAxisList) {
       let seriesData = [];
-      let name = this.getAxisData(data, this.axisData.radarName);
       for (let index=0; index < multiXAxisList.length; index++) {
         seriesData.push({
-          name: name[index],
+          name: multiXAxisList[index],
           value: this.getAxisData(data, multiXAxisList[index]),
           showBackground: true,
           label: {
@@ -149,6 +148,7 @@ export default {
         type: 'radar',
         data: seriesData,
       };
+      console.log('seriesData', seriesData);
       return seriesData;
     },
     generateRadarData(data) {
@@ -163,6 +163,7 @@ export default {
       })
       radarData = {
         indicator: radarData,
+        center: ["50%", "53%"],
         // shape: 'circle',
       };
       return radarData;
@@ -180,7 +181,7 @@ export default {
       multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length -1])
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        multiXAxisList = ['spending', 'budget'];
+        multiXAxisList = ['维度1', '维度2'];
         this.axisData.radarMax = 'max';
         this.axisData.radarName = 'fakeXAxis';
         legendData = ['维度1', '维度2'];
@@ -204,19 +205,19 @@ export default {
     },
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
-      let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
+      let multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       legendAliasList = legendAliasList.filter((item) => item!== '');
       let fakeAliasList = ['别名1', '别名2'];
-      // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示三个图例，通过更改值提示用户修改成功
+      // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示两个图例，通过更改值提示用户修改成功
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        const showAxisList = ['budget', 'spending'];
-        return (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ?
+        const showAxisList = ['维度1', '维度2'];
+        return (legendAliasList.length !== 0 && multiXAxisList.length === legendAliasList.length) ?
           fakeAliasList[showAxisList.indexOf(name)] : showAxisList[showAxisList.indexOf(name)];
       } else {
         // 如果数量匹配则显示别名，不匹配显示指标原始值
-        return (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ?
-          legendAliasList[multiYAxisList.indexOf(name)] : name;
+        return (legendAliasList.length !== 0 && multiXAxisList.length === legendAliasList.length) ?
+          legendAliasList[multiXAxisList.indexOf(name)] : name;
       }
     },
     toolTipFormatter(params) {
@@ -224,7 +225,7 @@ export default {
       let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let template= '';
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        legendAliasList = (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ? ['别名1', '别名2'] : ['指标1', '指标2'];
+        legendAliasList = (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ? ['别名1', '别名2'] : ['维度1', '维度2'];
       } else if(legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
         legendAliasList = multiYAxisList;
       }
@@ -235,9 +236,6 @@ export default {
     },
     generateEchartOption(legendData, seriesData, radarData) {
       return {
-        grid: {
-          left: '15%',
-        },
         toolbox: {
           show: this.axisData.allowDownload,
           feature: {
@@ -246,12 +244,9 @@ export default {
         },
         legend: {
           show: this.axisData.allowShowLegend,
-          top: '5%',
           left: 'center',
           data: legendData,
-        },
-        emphasis: {
-          focus: 'series',
+          formatter: this.legendFormatter,
         },
         title: {
           text: this.axisData.title,

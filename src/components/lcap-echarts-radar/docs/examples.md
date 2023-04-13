@@ -8,17 +8,14 @@
     title="标题"
     theme="theme1"
     width="450px"
-    height="300px"
+    height="320px"
+    legendName="预算,花销"
     :titleFontSize=16
     titleFontStyle="italic"
     :allowDownload=true
     :allowShowLabel=true
     :allowShowHint=true
     :allowShowLegend=true
-    :showXAxisLine=true
-    :showYAxisLine=true
-    :showXAxisLabel=true
-    :showYAxisLabel=true
     >
 </lcap-echarts-radar>
 
