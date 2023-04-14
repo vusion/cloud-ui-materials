@@ -37,6 +37,7 @@ export default {
     yAxisTitle: {type: String, default: 'Y轴标题'},
     radarName: {type: String, default: 'name'},
     radarMax: {type: String, default: 'max'},
+    radarShape: {type: String, default: 'polygon'},
     title: {type: String, default: '标题'},
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
@@ -45,6 +46,7 @@ export default {
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
     legendName: {type: String, default: ''},
+    showAxisLine: {type: Boolean, default: true},
   },
   data() {
     return {
@@ -68,6 +70,7 @@ export default {
         yAxis: this.yAxis,
         radarName: this.radarName,
         radarMax: this.radarMax,
+        radarShape: this.radarShape,
         xAxisTitle: this.xAxisTitle,
         yAxisTitle: this.yAxisTitle,
         theme: this.theme,
@@ -79,6 +82,7 @@ export default {
         allowShowLabel: this.allowShowLabel,
         allowShowHint: this.allowShowHint,
         allowShowLegend: this.allowShowLegend,
+        showAxisLine: this.showAxisLine,
       }
     },
     changedObj() {

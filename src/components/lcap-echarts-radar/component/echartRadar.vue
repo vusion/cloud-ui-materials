@@ -163,8 +163,12 @@ export default {
       })
       radarData = {
         indicator: radarData,
+        nameGap: 10,
         center: ["50%", "53%"],
-        // shape: 'circle',
+        shape: this.axisData.radarShape,
+        axisLine: {
+          show: this.axisData.showAxisLine,
+        },
       };
       return radarData;
     },

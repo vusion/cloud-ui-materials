@@ -18,16 +18,27 @@
       description: 设置雷达轴
       group: 维度指标
     - name: radarName
-      title: 雷达轴名称
+      title: 雷达轴数据名称
       type: string
       default: ''
-      description: 设置雷达图名称
+      description: 设置雷达图数据名称
       group: 维度指标
     - name: radarMax
       title: 雷达轴最大值
       type: string
       default: ''
       description: 设置雷达图最大值
+      group: 维度指标
+    - name: radarShape
+      title: 雷达图形状
+      type: string
+      default: 'polygon'
+      options:
+        - value: polygon
+          title: 多边形
+        - value: circle
+          title: 圆形
+      description: 设置雷达图形状
       group: 维度指标
     - name: width
       title: 宽度
@@ -68,11 +79,11 @@
       default: true
       description: 设置是否显示标签
       group: 图表基础
-    - name: allowShowHint
-      title: 显示提示
+    - name: showAxisLine
+      title: 显示坐标轴轴线
       type: boolean
       default: true
-      description: 设置是否显示提示
+      description: 设置是否显示坐标轴轴线
       group: 图表基础
     - name: allowShowLegend
       title: 显示图例

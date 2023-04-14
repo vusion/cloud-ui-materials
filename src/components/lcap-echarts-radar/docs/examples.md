@@ -11,8 +11,9 @@
     height="320px"
     legendName="预算,花销"
     :titleFontSize=16
+    :showAxisLine=true
     titleFontStyle="italic"
-    :allowDownload=true
+    :allowDownload=false
     :allowShowLabel=true
     :allowShowHint=true
     :allowShowLegend=true
