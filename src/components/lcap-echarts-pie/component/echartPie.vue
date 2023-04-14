@@ -186,10 +186,17 @@ export default {
           {
             type: 'pie',
             data: pieData,
+            radius: this.axisData.doughnut ? ['40%', '70%'] : [0, '75%'],
             label: {
               show: showLabel,
+              position: this.axisData.doughnut ? 'center' : 'outside',
               formatter: labelData,
-            }
+            },
+            itemStyle: this.axisData.doughnut ? {
+              borderRadius: 5,
+              borderColor: '#fff',
+              borderWidth: 1
+            } : '',
           }
         ],
       };

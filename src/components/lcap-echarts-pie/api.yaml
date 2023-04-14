@@ -57,6 +57,12 @@
         - value: theme4
           title: 经典
       group: 图表基础
+    - name: doughnut
+      title: 环形图
+      type: boolean
+      default: false
+      description: 设置是否为环形图
+      group: 图表基础
     - name: showLabelName
       title: 显示维度标签
       type: boolean

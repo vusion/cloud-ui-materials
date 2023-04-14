@@ -11,6 +11,7 @@
     :allowShowHint=true
     :allowShowLegend=true
     legendName="数学"
+    :doughnut=true
     :showLabelName=true
     :showLabelValue=true
     :showLabelPercent=true
