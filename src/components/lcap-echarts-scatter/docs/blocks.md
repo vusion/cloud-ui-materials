@@ -2,8 +2,8 @@
 
 ```html
 <lcap-echarts-scatter 
-        xAxis="指标2" 
-        yAxis="指标1" 
+        xAxis="指标1" 
+        yAxis="指标2" 
         xAxisTitle="X轴标题" 
         yAxisTitle="Y轴标题" 
         title="标题" 

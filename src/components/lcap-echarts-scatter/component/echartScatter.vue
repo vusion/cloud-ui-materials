@@ -152,6 +152,7 @@ export default {
       console.log('seriesData', seriesData)
       seriesData = {
         type: 'scatter',
+        symbolSize: 4,
         data: seriesData,
       }
 
