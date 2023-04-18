@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { MField } from 'cloud-ui.vusion';
+import { MField } from 'cloud-ui.vusion/src/components/m-field.vue';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import '@wangeditor/editor/dist/css/style.css';
 import 'viewerjs/dist/viewer.css'
@@ -38,6 +38,7 @@ const myxss = new xss.FilterXSS({whiteList: whiteListOption});
 Vue.use(Viewer);
 
 export default {
+    name: 'lcap-wang-editor',
     components: { Editor, Toolbar, Viewer },
     mixins: [MField],
     props: {
@@ -125,7 +126,6 @@ export default {
     },
     methods: {
         onCreated(editor) {
-            console.log('new');
             // 一定要用 Object.seal() ，否则会报错
             this.editor = Object.seal(editor);
             let height = this.$refs.root.style.height;
