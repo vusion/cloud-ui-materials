@@ -6,7 +6,9 @@
 </template>
 
 <script>
+// #if process.env.NODE_ENV === 'development'
 import '@lcap/mobile-ui/es/icon/index.css';
+// #endif
 import Iconv from '@lcap/mobile-ui/es/icon/index';
 export default {
     name: 'lcap-amap-nav',
