@@ -9,11 +9,22 @@ function ganttDealById(list, id) {
     return "";
 }
 
+export const ganttPlugins = {
+    click_drag: true,
+    drag_timeline: true,// 拖动图
+    marker: true,// 时间标记
+    fullscreen: true,// 全屏
+    tooltip: true,// 鼠标经过时信息
+    undo: true // 允许撤销
+};
+
 export const initialData = {
     data: [
         { id: 1, text: '项目 #1', start_date: '2023-04-15 00:00', duration: 3, progress: 0.6, open: true },
         { id: 2, text: '任务 #1', start_date: '2023-04-18 00:00', duration: 3, progress: 0.4, parent: 1 },
         { id: 3, text: '任务 #2', start_date: '2023-04-20 00:00', duration: 3, progress: 0.4, parent: 1 },
+        { id: 4, text: '任务 #3', start_date: '2023-04-25 00:00', duration: 4, progress: 0.6, parent: 1 },
+
     ],
     links: [
         { id: 1, source: 1, target: 2, type: '0' },
