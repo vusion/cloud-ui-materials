@@ -1,15 +1,15 @@
 <template>
     <div class="root">
-        <div>
+        <div class="functionBar">
             <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
                 <u-select-item value="y">年</u-select-item>
                 <u-select-item value="m">月</u-select-item>
                 <u-select-item value="w">周</u-select-item>
                 <u-select-item value="d">日</u-select-item>
             </u-select>
-
+            <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput"></u-input>
+            <u-button icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
         </div>
-
         <div id="gantt" ref="gantt" class="container"/>
     </div>
 </template>
@@ -27,6 +27,8 @@ export default {
         return {
             defaultDateView: 'd',
             ganttInstance: null,
+            searchTitle: '',
+            ganttEvent: {},
         };
     },
     props: {
@@ -51,6 +53,30 @@ export default {
         },
     },
     methods: {
+        hasSubstr(parentId,type){
+            let task = gantt.getTask(parentId);
+            if(type=='title'){
+                if(task.text.toLowerCase().indexOf(this.searchTitle) !== -1)
+                    return true;
+            }
+        },
+        searchTask() {
+            if(this.searchTitle){
+                this.ganttEvent.onBeforeTaskDisplay=gantt.attachEvent("onBeforeTaskDisplay", (id, task)=>{
+                    if (this.hasSubstr(id,'title') ){ return true;}
+                    return false;
+                });
+                gantt.refreshData()
+                gantt.render()
+            }else{
+                this.ganttEvent.onBeforeTaskDisplay=gantt.attachEvent("onBeforeTaskDisplay", (id, task)=>{
+                    return true
+                })
+                gantt.refreshData()
+                gantt.render()
+            }
+
+        },
         initGantt() {
             gantt.clearAll();
             gantt.serverList("priority", [
@@ -134,6 +160,14 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+
+.functionBar {
+    display: flex;
+    flex-direction: row;
+}
+
+.searchInput {
 }
 
 .weekend {
