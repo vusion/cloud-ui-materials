@@ -31,6 +31,7 @@
 
 <script>
 import VueLuckyCanvas from '@lucky-canvas/vue';
+import { UModal } from 'cloud-ui.vusion/src/components/u-modal.vue';
 import Vue from 'vue';
 
 Vue.use(VueLuckyCanvas);
@@ -50,6 +51,9 @@ export default {
           imgs: [{src: this.start_img || require('./assets/start_huyu.png'), width: '100%', height: '100%'}],
         }],
     }
+  },
+  components: {
+    UModal,
   },
   watch: {
     width() {
