@@ -23,8 +23,6 @@ export const initialData = {
         { id: 1, text: '项目 #1', start_date: '2023-04-15 00:00', duration: 3, progress: 0.6, open: true },
         { id: 2, text: '任务 #1', start_date: '2023-04-18 00:00', duration: 3, progress: 0.4, parent: 1 },
         { id: 3, text: '任务 #2', start_date: '2023-04-20 00:00', duration: 3, progress: 0.4, parent: 1 },
-        { id: 4, text: '任务 #3', start_date: '2023-04-25 00:00', duration: 4, progress: 0.6, parent: 1 },
-
     ],
     links: [
         { id: 1, source: 1, target: 2, type: '0' },
@@ -71,7 +69,7 @@ export const basicConfig = {
         //{ name: "add", width: 44 }
         {
             name: "text",
-            min_width: 100,
+            min_width: 130,
             max_width: 200,
             label: "任务",
             align: "left",
@@ -82,16 +80,12 @@ export const basicConfig = {
         {name: "id", label: "", hide: true},
         {name: "start_date", label: "开始时间", width: 120, resize: true, align: "left"},
         {
-            name: "head", width: 110, height: 40, label: "负责人", resize: true, align: "left",
+            name: "head", width: 110, height: 40, label: "负责人", resize: true, align: "center",
             // editor: {
             //      map_to: "head_id", type: "select", options: gantt.serverList("staff"),
             // },
             // #这里的template渲染的是任务头像跟名称，this.genttDealById 是在methods定义的方法根据id获取名称，gantt.serverList()是甘特图获取数据集分发
-            template: (item) => {
-                if (ganttDealById(gantt.serverList('staff'), item.head_id)) {
-                    return `<span class='userIcon' style='background-color:${item.color ? item.color : "#6666"}'>${ganttDealById(gantt.serverList('staff'), item.head_id).slice(0, 1)}</span>${ganttDealById(gantt.serverList('staff'), item.head_id)}`
-                }
-            }
+
         },
         // { name: "end_date", label: "结束时间", align: "center" },
         {
