@@ -1,15 +1,21 @@
 <template>
     <div class="root">
-        <div class="functionBar">
-            <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
-                <u-select-item value="y">年</u-select-item>
-                <u-select-item value="m">月</u-select-item>
-                <u-select-item value="w">周</u-select-item>
-                <u-select-item value="d">日</u-select-item>
-            </u-select>
-            <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput"></u-input>
-            <u-button icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
-        </div>
+        <u-linear-layout type="flex" justify="space-between" class="functionBar">
+
+            <div>
+                <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput"></u-input>
+                <u-button icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
+            </div>
+            <div>
+                <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
+                    <u-select-item value="y">年</u-select-item>
+                    <u-select-item value="m">月</u-select-item>
+                    <u-select-item value="w">周</u-select-item>
+                    <u-select-item value="d">日</u-select-item>
+                </u-select>
+                <u-button icon="" @click="changeToday">今日</u-button>
+            </div>
+        </u-linear-layout>
         <div id="gantt" ref="gantt" class="container"/>
     </div>
 </template>
@@ -36,7 +42,10 @@ export default {
     },
     mixins: [supportDataSource],
     mounted() {
-        this.initGantt();
+        this.$nextTick(() => {
+            this.initGantt();
+            this.ganttChangeEvent();//交互事件
+        });
     },
     computed: {
         changedObj() {
@@ -47,29 +56,34 @@ export default {
     watch: {
         changedObj: {
             handler() {
-                this.initGantt();
+                this.$nextTick(() => {
+                    this.initGantt();
+                    this.ganttChangeEvent();//交互事件
+                });
             },
             deep: true,
         },
     },
     methods: {
-        hasSubstr(parentId,type){
+        hasSubstr(parentId, type) {
             let task = gantt.getTask(parentId);
-            if(type=='title'){
-                if(task.text.toLowerCase().indexOf(this.searchTitle) !== -1)
+            if (type == 'title') {
+                if (task.text.toLowerCase().indexOf(this.searchTitle) !== -1)
                     return true;
             }
         },
         searchTask() {
-            if(this.searchTitle){
-                this.ganttEvent.onBeforeTaskDisplay=gantt.attachEvent("onBeforeTaskDisplay", (id, task)=>{
-                    if (this.hasSubstr(id,'title') ){ return true;}
+            if (this.searchTitle) {
+                this.ganttEvent.onBeforeTaskDisplay = gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
+                    if (this.hasSubstr(id, 'title')) {
+                        return true;
+                    }
                     return false;
                 });
                 gantt.refreshData()
                 gantt.render()
-            }else{
-                this.ganttEvent.onBeforeTaskDisplay=gantt.attachEvent("onBeforeTaskDisplay", (id, task)=>{
+            } else {
+                this.ganttEvent.onBeforeTaskDisplay = gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
                     return true
                 })
                 gantt.refreshData()
@@ -93,10 +107,7 @@ export default {
                 ...basicConfig,
             };
             gantt.plugins(ganttPlugins);
-            gantt.addMarker({
-                start_date: new Date(),
-                text: '今日'
-            });
+            this.createTodayLine();
             // this.highlightWeekend();
             gantt.init(this.$refs.gantt);
             gantt.parse({
@@ -111,6 +122,25 @@ export default {
                 }
                 return '';
             }
+        },
+        // 今日线
+        createTodayLine() {
+            var dateToStr = gantt.date.date_to_str("%Y年%M%d日");
+            var markerId = gantt.addMarker({
+                id: 'markerLine',
+                start_date: new Date(),
+                css: "today",
+                text: "今日",
+                title: dateToStr(new Date())
+            });
+            gantt.updateMarker(markerId);
+        },
+        //定位到今日线
+        changeToday() {
+            this.$nextTick(() => {
+                let ganTT = document.getElementsByClassName('gantt_marker today')
+                gantt.scrollTo(ganTT[0].offsetLeft - 300, null);
+            })
         },
         // 切换年月周日视图
         ganttChangeDateView(event) {
@@ -145,8 +175,66 @@ export default {
             }
             gantt.render();
         },
+        // gantt交互事件注册
+        ganttChangeEvent() {
+            // gantt渲染
+            this.ganttEvent.onGanttReady = gantt.attachEvent("onGanttReady", () => {
+                //弹窗标题 日期范围
+                gantt.templates.task_time = function (start, end, task) {
+                    return "周期：" + moment(start).format('YYYY-MM-DD') + " 至 " + moment(end).format('YYYY-MM-DD');
+                };
+                // 浮窗
+                gantt.templates.tooltip_text = (start, end, task) => {
+                    return "<b>项目名称:</b> " + task.text + "<br><b>负责人:</b>" + task.head + "<br/><b>开始时间:</b> "
+                        + moment(start).format('YYYY-MM-DD')
+                        + "<br/><b>结束时间:</b> "
+                        + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
+                }
+                //弹窗标题 计划名称
+                gantt.templates.task_text = function (start, end, task) {
+                    return task.text;
+                };
+                gantt.templates.timeline_cell_class = function (task, date) {
+                    if (!gantt.isWorkTime({task: task, date: date})) {
+                        return "weekend";
+                    } else {
+                        return 'weekday'
+                    }
+                };
+                gantt.templates.task_end_date = (date) => {
+                    return gantt.templates.task_date(this.moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD"));
+                };
+                gantt.templates.grid_date_format = (date, column) => {
+                    if (column === "end_date") {
+                        return this.moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD");
+                    } else {
+                        return this.moment(date).format("YYYY-MM-DD");
+                    }
+                }
+            });
+            // 修改默认弹窗
+            gantt.attachEvent("onBeforeLightbox", (id) => {
+                var task = gantt.getTask(id);
+                task.proTemplate = `${gantt.locale.labels.taskProjectType_0}`
+                return true;
+            });
+            // 用户完成拖动并释放鼠标
+            this.ganttEvent.onAfterTaskChanged = gantt.attachEvent("onAfterTaskChanged", (id, mode, task) => {
+                clearTimeout(this.timer)
+                this.timer = setTimeout(() => {
+                    gantt.render();
+                }, 500)
+            });
+            // 保存新增
+            this.ganttEvent.onLightboxSave = gantt.attachEvent("onLightboxSave", (id, item) => {
+                if (!item.text) {
+                    this.$toast.error("请填写计划名称!");
+                    return false;
+                }
+                return true;
+            });
+        },
     }
-
 };
 </script>
 
@@ -162,15 +250,10 @@ export default {
     overflow: hidden;
 }
 
-.functionBar {
-    display: flex;
-    flex-direction: row;
-}
-
-.searchInput {
-}
-
 .weekend {
-    background: #ddd;
+    background: #fafafa !important;
+}
+.weekday{
+    background: #fff;
 }
 </style>
