@@ -16,6 +16,28 @@
       designer-value: "[{}, {}, {}]"
       description: 甘特图关系数据源，数据集对象或者返回数据集的逻辑
       group: 数据属性
+    - name: taskView
+      title: 切换日期视图
+      type: string
+      default: d
+      description: 切换日期视图
+      options:
+        - value: d
+          title: 日
+        - value: w
+          title: 周
+        - value: m
+          title: 月
+        - value: y
+          title: 年
+      group: 展示属性
+    - name: showToday
+      title: 显示今日标记线
+      type: boolean
+      default: true
+      description: 设置显示今日标记线
+      group: 展示属性
+
   slots:
     - name: default
       description: 插入文本或 HTML。

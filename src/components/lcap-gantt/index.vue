@@ -1,5 +1,5 @@
 <template>
-    <div class="root">
+    <div class="ganttRoot">
         <u-linear-layout type="flex" justify="space-between" class="functionBar">
 
             <div>
@@ -13,10 +13,10 @@
                     <u-select-item value="w">周</u-select-item>
                     <u-select-item value="d">日</u-select-item>
                 </u-select>
-                <u-button icon="" @click="changeToday">今日</u-button>
+                <u-button icon="" v-if="showToday" @click="changeToday">今日</u-button>
             </div>
         </u-linear-layout>
-        <div id="gantt" ref="gantt" class="container"/>
+        <div id="gantt" ref="gantt" class="ganttContainer"/>
     </div>
 </template>
 
@@ -39,6 +39,9 @@ export default {
     },
     props: {
         dataSource: [Function, Array, Object],
+        linkSource: [Function, Array, Object],
+        showToday: {type: Boolean, default: true},
+        taskView: {type: String, default: 'd'},
     },
     mixins: [supportDataSource],
     mounted() {
@@ -62,6 +65,11 @@ export default {
                 });
             },
             deep: true,
+        },
+        taskView: {
+            handler() {
+                this.ganttChangeDateView(this.taskView);
+            },
         },
     },
     methods: {
@@ -107,8 +115,11 @@ export default {
                 ...basicConfig,
             };
             gantt.plugins(ganttPlugins);
-            this.createTodayLine();
-            // this.highlightWeekend();
+            if (this.showToday){
+                this.createTodayLine();
+            }
+            this.changeTaskColor();
+            this.highlightWeekend();
             gantt.init(this.$refs.gantt);
             gantt.parse({
                 data: this.innerDataSource || initialData.data,
@@ -142,9 +153,15 @@ export default {
                 gantt.scrollTo(ganTT[0].offsetLeft - 300, null);
             })
         },
+        changeTaskColor() {
+            gantt.templates.task_class = function (start, end, task) {
+                console.log(task);
+                // task.state值为default/unfinished/finished/canceled其中一种
+                return `milestone-${task.state}`;
+            }
+        },
         // 切换年月周日视图
         ganttChangeDateView(event) {
-            console.log(event);
             switch (event.value) {
                 case 'y':
                     gantt.config.scale_unit = "year";
@@ -238,13 +255,13 @@ export default {
 };
 </script>
 
-<style scoped>
-.root {
+<style>
+.ganttRoot {
     width: 100%;
     height: 600px;
 }
 
-.container {
+.ganttContainer {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -256,4 +273,25 @@ export default {
 .weekday{
     background: #fff;
 }
+.milestone-default {
+    border: none;
+    background: rgba(0, 0, 0, 0.45);
+}
+.milestone-unfinished {
+    border: none;
+    background: #5692f0 !important;
+}
+.milestone-finished {
+    border: none;
+    background: #84bd54 !important;
+}
+.milestone-canceled {
+    border: none;
+    background: #da645d !important;
+}
+
+.gantt_task_progress {
+    opacity: 0.2 !important;
+}
+
 </style>
