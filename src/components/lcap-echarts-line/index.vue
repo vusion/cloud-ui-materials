@@ -58,6 +58,11 @@ export default {
   created() {
     this.init();
   },
+  mounted() {
+    let temp = this.$el.style.cssText;
+    let temp2 = getComputedStyle(this.$el);
+    console.log(temp);
+  },
   computed: {
     size() {
       return {

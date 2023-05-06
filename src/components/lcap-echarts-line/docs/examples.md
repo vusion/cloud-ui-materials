@@ -21,6 +21,7 @@
     :showYAxisLine=true
     :showXAxisLabel=true
     :showYAxisLabel=true
+    style="--button-background-primary: #617fb0;"
     >
 </lcap-echarts-line>
 <lcap-echarts-line 
