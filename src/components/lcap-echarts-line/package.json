@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-line",
   "description": "",
-  "version": "2.0.8",
+  "version": "2.0.10",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-echarts-line@2.0.7/index.html",
+  "homepage": "http://ceph.lcap.hadev.163yun.com/lowcode-static/lcap-echarts-line@2.0.10/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -39,14 +39,15 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-line@2.0.7/screenshots/0.png"
+      "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-line@2.0.10/screenshots/0.png"
     ],
     "team": "",
     "access": "public"
   },
   "dependencies": {
     "echarts": "^5.3.2",
-    "fs-extra": "^9.0.1"
+    "fs-extra": "^9.0.1",
+    "lcap": "^0.1.24"
   },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",

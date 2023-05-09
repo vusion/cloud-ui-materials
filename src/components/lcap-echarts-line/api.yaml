@@ -160,3 +160,17 @@
       title: reload
       description: 刷新数据
       params: []
+  themes:
+    - name: --labelFontSize
+      title: 数据标签文字大小
+      default: 14px
+      type: input
+      description: 设置数据标签文字大小
+      group: 数据标签
+    - name: --labelFontColor
+      title: 数据标签文字颜色
+      default: '#FFFFFF'
+      type: color
+      description: 设置数据标签文字颜色
+      group: 数据标签
+
