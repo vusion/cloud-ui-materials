@@ -4,6 +4,7 @@
       v-if="!loading"
       :axisData="axisData"
       :size="size"
+      :customStyle="customStyle"
       :sourceData="sourceData"
       @startLoading="startLoading"
       ref="echart"
@@ -53,15 +54,23 @@ export default {
     return {
       sourceData: undefined,
       loading: false,
+      customStyle: {},
     };
   },
   created() {
     this.init();
   },
   mounted() {
-    let temp = this.$el.style.cssText;
-    let temp2 = getComputedStyle(this.$el);
-    console.log(temp);
+    // 监听style样式变化
+    this.customStyle = this.parseCustomStyle(this.$el);
+    const observer = new MutationObserver(function (mutations) {
+      mutations.map(function (mutation) {
+        if (mutation.type === 'attributes') {
+          this.customStyle = this.parseCustomStyle(this.$el);
+        }
+      }.bind(this));
+    }.bind(this));
+    observer.observe(this.$el, {attributes: true});
   },
   computed: {
     size() {
@@ -102,9 +111,21 @@ export default {
       handler() {
         this.init();
       }
-    }
+    },
   },
   methods: {
+    parseCustomStyle(element) {
+      const cssList = element.style.cssText.split(';');
+      const cssObj = {};
+      cssList.forEach(item => {
+        const [key, value] = item.split(':');
+        if (key && value) {
+          cssObj[key.trim()] = value.trim();
+        }
+      });
+      return cssObj;
+
+    },
     reload() {
       this.sourceData = 'fakeData';
       this.$nextTick(async () => {

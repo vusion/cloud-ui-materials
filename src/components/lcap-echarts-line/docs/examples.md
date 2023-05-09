@@ -21,19 +21,9 @@
     :showYAxisLine=true
     :showXAxisLabel=true
     :showYAxisLabel=true
-    style="--button-background-primary: #617fb0;"
-    >
+    style="--labelFontSize:18px;--labelFontColor:#de5a5a;">
 </lcap-echarts-line>
-<lcap-echarts-line 
-    xAxis="" 
-    legendName=""
-    yAxis="property2" 
-    xAxisTitle="维度" 
-    yAxisTitle="指标" 
-    title="标题"
-    theme="theme1"
-    >
-</lcap-echarts-line>
+
 
 ```
 

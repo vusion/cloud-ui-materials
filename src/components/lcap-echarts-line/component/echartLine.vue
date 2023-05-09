@@ -13,6 +13,7 @@ export default {
     sourceData: [Array, Object],
     size: [Object],
     axisData: [Object],
+    customStyle: [Object],
   },
   data() {
     return {
@@ -25,8 +26,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData} = this;
-      return {size, axisData, sourceData};
+      let {size, axisData, sourceData, customStyle} = this;
+      return {size, axisData, sourceData, customStyle};
     },
     formattedSize() {
       let width = this.size.width.replace("px", "") || 340;
@@ -250,7 +251,8 @@ export default {
         title: {
           text: this.axisData.title,
           textStyle: {
-            fontSize: this.axisData.titleFontSize,
+            fontSize: this.customStyle['--labelFontSize'] || this.axisData.titleFontSize,
+            color: this.customStyle['--labelFontColor'],
             fontStyle: this.axisData.titleFontStyle,
           }
         },
