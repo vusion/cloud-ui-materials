@@ -98,9 +98,7 @@ export default {
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
-          if (axisData || axisData === 0) {
-            res.push(this.recurGetValue(item, axis));
-          }
+          res.push( axisData || axisData === 0 ? this.recurGetValue(item, axis) : null);
         }
       } else {
         for (let item in data) {
@@ -220,8 +218,8 @@ export default {
         legendAliasList = multiYAxisList;
       }
       for (let index=0; index<params.length; index++) {
-        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${params[index].value}</b></div>`
-      }
+        const showText = params[index].value || params[index].value === 0 ? params[index].value : ' ';
+        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${ showText }</b></div>`      }
       return template;
     },
     generateEchartOption(legendData, seriesData, xAxisData) {
