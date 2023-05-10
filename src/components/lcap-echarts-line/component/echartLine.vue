@@ -124,6 +124,12 @@ export default {
             fontWeight: "bolder",
             fontSize: 14
           },
+          splitLine: {
+            show: this.axisData.axisSplitLine === 'vertical' || this.axisData.axisSplitLine === 'both',
+            lineStyle: {
+              type: this.axisData.axisSplitLineType,
+            }
+          },
           boundaryGap: false,
           axisLine: {
             show: this.axisData.showXAxisLine,
@@ -275,6 +281,12 @@ export default {
             padding: [0, 0, 20, 0],
             fontWeight: "bolder",
             fontSize: 14,
+          },
+          splitLine: {
+            show: this.axisData.axisSplitLine === 'horizontal' || this.axisData.axisSplitLine === 'both',
+            lineStyle: {
+              type: this.axisData.axisSplitLineType,
+            }
           },
         },
         series: seriesData,
