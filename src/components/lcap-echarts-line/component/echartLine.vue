@@ -30,8 +30,13 @@ export default {
       return {size, axisData, sourceData, customStyle};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 340;
-      let height = this.size.height.replace("px", "") || 300;
+      // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
+      const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
+      const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
+      const propsWidth = this.size.width && this.size.width.replace("px", "");
+      const propsHeight = this.size.height && this.size.height.replace("px", "");
+      const width = styleWidth ||  propsWidth|| 340;
+      const height = styleHeight || propsHeight || 300;
       return {
         width: `${width}px`,
         height: `${height}px`,

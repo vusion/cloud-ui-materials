@@ -24,18 +24,6 @@
       default: ''
       description: 设置指标（y轴），多个指标以逗号分隔
       group: 维度指标
-    - name: width
-      title: 宽度
-      type: string
-      default: 340px
-      description: 设置图宽度
-      group: 图表基础
-    - name: height
-      title: 高度
-      type: string
-      default: 300px
-      description: 设置图高度
-      group: 图表基础
     - name: title
       title: 标题
       type: string
