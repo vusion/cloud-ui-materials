@@ -19,6 +19,13 @@
     :showYAxisLine=true
     :showXAxisLabel=true
     :showYAxisLabel=true
+    axisSplitLine="horizontal"
+    axisSplitLineType="dashed"
+    :areaFilled=false
+    lineStyleSymbol="emptyCircle"
+    lineType="dotted"
+    lineStyleSmooth='smooth'
+    undefinedToZero='zero'
     style="--labelFontSize:18px;--labelFontColor:#de5a5a;width: 500px; height:400px">
 </lcap-echarts-line>
 

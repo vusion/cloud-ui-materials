@@ -98,7 +98,8 @@ export default {
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
-          res.push( axisData || axisData === 0 ? this.recurGetValue(item, axis) : null);
+          const showZero = this.axisData.undefinedToZero === 'empty' ? null : 0;
+          res.push( axisData || axisData === 0 ? this.recurGetValue(item, axis) : showZero);
         }
       } else {
         for (let item in data) {
@@ -149,10 +150,25 @@ export default {
           name: item,
           type: 'line',
           data: this.getAxisData(data, item),
+          smooth: this.axisData.lineStyleSmooth === 'smooth' ? true: false,
           showBackground: true,
           label: {
             show: this.axisData.allowShowLabel,
           },
+          symbol: this.axisData.lineStyleSymbol,
+          symbolSize: 6,
+          itemStyle: {
+            normal: {
+              lineStyle: {
+                type: this.axisData.lineType,
+              }
+            }
+          },
+        })
+      }
+      if (this.axisData.areaFilled) {
+        seriesData.forEach((item) => {
+          item.areaStyle = {}
         })
       }
       return seriesData;
@@ -224,7 +240,8 @@ export default {
         legendAliasList = multiYAxisList;
       }
       for (let index=0; index<params.length; index++) {
-        const showText = params[index].value || params[index].value === 0 ? params[index].value : ' ';
+        const showZero = this.axisData.undefinedToZero === 'empty' ? ' ' : 0;
+        const showText = params[index].value || params[index].value === 0 ? params[index].value : showZero;
         template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${ showText }</b></div>`      }
       return template;
     },
