@@ -162,6 +162,7 @@ export default {
             normal: {
               lineStyle: {
                 type: this.axisData.lineType,
+                color: this.customStyle['--area-line-color'],
               }
             }
           },
@@ -169,7 +170,9 @@ export default {
       }
       if (this.axisData.areaFilled) {
         seriesData.forEach((item) => {
-          item.areaStyle = {}
+          item.areaStyle = {
+            color: this.customStyle['--area-fill-color'],
+          }
         })
       }
       return seriesData;

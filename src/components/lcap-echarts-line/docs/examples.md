@@ -20,14 +20,16 @@
     :showYAxisLabel=true
     axisSplitLine="horizontal"
     axisSplitLineType="dashed"
-    :areaFilled=false
+    :areaFilled=true
     lineStyleSymbol="emptyCircle"
     lineStyleSymbolSize="8"
     lineType="dotted"
     lineStyleSmooth='smooth'
     labelPosition="top"
     undefinedToZero='zero'
-    style="--labelFontSize:18px;--labelFontColor:#de5a5a;width: 500px; height:400px">
+    style="--labelFontSize:18px;
+    --labelFontColor:#de5a5a;width: 500px; height:400px;
+    --area-fill-color:#e54949;--area-line-color:#e54949;">
 </lcap-echarts-line>
 
 ```
