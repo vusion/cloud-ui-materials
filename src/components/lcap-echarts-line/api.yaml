@@ -82,11 +82,24 @@
         - value: theme4
           title: 经典
       group: 图表属性
-    - name: allowShowLabel
-      title: 显示标签
-      type: boolean
-      default: true
-      description: 设置是否显示标签
+    - name: labelPosition
+      title: 数据标签位置
+      type: string
+      default: top
+      options:
+        - value: top
+          title: 上
+        - value: bottom
+          title: 下
+        - value: left
+          title: 左
+        - value: right
+          title: 右
+        - value: inside
+          title: 居中
+        - value: hidden
+          title: 无
+      description: 设置数据标签位置
       group: 图表属性
     - name: allowShowHint
       title: 显示提示
@@ -157,6 +170,12 @@
           title: 箭头
         - value: none
           title: 无
+      group: 线条属性
+    - name: lineStyleSymbolSize
+      title: 线条标记大小
+      type: string
+      default: 6
+      description: 设置线条标记大小
       group: 线条属性
     - name: xAxisTitle
       title: X轴标题

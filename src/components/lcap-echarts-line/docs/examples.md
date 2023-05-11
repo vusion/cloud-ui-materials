@@ -12,7 +12,6 @@
     :titleFontSize=16
     titleFontStyle="italic"
     :allowDownload=true
-    :allowShowLabel=true
     :allowShowHint=true
     :allowShowLegend=true
     :showXAxisLine=true
@@ -23,8 +22,10 @@
     axisSplitLineType="dashed"
     :areaFilled=false
     lineStyleSymbol="emptyCircle"
+    lineStyleSymbolSize="8"
     lineType="dotted"
     lineStyleSmooth='smooth'
+    labelPosition="top"
     undefinedToZero='zero'
     style="--labelFontSize:18px;--labelFontColor:#de5a5a;width: 500px; height:400px">
 </lcap-echarts-line>

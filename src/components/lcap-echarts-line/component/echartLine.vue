@@ -153,10 +153,11 @@ export default {
           smooth: this.axisData.lineStyleSmooth === 'smooth' ? true: false,
           showBackground: true,
           label: {
-            show: this.axisData.allowShowLabel,
+            show: this.axisData.labelPosition !== 'hidden',
+            position: this.axisData.labelPosition,
           },
           symbol: this.axisData.lineStyleSymbol,
-          symbolSize: 6,
+          symbolSize: this.axisData.lineStyleSymbolSize,
           itemStyle: {
             normal: {
               lineStyle: {

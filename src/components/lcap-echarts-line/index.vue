@@ -40,7 +40,6 @@ export default {
     titleFontSize: {type: Number, default: 18},
     titleFontStyle: {type: String, default: 'normal'},
     allowDownload: {type: Boolean, default: true},
-    allowShowLabel: {type: Boolean, default: true},
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
     axisSplitLineType: {type: String, default: 'solid'},
@@ -49,6 +48,8 @@ export default {
     lineType: {type: String, default: 'solid'},
     lineStyleSmooth: {type: String, default: 'normal'},
     lineStyleSymbol: {type: String, default: 'emptyCircle'},
+    lineStyleSymbolSize: {type: String, default: 6},
+    labelPosition: {type: String, default: 'top'},
     undefinedToZero: {type: String, default: 'empty'},
     legendName: {type: String, default: ''},
     showXAxisLine: {type: Boolean, default: true},
@@ -98,7 +99,6 @@ export default {
         titleFontSize: this.titleFontSize,
         titleFontStyle: this.titleFontStyle,
         allowDownload: this.allowDownload,
-        allowShowLabel: this.allowShowLabel,
         allowShowHint: this.allowShowHint,
         allowShowLegend: this.allowShowLegend,
         axisSplitLineType: this.axisSplitLineType,
@@ -107,6 +107,8 @@ export default {
         lineType: this.lineType,
         lineStyleSymbol: this.lineStyleSymbol,
         lineStyleSmooth: this.lineStyleSmooth,
+        lineStyleSymbolSize: this.lineStyleSymbolSize,
+        labelPosition: this.labelPosition,
         undefinedToZero: this.undefinedToZero,
         showXAxisLine: this.showXAxisLine,
         showYAxisLine: this.showYAxisLine,
@@ -137,6 +139,7 @@ export default {
           cssObj[key.trim()] = value.trim();
         }
       });
+      // console.log('cssObj', cssObj);
       return cssObj;
 
     },
