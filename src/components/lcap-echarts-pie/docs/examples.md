@@ -13,6 +13,7 @@
     legendName="数学"
     :showLabelName=true
     :showLabelValue=true
+    pieType="semi-circle"
     :showLabelPercent=true
 ></lcap-echarts-pie>
 

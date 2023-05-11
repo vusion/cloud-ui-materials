@@ -110,6 +110,17 @@ export default {
             name: xAxisData[index],
           });
       }
+      if (this.axisData.pieType === 'semi-circle') {
+        const sum = yAxisData.reduce((total, num) => total + num);
+        pieData.push({
+          value: sum,
+          itemStyle: {
+            color: 'none',
+            decal: {symbol: 'none'}
+          },
+          label: {show: false}
+        })
+      }
       return pieData;
     },
     generateLabelData() {
@@ -186,10 +197,19 @@ export default {
           {
             type: 'pie',
             data: pieData,
+            radius: this.axisData.pieType !== 'pie' ? ['40%', '70%'] : [0, '75%'],
+            startAngle: this.axisData.pieType === 'semi-circle' ? 180 : 0,
+            center: this.axisData.pieType === 'semi-circle' ? ['50%', '70%'] : ['50%', '50%'],
             label: {
               show: showLabel,
               formatter: labelData,
-            }
+              position: this.axisData.pieType !== 'pie' ? 'center' : 'outside',
+            },
+            itemStyle: this.axisData.pieType !== 'pie' ? {
+              borderRadius: 5,
+              borderColor: '#fff',
+              borderWidth: 1
+            } : '',
           }
         ],
       };
