@@ -87,6 +87,21 @@
       default: true
       description: 设置是否显示图例
       group: 图表基础
+    - name: legendPosition
+      title: 图例位置
+      type: string
+      default: top
+      options:
+        - value: top
+          title: 上
+        - value: bottom
+          title: 下
+        - value: left
+          title: 左
+        - value: right
+          title: 右
+      description: 设置图例位置
+      group: 图表基础
     - name: pieType
       title: 饼类型
       type: string

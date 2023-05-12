@@ -5,8 +5,29 @@
 </template>
 
 <script>
+const legendPositionMap = {
+  top: {
+    orient: 'horizontal',
+    top: '7%',
+    left: 'center',
+  },
+  bottom: {
+    orient: 'horizontal',
+    bottom: '0%',
+    left: 'center',
+  },
+  left: {
+    orient: 'vertical',
+    top: 'middle',
+    left: '0%',
+  },
+  right: {
+    orient: 'vertical',
+    top: 'middle',
+    right: '0%',
+  },
+}
 import * as echarts from 'echarts/core'
-
 export default {
   name: "echartPie",
   props: {
@@ -171,8 +192,7 @@ export default {
         },
         legend: {
           show: this.axisData.allowShowLegend,
-          bottom: '-1%',
-          left: 'center',
+          ...legendPositionMap[this.axisData.legendPosition],
         },
         tooltip: {
           show: this.axisData.allowShowHint,

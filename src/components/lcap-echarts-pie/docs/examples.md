@@ -13,8 +13,9 @@
     legendName="数学"
     :showLabelName=true
     :showLabelValue=true
-    pieType="semi-circle"
+    pieType="circle"
     :showLabelPercent=true
+    legendPosition="top"
 ></lcap-echarts-pie>
 
 ```
