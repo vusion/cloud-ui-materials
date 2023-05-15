@@ -22,6 +22,7 @@
     :showYAxisLine=true
     :showXAxisLabel=true
     :showYAxisLabel=true
+    xAxisType="xBase"
     xAxisLabelRotate="0">
 </lcap-echarts-bar>
 ```

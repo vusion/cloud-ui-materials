@@ -26,13 +26,13 @@
       type: string
       default: ''
       description: 设置维度(统计类别)
-      group: 维度指标
+      group: 图表数据
     - name: yAxis
       title: 度量
       type: string
       default: ''
       description: 设置度量（统计值），多个统计值以逗号分隔
-      group: 维度指标
+      group: 图表数据
     - name: title
       title: 图表标题
       type: string

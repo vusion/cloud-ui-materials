@@ -52,6 +52,7 @@ export default {
     showXAxisLabel: {type: Boolean, default: true},
     showYAxisLabel: {type: Boolean, default: true},
     xAxisLabelRotate: {type: String, default: '0'},
+    xAxisType: {type: String, default: 'xBase'},
   },
   data() {
     return {
@@ -106,6 +107,7 @@ export default {
         showXAxisLabel: this.showXAxisLabel,
         showYAxisLabel: this.showYAxisLabel,
         xAxisLabelRotate: this.xAxisLabelRotate,
+        xAxisType: this.xAxisType,
       }
     },
     changedObj() {

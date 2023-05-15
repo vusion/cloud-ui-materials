@@ -19,6 +19,7 @@ export default {
     return {
       barData: {},
       barOption: {},
+      xAxisDataOption: [],
     }
   },
   mounted() {
@@ -113,11 +114,14 @@ export default {
       let xData = [];
       for (let item of multiXAxisList) {
         xData.push(this.getAxisData(data, item))
+        this.xAxisDataOption = this.getAxisData(data, item);
       }
+      console.log('xData', this.xAxisData);
       for (let index = 0; index < xData.length; index++) {
         xAxisData.push(
           {
             data: xData[index],
+            type: this.axisData.xAxisType === 'xBase'? 'category' : 'value',
             name: xAxisTitleList[index] || '',
             nameLocation: "middle",
             nameTextStyle: {
@@ -202,7 +206,8 @@ export default {
           }
         }
       }
-      this.barOption = this.generateEchartOption(legendData, seriesData, xAxisData);
+      this.barOption = this.generateEchartOption(legendData, seriesData, xAxisData, this.xAxisDataOption);
+      console.log('option', this.barOption);
     },
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
@@ -237,10 +242,10 @@ export default {
       }
       return template;
     },
-    generateEchartOption(legendData, seriesData, xAxisData) {
+    generateEchartOption(legendData, seriesData, xAxisData, yAxisDataOption) {
       return {
         grid: {
-          left: '15%',
+          left: '20%',
           show: this.customStyle['--grid-line-background-color'] || this.customStyle['--grid-line-border-color'],
           backgroundColor: this.customStyle['--grid-line-background-color'],
           borderColor: this.customStyle['--grid-line-border-color'],
@@ -277,7 +282,8 @@ export default {
         },
         xAxis: xAxisData,
         yAxis: {
-          type: 'value',
+          data: yAxisDataOption,
+          type: this.axisData.xAxisType === 'xBase' ? 'value' : 'category',
           name: this.axisData.yAxisTitle || '',
           axisLine: {
             show: this.axisData.showYAxisLine,
@@ -290,6 +296,7 @@ export default {
           },
           nameLocation: "middle",
           nameRotate: 90,
+          nameGap: 22,
           nameTextStyle: {
             padding: [0, 0, 20, 0],
             fontWeight: "bolder",
