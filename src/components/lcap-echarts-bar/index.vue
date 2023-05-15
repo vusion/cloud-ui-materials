@@ -5,6 +5,7 @@
       :axisData="axisData"
       :size="size"
       :sourceData="sourceData"
+      :customStyle="customStyle"
       @startLoading="startLoading"
       ref="echart"
     ></echart-bar>
@@ -41,7 +42,11 @@ export default {
     allowShowLabel: {type: Boolean, default: true},
     allowShowHint: {type: Boolean, default: true},
     allowShowLegend: {type: Boolean, default: true},
+    axisSplitLineType: {type: String, default: 'solid'},
+    axisSplitLine: {type: String, default: 'horizontal'},
     legendName: {type: String, default: ''},
+    labelPosition: {type: String, default: 'inside'},
+    undefinedToZero: {type: String, default: 'empty'},
     showXAxisLine: {type: Boolean, default: true},
     showYAxisLine: {type: Boolean, default: true},
     showXAxisLabel: {type: Boolean, default: true},
@@ -52,10 +57,23 @@ export default {
     return {
       sourceData: undefined,
       loading: false,
+      customStyle: {},
     };
   },
   created() {
     this.init();
+  },
+  mounted() {
+    // 监听style样式变化
+    this.customStyle = this.parseCustomStyle(this.$el);
+    const observer = new MutationObserver(function (mutations) {
+      mutations.map(function (mutation) {
+        if (mutation.type === 'attributes') {
+          this.customStyle = this.parseCustomStyle(this.$el);
+        }
+      }.bind(this));
+    }.bind(this));
+    observer.observe(this.$el, {attributes: true});
   },
   computed: {
     size() {
@@ -79,6 +97,10 @@ export default {
         allowShowLabel: this.allowShowLabel,
         allowShowHint: this.allowShowHint,
         allowShowLegend: this.allowShowLegend,
+        axisSplitLineType: this.axisSplitLineType,
+        axisSplitLine: this.axisSplitLine,
+        labelPosition: this.labelPosition,
+        undefinedToZero: this.undefinedToZero,
         showXAxisLine: this.showXAxisLine,
         showYAxisLine: this.showYAxisLine,
         showXAxisLabel: this.showXAxisLabel,
@@ -99,6 +121,17 @@ export default {
     }
   },
   methods: {
+    parseCustomStyle(element) {
+      const cssList = element.style.cssText.split(';');
+      const cssObj = {};
+      cssList.forEach(item => {
+        const [key, value] = item.split(':');
+        if (key && value) {
+          cssObj[key.trim()] = value.trim();
+        }
+      });
+      return cssObj;
+    },
     reload() {
       this.sourceData = 'fakeData';
       this.$nextTick(async () => {

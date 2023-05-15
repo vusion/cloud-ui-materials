@@ -25,15 +25,13 @@
       title: 维度
       type: string
       default: ''
-      bindHide: true
-      description: 设置维度(x轴)
+      description: 设置维度(统计类别)
       group: 维度指标
     - name: yAxis
-      title: 指标
+      title: 度量
       type: string
-      bindHide: true
       default: ''
-      description: 设置指标（y轴），多个指标以逗号分隔
+      description: 设置度量（统计值），多个统计值以逗号分隔
       group: 维度指标
     - name: title
       title: 图表标题
@@ -55,11 +53,13 @@
           value: vertical
         - title: 全部网格线
           value: both
+      group: 图表属性
     - name: axisSplitLineType
       title: 网格线线型
       type: string
       default: solid
       description: 设置网格线线型
+      group: 图表属性
       options:
         - title: 实线
           value: solid
@@ -261,13 +261,13 @@
       title: 标题文字大小
       default: 14px
       type: input
-      description: 设置数据标签文字大小
+      description: 设置标题标签文字大小
       group: 标题
     - name: --title-font-color
       title: 标题文字颜色
       default: '#FFFFFF'
       type: color
-      description: 设置数据标签文字颜色
+      description: 设置标题文字颜色
       group: 标题
     - name: --area-fill-color
       title: 面积图填充颜色

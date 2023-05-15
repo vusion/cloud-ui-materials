@@ -10,38 +10,63 @@
       designer-value: "[{}, {}, {}]"
       description: 表格的数据源，数据集对象或者返回数据集的逻辑
       group: 数据属性
+    - name: undefinedToZero
+      title: 空值处理规则
+      type: string
+      default: empty
+      options:
+        - value: empty
+          title: 空距
+        - value: zero
+          title: 0
+      description: 设置将未定义的值如undefined，null转换为0或空距
+      group: 数据源
     - name: xAxis
       title: 维度
       type: string
-      bindHide: true
       default: ''
-      description: 设置维度(x轴)
+      description: 设置维度(统计类别)
       group: 维度指标
     - name: yAxis
-      title: 指标
+      title: 度量
       type: string
-      bindHide: true
       default: ''
-      description: 设置指标（y轴），多个指标以逗号分隔
+      description: 设置度量（统计值），多个统计值以逗号分隔
       group: 维度指标
-    - name: width
-      title: 宽度
-      type: string
-      default: 340px
-      description: 设置图宽度
-      group: 图表基础
-    - name: height
-      title: 高度
-      type: string
-      default: 300px
-      description: 设置图高度
-      group: 图表基础
     - name: title
       title: 标题
       type: string
       default: 标题
       description: 设置主标题
       group: 图表基础
+    - name: axisSplitLine
+      title: 坐标系网格线
+      type: string
+      default: horizontal
+      description: 设置坐标系网格线
+      options:
+        - title: 无
+          value: hidden
+        - title: 水平网格线
+          value: horizontal
+        - title: 垂直网格线
+          value: vertical
+        - title: 全部网格线
+          value: both
+      group: 图表属性
+    - name: axisSplitLineType
+      title: 网格线线型
+      type: string
+      default: solid
+      description: 设置网格线线型
+      group: 图表属性
+      options:
+        - title: 实线
+          value: solid
+        - title: 虚线
+          value: dotted
+        - title: 点线
+          value: dashed
     - name: theme
       title: 配色方案
       type: string
@@ -57,12 +82,19 @@
         - value: theme4
           title: 经典
       group: 图表基础
-    - name: allowShowLabel
-      title: 显示标签
-      type: boolean
-      default: true
-      description: 设置是否显示标签
-      group: 图表基础
+    - name: labelPosition
+      title: 数据标签位置
+      type: string
+      default: top
+      options:
+        - value: top
+          title: 上
+        - value: inside
+          title: 居中
+        - value: hidden
+          title: 无
+      description: 设置数据标签位置
+      group: 图表属性
     - name: allowShowHint
       title: 显示提示
       type: boolean
@@ -160,3 +192,16 @@
       title: reload
       description: 刷新数据
       params: []
+  themes:
+    - name: --title-font-size
+      title: 标题文字大小
+      default: 14px
+      type: input
+      description: 设置数据标签文字大小
+      group: 标题
+    - name: --title-font-color
+      title: 标题文字颜色
+      default: '#FFFFFF'
+      type: color
+      description: 设置数据标签文字颜色
+      group: 标题

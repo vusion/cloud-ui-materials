@@ -1,0 +1,12 @@
+```html
+<lcap-echarts-bar 
+    xAxis="" 
+    legendName=""
+    yAxis="property2" 
+    xAxisTitle="维度" 
+    yAxisTitle="指标" 
+    title="标题"
+    theme="theme1"
+    >
+</lcap-echarts-bar>
+```

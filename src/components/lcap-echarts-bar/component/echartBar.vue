@@ -13,6 +13,7 @@ export default {
     sourceData: [Array, Object],
     size: [Object],
     axisData: [Object],
+    customStyle: [Object],
   },
   data() {
     return {
@@ -29,8 +30,13 @@ export default {
       return {size, axisData, sourceData};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 340;
-      let height = this.size.height.replace("px", "") || 300;
+      // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
+      const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
+      const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
+      const propsWidth = this.size.width && this.size.width.replace("px", "");
+      const propsHeight = this.size.height && this.size.height.replace("px", "");
+      const width = styleWidth ||  propsWidth|| 340;
+      const height = styleHeight || propsHeight || 300;
       return {
         width: `${width}px`,
         height: `${height}px`,
@@ -91,9 +97,8 @@ export default {
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
-          if (axisData || axisData === 0) {
-            res.push(this.recurGetValue(item, axis));
-          }
+          const showZero = this.axisData.undefinedToZero === 'empty' ? null : 0;
+          res.push( axisData || axisData === 0 ? this.recurGetValue(item, axis) : showZero);
         }
       } else {
         for (let item in data) {
@@ -119,6 +124,12 @@ export default {
             fontWeight: "bolder",
             fontSize: 14
           },
+          splitLine: {
+            show: this.axisData.axisSplitLine === 'vertical' || this.axisData.axisSplitLine === 'both',
+            lineStyle: {
+              type: this.axisData.axisSplitLineType,
+            }
+          },
             axisLine: {
               show: this.axisData.showXAxisLine,
             },
@@ -140,7 +151,8 @@ export default {
           data: this.getAxisData(data, item),
           showBackground: true,
           label: {
-            show: this.axisData.allowShowLabel,
+            show: this.axisData.labelPosition !== 'hidden',
+            position: this.axisData.labelPosition,
           },
         })
       }
@@ -212,7 +224,9 @@ export default {
         legendAliasList = multiYAxisList;
       }
       for (let index=0; index<params.length; index++) {
-        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${params[index].value}</b></div>`
+        const showZero = this.axisData.undefinedToZero === 'empty' ? ' ' : 0;
+        const showText = params[index].value || params[index].value === 0 ? params[index].value : showZero;
+        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${ showText }</b></div>`
       }
       return template;
     },
@@ -246,7 +260,8 @@ export default {
         title: {
           text: this.axisData.title,
           textStyle: {
-            fontSize: this.axisData.titleFontSize,
+            fontSize: this.customStyle['--title-font-size'] || this.axisData.titleFontSize,
+            color: this.customStyle['--title-font-color'],
             fontStyle: this.axisData.titleFontStyle,
           }
         },
@@ -266,6 +281,12 @@ export default {
             padding: [0, 0, 20, 0],
             fontWeight: "bolder",
             fontSize: 14,
+          },
+          splitLine: {
+            show: this.axisData.axisSplitLine === 'horizontal' || this.axisData.axisSplitLine === 'both',
+            lineStyle: {
+              type: this.axisData.axisSplitLineType,
+            }
           },
         },
         series: seriesData,

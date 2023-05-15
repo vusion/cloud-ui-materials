@@ -246,7 +246,8 @@ export default {
       for (let index=0; index<params.length; index++) {
         const showZero = this.axisData.undefinedToZero === 'empty' ? ' ' : 0;
         const showText = params[index].value || params[index].value === 0 ? params[index].value : showZero;
-        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${ showText }</b></div>`      }
+        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${ showText }</b></div>`
+      }
       return template;
     },
     generateEchartOption(legendData, seriesData, xAxisData) {
@@ -281,8 +282,8 @@ export default {
         title: {
           text: this.axisData.title,
           textStyle: {
-            fontSize: this.customStyle['--labelFontSize'] || this.axisData.titleFontSize,
-            color: this.customStyle['--labelFontColor'],
+            fontSize: this.customStyle['--title-font-size'] || this.axisData.titleFontSize,
+            color: this.customStyle['--title-font-color'],
             fontStyle: this.axisData.titleFontStyle,
           }
         },
