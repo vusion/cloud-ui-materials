@@ -141,3 +141,10 @@
       title: reload
       description: 刷新数据
       params: []
+  theme:
+    - name: --pie-sectors-color
+      title: 扇区颜色
+      type: input
+      default: ''
+      description: 饼图扇区颜色
+      group: 扇区颜色

@@ -28,12 +28,14 @@ const legendPositionMap = {
   },
 }
 import * as echarts from 'echarts/core'
+
 export default {
   name: "echartPie",
   props: {
     sourceData: [Array, Object],
     size: [Object],
     axisData: [Object],
+    customStyle: [Object],
   },
   data() {
     return {
@@ -46,12 +48,17 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData} = this;
-      return {size, axisData, sourceData};
+      let {size, axisData, sourceData, customStyle} = this;
+      return {size, axisData, sourceData, customStyle};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 340;
-      let height = this.size.height.replace("px", "") || 300;
+      // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
+      const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
+      const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
+      const propsWidth = this.size.width && this.size.width.replace("px", "");
+      const propsHeight = this.size.height && this.size.height.replace("px", "");
+      const width = styleWidth || propsWidth || 340;
+      const height = styleHeight || propsHeight || 300;
       return {
         width: `${width}px`,
         height: `${height}px`,
@@ -125,11 +132,17 @@ export default {
     },
     generatePieData(data, xAxisData, yAxisData) {
       let pieData = [];
+      const pieSectorsColor = this.customStyle['--pie-sectors-color'] && this.customStyle['--pie-sectors-color'].split(' ');
       for (let index = 0; index < xAxisData.length; index++) {
         pieData.push({
-            value: yAxisData[index],
-            name: xAxisData[index],
+          value: yAxisData[index],
+          name: xAxisData[index],
           });
+        if (pieSectorsColor?.length) {
+          pieData.map((item, index) => {
+            item.itemStyle = {color: pieSectorsColor[index]};
+          })
+        }
       }
       if (this.axisData.pieType === 'semi-circle') {
         const sum = yAxisData.reduce((total, num) => total + num);

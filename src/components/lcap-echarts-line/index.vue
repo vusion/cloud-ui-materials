@@ -139,9 +139,7 @@ export default {
           cssObj[key.trim()] = value.trim();
         }
       });
-      // console.log('cssObj', cssObj);
       return cssObj;
-
     },
     reload() {
       this.sourceData = 'fakeData';
