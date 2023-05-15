@@ -215,6 +215,24 @@
       type: color
       description: 设置数据标签文字颜色
       group: 标题
+    - name: --bar-item-color
+      title: 柱条颜色
+      default: ''
+      type: color
+      description: 设置柱条颜色
+      group: 柱条样式
+    - name: --bar-item-border-color
+      title: 柱条边框颜色
+      default: ''
+      type: color
+      description: 设置柱条边框颜色
+      group: 柱条样式
+    - name: --bar-item-backgroundColor
+      title: 柱条背景颜色
+      default: ''
+      type: color
+      description: 设置柱条背景颜色
+      group: 柱条样式
     - name: --label-font-size
       title: 标签文字大小
       default: 12
@@ -229,7 +247,7 @@
       group: 数据标签
     - name: --grid-line-background-color
       title: 网格线背景颜色
-      default: ''
+      default: 'rgba(180, 180, 180, 0.2)'
       type: color
       description: 设置网格线背景颜色
       group: 坐标系网格线

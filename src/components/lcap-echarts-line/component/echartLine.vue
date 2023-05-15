@@ -166,13 +166,10 @@ export default {
           },
           symbol: this.axisData.lineStyleSymbol,
           symbolSize: this.axisData.lineStyleSymbolSize,
+          symbolColor: this.customStyle['--line-item-symbol-color'],
           itemStyle: {
-            normal: {
-              lineStyle: {
-                type: this.axisData.lineType,
-                color: this.customStyle['--area-line-color'],
-              }
-            }
+            color: this.customStyle['--line-item-color'],
+            type: this.axisData.lineType,
           },
         })
       }

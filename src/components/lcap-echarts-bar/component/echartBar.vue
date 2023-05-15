@@ -27,8 +27,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData} = this;
-      return {size, axisData, sourceData};
+      let {size, axisData, sourceData, customStyle} = this;
+      return {size, axisData, sourceData, customStyle};
     },
     formattedSize() {
       // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
@@ -157,8 +157,16 @@ export default {
         seriesData.push({
           name: item,
           type: 'bar',
+          itemStyle: {
+            color: this.customStyle['--bar-item-color'] || 'auto',
+            borderColor: this.customStyle['--bar-item-border-color'] || 'auto',
+            borderWidth: 1.5,
+          },
           data: this.getAxisData(data, item),
           showBackground: true,
+          backgroundStyle: {
+            color: this.customStyle['--bar-item-backgroundColor'] || 'rgba(180, 180, 180, 0.2)',
+          },
           label: {
             show: this.axisData.labelPosition !== 'hidden',
             position: this.axisData.labelPosition,

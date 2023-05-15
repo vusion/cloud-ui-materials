@@ -269,6 +269,12 @@
       type: color
       description: 设置标题文字颜色
       group: 标题
+    - name: --line-item-color
+      title: 线条颜色
+      default: ''
+      type: color
+      description: 设置线条颜色
+      group: 线条样式
     - name: --label-font-size
       title: 标签文字大小
       default: 12
@@ -310,10 +316,4 @@
       default: ''
       type: color
       description: 设置区域填充颜色
-      group: 面积颜色
-    - name: --area-line-color
-      title: 面积边框颜色
-      default: ''
-      type: color
-      description: 设置面积图上方线条颜色
       group: 面积颜色
