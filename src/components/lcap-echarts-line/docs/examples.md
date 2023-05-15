@@ -1,6 +1,6 @@
 ### 基本用法
 
-``` html
+```html
 <lcap-echarts-line 
     xAxis="fakeXAxis" 
     yAxis="指标1，指标" 
@@ -20,16 +20,16 @@
     :showYAxisLabel=true
     axisSplitLine="horizontal"
     axisSplitLineType="dashed"
-    :areaFilled=true
+    :areaFilled=false
     lineStyleSymbol="emptyCircle"
     lineStyleSymbolSize="8"
     lineType="dotted"
     lineStyleSmooth='smooth'
     labelPosition="top"
     undefinedToZero='zero'
-    style="--labelFontSize:18px;
-    --labelFontColor:#de5a5a;width: 500px; height:400px;
-    --area-fill-color:#e54949;--area-line-color:#e54949;">
+    style="--labelFontSize:18px;width: 500px; height:400px; 
+    --label-font-size: 12;
+    ">
 </lcap-echarts-line>
 
 ```

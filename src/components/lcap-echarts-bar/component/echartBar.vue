@@ -35,7 +35,7 @@ export default {
       const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
       const propsWidth = this.size.width && this.size.width.replace("px", "");
       const propsHeight = this.size.height && this.size.height.replace("px", "");
-      const width = styleWidth ||  propsWidth|| 340;
+      const width = styleWidth || propsWidth || 340;
       const height = styleHeight || propsHeight || 300;
       return {
         width: `${width}px`,
@@ -98,7 +98,7 @@ export default {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
           const showZero = this.axisData.undefinedToZero === 'empty' ? null : 0;
-          res.push( axisData || axisData === 0 ? this.recurGetValue(item, axis) : showZero);
+          res.push(axisData || axisData === 0 ? this.recurGetValue(item, axis) : showZero);
         }
       } else {
         for (let item in data) {
@@ -115,23 +115,28 @@ export default {
         xData.push(this.getAxisData(data, item))
       }
       for (let index = 0; index < xData.length; index++) {
-        xAxisData.push({
-          data: xData[index],
-          name: xAxisTitleList[index] || '',
-          nameLocation: "middle",
-          nameTextStyle: {
-            padding: [12, 0, 0, 0],
-            fontWeight: "bolder",
-            fontSize: 14
-          },
-          splitLine: {
-            show: this.axisData.axisSplitLine === 'vertical' || this.axisData.axisSplitLine === 'both',
-            lineStyle: {
-              type: this.axisData.axisSplitLineType,
-            }
-          },
+        xAxisData.push(
+          {
+            data: xData[index],
+            name: xAxisTitleList[index] || '',
+            nameLocation: "middle",
+            nameTextStyle: {
+              padding: [12, 0, 0, 0],
+              fontWeight: "bolder",
+              fontSize: 14
+            },
+            splitLine: {
+              show: this.axisData.axisSplitLine === 'vertical' || this.axisData.axisSplitLine === 'both',
+              lineStyle: {
+                color: this.customStyle['--grid-line-color'] || '#ccc',
+                type: this.axisData.axisSplitLineType,
+              }
+            },
             axisLine: {
               show: this.axisData.showXAxisLine,
+              lineStyle: {
+                color: this.customStyle['--axis-line-color'] || '#333',
+              }
             },
             axisLabel: {
               show: this.axisData.showXAxisLabel,
@@ -153,6 +158,8 @@ export default {
           label: {
             show: this.axisData.labelPosition !== 'hidden',
             position: this.axisData.labelPosition,
+            color: this.customStyle['--label-font-color'],
+            fontSize: this.customStyle['--label-font-size'],
           },
         })
       }
@@ -166,8 +173,8 @@ export default {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       // 针对多层嵌套的坐标轴输入，取最后一个值
-      multiYAxisList = multiYAxisList.map((item) => item.split('.')[item.split('.').length -1])
-      multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length -1])
+      multiYAxisList = multiYAxisList.map((item) => item.split('.')[item.split('.').length - 1])
+      multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length - 1])
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         multiYAxisList = ['指标1', '指标2', '指标3'];
@@ -201,7 +208,7 @@ export default {
     legendFormatter(name) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      legendAliasList = legendAliasList.filter((item) => item!== '');
+      legendAliasList = legendAliasList.filter((item) => item !== '');
       let fakeAliasList = ['别名1', '别名2', '别名3'];
       // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示三个图例，通过更改值提示用户修改成功
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
@@ -217,16 +224,16 @@ export default {
     toolTipFormatter(params) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      let template= '';
+      let template = '';
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         legendAliasList = (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ? ['别名1', '别名2', '别名3'] : ['指标1', '指标2', '指标3'];
-      } else if(legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
+      } else if (legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
         legendAliasList = multiYAxisList;
       }
-      for (let index=0; index<params.length; index++) {
+      for (let index = 0; index < params.length; index++) {
         const showZero = this.axisData.undefinedToZero === 'empty' ? ' ' : 0;
         const showText = params[index].value || params[index].value === 0 ? params[index].value : showZero;
-        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${ showText }</b></div>`
+        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${showText}</b></div>`
       }
       return template;
     },
@@ -234,6 +241,9 @@ export default {
       return {
         grid: {
           left: '15%',
+          show: this.customStyle['--grid-line-background-color'] || this.customStyle['--grid-line-border-color'],
+          backgroundColor: this.customStyle['--grid-line-background-color'],
+          borderColor: this.customStyle['--grid-line-border-color'],
         },
         toolbox: {
           show: this.axisData.allowDownload,
@@ -271,6 +281,9 @@ export default {
           name: this.axisData.yAxisTitle || '',
           axisLine: {
             show: this.axisData.showYAxisLine,
+            lineStyle: {
+              color: this.customStyle['--axis-line-color'] || '#333',
+            }
           },
           axisLabel: {
             show: this.axisData.showYAxisLabel,
@@ -286,6 +299,7 @@ export default {
             show: this.axisData.axisSplitLine === 'horizontal' || this.axisData.axisSplitLine === 'both',
             lineStyle: {
               type: this.axisData.axisSplitLineType,
+              color: this.customStyle['--grid-line-color'] || '#ccc',
             }
           },
         },

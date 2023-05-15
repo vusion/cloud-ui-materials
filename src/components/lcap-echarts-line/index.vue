@@ -48,7 +48,7 @@ export default {
     lineType: {type: String, default: 'solid'},
     lineStyleSmooth: {type: String, default: 'normal'},
     lineStyleSymbol: {type: String, default: 'emptyCircle'},
-    lineStyleSymbolSize: {type: String, default: 6},
+    lineStyleSymbolSize: {type: String, default: '6'},
     labelPosition: {type: String, default: 'top'},
     undefinedToZero: {type: String, default: 'empty'},
     legendName: {type: String, default: ''},

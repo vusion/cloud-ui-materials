@@ -205,3 +205,39 @@
       type: color
       description: 设置数据标签文字颜色
       group: 标题
+    - name: --label-font-size
+      title: 标签文字大小
+      default: 12
+      type: input
+      description: 设置数据签文字大小
+      group: 数据标签
+    - name: --label-font-color
+      title: 标签文字颜色
+      default: ''
+      type: color
+      description: 设置数据标签文字颜色
+      group: 数据标签
+    - name: --grid-line-background-color
+      title: 网格线背景颜色
+      default: ''
+      type: color
+      description: 设置网格线背景颜色
+      group: 坐标系网格线
+    - name: --grid-line-border-color
+      title: 网格线边框颜色
+      default: ''
+      type: color
+      description: 设置网格线边框颜色
+      group: 坐标系网格线
+    - name: --grid-line-color
+      title: 网格线线条颜色
+      default: '#ccc'
+      type: color
+      description: 设置网格线线条颜色
+      group: 坐标系网格线
+    - name: --axis-line-color
+      title: 坐标轴线颜色
+      default: '#333'
+      type: color
+      description: 设置坐标轴线颜色
+      group: 坐标轴
