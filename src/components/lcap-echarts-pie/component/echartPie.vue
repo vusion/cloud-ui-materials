@@ -119,15 +119,15 @@ export default {
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
-          if (axisData || axisData === 0) {
-            res.push(this.recurGetValue(item, axis));
-          }
+          const showZero = this.axisData.undefinedToZero === 'empty' ? null : 0;
+          res.push(axisData || axisData === 0 ? this.recurGetValue(item, axis) : showZero);
         }
       } else {
         for (let item in data) {
           res.push(...this.getAxisData(data[item], axis))
         }
       }
+      console.log('res', res);
       return res;
     },
     generatePieData(data, xAxisData, yAxisData) {
@@ -176,6 +176,7 @@ export default {
         this.axisData.yAxis = '指标1';
       }
       let xAxisData = this.getAxisData(data, this.axisData.xAxis);
+      console.log('xAxisData', xAxisData);
       let yAxisData = this.getAxisData(data, this.axisData.yAxis);
       const pieData = this.generatePieData(data, xAxisData, yAxisData);
       let labelData = this.generateLabelData();

@@ -44,8 +44,9 @@ export default {
     showLabelValue: {type: Boolean, default: true},
     showLabelPercent: {type: Boolean, default: true},
     pieType: {type: String, default: 'pie'},
-    legendPosition: {type: String, default: 'right'},
+    legendPosition: {type: String, default: 'bottom'},
     initialLoad: {type: Boolean, default: true},
+    undefinedToZero: {type: String, default: 'empty'},
   },
   data() {
     return {
@@ -103,6 +104,7 @@ export default {
         showLabelPercent: this.showLabelPercent,
         pieType: this.pieType,
         legendPosition: this.legendPosition,
+        undefinedToZero: this.undefinedToZero,
       }
     },
     changedObj() {

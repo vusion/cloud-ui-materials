@@ -10,6 +10,12 @@
       designer-value: "[{}, {}, {}]"
       description: 表格的数据源，数据集对象或者返回数据集的逻辑
       group: 数据源
+    - name: initialLoad
+      title: 初始加载
+      type: boolean
+      default: true
+      description: 是否在初始时立即加载
+      group: 数据源
     - name: undefinedToZero
       title: 空值处理规则
       type: string
