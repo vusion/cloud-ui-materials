@@ -22,7 +22,8 @@ import * as echarts from 'echarts';
 import './theme';
 import Vue from 'vue';
 
-Vue.prototype.$echarts = echarts
+Vue.prototype.$echarts = echarts;
+let firstFlag = true;
 export default {
   name: 'lcap-echarts-bar',
   components: {echartBar},
@@ -53,6 +54,7 @@ export default {
     showYAxisLabel: {type: Boolean, default: true},
     xAxisLabelRotate: {type: String, default: '0'},
     xAxisType: {type: String, default: 'xBase'},
+    initialLoad: {type: Boolean, default: true},
   },
   data() {
     return {
@@ -62,7 +64,18 @@ export default {
     };
   },
   created() {
-    this.init();
+    if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+      this.init();
+    } else {
+      if (firstFlag && !this.initialLoad) {
+        this.startLoading();
+      } else {
+        this.init();
+      }
+      setTimeout(() => {
+        firstFlag = false;
+      }, 1000);
+    }
   },
   mounted() {
     // 监听style样式变化

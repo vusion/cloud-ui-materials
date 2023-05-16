@@ -22,7 +22,8 @@ import * as echarts from 'echarts';
 import './theme';
 import Vue from 'vue';
 
-Vue.prototype.$echarts = echarts
+Vue.prototype.$echarts = echarts;
+let firstFlag = true;
 export default {
   name: 'lcap-echarts-pie',
   components: {echartPie},
@@ -44,6 +45,7 @@ export default {
     showLabelPercent: {type: Boolean, default: true},
     pieType: {type: String, default: 'pie'},
     legendPosition: {type: String, default: 'right'},
+    initialLoad: {type: Boolean, default: true},
   },
   data() {
     return {
@@ -53,7 +55,18 @@ export default {
     };
   },
   created() {
-    this.init();
+    if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+      this.init();
+    } else {
+      if (firstFlag && !this.initialLoad) {
+        this.startLoading();
+      } else {
+        this.init();
+      }
+      setTimeout(() => {
+        firstFlag = false;
+      }, 1000);
+    }
   },
   mounted() {
     // 监听style样式变化
