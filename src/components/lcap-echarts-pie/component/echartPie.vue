@@ -229,7 +229,7 @@ export default {
           {
             type: 'pie',
             data: pieData,
-            radius: this.axisData.pieType !== 'pie' ? ['40%', '70%'] : [0, '75%'],
+            radius: this.axisData.pieType !== 'pie' ? ['40%', '65%'] : [0, '65%'],
             startAngle: this.axisData.pieType === 'semi-circle' ? 180 : 0,
             center: this.axisData.pieType === 'semi-circle' ? ['50%', '70%'] : ['50%', '50%'],
             label: {
