@@ -137,7 +137,7 @@ export default {
         this.sourceData = await this.handleDataSource(this.dataSource);
         this.loading = false;
         this.$refs.echart && this.$refs.echart.reload();
-        console.log('source', this.sourceData);
+        // console.log('source', this.sourceData);
       });
     },
     async init() {

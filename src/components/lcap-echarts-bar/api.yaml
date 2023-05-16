@@ -31,7 +31,7 @@
       title: 度量
       type: string
       default: ''
-      description: 设置度量（统计值），多个统计值以逗号分隔
+      description: 设置度量（统计值）
       group: 图表数据
     - name: xAxisType
       title: 轴数据
@@ -234,13 +234,13 @@
       description: 设置柱条背景颜色
       group: 柱条样式
     - name: --label-font-size
-      title: 标签文字大小
+      title: 数据标签文字大小
       default: 12
       type: input
       description: 设置数据签文字大小
       group: 数据标签
     - name: --label-font-color
-      title: 标签文字颜色
+      title: 数据标签文字颜色
       default: ''
       type: color
       description: 设置数据标签文字颜色

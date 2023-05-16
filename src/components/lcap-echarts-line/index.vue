@@ -160,13 +160,13 @@ export default {
         this.sourceData = await this.handleDataSource(this.dataSource);
         this.loading = false;
         this.$refs.echart && this.$refs.echart.reload();
-        console.log('source', this.sourceData);
+        // console.log('source', this.sourceData);
       });
     },
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
       const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
-      console.log('fnDataSource', fnDataSource);
+      // console.log('fnDataSource', fnDataSource);
       this.sourceData = await this.handleDataSource(fnDataSource);
     },
     async handleDataSource(dataSource) {

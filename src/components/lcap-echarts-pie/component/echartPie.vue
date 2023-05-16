@@ -127,7 +127,6 @@ export default {
           res.push(...this.getAxisData(data[item], axis))
         }
       }
-      console.log('res', res);
       return res;
     },
     generatePieData(data, xAxisData, yAxisData) {
@@ -176,7 +175,6 @@ export default {
         this.axisData.yAxis = '指标1';
       }
       let xAxisData = this.getAxisData(data, this.axisData.xAxis);
-      console.log('xAxisData', xAxisData);
       let yAxisData = this.getAxisData(data, this.axisData.yAxis);
       const pieData = this.generatePieData(data, xAxisData, yAxisData);
       let labelData = this.generateLabelData();
@@ -237,11 +235,13 @@ export default {
             label: {
               show: showLabel,
               formatter: labelData,
+              color: this.customStyle['--label-font-color'],
+              fontSize: this.customStyle['--label-font-size'],
               position: this.axisData.pieType !== 'pie' ? 'center' : 'outside',
             },
             itemStyle: this.axisData.pieType !== 'pie' ? {
               borderRadius: 5,
-              borderColor: '#fff',
+              borderColor: this.customStyle['--pie-item-border-color'],
               borderWidth: 1
             } : '',
           }

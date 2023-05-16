@@ -1,6 +1,6 @@
 ### 基本用法
 
-``` html
+```html
 <lcap-echarts-pie
     theme=""  
     xAxis="fakeXAxis" 
@@ -13,9 +13,10 @@
     legendName="数学"
     :showLabelName=true
     :showLabelValue=true
-    pieType="circle"
     :showLabelPercent=true
     legendPosition="top"
+    undefinedToZero="empty"
+    style="--pie-item-border-color: red; --label-font-color: blue;"
 ></lcap-echarts-pie>
 
 ```

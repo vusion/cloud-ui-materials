@@ -116,7 +116,6 @@ export default {
         xData.push(this.getAxisData(data, item))
         this.xAxisDataOption = this.getAxisData(data, item);
       }
-      console.log('xData', this.xAxisData);
       for (let index = 0; index < xData.length; index++) {
         xAxisData.push(
           {
@@ -215,7 +214,6 @@ export default {
         }
       }
       this.barOption = this.generateEchartOption(legendData, seriesData, xAxisData, this.xAxisDataOption);
-      console.log('option', this.barOption);
     },
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
