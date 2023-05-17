@@ -174,11 +174,25 @@ export default {
         })
       }
       if (this.axisData.areaFilled) {
-        seriesData.forEach((item) => {
-          item.areaStyle = {
-            color: this.customStyle['--area-fill-color'],
-          }
-        })
+        if (this.customStyle['--area-linearGradient-color']) {
+          seriesData.forEach((item) => {
+            item.areaStyle = {
+              color: new echarts.graphic.LinearGradient(
+                0, 0, 0, 1,
+                [
+                  {offset: 0, color: this.customStyle['--area-fill-color'] || this.customStyle['--line-item-color']},
+                  {offset: 1, color: this.customStyle['--area-linearGradient-color']}
+                ]
+              )
+            }
+          })
+        } else {
+          seriesData.forEach((item) => {
+            item.areaStyle = {
+              color: this.customStyle['--area-fill-color'] || this.customStyle['--line-item-color'],
+            }
+          })
+        }
       }
       return seriesData;
     },

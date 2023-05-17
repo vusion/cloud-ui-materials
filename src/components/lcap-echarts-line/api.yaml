@@ -321,5 +321,11 @@
       title: 面积图填充颜色
       default: ''
       type: color
-      description: 设置区域填充颜色
+      description: 设置面积图填充颜色
+      group: 面积颜色
+    - name: --area-linearGradient-color
+      title: 面积图渐变颜色
+      default: ''
+      type: color
+      description: 设置面积图渐变颜色
       group: 面积颜色
