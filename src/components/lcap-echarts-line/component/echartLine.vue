@@ -165,11 +165,13 @@ export default {
             fontSize: this.customStyle['--label-font-size'],
           },
           symbol: this.axisData.lineStyleSymbol,
-          symbolSize: this.axisData.lineStyleSymbolSize,
-          symbolColor: this.customStyle['--line-item-symbol-color'],
-          itemStyle: {
+          symbolSize: this.customStyle['--line-symbol-size'],
+          lineStyle: {
             color: this.customStyle['--line-item-color'],
             type: this.axisData.lineType,
+          },
+          itemStyle: {
+            color: this.customStyle['--line-item-color'],
           },
         })
       }

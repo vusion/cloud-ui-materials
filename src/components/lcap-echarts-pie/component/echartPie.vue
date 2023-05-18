@@ -221,7 +221,8 @@ export default {
         title: {
           text: this.axisData.title,
           textStyle: {
-            fontSize: this.axisData.titleFontSize,
+            fontSize: this.customStyle['--title-font-size'] || this.axisData.titleFontSize,
+            color: this.customStyle['--title-font-color'],
             fontStyle: this.axisData.titleFontStyle,
           }
         },
