@@ -9,7 +9,7 @@
       type: Array<Item> | Function | object | DataSource
       designer-value: "[{}, {}, {}]"
       description: 表格的数据源，数据集对象或者返回数据集的逻辑
-      group: 数据属性
+      group: 数据源
     - name: undefinedToZero
       title: 空值处理规则
       type: string
@@ -20,6 +20,12 @@
         - value: zero
           title: 零
       description: 设置将未定义的值如undefined，null转换为0或空距
+      group: 数据源
+    - name: initialLoad
+      title: 初始加载
+      type: boolean
+      default: true
+      description: 是否在初始时立即加载
       group: 数据源
     - name: xAxis
       title: 维度
@@ -35,20 +41,14 @@
       group: 图表数据
     - name: xAxisType
       title: 轴数据
-      type: xBase
+      type: string
       options:
         - value: xBase
           title: X轴表示分类（柱状图）
         - value: yBase
           title: Y轴表示分类（条形图）
-      default: category
+      default: xBase
       group: 图表属性
-    - name: title
-      title: 标题
-      type: string
-      default: 标题
-      description: 设置主标题
-      group: 图表基础
     - name: axisSplitLine
       title: 坐标系网格线
       type: string
@@ -77,6 +77,25 @@
           value: dotted
         - title: 点线
           value: dashed
+    - name: labelPosition
+      title: 数据标签位置
+      type: string
+      default: inside
+      options:
+        - value: top
+          title: 上
+        - value: inside
+          title: 居中
+        - value: hidden
+          title: 无
+      description: 设置数据标签位置
+      group: 图表属性
+    - name: title
+      title: 标题
+      type: string
+      default: 标题
+      description: 设置主标题
+      group: 图表基础
     - name: theme
       title: 配色方案
       type: string
@@ -92,19 +111,6 @@
         - value: theme4
           title: 经典
       group: 图表基础
-    - name: labelPosition
-      title: 数据标签位置
-      type: string
-      default: top
-      options:
-        - value: top
-          title: 上
-        - value: inside
-          title: 居中
-        - value: hidden
-          title: 无
-      description: 设置数据标签位置
-      group: 图表属性
     - name: allowShowHint
       title: 显示提示
       type: boolean
@@ -199,7 +205,7 @@
   themes:
     - name: --title-font-size
       title: 标题文字大小
-      default: 14px
+      default: 14
       type: input
       description: 设置数据标签文字大小
       group: 标题

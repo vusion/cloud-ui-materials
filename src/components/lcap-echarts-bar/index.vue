@@ -121,6 +121,7 @@ export default {
         showYAxisLabel: this.showYAxisLabel,
         xAxisLabelRotate: this.xAxisLabelRotate,
         xAxisType: this.xAxisType,
+        initialLoad: {type: Boolean, default: true},
       }
     },
     changedObj() {

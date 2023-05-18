@@ -167,7 +167,7 @@
       title: 扇区颜色
       type: input
       default: ''
-      description: 饼图扇区颜色
+      description: "各个饼图扇区颜色，请输入对应数据类目的颜色数，用空格分隔，不填自动分配颜色"
       group: 扇区颜色
     - name: --pie-sectors-border-color
       title: 扇区边框颜色
