@@ -211,9 +211,9 @@ export default {
       multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length - 1])
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        multiYAxisList = ['指标1', '指标2', '指标3'];
+        multiYAxisList = ['指标1'];
         multiXAxisList = ['fakeXAxis'];
-        legendData = ['指标1', '指标2', '指标3'];
+        legendData = ['指标1'];
       } else {
         // 制品应用生产环境
         legendData = multiYAxisList;
@@ -243,10 +243,10 @@ export default {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       legendAliasList = legendAliasList.filter((item) => item !== '');
-      let fakeAliasList = ['别名1', '别名2', '别名3'];
+      let fakeAliasList = ['别名1'];
       // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示三个图例，通过更改值提示用户修改成功
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        const showAxisList = ['指标1', '指标2', '指标3'];
+        const showAxisList = ['指标1'];
         return (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ?
           fakeAliasList[showAxisList.indexOf(name)] : showAxisList[showAxisList.indexOf(name)];
       } else {
