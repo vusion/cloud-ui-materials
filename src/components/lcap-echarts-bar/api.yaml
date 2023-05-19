@@ -211,7 +211,7 @@
       group: 标题
     - name: --title-font-color
       title: 标题文字颜色
-      default: #000'
+      default: '#000'
       type: color
       description: 设置数据标签文字颜色
       group: 标题
