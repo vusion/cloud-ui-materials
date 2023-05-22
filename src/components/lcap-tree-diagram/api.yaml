@@ -4,30 +4,51 @@
   labels: [Other]
   icon: default
   attrs:
-    - name: value
-      type: number
-      default: 0
-      description: 需要传入的值
-    - name: text
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 表格的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据属性
+    - name: valueField
+      title: 值字段
       type: string
-      default: 0
-      description: 显示文本字段
+      description: 用户标识选中值的属性
+    - name: text
+      title: 文本字段
+      type: string
+      default: 树状结构图
+      description: 用于显示文本的字段名
+    - name: showChildDotNum
+      title: 子节点收起显示子节点总数  
+      type: boolean
+      default: true
+      description: 默认开启；开启后显示其子节点的全部数量
   slots:
     - name: default
       description: 插入文本或 HTML。
   events:
-    - name: change
-      description: 修改时触发
-      params:
-        - name: $event.param1
-          type: string
-          description: 参数1
-        - name: $event.param2
-          type: number
-          description: 参数2
     - name: click
-      description: 点击时触发
+      description: null
+      params:
+        - name: $event
+          type: object
+          description: 点击
+    - name: dblclick
+      description: null
+      params:
+        - name: $event
+          type: object
+          description: 双击
     - name: mouseover
-      description: 鼠标移入节点
+      description: null
+      params:
+        - name: $event
+          type: object
+          description: 鼠标移入
     - name: mouseout
-      description: 鼠标移出节点
+      description: null
+      params:
+        - name: $event
+          type: object
+          description: 鼠标移出

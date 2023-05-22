@@ -5,7 +5,7 @@
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-tree-diagram@0.1.0/index.html",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-tree-diagram@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -21,7 +21,9 @@
     "deploy": "lcap deploy && lcap deploy dist-theme",
     "usage": "lcap usage",
     "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
-    "release": "lcap publish"
+    "release": "lcap publish",
+    "git": "git pull && git add . && git commit -m ",
+    "postgit": "git push"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"

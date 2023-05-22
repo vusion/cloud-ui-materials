@@ -2,12 +2,18 @@
 
 # LcapTreeDiagram 树状结构图
 
-- [示例](#示例)
+- [LcapTreeDiagram 树状结构图](#lcaptreediagram-树状结构图)
+  - [示例](#示例)
     - [基本用法](#基本用法)
-- [API]()
+  - [API](#api)
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
+      - [(default)](#default)
     - [Events](#events)
+      - [@change](#change)
+      - [@click](#click)
+      - [@mouseover](#mouseover)
+      - [@mouseout](#mouseout)
 
 **Other**
 
@@ -26,7 +32,7 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | value | number |  | `0` | 需要传入的值 |
-| text | string |  | `0` | 显示文本字段 |
+| label | string |  | 文本 | 显示文本字段 |
 
 ### Slots
 

@@ -24,9 +24,11 @@ export default {
   components: {
     LcapTreeDiagram,
   },
-  // props: {
-  //   dataSource: [Function, Array, Object],
-  // },
+  props: {
+    dataSource: [Function, Array, Object],
+    showChildDotNum: { type: Boolean, default: true },
+    valueField: { type: String, default: 'value' },
+  },
   data() {
     return {
       sourceData: {},
@@ -86,18 +88,22 @@ export default {
     };
   },
   created() {
-    this.sourceData = this.fakeData;
+    // this.sourceData = this.fakeData;
+    this.init();
   },
   methods: {
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
       const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? this.fakeData : this.dataSource;
-      // this.sourceData = await this.handleDataSource(fnDataSource);
+      // this.sourceData = await this.handleData(fnDataSource);
+      this.sourceData = this.fakeData;
+      console.log(this.sourceData)
     },
     labelClassName() {
       return 'clickable-node';
     },
     renderContent(h, data) {
+      console.log(data, '-data---content')
       return data.label;
     },
     onExpand(e, data) {
@@ -119,7 +125,7 @@ export default {
       this.toggleExpand(this.data, this.expandAll);
     },
     collapse(list) {
-      var _this = this;
+      let _this = this;
       list.forEach(function (child) {
         if (child.expand) {
           child.expand = false;
@@ -149,9 +155,6 @@ export default {
 </script>
 
 <style scoped>
-.root {
-}
-
 .clickable-node {
   background: red;
   border: 1px solid green;
