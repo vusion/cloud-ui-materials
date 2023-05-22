@@ -2,5 +2,9 @@
   "lcap-tree-diagram/value": {
     "type": "number",
     "description": "需要传入的值"
+  },
+  "lcap-tree-diagram/text": {
+    "type": "string",
+    "description": "显示文本字段"
   }
 }

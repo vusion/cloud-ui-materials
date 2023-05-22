@@ -17,7 +17,7 @@
 ### 基本用法
 
 ``` html
-<lcap-echarts-tree></lcap-echarts-tree>
+<lcap-tree-diagram></lcap-tree-diagram>
 ```
 
 ## API
@@ -26,6 +26,7 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | value | number |  | `0` | 需要传入的值 |
+| text | string |  | `0` | 显示文本字段 |
 
 ### Slots
 
@@ -43,4 +44,16 @@
 | ----- | ---- | ----------- |
 | $event.param1 | string | 参数1 |
 | $event.param2 | number | 参数2 |
+
+#### @click
+
+点击时触发
+
+#### @mouseover
+
+鼠标移入节点
+
+#### @mouseout
+
+鼠标移出节点
 

@@ -1,7 +1,8 @@
 {
   "lcap-tree-diagram": {
     "attributes": [
-      "value"
+      "value",
+      "text"
     ],
     "description": "请在这里添加描述"
   }
