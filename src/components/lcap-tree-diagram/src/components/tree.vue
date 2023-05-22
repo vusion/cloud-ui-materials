@@ -56,7 +56,7 @@ export default {
         children: "children",
       }),
     },
-    horizontal: Boolean,
+    horizontal: { type: Boolean, default: true },
     selectedKey: String,
     collapsable: Boolean,
     renderContent: Function,

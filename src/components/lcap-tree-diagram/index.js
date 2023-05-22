@@ -1,7 +1,7 @@
-import LcapEchartsTree from './index.vue';
+import LcapTreeDiagram from './index.vue';
 
 export {
-    LcapEchartsTree,
+    LcapTreeDiagram,
 };
 
-export default LcapEchartsTree;
+export default LcapTreeDiagram;

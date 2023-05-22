@@ -1,0 +1,62 @@
+{
+    "symbol": "lcap-tree-diagram",
+    "name": "树状结构图",
+    "version": "0.1.0",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "请在这里添加描述",
+    "labels": [
+        "Other"
+    ],
+    "screenShot": "",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-tree></lcap-echarts-tree>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-tree-diagram",
+        "title": "树状结构图",
+        "description": "请在这里添加描述",
+        "category": "Other",
+        "screenShot": "",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-echarts-tree></lcap-echarts-tree>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "value",
+                "type": "number",
+                "default": 0,
+                "description": "需要传入的值"
+            }
+        ],
+        "slots": [
+            {
+                "name": "default",
+                "description": "插入文本或 HTML。"
+            }
+        ],
+        "events": [
+            {
+                "name": "change",
+                "description": "修改时触发",
+                "params": [
+                    {
+                        "name": "$event.param1",
+                        "type": "string",
+                        "description": "参数1"
+                    },
+                    {
+                        "name": "$event.param2",
+                        "type": "number",
+                        "description": "参数2"
+                    }
+                ]
+            }
+        ],
+        "children": []
+    }
+}

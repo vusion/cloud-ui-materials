@@ -8,6 +8,10 @@
       type: number
       default: 0
       description: 需要传入的值
+    - name: text
+      type: string
+      default: 0
+      description: 显示文本字段
   slots:
     - name: default
       description: 插入文本或 HTML。
@@ -21,3 +25,9 @@
         - name: $event.param2
           type: number
           description: 参数2
+    - name: click
+      description: 点击时触发
+    - name: mouseover
+      description: 鼠标移入节点
+    - name: mouseout
+      description: 鼠标移出节点

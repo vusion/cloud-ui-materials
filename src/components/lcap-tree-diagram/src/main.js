@@ -1,3 +1,3 @@
-import LcapTree from './components/tree';
+import LcapTreeDiagram from './components/tree';
 
-export default LcapTree;
+export default LcapTreeDiagram;
