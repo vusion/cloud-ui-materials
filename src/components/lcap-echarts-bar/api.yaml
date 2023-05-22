@@ -24,12 +24,12 @@
       default: ''
       description: 设置指标（y轴），多个指标以逗号分隔
       group: 维度指标
-    - name: width
-      title: 宽度
-      type: string
-      default: 340px
-      description: 设置图宽度
-      group: 图表基础
+    - name: barStack
+      title: 转为堆叠图
+      type: boolean
+      default: false
+      description: 设置是否转为堆叠图
+      group: 维度指标
     - name: height
       title: 高度
       type: string
@@ -56,6 +56,8 @@
           title: 淡雅
         - value: theme4
           title: 经典
+        - value: lixiang
+          title: 理想定制
       group: 图表基础
     - name: allowShowLabel
       title: 显示标签

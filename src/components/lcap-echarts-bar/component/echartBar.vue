@@ -117,7 +117,8 @@ export default {
           nameTextStyle: {
             padding: [12, 0, 0, 0],
             fontWeight: "bolder",
-            fontSize: 14
+            fontSize: 14,
+            color: "#333",
           },
             axisLine: {
               show: this.axisData.showXAxisLine,
@@ -138,11 +139,17 @@ export default {
           name: item,
           type: 'bar',
           data: this.getAxisData(data, item),
-          showBackground: true,
+          showBackground: this.axisData.theme === 'lixiang' ? false : true,
           label: {
             show: this.axisData.allowShowLabel,
+            color: this.axisData.theme === 'lixiang' ? '#fff' : '#333',
           },
         })
+      }
+      if (this.axisData.barStack) {
+        for (const item of seriesData) {
+          item.stack = 'stack';
+        }
       }
       return seriesData;
     },
@@ -266,6 +273,7 @@ export default {
             padding: [0, 0, 20, 0],
             fontWeight: "bolder",
             fontSize: 14,
+            color: "#333",
           },
         },
         series: seriesData,
