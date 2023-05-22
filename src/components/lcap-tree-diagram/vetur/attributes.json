@@ -1,10 +1,18 @@
 {
-  "lcap-tree-diagram/value": {
-    "type": "number",
-    "description": "需要传入的值"
+  "lcap-tree-diagram/data-source": {
+    "type": "Array<Item> | Function | object | DataSource",
+    "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
+  },
+  "lcap-tree-diagram/valueField": {
+    "type": "string",
+    "description": "用户标识选中值的属性"
   },
   "lcap-tree-diagram/text": {
     "type": "string",
-    "description": "显示文本字段"
+    "description": "用于显示文本的字段名"
+  },
+  "lcap-tree-diagram/showChildDotNum": {
+    "type": "boolean",
+    "description": "默认开启；开启后显示其子节点的全部数量"
   }
 }

@@ -1,8 +1,10 @@
 {
   "lcap-tree-diagram": {
     "attributes": [
-      "value",
-      "text"
+      "data-source",
+      "valueField",
+      "text",
+      "showChildDotNum"
     ],
     "description": "请在这里添加描述"
   }

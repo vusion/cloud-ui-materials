@@ -95,15 +95,14 @@ export default {
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
       const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? this.fakeData : this.dataSource;
-      // this.sourceData = await this.handleData(fnDataSource);
-      this.sourceData = this.fakeData;
-      console.log(this.sourceData)
+      this.sourceData = await this.handleData(fnDataSource) || {};
+      // this.sourceData = this.fakeData;
+      console.log(this.sourceData, '----sourceData')
     },
     labelClassName() {
       return 'clickable-node';
     },
     renderContent(h, data) {
-      console.log(data, '-data---content')
       return data.label;
     },
     onExpand(e, data) {

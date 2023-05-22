@@ -2,18 +2,12 @@
 
 # LcapTreeDiagram 树状结构图
 
-- [LcapTreeDiagram 树状结构图](#lcaptreediagram-树状结构图)
-  - [示例](#示例)
+- [示例](#示例)
     - [基本用法](#基本用法)
-  - [API](#api)
+- [API]()
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
-      - [(default)](#default)
     - [Events](#events)
-      - [@change](#change)
-      - [@click](#click)
-      - [@mouseover](#mouseover)
-      - [@mouseout](#mouseout)
 
 **Other**
 
@@ -31,8 +25,10 @@
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| value | number |  | `0` | 需要传入的值 |
-| label | string |  | 文本 | 显示文本字段 |
+| data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
+| valueField | string |  |  | 用户标识选中值的属性 |
+| text | string |  | `'树状结构图'` | 用于显示文本的字段名 |
+| showChildDotNum | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
 
 ### Slots
 
@@ -42,24 +38,35 @@
 
 ### Events
 
-#### @change
+#### @click
 
-修改时触发
+
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event.param1 | string | 参数1 |
-| $event.param2 | number | 参数2 |
+| $event | object | 点击 |
 
-#### @click
+#### @dblclick
 
-点击时触发
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 双击 |
 
 #### @mouseover
 
-鼠标移入节点
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 鼠标移入 |
 
 #### @mouseout
 
-鼠标移出节点
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 鼠标移出 |
 
