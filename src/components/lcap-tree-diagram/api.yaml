@@ -1,5 +1,5 @@
-- name: lcap-echarts-tree
-  title: 树形结构图
+- name: lcap-tree-diagram
+  title: 树状结构图
   description: 请在这里添加描述
   labels: [Other]
   icon: default
