@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$env.VUE_APP_DESIGNER || env">
+    <!-- <div v-if="$env.VUE_APP_DESIGNER || env">
       <LcapTreeDiagram :data="{
         id: 0,
         label: 'XXXPOC测试',
@@ -21,8 +21,8 @@
           }
         ],
       }"></LcapTreeDiagram>
-    </div>
-    <LcapTreeDiagram v-else
+    </div> -->
+    <LcapTreeDiagram
       v-for="item in sourceData"
       :key="item.id"
       :data="item"
