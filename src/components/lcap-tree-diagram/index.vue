@@ -61,7 +61,7 @@ export default {
   },
   data() {
     return {
-      env: window.appInfo,
+      env: !window.appInfo,
       expandAll: false,
       horizontal: true,
       collapsable: true,
