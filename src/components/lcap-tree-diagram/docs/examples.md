@@ -2,7 +2,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :dataSource="fakeData">
+  <lcap-tree-diagram :dataSource="list" >
   </lcap-tree-diagram>
 </template>
 <script>
@@ -71,12 +71,6 @@ export default {
       },
         };
     },
-    created() {
-      // this.dataSource = normalizeDataSource(this.list)
-    },
-    methods: {
-      
-    }
 };
 </script>
 ```

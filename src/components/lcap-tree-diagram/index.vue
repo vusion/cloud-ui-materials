@@ -1,12 +1,13 @@
 <template>
   <div>
     <LcapTreeDiagram
-      :data="sourceData"
+      v-for="item in sourceData"
+      :key="item.id"
+      :data="item"
       :horizontal="horizontal"
       :collapsable="collapsable"
       :label-class-name="labelClassName"
       :render-content="renderContent"
-      selected-class-name="title-bg"
       :showChildDotNum="showChildDotNum"
       selected-key="selectedKey"
       @on-expand="onExpand"
@@ -21,44 +22,35 @@ import SupportDataSource from './src/mixins/support.datasource.js';
 
 export default {
   name: 'lcap-tree-diagram',
-  // mixins: [SupportDataSource],
+  mixins: [SupportDataSource],
   components: {
     LcapTreeDiagram,
   },
   props: {
-    dataSource: { type: Object, default: () => {}},
-    // dataSource: [Array, Object, Function],
     showChildDotNum: { type: Boolean, default: true },
-    valueField: { type: String, default: 'value' },
-    parentField: { type: String, default: '' },
-    textField: { type: String, default: '' },
+    // valueField: { type: String, default: 'value' },
+    // parentField: { type: String, default: '' },
+    // textField: { type: String, default: '' },
   },
   data() {
     return {
-      sourceData: {},
       expandAll: false,
       horizontal: true,
       collapsable: true,
     };
   },
   created() {
-    // this.sourceData = this.normalizeDataSource(this.dataSource)
-    // console.log(JSON.stringify(this.sourceData, null, 2))
-    // 初始化没配置数据
-    if (typeof this.dataSource === 'undefined') {
-      this.sourceData = {}
-    } else {
-      this.sourceData = this.dataSource
-    }
+    this.sourceData = this.normalize(this.currentDataSource.data) || [];
   },
   methods: {
-    normalizeDataSource(list) {
+    normalize(list) {
         let result = [];
         const map = list.reduce((res, v) => {
           res[v.id] = v
           return res;
         }, {})
         for (let item of list) {
+          this.$set(item, 'expand', false);
           const parentId = item.parentId;
           if (parentId === 0) {
             result.push(item)
@@ -71,7 +63,7 @@ export default {
           }
         }
         return result
-      },
+    },
     labelClassName() {
       return 'clickable-node';
     },
@@ -79,15 +71,14 @@ export default {
       return data.label;
     },
     onExpand(e, data) {
-      // if ('expand' in data) {
-      //   data.expand = !data.expand;
-      //   if (!data.expand && data.children) {
-      //     this.collapse(data.children);
-      //   }
-      //   console.log(data, '--dachdilrdat')
-      // } else {
+      if ('expand' in data) {
+        data.expand = !data.expand;
+        if (!data.expand && data.children) {
+          this.collapse(data.children);
+        }
+      } else {
         this.$set(data, 'expand', true);
-      // }
+      }
     },
     onNodeClick(e, data) {
       console.log('onNodeClick: %o', data);
@@ -98,7 +89,6 @@ export default {
     },
     collapse(list) {
       let _this = this;
-      console.log(list)
       list.forEach(function (child) {
         if (child.expand) {
           child.expand = false;
