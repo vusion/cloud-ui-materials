@@ -85,7 +85,7 @@ export function renderBtn(h, data, { props, listeners }) {
 // 创建 label 节点
 export function renderLabel(h, data, context) {
     const { props, listeners } = context;
-    const expandHandler = listeners['on-expand'];
+    // const expandHandler = listeners['on-expand'];
     const label = data[props.props.label];
     const renderContent = props.renderContent;
 
@@ -93,9 +93,9 @@ export function renderLabel(h, data, context) {
     const clickHandler = listeners[EVENTS.CLICK];
     const mouseOutHandler = listeners[EVENTS.MOUSEOUT];
     const mouseOverHandler = listeners[EVENTS.MOUSEOVER];
-    const dragStartHandler = listeners[EVENTS.DRAGSTART];
-    const dragOverHandler = listeners[EVENTS.DRAGOVER];
-    const dropHander = listeners[EVENTS.DROP];
+    // const dragStartHandler = listeners[EVENTS.DRAGSTART];
+    // const dragOverHandler = listeners[EVENTS.DRAGOVER];
+    // const dropHander = listeners[EVENTS.DROP];
 
     const childNodes = [];
     if (typeof renderContent === 'function') {
@@ -146,10 +146,10 @@ export function renderLabel(h, data, context) {
         },
         style: { width: labelWidth },
         on: {
-            // click: (e) => expandHandler && expandHandler(e, data),
-            // dbclick: createListener(clickHandler, data),
-            // mouseout: createListener(mouseOutHandler, data),
-            // mouseover: createListener(mouseOverHandler, data),
+            click: createListener(clickHandler, data),
+            dbclick: createListener(clickHandler, data),
+            mouseout: createListener(mouseOutHandler, data),
+            mouseover: createListener(mouseOverHandler, data),
         },
     }, childNodes)]);
 }

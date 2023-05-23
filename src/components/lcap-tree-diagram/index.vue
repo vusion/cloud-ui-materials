@@ -12,6 +12,10 @@
       selected-key="selectedKey"
       @on-expand="onExpand"
       @on-node-click="onNodeClick"
+      @on-click="click"
+      @on-dbclick="dbclick"
+      @on-mouseover="mouseover"
+      @on-mouseout="mouseout"
     ></LcapTreeDiagram>
   </div>
 </template>
@@ -29,9 +33,9 @@ export default {
   },
   props: {
     showChildDotNum: { type: Boolean, default: true },
-    // valueField: { type: String, default: 'value' },
-    // parentField: { type: String, default: '' },
-    // textField: { type: String, default: '' },
+    valueField: { type: String, default: 'id' },
+    parentField: { type: String, default: 'parentId' },
+    textField: { type: String, default: 'label' },
   },
   data() {
     return {
@@ -44,31 +48,42 @@ export default {
   watch: {
     'currentDataSource.data': {
       handler(val) {
-        this.sourceData = this.normalize(deepClone(val)) || [];
+        this.sourceData = this.normalize(deepClone(val), this.parentField, this.valueField) || [];
       }
     }
   },
-
   methods: {
-    normalize(list) {
-        let result = [];
-        const map = list.reduce((res, v) => {
-          res[v.id] = v;
-          return res;
-        }, {})
-        for (let item of list) {
-          this.$set(item, 'expand', false);
-          const parentId = item.parentId;
-          if (parentId === 0) {
-            result.push(item)
-            continue
-          }
-          if (map[item.parentId]) {
-            const parent = map[item.parentId]
-            parent.children = parent.children || [];
-            parent.children.push(item)
-          }
+    dbclick($events) {
+      this.$emit('dbclick', $events)
+    },
+    mouseover($events) {
+      this.$emit('mouseover', $events)
+    },
+    mouseout($events) {
+      this.$emit('mouseout', $events)
+    },
+    click($events) {
+      this.$emit('click', $events)
+    },
+    normalize(list, pField, vField) {
+      let result = [];
+      const map = list.reduce((res, v) => {
+        res[v[vField]] = v;
+        return res;
+      }, {})
+      for (let item of list) {
+        this.$set(item, 'expand', false);
+        const parentId = item[pField];
+        if (parentId === 0) {
+          result.push(item)
+          continue
         }
+        if (map[item[pField]]) {
+          const parent = map[item[pField]]
+          parent.children = parent.children || [];
+          parent.children.push(item)
+        }
+      }
         return result
     },
     labelClassName() {

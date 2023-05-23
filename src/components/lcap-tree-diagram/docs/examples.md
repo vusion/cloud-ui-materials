@@ -2,7 +2,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :dataSource="list" >
+  <lcap-tree-diagram :dataSource="list" @mouseout="mouseout"> 
   </lcap-tree-diagram>
 </template>
 <script>
@@ -91,6 +91,11 @@ export default {
       },
         };
     },
+    methods: {
+      mouseout($events) {
+        console.log($events)
+      }
+    }
 };
 </script>
 ```
