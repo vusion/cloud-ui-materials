@@ -11,6 +11,7 @@
         :label-class-name="labelClassName"
         :selected-class-name="selectedClassName"
         :selected-key="selectedKey"
+        :showChildDotNum="showChildDotNum"
         @on-expand="(e, data) => $emit('on-expand', e, data)"
         @on-node-focus="(e, data) => $emit('on-node-focus', e, data)"
         @on-node-click="(e, data) => $emit('on-node-click', e, data)"
@@ -63,6 +64,7 @@ export default {
     labelWidth: [String, Number],
     labelClassName: [Function, String],
     selectedClassName: [Function, String],
+    showChildDotNum: Boolean
   },
   methods: {
     onDragStart(event, data) {

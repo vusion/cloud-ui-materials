@@ -1,12 +1,13 @@
 <template>
   <div class="text-center">
     <LcapTreeDiagram
-      :data="sourceData"
+      :data="dataSource"
       :horizontal="horizontal"
       :collapsable="collapsable"
       :label-class-name="labelClassName"
       :render-content="renderContent"
-      selected-class-name="bg-tomato"
+      selected-class-name="title-bg"
+      :showChildDotNum="showChildDotNum"
       selected-key="selectedKey"
       @on-expand="onExpand"
       @on-node-click="onNodeClick"
@@ -20,12 +21,12 @@ import SupportDataSource from './src/mixins/support.datasource.js';
 
 export default {
   name: 'lcap-tree-diagram',
-  mixins: [SupportDataSource],
+  // mixins: [SupportDataSource],
   components: {
     LcapTreeDiagram,
   },
   props: {
-    dataSource: [Function, Array, Object],
+    dataSource: { type: Object, default: () => {} },
     showChildDotNum: { type: Boolean, default: true },
     valueField: { type: String, default: 'value' },
   },
@@ -88,16 +89,15 @@ export default {
     };
   },
   created() {
-    // this.sourceData = this.fakeData;
     this.init();
   },
   methods: {
     async init() {
       // 本地启动和开发环境使用假数据，生产环境替换为真数据
-      const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? this.fakeData : this.dataSource;
-      this.sourceData = await this.handleData(fnDataSource) || {};
+      const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? this.fakeData : this.currentDataSource.data;
+      // this.sourceData = await this.handleData(fnDataSource) || {};
       // this.sourceData = this.fakeData;
-      console.log(this.sourceData, '----sourceData')
+      // console.log(this.sourceData, '----sourceData')
     },
     labelClassName() {
       return 'clickable-node';
@@ -153,10 +153,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style module>
+
 .clickable-node {
   background: red;
   border: 1px solid green;
   color: pink;
+}
+
+.title-bg {
+  background: blueviolet;
 }
 </style>

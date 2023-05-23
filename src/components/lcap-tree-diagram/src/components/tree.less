@@ -66,11 +66,12 @@
   left: 50%;
   width: 20px;
   height: 20px;
+  // padding: 10px;
   z-index: 10;
   margin-left: -11px;
   margin-top: 9px;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #194a49;
   border-radius: 50%;
   box-shadow: 0 0 2px rgba(0, 0, 0, .15);
   cursor: pointer;
@@ -81,36 +82,49 @@
     transform: scale(1.15);
   }
 
-  &:before, &:after {
-    content: '';
-    position: absolute;
-  }
+  // &:before, &:after {
+  //   content: '';
+  //   position: absolute;
+  // }
 
   &:before {
+    position: absolute;
+    content: attr(dot-num);
+    color:#194a49;
+    left:50%;
     top: 50%;
-    left: 4px;
-    right: 4px;
-    height: 0;
-    border-top: 1px solid #ccc;
+    transform: translate(-50%, -50%);
+    // left: 10%;
+    // top: -9%;
+    font-size: 12px;
+    // top: 50%;
+    // left: 4px;
+    // right: 4px;
+    // height: 0;
+    // border-top: 1px solid #194a49;
   }
 
   &:after {
-    top: 4px;
-    left: 50%;
-    bottom: 4px;
-    width: 0;
-    border-left: 1px solid #ccc;
+    // top: 4px;
+    // left: 50%;
+    // bottom: 4px;
+    // width: 0;
+    // border-left: 1px solid #194a49;
   }
 
   &.expanded:after {
     border: none;
   }
-  &.dot-num {
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    color: #194a49;
+  &.expanded:before {
+    position: absolute;
+    content: '';
+    left: 35%;
+    top: 28%;
+    width: 8px;
+    height: 8px;
+    border: solid #194a49;;
+    border-width: 0 1px 1px 0;
+    transform: rotate(135deg);
   }
 }
 .lcap-tree-node {
@@ -156,6 +170,7 @@
     border-right: 1px solid #ddd;
   }
 }
+
 .lcap-tree > .lcap-tree-node {
   padding-top: 0;
 

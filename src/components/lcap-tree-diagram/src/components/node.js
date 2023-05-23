@@ -38,9 +38,9 @@ export function renderNode(h, data, context) {
     const { props } = context;
     const cls = ['lcap-tree-node'];
     const childNodes = [];
-    const children = data[props.props.children];
+    const children = data[props.props?.children];
 
-    if (isLeaf(data, props.props.children)) {
+    if (isLeaf(data, props.props?.children)) {
         cls.push('is-leaf');
     } else if (props.collapsable && !data[props.props.expand]) {
         cls.push('collapsed');
@@ -65,18 +65,18 @@ export function renderBtn(h, data, { props, listeners }) {
 
     const cls = ['lcap-tree-node-btn'];
 
+    const dotNum = data?.children.length;
+
     if (data[props.props.expand]) {
         cls.push('expanded');
-    } else {
-        const dotNum = data.children.length;
-        if (dotNum > 0) {
-            cls.push('dot-num');
-        }
     }
 
     return h('span', {
         domProps: {
             className: cls.join(' '),
+        },
+        attrs: {
+            'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
         },
         on: {
             click: (e) => expandHandler && expandHandler(e, data),
@@ -107,7 +107,7 @@ export function renderLabel(h, data, context) {
         childNodes.push(label);
     }
 
-    if (props.collapsable && !isLeaf(data, props.props.children)) {
+    if (props.collapsable && !isLeaf(data, props.props?.children)) {
         childNodes.push(renderBtn(h, data, context));
     }
 
@@ -148,6 +148,7 @@ export function renderLabel(h, data, context) {
         style: { width: labelWidth },
         on: {
             click: createListener(clickHandler, data),
+            dbclick: createListener(clickHandler, data),
             mouseout: createListener(mouseOutHandler, data),
             mouseover: createListener(mouseOverHandler, data),
         },

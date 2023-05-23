@@ -44,7 +44,7 @@
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event | object | 点击 |
+| $event | object | 参数 |
 
 #### @dblclick
 
@@ -52,7 +52,7 @@
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event | object | 双击 |
+| $event | object | 参数 |
 
 #### @mouseover
 
@@ -60,7 +60,7 @@
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event | object | 鼠标移入 |
+| $event | object | 参数 |
 
 #### @mouseout
 
@@ -68,5 +68,5 @@
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event | object | 鼠标移出 |
+| $event | object | 参数 |
 

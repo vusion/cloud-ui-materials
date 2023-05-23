@@ -64,45 +64,45 @@
         "events": [
             {
                 "name": "click",
-                "description": null,
+                "title": "点击",
                 "params": [
                     {
                         "name": "$event",
                         "type": "object",
-                        "description": "点击"
+                        "description": "参数"
                     }
                 ]
             },
             {
                 "name": "dblclick",
-                "description": null,
+                "title": "双击",
                 "params": [
                     {
                         "name": "$event",
                         "type": "object",
-                        "description": "双击"
+                        "description": "参数"
                     }
                 ]
             },
             {
                 "name": "mouseover",
-                "description": null,
+                "title": "鼠标移入",
                 "params": [
                     {
                         "name": "$event",
                         "type": "object",
-                        "description": "鼠标移入"
+                        "description": "参数"
                     }
                 ]
             },
             {
                 "name": "mouseout",
-                "description": null,
+                "title": "鼠标移出",
                 "params": [
                     {
                         "name": "$event",
                         "type": "object",
-                        "description": "鼠标移出"
+                        "description": "参数"
                     }
                 ]
             }
