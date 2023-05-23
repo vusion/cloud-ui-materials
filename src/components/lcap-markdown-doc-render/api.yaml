@@ -1,0 +1,31 @@
+- name: lcap-markdown-doc-render
+  title: Markdown文档渲染组件
+  description: 渲染Markdown文档的组件
+  labels: [Other]
+  icon: default
+  attrs:
+    - name: text
+      title: 文本
+      type: string
+      default: ""
+      description: 需要传入的文本
+    - name: scrollContainer
+      title: 滚动容器
+      type: string
+      default: window
+      description: 监听文档滚动的容器
+      options:
+        - value: window
+          title: 窗口
+        - value: root
+          title: 根节点
+  events:
+    - name: link
+      title: 点击链接时
+      params:
+        - name: $event
+          type: string
+          description: 链接地址
+          schema:
+            $ref: "#/basicTypes/String"
+      description: 点击链接时触发的事件

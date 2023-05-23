@@ -1,0 +1,12 @@
+{
+  "lcap-markdown-doc-search": {
+    "attributes": [
+      "data-source",
+      "data-schema",
+      "text-field",
+      "description-field",
+      "align"
+    ],
+    "description": "请在这里添加描述"
+  }
+}
