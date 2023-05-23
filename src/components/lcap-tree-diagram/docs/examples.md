@@ -30,14 +30,6 @@ export default {
             "label": "子子主题1",
             "parentId": 3
           }
-          // {id:1,label:'部门A',parentId:0},
-          // {id:2,label:'部门B',parentId:1},
-          // {id:3,label:'部门C',parentId:1},
-          // {id:4,label:'部门D',parentId:1},
-          // {id:5,label:'部门E',parentId:2},
-          // {id:6,label:'部门F',parentId:3},
-          // {id:7,label:'部门G',parentId:2},
-          // {id:8,label:'部门H',parentId:4}
       ],
       fakeData: {
         id: 0,
@@ -55,14 +47,6 @@ export default {
                 id: 6,
                 label: '研发-后端',
               },
-              {
-                id: 9,
-                label: 'UI设计',
-              },
-              {
-                id: 10,
-                label: '产品经理',
-              },
             ],
           },
           {
@@ -73,19 +57,7 @@ export default {
                 id: 7,
                 label: '销售一部',
               },
-              {
-                id: 8,
-                label: '销售二部',
-              },
             ],
-          },
-          {
-            id: 4,
-            label: '财务部',
-          },
-          {
-            id: 9,
-            label: 'HR人事',
           },
         ],
       },

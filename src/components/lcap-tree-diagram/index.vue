@@ -1,6 +1,28 @@
 <template>
   <div>
-    <LcapTreeDiagram
+    <div v-if="$env.VUE_APP_DESIGNER || env">
+      <LcapTreeDiagram :data="{
+        id: 0,
+        label: 'XXXPOC测试',
+        children: [
+          {
+            id: 2,
+            label: '产品研发部',
+            children: [
+              {
+                id: 5,
+                label: '研发-前端',
+              },
+              {
+                id: 6,
+                label: '研发-后端',
+              },
+            ],
+          }
+        ],
+      }"></LcapTreeDiagram>
+    </div>
+    <LcapTreeDiagram v-else
       v-for="item in sourceData"
       :key="item.id"
       :data="item"
@@ -39,6 +61,7 @@ export default {
   },
   data() {
     return {
+      env: window.appInfo,
       expandAll: false,
       horizontal: true,
       collapsable: true,
@@ -49,7 +72,7 @@ export default {
     'currentDataSource.data': {
       handler(val) {
         this.sourceData = this.normalize(deepClone(val), this.parentField, this.valueField) || [];
-      }
+      },
     }
   },
   methods: {
@@ -67,7 +90,7 @@ export default {
     },
     normalize(list, pField, vField) {
       let result = [];
-      const map = list.reduce((res, v) => {
+      const map = list?.reduce((res, v) => {
         res[v[vField]] = v;
         return res;
       }, {})

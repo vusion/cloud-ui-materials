@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -10,7 +10,7 @@
         "Other"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<!-- <lcap-tree-diagram ></lcap-tree-diagram> -->\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n <lcap-tree-diagram :dataSource=\\\"[{id: 1, label: '主题', parentId: 0 }]\\\"></lcap-tree-diagram>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram",
         "title": "树状结构图",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n<!-- <lcap-tree-diagram ></lcap-tree-diagram> -->\n</template>\n"
+                "code": "<template>\n <lcap-tree-diagram :dataSource=\"[{id: 1, label: '主题', parentId: 0 }]\"></lcap-tree-diagram>\n</template>\n"
             }
         ],
         "attrs": [
@@ -38,13 +38,14 @@
                 "name": "valueField",
                 "title": "值字段",
                 "type": "string",
+                "default": "id",
                 "description": "用户标识选中值的属性"
             },
             {
                 "name": "textField",
                 "title": "文本字段",
                 "type": "string",
-                "default": "树状结构图",
+                "default": "label",
                 "description": "用于显示文本的字段名"
             },
             {
@@ -64,7 +65,6 @@
             }
         ],
         "slots": [
-            
             {
                 "name": "default",
                 "description": "插入文本或 HTML。"
