@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -10,7 +10,7 @@
         "Other"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tree-diagram ></lcap-tree-diagram>\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<!-- <lcap-tree-diagram ></lcap-tree-diagram> -->\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram",
         "title": "树状结构图",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n<lcap-tree-diagram ></lcap-tree-diagram>\n</template>\n"
+                "code": "<template>\n<!-- <lcap-tree-diagram ></lcap-tree-diagram> -->\n</template>\n"
             }
         ],
         "attrs": [
@@ -41,7 +41,7 @@
                 "description": "用户标识选中值的属性"
             },
             {
-                "name": "text-field",
+                "name": "textField",
                 "title": "文本字段",
                 "type": "string",
                 "default": "树状结构图",
@@ -53,6 +53,14 @@
                 "type": "boolean",
                 "default": true,
                 "description": "默认开启；开启后显示其子节点的全部数量"
+            },
+            {
+                "name": "parentField",
+                "title": "父级选项值",
+                "type": "string",
+                "default": "parentId",
+                "description": "集合的元素类型中，用于标识父节点的属性",
+                "group": "数据属性"
             }
         ],
         "slots": [

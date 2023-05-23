@@ -3,8 +3,9 @@
     "attributes": [
       "data-source",
       "valueField",
-      "text-field",
-      "showChildDotNum"
+      "textField",
+      "showChildDotNum",
+      "parentField"
     ],
     "description": "请在这里添加描述"
   }
