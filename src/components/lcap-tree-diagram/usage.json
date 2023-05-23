@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.0",
+    "version": "0.1.9",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
