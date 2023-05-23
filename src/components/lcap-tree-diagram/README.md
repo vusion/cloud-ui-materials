@@ -2,12 +2,18 @@
 
 # LcapTreeDiagram 树状结构图
 
-- [示例](#示例)
+- [LcapTreeDiagram 树状结构图](#lcaptreediagram-树状结构图)
+  - [示例](#示例)
     - [基本用法](#基本用法)
-- [API]()
+  - [API](#api)
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
+      - [(default)](#default)
     - [Events](#events)
+      - [@click](#click)
+      - [@dblclick](#dblclick)
+      - [@mouseover](#mouseover)
+      - [@mouseout](#mouseout)
 
 **Other**
 
@@ -17,14 +23,24 @@
 ### 基本用法
 
 ``` vue
-
 <template>
-  <lcap-tree-diagram :dataSource="fakeData"></lcap-tree-diagram>
+  <lcap-tree-diagram :dataSource="list" >
+  </lcap-tree-diagram>
 </template>
 <script>
 export default {
     data() {
-        return {
+      return {
+        list: [
+          {id:1,label:'部门A',parentId:0},
+          {id:2,label:'部门B',parentId:1},
+          {id:3,label:'部门C',parentId:1},
+          {id:4,label:'部门D',parentId:1},
+          {id:5,label:'部门E',parentId:2},
+          {id:6,label:'部门F',parentId:3},
+          {id:7,label:'部门G',parentId:2},
+          {id:8,label:'部门H',parentId:4}
+      ],
       fakeData: {
         id: 0,
         label: 'XXXPOC测试',
@@ -89,7 +105,7 @@ export default {
 | --------- | ---- | ------- | ------- | ----------- |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
 | valueField | string |  |  | 用户标识选中值的属性 |
-| text | string |  | `'树状结构图'` | 用于显示文本的字段名 |
+| text-field | string |  | `'树状结构图'` | 用于显示文本的字段名 |
 | showChildDotNum | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
 
 ### Slots

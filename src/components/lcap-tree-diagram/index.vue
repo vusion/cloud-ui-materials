@@ -19,6 +19,7 @@
 <script>
 import LcapTreeDiagram from './src/main.js';
 import SupportDataSource from './src/mixins/support.datasource.js';
+import deepClone from 'lodash/cloneDeep'
 
 export default {
   name: 'lcap-tree-diagram',
@@ -37,16 +38,22 @@ export default {
       expandAll: false,
       horizontal: true,
       collapsable: true,
+      sourceData: []
     };
   },
-  created() {
-    this.sourceData = this.normalize(this.currentDataSource.data) || [];
+  watch: {
+    'currentDataSource.data': {
+      handler(val) {
+        this.sourceData = this.normalize(deepClone(val)) || [];
+      }
+    }
   },
+
   methods: {
     normalize(list) {
         let result = [];
         const map = list.reduce((res, v) => {
-          res[v.id] = v
+          res[v.id] = v;
           return res;
         }, {})
         for (let item of list) {
@@ -54,12 +61,12 @@ export default {
           const parentId = item.parentId;
           if (parentId === 0) {
             result.push(item)
-          } else {
-            if (map[item.parentId]) {
-              const parent = map[item.parentId]
-              parent.children = parent.children || [];
-              parent.children.push(item)
-            }
+            continue
+          }
+          if (map[item.parentId]) {
+            const parent = map[item.parentId]
+            parent.children = parent.children || [];
+            parent.children.push(item)
           }
         }
         return result

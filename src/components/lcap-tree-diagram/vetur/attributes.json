@@ -7,7 +7,7 @@
     "type": "string",
     "description": "用户标识选中值的属性"
   },
-  "lcap-tree-diagram/text": {
+  "lcap-tree-diagram/text-field": {
     "type": "string",
     "description": "用于显示文本的字段名"
   },

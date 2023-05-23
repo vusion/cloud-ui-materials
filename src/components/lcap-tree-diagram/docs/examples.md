@@ -10,14 +10,34 @@ export default {
     data() {
       return {
         list: [
-          {id:1,label:'部门A',parentId:0},
-          {id:2,label:'部门B',parentId:1},
-          {id:3,label:'部门C',parentId:1},
-          {id:4,label:'部门D',parentId:1},
-          {id:5,label:'部门E',parentId:2},
-          {id:6,label:'部门F',parentId:3},
-          {id:7,label:'部门G',parentId:2},
-          {id:8,label:'部门H',parentId:4}
+          {
+            "id": 1,
+            "label": "主题",
+            "parentId": 0
+          },
+          {
+            "id": 2,
+            "label": "子主题",
+            "parentId": 1
+          },
+          {
+            "id": 3,
+            "label": "子主题2",
+            "parentId": 2
+          },
+          {
+            "id": 4,
+            "label": "子子主题1",
+            "parentId": 3
+          }
+          // {id:1,label:'部门A',parentId:0},
+          // {id:2,label:'部门B',parentId:1},
+          // {id:3,label:'部门C',parentId:1},
+          // {id:4,label:'部门D',parentId:1},
+          // {id:5,label:'部门E',parentId:2},
+          // {id:6,label:'部门F',parentId:3},
+          // {id:7,label:'部门G',parentId:2},
+          // {id:8,label:'部门H',parentId:4}
       ],
       fakeData: {
         id: 0,

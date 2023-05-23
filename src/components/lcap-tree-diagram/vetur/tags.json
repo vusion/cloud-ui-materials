@@ -3,7 +3,7 @@
     "attributes": [
       "data-source",
       "valueField",
-      "text",
+      "text-field",
       "showChildDotNum"
     ],
     "description": "请在这里添加描述"
