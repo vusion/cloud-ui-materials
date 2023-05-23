@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -10,7 +10,7 @@
         "Other"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tree-diagram></lcap-tree-diagram>\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tree-diagram :dataSource=\\\"{}\\\"></lcap-tree-diagram>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram",
         "title": "树状结构图",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n<lcap-tree-diagram></lcap-tree-diagram>\n</template>\n"
+                "code": "<template>\n<lcap-tree-diagram :dataSource=\"{}\"></lcap-tree-diagram>\n</template>\n"
             }
         ],
         "attrs": [

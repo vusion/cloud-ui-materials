@@ -14,7 +14,7 @@
       title: 值字段
       type: string
       description: 用户标识选中值的属性
-    - name: text
+    - name: text-field
       title: 文本字段
       type: string
       default: 树状结构图

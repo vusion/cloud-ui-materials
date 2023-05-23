@@ -10,11 +10,10 @@ const EVENTS = {
 function createListener(handler, data) {
     const execute = (cb, e, ...args) => {
         if (typeof cb === 'function') {
-            // fixed bug #48, #73
-            const className = e.target && e.target.className;
+            // // fixed bug #48, #73
+            // const className = e.target && e.target.className;
             if (typeof className === 'string' && className.indexOf('lcap-tree-node-btn') > -1)
                 return;
-
             cb.apply(null, [e, ...args]);
         }
     };
@@ -70,7 +69,6 @@ export function renderBtn(h, data, { props, listeners }) {
     if (data[props.props.expand]) {
         cls.push('expanded');
     }
-
     return h('span', {
         domProps: {
             className: cls.join(' '),
@@ -87,6 +85,7 @@ export function renderBtn(h, data, { props, listeners }) {
 // 创建 label 节点
 export function renderLabel(h, data, context) {
     const { props, listeners } = context;
+    const expandHandler = listeners['on-expand'];
     const label = data[props.props.label];
     const renderContent = props.renderContent;
 
@@ -137,9 +136,9 @@ export function renderLabel(h, data, context) {
             draggable: true,
         },
         on: {
-            dragstart: createListener(dragStartHandler, data),
-            dragover: createListener(dragOverHandler, data),
-            drop: createListener(dropHander, data),
+            // dragstart: createListener(dragStartHandler, data),
+            // dragover: createListener(dragOverHandler, data),
+            // drop: createListener(dropHander, data),
         },
     }, [h('div', {
         domProps: {
@@ -147,10 +146,10 @@ export function renderLabel(h, data, context) {
         },
         style: { width: labelWidth },
         on: {
-            click: createListener(clickHandler, data),
-            dbclick: createListener(clickHandler, data),
-            mouseout: createListener(mouseOutHandler, data),
-            mouseover: createListener(mouseOverHandler, data),
+            // click: (e) => expandHandler && expandHandler(e, data),
+            // dbclick: createListener(clickHandler, data),
+            // mouseout: createListener(mouseOutHandler, data),
+            // mouseover: createListener(mouseOverHandler, data),
         },
     }, childNodes)]);
 }

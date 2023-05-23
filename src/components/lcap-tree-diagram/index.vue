@@ -1,7 +1,7 @@
 <template>
-  <div class="text-center">
+  <div>
     <LcapTreeDiagram
-      :data="dataSource"
+      :data="sourceData"
       :horizontal="horizontal"
       :collapsable="collapsable"
       :label-class-name="labelClassName"
@@ -26,79 +26,52 @@ export default {
     LcapTreeDiagram,
   },
   props: {
-    dataSource: { type: Object, default: () => {} },
+    dataSource: { type: Object, default: () => {}},
+    // dataSource: [Array, Object, Function],
     showChildDotNum: { type: Boolean, default: true },
     valueField: { type: String, default: 'value' },
+    parentField: { type: String, default: '' },
+    textField: { type: String, default: '' },
   },
   data() {
     return {
       sourceData: {},
-      fakeData: {
-        id: 0,
-        label: 'XXXPOC测试',
-        children: [
-          {
-            id: 2,
-            label: '产品研发部',
-            children: [
-              {
-                id: 5,
-                label: '研发-前端',
-              },
-              {
-                id: 6,
-                label: '研发-后端',
-              },
-              {
-                id: 9,
-                label: 'UI设计',
-              },
-              {
-                id: 10,
-                label: '产品经理',
-              },
-            ],
-          },
-          {
-            id: 3,
-            label: '销售部',
-            children: [
-              {
-                id: 7,
-                label: '销售一部',
-              },
-              {
-                id: 8,
-                label: '销售二部',
-              },
-            ],
-          },
-          {
-            id: 4,
-            label: '财务部',
-          },
-          {
-            id: 9,
-            label: 'HR人事',
-          },
-        ],
-      },
       expandAll: false,
       horizontal: true,
       collapsable: true,
     };
   },
   created() {
-    this.init();
+    // this.sourceData = this.normalizeDataSource(this.dataSource)
+    // console.log(JSON.stringify(this.sourceData, null, 2))
+    // 初始化没配置数据
+    if (typeof this.dataSource === 'undefined') {
+      this.sourceData = {}
+    } else {
+      this.sourceData = this.dataSource
+    }
   },
   methods: {
-    async init() {
-      // 本地启动和开发环境使用假数据，生产环境替换为真数据
-      const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? this.fakeData : this.currentDataSource.data;
-      // this.sourceData = await this.handleData(fnDataSource) || {};
-      // this.sourceData = this.fakeData;
-      // console.log(this.sourceData, '----sourceData')
-    },
+    normalizeDataSource(list) {
+        let result = [];
+        const map = list.reduce((res, v) => {
+          res[v.id] = v
+          return res;
+        }, {})
+        for (let item of list) {
+          const parentId = item.parentId;
+          if (parentId === 0) {
+            result.push(item)
+          } else {
+            if (map[item.parentId]) {
+              const parent = map[item.parentId]
+              parent.children = parent.children || [];
+              parent.children.push(item)
+            }
+          }
+        }
+        return result
+      },
     labelClassName() {
       return 'clickable-node';
     },
@@ -106,15 +79,15 @@ export default {
       return data.label;
     },
     onExpand(e, data) {
-      if ('expand' in data) {
-        data.expand = !data.expand;
-
-        if (!data.expand && data.children) {
-          this.collapse(data.children);
-        }
-      } else {
+      // if ('expand' in data) {
+      //   data.expand = !data.expand;
+      //   if (!data.expand && data.children) {
+      //     this.collapse(data.children);
+      //   }
+      //   console.log(data, '--dachdilrdat')
+      // } else {
         this.$set(data, 'expand', true);
-      }
+      // }
     },
     onNodeClick(e, data) {
       console.log('onNodeClick: %o', data);
@@ -125,11 +98,11 @@ export default {
     },
     collapse(list) {
       let _this = this;
+      console.log(list)
       list.forEach(function (child) {
         if (child.expand) {
           child.expand = false;
         }
-
         child.children && _this.collapse(child.children);
       });
     },
