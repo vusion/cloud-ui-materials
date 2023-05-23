@@ -95,7 +95,7 @@ export default {
         return res;
       }, {})
       for (let item of list) {
-        this.$set(item, 'expand', false);
+        this.$set(item, 'expand', true);
         const parentId = item[pField];
         if (parentId === 0) {
           result.push(item)
