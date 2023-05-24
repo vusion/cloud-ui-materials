@@ -51,13 +51,16 @@ export default {
       type: [Array, Object, Function],
       required: true,
     },
+    textField: { type: String, default: 'label' },
     props: {
       type: Object,
-      default: () => ({
-        label: "label",
-        expand: "expand",
-        children: "children",
-      }),
+      default: function() {
+        return {
+          label: this.textField,
+          expand: "expand",
+          children: "children",
+        }
+      }
     },
     horizontal: { type: Boolean, default: true },
     selectedKey: String,
@@ -66,7 +69,8 @@ export default {
     labelWidth: [String, Number],
     labelClassName: [Function, String],
     selectedClassName: [Function, String],
-    showChildDotNum: Boolean
+    showChildDotNum: Boolean,
+   
   },
   methods: {
     onDragStart(event, data) {

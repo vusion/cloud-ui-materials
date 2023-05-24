@@ -1,5 +1,6 @@
 const EVENTS = {
     CLICK: 'on-node-click',
+    DBCLICK: 'on-node-dbclick',
     MOUSEOUT: 'on-node-mouseout',
     MOUSEOVER: 'on-node-mouseover',
     DRAGSTART: 'on-node-drag-start',
@@ -86,11 +87,12 @@ export function renderBtn(h, data, { props, listeners }) {
 export function renderLabel(h, data, context) {
     const { props, listeners } = context;
     // const expandHandler = listeners['on-expand'];
+
     const label = data[props.props.label];
     const renderContent = props.renderContent;
-
     // event handlers
     const clickHandler = listeners[EVENTS.CLICK];
+    const dbclickHandler = listeners[EVENTS.DBCLICK];
     const mouseOutHandler = listeners[EVENTS.MOUSEOUT];
     const mouseOverHandler = listeners[EVENTS.MOUSEOVER];
     // const dragStartHandler = listeners[EVENTS.DRAGSTART];
@@ -133,9 +135,13 @@ export function renderLabel(h, data, context) {
     return h('div', {
         domProps: {
             className: 'lcap-tree-node-label',
-            draggable: true,
+            // draggable: true,
         },
         on: {
+            click: createListener(clickHandler, data),
+            dbclick: createListener(dbclickHandler, data),
+            mouseout: createListener(mouseOutHandler, data),
+            mouseover: createListener(mouseOverHandler, data),
             // dragstart: createListener(dragStartHandler, data),
             // dragover: createListener(dragOverHandler, data),
             // drop: createListener(dropHander, data),
@@ -145,12 +151,6 @@ export function renderLabel(h, data, context) {
             className: cls.join(' '),
         },
         style: { width: labelWidth },
-        on: {
-            click: createListener(clickHandler, data),
-            dbclick: createListener(clickHandler, data),
-            mouseout: createListener(mouseOutHandler, data),
-            mouseover: createListener(mouseOverHandler, data),
-        },
     }, childNodes)]);
 }
 
