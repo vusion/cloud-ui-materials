@@ -1,7 +1,7 @@
 <template>
   <div>
      <LcapTreeDiagram
-        v-if="$env.VUE_APP_DESIGNER"
+        v-if="$env.VUE_APP_DESIGNER || env"
         :data="fakeData"
         :horizontal="horizontal"
         :collapsable="collapsable"
