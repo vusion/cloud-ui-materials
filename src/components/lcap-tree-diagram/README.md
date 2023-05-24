@@ -18,7 +18,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :dataSource="list" @mouseout="mouseout"> 
+  <lcap-tree-diagram :dataSource="list" @mouseout="mouseout" textField="label"> 
   </lcap-tree-diagram>
 </template>
 <script>

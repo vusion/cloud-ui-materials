@@ -60,7 +60,8 @@ export function renderNode(h, data, context) {
 }
 
 // 创建展开折叠按钮
-export function renderBtn(h, data, { props, listeners }) {
+export function renderBtn(h, data, context) {
+    const { props, listeners } = context;
     const expandHandler = listeners['on-expand'];
 
     const cls = ['lcap-tree-node-btn'];
@@ -70,17 +71,34 @@ export function renderBtn(h, data, { props, listeners }) {
     if (data[props.props.expand]) {
         cls.push('expanded');
     }
-    return h('span', {
-        domProps: {
-            className: cls.join(' '),
-        },
-        attrs: {
-            'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
-        },
-        on: {
-            click: (e) => expandHandler && expandHandler(e, data),
-        },
-    });
+    // h('div', context.$slots, { className: 'lcap-tree-node-slot' }),
+    // return h('span', {
+    //     domProps: {
+    //         className: cls.join(' '),
+    //     },
+    //     attrs: {
+    //         'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
+    //     },
+    //     on: {
+    //         click: (e) => expandHandler && expandHandler(e, data),
+    //     },
+    // });
+    return [
+        h('span', {
+            domProps: {
+                className: cls.join(' '),
+            },
+            attrs: {
+                'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
+            },
+            on: {
+                click: (e) => expandHandler && expandHandler(e, data),
+            },
+        }),
+        h('div', { domProps: {
+            className: 'lcap-tree-node-slot',
+        } }, context.$slots),
+    ];
 }
 
 // 创建 label 节点
@@ -138,13 +156,10 @@ export function renderLabel(h, data, context) {
             // draggable: true,
         },
         on: {
-            click: createListener(clickHandler, data),
-            dbclick: createListener(dbclickHandler, data),
-            mouseout: createListener(mouseOutHandler, data),
-            mouseover: createListener(mouseOverHandler, data),
-            // dragstart: createListener(dragStartHandler, data),
-            // dragover: createListener(dragOverHandler, data),
-            // drop: createListener(dropHander, data),
+            click: (e) => clickHandler && clickHandler(e, data),
+            dbclick: (e) => dbclickHandler && dbclickHandler(e, data),
+            mouseout: (e) => mouseOutHandler && mouseOutHandler(e, data),
+            mouseover: (e) => mouseOverHandler && mouseOverHandler(e, data),
         },
     }, [h('div', {
         domProps: {
@@ -169,9 +184,11 @@ export function renderChildren(h, list, context) {
 }
 
 export function render(h, context) {
+    debugger;
     const { props } = context;
 
     return renderNode(h, props.data, context);
 }
 
 export default render;
+

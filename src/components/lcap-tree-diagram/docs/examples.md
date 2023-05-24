@@ -2,7 +2,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :dataSource="list" @mouseout="mouseout" textField="label"> 
+  <lcap-tree-diagram :dataSource="list"> 
   </lcap-tree-diagram>
 </template>
 <script>
@@ -12,23 +12,28 @@ export default {
         list: [
           {
             "id": 1,
-            "label": "主题",
+            "name": "主题",
             "parentId": 0
           },
           {
             "id": 2,
-            "label": "子主题",
+            "name": "子主题",
             "parentId": 1
           },
           {
             "id": 3,
-            "label": "子主题2",
-            "parentId": 2
+            "name": "子主题2",
+            "parentId": 1
           },
           {
             "id": 4,
-            "label": "子子主题1",
+            "name": "子子主题1",
             "parentId": 3
+          },
+          {
+            "id": 5,
+            "name": "子子主题4",
+            "parentId": 2
           }
       ],
       fakeData: {

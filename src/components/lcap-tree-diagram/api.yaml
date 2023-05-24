@@ -38,24 +38,36 @@
     - name: click
       title: 点击
       params:
-        - name: $event
+        - name: e
           type: object
-          description: 参数
+          description: 当前坐标等信息
+        - name: data 
+          type: object
+          description: 当前选项数据 
     - name: dblclick
       title: 双击
       params:
-        - name: $event
+        - name: e
           type: object
-          description: 参数
+          description: 当前坐标等信息
+        - name: data 
+          type: object
+          description: 当当前选项数据  
     - name: mouseover
       title: 鼠标移入
       params:
-        - name: $event
+        - name: e
           type: object
-          description: 参数
+          description: 当前坐标等信息
+        - name: data 
+          type: object
+          description: 当当前选项数据  
     - name: mouseout
       title: 鼠标移出
       params:
-        - name: $event
+        - name: e
           type: object
-          description: 参数
+          description: 当前坐标等信息
+        - name: data 
+          type: object
+          description: 当当前选项数据  

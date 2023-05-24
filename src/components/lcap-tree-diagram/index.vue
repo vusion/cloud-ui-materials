@@ -1,30 +1,21 @@
 <template>
   <div>
     <div v-if="$env.VUE_APP_DESIGNER || env">
-      <LcapTreeDiagram :data="{
-        id: 1,
-        label: 'XXXPOC测试',
-        parentId: 0,
-        children: [
-          {
-            id: 2,
-            label: '产品研发部',
-            parentId: 1,
-            children: [
-              {
-                id: 5,
-                label: '研发-前端',
-                 parentId: 2
-              },
-              {
-                id: 6,
-                label: '研发-后端',
-                parentId: 2
-              },
-            ],
-          }
-        ],
-      }"></LcapTreeDiagram>
+      <LcapTreeDiagram :data="fakeData"
+      :horizontal="horizontal"
+      :collapsable="collapsable"
+      :label-class-name="labelClassName"
+      :render-content="renderContent"
+      :showChildDotNum="showChildDotNum"
+      selected-key="selectedKey"
+      :textField="textField"
+      @on-expand="onExpand"
+      @on-node-click="onNodeClick"
+      @on-click="click"
+      @on-dbclick="dbclick"
+      @on-mouseover="mouseover"
+      @on-mouseout="mouseout"
+      ></LcapTreeDiagram>
     </div>
     <LcapTreeDiagram
       v-else
@@ -71,7 +62,35 @@ export default {
       expandAll: false,
       horizontal: true,
       collapsable: true,
-      sourceData: []
+      sourceData: [],
+      fakeData: {
+        id: 1,
+        label: 'XXXPOC测试',
+        parentId: 0,
+        expand: true,
+        children: [
+          {
+            id: 2,
+            label: '产品研发部',
+            parentId: 1,
+            expand: true,
+            children: [
+              {
+                id: 5,
+                label: '研发-前端',
+                parentId: 2,
+                expand: true,
+              },
+              {
+                id: 6,
+                label: '研发-后端',
+                parentId: 2,
+                expand: true,
+              },
+            ],
+          }
+        ],
+      }
     };
   },
   watch: {
@@ -82,17 +101,17 @@ export default {
     }
   },
   methods: {
-    dbclick($events) {
-      this.$emit('dbclick', $events)
+    dbclick(e, data) {
+      this.$emit('dbclick', e, data)
     },
-    mouseover($events) {
-      this.$emit('mouseover', $events)
+    mouseover(e, data) {
+      this.$emit('mouseover', e, data)
     },
-    mouseout($events) {
-      this.$emit('mouseout', $events)
+    mouseout(e, data) {
+      this.$emit('mouseout', e, data)
     },
-    click($events) {
-      this.$emit('click', $events)
+    click(e, data) {
+      this.$emit('click', e,data)
     },
     normalize(list, pField, vField) {
       let result = [];

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.0",
+    "version": "0.1.10",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -10,7 +10,7 @@
         "Other"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n <!-- <lcap-tree-diagram :dataSource=\\\"[{id: 1, label: '主题', parentId: 0 }]\\\"></lcap-tree-diagram> -->\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n <lcap-tree-diagram :dataSource=\\\"[{id: 1, label: '主题', parentId: 0 }]\\\"></lcap-tree-diagram>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram",
         "title": "树状结构图",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n <!-- <lcap-tree-diagram :dataSource=\"[{id: 1, label: '主题', parentId: 0 }]\"></lcap-tree-diagram> -->\n</template>\n"
+                "code": "<template>\n <lcap-tree-diagram :dataSource=\"[{id: 1, label: '主题', parentId: 0 }]\"></lcap-tree-diagram>\n</template>\n"
             }
         ],
         "attrs": [
