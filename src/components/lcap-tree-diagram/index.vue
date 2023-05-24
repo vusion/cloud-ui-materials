@@ -1,7 +1,7 @@
 <template>
   <div>
      <LcapTreeDiagram
-        v-if="$env.VUE_APP_DESIGNER || env"
+        v-if="$env.VUE_APP_DESIGNER"
         :data="fakeData"
         :horizontal="horizontal"
         :collapsable="collapsable"
@@ -17,9 +17,19 @@
         @on-dbclick="dbclick"
         @on-mouseover="mouseover"
         @on-mouseout="mouseout"
-      />
-    <section v-else>
+      >
+        <template #default="scope">
+            <slot :item="scope.item"></slot>
+            <s-empty v-if="$env.VUE_APP_DESIGNER
+                && $scopedSlots
+                &&!($scopedSlots.default && $scopedSlots.default({
+                    ...scope,
+                }))
+                && !!$attrs['vusion-node-path']"></s-empty>
+        </template>
+      </LcapTreeDiagram>
       <LcapTreeDiagram
+        v-else
         v-for="item in sourceData"
         :key="item.id"
         :data="item"
@@ -38,13 +48,21 @@
         @on-mouseover="mouseover"
         @on-mouseout="mouseout"
       >
+        <template #default="scope">
+            <slot :item="scope.item"></slot>
+            <s-empty v-if="$env.VUE_APP_DESIGNER
+                && $scopedSlots
+                &&!($scopedSlots.default && $scopedSlots.default({
+                    ...scope,
+                }))
+                && !!$attrs['vusion-node-path']"></s-empty>
+        </template>
       </LcapTreeDiagram>
-    </section>
   </div>
 </template>
 
 <script>
-import LcapTreeDiagram from './src/main.js';
+import LcapTreeDiagram from './src/components/tree.vue';
 import SupportDataSource from './src/mixins/support.datasource.js';
 import deepClone from 'lodash/cloneDeep'
 

@@ -22,7 +22,17 @@
         @on-node-drag-start="(e, data) => onDragStart(e, data)"
         @on-node-drag-over="(e, data) => onDragOver(e, data)"
         @on-node-drop="(e, data) => onDrop(e, data)"
-      />
+      >
+        <template #default="scope">
+            <slot :item="scope.item"></slot>
+            <s-empty v-if="$env.VUE_APP_DESIGNER
+                && $scopedSlots
+                &&!($scopedSlots.default && $scopedSlots.default({
+                    ...scope,
+                }))
+                && !!$attrs['vusion-node-path']"></s-empty>
+        </template>
+      </lcap-tree-node>
     </div>
   </div>
 </template>

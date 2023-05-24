@@ -53,12 +53,17 @@ export function renderNode(h, data, context) {
     if (!props.collapsable || data[props.props.expand]) {
         childNodes.push(renderChildren(h, children, context));
     }
-
-    return h('div', {
-        domProps: {
-            className: cls.join(' '),
-        },
-    }, childNodes);
+    console.log('context', props.isDesingerEnv, !context.scopedSlots?.default(), context);
+    return [
+        h('div', {
+            domProps: {
+                className: cls.join(' '),
+            },
+        }, childNodes),
+        <div class="lcap-tree-node-slot" vusion-slot-name="default">
+            { props.isDesingerEnv && !context.scopedSlots?.default() ? <SEmpty></SEmpty> : context.scopedSlots?.default()}
+        </div>,
+    ];
 }
 
 // 创建展开折叠按钮
@@ -85,11 +90,7 @@ export function renderBtn(h, data, context, isLeafV) {
                 click: (e) => expandHandler && expandHandler(e, data),
             },
         }) : h(null),
-        <div class="lcap-tree-node-slot" vusion-slot-name="dialog">
-            {props.isDesingerEnv ? <SEmpty></SEmpty> : <slot></slot>}
-        </div>,
     ];
-    // :vusion-scope-id="$parent.$parent.$options._scopeId"
 }
 
 // 创建 label 节点
@@ -183,7 +184,7 @@ export function renderChildren(h, list, context) {
 export function render(h, context) {
     const { props } = context;
 
-    return renderNode(h, props.data, context);
+    return [renderNode(h, props.data, context)];
 }
 
 export default render;
