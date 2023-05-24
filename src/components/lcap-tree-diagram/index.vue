@@ -1,10 +1,28 @@
 <template>
   <div>
-    <section 
-      v-for="item in sourceData"
-      :key="item.id">
+     <LcapTreeDiagram
+        v-if="$env.VUE_APP_DESIGNER || env"
+        :data="fakeData"
+        :horizontal="horizontal"
+        :collapsable="collapsable"
+        :label-class-name="labelClassName"
+        :render-content="renderContent"
+        :showChildDotNum="showChildDotNum"
+        selected-key="selectedKey"
+        :textField="textField"
+        :isDesingerEnv="$env.VUE_APP_DESIGNER"
+        @on-expand="onExpand"
+        @on-node-click="onNodeClick"
+        @on-click="click"
+        @on-dbclick="dbclick"
+        @on-mouseover="mouseover"
+        @on-mouseout="mouseout"
+      />
+    <section v-else>
       <LcapTreeDiagram
-        :data="$env.VUE_APP_DESIGNER || env ? fakeData : item"
+        v-for="item in sourceData"
+        :key="item.id"
+        :data="item"
         :horizontal="horizontal"
         :collapsable="collapsable"
         :label-class-name="labelClassName"
@@ -86,6 +104,9 @@ export default {
       },
     }
   },
+  created() {
+    console.log(this.$env.VUE_APP_DESIGNER, '--$env.VUE_APP_DESIGNER')
+  },
   methods: {
     dbclick(e, data) {
       this.$emit('dbclick', e, data)
@@ -118,7 +139,6 @@ export default {
           parent.children.push(item)
         }
       }
-      console.log(result, pField, vField)
       return result
     },
     labelClassName() {
