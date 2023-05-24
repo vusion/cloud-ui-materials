@@ -18,7 +18,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :dataSource="list" valueField="childId" parentField="parentId1" @mouseout="mouseout"> 
+  <lcap-tree-diagram :data-source="list" value-field="childId" parent-field="parentId1" @mouseout="mouseout"> 
   </lcap-tree-diagram>
 </template>
 <script>
@@ -100,10 +100,10 @@ export default {
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
-| valueField | string |  | `'id'` | 用户标识选中值的属性 |
-| textField | string |  | `'label'` | 用于显示文本的字段名 |
+| value-field | string |  | `'id'` | 用户标识选中值的属性 |
+| text-field | string |  | `'label'` | 用于显示文本的字段名 |
 | showChildDotNum | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
-| parentField | string |  | `'parentId'` | 集合的元素类型中，用于标识父节点的属性 |
+| parent-field | string |  | `'parentId'` | 集合的元素类型中，用于标识父节点的属性 |
 
 ### Slots
 

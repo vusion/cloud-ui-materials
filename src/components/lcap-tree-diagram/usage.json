@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -10,7 +10,7 @@
         "Other"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n <lcap-tree-diagram :data-source=\\\"[{id: 1, label: '主题', parentId: 0, expand: false }]\\\"></lcap-tree-diagram>\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n <lcap-tree-diagram :data-source=\\\"[{id: 1, label: '主题', parentId: 0, expand: true }]\\\"></lcap-tree-diagram>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram",
         "title": "树状结构图",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n <lcap-tree-diagram :data-source=\"[{id: 1, label: '主题', parentId: 0, expand: false }]\"></lcap-tree-diagram>\n</template>\n"
+                "code": "<template>\n <lcap-tree-diagram :data-source=\"[{id: 1, label: '主题', parentId: 0, expand: true }]\"></lcap-tree-diagram>\n</template>\n"
             }
         ],
         "attrs": [
@@ -35,14 +35,14 @@
                 "group": "数据属性"
             },
             {
-                "name": "valueField",
+                "name": "value-field",
                 "title": "值字段",
                 "type": "string",
                 "default": "id",
                 "description": "用户标识选中值的属性"
             },
             {
-                "name": "textField",
+                "name": "text-field",
                 "title": "文本字段",
                 "type": "string",
                 "default": "label",
@@ -56,7 +56,7 @@
                 "description": "默认开启；开启后显示其子节点的全部数量"
             },
             {
-                "name": "parentField",
+                "name": "parent-field",
                 "title": "父级选项值",
                 "type": "string",
                 "default": "parentId",
