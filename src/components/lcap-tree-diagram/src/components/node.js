@@ -53,16 +53,15 @@ export function renderNode(h, data, context) {
     if (!props.collapsable || data[props.props.expand]) {
         childNodes.push(renderChildren(h, children, context));
     }
-    console.log('context', props.isDesingerEnv, !context.scopedSlots?.default(), context);
     return [
         h('div', {
             domProps: {
                 className: cls.join(' '),
             },
         }, childNodes),
-        <div class="lcap-tree-node-slot" vusion-slot-name="default">
-            { props.isDesingerEnv && !context.scopedSlots?.default() ? <SEmpty></SEmpty> : context.scopedSlots?.default()}
-        </div>,
+        // <div class="lcap-tree-node-slot" vusion-slot-name="default">
+        //     { props.isDesingerEnv && !context.scopedSlots?.default() ? <SEmpty></SEmpty> : context.scopedSlots?.default()}
+        // </div>,
     ];
 }
 
@@ -125,9 +124,16 @@ export function renderLabel(h, data, context) {
     const cls = ['lcap-tree-node-label-inner'];
     let { labelWidth, labelClassName, selectedClassName, selectedKey } = props;
 
+    if (data.curIndex == 1) {
+        cls.push('lcap-tree-node-label-inner-second');
+    }
+    if (data.curIndex >= 2) {
+        cls.push('lcap-tree-node-label-inner-more');
+    }
     if (typeof labelWidth === 'number') {
         labelWidth += 'px';
     }
+    // debugger;
 
     if (typeof labelClassName === 'function') {
         labelClassName = labelClassName(data);

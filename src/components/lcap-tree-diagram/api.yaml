@@ -53,17 +53,11 @@
       params:
         - name: e
           type: object
-          description: 当前坐标等信息
-        - name: data 
-          type: object
-          description: 当前选项数据 
+          description: 当当前选项数据
     - name: dblclick
       title: 双击
       params:
-        - name: e
-          type: object
-          description: 当前坐标等信息
-        - name: data 
+        - name: e 
           type: object
           description: 当当前选项数据  
     - name: mouseover
@@ -71,16 +65,10 @@
       params:
         - name: e
           type: object
-          description: 当前坐标等信息
-        - name: data 
-          type: object
           description: 当当前选项数据  
     - name: mouseout
       title: 鼠标移出
       params:
         - name: e
-          type: object
-          description: 当前坐标等信息
-        - name: data 
           type: object
           description: 当当前选项数据  

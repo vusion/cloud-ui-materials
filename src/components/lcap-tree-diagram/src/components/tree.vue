@@ -82,7 +82,6 @@ export default {
     selectedClassName: [Function, String],
     showChildDotNum: Boolean,
     isDesingerEnv: Boolean
-   
   },
   methods: {
     onDragStart(event, data) {

@@ -1,7 +1,7 @@
 <template>
   <div>
      <LcapTreeDiagram
-        v-if="$env.VUE_APP_DESIGNER || env"
+        v-if="true"
         :data="fakeData"
         :horizontal="horizontal"
         :collapsable="collapsable"
@@ -90,26 +90,30 @@ export default {
         label: 'XXXPOC测试',
         parentId: 0,
         expand: true,
+        curIndex: 0,
         children: [
           {
             id: 2,
             label: '产品研发部',
             parentId: 1,
             expand: true,
-            children: [
-              {
-                id: 5,
-                label: '研发-前端',
-                parentId: 2,
-                expand: true,
-              },
-              {
-                id: 6,
-                label: '研发-后端',
-                parentId: 2,
-                expand: true,
-              },
-            ],
+            curIndex: 1,
+            // children: [
+            //   {
+            //     id: 5,
+            //     label: '研发-前端',
+            //     parentId: 2,
+            //     expand: true,
+            //     curIndex: 2,
+            //   },
+            //   {
+            //     id: 6,
+            //     label: '研发-后端',
+            //     parentId: 2,
+            //     expand: true,
+            //     curIndex: 2,
+            //   },
+            // ],
           }
         ],
       }
@@ -127,20 +131,25 @@ export default {
   },
   methods: {
     dbclick(e, data) {
-      this.$emit('dbclick', e, data)
+      let $events = Object.assign(e, data)
+      this.$emit('dbclick', $events);
     },
     mouseover(e, data) {
-      this.$emit('mouseover', e, data)
+      let $events = Object.assign(e, data)
+      this.$emit('mouseover', $events);
     },
     mouseout(e, data) {
-      this.$emit('mouseout', e, data)
+      let $events = Object.assign(e, data)
+      this.$emit('mouseout', $events);
     },
     click(e, data) {
-      this.$emit('click', e,data)
+      let $events = Object.assign(e, data)
+      this.$emit('click',  $events);
     },
     normalize(list, pField, vField) {
       let result = [];
-      const map = list?.reduce((res, v) => {
+      const map = list?.reduce((res, v, index) => {
+         v.curIndex = index;
         res[v[vField]] = v;
         return res;
       }, {});
@@ -148,6 +157,7 @@ export default {
         this.$set(item, 'expand', true);
         const parentId = item[pField];
         if (parentId === 0) {
+          item.curIndex = 0;
           result.push(item)
           continue
         }
