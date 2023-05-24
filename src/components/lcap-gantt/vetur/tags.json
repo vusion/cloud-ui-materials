@@ -1,0 +1,20 @@
+{
+  "lcap-gantt": {
+    "attributes": [
+      "data-source",
+      "link-source",
+      "taskView",
+      "showToday"
+    ],
+    "description": "请在这里添加描述",
+    "subtags": [
+      "lcap-gantt-table"
+    ]
+  },
+  "lcap-gantt-table": {
+    "attributes": [
+      "data-source"
+    ],
+    "description": "请在这里添加描述"
+  }
+}

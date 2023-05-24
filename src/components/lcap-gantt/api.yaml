@@ -3,6 +3,8 @@
   description: 请在这里添加描述
   labels: [Chart]
   icon: default
+  next: true
+  nested: false
   attrs:
     - name: data-source
       title: 数据源
@@ -37,7 +39,6 @@
       default: true
       description: 设置显示今日标记线
       group: 展示属性
-
   slots:
     - name: default
       description: 插入文本或 HTML。
@@ -51,3 +52,15 @@
         - name: $event.param2
           type: number
           description: 参数2
+- name: lcap-gantt-table
+  title: 甘特图表格
+  description: 请在这里添加描述
+  labels: [ Chart ]
+  icon: default
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 甘特图的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据属性
