@@ -10,12 +10,12 @@
       designer-value: "[{}, {}, {}]"
       description: 表格的数据源，数据集对象或者返回数据集的逻辑
       group: 数据属性
-    - name: valueField
+    - name: value-field
       title: 值字段
       type: string
       default: "id"
       description: 用户标识选中值的属性
-    - name: textField
+    - name: text-field
       title: 文本字段
       type: string
       default: 'label'
@@ -25,7 +25,7 @@
       type: boolean
       default: true
       description: 默认开启；开启后显示其子节点的全部数量
-    - name: parentField
+    - name: parent-field
       title: 父级选项值
       type: string
       default: "parentId"

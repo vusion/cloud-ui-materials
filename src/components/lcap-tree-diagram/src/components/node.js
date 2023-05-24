@@ -73,7 +73,6 @@ export function renderBtn(h, data, context, isLeafV) {
     if (data[props.props.expand]) {
         cls.push('expanded');
     }
-    debugger;
     return [
         isLeafV ? h('span', {
             domProps: {
@@ -182,7 +181,6 @@ export function renderChildren(h, list, context) {
 }
 
 export function render(h, context) {
-    debugger;
     const { props } = context;
 
     return renderNode(h, props.data, context);

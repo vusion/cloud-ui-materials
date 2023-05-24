@@ -2,7 +2,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :dataSource="list" valueField="childId" parentField="parentId1" @mouseout="mouseout"> 
+  <lcap-tree-diagram :data-source="list" value-field="childId" parent-field="parentId1" @mouseout="mouseout"> 
   </lcap-tree-diagram>
 </template>
 <script>

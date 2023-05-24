@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.empty" s-empty="true">+</div>
+<div :class="$style.empty" s-empty="true">+</div>
 </template>
 <script>
 
@@ -14,7 +14,7 @@ export default {
     text-align: center;
     color: #ccc;
 		min-height: 32px;
-		min-width: 90px;
+		min-width: 70px;
 		width: 100%;
     align-items: center;
     display: inline-flex;

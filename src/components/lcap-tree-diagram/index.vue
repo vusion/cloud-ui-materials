@@ -4,7 +4,7 @@
       v-for="item in sourceData"
       :key="item.id">
       <LcapTreeDiagram
-        :data="$env.VUE_APP_DESIGNER  || env ? fakeData : item"
+        :data="$env.VUE_APP_DESIGNER || env ? fakeData : item"
         :horizontal="horizontal"
         :collapsable="collapsable"
         :label-class-name="labelClassName"
