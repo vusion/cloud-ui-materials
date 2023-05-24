@@ -1,3 +1,5 @@
+import SEmpty from './s-empty';
+
 const EVENTS = {
     CLICK: 'on-node-click',
     DBCLICK: 'on-node-dbclick',
@@ -60,31 +62,20 @@ export function renderNode(h, data, context) {
 }
 
 // 创建展开折叠按钮
-export function renderBtn(h, data, context) {
+export function renderBtn(h, data, context, isLeafV) {
     const { props, listeners } = context;
     const expandHandler = listeners['on-expand'];
 
     const cls = ['lcap-tree-node-btn'];
 
-    const dotNum = data?.children.length;
+    const dotNum = data?.children?.length;
 
     if (data[props.props.expand]) {
         cls.push('expanded');
     }
-    // h('div', context.$slots, { className: 'lcap-tree-node-slot' }),
-    // return h('span', {
-    //     domProps: {
-    //         className: cls.join(' '),
-    //     },
-    //     attrs: {
-    //         'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
-    //     },
-    //     on: {
-    //         click: (e) => expandHandler && expandHandler(e, data),
-    //     },
-    // });
+    debugger;
     return [
-        h('span', {
+        isLeafV ? h('span', {
             domProps: {
                 className: cls.join(' '),
             },
@@ -94,11 +85,12 @@ export function renderBtn(h, data, context) {
             on: {
                 click: (e) => expandHandler && expandHandler(e, data),
             },
-        }),
-        h('div', { domProps: {
-            className: 'lcap-tree-node-slot',
-        } }, context.$slots),
+        }) : h(null),
+        <div class="lcap-tree-node-slot" vusion-slot-name="dialog">
+            {props.isDesingerEnv ? <SEmpty></SEmpty> : <slot></slot>}
+        </div>,
     ];
+    // :vusion-scope-id="$parent.$parent.$options._scopeId"
 }
 
 // 创建 label 节点
@@ -125,11 +117,11 @@ export function renderLabel(h, data, context) {
     } else {
         childNodes.push(label);
     }
-
-    if (props.collapsable && !isLeaf(data, props.props?.children)) {
-        childNodes.push(renderBtn(h, data, context));
+    const isLeafV = !isLeaf(data, props.props?.children);
+    if (props.collapsable) {
+        childNodes.push(renderBtn(h, data, context, isLeafV));
     }
-
+    // && !isLeaf(data, props.props?.children)
     const cls = ['lcap-tree-node-label-inner'];
     let { labelWidth, labelClassName, selectedClassName, selectedKey } = props;
 
@@ -149,6 +141,12 @@ export function renderLabel(h, data, context) {
     }
 
     selectedClassName && selectedKey && data[selectedKey] && cls.push(selectedClassName);
+    // return [
+    //     <div class="lcap-tree-node-slot" vusion-slot-name="dialog">
+    //     <slot></slot>
+    //     <SEmpty v-if="props.isDesingerEnv"></SEmpty>
+    // </div>
+    // ]
 
     return h('div', {
         domProps: {

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -10,7 +10,7 @@
         "Other"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n <lcap-tree-diagram :dataSource=\\\"[{id: 1, label: '主题', parentId: 0 }]\\\"></lcap-tree-diagram>\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n <lcap-tree-diagram :dataSource=\\\"[{id: 1, label: '主题', parentId: 0, expand: false }]\\\"></lcap-tree-diagram>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram",
         "title": "树状结构图",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n <lcap-tree-diagram :dataSource=\"[{id: 1, label: '主题', parentId: 0 }]\"></lcap-tree-diagram>\n</template>\n"
+                "code": "<template>\n <lcap-tree-diagram :dataSource=\"[{id: 1, label: '主题', parentId: 0, expand: false }]\"></lcap-tree-diagram>\n</template>\n"
             }
         ],
         "attrs": [
@@ -76,9 +76,14 @@
                 "title": "点击",
                 "params": [
                     {
-                        "name": "$event",
+                        "name": "e",
                         "type": "object",
-                        "description": "参数"
+                        "description": "当前坐标等信息"
+                    },
+                    {
+                        "name": "data",
+                        "type": "object",
+                        "description": "当前选项数据"
                     }
                 ]
             },
@@ -87,9 +92,14 @@
                 "title": "双击",
                 "params": [
                     {
-                        "name": "$event",
+                        "name": "e",
                         "type": "object",
-                        "description": "参数"
+                        "description": "当前坐标等信息"
+                    },
+                    {
+                        "name": "data",
+                        "type": "object",
+                        "description": "当当前选项数据"
                     }
                 ]
             },
@@ -98,9 +108,14 @@
                 "title": "鼠标移入",
                 "params": [
                     {
-                        "name": "$event",
+                        "name": "e",
                         "type": "object",
-                        "description": "参数"
+                        "description": "当前坐标等信息"
+                    },
+                    {
+                        "name": "data",
+                        "type": "object",
+                        "description": "当当前选项数据"
                     }
                 ]
             },
@@ -109,9 +124,14 @@
                 "title": "鼠标移出",
                 "params": [
                     {
-                        "name": "$event",
+                        "name": "e",
                         "type": "object",
-                        "description": "参数"
+                        "description": "当前坐标等信息"
+                    },
+                    {
+                        "name": "data",
+                        "type": "object",
+                        "description": "当当前选项数据"
                     }
                 ]
             }

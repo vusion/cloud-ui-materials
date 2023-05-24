@@ -1,41 +1,27 @@
 <template>
   <div>
-    <div v-if="$env.VUE_APP_DESIGNER || env">
-      <LcapTreeDiagram :data="fakeData"
-      :horizontal="horizontal"
-      :collapsable="collapsable"
-      :label-class-name="labelClassName"
-      :render-content="renderContent"
-      :showChildDotNum="showChildDotNum"
-      selected-key="selectedKey"
-      :textField="textField"
-      @on-expand="onExpand"
-      @on-node-click="onNodeClick"
-      @on-click="click"
-      @on-dbclick="dbclick"
-      @on-mouseover="mouseover"
-      @on-mouseout="mouseout"
-      ></LcapTreeDiagram>
-    </div>
-    <LcapTreeDiagram
-      v-else
+    <section 
       v-for="item in sourceData"
-      :key="item.id"
-      :data="item"
-      :horizontal="horizontal"
-      :collapsable="collapsable"
-      :label-class-name="labelClassName"
-      :render-content="renderContent"
-      :showChildDotNum="showChildDotNum"
-      selected-key="selectedKey"
-      :textField="textField"
-      @on-expand="onExpand"
-      @on-node-click="onNodeClick"
-      @on-click="click"
-      @on-dbclick="dbclick"
-      @on-mouseover="mouseover"
-      @on-mouseout="mouseout"
-    ></LcapTreeDiagram>
+      :key="item.id">
+      <LcapTreeDiagram
+        :data="$env.VUE_APP_DESIGNER  || env ? fakeData : item"
+        :horizontal="horizontal"
+        :collapsable="collapsable"
+        :label-class-name="labelClassName"
+        :render-content="renderContent"
+        :showChildDotNum="showChildDotNum"
+        selected-key="selectedKey"
+        :textField="textField"
+        :isDesingerEnv="$env.VUE_APP_DESIGNER"
+        @on-expand="onExpand"
+        @on-node-click="onNodeClick"
+        @on-click="click"
+        @on-dbclick="dbclick"
+        @on-mouseover="mouseover"
+        @on-mouseout="mouseout"
+      >
+      </LcapTreeDiagram>
+    </section>
   </div>
 </template>
 
@@ -132,6 +118,7 @@ export default {
           parent.children.push(item)
         }
       }
+      console.log(result, pField, vField)
       return result
     },
     labelClassName() {
@@ -198,3 +185,4 @@ export default {
   background: blueviolet;
 }
 </style>
+

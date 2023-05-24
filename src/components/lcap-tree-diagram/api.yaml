@@ -32,8 +32,21 @@
       description: 集合的元素类型中，用于标识父节点的属性
       group: 数据属性
   slots:
-    - name: default
-      description: 插入文本或 HTML。
+    - concept: Slot
+      name: dialog
+      description: 自定义插槽
+      slotProps:
+        concept: Param
+        name: scope
+        typeAnnotation:
+          concept: TypeAnnotation
+          typeKind: generic
+          typeNamespace: nasl.ui
+          typeName: ScopeOf
+          typeArguments:
+            - concept: TypeAnnotation
+              typeKind: typeParam
+              typeName: T
   events:
     - name: click
       title: 点击
