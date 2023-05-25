@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 const EVENTS = {
     CLICK: 'on-node-click',
     DBCLICK: 'on-node-dbclick',
@@ -119,6 +121,7 @@ export function renderLabel(h, data, context) {
     // const dropHander = listeners[EVENTS.DROP];
 
     const childNodes = [];
+    debugger;
     if (typeof renderContent === 'function') {
         const vnode = renderContent(h, data);
 

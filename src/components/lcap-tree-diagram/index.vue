@@ -1,7 +1,7 @@
 <template>
   <div>
     <LcapTreeDiagram
-      v-if="$env.VUE_APP_DESIGNER"
+      v-if="$env.VUE_APP_DESIGNER || env"
       :data="fakeData"
       :horizontal="horizontal"
       :collapsable="collapsable"
@@ -65,7 +65,7 @@
       <div :class="$style.popcontent" @click.stop>
        <div :class="[$style.edit, dialogTextHover ? $style.hover : '']" @click.stop="onEdit">编辑</div>
        <div :class="[$style.delete, dialogDeleteHover ? $style.hover : '']" @click.stop="onDelete">删除</div>
-       <div :class="$style.recent">最近编辑 2023-05-28 张三丰</div>
+       <div :class="$style.recent">最近编辑 {{ updateTime }} {{updateBy}}</div>
       </div>
     </m-popper>
   </div>
@@ -75,6 +75,8 @@
 import LcapTreeDiagram from './src/components/tree.vue';
 import SupportDataSource from './src/mixins/support.datasource.js';
 import deepClone from 'lodash/cloneDeep'
+import get from 'lodash/get'
+import set from 'lodash/set'
 import { addCurIndex } from './src/util.js'
 
 export default {
@@ -109,6 +111,7 @@ export default {
         return ['left', 'right'].includes(value);
       },
     },
+    dataEntity: { type: String }
   },
   data() {
     return {
@@ -170,7 +173,8 @@ export default {
           },
         ],
       },
-      expandEvent: false
+      updateBy: '轻舟',
+      updateTime: '' 
     };
   },
   computed: {
@@ -185,42 +189,47 @@ export default {
     // valueField, parentField, childrenField 
     'currentDataSource.data': {
       handler(val) {
-        let temp = this.listToTree(deepClone(val), { parentField : this.parentField, valueField: this.valueField, childrenField: 'shuxingtu.children'}) || [];
+        let temp = this.normalize(deepClone(val), { parentField: this.parentField, valueField: this.valueField, childrenField: 'children', dEntity: this.dataEntity }) || [];
         this.sourceData = addCurIndex(temp)
       },
     }
   },
   methods: {
    listToTree(data, options) {
-      const { valueField, parentField, childrenField } = options;
+      const { valueField, parentField, childrenField, dEntity } = options;
 
       // Map记录一下
       const nodes = {}; // Record<id, { entity }>
       data.forEach((item) => {
-          const id = this.$at(item, valueField);
+          const id = get(item, valueField);
           if (id) {
-              nodes[id] = item;
+            nodes[id] = item;
           }
       });
 
       const tree = [];
      
       data.forEach((item) => {
-          this.$setAt(item, 'expand', true);
-          const parentId = this.$at(item, parentField);
+          set(item, 'expand', true);
+          const parentId = get(item, parentField);
           const parent = nodes[parentId];
           // 没有parentId 或者 parent不存在的不处理
           if (!parentId || !parent) {
-              tree.push(item);
+              tree.push({
+                ...item, 
+                ...item[dEntity]
+              });
           } else {
-              if (!this.$at(parent, childrenField)) {
-                this.$setAt(parent, childrenField, []);
+              if (!get(parent, childrenField)) {
+                set(parent, childrenField, []);
               }
 
-              this.$at(parent, childrenField).push(item);
+              get(parent, childrenField).push({
+                ...item, 
+                ...item[dEntity]
+              });
           }
       });
-      debugger
       return tree;
     },
 
@@ -258,16 +267,28 @@ export default {
       e.item = data;
       e.value = data[this.valueField];
       this.curEventsData = e
+      this.updateTime = e.item?.updateTime?.split('T')[0]
       this.$emit('click',  e);
     },
-    normalize(list, pField, vField) {
+    normalize(list, options) {
+      const { parentField: pField, valueField: vField, dEntity} = options;
+      
+      let tempArr = [];
+      tempArr = list.map(item => {
+        if (dEntity)  {
+          return item[dEntity]
+        } else {
+          return item
+        }
+      })
+      
       let result = [];
-      const map = list?.reduce((res, v, index) => {
+      const map = tempArr?.reduce((res, v, index) => {
         v.curIndex = index;
         res[v[vField]] = v;
         return res;
       }, {});
-      for (let item of list) {
+      for (let item of tempArr) {
         this.$set(item, 'expand', true);
         const parentId = item[pField];
         if (parentId === 0) {
@@ -281,13 +302,15 @@ export default {
           parent.children.push(item)
         }
       }
+      console.log(result)
       return result
     },
     labelClassName() {
       return 'clickable-node';
     },
     renderContent(h, data) {
-      return data[this.textField]
+      // return data[this.textField]
+      return get(data, this.textField)
     },
     onExpand(e, data) {
       this.expandEvent = e.target.dataset.btn === 'true';
