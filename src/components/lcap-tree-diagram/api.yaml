@@ -69,3 +69,7 @@
           description: 鼠标事件对象
           schema:
             $ref: "#/systemTypes/ChangeItemEvent"
+  methods:
+    - name: reload
+      description: 重新加载
+      params: []

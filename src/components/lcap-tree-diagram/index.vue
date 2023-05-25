@@ -61,6 +61,7 @@
       :reference="referenceEl"
       trigger="manual"
       :opened="showPopper"
+
     >
       <div :class="$style.popcontent" @click.stop>
        <div :class="[$style.edit, dialogTextHover ? $style.hover : '']" @click.stop="onEdit">编辑</div>
@@ -111,7 +112,7 @@ export default {
         return ['left', 'right'].includes(value);
       },
     },
-    dataEntity: { type: String }
+    dataEntity: { type: String, default: '' }
   },
   data() {
     return {
@@ -186,61 +187,31 @@ export default {
     },
   },
   watch: {
-    // valueField, parentField, childrenField 
     'currentDataSource.data': {
       handler(val) {
-        let temp = this.normalize(deepClone(val), { parentField: this.parentField, valueField: this.valueField, childrenField: 'children', dEntity: this.dataEntity }) || [];
-        this.sourceData = addCurIndex(temp)
+        this.fetchData(val);
       },
     }
   },
   methods: {
-   listToTree(data, options) {
-      const { valueField, parentField, childrenField, dEntity } = options;
-
-      // Map记录一下
-      const nodes = {}; // Record<id, { entity }>
-      data.forEach((item) => {
-          const id = get(item, valueField);
-          if (id) {
-            nodes[id] = item;
-          }
-      });
-
-      const tree = [];
-     
-      data.forEach((item) => {
-          set(item, 'expand', true);
-          const parentId = get(item, parentField);
-          const parent = nodes[parentId];
-          // 没有parentId 或者 parent不存在的不处理
-          if (!parentId || !parent) {
-              tree.push({
-                ...item, 
-                ...item[dEntity]
-              });
-          } else {
-              if (!get(parent, childrenField)) {
-                set(parent, childrenField, []);
-              }
-
-              get(parent, childrenField).push({
-                ...item, 
-                ...item[dEntity]
-              });
-          }
-      });
-      return tree;
+    fetchData(val) {
+      let temp = this.normalize(deepClone(val), { parentField: this.parentField, valueField: this.valueField, childrenField: 'children', dEntity: this.dataEntity }) || [];
+      this.sourceData = addCurIndex(temp)
+    },
+    reload() {
+      this.fetchData(this.currentDataSource.data);
     },
 
     onEdit(e, data) {
       this.dialogDeleteHover = false;
-      this.dialogTextHover = !this.dialogTextHover
+      this.dialogTextHover = !this.dialogTextHover;
+      this.showPopper = false;
       this.$emit('onEdit', this.curEventsData);
     },
     onDelete(e, data) {
       this.dialogTextHover = false;
       this.dialogDeleteHover = !this.dialogDeleteHover
+      this.showPopper = false;
       this.$emit('onDelete', this.curEventsData);
     },
     onTogglePop(value) {
@@ -268,14 +239,15 @@ export default {
       e.value = data[this.valueField];
       this.curEventsData = e
 
-      this.updateTime = e.item?.updatedTime?.split('T')[0]
+      this.updateTime = e.item?.updatedTime?.split('T')?.[0]
+      this.updateBy = e.item?.updateBy;
       this.$emit('click',  e);
     },
     normalize(list, options) {
       const { parentField: pField, valueField: vField, dEntity} = options;
       
       let tempArr = [];
-      tempArr = list.map(item => {
+      tempArr = list?.map(item => {
         if (dEntity)  {
           return item[dEntity]
         } else {
@@ -284,8 +256,7 @@ export default {
       })
       
       let result = [];
-      const map = tempArr?.reduce((res, v, index) => {
-        v.curIndex = index;
+      const map = tempArr?.reduce((res, v) => {
         res[v[vField]] = v;
         return res;
       }, {});
