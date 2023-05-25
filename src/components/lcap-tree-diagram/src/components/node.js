@@ -124,10 +124,10 @@ export function renderLabel(h, data, context) {
     const cls = ['lcap-tree-node-label-inner'];
     let { labelWidth, labelClassName, selectedClassName, selectedKey } = props;
 
-    if (data.curIndex == 1) {
+    if (data?.curIndex == 2) {
         cls.push('lcap-tree-node-label-inner-second');
     }
-    if (data.curIndex >= 2) {
+    if (data?.curIndex >= 3) {
         cls.push('lcap-tree-node-label-inner-more');
     }
     if (typeof labelWidth === 'number') {
@@ -194,4 +194,3 @@ export function render(h, context) {
 }
 
 export default render;
-

@@ -1,7 +1,7 @@
 <template>
   <div>
      <LcapTreeDiagram
-        v-if="true"
+        v-if="false"
         :data="fakeData"
         :horizontal="horizontal"
         :collapsable="collapsable"
@@ -65,6 +65,7 @@
 import LcapTreeDiagram from './src/components/tree.vue';
 import SupportDataSource from './src/mixins/support.datasource.js';
 import deepClone from 'lodash/cloneDeep'
+import { addCurIndex } from './src/util.js'
 
 export default {
   name: 'lcap-tree-diagram',
@@ -98,23 +99,53 @@ export default {
             parentId: 1,
             expand: true,
             curIndex: 1,
-            // children: [
-            //   {
-            //     id: 5,
-            //     label: '研发-前端',
-            //     parentId: 2,
-            //     expand: true,
-            //     curIndex: 2,
-            //   },
-            //   {
-            //     id: 6,
-            //     label: '研发-后端',
-            //     parentId: 2,
-            //     expand: true,
-            //     curIndex: 2,
-            //   },
-            // ],
-          }
+            children: [
+              {
+                id: 5,
+                label: '研发-前端',
+                parentId: 2,
+                expand: true,
+                curIndex: 2,
+              },
+              {
+                id: 6,
+                label: '研发-后端1',
+                parentId: 2,
+                expand: true,
+                curIndex: 2,
+                children: [
+                  {
+                    id: 7,
+                    label: '研发-前端22',
+                    parentId: 2,
+                    expand: true,
+                    curIndex: 3,
+                  },
+                  {
+                    id: 8,
+                    label: '研发-后端11研发-',
+                    parentId: 2,
+                    expand: true,
+                    curIndex: 3,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 9,
+            label: '研发-前端研发',
+            parentId: 2,
+            expand: true,
+            curIndex: 1,
+          },
+          {
+            id: 10,
+            label: '研发',
+            parentId: 2,
+            expand: true,
+            curIndex: 1,
+          },
         ],
       }
     };
@@ -122,12 +153,10 @@ export default {
   watch: {
     'currentDataSource.data': {
       handler(val) {
-        this.sourceData = this.normalize(deepClone(val), this.parentField, this.valueField) || [];
+        let temp = this.normalize(deepClone(val), this.parentField, this.valueField) || [];
+        this.sourceData = addCurIndex(temp)
       },
     }
-  },
-  created() {
-    console.log(this.$env.VUE_APP_DESIGNER, '--$env.VUE_APP_DESIGNER')
   },
   methods: {
     dbclick(e, data) {
@@ -157,7 +186,7 @@ export default {
         this.$set(item, 'expand', true);
         const parentId = item[pField];
         if (parentId === 0) {
-          item.curIndex = 0;
+          item.curIndex = 1;
           result.push(item)
           continue
         }

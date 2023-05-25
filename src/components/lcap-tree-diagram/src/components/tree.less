@@ -40,12 +40,22 @@
   display: inline-block;
 
   .lcap-tree-node-label-inner {
-    padding: 10px 15px;
+    // padding: 10px 15px;
     text-align: center;
     border-radius: 10px;
     background: #194a49;
     color: #fff;
     border: 1px solid #194a49;
+
+    width: 80px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
   }
 
   .lcap-tree-node-label-inner-second {
@@ -53,6 +63,7 @@
     color: #194a49;
     border: 1px solid #194a49;
     background: none;
+    margin-left: 84px;
   }
 
   .lcap-tree-node-label-inner-more {
@@ -60,7 +71,8 @@
     background: none;
    border-radius: none;
     border: 1px solid transparent;
-
+    padding: 0;
+    margin-left: 84px;
   }
 }
 
@@ -199,10 +211,13 @@
     }
 
     &:before, &:after {
-      width: 19px;
+      width: 100px;
       height: 50%;
     }
-
+    
+    // &:before {
+    //   width: 100px;
+    // }
     &:after {
       top: 50%;
       left: 0;
