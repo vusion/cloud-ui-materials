@@ -267,7 +267,8 @@ export default {
       e.item = data;
       e.value = data[this.valueField];
       this.curEventsData = e
-      this.updateTime = e.item?.updateTime?.split('T')[0]
+
+      this.updateTime = e.item?.updatedTime?.split('T')[0]
       this.$emit('click',  e);
     },
     normalize(list, options) {

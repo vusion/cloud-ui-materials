@@ -5,7 +5,8 @@
       "value-field",
       "text-field",
       "showChildDotNum",
-      "parent-field"
+      "parent-field",
+      "data-entity"
     ],
     "description": "请在这里添加描述"
   }

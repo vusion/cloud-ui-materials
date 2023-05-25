@@ -18,5 +18,9 @@
   "lcap-tree-diagram/parent-field": {
     "type": "string",
     "description": "集合的元素类型中，用于标识父节点的属性"
+  },
+  "lcap-tree-diagram/data-entity": {
+    "type": "string",
+    "description": "属于匿名数据结构的需要传递数据实体名称，否则不用"
   }
 }
