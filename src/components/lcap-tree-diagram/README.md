@@ -18,7 +18,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :data-source="list" value-field="childId" parent-field="parentId1" @mouseout="mouseout" @click="click">  
+  <lcap-tree-diagram :data-source="list" value-field="childId" parent-field="parentId1"  @click="click" @onDelete="onDelete">  
   </lcap-tree-diagram>
 </template>
 <script>
@@ -98,11 +98,14 @@ export default {
         };
     },
     methods: {
-      mouseout(e) {
-        console.log(e)
-      },
+      // onTogglePop(e) {
+      //   console.log(e)
+      // },
       click(e) {
         console.log(e)
+      },
+      onDelete(e) {
+        console.log(e, '-ee')
       }
     }
 };
@@ -137,27 +140,19 @@ export default {
 | ----- | ---- | ----------- |
 | e | object | 当当前选项数据 |
 
-#### @dblclick
+#### @onEdit
 
 
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| e | object | 当当前选项数据 |
+| $event | ChangeItemEvent | 鼠标事件对象 |
 
-#### @mouseover
-
-
-
-| Param | Type | Description |
-| ----- | ---- | ----------- |
-| e | object | 当当前选项数据 |
-
-#### @mouseout
+#### @onDelete
 
 
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| e | object | 当当前选项数据 |
+| $event | ChangeItemEvent | 鼠标事件对象 |
 

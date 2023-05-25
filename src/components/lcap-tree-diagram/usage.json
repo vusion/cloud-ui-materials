@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.15",
+    "version": "0.1.16",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -39,14 +39,16 @@
                 "title": "值字段",
                 "type": "string",
                 "default": "id",
-                "description": "用户标识选中值的属性"
+                "description": "用户标识选中值的属性",
+                "display": "property-select"
             },
             {
                 "name": "text-field",
                 "title": "文本字段",
                 "type": "string",
                 "default": "label",
-                "description": "用于显示文本的字段名"
+                "description": "用于显示文本的字段名",
+                "display": "property-select"
             },
             {
                 "name": "showChildDotNum",
@@ -61,7 +63,8 @@
                 "type": "string",
                 "default": "parentId",
                 "description": "集合的元素类型中，用于标识父节点的属性",
-                "group": "数据属性"
+                "group": "数据属性",
+                "display": "property-select"
             }
         ],
         "slots": [
@@ -101,35 +104,30 @@
                 ]
             },
             {
-                "name": "dblclick",
-                "title": "双击",
+                "name": "onEdit",
+                "title": "弹窗编辑",
                 "params": [
                     {
-                        "name": "e",
-                        "type": "object",
-                        "description": "当当前选项数据"
+                        "name": "$event",
+                        "type": "ChangeItemEvent",
+                        "description": "鼠标事件对象",
+                        "schema": {
+                            "$ref": "#/systemTypes/ChangeItemEvent"
+                        }
                     }
                 ]
             },
             {
-                "name": "mouseover",
-                "title": "鼠标移入",
+                "name": "onDelete",
+                "title": "弹窗删除",
                 "params": [
                     {
-                        "name": "e",
-                        "type": "object",
-                        "description": "当当前选项数据"
-                    }
-                ]
-            },
-            {
-                "name": "mouseout",
-                "title": "鼠标移出",
-                "params": [
-                    {
-                        "name": "e",
-                        "type": "object",
-                        "description": "当当前选项数据"
+                        "name": "$event",
+                        "type": "ChangeItemEvent",
+                        "description": "鼠标事件对象",
+                        "schema": {
+                            "$ref": "#/systemTypes/ChangeItemEvent"
+                        }
                     }
                 ]
             }

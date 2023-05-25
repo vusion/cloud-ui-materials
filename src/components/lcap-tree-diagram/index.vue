@@ -1,7 +1,7 @@
 <template>
   <div>
     <LcapTreeDiagram
-      v-if="$env.VUE_APP_DESIGNER"
+      v-if="$env.VUE_APP_DESIGNER || env"
       :data="fakeData"
       :horizontal="horizontal"
       :collapsable="collapsable"
@@ -208,11 +208,6 @@ export default {
         this.sourceData = addCurIndex(temp)
       },
     }
-  },
-  mounted() {
-    // this.$nextTick(() => {
-    //   this.$refs.popper && this.$refs.popper.toggle(true);
-    // })
   },
   methods: {
     onEdit(e, data) {

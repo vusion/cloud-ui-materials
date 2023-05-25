@@ -51,12 +51,6 @@
               typeKind: typeParam
               typeName: T
   events:
-    - name: click
-      title: 点击
-      params:
-        - name: e
-          type: object
-          description: 当当前选项数据
     - name: onEdit
       title: 弹窗编辑
       params:
