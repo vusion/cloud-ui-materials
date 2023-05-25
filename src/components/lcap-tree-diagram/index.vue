@@ -202,14 +202,48 @@ export default {
     },
   },
   watch: {
+    // valueField, parentField, childrenField 
     'currentDataSource.data': {
       handler(val) {
-        let temp = this.normalize(deepClone(val), this.parentField, this.valueField) || [];
+        let temp = this.listToTree(deepClone(val), { parentField : this.parentField, valueField: this.valueField, childrenField: 'children'}) || [];
         this.sourceData = addCurIndex(temp)
       },
     }
   },
   methods: {
+   listToTree(data, options) {
+      const { valueField, parentField, childrenField } = options;
+
+      // Map记录一下
+      const nodes = {}; // Record<id, { entity }>
+      data.forEach((item) => {
+          const id = this.$at(item, valueField);
+          if (id) {
+              nodes[id] = item;
+          }
+      });
+
+      const tree = [];
+     
+      data.forEach((item) => {
+          this.$setAt(item, 'expand', true);
+          const parentId = this.$at(item, parentField);
+          const parent = nodes[parentId];
+          // 没有parentId 或者 parent不存在的不处理
+          if (!parentId || !parent) {
+              tree.push(item);
+          } else {
+              if (!this.$at(parent, childrenField)) {
+                this.$setAt(parent, childrenField, []);
+              }
+
+              this.$at(parent, childrenField).push(item);
+          }
+      });
+
+      return tree;
+  },
+
     onEdit(e, data) {
       this.dialogDeleteHover = false;
       this.dialogTextHover = !this.dialogTextHover
@@ -263,7 +297,7 @@ export default {
     normalize(list, pField, vField) {
       let result = [];
       const map = list?.reduce((res, v, index) => {
-         v.curIndex = index;
+        v.curIndex = index;
         res[v[vField]] = v;
         return res;
       }, {});
