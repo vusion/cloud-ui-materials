@@ -6,7 +6,6 @@ export const addCurIndex = function (finalResult) {
             level++;
             return array.map((v, index) => {
                 v[levelName] = level;
-                console.log(index, '--index');
                 const child = v[childrenName];
                 if (child && child.length)
                     recursive(child, level);

@@ -1,5 +1,3 @@
-import SEmpty from './s-empty';
-
 const EVENTS = {
     CLICK: 'on-node-click',
     DBCLICK: 'on-node-dbclick',
@@ -8,6 +6,7 @@ const EVENTS = {
     DRAGSTART: 'on-node-drag-start',
     DRAGOVER: 'on-node-drag-over',
     DROP: 'on-node-drop',
+    TOGGLE: 'on-node-click',
 };
 
 function createListener(handler, data) {
@@ -37,7 +36,9 @@ const isLeaf = (data, prop) => !(Array.isArray(data[prop]) && data[prop].length 
 
 // 创建 node 节点
 export function renderNode(h, data, context) {
-    const { props } = context;
+    const { props, listeners } = context;
+    const toggleExpandHandler = listeners[EVENTS.TOGGLE];
+
     const cls = ['lcap-tree-node'];
     const childNodes = [];
     const children = data[props.props?.children];
@@ -59,8 +60,16 @@ export function renderNode(h, data, context) {
                 className: cls.join(' '),
             },
         }, childNodes),
-        // <div class="lcap-tree-node-slot" vusion-slot-name="default">
-        //     { props.isDesingerEnv && !context.scopedSlots?.default() ? <SEmpty></SEmpty> : context.scopedSlots?.default()}
+        // h('div', {
+        //     domProps: {
+        //         className: 'lcap-tree-node-slot',
+        //     },
+        //     on: {
+        //         click: (e) => toggleExpandHandler && toggleExpandHandler(e, data),
+        //     },
+        // }),
+        // <div class="lcap-tree-node-slot" >
+        //     {/* { props.isDesingerEnv && !context.scopedSlots?.default() ? <SEmpty></SEmpty> : context.scopedSlots?.default()} */}
         // </div>,
     ];
 }

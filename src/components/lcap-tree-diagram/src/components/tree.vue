@@ -22,6 +22,7 @@
         @on-node-drag-start="(e, data) => onDragStart(e, data)"
         @on-node-drag-over="(e, data) => onDragOver(e, data)"
         @on-node-drop="(e, data) => onDrop(e, data)"
+        @on-node-toggle="(e, data) => onToggle(e, data)"
       >
         <template #default="scope">
             <slot :item="scope.item"></slot>
@@ -101,6 +102,10 @@ export default {
       dragState.drop = data;
       this.$emit("on-node-drop", event, drag, data);
     },
+    onToggle(e, data) {
+      console.log('onTo')
+      this.$emit('on-node-toggle', Object.assign(e, data))
+    }
   },
 };
 </script>
