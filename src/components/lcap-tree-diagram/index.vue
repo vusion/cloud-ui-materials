@@ -344,7 +344,6 @@ export default {
 
 .popper {
   z-index: 1;
-  box-shadow: 0 0 2px rgba(0, 0, 0, .15);
   border-radius: 10px;
 }
 
@@ -358,7 +357,8 @@ export default {
   background: #fff;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  box-shadow: 0 0 2px rgba(0, 0, 0, .15);
+  box-shadow: 0 0 10px rgba(3,3,3,0.1);
+  margin-top: 6px;
 }
 
 .edit, .delete {

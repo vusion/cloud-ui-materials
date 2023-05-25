@@ -2,7 +2,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :data-source="list" value-field="childId" parent-field="parentId1"  @click="click" @onDelete="onDelete">  
+  <lcap-tree-diagram :data-source="list" value-field="id" parent-field="parentId"  @click="click" @onDelete="onDelete">  
   </lcap-tree-diagram>
 </template>
 <script>
@@ -11,29 +11,29 @@ export default {
       return {
         list: [
           {
-            "childId": 1,
+            "id": 1,
             "label": "主题",
-            "parentId1": 0
+            "parentId": 0
           },
           {
-            "childId": 2,
+            "id": 2,
             "label": "子主题",
-            "parentId1": 1
+            "parentId": 1
           },
           {
-            "childId": 3,
+            "id": 3,
             "label": "子主题2111子主题2子主题2子主题21",
-            "parentId1": 1
+            "parentId": 1
           },
           {
-            "childId": 4,
+            "id": 4,
             "label": "子子主题111111",
-            "parentId1": 3
+            "parentId": 3
           },
           {
-            "childId": 5,
+            "id": 5,
             "label": "子子主题4222222222",
-            "parentId1": 2
+            "parentId": 2
           }
       ],
       fakeData: {

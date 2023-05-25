@@ -132,14 +132,6 @@ export default {
 
 ### Events
 
-#### @click
-
-
-
-| Param | Type | Description |
-| ----- | ---- | ----------- |
-| e | object | 当当前选项数据 |
-
 #### @onEdit
 
 

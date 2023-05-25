@@ -15,13 +15,11 @@
       type: string
       default: "id"
       description: 用户标识选中值的属性
-      display: property-select
     - name: text-field
       title: 文本字段
       type: string
       default: 'label'
       description: 用于显示文本的字段名
-      display: property-select
     - name: showChildDotNum
       title: 子节点收起显示子节点总数  
       type: boolean
@@ -33,7 +31,6 @@
       default: "parentId"
       description: 集合的元素类型中，用于标识父节点的属性
       group: 数据属性
-      display: property-select
   slots:
     - concept: Slot
       name: dialog

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -92,17 +92,6 @@
             }
         ],
         "events": [
-            {
-                "name": "click",
-                "title": "点击",
-                "params": [
-                    {
-                        "name": "e",
-                        "type": "object",
-                        "description": "当当前选项数据"
-                    }
-                ]
-            },
             {
                 "name": "onEdit",
                 "title": "弹窗编辑",
