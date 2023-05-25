@@ -143,7 +143,7 @@ export default {
           })
         }
       }
-      if (this.axisData.pieType === 'semi-circle') {
+      if (this.axisData.pieType === 'semiCircle') {
         const sum = yAxisData.reduce((total, num) => total + num);
         pieData.push({
           value: sum,
@@ -221,7 +221,7 @@ export default {
         title: {
           text: this.axisData.title,
           textStyle: {
-            fontSize: this.customStyle['--title-font-size'] || this.axisData.titleFontSize,
+            fontSize: this.customStyle['--echart-title-font-size'] || this.axisData.titleFontSize,
             color: this.customStyle['--title-font-color'],
             fontStyle: this.axisData.titleFontStyle,
           }
@@ -231,8 +231,8 @@ export default {
             type: 'pie',
             data: pieData,
             radius: this.axisData.pieType !== 'pie' ? ['40%', '65%'] : [0, '65%'],
-            startAngle: this.axisData.pieType === 'semi-circle' ? 180 : 0,
-            center: this.axisData.pieType === 'semi-circle' ? ['50%', '70%'] : ['50%', '50%'],
+            startAngle: this.axisData.pieType === 'semiCircle' ? 180 : 0,
+            center: this.axisData.pieType === 'semiCircle' ? ['50%', '70%'] : ['50%', '50%'],
             label: {
               show: showLabel,
               formatter: labelData,
