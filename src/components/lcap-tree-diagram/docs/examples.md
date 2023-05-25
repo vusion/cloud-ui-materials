@@ -22,17 +22,17 @@ export default {
           },
           {
             "childId": 3,
-            "label": "子主题2",
+            "label": "子主题2111子主题2子主题2子主题21",
             "parentId1": 1
           },
           {
             "childId": 4,
-            "label": "子子主题1",
+            "label": "子子主题111111",
             "parentId1": 3
           },
           {
             "childId": 5,
-            "label": "子子主题4",
+            "label": "子子主题4222222222",
             "parentId1": 2
           }
       ],

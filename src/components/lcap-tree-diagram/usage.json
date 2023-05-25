@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram",
     "name": "树状结构图",
-    "version": "0.1.14",
+    "version": "0.1.15",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -96,12 +96,7 @@
                     {
                         "name": "e",
                         "type": "object",
-                        "description": "当前坐标等信息"
-                    },
-                    {
-                        "name": "data",
-                        "type": "object",
-                        "description": "当前选项数据"
+                        "description": "当当前选项数据"
                     }
                 ]
             },
@@ -111,11 +106,6 @@
                 "params": [
                     {
                         "name": "e",
-                        "type": "object",
-                        "description": "当前坐标等信息"
-                    },
-                    {
-                        "name": "data",
                         "type": "object",
                         "description": "当当前选项数据"
                     }
@@ -128,11 +118,6 @@
                     {
                         "name": "e",
                         "type": "object",
-                        "description": "当前坐标等信息"
-                    },
-                    {
-                        "name": "data",
-                        "type": "object",
                         "description": "当当前选项数据"
                     }
                 ]
@@ -143,11 +128,6 @@
                 "params": [
                     {
                         "name": "e",
-                        "type": "object",
-                        "description": "当前坐标等信息"
-                    },
-                    {
-                        "name": "data",
                         "type": "object",
                         "description": "当当前选项数据"
                     }

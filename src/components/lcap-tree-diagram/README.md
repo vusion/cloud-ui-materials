@@ -18,7 +18,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :data-source="list" value-field="childId" parent-field="parentId1" @mouseout="mouseout"> 
+  <lcap-tree-diagram :data-source="list" value-field="childId" parent-field="parentId1" @mouseout="mouseout" @click="click">  
   </lcap-tree-diagram>
 </template>
 <script>
@@ -38,44 +38,57 @@ export default {
           },
           {
             "childId": 3,
-            "label": "子主题2",
+            "label": "子主题2111子主题2子主题2子主题21",
             "parentId1": 1
           },
           {
             "childId": 4,
-            "label": "子子主题1",
+            "label": "子子主题111111",
             "parentId1": 3
           },
           {
             "childId": 5,
-            "label": "子子主题4",
+            "label": "子子主题4222222222",
             "parentId1": 2
           }
       ],
       fakeData: {
         id: 0,
         label: 'XXXPOC测试',
+        index: 0,
         children: [
           {
             id: 2,
             label: '产品研发部',
+            index:1,
             children: [
               {
                 id: 5,
+                index:3,
                 label: '研发-前端',
-              },
-              {
-                id: 6,
-                label: '研发-后端',
+                children: [
+                  {
+                    id: 6,
+                    index:4,
+                    label: '研发-前端111111111',
+                  },
+                  {
+                    id: 7,
+                    index:4,
+                    label: '研发-前端1223',
+                  },
+                ],
               },
             ],
           },
           {
             id: 3,
             label: '销售部',
+            index:1,
             children: [
               {
                 id: 7,
+                index:2,
                 label: '销售一部',
               },
             ],
@@ -85,8 +98,11 @@ export default {
         };
     },
     methods: {
-      mouseout(e, data) {
-        console.log(e,data)
+      mouseout(e) {
+        console.log(e)
+      },
+      click(e) {
+        console.log(e)
       }
     }
 };
@@ -119,8 +135,7 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| e | object | 当前坐标等信息 |
-| data | object | 当前选项数据 |
+| e | object | 当当前选项数据 |
 
 #### @dblclick
 
@@ -128,8 +143,7 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| e | object | 当前坐标等信息 |
-| data | object | 当当前选项数据 |
+| e | object | 当当前选项数据 |
 
 #### @mouseover
 
@@ -137,8 +151,7 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| e | object | 当前坐标等信息 |
-| data | object | 当当前选项数据 |
+| e | object | 当当前选项数据 |
 
 #### @mouseout
 
@@ -146,6 +159,5 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| e | object | 当前坐标等信息 |
-| data | object | 当当前选项数据 |
+| e | object | 当当前选项数据 |
 
