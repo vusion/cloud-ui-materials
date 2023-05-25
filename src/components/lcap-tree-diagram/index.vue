@@ -15,20 +15,6 @@
       @on-node-click="onNodeClick"
       @on-node-toggle="onTogglePop"
     >
-      <!-- <template #default="scope">
-        <slot :item="scope.item"></slot>
-        <s-empty v-if="
-            $env.VUE_APP_DESIGNER &&
-            $scopedSlots &&
-            !(
-              $scopedSlots.default &&
-              $scopedSlots.default({
-                ...scope,
-              })
-            ) &&
-            !!$attrs['vusion-node-path']
-          "></s-empty>
-      </template> -->
     </LcapTreeDiagram>
     <LcapTreeDiagram
       v-else
@@ -61,12 +47,12 @@
       :reference="referenceEl"
       trigger="manual"
       :opened="showPopper"
-
     >
       <div :class="$style.popcontent" @click.stop>
-       <div :class="[$style.edit, dialogTextHover ? $style.hover : '']" @click.stop="onEdit">编辑</div>
-       <div :class="[$style.delete, dialogDeleteHover ? $style.hover : '']" @click.stop="onDelete">删除</div>
-       <div :class="$style.recent">最近编辑 {{ updateTime }} {{updateBy}}</div>
+       <div :class="[$style.edit]" @click.stop="onEdit">编辑</div>
+       <div :class="[$style.delete]" @click.stop="onDelete">删除</div>
+       <div :class="$style['recent-edit']">最近编辑 </div>
+       <div :class="$style.info"><span>{{ updateTime }}</span> <span>{{updateBy}}</span></div>
       </div>
     </m-popper>
   </div>
@@ -75,9 +61,7 @@
 <script>
 import LcapTreeDiagram from './src/components/tree.vue';
 import SupportDataSource from './src/mixins/support.datasource.js';
-import deepClone from 'lodash/cloneDeep'
-import get from 'lodash/get'
-import set from 'lodash/set'
+import deepClone from 'lodash/cloneDeep';
 import { addCurIndex } from './src/util.js'
 
 export default {
@@ -118,8 +102,6 @@ export default {
     return {
       showPopper: false,
       referenceEl: null,
-      dialogTextHover: false,
-      dialogDeleteHover: false,
       env: !window.appInfo,
       expandAll: false,
       horizontal: true,
@@ -189,28 +171,24 @@ export default {
   watch: {
     'currentDataSource.data': {
       handler(val) {
-        this.fetchData(val);
+        this.handleDataSourceData(val);
       },
     }
   },
   methods: {
-    fetchData(val) {
+    handleDataSourceData(val) {
       let temp = this.normalize(deepClone(val), { parentField: this.parentField, valueField: this.valueField, childrenField: 'children', dEntity: this.dataEntity }) || [];
       this.sourceData = addCurIndex(temp)
     },
     reload() {
-      this.fetchData(this.currentDataSource.data);
+      this.load()
     },
 
     onEdit(e, data) {
-      this.dialogDeleteHover = false;
-      this.dialogTextHover = !this.dialogTextHover;
       this.showPopper = false;
       this.$emit('onEdit', this.curEventsData);
     },
     onDelete(e, data) {
-      this.dialogTextHover = false;
-      this.dialogDeleteHover = !this.dialogDeleteHover
       this.showPopper = false;
       this.$emit('onDelete', this.curEventsData);
     },
@@ -227,10 +205,12 @@ export default {
     onPopperClose(e) {
       this.$emit('blur', e, this);
       this.showPopper = false;
+      this.dialogEditHover = false;
       setTimeout(() => { // 为了不触发input的blur，否则会有两次blur
           this.preventBlur = false;
       }, 0);
     },
+
 
     click(e, data) {
       this.referenceEl = e.target
@@ -281,8 +261,7 @@ export default {
       return 'clickable-node';
     },
     renderContent(h, data) {
-      // return data[this.textField]
-      return get(data, this.textField)
+      return data[this.textField]
     },
     onExpand(e, data) {
       this.expandEvent = e.target.dataset.btn === 'true';
@@ -344,7 +323,7 @@ export default {
 }
 
 .popcontent {
-  width: 200px;
+  width: 140px;
   padding: 10px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -355,20 +334,38 @@ export default {
   box-sizing: border-box;
   box-shadow: 0 0 10px rgba(3,3,3,0.1);
   margin-top: 6px;
+  border-radius: 10px;
 }
 
-.edit, .delete {
-  color: #000;
+.recent-edit {
+  padding-left: 4px;
+  color: #b5b6b6;
+}
+
+.info {
+  padding-left: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit, .delete, .info {
+  color: #0f0f0f;
+  font-weight: 400;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 4px;
+}
+
+.edit:hover, .delete:hover {
+  background: #f8f8f8;
+  border-radius: 6px;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
 }
 
 .delete {
   margin: 10px auto;
 }
-.recent {
-  /* color: #eee; */
-}
 
-.hover {
-  background: #eaf2ff;
-}
 </style>
