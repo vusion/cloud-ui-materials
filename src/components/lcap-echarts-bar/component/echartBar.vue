@@ -229,7 +229,7 @@ export default {
       } else {
         // 如果数量匹配则显示别名，不匹配显示指标原始值
         return (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ?
-          legendAliasList[multiYAxisList.indexOf(name)] : name;
+          legendAliasList[multiYAxisList.indexOf(name)] || this.axisData.legendName: name;
       }
     },
     toolTipFormatter(params) {

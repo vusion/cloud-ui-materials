@@ -90,6 +90,12 @@
       options:
         - value: top
           title: 上
+        - value: bottom
+          title: 下
+        - value: left
+          title: 左
+        - value: right
+          title: 右
         - value: inside
           title: 居中
         - value: hidden
