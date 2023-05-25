@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-pie",
     "name": "饼图",
-    "version": "2.0.12",
+    "version": "2.0.8",
     "icon": "piechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-pie@2.0.12/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-pie@2.0.8/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-pie title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-pie>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-pie",
         "title": "饼图",
         "description": "饼图",
         "category": "Chart",
-        "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-pie@2.0.12/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-pie@2.0.8/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -33,6 +33,14 @@
                 "designer-value": "[{}, {}, {}]",
                 "description": "表格的数据源，数据集对象或者返回数据集的逻辑",
                 "group": "数据源"
+            },
+            {
+                "name": "data-schema",
+                "title": "数据类型",
+                "type": "schema",
+                "description": "表格每一行的数据类型",
+                "group": "数据源",
+                "compType": "dataTypeSelect"
             },
             {
                 "name": "undefinedToZero",
@@ -177,6 +185,24 @@
                 "group": "图表属性"
             },
             {
+                "name": "legendScroll",
+                "title": "图例类型",
+                "type": "string",
+                "default": "normal",
+                "options": [
+                    {
+                        "value": "normal",
+                        "title": "普通"
+                    },
+                    {
+                        "value": "scroll",
+                        "title": "滚动"
+                    }
+                ],
+                "description": "设置图例是否滚动",
+                "group": "图表属性"
+            },
+            {
                 "name": "pieType",
                 "title": "饼类型",
                 "type": "string",
@@ -191,7 +217,7 @@
                         "title": "环型"
                     },
                     {
-                        "value": "semi-circle",
+                        "value": "semiCircle",
                         "title": "半环形"
                     }
                 ]
@@ -233,7 +259,7 @@
         ],
         "themes": [
             {
-                "name": "--title-font-size",
+                "name": "--echart-title-font-size",
                 "title": "标题文字大小",
                 "default": 14,
                 "type": "input",
@@ -276,7 +302,7 @@
                 "name": "--pie-sectors-border-color",
                 "title": "扇区边框颜色",
                 "type": "color",
-                "default": "",
+                "default": "none",
                 "description": "饼图扇区边框颜色",
                 "group": "扇区颜色"
             }

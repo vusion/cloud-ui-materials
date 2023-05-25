@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-bar",
     "name": "柱状图",
-    "version": "2.0.12",
+    "version": "2.0.8",
     "icon": "barchart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-bar@2.0.12/screenshots/0.png",
+    "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-bar@2.0.8/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-bar xAxisTitle=\\\"X轴标题\\\" yAxisTitle=\\\"Y轴标题\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-bar>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-bar",
         "title": "柱状图",
         "description": "柱状图",
         "category": "Chart",
-        "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-bar@2.0.12/screenshots/0.png",
+        "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-bar@2.0.8/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -33,6 +33,14 @@
                 "designer-value": "[{}, {}, {}]",
                 "description": "表格的数据源，数据集对象或者返回数据集的逻辑",
                 "group": "数据源"
+            },
+            {
+                "name": "data-schema",
+                "title": "数据类型",
+                "type": "schema",
+                "description": "表格每一行的数据类型",
+                "group": "数据源",
+                "compType": "dataTypeSelect"
             },
             {
                 "name": "undefinedToZero",
@@ -332,7 +340,7 @@
         ],
         "themes": [
             {
-                "name": "--title-font-size",
+                "name": "--echart-title-font-size",
                 "title": "标题文字大小",
                 "default": 14,
                 "type": "input",
@@ -342,7 +350,7 @@
             {
                 "name": "--title-font-color",
                 "title": "标题文字颜色",
-                "default": null,
+                "default": "#000",
                 "type": "color",
                 "description": "设置数据标签文字颜色",
                 "group": "标题"
@@ -350,7 +358,7 @@
             {
                 "name": "--bar-item-color",
                 "title": "柱条颜色",
-                "default": "",
+                "default": "none",
                 "type": "color",
                 "description": "设置柱条颜色",
                 "group": "柱条样式"
@@ -358,7 +366,7 @@
             {
                 "name": "--bar-item-border-color",
                 "title": "柱条边框颜色",
-                "default": "",
+                "default": "none",
                 "type": "color",
                 "description": "设置柱条边框颜色",
                 "group": "柱条样式"
@@ -366,7 +374,7 @@
             {
                 "name": "--bar-item-backgroundColor",
                 "title": "柱条背景颜色",
-                "default": "",
+                "default": "none",
                 "type": "color",
                 "description": "设置柱条背景颜色",
                 "group": "柱条样式"
@@ -382,7 +390,7 @@
             {
                 "name": "--label-font-color",
                 "title": "数据标签文字颜色",
-                "default": "",
+                "default": "none",
                 "type": "color",
                 "description": "设置数据标签文字颜色",
                 "group": "数据标签"
@@ -398,7 +406,7 @@
             {
                 "name": "--grid-line-border-color",
                 "title": "网格线边框颜色",
-                "default": "",
+                "default": "none",
                 "type": "color",
                 "description": "设置网格线边框颜色",
                 "group": "坐标系网格线"

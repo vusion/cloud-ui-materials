@@ -111,6 +111,17 @@
           title: 右
       description: 设置图例位置
       group: 图表属性
+    - name: legendScroll
+      title: 图例类型
+      type: string
+      default: normal
+      options:
+        - value: normal
+          title: 普通
+        - value: scroll
+          title: 滚动
+      description: 设置图例是否滚动
+      group: 图表属性
     - name: pieType
       title: 饼类型
       type: string

@@ -14,6 +14,7 @@
     :showLabelName=true
     :showLabelValue=true
     :showLabelPercent=true
+    legendScroll="scroll"
     legendPosition="top"
     undefinedToZero="empty"
     style="--pie-item-border-color: red; --label-font-color: blue;"

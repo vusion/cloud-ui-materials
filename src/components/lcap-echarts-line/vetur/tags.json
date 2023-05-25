@@ -2,8 +2,9 @@
   "lcap-echarts-line": {
     "attributes": [
       "data-source",
-      "initialLoad",
+      "data-schema",
       "undefinedToZero",
+      "initialLoad",
       "xAxis",
       "yAxis",
       "title",
@@ -18,7 +19,6 @@
       "lineType",
       "lineStyleSmooth",
       "lineStyleSymbol",
-      "lineStyleSymbolSize",
       "xAxisTitle",
       "showXAxisLine",
       "showXAxisLabel",
@@ -26,7 +26,6 @@
       "yAxisTitle",
       "showYAxisLine",
       "showYAxisLabel",
-      "titleFontSize",
       "titleFontStyle",
       "allowDownload"
     ],

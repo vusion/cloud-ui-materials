@@ -203,6 +203,7 @@ export default {
           }
         },
         legend: {
+          type: this.axisData.legendScroll === 'normal' ? 'plain' : 'scroll',
           show: this.axisData.allowShowLegend,
           ...legendPositionMap[this.axisData.legendPosition],
         },

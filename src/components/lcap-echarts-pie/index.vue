@@ -45,6 +45,7 @@ export default {
     showLabelPercent: {type: Boolean, default: true},
     pieType: {type: String, default: 'pie'},
     legendPosition: {type: String, default: 'bottom'},
+    legendScroll: {type: String, default: 'normal'},
     initialLoad: {type: Boolean, default: true},
     undefinedToZero: {type: String, default: 'empty'},
   },
@@ -104,6 +105,7 @@ export default {
         showLabelPercent: this.showLabelPercent,
         pieType: this.pieType,
         legendPosition: this.legendPosition,
+        legendScroll: this.legendScroll,
         undefinedToZero: this.undefinedToZero,
       }
     },
