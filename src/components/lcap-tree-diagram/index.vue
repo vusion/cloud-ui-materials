@@ -1,7 +1,7 @@
 <template>
   <div>
     <LcapTreeDiagram
-      v-if="$env.VUE_APP_DESIGNER || env"
+      v-if="$env.VUE_APP_DESIGNER"
       :data="fakeData"
       :horizontal="horizontal"
       :collapsable="collapsable"
@@ -13,10 +13,6 @@
       :isDesingerEnv="$env.VUE_APP_DESIGNER"
       @on-expand="onExpand"
       @on-node-click="onNodeClick"
-      @on-click="click"
-      @on-dbclick="dbclick"
-      @on-mouseover="mouseover"
-      @on-mouseout="mouseout"
       @on-node-toggle="onTogglePop"
     >
       <!-- <template #default="scope">
@@ -47,28 +43,11 @@
       selected-key="selectedKey"
       :textField="textField"
       :isDesingerEnv="$env.VUE_APP_DESIGNER"
-      @on-expand="onExpand"
+      @on-expand.stop="onExpand"
       @on-node-click="onNodeClick"
       @on-click="click"
-      @on-dbclick="dbclick"
-      @on-mouseover="mouseover"
-      @on-mouseout="mouseout"
       @on-node-toggle="onTogglePop"
     >
-      <!-- <template #default="scope">
-        <slot :item="scope.item"></slot>
-        <s-empty v-if="
-            $env.VUE_APP_DESIGNER &&
-            $scopedSlots &&
-            !(
-              $scopedSlots.default &&
-              $scopedSlots.default({
-                ...scope,
-              })
-            ) &&
-            !!$attrs['vusion-node-path']
-          "></s-empty>
-      </template> -->
     </LcapTreeDiagram>
     <m-popper
       v-if="referenceEl"
@@ -190,7 +169,8 @@ export default {
             curIndex: 2,
           },
         ],
-      }
+      },
+      expandEvent: false
     };
   },
   computed: {
@@ -205,7 +185,7 @@ export default {
     // valueField, parentField, childrenField 
     'currentDataSource.data': {
       handler(val) {
-        let temp = this.listToTree(deepClone(val), { parentField : this.parentField, valueField: this.valueField, childrenField: 'children'}) || [];
+        let temp = this.listToTree(deepClone(val), { parentField : this.parentField, valueField: this.valueField, childrenField: 'shuxingtu.children'}) || [];
         this.sourceData = addCurIndex(temp)
       },
     }
@@ -240,15 +220,13 @@ export default {
               this.$at(parent, childrenField).push(item);
           }
       });
-
+      debugger
       return tree;
-  },
+    },
 
     onEdit(e, data) {
       this.dialogDeleteHover = false;
       this.dialogTextHover = !this.dialogTextHover
-      console.log(this.curEventsData)
-      // e.value = data[this.valueField];
       this.$emit('onEdit', this.curEventsData);
     },
     onDelete(e, data) {
@@ -261,7 +239,6 @@ export default {
       this.$refs.popper && this.$refs.popper.toggle(true);
     },
     onToggle($event) {
-      // debugger
       this.$emit('toggle', $event);
       if ($event && $event.opened) {
           this.preventBlur = true;
@@ -274,18 +251,7 @@ export default {
           this.preventBlur = false;
       }, 0);
     },
-    dbclick(e, data) {
-      let $events = Object.assign(e, data)
-      this.$emit('dbclick', $events);
-    },
-    mouseover(e, data) {
-      let $events = Object.assign(e, data)
-      this.$emit('mouseover', $events);
-    },
-    mouseout(e, data) {
-      let $events = Object.assign(e, data)
-      this.$emit('mouseout', $events);
-    },
+
     click(e, data) {
       this.referenceEl = e.target
       this.showPopper = !this.showPopper;
@@ -324,6 +290,7 @@ export default {
       return data[this.textField]
     },
     onExpand(e, data) {
+      this.expandEvent = e.target.dataset.btn === 'true';
       if ('expand' in data) {
         data.expand = !data.expand;
         if (!data.expand && data.children) {

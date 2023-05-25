@@ -93,6 +93,7 @@ export function renderBtn(h, data, context, isLeafV) {
             },
             attrs: {
                 'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
+                'data-btn': true,
             },
             on: {
                 click: (e) => expandHandler && expandHandler(e, data),
@@ -142,7 +143,6 @@ export function renderLabel(h, data, context) {
     if (typeof labelWidth === 'number') {
         labelWidth += 'px';
     }
-    // debugger;
 
     if (typeof labelClassName === 'function') {
         labelClassName = labelClassName(data);
@@ -156,12 +156,6 @@ export function renderLabel(h, data, context) {
     }
 
     selectedClassName && selectedKey && data[selectedKey] && cls.push(selectedClassName);
-    // return [
-    //     <div class="lcap-tree-node-slot" vusion-slot-name="dialog">
-    //     <slot></slot>
-    //     <SEmpty v-if="props.isDesingerEnv"></SEmpty>
-    // </div>
-    // ]
 
     return h('div', {
         domProps: {

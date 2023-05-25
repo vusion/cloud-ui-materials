@@ -18,7 +18,7 @@
 
 ``` vue
 <template>
-  <lcap-tree-diagram :data-source="list" value-field="id" parent-field="parentId"  @click="click" @onDelete="onDelete">  
+  <lcap-tree-diagram :data-source="list" :value-field="id" parent-field="parentId"  @click="click" @onDelete="onDelete">  
   </lcap-tree-diagram>
 </template>
 <script>
