@@ -76,7 +76,25 @@ export const fakeData = {
         "mentor": "张老师",
         "donation": 2700
       }
+    },{
+      "student": {
+        "id": 1186279312065536,
+        "createdTime": "2022-03-25T08:58:45.000Z",
+        "updatedTime": "2022-03-25T08:58:45.000Z",
+        "createdBy": null,
+        "updatedBy": null,
+        "fakeXAxis": "数据5",
+        "指标1": null,
+        "指标2": 65,
+        "指标3": 82,
+        "age": 22,
+        "sex": "男",
+        "averageScore": 75,
+        "mentor": "张老师",
+        "donation": 2700
+      }
     }
+
   ],
   "first": true,
   "totalElements": 5,

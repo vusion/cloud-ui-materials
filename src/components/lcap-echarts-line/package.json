@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-line",
   "description": "",
-  "version": "2.0.8",
+  "version": "2.0.15",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-echarts-line@2.0.7/index.html",
+  "homepage": "http://ceph.lcap.hadev.163yun.com/lowcode-static/lcap-echarts-line@2.0.15/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -16,9 +16,10 @@
     "dev": "../../../node_modules/.bin/vue-cli-service doc --port 9090",
     "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
-    "build": "npm run build:theme && npm run build:doc",
+    "build": "npm run build:theme && npm run build:doc && npm run genThemeConfig",
     "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
     "deploy": "lcap deploy && lcap deploy dist-theme && lcap deploy screenshots",
+    "genThemeConfig": "node ./scripts/genThemeConfig",
     "usage": "lcap usage",
     "prepublishOnly": "npm run build && npm run screenshot && lcap usage && lcap readme && lcap vetur",
     "release": "lcap publish"
@@ -38,13 +39,15 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://ceph.lcap.hatest.163yun.com/lcap-test-static/packages/lcap-echarts-line@2.0.7/screenshots/0.png"
+      "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-line@2.0.15/screenshots/0.png"
     ],
     "team": "",
     "access": "public"
   },
   "dependencies": {
-    "echarts": "^5.3.2"
+    "echarts": "^5.3.2",
+    "fs-extra": "^9.0.1",
+    "lcap": "^0.1.24"
   },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
@@ -60,6 +63,7 @@
     "inited": true
   },
   "devDependencies": {
-    "@vue/composition-api": "^1.4.9"
+    "@vue/composition-api": "^1.4.9",
+    "postcss": "^8.3.11"
   }
 }

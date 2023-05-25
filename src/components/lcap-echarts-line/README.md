@@ -15,40 +15,57 @@
 ## 示例
 ### 基本用法
 
-``` html
-<lcap-echarts-line 
-    xAxis="fakeXAxis" 
-    yAxis="指标1，指标2，指标3" 
-    xAxisTitle="维度1, 维度2" 
-    yAxisTitle="指标" 
-    title="标题"
-    theme="theme1"
-    width="450px"
-    legendName="数学，语文，英语"
-    :titleFontSize=16
-    titleFontStyle="italic"
-    :allowDownload=true
-    :allowShowLabel=true
-    :allowShowHint=true
-    :allowShowLegend=true
-    :showXAxisLine=true
-    :showYAxisLine=true
-    :showXAxisLabel=true
-    :showYAxisLabel=true
-    >
-</lcap-echarts-line>
-<lcap-echarts-line 
-    xAxis="" 
-    legendName=""
-    yAxis="property2" 
-    xAxisTitle="维度" 
-    yAxisTitle="指标" 
-    title="标题"
-    theme="theme1"
-    >
-</lcap-echarts-line>
+```vue
+<template>
+  <div>
+    <lcap-echarts-line
+      ref="line"
+      xAxis="fakeXAxis"
+      yAxis="指标1，指标"
+      xAxisTitle="维度1111"
+      yAxisTitle="指标1222"
+      title="标题111"
+      theme="theme1"
+      legendName="数学"
+      :titleFontSize=16
+      titleFontStyle="italic"
+      :allowDownload=true
+      :allowShowHint=true
+      :allowShowLegend=true
+      :showXAxisLine=true
+      :showYAxisLine=true
+      :showXAxisLabel=true
+      :showYAxisLabel=true
+      axisSplitLine="horizontal"
+      axisSplitLineType="dashed"
+      :areaFilled=false
+      lineStyleSymbol="emptyCircle"
+      lineStyleSymbolSize="8"
+      lineType="dotted"
+      lineStyleSmooth='smooth'
+      labelPosition="top"
+      :initialLoad=false
+      undefinedToZero='zero'
+      style="--labelFontSize:18px;width: 500px; height:400px; --line-item-color: blue; 
+    --label-font-size: 14;
+    ">
+    </lcap-echarts-line>
+    <u-button @click="reload">reload</u-button>
+  </div>
+</template>
+<script>
+export default {
+  methods: {
+    reload() {
+    console.log('reload');
+      this.$refs.line.reload();
+    }
+  }
+}
+</script>
 
 ```
+
 
 
 ## API
@@ -57,16 +74,23 @@
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
-| xAxis | string |  | `''` | 设置维度(x轴) |
-| yAxis | string |  | `''` | 设置指标（y轴），多个指标以逗号分隔 |
-| width | string |  | `'380px'` | 设置图宽度 |
-| height | string |  | `'300px'` | 设置图高度 |
-| title | string |  | `'标题'` | 设置主标题 |
+| data-schema | schema |  |  | 表格每一行的数据类型 |
+| undefinedToZero | string | `[object Object]`<br/>`[object Object]` | `'empty'` | 设置将未定义的值如undefined，null转换为0或空距 |
+| initialLoad | boolean |  | `true` | 是否在初始时立即加载 |
+| xAxis | string |  | `''` | 设置维度(统计类别) |
+| yAxis | string |  | `''` | 设置度量（统计值） |
+| title | string |  | `'标题'` | 设置图表标题 |
+| axisSplitLine | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'horizontal'` | 设置坐标系网格线 |
+| axisSplitLineType | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'solid'` | 设置网格线线型 |
 | theme | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'theme1'` | 设置图表配色方案 |
-| allowShowLabel | boolean |  | `true` | 设置是否显示标签 |
+| labelPosition | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'top'` | 设置数据标签位置 |
 | allowShowHint | boolean |  | `true` | 设置是否显示提示 |
 | allowShowLegend | boolean |  | `true` | 设置是否显示图例 |
 | legendName | string |  | `''` | 设置图例别名；修改成功后，图例名字会从"指标"改为"别名" |
+| areaFilled | boolean |  | `false` | 设置是否填充折线下方区域 |
+| lineType | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'solid'` | 设置线条类型 |
+| lineStyleSmooth | string | `[object Object]`<br/>`[object Object]` | `'normal'` | 设置线条样式 |
+| lineStyleSymbol | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'emptyCircle'` | undefined |
 | xAxisTitle | string |  | `'X轴标题'` | 设置x轴标题 |
 | showXAxisLine | boolean |  | `true` | 设置显示X轴轴线 |
 | showXAxisLabel | boolean |  | `true` | 设置是否显示X轴文字标签 |
@@ -74,7 +98,6 @@
 | yAxisTitle | string |  | `'Y轴标题'` | 设置Y轴标题 |
 | showYAxisLine | boolean |  | `true` | 设置显示Y轴轴线 |
 | showYAxisLabel | boolean |  | `true` | 设置是否显示Y轴数值标签 |
-| titleFontSize | number |  | `18` | 设置标题文字字号 |
 | titleFontStyle | string | `[object Object]`<br/>`[object Object]` | `'normal'` | 设置普通文字字号 |
 | allowDownload | boolean |  | `true` | 允许用户设置保存图片 |
 

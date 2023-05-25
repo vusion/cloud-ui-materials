@@ -13,11 +13,13 @@ export default {
     sourceData: [Array, Object],
     size: [Object],
     axisData: [Object],
+    customStyle: [Object],
   },
   data() {
     return {
       barData: {},
       barOption: {},
+      xAxisDataOption: [],
     }
   },
   mounted() {
@@ -25,12 +27,17 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData} = this;
-      return {size, axisData, sourceData};
+      let {size, axisData, sourceData, customStyle} = this;
+      return {size, axisData, sourceData, customStyle};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 340;
-      let height = this.size.height.replace("px", "") || 300;
+      // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
+      const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
+      const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
+      const propsWidth = this.size.width && this.size.width.replace("px", "");
+      const propsHeight = this.size.height && this.size.height.replace("px", "");
+      const width = styleWidth || propsWidth || 340;
+      const height = styleHeight || propsHeight || 300;
       return {
         width: `${width}px`,
         height: `${height}px`,
@@ -91,9 +98,8 @@ export default {
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
-          if (axisData || axisData === 0) {
-            res.push(this.recurGetValue(item, axis));
-          }
+          const showZero = this.axisData.undefinedToZero === 'empty' ? null : 0;
+          res.push(axisData || axisData === 0 ? this.recurGetValue(item, axis) : showZero);
         }
       } else {
         for (let item in data) {
@@ -108,19 +114,32 @@ export default {
       let xData = [];
       for (let item of multiXAxisList) {
         xData.push(this.getAxisData(data, item))
+        this.xAxisDataOption = this.getAxisData(data, item);
       }
       for (let index = 0; index < xData.length; index++) {
-        xAxisData.push({
-          data: xData[index],
-          name: xAxisTitleList[index] || '',
-          nameLocation: "middle",
-          nameTextStyle: {
-            padding: [12, 0, 0, 0],
-            fontWeight: "bolder",
-            fontSize: 14
-          },
+        xAxisData.push(
+          {
+            data: xData[index],
+            type: this.axisData.xAxisType === 'xBase'? 'category' : 'value',
+            name: xAxisTitleList[index] || '',
+            nameLocation: "middle",
+            nameTextStyle: {
+              padding: [12, 0, 0, 0],
+              fontWeight: "bolder",
+              fontSize: 14
+            },
+            splitLine: {
+              show: this.axisData.axisSplitLine === 'vertical' || this.axisData.axisSplitLine === 'both',
+              lineStyle: {
+                color: this.customStyle['--grid-line-color'] || '#ccc',
+                type: this.axisData.axisSplitLineType,
+              }
+            },
             axisLine: {
               show: this.axisData.showXAxisLine,
+              lineStyle: {
+                color: this.customStyle['--axis-line-color'] || '#333',
+              }
             },
             axisLabel: {
               show: this.axisData.showXAxisLabel,
@@ -137,10 +156,21 @@ export default {
         seriesData.push({
           name: item,
           type: 'bar',
+          itemStyle: {
+            color: this.customStyle['--bar-item-color'] || 'auto',
+            borderColor: this.customStyle['--bar-item-border-color'] || 'auto',
+            borderWidth: 1.5,
+          },
           data: this.getAxisData(data, item),
           showBackground: true,
+          backgroundStyle: {
+            color: this.customStyle['--bar-item-backgroundColor'] || 'rgba(180, 180, 180, 0.2)',
+          },
           label: {
-            show: this.axisData.allowShowLabel,
+            show: this.axisData.labelPosition !== 'hidden',
+            position: this.axisData.labelPosition,
+            color: this.customStyle['--label-font-color'],
+            fontSize: this.customStyle['--label-font-size'],
           },
         })
       }
@@ -154,13 +184,13 @@ export default {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let multiXAxisList = this.axisData.xAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       // 针对多层嵌套的坐标轴输入，取最后一个值
-      multiYAxisList = multiYAxisList.map((item) => item.split('.')[item.split('.').length -1])
-      multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length -1])
+      multiYAxisList = multiYAxisList.map((item) => item.split('.')[item.split('.').length - 1])
+      multiXAxisList = multiXAxisList.map((item) => item.split('.')[item.split('.').length - 1])
       // IDE开发环境坐标轴替换为假数据坐标轴字段
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        multiYAxisList = ['指标1', '指标2', '指标3'];
+        multiYAxisList = ['指标1'];
         multiXAxisList = ['fakeXAxis'];
-        legendData = ['指标1', '指标2', '指标3'];
+        legendData = ['指标1'];
       } else {
         // 制品应用生产环境
         legendData = multiYAxisList;
@@ -183,17 +213,17 @@ export default {
           }
         }
       }
-      this.barOption = this.generateEchartOption(legendData, seriesData, xAxisData);
+      this.barOption = this.generateEchartOption(legendData, seriesData, xAxisData, this.xAxisDataOption);
     },
     // 处理自定义图例，开发环境修改成功，图例名称从"指标"->"别名"，生产环境会自动替换为真实数据
     legendFormatter(name) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      legendAliasList = legendAliasList.filter((item) => item!== '');
-      let fakeAliasList = ['别名1', '别名2', '别名3'];
+      legendAliasList = legendAliasList.filter((item) => item !== '');
+      let fakeAliasList = ['别名1'];
       // 因为生产环境展示的是假数据，所以指标数量无法根据实际情况渲染，默认展示三个图例，通过更改值提示用户修改成功
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        const showAxisList = ['指标1', '指标2', '指标3'];
+        const showAxisList = ['指标1'];
         return (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ?
           fakeAliasList[showAxisList.indexOf(name)] : showAxisList[showAxisList.indexOf(name)];
       } else {
@@ -205,21 +235,26 @@ export default {
     toolTipFormatter(params) {
       let multiYAxisList = this.axisData.yAxis.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
       let legendAliasList = this.axisData.legendName && this.axisData.legendName.replace(/，/g, ",").replace(/\s+/g, '').split(',') || [];
-      let template= '';
+      let template = '';
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         legendAliasList = (legendAliasList.length !== 0 && multiYAxisList.length === legendAliasList.length) ? ['别名1', '别名2', '别名3'] : ['指标1', '指标2', '指标3'];
-      } else if(legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
+      } else if (legendAliasList.length === 0 || multiYAxisList.length !== legendAliasList.length) {
         legendAliasList = multiYAxisList;
       }
-      for (let index=0; index<params.length; index++) {
-        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${params[index].value}</b></div>`
+      for (let index = 0; index < params.length; index++) {
+        const showZero = this.axisData.undefinedToZero === 'empty' ? ' ' : 0;
+        const showText = params[index].value || params[index].value === 0 ? params[index].value : showZero;
+        template += `<div style="color: ${params[index].color}"> ${legendAliasList[index]}: <b style="float: right; margin-left: 20px;"> ${showText}</b></div>`
       }
       return template;
     },
-    generateEchartOption(legendData, seriesData, xAxisData) {
+    generateEchartOption(legendData, seriesData, xAxisData, yAxisDataOption) {
       return {
         grid: {
-          left: '15%',
+          left: '20%',
+          show: this.customStyle['--grid-line-background-color'] || this.customStyle['--grid-line-border-color'],
+          backgroundColor: this.customStyle['--grid-line-background-color'],
+          borderColor: this.customStyle['--grid-line-border-color'],
         },
         toolbox: {
           show: this.axisData.allowDownload,
@@ -246,26 +281,39 @@ export default {
         title: {
           text: this.axisData.title,
           textStyle: {
-            fontSize: this.axisData.titleFontSize,
+            fontSize: this.customStyle['--echart-title-font-size'] || this.axisData.titleFontSize,
+            color: this.customStyle['--title-font-color'],
             fontStyle: this.axisData.titleFontStyle,
           }
         },
         xAxis: xAxisData,
         yAxis: {
-          type: 'value',
+          data: yAxisDataOption,
+          type: this.axisData.xAxisType === 'xBase' ? 'value' : 'category',
           name: this.axisData.yAxisTitle || '',
           axisLine: {
             show: this.axisData.showYAxisLine,
+            lineStyle: {
+              color: this.customStyle['--axis-line-color'] || '#333',
+            }
           },
           axisLabel: {
             show: this.axisData.showYAxisLabel,
           },
           nameLocation: "middle",
           nameRotate: 90,
+          nameGap: 22,
           nameTextStyle: {
             padding: [0, 0, 20, 0],
             fontWeight: "bolder",
             fontSize: 14,
+          },
+          splitLine: {
+            show: this.axisData.axisSplitLine === 'horizontal' || this.axisData.axisSplitLine === 'both',
+            lineStyle: {
+              type: this.axisData.axisSplitLineType,
+              color: this.customStyle['--grid-line-color'] || '#ccc',
+            }
           },
         },
         series: seriesData,

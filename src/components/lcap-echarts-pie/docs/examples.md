@@ -1,6 +1,6 @@
 ### 基本用法
 
-``` html
+```html
 <lcap-echarts-pie
     theme=""  
     xAxis="fakeXAxis" 
@@ -14,6 +14,10 @@
     :showLabelName=true
     :showLabelValue=true
     :showLabelPercent=true
+    legendScroll="scroll"
+    legendPosition="top"
+    undefinedToZero="empty"
+    style="--pie-item-border-color: red; --label-font-color: blue;"
 ></lcap-echarts-pie>
 
 ```
