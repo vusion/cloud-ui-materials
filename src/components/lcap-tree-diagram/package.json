@@ -1,11 +1,11 @@
 {
   "name": "lcap-tree-diagram",
   "description": "",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.nos.lcap.163yun.com/lcap-tree-diagram@0.1.1/index.html",
+  "homepage": "http:undefined/lcap-tree-diagram@1.0.0/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

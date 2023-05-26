@@ -1,5 +1,5 @@
-export const addCurIndex = function (finalResult) {
-    const arrayTreeAddIndex = (array, levelName = 'curIndex', childrenName = 'children') => {
+export const addTreeLevel = function (data) {
+    const arrayTreeAddLevel = (array, levelName = 'curIndex', childrenName = 'children') => {
         if (!Array.isArray(array))
             return [];
         const recursive = (array, level = 0) => {
@@ -14,8 +14,8 @@ export const addCurIndex = function (finalResult) {
         };
         return recursive(array);
     };
-    arrayTreeAddIndex(finalResult);
-    return finalResult;
+    arrayTreeAddLevel(data);
+    return data;
 };
 
 export const listToTree = function (data, options) {

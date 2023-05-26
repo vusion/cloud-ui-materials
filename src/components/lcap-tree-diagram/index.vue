@@ -71,7 +71,7 @@
 <script>
 import LcapTreeDiagram from './src/components/tree.vue';
 import deepClone from 'lodash/cloneDeep';
-import { addCurIndex } from './src/util.js';
+import { addTreeLevel } from './src/util.js';
 
 export default {
   name: 'lcap-tree-diagram',
@@ -80,7 +80,7 @@ export default {
   },
   props: {
     dataSource: {
-       type: [Array, Object, Function],
+      type: [Array, Object, Function],
     },
     showChildDotNum: { type: Boolean, default: true },
     valueField: { type: String, default: 'id' },
@@ -198,13 +198,13 @@ export default {
 
   methods: {
     async handleCommonSD(val) {
-        const temp = await this.handleDataSource(this.normalize(deepClone(val), {
-          parentField: this.parentField,
-          valueField: this.valueField,
-          childrenField: 'children',
-          dEntity: this.dataEntity,
-        }) );
-        return addCurIndex(temp);
+      const temp = await this.handleDataSource(this.normalize(deepClone(val), {
+        parentField: this.parentField,
+        valueField: this.valueField,
+        childrenField: 'children',
+        dEntity: this.dataEntity,
+      }) );
+      return addTreeLevel(temp);
     },
     async reload() {
       this.dataFromDataSource = await this.handleCommonSD(this.dataSource)

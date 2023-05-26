@@ -24,7 +24,7 @@
         @on-node-drop="(e, data) => onDrop(e, data)"
         @on-node-toggle="(e, data) => onToggle(e, data)"
       >
-        <template #default="scope">
+        <!-- <template #default="scope">
             <slot :item="scope.item"></slot>
             <s-empty v-if="$env.VUE_APP_DESIGNER
                 && $scopedSlots
@@ -32,7 +32,7 @@
                     ...scope,
                 }))
                 && !!$attrs['vusion-node-path']"></s-empty>
-        </template>
+        </template> -->
       </lcap-tree-node>
     </div>
   </div>
