@@ -17,8 +17,8 @@
     >
     </LcapTreeDiagram>
     <LcapTreeDiagram
-      v-else
-      v-for="item in sourceData"
+      v-else 
+      v-for="item in dataFromDataSource"
       :key="item.id"
       :data="item"
       :horizontal="horizontal"
@@ -47,12 +47,22 @@
       :reference="referenceEl"
       trigger="manual"
       :opened="showPopper"
+      style="--popper-box-shadow: none"
     >
-      <div :class="$style.popcontent" @click.stop>
-       <div :class="[$style.edit]" @click.stop="onEdit">编辑</div>
-       <div :class="[$style.delete]" @click.stop="onDelete">删除</div>
-       <div :class="$style['recent-edit']">最近编辑 </div>
-       <div :class="$style.info"><span>{{ updateTime }}</span> <span>{{updateBy}}</span></div>
+      <div
+        :class="$style.popcontent"
+        @click.stop
+      >
+        <div
+          :class="[$style.edit]"
+          @click.stop="onEdit"
+        >编辑</div>
+        <div
+          :class="[$style.delete]"
+          @click.stop="onDelete"
+        >删除</div>
+        <div :class="$style['recent-edit']">最近编辑 </div>
+        <div :class="$style.info"><span>{{ updateTime }}</span> <span>{{updateBy}}</span></div>
       </div>
     </m-popper>
   </div>
@@ -60,17 +70,18 @@
 
 <script>
 import LcapTreeDiagram from './src/components/tree.vue';
-import SupportDataSource from './src/mixins/support.datasource.js';
 import deepClone from 'lodash/cloneDeep';
-import { addCurIndex } from './src/util.js'
+import { addCurIndex } from './src/util.js';
 
 export default {
   name: 'lcap-tree-diagram',
-  mixins: [SupportDataSource],
   components: {
     LcapTreeDiagram,
   },
   props: {
+    dataSource: {
+       type: [Array, Object, Function],
+    },
     showChildDotNum: { type: Boolean, default: true },
     valueField: { type: String, default: 'id' },
     parentField: { type: String, default: 'parentId' },
@@ -96,7 +107,7 @@ export default {
         return ['left', 'right'].includes(value);
       },
     },
-    dataEntity: { type: String, default: '' }
+    dataEntity: { type: String, default: '' },
   },
   data() {
     return {
@@ -157,31 +168,73 @@ export default {
         ],
       },
       updateBy: '轻舟',
-      updateTime: '' 
+      updateTime: '',
+       dataFromDataSource: []
+
     };
   },
   computed: {
     placement() {
-        if (this.alignment === 'left')
-            return 'bottom-start';
-        else if (this.alignment === 'right')
-            return 'bottom-end';
+      if (this.alignment === 'left') return 'bottom-start';
+      else if (this.alignment === 'right') return 'bottom-end';
     },
   },
   watch: {
-    'currentDataSource.data': {
-      handler(val) {
-        this.handleDataSourceData(val);
+    dataSource: {
+      async handler(val) {
+        let dataFromDataSource = await this.handleCommonSD(val)
+
+        if (!Array.isArray(dataFromDataSource)) {
+          console.error(
+            `[cloud-ui] Please confirm that the final result is an array in 'data-source' prop.`,
+          );
+          dataFromDataSource = [];
+        }
+        this.dataFromDataSource = dataFromDataSource;
       },
-    }
-  },
-  methods: {
-    handleDataSourceData(val) {
-      let temp = this.normalize(deepClone(val), { parentField: this.parentField, valueField: this.valueField, childrenField: 'children', dEntity: this.dataEntity }) || [];
-      this.sourceData = addCurIndex(temp)
+      immediate: true,
     },
-    reload() {
-      this.load()
+  },
+
+  methods: {
+    async handleCommonSD(val) {
+        const temp = await this.handleDataSource(this.normalize(deepClone(val), {
+          parentField: this.parentField,
+          valueField: this.valueField,
+          childrenField: 'children',
+          dEntity: this.dataEntity,
+        }) );
+        return addCurIndex(temp);
+    },
+    async reload() {
+      this.dataFromDataSource = await this.handleCommonSD(this.dataSource)
+    },
+    async handleDataSource(dataSource) {
+      if (!dataSource) {
+        return [];
+      }
+      if (dataSource instanceof Promise || typeof dataSource === 'function') {
+        const result = await dataSource(this.page);
+        return this.handleData(result);
+      }
+      return this.handleData(dataSource);
+    },
+
+    handleData(data) {
+      if (Array.isArray(data)) {
+        return data;
+      } else if (
+        Object.prototype.toString.call(data) === '[object Object]' &&
+        Array.isArray(data.list)
+      ) {
+        return data.list;
+      } else if (
+        Object.prototype.toString.call(data) === '[object Object]' &&
+        data.content
+      ) {
+        return data.content;
+      }
+      return [];
     },
 
     onEdit(e, data) {
@@ -199,42 +252,42 @@ export default {
     onToggle($event) {
       this.$emit('toggle', $event);
       if ($event && $event.opened) {
-          this.preventBlur = true;
+        this.preventBlur = true;
       }
     },
     onPopperClose(e) {
       this.$emit('blur', e, this);
       this.showPopper = false;
       this.dialogEditHover = false;
-      setTimeout(() => { // 为了不触发input的blur，否则会有两次blur
-          this.preventBlur = false;
+      setTimeout(() => {
+        // 为了不触发input的blur，否则会有两次blur
+        this.preventBlur = false;
       }, 0);
     },
 
-
     click(e, data) {
-      this.referenceEl = e.target
+      this.referenceEl = e.target;
       this.showPopper = !this.showPopper;
       e.item = data;
       e.value = data[this.valueField];
-      this.curEventsData = e
+      this.curEventsData = e;
 
-      this.updateTime = e.item?.updatedTime?.split('T')?.[0]
+      this.updateTime = e.item?.updatedTime?.split('T')?.[0];
       this.updateBy = e.item?.updateBy;
-      this.$emit('click',  e);
+      this.$emit('click', e);
     },
     normalize(list, options) {
-      const { parentField: pField, valueField: vField, dEntity} = options;
-      
+      const { parentField: pField, valueField: vField, dEntity } = options;
+
       let tempArr = [];
-      tempArr = list?.map(item => {
-        if (dEntity)  {
-          return item[dEntity]
+      tempArr = list?.map((item) => {
+        if (dEntity) {
+          return item[dEntity];
         } else {
-          return item
+          return item;
         }
-      })
-      
+      });
+
       let result = [];
       const map = tempArr?.reduce((res, v) => {
         res[v[vField]] = v;
@@ -245,23 +298,22 @@ export default {
         const parentId = item[pField];
         if (parentId === 0) {
           item.curIndex = 1;
-          result.push(item)
-          continue
+          result.push(item);
+          continue;
         }
         if (map[item[pField]]) {
-          const parent = map[item[pField]]
+          const parent = map[item[pField]];
           parent.children = parent.children || [];
-          parent.children.push(item)
+          parent.children.push(item);
         }
       }
-      console.log(result)
-      return result
+      return result;
     },
     labelClassName() {
       return 'clickable-node';
     },
     renderContent(h, data) {
-      return data[this.textField]
+      return data[this.textField];
     },
     onExpand(e, data) {
       this.expandEvent = e.target.dataset.btn === 'true';
@@ -306,24 +358,18 @@ export default {
         }
       }
     },
-  }
-}  
+  },
+};
 </script>
 
 <style module>
-.clickable-node {
-  background: red;
-  border: 1px solid green;
-  color: pink;
-}
-
 .popper {
   z-index: 1;
   border-radius: 10px;
 }
 
 .popcontent {
-  width: 140px;
+  width: 160px;
   padding: 10px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -332,7 +378,7 @@ export default {
   background: #fff;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(3,3,3,0.1);
+  box-shadow: 0 0 10px rgba(3, 3, 3, 0.1);
   margin-top: 6px;
   border-radius: 10px;
 }
@@ -348,7 +394,9 @@ export default {
   justify-content: space-between;
 }
 
-.edit, .delete, .info {
+.edit,
+.delete,
+.info {
   color: #0f0f0f;
   font-weight: 400;
   height: 30px;
@@ -356,7 +404,8 @@ export default {
   padding-left: 4px;
 }
 
-.edit:hover, .delete:hover {
+.edit:hover,
+.delete:hover {
   background: #f8f8f8;
   border-radius: 6px;
   width: 100%;
@@ -367,5 +416,4 @@ export default {
 .delete {
   margin: 10px auto;
 }
-
 </style>
