@@ -142,7 +142,8 @@ export default {
             },
             axisLabel: {
               show: this.axisData.showXAxisLabel,
-              rotate: Number(this.axisData.xAxisLabelRotate)
+              rotate: Number(this.axisData.xAxisLabelRotate),
+              fontSize: this.customStyle['--xAxis-label-font-size'] || 12,
             },
           }
         )
@@ -323,6 +324,7 @@ export default {
           },
           axisLabel: {
             show: this.axisData.showYAxisLabel,
+            fontSize: this.customStyle['--yAxis-label-font-size'] || 12,
           },
           nameLocation: "middle",
           nameRotate: 90,

@@ -329,3 +329,15 @@
       type: color
       description: 设置面积图渐变颜色
       group: 面积颜色
+    - name: --xAxis-label-font-size
+      title: X轴文字大小
+      default: 12
+      type: input
+      description: 设置X轴文字大小, X轴文字显示不全时，需调小字体尺寸
+      group: 坐标轴
+    - name: --yAxis-label-font-size
+      title: Y轴文字大小
+      default: 12
+      type: input
+      description: 设置Y轴文字大小，Y轴文字显示不全时，需调小字体尺寸
+      group: 坐标轴
