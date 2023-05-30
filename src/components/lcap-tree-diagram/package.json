@@ -1,11 +1,11 @@
 {
-  "name": "lcap-printPage",
+  "name": "lcap-tree-diagram",
   "description": "",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/lcap-printPage@0.1.2/index.html",
+  "homepage": "http:undefined/lcap-tree-diagram@1.0.0/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -17,10 +17,13 @@
     "build:theme": "../../../node_modules/.bin/vue-cli-service library-build --dest dist-theme",
     "build:doc": "../../../node_modules/.bin/vue-cli-service doc-build",
     "build": "npm run build:theme && npm run build:doc",
+    "screenshot": "lcap screenshot public/index.html#blocks --code-example --max-count 10 --smart-crop --package",
     "deploy": "lcap deploy && lcap deploy dist-theme",
     "usage": "lcap usage",
     "prepublishOnly": "npm run build && lcap usage && lcap readme && lcap vetur",
-    "release": "lcap publish"
+    "release": "lcap publish",
+    "git": "git pull && git add . && git commit -m ",
+    "postgit": "git push"
   },
   "vuePlugins": {
     "resolveFrom": "../../../"
@@ -32,7 +35,7 @@
   },
   "vusion": {
     "type": "component",
-    "title": "页面打印",
+    "title": "树形结构图",
     "category": "Other",
     "base": "vue",
     "ui": "cloud-ui.vusion",
@@ -41,16 +44,17 @@
     "access": "public"
   },
   "dependencies": {
-    "file-saver": "^2.0.5",
-    "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.1"
+    "vue2-lcap-tree": "^1.3.6"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5"
+  },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "vue-cli-plugin-vusion": "^0.13.3",
+    "cloud-ui.vusion": "^0.11.20",
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.11.20"
+    "vue-cli-plugin-vusion": "^0.13.3"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
