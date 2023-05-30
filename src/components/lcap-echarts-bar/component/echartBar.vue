@@ -143,7 +143,7 @@ export default {
             },
             axisLabel: {
               show: this.axisData.showXAxisLabel,
-              rotate: Number(this.axisData.xAxisLabelRotate),
+              rotate: this.axisData.xAxisType === 'xBase' ? Number(this.axisData.xAxisLabelRotate) : '0',
             },
           }
         )
@@ -299,6 +299,7 @@ export default {
           },
           axisLabel: {
             show: this.axisData.showYAxisLabel,
+            rotate: this.axisData.xAxisType === 'yBase' ? Number(this.axisData.xAxisLabelRotate) : '0',
           },
           nameLocation: "middle",
           nameRotate: 90,
