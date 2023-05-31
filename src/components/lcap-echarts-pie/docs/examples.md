@@ -17,7 +17,8 @@
     legendScroll="scroll"
     legendPosition="top"
     undefinedToZero="empty"
-    style="--pie-item-border-color: red; --label-font-color: blue;"
+    pieType="semiCircle"
+    style="--pie-sectors-border-color: red; --label-font-color: blue;"
 ></lcap-echarts-pie>
 
 ```
