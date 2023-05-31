@@ -1,7 +1,7 @@
 <template>
   <div>
     <LcapTreeDiagram
-      v-if="$env.VUE_APP_DESIGNER || env"
+      v-if="false"
       :data="fakeData"
       :horizontal="horizontal"
       :collapsable="collapsable"
@@ -71,7 +71,7 @@
 <script>
 import LcapTreeDiagram from './src/components/tree.vue';
 import deepClone from 'lodash/cloneDeep';
-import { addTreeLevel } from './src/util.js';
+import { addTreeLevel, normalizeDataSource } from '../../utils'
 
 export default {
   name: 'lcap-tree-diagram',
@@ -182,14 +182,7 @@ export default {
   watch: {
     dataSource: {
       async handler(val) {
-        let dataFromDataSource = await this.handleCommonSD(val)
-
-        if (!Array.isArray(dataFromDataSource)) {
-          console.error(
-            `[cloud-ui] Please confirm that the final result is an array in 'data-source' prop.`,
-          );
-          dataFromDataSource = [];
-        }
+        let dataFromDataSource = await this.handleDataSource(normalizeDataSource(val).data)
         this.dataFromDataSource = dataFromDataSource;
       },
       immediate: true,
@@ -197,44 +190,17 @@ export default {
   },
 
   methods: {
-    async handleCommonSD(val) {
-      const temp = await this.handleDataSource(this.normalize(deepClone(val), {
+    async handleDataSource(val) {
+      const temp = await this.normalize(deepClone(val), {
         parentField: this.parentField,
         valueField: this.valueField,
         childrenField: 'children',
         dEntity: this.dataEntity,
-      }) );
+      });
       return addTreeLevel(temp);
     },
     async reload() {
-      this.dataFromDataSource = await this.handleCommonSD(this.dataSource)
-    },
-    async handleDataSource(dataSource) {
-      if (!dataSource) {
-        return [];
-      }
-      if (dataSource instanceof Promise || typeof dataSource === 'function') {
-        const result = await dataSource(this.page);
-        return this.handleData(result);
-      }
-      return this.handleData(dataSource);
-    },
-
-    handleData(data) {
-      if (Array.isArray(data)) {
-        return data;
-      } else if (
-        Object.prototype.toString.call(data) === '[object Object]' &&
-        Array.isArray(data.list)
-      ) {
-        return data.list;
-      } else if (
-        Object.prototype.toString.call(data) === '[object Object]' &&
-        data.content
-      ) {
-        return data.content;
-      }
-      return [];
+      this.dataFromDataSource = await this.handleDataSource(this.dataSource)
     },
 
     onEdit(e, data) {

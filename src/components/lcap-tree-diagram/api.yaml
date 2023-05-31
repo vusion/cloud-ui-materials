@@ -10,6 +10,11 @@
       designer-value: "[{}, {}, {}]"
       description: 表格的数据源，数据集对象或者返回数据集的逻辑
       group: 数据属性
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 选择器每一行的数据类型
+      compType: dataTypeSelect
     - name: value-field
       title: 值字段
       type: string
