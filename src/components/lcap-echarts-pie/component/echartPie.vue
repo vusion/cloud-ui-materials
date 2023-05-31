@@ -41,6 +41,27 @@ export default {
     return {
       pieData: {},
       pieOption: {},
+      borderMap: {
+        pie: {
+          itemStyle: {
+            borderColor: this.customStyle['--pie-item-border-color'],
+            borderWidth: 1,
+            borderRadius: 5,
+          }
+        },
+        circle: {
+          itemStyle: {
+            borderColor: this.customStyle['--pie-item-border-color'],
+            borderWidth: 1,
+            borderRadius: 5,
+          }
+        },
+        semiCircle: {
+          itemStyle: {
+            borderRadius: 5,
+          }
+        },
+      },
     }
   },
   mounted() {
@@ -241,11 +262,7 @@ export default {
               fontSize: this.customStyle['--label-font-size'],
               position: this.axisData.pieType !== 'pie' ? 'center' : 'outside',
             },
-            itemStyle: this.axisData.pieType !== 'pie' ? {
-              borderRadius: 5,
-              borderColor: this.customStyle['--pie-item-border-color'],
-              borderWidth: 1
-            } : '',
+            ...this.borderMap[this.axisData.pieType],
           }
         ],
       };
