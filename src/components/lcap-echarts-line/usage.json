@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-line",
     "name": "折线图",
-    "version": "2.0.15",
+    "version": "2.2.0",
     "icon": "linechart",
     "repoAddr": "",
     "depDescription": {},
@@ -9,14 +9,14 @@
     "labels": [
         "Chart"
     ],
-    "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-line@2.0.15/screenshots/0.png",
+    "screenShot": "http://static-vusion.nos.lcap.163yun.com/packages/lcap-echarts-line@2.2.0/screenshots/0.png",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-line xAxisTitle=\\\"X轴标题\\\" yAxisTitle=\\\"Y轴标题\\\" title=\\\"标题\\\" theme=\\\"theme1\\\"></lcap-echarts-line>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-echarts-line",
         "title": "折线图",
         "description": "折线图",
         "category": "Chart",
-        "screenShot": "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-line@2.0.15/screenshots/0.png",
+        "screenShot": "http://static-vusion.nos.lcap.163yun.com/packages/lcap-echarts-line@2.2.0/screenshots/0.png",
         "drawings": "",
         "blocks": [
             {
@@ -414,14 +414,6 @@
                 "group": "图表功能"
             }
         ],
-        "methods": [
-            {
-                "name": "reload",
-                "title": "reload",
-                "description": "刷新数据",
-                "params": []
-            }
-        ],
         "themes": [
             {
                 "name": "--echart-title-font-size",
@@ -518,6 +510,30 @@
                 "type": "color",
                 "description": "设置面积图渐变颜色",
                 "group": "面积颜色"
+            },
+            {
+                "name": "--xAxis-label-font-size",
+                "title": "X轴文字大小",
+                "default": 12,
+                "type": "input",
+                "description": "设置X轴文字大小, X轴文字显示不全时，需调小字体尺寸",
+                "group": "坐标轴"
+            },
+            {
+                "name": "--yAxis-label-font-size",
+                "title": "Y轴文字大小",
+                "default": 12,
+                "type": "input",
+                "description": "设置Y轴文字大小，Y轴文字显示不全时，需调小字体尺寸",
+                "group": "坐标轴"
+            }
+        ],
+        "methods": [
+            {
+                "name": "reload",
+                "title": "reload",
+                "description": "刷新数据",
+                "params": []
             }
         ],
         "children": []

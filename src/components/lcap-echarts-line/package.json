@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-line",
   "description": "",
-  "version": "2.0.15",
+  "version": "2.2.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hadev.163yun.com/lowcode-static/lcap-echarts-line@2.0.15/index.html",
+  "homepage": "http://static-vusion.nos.lcap.163yun.com/lcap-echarts-line@2.2.0/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -39,7 +39,7 @@
     "base": "vue",
     "ui": "cloud-ui.vusion",
     "screenshots": [
-      "http://ceph.lcap.hadev.163yun.com/lowcode-static/packages/lcap-echarts-line@2.0.15/screenshots/0.png"
+      "http://static-vusion.nos.lcap.163yun.com/packages/lcap-echarts-line@2.2.0/screenshots/0.png"
     ],
     "team": "",
     "access": "public"
