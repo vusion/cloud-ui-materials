@@ -1,11 +1,11 @@
 {
-  "name": "lcap-tree-diagram",
+  "name": "lcap-tree-diagram-demo",
   "description": "",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http:undefined/lcap-tree-diagram@1.0.0/index.html",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-tree-diagram@0.1.21/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
