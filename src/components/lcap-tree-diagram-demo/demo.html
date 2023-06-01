@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <u-tree-select-new 
+    :data-source="[{id: 1, name: '节点1', pid: null}, {id: 2, name: '节点2', pid: 1}, {id: 3, name: '节点3', pid: null}, {id: 4, name: '节点4', pid: null}, {id: 5, name: '节点5', pid: 1}, {id: 6, name: '节点6', pid: 2}]"
+    parent-field="pid"
+    value-field="id"
+    children-field="children"
+    text-field="name"  
+></u-tree-select-new>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script>
+        const list = [
+        {
+          category: {
+            id: 111,
+            createdTime: null,
+            updatedTime: null,
+            createdBy: null,
+            updatedBy: null,
+            name: '全部风险',
+            explanation: '这是全部风险',
+            pid: 0,
+            levelName: '全部风险',
+          },
+        },
+        {
+          category: {
+            id: 114,
+            createdTime: null,
+            updatedTime: null,
+            createdBy: null,
+            updatedBy: null,
+            name: '子主题2',
+            explanation: '2',
+            pid: 111,
+            levelName: '4',
+          },
+        },
+        {
+          category: {
+            id: 115,
+            createdTime: null,
+            updatedTime: null,
+            createdBy: null,
+            updatedBy: '奇欣欣',
+            name: '子主题1',
+            explanation: '啊啊啊',
+            pid: 111,
+            levelName: '全部风险/运营风险',
+          },
+        }]
+       
+          //    function listToTree(list, options) {
+    //          const { valueField, parentField, childrenField } = options;
+    //          const treeList = list.reduce((tree, node) => {
+    //             const parentNode = tree.find(obj => obj.id === get(node, valueField));
+    //             if (parentNode) {
+    //                 console.log( get(node, valueField) )
+    //             }
+    //             const newNode = { ...node.category, children: [] };
+    //             if (!parentNode) {
+    //                 tree.push(newNode);
+    //             } else {
+    //                 parentNode.children?.push(newNode);
+    //             }
+    //             return tree;
+    //         }, [])
+       function listToTree(data, options) {
+             const { valueField, parentField, childrenField } = options;
+            //  const treeList = list.reduce((tree, node) => {
+            //     const parentNode = tree.find(obj => obj.id === _.get(node, parentField));
+            //     const newNode = { ...node[valueField.split('.')[0]], children: [] };
+            //     if (!parentNode) {
+            //         tree.push(newNode);
+            //     } else {
+            //         parentNode.children?.push(newNode);
+            //     }
+            //     return tree;
+            // }, [])
+
+            const nodes = {}; // Record<id, { entity }>
+            data.forEach((item) => {
+                const id = _.get(item, valueField);
+                
+                if (id) {
+                    // nodes[id] = _.get(item);
+                }
+            });
+
+            console.log(nodes,'-nodes')
+            
+
+            const tree = [];
+            data.forEach((item) => {
+                const parentId = _.get(item, parentField);
+                const parent = nodes[parentId];
+                // 没有parentId 或者 parent不存在的不处理
+                if (!parentId || !parent) {
+                    tree.push(item);
+                } else {
+                    if (!_.get(parent, childrenField)) {
+                        _.set(parent, childrenField, []);
+                    }
+
+                    _.get(parent, childrenField).push(item);
+                }
+            });
+            // console.log(treeList,'--tree')
+       }
+       
+       
+
+       let item = listToTree(list, { valueField: 'category.id', parentField: 'category.pid', childrenField: 'children' });
+
+    //    let item = this.listToTree(list, { valueField: 'tree.sid', parentField: 'tree.pid', childrenField: 'children' });
+       console.log(item, '----item')
+  </script>
+</body>
+</html>
+
+<!-- <lcap-tree-diagram
+:data-source="list2"
+value-field="id"
+parent-field="pid"
+text-field="name"
+@click="click"
+@onDelete="onDelete"
+ref="node"
+data-entity="category"
+>
+</lcap-tree-diagram> -->
+<!-- [{id: 1, name: '节点1', pid: null}, {id: 2, name: '节点2', pid: 1}, {id: 3, name: '节点3', pid: null}, {id: 4, name: '节点4', pid: null}, {id: 5, name: '节点5', pid: 1}, {id: 6, name: '节点6', pid: 2}] -->

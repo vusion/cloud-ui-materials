@@ -1,0 +1,14 @@
+{
+  "lcap-tree-diagram": {
+    "attributes": [
+      "data-source",
+      "data-schema",
+      "value-field",
+      "text-field",
+      "showChildDotNum",
+      "parent-field",
+      "data-entity"
+    ],
+    "description": "请在这里添加描述"
+  }
+}
