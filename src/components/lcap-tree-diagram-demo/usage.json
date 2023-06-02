@@ -10,7 +10,7 @@
         "Other"
     ],
     "screenShot": "",
-    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tree-diagram-demo>\\n  <template #dialog=\\\"scope\\\">\\n    <div style=\\\"color: red;\\\">插槽1111111111111 {{ scope.item }}</div>\\n  </template>\\n</lcap-tree-diagram-demo>\\n</template>\\n\"}]",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tree-diagram-demo></lcap-tree-diagram-demo>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram-demo",
         "title": "树状结构图demo",
@@ -22,7 +22,7 @@
             {
                 "title": "基本用法",
                 "description": "",
-                "code": "<template>\n<lcap-tree-diagram-demo>\n  <template #dialog=\"scope\">\n    <div style=\"color: red;\">插槽1111111111111 {{ scope.item }}</div>\n  </template>\n</lcap-tree-diagram-demo>\n</template>\n"
+                "code": "<template>\n<lcap-tree-diagram-demo></lcap-tree-diagram-demo>\n</template>\n"
             }
         ],
         "attrs": [

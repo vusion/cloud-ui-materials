@@ -2,15 +2,15 @@
   <div class="area_wrapper">
     <div class="tree_wrapper">
       <vue-chart-tree v-if="$env.VUE_APP_DESIGNER || env" v-for="(item, index) in fakeData" is-root :key="index" :tree-node-data="item" @on-click="click" :textField="textField" @on-node-toggle="onTogglePop">
-        <template #dialog="scope">
-          <slot name="dialog" :item="scope.item"></slot>
+        <template #dialog="dialog">
+          <slot name="dialog" :item="dialog"></slot>
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
         </template>
       </vue-chart-tree>
 
       <vue-chart-tree v-else v-for="(item, index) in dataFromDataSource" is-root :key="index" :tree-node-data="item" @on-click="click" :textField="textField" @on-node-toggle="onTogglePop">
-        <template #dialog="scope">
-          <slot name="dialog" :item="scope.item"></slot>
+        <template #dialog="dialog">
+          <slot name="dialog" :item="dialog"></slot>
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
         </template>
       </vue-chart-tree>
