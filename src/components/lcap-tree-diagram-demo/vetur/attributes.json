@@ -1,29 +1,29 @@
 {
-  "lcap-tree-diagram/data-source": {
+  "lcap-tree-diagram-demo/data-source": {
     "type": "Array<Item> | Function | object | DataSource",
     "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
   },
-  "lcap-tree-diagram/data-schema": {
+  "lcap-tree-diagram-demo/data-schema": {
     "type": "schema",
     "description": "选择器每一行的数据类型"
   },
-  "lcap-tree-diagram/value-field": {
+  "lcap-tree-diagram-demo/value-field": {
     "type": "string",
     "description": "用户标识选中值的属性"
   },
-  "lcap-tree-diagram/text-field": {
+  "lcap-tree-diagram-demo/text-field": {
     "type": "string",
     "description": "用于显示文本的字段名"
   },
-  "lcap-tree-diagram/show-child-dot-num": {
+  "lcap-tree-diagram-demo/show-child-dot-num": {
     "type": "boolean",
     "description": "默认开启；开启后显示其子节点的全部数量"
   },
-  "lcap-tree-diagram/parent-field": {
+  "lcap-tree-diagram-demo/parent-field": {
     "type": "string",
     "description": "集合的元素类型中，用于标识父节点的属性"
   },
-  "lcap-tree-diagram/data-entity": {
+  "lcap-tree-diagram-demo/data-entity": {
     "type": "string",
     "description": "属于匿名数据结构的需要传递数据实体名称，否则不用"
   }

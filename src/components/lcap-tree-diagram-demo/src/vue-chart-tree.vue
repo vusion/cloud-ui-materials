@@ -9,7 +9,7 @@
       <div class="node_content" @click="onLabelClick">
         <div class="parent_wrapper">
           <div class="parent_content">
-            <p class="content_name">{{ treeNodeData.name}}</p>
+            <p class="content_name">{{ label }}</p>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
     </div>
     <div :class="treeChildrenClassName" v-if="childrenLen && openedChildren" v-show="treeNodeData.expand">
       <p :class="connectLineClassName" v-if="childrenLen > 1"></p>
-      <vue-chart-tree v-for="item in treeNodeData.children" :key="item.id" :treeNodeData="item" :isRoot="false" @on-click="click">
+      <vue-chart-tree v-for="item in treeNodeData.children" :key="item.id" :treeNodeData="item" :isRoot="false" @on-click="click" :textField="textField">
         <template #dialog="scope">
           <slot name="dialog" :item="scope.item"></slot>
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
@@ -64,6 +64,9 @@ export default {
       type: Object,
       required: true,
     },
+    textField: {
+      type: String,
+    }
   },
   data() {
     return {
@@ -78,6 +81,9 @@ export default {
     };
   },
   computed: {
+    label() {
+      return this.treeNodeData[this.textField]
+    },
     childrenLen() {
       return (this.treeNodeData.children || []).length;
     },

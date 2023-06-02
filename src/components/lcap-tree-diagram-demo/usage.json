@@ -1,6 +1,6 @@
 {
-    "symbol": "lcap-tree-diagram",
-    "name": "树状结构图",
+    "symbol": "lcap-tree-diagram-demo",
+    "name": "树状结构图demo",
     "version": "0.1.0",
     "icon": "default",
     "repoAddr": "",
@@ -12,8 +12,8 @@
     "screenShot": "",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tree-diagram-demo>\\n  <template #dialog=\\\"scope\\\">\\n    <div style=\\\"color: red;\\\">插槽1111111111111 {{ scope.item }}</div>\\n  </template>\\n</lcap-tree-diagram-demo>\\n</template>\\n\"}]",
     "jsonSchema": {
-        "name": "lcap-tree-diagram",
-        "title": "树状结构图",
+        "name": "lcap-tree-diagram-demo",
+        "title": "树状结构图demo",
         "description": "请在这里添加描述",
         "category": "Other",
         "screenShot": "",

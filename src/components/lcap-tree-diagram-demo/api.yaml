@@ -15,21 +15,19 @@
       type: schema
       description: 选择器每一行的数据类型
       compType: dataTypeSelect
+      group: 数据属性
     - name: value-field
       title: 值字段
       type: string
       default: 'id'
       description: 用户标识选中值的属性
+      group: 数据属性
     - name: text-field
       title: 文本字段
       type: string
       default: 'label'
       description: 用于显示文本的字段名
-    - name: show-child-dot-num
-      title: 子节点收起显示子节点总数
-      type: boolean
-      default: true
-      description: 默认开启；开启后显示其子节点的全部数量
+      group: 数据属性
     - name: parent-field
       title: 父级选项值
       type: string
@@ -41,6 +39,13 @@
       type: string
       default: ''
       description: 属于匿名数据结构的需要传递数据实体名称，否则不用
+      group: 数据属性
+    - name: show-child-dot-num
+      title: 子节点收起显示子节点总数
+      type: boolean
+      default: true
+      description: 默认开启；开启后显示其子节点的全部数量
+      group: 数据属性
   slots:
     - concept: Slot
       name: dialog

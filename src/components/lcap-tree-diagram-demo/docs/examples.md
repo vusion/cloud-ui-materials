@@ -6,7 +6,7 @@
     :data-source="list"
     value-field="id"
     parent-field="pid"
-    text-field="name"
+    text-field="label"
     @click="click"
     @onDelete="onDelete"
     ref="node"
@@ -27,10 +27,10 @@ export default {
             updatedTime: null,
             createdBy: null,
             updatedBy: null,
-            name: '全部风险',
+            label: '全部风险',
             explanation: '这是全部风险',
             pid: 0,
-            levelName: '全部风险',
+            levellabel: '全部风险',
           },
         },
         {
@@ -40,10 +40,10 @@ export default {
             updatedTime: '2023-05-24T00:57:48.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '法律风险',
+            label: '法律风险',
             explanation: '这是法律风险',
             pid: 111,
-            levelName: '全部风险/法律风险',
+            levellabel: '全部风险/法律风险',
           },
         },
         {
@@ -53,10 +53,10 @@ export default {
             updatedTime: '2023-05-24T23:03:06.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '测试122',
+            label: '测试122',
             explanation: null,
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1/222/测试1',
+            levellabel: '全部风险/运营风险/全部风险1/222/测试1',
           },
         },
         {
@@ -66,10 +66,10 @@ export default {
             updatedTime: '2023-05-25T03:19:45.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '12312312312',
+            label: '12312312312',
             explanation: null,
             pid: 112,
-            levelName: '全部风险/测试/12312312312',
+            levellabel: '全部风险/测试/12312312312',
           },
         },
       ],

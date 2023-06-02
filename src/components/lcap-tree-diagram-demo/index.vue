@@ -1,15 +1,14 @@
 <template>
   <div class="area_wrapper">
     <div class="tree_wrapper">
-
-      <vue-chart-tree v-if="$env.VUE_APP_DESIGNER" v-for="(item, index) in fakeData" is-root :key="index" :tree-node-data="item" @on-click="click">
+      <vue-chart-tree v-if="$env.VUE_APP_DESIGNER || env" v-for="(item, index) in fakeData" is-root :key="index" :tree-node-data="item" @on-click="click" :textField="textField" @on-node-toggle="onTogglePop">
         <template #dialog="scope">
           <slot name="dialog" :item="scope.item"></slot>
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
         </template>
       </vue-chart-tree>
 
-      <vue-chart-tree v-else v-for="(item, index) in dataFromDataSource" is-root :key="index" :tree-node-data="item" @on-click="click">
+      <vue-chart-tree v-else v-for="(item, index) in dataFromDataSource" is-root :key="index" :tree-node-data="item" @on-click="click" :textField="textField" @on-node-toggle="onTogglePop">
         <template #dialog="scope">
           <slot name="dialog" :item="scope.item"></slot>
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
@@ -17,7 +16,15 @@
       </vue-chart-tree>
     </div>
 
-    <!-- $env.VUE_APP_DESIGNER || env -->
+    <!-- <m-popper v-if="referenceEl" class="popper" ref="popper" :append-to="appendTo" :disabled="disabled || readonly" :placement="placement" @toggle="onToggle($event)" @close="onPopperClose" :reference="referenceEl" trigger="manual"
+      :opened="showPopper" style="--popper-box-shadow: none">
+      <div :class="$style.popcontent" @click.stop>
+        <div :class="[$style.edit]" @click.stop="onEdit">编辑</div>
+        <div :class="[$style.delete]" @click.stop="onDelete">删除</div>
+        <div :class="$style['recent-edit']">最近编辑 </div>
+        <div :class="$style.info"><span>{{ updateTime }}</span> <span>{{updateBy}}</span></div>
+      </div> -->
+    </m-popper>
   </div>
 </template>
 <script>
@@ -25,10 +32,11 @@
 import VueChartTree, { updatePartTree } from './src';
 import SEmpty from './src/s-empty/index';
 import deepClone from 'lodash/cloneDeep';
+import { get, set } from 'lodash';
 import { addTreeLevel, normalizeDataSource } from '../../utils';
 
 export default {
-  name: 'new-item',
+  name: 'LcapTreeDiagram',
   components: {
     VueChartTree,
     SEmpty,
@@ -42,13 +50,35 @@ export default {
     parentField: { type: String, default: 'parentId' },
     textField: { type: String, default: 'label' },
     dataEntity: { type: String, default: 'category' },
+    appendTo: {
+      type: String,
+      default: 'body',
+      validator: (value) => ['body', 'reference'].includes(value),
+    },
+    disabled: { type: Boolean, default: false },
+    autofocus: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
+    placeholder: {
+      type: String,
+      default() {
+        // return this.$t('selectDateText');
+      },
+    },
+    alignment: {
+      type: String,
+      default: 'left',
+      validator(value) {
+        return ['left', 'right'].includes(value);
+      },
+    },
   },
   data() {
     return {
-      rootData: [],
+      showPopper: false,
+      referenceEl: null,
+      env: !window.appInfo,
       newName: '',
       activeNode: null,
-      nameModalVisible: false,
       dataFromDataSource: [],
       fakeData: [
         {
@@ -107,7 +137,15 @@ export default {
       immediate: true,
     },
   },
+  computed: {
+    placement() {
+      if (this.alignment === 'left') return 'bottom-start';
+      else if (this.alignment === 'right') return 'bottom-end';
+    },
+  },
   created() {
+    var object = { 'a': [{ 'b': { 'c': 3 } }] };
+    console.log(get(object, 'a[0].b.c'))
 
   },
   methods: {
@@ -128,6 +166,7 @@ export default {
         childrenField: 'children',
         dEntity: this.dataEntity,
       });
+      // console.log(temp)
       return addTreeLevel(temp);
     },
     async reload() {
@@ -154,7 +193,6 @@ export default {
     onPopperClose(e) {
       this.$emit('blur', e, this);
       this.showPopper = false;
-      this.dialogEditHover = false;
       setTimeout(() => {
         // 为了不触发input的blur，否则会有两次blur
         this.preventBlur = false;
@@ -267,9 +305,57 @@ export default {
   background-color: #f5f5f5;
 }
 
-.dialog-slot {
-  width: 100px;
-  min-height: 10px;
-  background: #f65656;
+.popper {
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.popcontent {
+  width: 160px;
+  padding: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(3, 3, 3, 0.1);
+  margin-top: 6px;
+  border-radius: 10px;
+}
+
+.recent-edit {
+  padding-left: 4px;
+  color: #b5b6b6;
+}
+
+.info {
+  padding-left: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit,
+.delete,
+.info {
+  color: #0f0f0f;
+  font-weight: 400;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 4px;
+}
+
+.edit:hover,
+.delete:hover {
+  background: #f8f8f8;
+  border-radius: 6px;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+}
+
+.delete {
+  margin: 10px auto;
 }
 </style>
