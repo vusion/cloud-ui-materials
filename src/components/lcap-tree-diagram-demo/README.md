@@ -1,25 +1,20 @@
 <!-- 该 README.md 根据 api.yaml 和 docs/*.md 自动生成，为了方便在 GitHub 和 NPM 上查阅。如需修改，请查看源文件 -->
 
-# LcapTreeDiagramDemo 树状结构图 demo
+# LcapTreeDiagramDemo 树状结构图demo
 
-- [LcapTreeDiagramDemo 树状结构图 demo](#lcaptreediagramdemo-树状结构图-demo)
-  - [示例](#示例)
+- [示例](#示例)
     - [基本用法](#基本用法)
-  - [API](#api)
+- [API]()
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
-      - [dialog](#dialog)
     - [Events](#events)
-      - [@onEdit](#onedit)
-      - [@onDelete](#ondelete)
-      - [reload()](#reload)
+    - [Methods](#methods)
 
 **Other**
 
 请在这里添加描述
 
 ## 示例
-
 ### 基本用法
 
 ```vue
@@ -98,6 +93,9 @@ export default {
     };
   },
   methods: {
+    // onTogglePop(e) {
+    //   console.log(e)
+    // },
     click(e) {
       console.log(e);
     },
@@ -111,18 +109,17 @@ export default {
 ```
 
 ## API
-
 ### Props/Attrs
 
-| Prop/Attr          | Type                                              | Options | Default      | Description                                      |
-| ------------------ | ------------------------------------------------- | ------- | ------------ | ------------------------------------------------ |
-| data-source        | Array\<Item\> \| Function \| object \| DataSource |         |              | 表格的数据源，数据集对象或者返回数据集的逻辑     |
-| data-schema        | schema                                            |         |              | 选择器每一行的数据类型                           |
-| value-field        | string                                            |         | `'id'`       | 用户标识选中值的属性                             |
-| text-field         | string                                            |         | `'label'`    | 用于显示文本的字段名                             |
-| parent-field       | string                                            |         | `'parentId'` | 集合的元素类型中，用于标识父节点的属性           |
-| data-entity        | string                                            |         | `''`         | 属于匿名数据结构的需要传递数据实体名称，否则不用 |
-| show-child-dot-num | boolean                                           |         | `true`       | 默认开启；开启后显示其子节点的全部数量           |
+| Prop/Attr | Type | Options | Default | Description |
+| --------- | ---- | ------- | ------- | ----------- |
+| data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
+| data-schema | schema |  |  | 选择器每一行的数据类型 |
+| value-field | string |  | `'id'` | 用户标识选中值的属性 |
+| text-field | string |  | `'label'` | 用于显示文本的字段名 |
+| parent-field | string |  | `'parentId'` | 集合的元素类型中，用于标识父节点的属性 |
+| data-entity | string |  | `''` | 属于匿名数据结构的需要传递数据实体名称，否则不用 |
+| show-child-dot-num | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
 
 ### Slots
 
@@ -134,14 +131,18 @@ export default {
 
 #### @onEdit
 
-| Param  | Type            | Description  |
-| ------ | --------------- | ------------ |
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
 | $event | ChangeItemEvent | 鼠标事件对象 |
 
 #### @onDelete
 
-| Param  | Type            | Description  |
-| ------ | --------------- | ------------ |
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
 | $event | ChangeItemEvent | 鼠标事件对象 |
 
 Methods
@@ -152,3 +153,4 @@ Methods
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
+

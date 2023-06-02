@@ -28,7 +28,6 @@
   </div>
 </template>
 <script>
-// 没有路径提示
 import VueChartTree, { updatePartTree } from './src';
 import SEmpty from './src/s-empty/index';
 import deepClone from 'lodash/cloneDeep';
@@ -36,7 +35,7 @@ import { get, set } from 'lodash';
 import { addTreeLevel, normalizeDataSource } from '../../utils';
 
 export default {
-  name: 'LcapTreeDiagram',
+  name: 'LcapTreeDiagramDemo',
   components: {
     VueChartTree,
     SEmpty,
@@ -142,11 +141,6 @@ export default {
       if (this.alignment === 'left') return 'bottom-start';
       else if (this.alignment === 'right') return 'bottom-end';
     },
-  },
-  created() {
-    var object = { 'a': [{ 'b': { 'c': 3 } }] };
-    console.log(get(object, 'a[0].b.c'))
-
   },
   methods: {
     handlerNodeClick(activeData) {

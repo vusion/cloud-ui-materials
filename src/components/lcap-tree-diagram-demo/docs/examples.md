@@ -2,7 +2,7 @@
 
 ```vue
 <template>
-  <lcap-tree-diagram
+  <lcap-tree-diagram-demo
     :data-source="list"
     value-field="id"
     parent-field="pid"
@@ -13,7 +13,7 @@
     data-entity="category"
   >
     <u-button slot="dialog" color="primary" text="Primary"></u-button>
-  </lcap-tree-diagram>
+  </lcap-tree-diagram-demo>
 </template>
 <script>
 export default {

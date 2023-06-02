@@ -1,5 +1,5 @@
-import LcapTreeDiagram from './index.vue';
+import LcapTreeDiagramDemo from './index.vue';
 
-export { LcapTreeDiagram };
+export { LcapTreeDiagramDemo };
 
-export default LcapTreeDiagram;
+export default LcapTreeDiagramDemo;
