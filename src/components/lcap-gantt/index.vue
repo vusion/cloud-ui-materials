@@ -42,6 +42,7 @@ export default {
         linkSource: [Function, Array, Object],
         showToday: {type: Boolean, default: true},
         taskView: {type: String, default: 'd'},
+        ganttTableConfig: {type: Object, default: () => []},
     },
     mixins: [supportDataSource],
     mounted() {

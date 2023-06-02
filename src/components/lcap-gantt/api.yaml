@@ -10,11 +10,10 @@
       designer-value: "[{}, {}, {}]"
       description: 甘特图的数据源，数据集对象或者返回数据集的逻辑
       group: 数据属性
-    - name: link-source
-      title: 甘特图数据关系
-      type: Array<Item> | Function | object | DataSource
-      designer-value: "[{}, {}, {}]"
-      description: 甘特图关系数据源，数据集对象或者返回数据集的逻辑
+    - name: ganttTableConfig
+      title: 甘特图表格配置
+      type: Array<Item>
+      description: 配置甘特图表格相
       group: 数据属性
     - name: taskView
       title: 切换日期视图

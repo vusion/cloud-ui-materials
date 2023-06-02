@@ -1,0 +1,11 @@
+{
+  "lcap-gantt": {
+    "attributes": [
+      "data-source",
+      "ganttTableConfig",
+      "taskView",
+      "showToday"
+    ],
+    "description": "请在这里添加描述"
+  }
+}
