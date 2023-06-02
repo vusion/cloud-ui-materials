@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram-demo",
     "name": "树状结构图demo",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -39,28 +39,24 @@
                 "title": "数据类型",
                 "type": "schema",
                 "description": "选择器每一行的数据类型",
-                "compType": "dataTypeSelect"
+                "compType": "dataTypeSelect",
+                "group": "数据属性"
             },
             {
                 "name": "value-field",
                 "title": "值字段",
                 "type": "string",
                 "default": "id",
-                "description": "用户标识选中值的属性"
+                "description": "用户标识选中值的属性",
+                "group": "数据属性"
             },
             {
                 "name": "text-field",
                 "title": "文本字段",
                 "type": "string",
                 "default": "label",
-                "description": "用于显示文本的字段名"
-            },
-            {
-                "name": "show-child-dot-num",
-                "title": "子节点收起显示子节点总数",
-                "type": "boolean",
-                "default": true,
-                "description": "默认开启；开启后显示其子节点的全部数量"
+                "description": "用于显示文本的字段名",
+                "group": "数据属性"
             },
             {
                 "name": "parent-field",
@@ -75,7 +71,16 @@
                 "title": "数据实体名称",
                 "type": "string",
                 "default": "",
-                "description": "属于匿名数据结构的需要传递数据实体名称，否则不用"
+                "description": "属于匿名数据结构的需要传递数据实体名称，否则不用",
+                "group": "数据属性"
+            },
+            {
+                "name": "show-child-dot-num",
+                "title": "子节点收起显示子节点总数",
+                "type": "boolean",
+                "default": true,
+                "description": "默认开启；开启后显示其子节点的全部数量",
+                "group": "数据属性"
             }
         ],
         "slots": [

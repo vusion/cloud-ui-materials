@@ -23,7 +23,7 @@
     :data-source="list"
     value-field="id"
     parent-field="pid"
-    text-field="name"
+    text-field="label"
     @click="click"
     @onDelete="onDelete"
     ref="node"
@@ -44,10 +44,10 @@ export default {
             updatedTime: null,
             createdBy: null,
             updatedBy: null,
-            name: '全部风险',
+            label: '全部风险',
             explanation: '这是全部风险',
             pid: 0,
-            levelName: '全部风险',
+            levellabel: '全部风险',
           },
         },
         {
@@ -57,10 +57,10 @@ export default {
             updatedTime: '2023-05-24T00:57:48.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '法律风险',
+            label: '法律风险',
             explanation: '这是法律风险',
             pid: 111,
-            levelName: '全部风险/法律风险',
+            levellabel: '全部风险/法律风险',
           },
         },
         {
@@ -70,10 +70,10 @@ export default {
             updatedTime: '2023-05-24T23:03:06.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '测试122',
+            label: '测试122',
             explanation: null,
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1/222/测试1',
+            levellabel: '全部风险/运营风险/全部风险1/222/测试1',
           },
         },
         {
@@ -83,10 +83,10 @@ export default {
             updatedTime: '2023-05-25T03:19:45.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '12312312312',
+            label: '12312312312',
             explanation: null,
             pid: 112,
-            levelName: '全部风险/测试/12312312312',
+            levellabel: '全部风险/测试/12312312312',
           },
         },
       ],
@@ -117,9 +117,9 @@ export default {
 | data-schema | schema |  |  | 选择器每一行的数据类型 |
 | value-field | string |  | `'id'` | 用户标识选中值的属性 |
 | text-field | string |  | `'label'` | 用于显示文本的字段名 |
-| show-child-dot-num | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
 | parent-field | string |  | `'parentId'` | 集合的元素类型中，用于标识父节点的属性 |
 | data-entity | string |  | `''` | 属于匿名数据结构的需要传递数据实体名称，否则不用 |
+| show-child-dot-num | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
 
 ### Slots
 

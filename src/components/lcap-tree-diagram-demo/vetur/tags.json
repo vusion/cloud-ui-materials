@@ -5,9 +5,9 @@
       "data-schema",
       "value-field",
       "text-field",
-      "show-child-dot-num",
       "parent-field",
-      "data-entity"
+      "data-entity",
+      "show-child-dot-num"
     ],
     "description": "请在这里添加描述"
   }

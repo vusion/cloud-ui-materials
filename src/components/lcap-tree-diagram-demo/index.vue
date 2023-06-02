@@ -23,8 +23,8 @@
         <div :class="[$style.delete]" @click.stop="onDelete">删除</div>
         <div :class="$style['recent-edit']">最近编辑 </div>
         <div :class="$style.info"><span>{{ updateTime }}</span> <span>{{updateBy}}</span></div>
-      </div> -->
-    </m-popper>
+      </div>
+    </m-popper>-->
   </div>
 </template>
 <script>
