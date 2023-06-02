@@ -15,7 +15,7 @@
     "type": "string",
     "description": "用于显示文本的字段名"
   },
-  "lcap-tree-diagram/showChildDotNum": {
+  "lcap-tree-diagram/show-child-dot-num": {
     "type": "boolean",
     "description": "默认开启；开启后显示其子节点的全部数量"
   },

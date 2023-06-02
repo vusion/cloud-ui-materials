@@ -5,7 +5,7 @@
       "data-schema",
       "value-field",
       "text-field",
-      "showChildDotNum",
+      "show-child-dot-num",
       "parent-field",
       "data-entity"
     ],
