@@ -12,7 +12,6 @@
     ref="node"
     data-entity="category"
   >
-    <u-button slot="dialog" color="primary" text="Primary"></u-button>
   </lcap-tree-diagram-demo>
 </template>
 <script>
