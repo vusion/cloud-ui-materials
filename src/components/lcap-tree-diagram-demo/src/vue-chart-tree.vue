@@ -1,76 +1,35 @@
 <template>
   <!-- data-opened， 0(opened) 表示没被展开过，1(noOpened) 代表已经被展开过了（或者没有子元素所以没有展开不展开的概念，直接认为是1） -->
-  <div
-    :class="treeNodeClassName"
-    ref="treeNodeRef"
-    :data-opened="dataOpened.noOpened"
-  >
+  <div :class="treeNodeClassName" ref="treeNodeRef" :data-opened="dataOpened.noOpened">
     <div :class="treeParentClassName">
-      <div
-        class="stretch_node_r"
-        v-if="!isRoot"
-      >
+      <div class="stretch_node_r" v-if="!isRoot">
         <p class="line_r"></p>
       </div>
 
-      <div class="node_content">
+      <div class="node_content" @click="onLabelClick">
         <div class="parent_wrapper">
           <div class="parent_content">
             <p class="content_name">{{ treeNodeData.name}}</p>
           </div>
         </div>
-        <!-- <slot v-bind:data="{ treeNodeData, $treeNodeRefs: $refs }"></slot> -->
       </div>
 
       <!-- 弹窗插槽 -->
-      <div class="node_slot">
-        <slot
-          name="dialog"
-          :data="treeNodeData.data"
-        ></slot>
+      <div class="node_slot" vusion-slot-name="dialog">
+        <slot name="dialog" :item="treeNodeData.data"></slot>
       </div>
     </div>
     <!-- 控制展开/收缩的节点 -->
-    <div
-      :class="stretchNodeClassName"
-      v-if="childrenLen"
-    >
+    <div :class="stretchNodeClassName" v-if="childrenLen">
       <p class="line_l"></p>
-      <p
-        :class="['line_dot', treeNodeData.isOpen ? 'cut_dot' : 'add_dot']"
-        @click="changeOpen"
-      ></p>
+      <p :class="['line_dot', treeNodeData.expand ? 'cut_dot' : 'add_dot']" @click="changeOpen"></p>
     </div>
-    <div
-      :class="treeChildrenClassName"
-      v-if="childrenLen && openedChildren"
-      v-show="treeNodeData.isOpen"
-    >
-      <p
-        :class="connectLineClassName"
-        v-if="childrenLen > 1"
-      ></p>
-      <vue-chart-tree
-        v-for="item in treeNodeData.children"
-        :key="item.id"
-        :treeNodeData="item"
-        :isRoot="false"
-      >
-        <!-- <div class="node_slot">
-          <slot name="dialog">具名插槽</slot>
-        </div> -->
-        <!-- <template v-slot:default="slotProps">
-          <slot v-bind:data="slotProps.data"></slot>
-        </template> -->
-        <template v-slot:dialog="slotProps">
-          <div
-            class="dialog-slot"
-            vusion-slot-name="dialog"
-          >
-            <slot :data="slotProps.data"></slot>
-            <!-- v-if="(!slotProps.dialog) && $env.VUE_APP_DESIGNER" -->
-            <s-empty></s-empty>
-          </div>
+    <div :class="treeChildrenClassName" v-if="childrenLen && openedChildren" v-show="treeNodeData.expand">
+      <p :class="connectLineClassName" v-if="childrenLen > 1"></p>
+      <vue-chart-tree v-for="item in treeNodeData.children" :key="item.id" :treeNodeData="item" :isRoot="false" @on-click="click">
+        <template #dialog="scope">
+          <slot name="dialog" :item="scope.item"></slot>
+          <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
         </template>
       </vue-chart-tree>
     </div>
@@ -125,7 +84,7 @@ export default {
     // 会被打开或被打开过
     openedChildren() {
       return (
-        this.treeNodeData.isOpen ||
+        this.treeNodeData.expand ||
         (this.$refs.treeNodeRef && isOpened(this.$refs.treeNodeRef))
       );
     },
@@ -137,10 +96,16 @@ export default {
     }
   },
   methods: {
+    onLabelClick($events) {
+      this.$emit('on-click', $events, this.treeNodeData)
+    },
     changeOpen() {
-      this.treeNodeData.isOpen = !this.treeNodeData.isOpen;
+      this.treeNodeData.expand = !this.treeNodeData.expand;
       updatePartTree(this.$refs.treeNodeRef);
     },
+    click(e, data) {
+      this.$emit('on-click', e, data);
+    }
   },
 };
 </script>
@@ -230,9 +195,9 @@ export default {
   width: 100px;
   padding: 16px;
   box-sizing: border-box;
-  border-left-width: 3px;
-  border-left-style: solid;
-  border-color: #f65656;
+  // border-left-width: 3px;
+  // border-left-style: solid;
+  // border-color: #f65656;
   border-radius: 4px;
   cursor: pointer;
   overflow: hidden;
@@ -256,5 +221,11 @@ export default {
   word-break: break-all;
   font-size: 14px;
   color: #333;
+}
+
+.node_slot {
+  // max-height: 10px;
+  min-height: 20px;
+  // overflow: auto;
 }
 </style>

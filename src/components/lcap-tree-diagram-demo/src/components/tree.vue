@@ -28,8 +28,8 @@
         @on-node-toggle="(e, data) => onToggle(e, data)"
       >
         <!-- <template #default="scope">
-            <slot :item="scope.item"></slot>
-            <s-empty v-if="$env.VUE_APP_DESIGNER
+          <slot :item="scope.item"></slot>
+          <s-empty v-if="$env.VUE_APP_DESIGNER
                 && $scopedSlots
                 &&!($scopedSlots.default && $scopedSlots.default({
                     ...scope,

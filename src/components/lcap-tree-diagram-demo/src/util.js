@@ -375,8 +375,8 @@ function isRootTreeNode(treeNode) {
 }
 
 export function isOpened(treeNode) {
-  return treeNode.getAttribute('data-' + dataOpened.key) === dataOpened.opened;
+  return treeNode.getAttribute('data-' + dataOpened.key) === dataOpened.expand;
 }
 function setDataOpened(treeNode) {
-  treeNode.setAttribute('data-' + dataOpened.key, dataOpened.opened);
+  treeNode.setAttribute('data-' + dataOpened.key, dataOpened.expand);
 }
