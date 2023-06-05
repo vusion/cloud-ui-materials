@@ -5,7 +5,7 @@
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-tree-diagram-demo@0.1.4/index.html",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-tree-diagram-demo@0.1.5/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

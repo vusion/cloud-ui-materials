@@ -4,6 +4,12 @@
   labels: [Other]
   icon: default
   attrs:
+    - name: show-child-dot-num
+      title: 子节点收起显示子节点总数
+      type: boolean
+      default: true
+      description: 默认开启；开启后显示其子节点的全部数量
+      group: 数据属性  
     - name: data-source
       title: 数据源
       type: Array<Item> | Function | object | DataSource
@@ -33,12 +39,6 @@
       type: string
       default: parentId
       description: 集合的元素类型中，用于标识父节点的属性
-      group: 数据属性
-    - name: show-child-dot-num
-      title: 子节点收起显示子节点总数
-      type: boolean
-      default: true
-      description: 默认开启；开启后显示其子节点的全部数量
       group: 数据属性
     - name: show-text-ellipsis
       title: 文字超出6个后多余的文字用省略号展示

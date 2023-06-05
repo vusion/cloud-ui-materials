@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     label() {
-      return get(this.treeNodeData, this.textField);
+      return get(this.treeNodeData, this.textField) || this.treeNodeData.label;
     },
     childrenLen() {
       return (this.treeNodeData.children || []).length;

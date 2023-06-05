@@ -45,7 +45,6 @@ import { get, set } from 'lodash';
 import { addTreeLevel } from '../../utils';
 import SupportDataSource  from '../../mixins/support.datasource.js';
 import { fakeData } from './fakeData.js'
-
 export default {
   name: 'LcapTreeDiagramDemo',
   mixins: [SupportDataSource],
@@ -58,7 +57,7 @@ export default {
       type: [Array, Object, Function],
     },
     showChildDotNum: { type: Boolean, default: true },
-    showTextEllipsis: { type: Boolean, default: false },
+    showTextEllipsis: { type: Boolean, default: true },
     valueField: { type: String, default: 'id' },
     parentField: { type: String, default: 'parentId' },
     textField: { type: String, default: 'label' },
@@ -91,7 +90,12 @@ export default {
   watch: {
     'currentDataSource.data': {
       async handler(val) {
-        this.dataFromDataSource = await this.handleDataSource(this.$env.VUE_APP_DESIGNER || this.env ? fakeData : val);
+        let dataFromDataSource = await this.handleDataSource(val);
+        if (this.$env.VUE_APP_DESIGNER || this.env) {
+          this.dataFromDataSource = fakeData;
+        } else {
+          this.dataFromDataSource = dataFromDataSource;
+        }
       },
     },
   },
