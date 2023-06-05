@@ -19,26 +19,20 @@
     - name: value-field
       title: 值字段
       type: string
-      default: 'id'
+      default: value
       description: 用户标识选中值的属性
       group: 数据属性
     - name: text-field
       title: 文本字段
       type: string
-      default: 'label'
+      default: text
       description: 用于显示文本的字段名
       group: 数据属性
     - name: parent-field
       title: 父级选项值
       type: string
-      default: 'parentId'
+      default: parentId
       description: 集合的元素类型中，用于标识父节点的属性
-      group: 数据属性
-    - name: data-entity
-      title: 数据实体名称
-      type: string
-      default: ''
-      description: 属于匿名数据结构的需要传递数据实体名称，否则不用
       group: 数据属性
     - name: show-child-dot-num
       title: 子节点收起显示子节点总数
@@ -46,6 +40,12 @@
       default: true
       description: 默认开启；开启后显示其子节点的全部数量
       group: 数据属性
+    - name: show-text-ellipsis
+      title: 文字超出6个后多余的文字用省略号展示
+      type: boolean
+      default: false
+      description: 默认关闭
+      group: 数据属性  
   slots:
     - concept: Slot
       name: dialog
@@ -87,6 +87,6 @@
     - name: --tree-diagram-main-color
       title: 主题色
       default: '#00665f'
-      type: input
+      type: color
       description: 设置主题色
       group: 主题色

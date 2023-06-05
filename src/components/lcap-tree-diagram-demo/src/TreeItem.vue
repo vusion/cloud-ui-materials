@@ -7,7 +7,7 @@
       </div>
       <div :class="$style['node_content']" @click="onLabelClick">
         <div :class="[$style['lcap-tree-node-label-inner'], treeNodeData.curIndex >= 3 ? $style['lcap-tree-node-label-inner-more'] : treeNodeData.curIndex == 2 ? $style['lcap-tree-node-label-inner-second'] : '']">
-          <p :class="$style['lcap-tree-node-label']">{{ label }}</p>
+          <p :class="[$style['lcap-tree-node-label'], showTextEllipsis && labelLen > 12 ? $style['lcap-tree-node-ellipisis'] : '']">{{ label }}</p>
         </div>
         <div :class="$style['node_slot']" vusion-slot-name="dialog">
           <slot name="dialog" :item="treeNodeData.data"></slot>
@@ -32,6 +32,7 @@
         :isRoot="false"
         :textField="textField"
         :showChildDotNum="showChildDotNum"
+        :showTextEllipsis="showTextEllipsis"
         @on-click="click">
         <template #dialog="dialog">
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
@@ -46,11 +47,6 @@
 import SEmpty from './s-empty/index';
 import {
   dataOpened,
-  treeParentClassName,
-  treeChildrenClassName,
-  treeNodeClassName,
-  stretchNodeClassName,
-  connectLineClassName,
 } from './const';
 import { resetTree, updatePartTree, isOpened } from './util';
 import { get } from 'lodash';
@@ -77,19 +73,14 @@ export default {
     },
     showChildDotNum: {
       type: Boolean
-    }
+    },
+    showTextEllipsis: { type: Boolean },
   },
   data() {
     return {
-      treeNodeIndex: 0,
       // treeNode 节点是否已经被展开的 data- 标识
       dataOpened,
-      // className 类名
-      treeParentClassName,
-      treeChildrenClassName,
-      treeNodeClassName,
-      stretchNodeClassName,
-      connectLineClassName,
+      labelLen: 0
     };
   },
   computed: {
@@ -106,25 +97,26 @@ export default {
         (this.$refs.treeNodeRef && isOpened(this.$refs.treeNodeRef))
       );
     },
-    labelStyle() {
-      let tempLabelStyle = 1
-      switch (this.treeNodeData.curIndex) {
-        case 1:
-          tempLabelStyle = 'lcap-tree-node-label-inner';
-          break;
-        case 2:
-          tempLabelStyle = 'lcap-tree-node-label-inner, lcap-tree-node-label-inner-second';
-          break;
-        default:
-          tempLabelStyle = 'lcap-tree-node-label-inner, lcap-tree-node-label-inner-more';
-      }
-      return tempLabelStyle;
+  },
+  watch: {
+    label: {
+      handler(val) {
+        const  getLength = (str) => {
+          if (!str) {
+            return 0;
+          }
+          // 将中文字符替换成两个英文字符
+          str = str.replace(/[\u4e00-\u9fa5]/g, "aa");
+          // 计算字符串的长度
+          return str.length;
+        }
+        this.labelLen = getLength(val);
+      },
+      immediate: true
     }
   },
   mounted() {
-    // console.log(this.$style)
     if (this.isRoot) {
-      // console.log(this.$refs.treeNodeRef.className)
       resetTree(this.$refs.treeNodeRef, this.$style);
     }
   },

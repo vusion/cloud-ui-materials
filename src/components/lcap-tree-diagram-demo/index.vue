@@ -7,7 +7,7 @@
       :treeNodeData="item" 
       :showChildDotNum="showChildDotNum" 
       :textField="textField" 
-      :customStyle="customStyle"
+      :showTextEllipsis="showTextEllipsis"
       @on-node-toggle="onTogglePop"
       @on-click="click">
       <template #dialog="dialog">
@@ -55,6 +55,7 @@ export default {
       type: [Array, Object, Function],
     },
     showChildDotNum: { type: Boolean, default: true },
+    showTextEllipsis: { type: Boolean, default: true },
     valueField: { type: String, default: 'id' },
     parentField: { type: String, default: 'parentId' },
     textField: { type: String, default: 'label' },

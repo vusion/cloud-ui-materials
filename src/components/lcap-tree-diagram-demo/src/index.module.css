@@ -2,6 +2,18 @@
   --tree-diagram-main-color: #00665f;
 }
 
+.ellipsisLine {
+  /* 定义函数 */
+  --ellipsis-line: (line) => ({
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: line,
+  });
+}
+
 .tree_node {
   position: relative;
   margin-bottom: 16px;
@@ -67,9 +79,11 @@
   width: 70px;
   border-top: 1px solid #ddd;
 }
+
 .line_left {
   width: 16px;
 }
+
 .tree_children {
   position: relative;
   display: inline-block;
@@ -120,6 +134,15 @@
   white-space: initial;
   word-break: break-all;
   font-size: 14px;
+}
+
+.lcap-tree-node-ellipisis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  width: 100px;
 }
 
 .node_slot {

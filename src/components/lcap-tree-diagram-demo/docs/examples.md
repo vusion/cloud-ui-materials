@@ -17,36 +17,6 @@
 export default {
   data() {
     return {
-      demo: [
-        {
-          category: {
-            id: 1,
-            label: '主题',
-            parentId: 0,
-          },
-        },
-        {
-          category: {
-            id: 2,
-            label: '主题1',
-            parentId: 1,
-          },
-        },
-        {
-          category: {
-            id: 3,
-            label: '主题11',
-            parentId: 2,
-          },
-        },
-        {
-          category: {
-            id: 4,
-            label: '主题2',
-            parentId: 1,
-          },
-        },
-      ],
       list: [
         {
           category: {
@@ -55,7 +25,7 @@ export default {
             updatedTime: null,
             createdBy: null,
             updatedBy: null,
-            label: '全部风险',
+            label: '全部风险全部风险全部风险',
             explanation: '这是全部风险',
             pid: 0,
             levellabel: '全部风险',
@@ -68,7 +38,7 @@ export default {
             updatedTime: '2023-05-24T00:57:48.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            label: '法律3风险',
+            label: '法律3风险345678',
             explanation: '这是法律风险',
             pid: 111,
             levellabel: '全部风险/法律风险',
