@@ -1,6 +1,6 @@
 {
     "symbol": "lcap-markdown-doc-render",
-    "name": "Markdown文档渲染组件",
+    "name": "文档渲染组件",
     "version": "0.1.2",
     "icon": "default",
     "repoAddr": "",
@@ -13,7 +13,7 @@
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-markdown-doc-render></lcap-markdown-doc-render>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-markdown-doc-render",
-        "title": "Markdown文档渲染组件",
+        "title": "文档渲染组件",
         "description": "渲染Markdown文档的组件",
         "category": "Other",
         "screenShot": "",

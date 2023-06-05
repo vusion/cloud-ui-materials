@@ -7,6 +7,7 @@
 - [API]()
     - [Props/Attrs](#propsattrs)
     - [Events](#events)
+    - [Methods](#methods)
 
 **Other**
 
@@ -17,20 +18,22 @@
 
 ``` vue
 <template>
-
-<lcap-markdown-doc-search 
-  :data-source="suggestions"
-  text-field="highlightedTitle"
-  description-field="highlightedContent"
-  @input="onInput"
-></lcap-markdown-doc-search>
-
+  <lcap-markdown-doc-search
+    :value.sync="value"
+    :data-source="suggestions"
+    text-field="highlightedTitle"
+    description-field="highlightedContent"
+    prefix="folder-add"
+    suffix="folder-add"
+    @input="onInput"
+  ></lcap-markdown-doc-search>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      value: '',
       suggestions: []
     }
   },
@@ -53,7 +56,7 @@ export default {
       }, 1000)
     },
     onInput(e) {
-        console.log(e)
+      console.log(e)
       this.fetchData(e)
     },
   }
@@ -67,11 +70,14 @@ export default {
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
+| value | String |  |  | 输入的值 |
 | data-source | Array\<Item\> |  |  | 搜索结果列表数据 |
 | data-schema | schema |  |  | 选择器每一行的数据类型 |
 | text-field | string |  | `'text'` | 显示结果项标题字段的属性 |
 | description-field | string |  |  | 用于显示结果项描述字段的属性 |
 | align | string | `[object Object]`<br/>`[object Object]` | `'left'` | undefined |
+| prefix | icon |  | `''` |  |
+| suffix | icon |  | `''` |  |
 
 ### Events
 
@@ -98,4 +104,36 @@ export default {
 | Param | Type | Description |
 | ----- | ---- | ----------- |
 | $event | object | 选择对象 |
+
+#### @click-prefix
+
+点击前缀图标后触发
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 鼠标事件对象 |
+
+#### @click-suffix
+
+点击后缀图标后触发
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 鼠标事件对象 |
+
+Methods
+
+#### focus()
+
+让输入框获取焦点。
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
+
+#### blur()
+
+让输入框失去焦点。
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
 

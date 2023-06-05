@@ -1,5 +1,5 @@
 - name: lcap-markdown-doc-render
-  title: Markdown文档渲染组件
+  title: 文档渲染组件
   description: 渲染Markdown文档的组件
   labels: [Other]
   icon: default

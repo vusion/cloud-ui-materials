@@ -1,4 +1,8 @@
 {
+  "lcap-markdown-doc-search/value": {
+    "type": "String",
+    "description": "输入的值"
+  },
   "lcap-markdown-doc-search/data-source": {
     "type": "Array<Item>",
     "description": "搜索结果列表数据"
@@ -27,5 +31,13 @@
         "title": "右"
       }
     ]
+  },
+  "lcap-markdown-doc-search/prefix": {
+    "type": "icon",
+    "description": ""
+  },
+  "lcap-markdown-doc-search/suffix": {
+    "type": "icon",
+    "description": ""
   }
 }

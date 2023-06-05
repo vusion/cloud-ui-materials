@@ -1,13 +1,23 @@
 
 <template>
   <div class="markdown-doc-search-box">
+    <span v-if="prefix" class="prefix" @click="$emit('click-prefix', $event)">
+        <i-ico
+            :name="prefix"
+            class="singleicon"
+            notext
+        ></i-ico>
+    </span>
     <input
       ref="input"
+      :value="query"
       aria-label="Search"
       :class="{ 'focused': focused }"
       :placeholder="placeholder"
       autocomplete="off"
       spellcheck="false"
+      :suffix="suffix" 
+      :prefix="prefix"
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
@@ -15,11 +25,19 @@
       @keyup.up="onUp"
       @keyup.down="onDown"
     >
+    <span v-if="suffix" class="suffix" @click="$emit('click-suffix', $event)">
+        <i-ico
+            :name="suffix"
+            class="singleicon"
+            notext
+        ></i-ico>
+    </span>
+
     <ul
       v-if="showSuggestions"
       class="suggestions"
       :class="{ [`align-${align}`]: true }"
-      @mouseleave="unfocus"
+      @mouseleave="onMouseLeave"
     >
         <li class="total-suggestions">共搜索到{{ suggestions.length || 0 }}条内容</li>
         <li
@@ -28,7 +46,7 @@
             class="suggestion"
             :class="{ focused: i === focusIndex }"
             @mousedown="go(i)"
-            @mouseenter="focus(i)"
+            @mouseenter="onMouseEnter(i)"
         >
             <a @click.prevent>
             <div class="parent-page-title">{{ s[textField] }}</div>
@@ -45,11 +63,11 @@
 </template>
 
 <script>
-import debounce from 'lodash.debounce'
 
 export default {
     name: 'lcap-markdown-doc-search',
     props: {
+        value: String,
         dataSource: {
             type: Array,
             default: []
@@ -59,11 +77,16 @@ export default {
         align: {
            type: String,
            default: 'left' 
-        }
+        },
+        prefix: String,
+        suffix: String,
     },
-  
+    components: {
+       
+    },
     data () {
         return {
+            composing: false,
             query: '',
             focused: false,
             focusIndex: 0,
@@ -71,99 +94,128 @@ export default {
         }
     },
 
-  computed: {
-    suggestions() {
-        return this.dataSource
+    computed: {
+        suggestions() {
+            return this.dataSource
+        },
+        showSuggestions () {
+        return (
+            this.focused
+            && this.query
+        )
+        },
     },
-    showSuggestions () {
-      return (
-        this.focused
-        && this.query
-      )
-    },
-  },
-
-  mounted () {
-    document.addEventListener('keydown', this.onHotkey)
-  },
-
-  beforeDestroy () {
-    document.removeEventListener('keydown', this.onHotkey)
-  },
-
-  methods: {
-    onHotkey (event) {
-      if (event.srcElement === document.body && ['s', '/'].includes(event.key)) {
-        this.$refs.input.focus()
-        event.preventDefault()
-      }
+    watch: {
+        value(value) {
+            this.query = value;
+        },
+        query(value, oldValue) {
+            this.$emit('update', value, this);
+            this.$emit('change', { value, oldValue }, this);
+        },
     },
 
-    onInput: debounce(function ($event) {
-        this.query = $event.target.value
-        console.log('input:', $event.target.value);
-        this.$emit('input', $event.target.value)
-    }, 500),
-
-    onFocus() {
-        this.focused = true
-        this.$emit('focus')
+    mounted () {
+        document.addEventListener('keydown', this.onHotkey)
     },
 
-    onBlur() {
-        this.focused = false
-        this.$emit('blur')
+    beforeDestroy () {
+        document.removeEventListener('keydown', this.onHotkey)
     },
 
-    onUp () {
-      if (this.showSuggestions) {
-        if (this.focusIndex > 0) {
-          this.focusIndex--
-        } else {
-          this.focusIndex = this.suggestions.length - 1
+    methods: {
+        onHotkey (event) {
+        if (event.srcElement === document.body && ['s', '/'].includes(event.key)) {
+            this.$refs.input.focus()
+            event.preventDefault()
         }
-      }
-    },
+        },
 
-    onDown () {
-      if (this.showSuggestions) {
-        if (this.focusIndex < this.suggestions.length - 1) {
-          this.focusIndex++
-        } else {
-          this.focusIndex = 0
-        }
-      }
-    },
+        onInput($event) {
+            if (this.composing) { return }
 
-    go (i) {
-        const selected = this.suggestions[i];
-        if (!this.showSuggestions) {
-            return
-        }
+            this.query = $event.target.value
+            this.$emit('input', $event.target.value)
+            this.$emit('update:value', $event.target.value);
+        },
 
-        if (!selected) {
-            return
-        }
+        onCompositionStart($event) {
+            this.composing = true;
+        },
 
-        console.log('selected:', selected);
-        this.$emit('select', selected)
+        onCompositionEnd($event) {
+            if (!this.composing) { return }
 
-        this.query = ''
-        this.focusIndex = 0
-    },
+            this.query = $event.target.value;
+            this.$emit('input', $event.target.value)
+            this.$emit('update:value', $event.target.value);
+        },
 
-    focus (i) {
-      this.focusIndex = i
-    },
+        onFocus() {
+            this.focused = true
+            this.$emit('focus')
+        },
 
-    unfocus () {
-      this.focusIndex = -1
-    },
+        onBlur() {
+            this.focused = false
+            this.$emit('blur')
+        },
 
-    getContent(str) {
-        return str.replace(/<mark>/g, `<span class="highlight">`).replace(/<\/mark>/g, '</span>')
+        onUp () {
+            if (this.showSuggestions) {
+                if (this.focusIndex > 0) {
+                this.focusIndex--
+                } else {
+                this.focusIndex = this.suggestions.length - 1
+                }
+            }
+        },
+
+        onDown () {
+            if (this.showSuggestions) {
+                if (this.focusIndex < this.suggestions.length - 1) {
+                this.focusIndex++
+                } else {
+                this.focusIndex = 0
+                }
+            }
+        },
+
+        go (i) {
+            const selected = this.suggestions[i];
+            if (!this.showSuggestions) {
+                return
+            }
+
+            if (!selected) {
+                return
+            }
+
+            console.log('selected:', selected);
+            this.$emit('select', selected)
+
+            this.query = ''
+            this.focusIndex = 0
+        },
+
+        onMouseEnter (i) {
+            this.focusIndex = i
+        },
+
+        onMouseLeave () {
+            this.focusIndex = -1
+        },
+
+        getContent(str) {
+            return str.replace(/<mark>/g, `<span class="highlight">`).replace(/<\/mark>/g, '</span>')
+        },
+        focus() {
+            this.$refs.input.focus();
+        },
+        blur() {
+            this.$refs.input.blur();
+        },
     }
-  }
 }
 </script>
 
@@ -205,6 +257,35 @@ export default {
 .markdown-doc-search-box input:focus {
     cursor: auto;
     border-color: #337eff
+}
+
+.markdown-doc-search-box input[prefix] {
+    padding-left: 30px;
+}
+
+.markdown-doc-search-box input[suffix] {
+    padding-right: 30px;
+}
+
+.markdown-doc-search-box .prefix, .markdown-doc-search-box .suffix {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.markdown-doc-search-box .prefix {
+    left: 8px;
+}
+
+.markdown-doc-search-box .suffix {
+    right: 8px;
+}
+
+.markdown-doc-search-box .suffix .singleicon{
+    color: var(--input-icon-color);
 }
 
 .markdown-doc-search-box .suggestions {

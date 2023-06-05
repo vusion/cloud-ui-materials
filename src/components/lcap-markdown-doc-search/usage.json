@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-markdown-doc-search",
     "name": "文档搜索框",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -26,6 +26,12 @@
             }
         ],
         "attrs": [
+            {
+                "name": "value",
+                "title": "值",
+                "type": "String",
+                "description": "输入的值"
+            },
             {
                 "name": "data-source",
                 "title": "列表数据",
@@ -67,6 +73,34 @@
                         "title": "右"
                     }
                 ]
+            },
+            {
+                "name": "prefix",
+                "title": "前缀图标",
+                "type": "icon",
+                "description": "",
+                "default": "",
+                "clearable": true
+            },
+            {
+                "name": "suffix",
+                "title": "后缀图标",
+                "type": "icon",
+                "description": "",
+                "default": "",
+                "clearable": true
+            }
+        ],
+        "methods": [
+            {
+                "name": "focus",
+                "description": "让输入框获取焦点。",
+                "params": []
+            },
+            {
+                "name": "blur",
+                "description": "让输入框失去焦点。",
+                "params": []
             }
         ],
         "events": [
@@ -101,6 +135,36 @@
                         "name": "$event",
                         "type": "object",
                         "description": "选择对象"
+                    }
+                ]
+            },
+            {
+                "name": "click-prefix",
+                "title": "点击前缀图标",
+                "description": "点击前缀图标后触发",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "鼠标事件对象",
+                        "schema": {
+                            "$ref": "#/systemTypes/MouseEvent"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "click-suffix",
+                "title": "点击后缀图标",
+                "description": "点击后缀图标后触发",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "鼠标事件对象",
+                        "schema": {
+                            "$ref": "#/systemTypes/MouseEvent"
+                        }
                     }
                 ]
             }

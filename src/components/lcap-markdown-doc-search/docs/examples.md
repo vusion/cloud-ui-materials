@@ -2,20 +2,22 @@
 
 ``` vue
 <template>
-
-<lcap-markdown-doc-search 
-  :data-source="suggestions"
-  text-field="highlightedTitle"
-  description-field="highlightedContent"
-  @input="onInput"
-></lcap-markdown-doc-search>
-
+  <lcap-markdown-doc-search
+    :value.sync="value"
+    :data-source="suggestions"
+    text-field="highlightedTitle"
+    description-field="highlightedContent"
+    prefix="folder-add"
+    suffix="folder-add"
+    @input="onInput"
+  ></lcap-markdown-doc-search>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      value: '',
       suggestions: []
     }
   },
@@ -38,7 +40,7 @@ export default {
       }, 1000)
     },
     onInput(e) {
-        console.log(e)
+      console.log(e)
       this.fetchData(e)
     },
   }
