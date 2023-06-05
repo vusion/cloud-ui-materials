@@ -1,12 +1,12 @@
 {
   "lcap-tree-diagram-demo": {
     "attributes": [
+      "show-child-dot-num",
       "data-source",
       "data-schema",
       "value-field",
       "text-field",
       "parent-field",
-      "show-child-dot-num",
       "show-text-ellipsis"
     ],
     "description": "请在这里添加描述"

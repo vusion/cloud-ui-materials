@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram-demo",
     "name": "树状结构图demo",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -26,6 +26,14 @@
             }
         ],
         "attrs": [
+            {
+                "name": "show-child-dot-num",
+                "title": "子节点收起显示子节点总数",
+                "type": "boolean",
+                "default": true,
+                "description": "默认开启；开启后显示其子节点的全部数量",
+                "group": "数据属性"
+            },
             {
                 "name": "data-source",
                 "title": "数据源",
@@ -64,14 +72,6 @@
                 "type": "string",
                 "default": "parentId",
                 "description": "集合的元素类型中，用于标识父节点的属性",
-                "group": "数据属性"
-            },
-            {
-                "name": "show-child-dot-num",
-                "title": "子节点收起显示子节点总数",
-                "type": "boolean",
-                "default": true,
-                "description": "默认开启；开启后显示其子节点的全部数量",
                 "group": "数据属性"
             },
             {

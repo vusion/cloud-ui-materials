@@ -10,10 +10,10 @@
       :showTextEllipsis="showTextEllipsis"
       @on-node-toggle="onTogglePop"
       @on-click="click">
-      <template #dialog="dialog">
+      <!-- <template #dialog="dialog">
         <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
         <slot v-else name="dialog" :item="dialog"></slot>
-      </template>
+      </template> -->
     </TreeItem>
     <m-popper
       v-if="referenceEl"
@@ -91,11 +91,12 @@ export default {
     'currentDataSource.data': {
       async handler(val) {
         let dataFromDataSource = await this.handleDataSource(val);
-        if (this.$env.VUE_APP_DESIGNER || this.env) {
+        if (this.$env.VUE_APP_DESIGNER) {
           this.dataFromDataSource = fakeData;
         } else {
           this.dataFromDataSource = dataFromDataSource;
         }
+        console.log(this.dataFromDataSource)
       },
     },
   },
@@ -104,10 +105,6 @@ export default {
       if (this.alignment === 'left') return 'bottom-start';
       else if (this.alignment === 'right') return 'bottom-end';
     },
-  },
-  mounted() {
-    // 如何读取的themes样式注入的
-    this.customStyle = this.parseCustomStyle(this.$el);
   },
   methods: {
     parseCustomStyle(element) {
@@ -206,6 +203,7 @@ export default {
 
 .tree-diagram {
   overflow: scroll;
+  height: 100%;
 }
 
 .tree-diagram::-webkit-scrollbar {

@@ -310,12 +310,12 @@ export default {
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
+| show-child-dot-num | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
 | data-source | Array\<Item\> \| Function \| object \| DataSource |  |  | 表格的数据源，数据集对象或者返回数据集的逻辑 |
 | data-schema | schema |  |  | 选择器每一行的数据类型 |
 | value-field | string |  | `'id'` | 用户标识选中值的属性 |
 | text-field | string |  | `'label'` | 用于显示文本的字段名 |
 | parent-field | string |  | `'parentId'` | 集合的元素类型中，用于标识父节点的属性 |
-| show-child-dot-num | boolean |  | `true` | 默认开启；开启后显示其子节点的全部数量 |
 | show-text-ellipsis | boolean |  | `false` | 默认关闭 |
 
 ### Slots

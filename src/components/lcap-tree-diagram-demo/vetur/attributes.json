@@ -1,4 +1,8 @@
 {
+  "lcap-tree-diagram-demo/show-child-dot-num": {
+    "type": "boolean",
+    "description": "默认开启；开启后显示其子节点的全部数量"
+  },
   "lcap-tree-diagram-demo/data-source": {
     "type": "Array<Item> | Function | object | DataSource",
     "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
@@ -18,10 +22,6 @@
   "lcap-tree-diagram-demo/parent-field": {
     "type": "string",
     "description": "集合的元素类型中，用于标识父节点的属性"
-  },
-  "lcap-tree-diagram-demo/show-child-dot-num": {
-    "type": "boolean",
-    "description": "默认开启；开启后显示其子节点的全部数量"
   },
   "lcap-tree-diagram-demo/show-text-ellipsis": {
     "type": "boolean",

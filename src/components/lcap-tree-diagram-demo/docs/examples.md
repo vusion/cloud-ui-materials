@@ -4,13 +4,16 @@
 <template>
   <lcap-tree-diagram-demo
     :data-source="list"
-    value-field="category.id"
-    parent-field="category.pid"
-    text-field="category.label"
+    value-field="id"
+    parent-field="pid"
+    text-field="label"
     @click="click"
     @onDelete="onDelete"
     ref="node"
   >
+  <template #dialog> 
+     <h1 style="color: red">111111111</h1>
+   </template>
   </lcap-tree-diagram-demo>
 </template>
 <script>
@@ -19,188 +22,107 @@ export default {
     return {
       list: [
         {
-          category: {
-            id: 111,
-            createdTime: null,
-            updatedTime: null,
-            createdBy: null,
-            updatedBy: null,
-            label: '全部风险全',
-            explanation: '这是全部风险',
-            pid: 0,
-            levellabel: '全部风险',
-          },
+          id: 1,
+          label: '主题主题',
+          pid: 0,
         },
         {
-          category: {
-            id: 12,
-            createdTime: '2023-05-24T00:57:48.000Z',
-            updatedTime: '2023-05-24T00:57:48.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: '法律3风',
-            explanation: '这是法律风险',
-            pid: 111,
-            levellabel: '全部风险/法律风险',
-          },
+          id: 2,
+          label: '主题主题1',
+          pid: 1,
         },
         {
-          category: {
-            id: 182,
-            createdTime: '2023-05-24T00:57:48.000Z',
-            updatedTime: '2023-05-24T00:57:48.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: '法律风险',
-            explanation: '这是法律风险',
-            pid: 12,
-            levellabel: '全部风险/法律风险',
-          },
+          id: 3,
+          label: '主题主题3',
+          pid: 1,
         },
         {
-          category: {
-            id: 201,
-            createdTime: '2023-05-24T00:57:48.000Z',
-            updatedTime: '2023-05-24T00:57:48.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: '法律风险',
-            explanation: '这是法律风险',
-            pid: 111,
-            levellabel: '全部风险/法律风险',
-          },
+          id: 4,
+          label: '主题主题4',
+          pid: 3,
         },
         {
-          category: {
-            id: 210,
-            createdTime: '2023-05-24T00:57:48.000Z',
-            updatedTime: '2023-05-24T00:57:48.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: '法律风险',
-            explanation: '这是法律风险',
-            pid: 182,
-            levellabel: '全部风险/法律风险',
-          },
+          id: 5,
+          label: '主题主题5',
+          pid: 3,
         },
         {
-          category: {
-            id: 211,
-            createdTime: '2023-05-24T00:57:48.000Z',
-            updatedTime: '2023-05-24T00:57:48.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: '法律风险',
-            explanation: '这是法律风险',
-            pid: 182,
-            levellabel: '全部风险/法律风险',
-          },
+          id: 6,
+          label: '主题6',
+          pid: 4,
         },
-        // {
-        //   category: {
-        //     id: 1131,
-        //     createdTime: '2023-05-24T23:03:06.000Z',
-        //     updatedTime: '2023-05-24T23:03:06.000Z',
-        //     createdBy: '奇欣欣',
-        //     updatedBy: null,
-        //     label: '测试122',
-        //     explanation: null,
-        //     pid: 112,
-        //     levellabel: '全部风险/运营风险/全部风险1/222/测试1',
-        //   },
-        // },
-        // {
-        //   category: {
-        //     id: 1132,
-        //     createdTime: '2023-05-24T23:03:06.000Z',
-        //     updatedTime: '2023-05-24T23:03:06.000Z',
-        //     createdBy: '奇欣欣',
-        //     updatedBy: null,
-        //     label: '测试122',
-        //     explanation: null,
-        //     pid: 112,
-        //     levellabel: '全部风险/运营风险/全部风险1/222/测试1',
-        //   },
-        // },
-        // {
-        //   category: {
-        //     id: 113,
-        //     createdTime: '2023-05-24T23:03:06.000Z',
-        //     updatedTime: '2023-05-24T23:03:06.000Z',
-        //     createdBy: '奇欣欣',
-        //     updatedBy: null,
-        //     label: '测试122',
-        //     explanation: null,
-        //     pid: 112,
-        //     levellabel: '全部风险/运营风险/全部风险1/222/测试1',
-        //   },
-        // },
-        // {
-        //   category: {
-        //     id: 13,
-        //     createdTime: '2023-05-24T23:03:06.000Z',
-        //     updatedTime: '2023-05-24T23:03:06.000Z',
-        //     createdBy: '奇欣欣',
-        //     updatedBy: null,
-        //     label: '测试122',
-        //     explanation: null,
-        //     pid: 112,
-        //     levellabel: '全部风险/运营风险/全部风险1/222/测试1',
-        //   },
-        // },
-        // {
-        //   category: {
-        //     id: 120,
-        //     createdTime: '2023-05-25T03:19:45.000Z',
-        //     updatedTime: '2023-05-25T03:19:45.000Z',
-        //     createdBy: '奇欣欣',
-        //     updatedBy: null,
-        //     label: '12312312312',
-        //     explanation: null,
-        //     pid: 112,
-        //     levellabel: '全部风险/测试/12312312312',
-        //   },
-        // },
-        // {
-        //   category: {
-        //     id: 1411,
-        //     createdTime: '2023-05-25T03:19:45.000Z',
-        //     updatedTime: '2023-05-25T03:19:45.000Z',
-        //     createdBy: '奇欣欣',
-        //     updatedBy: null,
-        //     label: 'ces',
-        //     explanation: null,
-        //     pid: 111,
-        //     levellabel: '全部风险/测试/12312312312',
-        //   },
-        // },
-        // {
-        //   category: {
-        //     id: 143,
-        //     createdTime: '2023-05-25T03:19:45.000Z',
-        //     updatedTime: '2023-05-25T03:19:45.000Z',
-        //     createdBy: '奇欣欣',
-        //     updatedBy: null,
-        //     label: 'ces',
-        //     explanation: null,
-        //     pid: 111,
-        //     levellabel: '全部风险/测试/12312312312',
-        //   },
-        // },
         {
-          category: {
-            id: 145,
-            createdTime: '2023-05-25T03:19:45.000Z',
-            updatedTime: '2023-05-25T03:19:45.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: 'ces',
-            explanation: null,
-            pid: 111,
-            levellabel: '全部风险/测试/12312312312',
-          },
+          id: 7,
+          label: '主题7',
+          pid: 4,
         },
-      ],
+        {
+          id: 8,
+          label: '主题8',
+          pid: 5,
+        },
+        {
+          id: 9,
+          label: '主题主题9',
+          pid: 5,
+        },
+        {
+          id: 10,
+          label: '主题主题10',
+          pid: 5,
+        },
+        {
+          id: 11,
+          label: '主题主题11',
+          pid: 8,
+        },
+        {
+          id: 12,
+          label: '主题主题12',
+          pid: 11,
+        },
+        {
+          id: 13,
+          label: '主题主题13',
+          pid: 12,
+        },
+        {
+          id: 14,
+          label: '主题主题14',
+          pid: 1,
+        },
+        {
+          id: 15,
+          label: '主题主题15',
+          pid: 1,
+        },
+        {
+          id: 16,
+          label: '主题主题主题主题16',
+          pid: 1,
+        },
+        {
+          id: 17,
+          label: '主题主题主题主题17',
+          pid: 1,
+        },
+        {
+          id: 18,
+          label: '主题主题主题主题18',
+          pid: 1,
+        },
+        {
+          id: 19,
+          label: '主题主题主题主题19',
+          pid: 1,
+        },
+        {
+          id: 20,
+          label: '主题主题主题主题20',
+          pid: 1,
+        },
+      ]
+       
     };
   },
   methods: {
