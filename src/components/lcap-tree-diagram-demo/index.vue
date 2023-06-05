@@ -45,6 +45,7 @@ import { get, set } from 'lodash';
 import { addTreeLevel } from '../../utils';
 import SupportDataSource  from '../../mixins/support.datasource.js';
 import { fakeData } from './fakeData.js'
+
 export default {
   name: 'LcapTreeDiagramDemo',
   mixins: [SupportDataSource],

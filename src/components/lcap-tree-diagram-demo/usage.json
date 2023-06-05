@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram-demo",
     "name": "树状结构图demo",
-    "version": "0.1.3",
+    "version": "0.1.5",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -48,6 +48,7 @@
                 "type": "string",
                 "default": "id",
                 "description": "用户标识选中值的属性",
+                "display": "property-select",
                 "group": "数据属性"
             },
             {
