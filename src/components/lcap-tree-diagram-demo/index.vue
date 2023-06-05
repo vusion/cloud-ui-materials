@@ -42,9 +42,9 @@ import TreeItem from './src/index';
 import SEmpty from './src/s-empty/index';
 import deepClone from 'lodash/cloneDeep';
 import { get, set } from 'lodash';
-import { addTreeLevel, normalizeDataSource } from '../../utils';
+import { addTreeLevel } from '../../utils';
 import SupportDataSource  from '../../mixins/support.datasource.js';
-
+import { fakeData } from './fakeData.js'
 export default {
   name: 'LcapTreeDiagramDemo',
   mixins: [SupportDataSource],
@@ -57,7 +57,7 @@ export default {
       type: [Array, Object, Function],
     },
     showChildDotNum: { type: Boolean, default: true },
-    showTextEllipsis: { type: Boolean, default: true },
+    showTextEllipsis: { type: Boolean, default: false },
     valueField: { type: String, default: 'id' },
     parentField: { type: String, default: 'parentId' },
     textField: { type: String, default: 'label' },
@@ -85,51 +85,12 @@ export default {
       dataFromDataSource: [],
       updateTime: '',
       updateBy: '',
-      fakeData: [
-        {
-          id: 181,
-          label: '主题主题',
-          expand: true,
-          curIndex: 1,
-          parentId: 0,
-          children: [
-            {
-              id: 109,
-              label: '主题主题1',
-              expand: true,
-              curIndex: 2,
-              parentId: 181,
-              children: [
-                {
-                  id: 170,
-                  label: '主题主题11',
-                  expand: true,
-                  curIndex: 3,
-                  parentId: 109,
-                },
-              ],
-            },
-            {
-              id: 183,
-              label: '主题主题2',
-              expand: true,
-              curIndex: 2,
-              parentId: 181,
-            },
-          ],
-        },
-      ]
     };
   },
   watch: {
     'currentDataSource.data': {
       async handler(val) {
-        let dataFromDataSource = await this.handleDataSource(val);
-        if (this.$env.VUE_APP_DESIGNER) {
-          this.dataFromDataSource = this.fakeData;
-        } else {
-          this.dataFromDataSource = dataFromDataSource;
-        }
+        this.dataFromDataSource = await this.handleDataSource(this.$env.VUE_APP_DESIGNER || this.env ? fakeData : val);
       },
     },
   },

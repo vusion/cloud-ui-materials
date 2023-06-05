@@ -67,19 +67,19 @@
                 "group": "数据属性"
             },
             {
-                "name": "data-entity",
-                "title": "数据实体名称",
-                "type": "string",
-                "default": "",
-                "description": "属于匿名数据结构的需要传递数据实体名称，否则不用",
-                "group": "数据属性"
-            },
-            {
                 "name": "show-child-dot-num",
                 "title": "子节点收起显示子节点总数",
                 "type": "boolean",
                 "default": true,
                 "description": "默认开启；开启后显示其子节点的全部数量",
+                "group": "数据属性"
+            },
+            {
+                "name": "show-text-ellipsis",
+                "title": "文字超出6个后多余的文字用省略号展示",
+                "type": "boolean",
+                "default": false,
+                "description": "默认关闭",
                 "group": "数据属性"
             }
         ],
@@ -149,7 +149,7 @@
                 "name": "--tree-diagram-main-color",
                 "title": "主题色",
                 "default": "#00665f",
-                "type": "input",
+                "type": "color",
                 "description": "设置主题色",
                 "group": "主题色"
             }
