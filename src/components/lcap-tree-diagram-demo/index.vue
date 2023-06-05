@@ -281,7 +281,7 @@ export default {
 
 .edit:hover,
 .delete:hover {
-  background: #f8f8f8;
+  background: var(--tree-diagram-main-color);
   border-radius: 6px;
   width: 100%;
   height: 30px;

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-tree-diagram-demo",
     "name": "树状结构图demo",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -142,6 +142,16 @@
                         }
                     }
                 ]
+            }
+        ],
+        "themes": [
+            {
+                "name": "--tree-diagram-main-color",
+                "title": "主题色",
+                "default": "#00665f",
+                "type": "input",
+                "description": "设置主题色",
+                "group": "主题色"
             }
         ],
         "children": []

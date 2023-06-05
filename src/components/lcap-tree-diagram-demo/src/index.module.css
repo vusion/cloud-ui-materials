@@ -1,3 +1,6 @@
+:root {
+  --tree-diagram-main-color: #00665f;
+}
 
 .tree_node {
   position: relative;
@@ -81,90 +84,15 @@
   background-color: #e0e0e0;
   z-index: 6;
 }
-/* 
-$transionDuration: 0.15s;
-$stretchLineW: 60px;
-$stretchNodeH: 20px;
-.tree_node {
-  position: relative;
-  margin-bottom: 16px;
-  font-size: 0;
-  white-space: nowrap;
-  &:last-child {
-    margin-bottom: 0;
-  }
-  .tree_parent {
-    position: relative;
-    vertical-align: middle;
-    display: inline-block;
-  }
-  .stretch_node_r {
-    display: inline-block;
-    width: $stretchLineW;
-    .line_right {
-      position: absolute;
-      left: -$stretchNodeH / 2;
-      top: 50%;
-      width: $stretchLineW + $stretchNodeH / 2;
-    }
-  }
-  .node_content {
-    display: inline-block;
-  }
-  .stretch_node {
-    position: relative;
-    display: inline-block;
-    z-index: 10;
-    p {
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .line_dot {
-      width: $stretchNodeH;
-      height: $stretchNodeH;
-      cursor: pointer;
-      user-select: none;
-      border-radius: 50%;
-      background-size: contain;
-      background-position: 50%;
-      background-repeat: no-repeat;
-      transition: all $transionDuration;
-    }
-  }
-  .line_left,
-  .line_right {
-    display: inline-block;
-    vertical-align: middle;
-    width: $stretchLineW;
-    border-top: 1px solid #ddd;
-  }
-  .line_left {
-    width: 16px;
-  }
-  .tree_children {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    .connect_line {
-      position: absolute;
-      left: -$stretchNodeH / 2;
-      top: 0;
-      height: 100%;
-      width: 1px;
-      background-color: #e0e0e0;
-      z-index: 6;
-    }
-  }
-}
- */
+
 .lcap-tree-node-label-inner {
   font-weight: 500;
   padding: 10px;
   text-align: center;
   border-radius: 10px;
-  background: #00665f;
+  background: var(--tree-diagram-main-color);
   color: #fff;
-  border: 1px solid #00665f;
+  border: 1px solid var(--tree-diagram-main-color);
   height: 30px;
   display: flex;
   justify-content: center;
@@ -173,13 +101,13 @@ $stretchNodeH: 20px;
 
 .lcap-tree-node-label-inner-second {
   text-align: center;
-  color: #00665f;
-  border: 1px solid #00665f;
+  color: var(--tree-diagram-main-color);
+  border: 1px solid var(--tree-diagram-main-color);
   background: none;
 }
 
 .lcap-tree-node-label-inner-more {
-  color: #00665f;
+  color: var(--tree-diagram-main-color);
   background: none;
   border-radius: none;
   border: 1px solid transparent;
@@ -206,7 +134,7 @@ $stretchNodeH: 20px;
   height: 20px;
   z-index: 10;
   background-color: #fff;
-  border: 1px solid #00665f;
+  border: 1px solid var(--tree-diagram-main-color);
   border-radius: 50%;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
   cursor: pointer;
@@ -216,7 +144,7 @@ $stretchNodeH: 20px;
 .lcap-tree-node-btn::before {
   position: absolute;
   content: attr(dot-num);
-  color: #00665f;
+  color: var(--tree-diagram-main-color);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -234,7 +162,7 @@ $stretchNodeH: 20px;
   top: 28%;
   width: 8px;
   height: 8px;
-  border: solid #00665f;
+  border: solid var(--tree-diagram-main-color);
   border-width: 0 1px 1px 0;
   transform: rotate(135deg);
 }
