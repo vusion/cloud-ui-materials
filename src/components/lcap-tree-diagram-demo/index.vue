@@ -96,7 +96,6 @@ export default {
         } else {
           this.dataFromDataSource = dataFromDataSource;
         }
-        console.log(this.dataFromDataSource)
       },
     },
   },

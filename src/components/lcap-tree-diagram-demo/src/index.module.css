@@ -14,47 +14,47 @@
   });
 }
 
-.tree_node {
+.tree-node {
   position: relative;
   margin-bottom: 16px;
   font-size: 0;
   white-space: nowrap;
 }  
 
-.tree_node:last-child {
+.tree-node:last-child {
   margin-bottom: 0;
 }
 
-.tree_parent {
+.tree-parent {
   position: relative;
   vertical-align: middle;
   display: inline-block;
 }
 
-.tree_parent::after {
+.tree-parent::after {
   border-top: 0;
   border-left: 1px solid #ddd;
 }
 
-.stretch_node_r {
+.stretch-node-r {
   display: inline-block;
   width: 60px;
 }
 
-.node_content {
+.node-content {
   display: inline-block;
 }
-.stretch_node {
+.stretch-node {
   position: relative;
   display: inline-block;
   z-index: 10;
 }
 
-.stretch_node p {
+.stretch-node p {
   display: inline-block;
   vertical-align: middle;
 }
-.stretch_node .line_dot {
+.stretch-node .line-dot {
   width: 20px;
   height: 20px;
   cursor: pointer;
@@ -66,30 +66,31 @@
   transition: all 0.15s;
 }
 
-.line_right {
+.line-right {
   position: absolute;
   left: -10px;
   top: 50%;
 }
 
-.line_left,
-.line_right {
+.line-left,
+.line-right {
   display: inline-block;
   vertical-align: middle;
   width: 70px;
   border-top: 1px solid #ddd;
 }
 
-.line_left {
+.line-left {
   width: 16px;
 }
 
-.tree_children {
+.tree-children {
   position: relative;
   display: inline-block;
   vertical-align: middle;
 }
-.connect_line {
+
+.connect-line {
   position: absolute;
   left: -10px;
   top: 0;
@@ -99,7 +100,7 @@
   z-index: 6;
 }
 
-.lcap-tree-node-label-inner {
+.node-label-inner {
   font-weight: 500;
   padding: 10px;
   text-align: center;
@@ -113,14 +114,14 @@
   align-items: center;
 }
 
-.lcap-tree-node-label-inner-second {
+.node-label-inner-second {
   text-align: center;
   color: var(--tree-diagram-main-color);
   border: 1px solid var(--tree-diagram-main-color);
   background: none;
 }
 
-.lcap-tree-node-label-inner-more {
+.node-label-inner-more {
   color: var(--tree-diagram-main-color);
   background: none;
   border-radius: none;
@@ -128,7 +129,7 @@
   padding: 0px;
 }
 
-.lcap-tree-node-label {
+.node-label {
   margin: 0;
   overflow: hidden;
   white-space: initial;
@@ -136,7 +137,7 @@
   font-size: 14px;
 }
 
-.lcap-tree-node-ellipisis {
+.node-ellipisis {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -145,13 +146,13 @@
   width: 100px;
 }
 
-.node_slot {
+.node-slot {
   position: absolute;
   min-height: 10px;
   height: 10px;
 }
 
-.lcap-tree-node-btn {
+.node-btn {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -164,7 +165,7 @@
   transition: all 0.35s ease;
 }
 
-.lcap-tree-node-btn::before {
+.node-btn::before {
   position: absolute;
   content: attr(dot-num);
   color: var(--tree-diagram-main-color);
@@ -174,11 +175,11 @@
   font-size: 12px;
 }
 
-.lcap-tree-node-btn.expanded::after {
+.node-btn.expanded::after {
   border: none;
 }
 
-.lcap-tree-node-btn.expanded::before {
+.node-btn.expanded::before {
   position: absolute;
   content: '';
   left: 35%;

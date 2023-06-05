@@ -1,30 +1,30 @@
 <template>
   <!-- data-opened， 0(opened) 表示没被展开过，1(noOpened) 代表已经被展开过了（或者没有子元素所以没有展开不展开的概念，直接认为是1） -->
-  <div :class="$style['tree_node']" ref="treeNodeRef" :data-opened="dataOpened.noOpened">
-    <div :class="$style['tree_parent']">
-      <div :class="$style['stretch_node_r']" v-if="!isRoot">
-        <p :class="$style['line_right']"></p>
+  <div :class="$style['tree-node']" ref="treeNodeRef" :data-opened="dataOpened.noOpened">
+    <div :class="$style['tree-parent']">
+      <div :class="$style['stretch-node-r']" v-if="!isRoot">
+        <p :class="$style['line-right']"></p>
       </div>
-      <div :class="$style['node_content']" @click="onLabelClick">
-        <div :class="[$style['lcap-tree-node-label-inner'], treeNodeData.curIndex >= 3 ? $style['lcap-tree-node-label-inner-more'] : treeNodeData.curIndex == 2 ? $style['lcap-tree-node-label-inner-second'] : '']">
-          <p :class="[$style['lcap-tree-node-label'], showTextEllipsis && labelLen > 12 ? $style['lcap-tree-node-ellipisis'] : '']">{{ label }}</p>
+      <div :class="$style['node-content']" @click="onLabelClick">
+        <div :class="[$style['node-label-inner'], treeNodeData.curIndex >= 3 ? $style['node-label-inner-more'] : treeNodeData.curIndex == 2 ? $style['node-label-inner-second'] : '']">
+          <p :class="[$style['node-label'], showTextEllipsis && labelLen > 12 ? $style['node-ellipisis'] : '']">{{ label }}</p>
         </div>
-        <div :class="$style['node_slot']" vusion-slot-name="dialog">
+        <div :class="$style['node-slot']" vusion-slot-name="dialog">
           <slot name="dialog" :item="treeNodeData.data"></slot>
         </div>
       </div>
     </div>
 
     <!-- 控制展开/收缩的节点 -->
-    <div :class="$style['stretch_node']" v-if="childrenLen">
-      <p :class="$style['line_left']"></p>
-      <p :class="$style['line_dot']" @click="changeOpen">
-        <span :class="[$style['lcap-tree-node-btn'], treeNodeData.expand ? $style.expanded : '']" :dot-num="showChildDotNum ? `+${treeNodeData.children.length}` : '+'"></span>
+    <div :class="$style['stretch-node']" v-if="childrenLen">
+      <p :class="$style['line-left']"></p>
+      <p :class="$style['line-dot']" @click="changeOpen">
+        <span :class="[$style['node-btn'], treeNodeData.expand ? $style.expanded : '']" :dot-num="showChildDotNum ? `+${treeNodeData.children.length}` : '+'"></span>
       </p>
     </div>
 
-    <div :class="$style['tree_children']" v-if="childrenLen && openedChildren" v-show="treeNodeData.expand">
-      <p :class="$style['connect_line']" v-if="childrenLen > 1"></p>
+    <div :class="$style['tree-children']" v-if="childrenLen && openedChildren" v-show="treeNodeData.expand">
+      <p :class="$style['connect-line']" v-if="childrenLen > 1"></p>
       <TreeItem
         v-for="(item, treeNodeIndex) in treeNodeData.children"
         :key="item.id"
@@ -34,10 +34,10 @@
         :showChildDotNum="showChildDotNum"
         :showTextEllipsis="showTextEllipsis"
         @on-click="click">
-        <template #dialog="dialog">
+        <!-- <template #dialog="dialog">
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
           <slot v-else name="dialog" :item="dialog"></slot>
-        </template>
+        </template> -->
       </TreeItem>
     </div>
   </div>
