@@ -10,6 +10,30 @@
       designer-value: "[{}, {}, {}]"
       description: 甘特图的数据源，数据集对象或者返回数据集的逻辑
       group: 数据属性
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 集合类型每一元素的数据类型
+      group: 数据属性
+      compType: dataTypeSelect
+    - name: start-date-field
+      title: 开始日期字段
+      type: string
+      default: ''
+      description: 设置开始日期字段
+      group: 数据属性
+    - name: end-date-field
+      title: 结束日期字段
+      type: string
+      default: ''
+      description: 设置结束日期字段
+      group: 数据属性
+    - name: parent-field
+      title: 父级字段
+      type: string
+      default: ''
+      description: 设置父级字段
+      group: 数据属性
     - name: ganttTableConfig
       title: 甘特图表格配置
       type: Array<Item>

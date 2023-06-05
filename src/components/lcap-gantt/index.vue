@@ -26,6 +26,8 @@ import 'dhtmlx-gantt/codebase/dhtmlxgantt.css'; // 样式模块
 import {locale} from "@/locale";
 import {basicConfig, initialData, ganttPlugins} from "@/ganttConfig";
 import supportDataSource from "@/mixins/support.datasource";
+import _ from 'lodash';
+
 
 export default {
   name: 'lcap-gantt',
@@ -43,11 +45,15 @@ export default {
     showToday: {type: Boolean, default: true},
     taskView: {type: String, default: 'd'},
     ganttTableConfig: {type: String, default: '{}'},
+    startDateField: {type: String, default: ''},
+    endDateField: {type: String, default: ''},
+    parentField: {type: String, default: ''},
   },
   mixins: [supportDataSource],
   mounted() {
     this.$nextTick(() => {
       this.initGantt();
+      // console.log(_.at({ 'a': [{ 'b': { 'c': 3 } }, 4] }, 'a[0].b.c'));
       // this.ganttChangeEvent();//交互事件
     });
   },
