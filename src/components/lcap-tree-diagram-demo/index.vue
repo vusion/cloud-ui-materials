@@ -1,15 +1,16 @@
 <template>
   <div :class="$style['tree-diagram']">
-    <TreeItem 
-      v-for="(item, index) in dataFromDataSource" 
-      isRoot 
-      :key="index" 
-      :treeNodeData="item" 
-      :showChildDotNum="showChildDotNum" 
-      :textField="textField" 
+    <TreeItem
+      v-for="(item, index) in dataFromDataSource"
+      isRoot
+      :key="index"
+      :treeNodeData="item"
+      :showChildDotNum="showChildDotNum"
+      :textField="textField"
       :showTextEllipsis="showTextEllipsis"
       @on-node-toggle="onTogglePop"
-      @on-click="click">
+      @on-click="click"
+    >
       <!-- <template #dialog="dialog">
         <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
         <slot v-else name="dialog" :item="dialog"></slot>
@@ -21,18 +22,21 @@
       ref="popper"
       :append-to="appendTo"
       :disabled="disabled || readonly"
-      :placement="placement" 
+      :placement="placement"
       :reference="referenceEl"
       trigger="manual"
-      :opened="showPopper" 
+      :opened="showPopper"
       style="--popper-box-shadow: none"
       @toggle="onToggle($event)"
-      @close="onPopperClose" >
+      @close="onPopperClose"
+    >
       <div :class="$style.popcontent" @click.stop>
         <div :class="[$style.edit]" @click.stop="onEdit">编辑</div>
         <div :class="[$style.delete]" @click.stop="onDelete">删除</div>
-        <div :class="$style['recent-edit']">最近编辑 </div>
-        <div :class="$style.info"><span>{{ updateTime }}</span> <span>{{ updateBy }}</span></div>
+        <div :class="$style['recent-edit']">最近编辑</div>
+        <div :class="$style.info">
+          <span>{{ updateTime }}</span> <span>{{ updateBy }}</span>
+        </div>
       </div>
     </m-popper>
   </div>
@@ -43,8 +47,8 @@ import SEmpty from './src/s-empty/index';
 import deepClone from 'lodash/cloneDeep';
 import { get, set } from 'lodash';
 import { addTreeLevel } from '../../utils';
-import SupportDataSource  from '../../mixins/support.datasource.js';
-import { fakeData } from './fakeData.js'
+import SupportDataSource from '../../mixins/support.datasource.js';
+import { fakeData } from './fakeData.js';
 export default {
   name: 'LcapTreeDiagramDemo',
   mixins: [SupportDataSource],
@@ -109,7 +113,7 @@ export default {
     parseCustomStyle(element) {
       const cssList = element.style.cssText.split(';');
       const cssObj = {};
-      cssList.forEach(item => {
+      cssList.forEach((item) => {
         const [key, value] = item.split(':');
         if (key && value) {
           cssObj[key.trim()] = value.trim();
@@ -147,7 +151,7 @@ export default {
       const temp = await this.listToTree(deepClone(val), {
         parentField: this.parentField,
         valueField: this.valueField,
-        childrenField: 'children'
+        childrenField: 'children',
       });
       return addTreeLevel(temp);
     },
@@ -185,11 +189,11 @@ export default {
       }, 0);
     },
     click(e, data) {
-      console.log(e, data)
+      console.log(e, data);
       this.referenceEl = e.target;
       this.showPopper = !this.showPopper;
       e.item = data;
-      e.value = get(data, this.valueField)
+      e.value = get(data, this.valueField);
       this.curEventsData = e;
       this.updateTime = e.item?.updatedTime?.split('T')?.[0] || '2023-05-20';
       this.updateBy = e.item?.updateBy || '轻舟';
@@ -199,7 +203,6 @@ export default {
 };
 </script>
 <style module>
-
 .tree-diagram {
   display: inline-block;
   overflow: scroll;

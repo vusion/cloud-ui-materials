@@ -3,23 +3,58 @@
 ```vue
 <template>
   <lcap-tree-diagram-demo
-    :data-source="list"
-    value-field="id"
-    parent-field="pid"
-    text-field="label"
+    :data-source="demo"
+    value-field="tree.sid"
+    parent-field="tree.pid"
+    text-field="tree.label"
     @click="click"
     @onDelete="onDelete"
     ref="node"
   >
-  <template #dialog> 
-     <h1 style="color: red">111111111</h1>
-   </template>
   </lcap-tree-diagram-demo>
 </template>
 <script>
 export default {
   data() {
     return {
+      demo: [
+        {
+          tree: {
+            id: 2626361034054912,
+            createdTime: '2023-06-05T12:33:28.000Z',
+            updatedTime: '2023-06-05T12:33:28.000Z',
+            createdBy: null,
+            updatedBy: null,
+            pid: 0,
+            sid: 1,
+            label: 'zhuti',
+          },
+        },
+        {
+          tree: {
+            id: 2626361154837760,
+            createdTime: '2023-06-05T12:33:43.000Z',
+            updatedTime: '2023-06-05T12:33:43.000Z',
+            createdBy: null,
+            updatedBy: null,
+            pid: 1,
+            sid: 2,
+            label: '主图2',
+          },
+        },
+        {
+          tree: {
+            id: 2626361499647232,
+            createdTime: '2023-06-05T12:34:25.000Z',
+            updatedTime: '2023-06-05T12:34:25.000Z',
+            createdBy: null,
+            updatedBy: null,
+            pid: 1,
+            sid: 3,
+            label: 'zhuti3',
+          },
+        },
+      ],
       list: [
         {
           id: 1,
@@ -121,13 +156,11 @@ export default {
           label: '主题主题20',
           pid: 1,
         },
-      ]
-       
+      ],
     };
   },
   methods: {
-    click(e) {
-    },
+    click(e) {},
     onDelete(e) {
       this.$refs.node.reload();
     },
@@ -138,7 +171,7 @@ export default {
 
 ### load 方法
 
-``` vue
+```vue
 <template>
   <lcap-tree-diagram-demo
     :data-source="load"
@@ -150,52 +183,53 @@ export default {
 </template>
 <script>
 // 模拟后端请求
-const mockRequest = (data, timeout = 300) => new Promise((res, rej) => setTimeout(() => res(data), timeout));
+const mockRequest = (data, timeout = 300) =>
+  new Promise((res, rej) => setTimeout(() => res(data), timeout));
 // 模拟数据服务
 const mockService = {
-    load() {
-      return mockRequest([
-        {
-          category: {
-            id: 111,
-            createdTime: null,
-            updatedTime: null,
-            createdBy: null,
-            updatedBy: null,
-            label: '全部风险全',
-            explanation: '这是全部风险',
-            pid: 0,
-            levellabel: '全部风险',
-          },
+  load() {
+    return mockRequest([
+      {
+        category: {
+          id: 111,
+          createdTime: null,
+          updatedTime: null,
+          createdBy: null,
+          updatedBy: null,
+          label: '全部风险全',
+          explanation: '这是全部风险',
+          pid: 0,
+          levellabel: '全部风险',
         },
-        {
-          category: {
-            id: 145,
-            createdTime: '2023-05-25T03:19:45.000Z',
-            updatedTime: '2023-05-25T03:19:45.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: 'ces',
-            explanation: null,
-            pid: 111,
-            levellabel: '全部风险/测试',
-          },
+      },
+      {
+        category: {
+          id: 145,
+          createdTime: '2023-05-25T03:19:45.000Z',
+          updatedTime: '2023-05-25T03:19:45.000Z',
+          createdBy: '奇欣欣',
+          updatedBy: null,
+          label: 'ces',
+          explanation: null,
+          pid: 111,
+          levellabel: '全部风险/测试',
         },
-        {
-          category: {
-            id: 10,
-            createdTime: '2023-05-25T03:19:45.000Z',
-            updatedTime: '2023-05-25T03:19:45.000Z',
-            createdBy: '奇欣欣',
-            updatedBy: null,
-            label: '测试测试册',
-            explanation: null,
-            pid: 111,
-            levellabel: '全部风险/测试/12312312312',
-          },
-        }
-      ]);
-    },
+      },
+      {
+        category: {
+          id: 10,
+          createdTime: '2023-05-25T03:19:45.000Z',
+          updatedTime: '2023-05-25T03:19:45.000Z',
+          createdBy: '奇欣欣',
+          updatedBy: null,
+          label: '测试测试册',
+          explanation: null,
+          pid: 111,
+          levellabel: '全部风险/测试/12312312312',
+        },
+      },
+    ]);
+  },
 };
 
 export default {
@@ -203,9 +237,8 @@ export default {
     load() {
       return mockService.load();
     },
-    click(e) {
-    }
-  }
+    click(e) {},
+  },
 };
 </script>
 ```
