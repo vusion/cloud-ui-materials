@@ -1,0 +1,20 @@
+{
+  "lcap-markdown-doc-render/text": {
+    "type": "string",
+    "description": "需要传入的文本"
+  },
+  "lcap-markdown-doc-render/scrollContainer": {
+    "type": "string",
+    "options": [
+      {
+        "value": "window",
+        "title": "窗口"
+      },
+      {
+        "value": "root",
+        "title": "根节点"
+      }
+    ],
+    "description": "监听文档滚动的容器"
+  }
+}

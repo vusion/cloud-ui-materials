@@ -1,0 +1,43 @@
+{
+  "lcap-markdown-doc-search/value": {
+    "type": "String",
+    "description": "输入的值"
+  },
+  "lcap-markdown-doc-search/data-source": {
+    "type": "Array<Item>",
+    "description": "搜索结果列表数据"
+  },
+  "lcap-markdown-doc-search/data-schema": {
+    "type": "schema",
+    "description": "选择器每一行的数据类型"
+  },
+  "lcap-markdown-doc-search/text-field": {
+    "type": "string",
+    "description": "显示结果项标题字段的属性"
+  },
+  "lcap-markdown-doc-search/description-field": {
+    "type": "string",
+    "description": "用于显示结果项描述字段的属性"
+  },
+  "lcap-markdown-doc-search/align": {
+    "type": "string",
+    "options": [
+      {
+        "value": "left",
+        "title": "左"
+      },
+      {
+        "value": "right",
+        "title": "右"
+      }
+    ]
+  },
+  "lcap-markdown-doc-search/prefix": {
+    "type": "icon",
+    "description": ""
+  },
+  "lcap-markdown-doc-search/suffix": {
+    "type": "icon",
+    "description": ""
+  }
+}

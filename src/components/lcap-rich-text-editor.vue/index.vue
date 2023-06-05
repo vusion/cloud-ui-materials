@@ -12,7 +12,9 @@
 <script>
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
-import { MField } from 'cloud-ui.vusion';
+import { MField } from 'cloud-ui.vusion/src/components/m-field.vue';
+import { UUploader } from 'cloud-ui.vusion/src/components/u-uploader.vue';
+import { UButton } from 'cloud-ui.vusion/src/components/u-button.vue';
 import './css/katex.css';
 import './css/index.css';
 import './css/font.css';
@@ -44,6 +46,7 @@ const Colors = ['#ffffff', '#010101', '#e73521', '#f1a039', '#fffe54', '#b4f551'
 export default {
     name: 'lcap-rich-text-editor',
     mixins: [MField],
+    components: {UUploader, UButton},
     props: {
         value: String,
         textSub: {

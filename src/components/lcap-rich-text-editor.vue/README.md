@@ -6,6 +6,7 @@
     - [基本用法](#基本用法)
     - [只读模式](#只读模式)
     - [可选功能](#可选功能)
+    - [表单校验](#表单校验)
 - [API]()
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
@@ -23,8 +24,8 @@
 ``` vue
 <template>
 <div>
-<lcap-rich-text-editor :value.sync="tip" :formula="true" style="margin-bottom: 10px;"></lcap-rich-text-editor>
-<lcap-rich-text-editor :value.sync="tip" :readOnly="bool"></lcap-rich-text-editor>
+    <lcap-rich-text-editor :value.sync="tip" :formula="true" style="margin-bottom: 10px;"></lcap-rich-text-editor>
+    <lcap-rich-text-editor :value.sync="tip" :readOnly="bool"></lcap-rich-text-editor>
 </div>
 </template>
 
@@ -112,6 +113,43 @@ export default {
 }
 </script>
 ```
+
+### 表单校验
+
+``` vue
+<template>
+<u-form ref="form" gap="large">
+    <u-form-item label-size="large" :required="true" layout="block" rules="required" label="业务口径">
+        <lcap-rich-text-editor :readOnly="true" :formula="false" :value.sync="tip"></lcap-rich-text-editor>
+    </u-form-item>
+    <u-form-item label-size="large" layout="block">
+        <u-button @click="onClick">创建</u-button>
+    </u-form-item>
+</u-form>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            tip: '',
+            bool: true,
+        }
+    },
+    mounted() {
+        setTimeout(() => {
+            this.tip = '测试1';
+        }, 1000);
+    },
+    methods: {
+        async onClick() {
+            const valid = await this.$refs.form.validate();
+        },
+    },
+}
+</script>
+```
+
 ## API
 ### Props/Attrs
 

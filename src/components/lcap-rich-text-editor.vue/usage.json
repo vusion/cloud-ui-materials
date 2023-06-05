@@ -28,7 +28,7 @@
         "attrs": [
             {
                 "name": "value",
-                "title": "编辑内容",
+                "title": "内容",
                 "type": "string",
                 "default": "",
                 "sync": true,
