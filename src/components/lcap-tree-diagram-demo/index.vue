@@ -202,8 +202,9 @@ export default {
 <style module>
 
 .tree-diagram {
+  display: inline-block;
   overflow: scroll;
-  height: 100%;
+  height: inherit;
 }
 
 .tree-diagram::-webkit-scrollbar {
