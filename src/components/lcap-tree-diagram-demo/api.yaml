@@ -83,3 +83,10 @@
     - name: reload
       description: 重新加载
       params: []
+  themes:
+    - name: --tree-diagram-main-color
+      title: 主题色
+      default: '#00665f'
+      type: input
+      description: 设置主题色
+      group: 主题色

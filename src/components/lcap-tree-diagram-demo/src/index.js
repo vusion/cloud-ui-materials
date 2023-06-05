@@ -1,3 +1,3 @@
-import VueChartTree from './vue-chart-tree.vue';
-export default VueChartTree;
+import TreeItem from './TreeItem.vue';
+export default TreeItem;
 export { resetTree, updatePartTree } from './util';

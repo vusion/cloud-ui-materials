@@ -16,7 +16,10 @@ function createListener(handler, data) {
         if (typeof cb === 'function') {
             // // fixed bug #48, #73
             // const className = e.target && e.target.className;
-            if (typeof className === 'string' && className.indexOf('lcap-tree-node-btn') > -1)
+            if (
+                typeof className === 'string'
+        && className.indexOf('lcap-tree-node-btn') > -1
+            )
                 return;
             cb.apply(null, [e, ...args]);
         }
@@ -34,7 +37,8 @@ function createListener(handler, data) {
 }
 
 // 判断是否叶子节点
-const isLeaf = (data, prop) => !(Array.isArray(data[prop]) && data[prop].length > 0);
+const isLeaf = (data, prop) =>
+    !(Array.isArray(data[prop]) && data[prop].length > 0);
 
 // 创建 node 节点
 export function renderNode(h, data, context) {
@@ -57,22 +61,30 @@ export function renderNode(h, data, context) {
         childNodes.push(renderChildren(h, children, context));
     }
     return [
-        h('div', {
-            domProps: {
-                className: cls.join(' '),
+        h(
+            'div',
+            {
+                domProps: {
+                    className: cls.join(' '),
+                },
             },
-        }, childNodes),
-        // h('div', {
-        //     domProps: {
-        //         className: 'lcap-tree-node-slot',
-        //     },
-        //     on: {
-        //         click: (e) => toggleExpandHandler && toggleExpandHandler(e, data),
-        //     },
-        // }),
-        // <div class="lcap-tree-node-slot" >
-        //     {/* { props.isDesingerEnv && !context.scopedSlots?.default() ? <SEmpty></SEmpty> : context.scopedSlots?.default()} */}
-        // </div>,
+            childNodes,
+        ),
+    // h('div', {
+    //   domProps: {
+    //     className: 'lcap-tree-node-slot',
+    //   },
+    //   on: {
+    //     click: (e) => toggleExpandHandler && toggleExpandHandler(e, data),
+    //   },
+    // }),
+    // <div class="lcap-tree-node-slot">
+    //   {props.isDesingerEnv && !context.scopedSlots?.default() ? (
+    //     <SEmpty></SEmpty>
+    //   ) : (
+    //     context.scopedSlots?.default()
+    //   )}
+    // </div>,
     ];
 }
 
@@ -89,18 +101,20 @@ export function renderBtn(h, data, context, isLeafV) {
         cls.push('expanded');
     }
     return [
-        isLeafV ? h('span', {
-            domProps: {
-                className: cls.join(' '),
-            },
-            attrs: {
-                'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
-                'data-btn': true,
-            },
-            on: {
-                click: (e) => expandHandler && expandHandler(e, data),
-            },
-        }) : h(null),
+        isLeafV
+            ? h('span', {
+                domProps: {
+                    className: cls.join(' '),
+                },
+                attrs: {
+                    'dot-num': props.showChildDotNum ? `+${dotNum}` : '+',
+                    'data-btn': true,
+                },
+                on: {
+                    click: (e) => expandHandler && expandHandler(e, data),
+                },
+            })
+            : h(null),
     ];
 }
 
@@ -157,25 +171,38 @@ export function renderLabel(h, data, context) {
         selectedClassName = selectedClassName(data);
     }
 
-    selectedClassName && selectedKey && data[selectedKey] && cls.push(selectedClassName);
+    selectedClassName
+    && selectedKey
+    && data[selectedKey]
+    && cls.push(selectedClassName);
 
-    return h('div', {
-        domProps: {
-            className: 'lcap-tree-node-label',
-            // draggable: true,
+    return h(
+        'div',
+        {
+            domProps: {
+                className: 'lcap-tree-node-label',
+                // draggable: true,
+            },
+            on: {
+                click: (e) => clickHandler && clickHandler(e, data),
+                dbclick: (e) => dbclickHandler && dbclickHandler(e, data),
+                mouseout: (e) => mouseOutHandler && mouseOutHandler(e, data),
+                mouseover: (e) => mouseOverHandler && mouseOverHandler(e, data),
+            },
         },
-        on: {
-            click: (e) => clickHandler && clickHandler(e, data),
-            dbclick: (e) => dbclickHandler && dbclickHandler(e, data),
-            mouseout: (e) => mouseOutHandler && mouseOutHandler(e, data),
-            mouseover: (e) => mouseOverHandler && mouseOverHandler(e, data),
-        },
-    }, [h('div', {
-        domProps: {
-            className: cls.join(' '),
-        },
-        style: { width: labelWidth },
-    }, childNodes)]);
+        [
+            h(
+                'div',
+                {
+                    domProps: {
+                        className: cls.join(' '),
+                    },
+                    style: { width: labelWidth },
+                },
+                childNodes,
+            ),
+        ],
+    );
 }
 
 // 创建 node 子节点
@@ -183,11 +210,15 @@ export function renderChildren(h, list, context) {
     if (Array.isArray(list) && list.length) {
         const children = list.map((item) => renderNode(h, item, context));
 
-        return h('div', {
-            domProps: {
-                className: 'lcap-tree-node-children',
+        return h(
+            'div',
+            {
+                domProps: {
+                    className: 'lcap-tree-node-children',
+                },
             },
-        }, children);
+            children,
+        );
     }
     return '';
 }

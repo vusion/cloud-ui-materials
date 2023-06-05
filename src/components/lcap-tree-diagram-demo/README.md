@@ -2,13 +2,17 @@
 
 # LcapTreeDiagramDemo 树状结构图demo
 
-- [示例](#示例)
+- [LcapTreeDiagramDemo 树状结构图demo](#lcaptreediagramdemo-树状结构图demo)
+  - [示例](#示例)
     - [基本用法](#基本用法)
-- [API]()
+  - [API](#api)
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
+      - [dialog](#dialog)
     - [Events](#events)
-    - [Methods](#methods)
+      - [@onEdit](#onedit)
+      - [@onDelete](#ondelete)
+      - [reload()](#reload)
 
 **Other**
 
@@ -29,7 +33,6 @@
     ref="node"
     data-entity="category"
   >
-    <u-button slot="dialog" color="primary" text="Primary"></u-button>
   </lcap-tree-diagram-demo>
 </template>
 <script>

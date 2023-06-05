@@ -1,38 +1,20 @@
 <template>
   <div class="lcap-tree-container">
     <div class="lcap-tree" :class="{horizontal, collapsable}">
-      <lcap-tree-node
-        :data="data"
-        :props="props"
-        :horizontal="horizontal"
-        :label-width="labelWidth"
-        :collapsable="collapsable"
-        :render-content="renderContent"
-        :label-class-name="labelClassName"
-        :selected-class-name="selectedClassName"
-        :selected-key="selectedKey"
-        :showChildDotNum="showChildDotNum"
-        :isDesingerEnv="isDesingerEnv"
-        @on-expand="(e, data) => $emit('on-expand', e, data)"
-        @on-node-focus="(e, data) => $emit('on-node-focus', e, data)"
-        @on-node-click="(e, data) => $emit('on-click', e, data)"
-        @on-node-dbclick="(e, data) => $emit('on-dbclick', e, data)"
-        @on-node-mouseover="(e, data) => $emit('on-mouseover', e, data)"
-        @on-node-mouseout="(e, data) => $emit('on-mouseout', e, data)"
-        @on-node-drag-start="(e, data) => onDragStart(e, data)"
-        @on-node-drag-over="(e, data) => onDragOver(e, data)"
-        @on-node-drop="(e, data) => onDrop(e, data)"
-        @on-node-toggle="(e, data) => onToggle(e, data)"
-      >
-        <!-- <template #default="scope">
-            <slot :item="scope.item"></slot>
-            <s-empty v-if="$env.VUE_APP_DESIGNER
+      <lcap-tree-node :data="data" :props="props" :horizontal="horizontal" :label-width="labelWidth" :collapsable="collapsable" :render-content="renderContent" :label-class-name="labelClassName" :selected-class-name="selectedClassName"
+        :selected-key="selectedKey" :showChildDotNum="showChildDotNum" :isDesingerEnv="isDesingerEnv" @on-expand="(e, data) => $emit('on-expand', e, data)" @on-node-focus="(e, data) => $emit('on-node-focus', e, data)"
+        @on-node-click="(e, data) => $emit('on-click', e, data)" @on-node-dbclick="(e, data) => $emit('on-dbclick', e, data)" @on-node-mouseover="(e, data) => $emit('on-mouseover', e, data)"
+        @on-node-mouseout="(e, data) => $emit('on-mouseout', e, data)" @on-node-drag-start="(e, data) => onDragStart(e, data)" @on-node-drag-over="(e, data) => onDragOver(e, data)" @on-node-drop="(e, data) => onDrop(e, data)"
+        @on-node-toggle="(e, data) => onToggle(e, data)">
+        <template #default="scope">
+          <slot :item="scope.item"></slot>
+          <s-empty v-if="$env.VUE_APP_DESIGNER
                 && $scopedSlots
                 &&!($scopedSlots.default && $scopedSlots.default({
                     ...scope,
                 }))
                 && !!$attrs['vusion-node-path']"></s-empty>
-        </template> -->
+        </template>
       </lcap-tree-node>
     </div>
   </div>
@@ -66,7 +48,7 @@ export default {
     textField: { type: String, default: 'label' },
     props: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           label: this.textField,
           expand: "expand",
@@ -89,7 +71,7 @@ export default {
       let dragState = this.dragState;
       try {
         event.dataTransfer.setData("text/plain", "");
-      } catch (e) {}
+      } catch (e) { }
       dragState.drag = data;
     },
     onDragOver(event, data) {
@@ -111,5 +93,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "./tree";
+@import './tree';
 </style>

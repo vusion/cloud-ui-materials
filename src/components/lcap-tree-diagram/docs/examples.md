@@ -6,7 +6,7 @@
     :data-source="list"
     value-field="id"
     parent-field="pid"
-    text-field="name"
+    text-field="label"
     @click="click"
     @onDelete="onDelete"
     ref="node"
@@ -26,10 +26,10 @@ export default {
             updatedTime: null,
             createdBy: null,
             updatedBy: null,
-            name: '全部风险',
+            label: '全部风险',
             explanation: '这是全部风险',
             pid: 0,
-            levelName: '全部风险',
+            levellabel: '全部风险',
           },
         },
         {
@@ -39,10 +39,10 @@ export default {
             updatedTime: null,
             createdBy: null,
             updatedBy: '奇欣欣',
-            name: '运营风险',
+            label: '运营风险',
             explanation: '啊啊啊',
             pid: 111,
-            levelName: '全部风险/运营风险',
+            levellabel: '全部风险/运营风险',
           },
         },
         {
@@ -52,10 +52,10 @@ export default {
             updatedTime: '2023-05-22T12:38:35.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '全部风险1',
+            label: '全部风险1',
             explanation: 'a',
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1',
+            levellabel: '全部风险/运营风险/全部风险1',
           },
         },
         {
@@ -65,10 +65,10 @@ export default {
             updatedTime: '2023-05-22T12:38:35.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '全部风险1',
+            label: '全部风险1',
             explanation: 'a',
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1',
+            levellabel: '全部风险/运营风险/全部风险1',
           },
         },
         {
@@ -78,10 +78,10 @@ export default {
             updatedTime: '2023-05-22T12:38:35.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '全部风险1',
+            label: '全部风险1',
             explanation: 'a',
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1',
+            levellabel: '全部风险/运营风险/全部风险1',
           },
         },
         {
@@ -91,10 +91,10 @@ export default {
             updatedTime: '2023-05-22T12:38:35.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '全部风险1',
+            label: '全部风险1',
             explanation: 'a',
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1',
+            levellabel: '全部风险/运营风险/全部风险1',
           },
         },
         {
@@ -104,10 +104,10 @@ export default {
             updatedTime: '2023-05-22T12:38:35.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '全部风险111',
+            label: '全部风险111',
             explanation: 'a',
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1',
+            levellabel: '全部风险/运营风险/全部风险1',
           },
         },
         {
@@ -117,10 +117,10 @@ export default {
             updatedTime: '2023-05-22T12:38:35.000Z',
             createdBy: '奇欣欣',
             updatedBy: null,
-            name: '全部风险111',
+            label: '全部风险111',
             explanation: 'a',
             pid: 112,
-            levelName: '全部风险/运营风险/全部风险1',
+            levellabel: '全部风险/运营风险/全部风险1',
           },
         },
         {
@@ -130,10 +130,10 @@ export default {
             updatedTime: '2023-05-22T15:06:19.000Z',
             createdBy: '奇欣欣',
             updatedBy: '奇欣欣',
-            name: '222',
+            label: '222',
             explanation: null,
             pid: 2616454501036544,
-            levelName: '全部风险/运营风险/全部风险1/222',
+            levellabel: '全部风险/运营风险/全部风险1/222',
           },
         },
         {
@@ -517,5 +517,4 @@ export default {
   },
 };
 </script>
-
 ```

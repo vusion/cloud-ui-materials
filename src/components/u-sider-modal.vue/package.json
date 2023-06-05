@@ -40,16 +40,17 @@
   "dependencies": {},
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
-    "vue-cli-plugin-vusion": "^0.13.3",
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.11.20"
+    "vue-cli-plugin-vusion": "^0.13.3",
+    "vue-loader": "~15.9.8"
   },
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "vue-cli-plugin-vusion": "^0.13.3",
+    "cloud-ui.vusion": "^0.11.20",
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.11.20"
+    "vue-cli-plugin-vusion": "^0.14.4"
   },
   "vetur": {
     "tags": "./vetur/tags.json",

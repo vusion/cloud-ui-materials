@@ -1,66 +1,34 @@
 <template>
   <div>
-    <LcapTreeDiagram
-      v-if="false"
-      :data="fakeData"
-      :horizontal="horizontal"
-      :collapsable="collapsable"
-      :label-class-name="labelClassName"
-      :render-content="renderContent"
-      :showChildDotNum="showChildDotNum"
-      selected-key="selectedKey"
-      :textField="textField"
-      :isDesingerEnv="$env.VUE_APP_DESIGNER"
-      @on-expand="onExpand"
-      @on-node-click="onNodeClick"
-      @on-node-toggle="onTogglePop"
-    >
+    <LcapTreeDiagram v-if="$env.VUE_APP_DESIGNER || env" :data="fakeData" :horizontal="horizontal" :collapsable="collapsable" :label-class-name="labelClassName" :render-content="renderContent" :showChildDotNum="showChildDotNum"
+      selected-key="selectedKey" :textField="textField" :isDesingerEnv="$env.VUE_APP_DESIGNER" @on-expand="onExpand" @on-node-click="onNodeClick" @on-node-toggle="onTogglePop">
+      <template #default="scope">
+        <slot :item="scope.item"></slot>
+        <s-empty v-if="$env.VUE_APP_DESIGNER
+                && $scopedSlots
+                &&!($scopedSlots.default && $scopedSlots.default({
+                    ...scope,
+                }))
+                && !!$attrs['vusion-node-path']"></s-empty>
+      </template>
     </LcapTreeDiagram>
-    <LcapTreeDiagram
-      v-else 
-      v-for="item in dataFromDataSource"
-      :key="item.id"
-      :data="item"
-      :horizontal="horizontal"
-      :collapsable="collapsable"
-      :label-class-name="labelClassName"
-      :render-content="renderContent"
-      :showChildDotNum="showChildDotNum"
-      selected-key="selectedKey"
-      :textField="textField"
-      :isDesingerEnv="$env.VUE_APP_DESIGNER"
-      @on-expand.stop="onExpand"
-      @on-node-click="onNodeClick"
-      @on-click="click"
-      @on-node-toggle="onTogglePop"
-    >
+    <LcapTreeDiagram v-else v-for="item in dataFromDataSource" :key="item.id" :data="item" :horizontal="horizontal" :collapsable="collapsable" :label-class-name="labelClassName" :render-content="renderContent"
+      :showChildDotNum="showChildDotNum" selected-key="selectedKey" :textField="textField" :isDesingerEnv="$env.VUE_APP_DESIGNER" @on-expand.stop="onExpand" @on-node-click="onNodeClick" @on-click="click" @on-node-toggle="onTogglePop">
+      <template #default="scope">
+        <slot :item="scope.item"></slot>
+        <s-empty v-if="$env.VUE_APP_DESIGNER
+                && $scopedSlots
+                &&!($scopedSlots.default && $scopedSlots.default({
+                    ...scope,
+                }))
+                && !!$attrs['vusion-node-path']"></s-empty>
+      </template>
     </LcapTreeDiagram>
-    <m-popper
-      v-if="referenceEl"
-      class="popper"
-      ref="popper"
-      :append-to="appendTo"
-      :disabled="disabled || readonly"
-      :placement="placement"
-      @toggle="onToggle($event)"
-      @close="onPopperClose"
-      :reference="referenceEl"
-      trigger="manual"
-      :opened="showPopper"
-      style="--popper-box-shadow: none"
-    >
-      <div
-        :class="$style.popcontent"
-        @click.stop
-      >
-        <div
-          :class="[$style.edit]"
-          @click.stop="onEdit"
-        >编辑</div>
-        <div
-          :class="[$style.delete]"
-          @click.stop="onDelete"
-        >删除</div>
+    <m-popper v-if="referenceEl" class="popper" ref="popper" :append-to="appendTo" :disabled="disabled || readonly" :placement="placement" @toggle="onToggle($event)" @close="onPopperClose" :reference="referenceEl" trigger="manual"
+      :opened="showPopper" style="--popper-box-shadow: none">
+      <div :class="$style.popcontent" @click.stop>
+        <div :class="[$style.edit]" @click.stop="onEdit">编辑</div>
+        <div :class="[$style.delete]" @click.stop="onDelete">删除</div>
         <div :class="$style['recent-edit']">最近编辑 </div>
         <div :class="$style.info"><span>{{ updateTime }}</span> <span>{{updateBy}}</span></div>
       </div>
@@ -169,7 +137,7 @@ export default {
       },
       updateBy: '轻舟',
       updateTime: '',
-       dataFromDataSource: []
+      dataFromDataSource: []
 
     };
   },
