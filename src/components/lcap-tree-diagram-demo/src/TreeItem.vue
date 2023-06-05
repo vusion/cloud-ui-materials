@@ -43,11 +43,8 @@
   </div>
 </template>
 <script>
-
 import SEmpty from './s-empty/index';
-import {
-  dataOpened,
-} from './const';
+import { dataOpened } from './const';
 import { resetTree, updatePartTree, isOpened } from './util';
 import { get } from 'lodash';
 

@@ -19,13 +19,13 @@
     - name: value-field
       title: 值字段
       type: string
-      default: value
+      default: id
       description: 用户标识选中值的属性
       group: 数据属性
     - name: text-field
       title: 文本字段
       type: string
-      default: text
+      default: label
       description: 用于显示文本的字段名
       group: 数据属性
     - name: parent-field

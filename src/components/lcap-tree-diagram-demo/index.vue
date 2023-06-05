@@ -43,9 +43,11 @@ import SEmpty from './src/s-empty/index';
 import deepClone from 'lodash/cloneDeep';
 import { get, set } from 'lodash';
 import { addTreeLevel, normalizeDataSource } from '../../utils';
+import SupportDataSource  from '../../mixins/support.datasource.js';
 
 export default {
   name: 'LcapTreeDiagramDemo',
+  mixins: [SupportDataSource],
   components: {
     TreeItem,
     SEmpty,
@@ -120,18 +122,15 @@ export default {
     };
   },
   watch: {
-    dataSource: {
+    'currentDataSource.data': {
       async handler(val) {
-        let dataFromDataSource = await this.handleDataSource(
-          normalizeDataSource(val).data,
-        );
+        let dataFromDataSource = await this.handleDataSource(val);
         if (this.$env.VUE_APP_DESIGNER) {
           this.dataFromDataSource = this.fakeData;
         } else {
           this.dataFromDataSource = dataFromDataSource;
         }
       },
-      immediate: true,
     },
   },
   computed: {
@@ -190,8 +189,12 @@ export default {
       });
       return addTreeLevel(temp);
     },
-    async reload() {
-      this.dataFromDataSource = await this.handleDataSource(this.dataSource);
+    reload() {
+      this.handleData();
+      if (this.currentDataSource?.load) {
+        this.load();
+      }
+      // this.dataFromDataSource = await this.handleDataSource(this.dataSource);
     },
     onEdit() {
       this.showPopper = false;
@@ -282,7 +285,7 @@ export default {
 
 .edit:hover,
 .delete:hover {
-  background: var(--tree-diagram-main-color);
+  background: #f8f8f8;
   border-radius: 6px;
   width: 100%;
   height: 30px;

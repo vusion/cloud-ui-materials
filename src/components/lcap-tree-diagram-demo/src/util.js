@@ -42,7 +42,7 @@ export function resetTree(rootTreeNode, $style) {
 function _resetTree(rootTreeNode) {
     const allLevelParentEles = getAllLevelParentEles(rootTreeNode);
     allLevelParentEles.forEach((item) => {
-    // 如果当前层只有一个元素（或是只有一个展开可见的元素），说明不需要对齐，也就不需要专门计算位置了
+        // 如果当前层只有一个元素（或是只有一个展开可见的元素），说明不需要对齐，也就不需要专门计算位置了
         if (item.length > 1) {
             computedParentElesPosition(item);
         }
@@ -198,15 +198,14 @@ function computedConnectVLine(
     const firstNodeEleRect = firstNodeEle.getBoundingClientRect();
     const lastNodeEleRect = lastNodeEle.getBoundingClientRect();
     // 根据第一个子节点和最后一个子节点的位置和尺寸关系，计算出 connectLineEle 的位置和高度
-    connectLineEle.style.transform = `translateY(${
-        firstNodeEleRect.height / 2 + firstNodeEle.offsetTop
+    connectLineEle.style.transform = `translateY(${firstNodeEleRect.height / 2 + firstNodeEle.offsetTop
     }px)`;
     connectLineEle.style.height
-    = lastNodeEleRect.bottom
-    - firstNodeEleRect.top
-    - firstNodeEleRect.height / 2
-    - lastNodeEleRect.height / 2
-    + 'px';
+		= lastNodeEleRect.bottom
+		- firstNodeEleRect.top
+		- firstNodeEleRect.height / 2
+		- lastNodeEleRect.height / 2
+		+ 'px';
 }
 /**
  * 更新当前层所有 .treeParentClassName 元素的位置
@@ -288,7 +287,7 @@ function updateConnectVLine(treeNode) {
             item.firstTreeNodeEle,
             item.lastTreeNodeEle,
             item.connectLineEle,
-        ),);
+        ));
 }
 /**
  * 更新 siblingsTreeNodes
@@ -298,9 +297,9 @@ function updateConnectVLine(treeNode) {
 function pushSiblingsTreeNodes(currentTreeNode, siblingsTreeNodes) {
     const siblings = getSiblings(currentTreeNode);
     if (siblings.length > 1) {
-    // 如果兄弟节点数量大于 1，那么说明这个 treeNode 字节点肯定存在同为 treeNode的兄弟节点，也肯定存在竖向连接线节点
-    // 其父节点下的第一个节点肯定是竖向连接线节点
-    // 0 是 竖向连接线， 1 才是第一个 treeNode
+        // 如果兄弟节点数量大于 1，那么说明这个 treeNode 字节点肯定存在同为 treeNode的兄弟节点，也肯定存在竖向连接线节点
+        // 其父节点下的第一个节点肯定是竖向连接线节点
+        // 0 是 竖向连接线， 1 才是第一个 treeNode
         siblingsTreeNodes.push({
             firstTreeNodeEle: siblings[1],
             lastTreeNodeEle: siblings[siblings.length - 1],
@@ -335,10 +334,10 @@ function getSiblings(ele) {
  */
 function getHighTreeNode(treeNode) {
     const highTreeNode
-    = treeNode.parentElement && treeNode.parentElement.parentElement;
+		= treeNode.parentElement && treeNode.parentElement.parentElement;
     if (
         highTreeNode
-    && highTreeNode.className.indexOf(treeNodeClassName) !== -1
+		&& highTreeNode.className.indexOf(treeNodeClassName) !== -1
     ) {
         return highTreeNode;
     }
@@ -367,8 +366,8 @@ function isFirstTreeNode(treeNode) {
     // 都认为是第一个 treeNode 节点
     return (
         !prevTreeNode
-    || (prevTreeNode
-      && prevTreeNode.className.indexOf(connectLineClassName) !== -1)
+		|| (prevTreeNode
+			&& prevTreeNode.className.indexOf(connectLineClassName) !== -1)
     );
 }
 
