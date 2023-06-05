@@ -21,6 +21,7 @@
       type: string
       default: id
       description: 用户标识选中值的属性
+      display: property-select
       group: 数据属性
     - name: text-field
       title: 文本字段
