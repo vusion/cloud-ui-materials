@@ -41,10 +41,10 @@
       description: 集合的元素类型中，用于标识父节点的属性
       group: 数据属性
     - name: show-text-ellipsis
-      title: 文字超出6个后多余的文字用省略号展示
+      title: 文本展示
       type: boolean
       default: false
-      description: 默认关闭
+      description: 文字超出6个后多余的文字用省略号展示
       group: 数据属性  
   slots:
     - concept: Slot

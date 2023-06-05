@@ -98,17 +98,17 @@ export default {
         },
         {
           id: 16,
-          label: '主题主题主题主题16',
+          label: '主题题主题16',
           pid: 1,
         },
         {
           id: 17,
-          label: '主题主题主题主题17',
+          label: '主题主题主题17',
           pid: 1,
         },
         {
           id: 18,
-          label: '主题主题主题主题18',
+          label: '主题主题主18',
           pid: 1,
         },
         {
@@ -118,7 +118,7 @@ export default {
         },
         {
           id: 20,
-          label: '主题主题主题主题20',
+          label: '主题主题20',
           pid: 1,
         },
       ]

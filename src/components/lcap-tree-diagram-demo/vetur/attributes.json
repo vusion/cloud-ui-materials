@@ -25,6 +25,6 @@
   },
   "lcap-tree-diagram-demo/show-text-ellipsis": {
     "type": "boolean",
-    "description": "默认关闭"
+    "description": "文字超出6个后多余的文字用省略号展示"
   }
 }
