@@ -3,10 +3,10 @@
 ```vue
 <template>
   <lcap-tree-diagram-demo
-    :data-source="demo"
-    value-field="tree.sid"
-    parent-field="tree.pid"
-    text-field="tree.label"
+    :data-source="list"
+    value-field="id"
+    parent-field="pid"
+    text-field="label"
     @click="click"
     @onDelete="onDelete"
     ref="node"

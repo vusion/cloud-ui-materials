@@ -11,9 +11,9 @@
     - [Events](#events)
     - [Methods](#methods)
 
-**Other**
+**Form**
 
-请在这里添加描述
+树状结构图demo
 
 ## 示例
 ### 基本用法
@@ -277,7 +277,7 @@ export default {
 | value-field | string |  | `'id'` | 用户标识选中值的属性 |
 | text-field | string |  | `'label'` | 用于显示文本的字段名 |
 | parent-field | string |  | `'parentId'` | 集合的元素类型中，用于标识父节点的属性 |
-| show-text-ellipsis | boolean |  | `false` | 文字超出6个后多余的文字用省略号展示 |
+| show-text-ellipsis | boolean |  | `true` | 文字超出6个后多余的文字用省略号展示 |
 
 ### Slots
 

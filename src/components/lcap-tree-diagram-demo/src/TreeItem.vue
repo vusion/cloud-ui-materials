@@ -1,13 +1,33 @@
 <template>
   <!-- data-opened， 0(opened) 表示没被展开过，1(noOpened) 代表已经被展开过了（或者没有子元素所以没有展开不展开的概念，直接认为是1） -->
-  <div :class="$style['tree-node']" ref="treeNodeRef" :data-opened="dataOpened.noOpened">
+  <div
+    :class="$style['tree-node']"
+    ref="treeNodeRef"
+    :data-opened="dataOpened.noOpened"
+  >
     <div :class="$style['tree-parent']">
       <div :class="$style['stretch-node-r']" v-if="!isRoot">
         <p :class="$style['line-right']"></p>
       </div>
       <div :class="$style['node-content']" @click="onLabelClick">
-        <div :class="[$style['node-label-inner'], treeNodeData.curIndex >= 3 ? $style['node-label-inner-more'] : treeNodeData.curIndex == 2 ? $style['node-label-inner-second'] : '']">
-          <p :class="[$style['node-label'], showTextEllipsis && labelLen > 12 ? $style['node-ellipisis'] : '']">{{ label }}</p>
+        <div
+          :class="[
+            $style['node-label-inner'],
+            treeNodeData.curIndex >= 3
+              ? $style['node-label-inner-more']
+              : treeNodeData.curIndex == 2
+              ? $style['node-label-inner-second']
+              : '',
+          ]"
+        >
+          <p
+            :class="[
+              $style['node-label'],
+              showTextEllipsis && labelLen > 12 ? $style['node-ellipisis'] : '',
+            ]"
+          >
+            {{ label }}
+          </p>
         </div>
         <div :class="$style['node-slot']" vusion-slot-name="dialog">
           <slot name="dialog" :item="treeNodeData.data"></slot>
@@ -19,11 +39,21 @@
     <div :class="$style['stretch-node']" v-if="childrenLen">
       <p :class="$style['line-left']"></p>
       <p :class="$style['line-dot']" @click="changeOpen">
-        <span :class="[$style['node-btn'], treeNodeData.expand ? $style.expanded : '']" :dot-num="showChildDotNum ? `+${treeNodeData.children.length}` : '+'"></span>
+        <span
+          :class="[
+            $style['node-btn'],
+            treeNodeData.expand ? $style.expanded : '',
+          ]"
+          :dot-num="showChildDotNum ? `+${treeNodeData.children.length}` : '+'"
+        ></span>
       </p>
     </div>
 
-    <div :class="$style['tree-children']" v-if="childrenLen && openedChildren" v-show="treeNodeData.expand">
+    <div
+      :class="$style['tree-children']"
+      v-if="childrenLen && openedChildren"
+      v-show="treeNodeData.expand"
+    >
       <p :class="$style['connect-line']" v-if="childrenLen > 1"></p>
       <TreeItem
         v-for="(item, treeNodeIndex) in treeNodeData.children"
@@ -33,7 +63,8 @@
         :textField="textField"
         :showChildDotNum="showChildDotNum"
         :showTextEllipsis="showTextEllipsis"
-        @on-click="click">
+        @on-click="click"
+      >
         <!-- <template #dialog="dialog">
           <s-empty v-if="!$slots.dialog && $env.VUE_APP_DESIGNER"></s-empty>
           <slot v-else name="dialog" :item="dialog"></slot>
@@ -69,7 +100,7 @@ export default {
       type: String,
     },
     showChildDotNum: {
-      type: Boolean
+      type: Boolean,
     },
     showTextEllipsis: { type: Boolean },
   },
@@ -77,7 +108,7 @@ export default {
     return {
       // treeNode 节点是否已经被展开的 data- 标识
       dataOpened,
-      labelLen: 0
+      labelLen: 0,
     };
   },
   computed: {
@@ -98,19 +129,19 @@ export default {
   watch: {
     label: {
       handler(val) {
-        const  getLength = (str) => {
+        const getLength = (str) => {
           if (!str) {
             return 0;
           }
           // 将中文字符替换成两个英文字符
-          str = str.replace(/[\u4e00-\u9fa5]/g, "aa");
+          str = str.replace(/[\u4e00-\u9fa5]/g, 'aa');
           // 计算字符串的长度
           return str.length;
-        }
+        };
         this.labelLen = getLength(val);
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   mounted() {
     if (this.isRoot) {
@@ -119,7 +150,7 @@ export default {
   },
   methods: {
     onLabelClick($events) {
-      this.$emit('on-click', $events, this.treeNodeData)
+      this.$emit('on-click', $events, this.treeNodeData);
     },
     changeOpen() {
       this.treeNodeData.expand = !this.treeNodeData.expand;
@@ -127,11 +158,11 @@ export default {
     },
     click(e, data) {
       this.$emit('on-click', e, data);
-    }
+    },
   },
 };
 </script>
 
 <style module>
-@import "./index.module.css";
+@import './index.module.css';
 </style>

@@ -1,21 +1,21 @@
 {
     "symbol": "lcap-tree-diagram-demo",
     "name": "树状结构图demo",
-    "version": "0.1.6",
-    "icon": "default",
+    "version": "0.1.7",
+    "icon": "tree-diagram",
     "repoAddr": "",
     "depDescription": {},
-    "description": "请在这里添加描述",
+    "description": "树状结构图demo",
     "labels": [
-        "Other"
+        "Form"
     ],
     "screenShot": "",
     "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-tree-diagram-demo></lcap-tree-diagram-demo>\\n</template>\\n\"}]",
     "jsonSchema": {
         "name": "lcap-tree-diagram-demo",
         "title": "树状结构图demo",
-        "description": "请在这里添加描述",
-        "category": "Other",
+        "description": "树状结构图demo",
+        "category": "Form",
         "screenShot": "",
         "drawings": "",
         "blocks": [
@@ -56,6 +56,7 @@
                 "type": "string",
                 "default": "id",
                 "description": "用户标识选中值的属性",
+                "display": "property-select",
                 "group": "数据属性"
             },
             {
@@ -64,6 +65,7 @@
                 "type": "string",
                 "default": "label",
                 "description": "用于显示文本的字段名",
+                "display": "property-select",
                 "group": "数据属性"
             },
             {
@@ -72,13 +74,14 @@
                 "type": "string",
                 "default": "parentId",
                 "description": "集合的元素类型中，用于标识父节点的属性",
+                "display": "property-select",
                 "group": "数据属性"
             },
             {
                 "name": "show-text-ellipsis",
                 "title": "文本展示",
                 "type": "boolean",
-                "default": false,
+                "default": true,
                 "description": "文字超出6个后多余的文字用省略号展示",
                 "group": "数据属性"
             }

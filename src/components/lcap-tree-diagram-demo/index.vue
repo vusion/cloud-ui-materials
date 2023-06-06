@@ -44,8 +44,7 @@
 <script>
 import TreeItem from './src/index';
 import SEmpty from './src/s-empty/index';
-import deepClone from 'lodash/cloneDeep';
-import { get, set } from 'lodash';
+import { get, set, cloneDeep } from 'lodash';
 import { addTreeLevel } from '../../utils';
 import SupportDataSource from '../../mixins/support.datasource.js';
 import { fakeData } from './fakeData.js';
@@ -148,7 +147,7 @@ export default {
       return tree;
     },
     async handleDataSource(val) {
-      const temp = await this.listToTree(deepClone(val), {
+      const temp = await this.listToTree(cloneDeep(val), {
         parentField: this.parentField,
         valueField: this.valueField,
         childrenField: 'children',
