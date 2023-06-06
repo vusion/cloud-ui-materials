@@ -155,12 +155,12 @@ export default {
       });
       return addTreeLevel(temp);
     },
-    reload() {
-      this.handleData();
+    async reload() {
       if (this.currentDataSource?.load) {
         this.load();
       }
       // this.dataFromDataSource = await this.handleDataSource(this.dataSource);
+      console.log(this.dataSource, this.dataFromDataSource);
     },
     onEdit() {
       this.showPopper = false;

@@ -178,6 +178,8 @@ export default {
     value-field="category.id"
     parent-field="category.pid"
     text-field="category.label"
+    @onDelete="onDelete"
+    ref="node"
   >
   </lcap-tree-diagram-demo>
 </template>
@@ -236,6 +238,9 @@ export default {
   methods: {
     load() {
       return mockService.load();
+    },
+    onDelete(e) {
+      this.$refs.node.reload();
     },
     click(e) {},
   },
