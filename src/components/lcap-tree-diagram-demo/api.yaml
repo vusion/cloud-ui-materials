@@ -1,15 +1,16 @@
 - name: lcap-tree-diagram-demo
   title: 树状结构图demo
-  description: 请在这里添加描述
-  labels: [Other]
-  icon: default
+  description: 树状结构图demo
+  icon: tree-diagram
+  labels:
+    - Form
   attrs:
     - name: show-child-dot-num
       title: 子节点收起显示子节点总数
       type: boolean
       default: true
       description: 默认开启；开启后显示其子节点的全部数量
-      group: 数据属性  
+      group: 数据属性
     - name: data-source
       title: 数据源
       type: Array<Item> | Function | object | DataSource
@@ -27,25 +28,28 @@
       type: string
       default: id
       description: 用户标识选中值的属性
+      display: property-select
       group: 数据属性
     - name: text-field
       title: 文本字段
       type: string
       default: label
       description: 用于显示文本的字段名
+      display: property-select
       group: 数据属性
     - name: parent-field
       title: 父级选项值
       type: string
       default: parentId
       description: 集合的元素类型中，用于标识父节点的属性
+      display: property-select
       group: 数据属性
     - name: show-text-ellipsis
       title: 文本展示
       type: boolean
-      default: false
+      default: true
       description: 文字超出6个后多余的文字用省略号展示
-      group: 数据属性  
+      group: 数据属性
   slots:
     - concept: Slot
       name: dialog

@@ -159,8 +159,6 @@ export default {
       if (this.currentDataSource?.load) {
         this.load();
       }
-      // this.dataFromDataSource = await this.handleDataSource(this.dataSource);
-      console.log(this.dataSource, this.dataFromDataSource);
     },
     onEdit() {
       this.showPopper = false;
