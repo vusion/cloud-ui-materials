@@ -27,7 +27,7 @@ import {locale} from "@/locale";
 import {basicConfig, initialData, ganttPlugins} from "@/ganttConfig";
 import supportDataSource from "@/mixins/support.datasource";
 import _ from 'lodash';
-
+import moment from 'moment';
 
 export default {
   name: 'lcap-gantt',
@@ -44,7 +44,7 @@ export default {
     linkSource: [Function, Array, Object],
     showToday: {type: Boolean, default: true},
     taskView: {type: String, default: 'd'},
-    ganttTableConfig: {type: String, default: '{}'},
+    ganttTableConfig: [Function, Array, Object],
     startDateField: {type: String, default: ''},
     endDateField: {type: String, default: ''},
     parentField: {type: String, default: ''},
@@ -54,13 +54,13 @@ export default {
     this.$nextTick(() => {
       this.initGantt();
       // console.log(_.at({ 'a': [{ 'b': { 'c': 3 } }, 4] }, 'a[0].b.c'));
-      // this.ganttChangeEvent();//交互事件
+      this.ganttChangeEvent();//交互事件
     });
   },
   computed: {
     changedObj() {
-      let {dataSource, linkSource} = this;
-      return {dataSource, linkSource};
+      let {dataSource, linkSource, ganttTableConfig} = this;
+      return {dataSource, linkSource, ganttTableConfig};
     },
   },
   watch: {
@@ -68,7 +68,7 @@ export default {
       handler() {
         this.$nextTick(() => {
           this.initGantt();
-          // this.ganttChangeEvent();//交互事件
+          this.ganttChangeEvent();//交互事件
         });
       },
       deep: true,
@@ -260,9 +260,18 @@ export default {
       });
     },
     parseIDETableConfig(config) {
-      let configList = JSON.parse(config);
-      console.log(configList);
-
+      let tableConfig = [];
+      config.map(item => {
+        let obj = {
+          name: item.nameField,
+          label: item.labelField,
+          resize: true,
+          align: "center",
+        };
+        tableConfig.push(obj);
+      });
+      console.log(tableConfig);
+      gantt.config.columns = tableConfig;
     }
   }
 };

@@ -10,6 +10,9 @@
             :link-source="[
         { id: 2, source: 2, target: 3, type: '0' },
         { id: 3, source: 3, target: 4, type: '0' },
-    ]">
+    ]"
+            :ganttTableConfig="[{'labelField':'项目名称','iconField':'icon','showIcon':false,'nameField':'text'},{'labelField':'负责人','iconField':'icon','showIcon':false,'nameField':'head'}]"
+            parent-field="parent"
+>
 </lcap-gantt>
 ```
