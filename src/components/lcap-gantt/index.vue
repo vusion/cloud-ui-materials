@@ -46,7 +46,9 @@ export default {
     taskView: {type: String, default: 'd'},
     ganttTableConfig: [Function, Array, Object],
     startDateField: {type: String, default: ''},
+    durationField: {type: String, default: ''},
     endDateField: {type: String, default: ''},
+    idField: {type: String, default: ''},
     parentField: {type: String, default: ''},
   },
   mixins: [supportDataSource],
@@ -129,9 +131,12 @@ export default {
       this.highlightWeekend();
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
+      let ganttFinalDataSources = this.innerDataSource || initialData.data;
+      ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
+      console.log('after', ganttFinalDataSources)
       gantt.parse({
-        data: this.innerDataSource || initialData.data,
-        links: this.innerLinkSource || initialData.links,
+        data: ganttFinalDataSources,
+        // links: this.innerLinkSource || initialData.links,
       });
     },
     highlightWeekend() {
@@ -158,12 +163,15 @@ export default {
     changeToday() {
       this.$nextTick(() => {
         let ganTT = document.getElementsByClassName('gantt_marker today')
-        gantt.scrollTo(ganTT[0].offsetLeft - 300, null);
+        if (ganTT.length > 0) {
+          gantt.scrollTo(ganTT[0].offsetLeft - 300, null);
+        } else {
+          console.log('图上未显示今日标记线');
+        }
       })
     },
     changeTaskColor() {
       gantt.templates.task_class = function (start, end, task) {
-        console.log(task);
         // task.state值为default/unfinished/finished/canceled其中一种
         return `milestone-${task.state}`;
       }
@@ -260,6 +268,7 @@ export default {
       });
     },
     parseIDETableConfig(config) {
+      if (!config) return;
       let tableConfig = [];
       config.map(item => {
         let obj = {
@@ -267,11 +276,59 @@ export default {
           label: item.labelField,
           resize: true,
           align: "center",
+          tree: true,
         };
         tableConfig.push(obj);
       });
       console.log(tableConfig);
       gantt.config.columns = tableConfig;
+    },
+    changeObjKey(obj, oldKey, newKey) {
+      if (oldKey === newKey) return;
+      if (obj.hasOwnProperty(oldKey)) {
+        obj[newKey] = obj[oldKey];
+        delete obj[oldKey];
+      }
+    },
+    extractEntityName(list) {
+      if (list?.length === 0 || !list) {
+        return ''
+      }
+      const field = list[0]?.nameField;
+      if (field && field.indexOf('.') !== -1) {
+        return field.split('.')[0];
+      } else {
+        return ''
+      }
+    },
+    extractEntityField(string) {
+      if (string.indexOf('.') !== -1) {
+        const len = string.split('.').length;
+        return string.split('.')[len - 1];
+      } else {
+        return string
+      }
+    },
+    flatList(list, entityName) {
+      if (entityName?.length === 0) {
+        return list
+      }
+      let res = [];
+      for (let i = 0; i < list.length; i++) {
+        res.push(list[i][entityName])
+      }
+      return res;
+    },
+    normalizeGanttData(ganttFinalDataSources) {
+      const entityName = this.extractEntityName(this.ganttTableConfig);
+      ganttFinalDataSources = this.flatList(ganttFinalDataSources, entityName);
+      ganttFinalDataSources.map((obj)=>{
+        this.changeObjKey(obj, this.extractEntityField(this.startDateField), 'start_date');
+        this.changeObjKey(obj, this.extractEntityField(this.durationField), 'duration');
+        this.changeObjKey(obj, this.extractEntityField(this.idField), 'id');
+        this.changeObjKey(obj, this.extractEntityField(this.parentField), 'parent');
+      })
+      return ganttFinalDataSources
     }
   }
 };

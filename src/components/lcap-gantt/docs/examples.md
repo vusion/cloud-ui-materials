@@ -13,6 +13,9 @@
     ]"
             :ganttTableConfig="[{'labelField':'项目名称','iconField':'icon','showIcon':false,'nameField':'text'},{'labelField':'负责人','iconField':'icon','showIcon':false,'nameField':'head'}]"
             parent-field="parent"
+            start-date-field="start"
+            duration-field="duration"
+            id-field="id"
 >
 </lcap-gantt>
 ```

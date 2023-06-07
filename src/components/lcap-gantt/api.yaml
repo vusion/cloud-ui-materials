@@ -28,6 +28,18 @@
       default: ''
       description: 设置结束日期字段
       group: 数据属性
+    - name: duration-field
+      title: 持续时间字段
+      type: string
+      default: ''
+      description: 设置持续时间字段
+      group: 数据属性
+    - name: id-field
+      title: id字段
+      type: string
+      default: ''
+      description: 设置id字段
+      group: 数据属性
     - name: parent-field
       title: 父级字段
       type: string
