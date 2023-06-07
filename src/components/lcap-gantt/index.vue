@@ -37,6 +37,7 @@ export default {
       ganttInstance: null,
       searchTitle: '',
       ganttEvent: {},
+      entityName: '',
     };
   },
   props: {
@@ -74,6 +75,7 @@ export default {
         });
       },
       deep: true,
+      immediate: true,
     },
     taskView: {
       handler() {
@@ -218,15 +220,24 @@ export default {
         };
         // 浮窗
         gantt.templates.tooltip_text = (start, end, task) => {
-          return "<b>项目名称:</b> " + task.text + "<br><b>负责人:</b>" + task.head + "<br/><b>开始时间:</b> "
+          let template = "";
+          for (let item of this.ganttTableConfig) {
+            const startField = this.extractEntityField(item?.nameField);
+            if (item.showTooltip && startField !== this.startDateField) {
+              template += `<b>${item.labelField}:</b> ${task[item.nameField]}<br/>`;
+            }
+          }
+          template += "<b>开始时间:</b> "
             + moment(start).format('YYYY-MM-DD')
             + "<br/><b>结束时间:</b> "
             + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
+          return template;
         }
         //弹窗标题 计划名称
         gantt.templates.task_text = function (start, end, task) {
           return task.text;
         };
+
         gantt.templates.timeline_cell_class = function (task, date) {
           if (!gantt.isWorkTime({task: task, date: date})) {
             return "weekend";
@@ -235,13 +246,13 @@ export default {
           }
         };
         gantt.templates.task_end_date = (date) => {
-          return gantt.templates.task_date(this.moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD"));
+          return gantt.templates.task_date(moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD"));
         };
         gantt.templates.grid_date_format = (date, column) => {
           if (column === "end_date") {
-            return this.moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD");
-          } else {
-            return this.moment(date).format("YYYY-MM-DD");
+            return moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD");
+          } else if (column === "start_date") {
+            return moment(date).format("YYYY-MM-DD");
           }
         }
       });
@@ -271,16 +282,27 @@ export default {
       if (!config) return;
       let tableConfig = [];
       config.map(item => {
-        let obj = {
-          name: item.nameField,
+        let obj = {};
+        const startField = this.extractEntityField(item?.nameField);
+        if (startField === this.startDateField) {
+          obj = {
+            name: 'start_date',
+            template: function (task) {
+              return moment(task.start_date).format("YYYY-MM-DD")
+            },
+          };
+        } else {
+          obj = {name: item.nameField};
+        }
+        obj = Object.assign(obj, {
           label: item.labelField,
           resize: true,
           align: "center",
           tree: true,
-        };
+        });
         tableConfig.push(obj);
       });
-      console.log(tableConfig);
+      console.log('tableConfig', tableConfig);
       gantt.config.columns = tableConfig;
     },
     changeObjKey(obj, oldKey, newKey) {
@@ -321,8 +343,9 @@ export default {
     },
     normalizeGanttData(ganttFinalDataSources) {
       const entityName = this.extractEntityName(this.ganttTableConfig);
+      this.entityName = entityName;
       ganttFinalDataSources = this.flatList(ganttFinalDataSources, entityName);
-      ganttFinalDataSources.map((obj)=>{
+      ganttFinalDataSources.map((obj) => {
         this.changeObjKey(obj, this.extractEntityField(this.startDateField), 'start_date');
         this.changeObjKey(obj, this.extractEntityField(this.durationField), 'duration');
         this.changeObjKey(obj, this.extractEntityField(this.idField), 'id');
