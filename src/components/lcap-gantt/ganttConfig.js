@@ -35,7 +35,7 @@ export const basicConfig = {
     xml_date: "%Y-%m-%d",
     order_branch: true,
     autofit: true,
-    drag_links: true,//连线
+    drag_links: false,//连线
     readonly: false, //只读
     date_scale: "%m月%d日", //右侧显示列名
     layout: {//拖拽布局
@@ -54,6 +54,7 @@ export const basicConfig = {
     },
     start_on_monday: true,
     work_time: true,
+    resize_rows: true,
     fit_tasks: true,
     lightbox: {
         sections: [
@@ -65,65 +66,6 @@ export const basicConfig = {
             {name: "priority", height: 40, map_to: "priority", type: "radio", options: gantt.serverList("priority")},
         ],
     },
-    columns: [
-        //{ name: "add", width: 44 }
-        {
-            name: "text",
-            min_width: 130,
-            max_width: 200,
-            label: "任务",
-            align: "left",
-            resize: true,
-            tree: true,
-            editor: {type: 'text', map_to: 'text'}
-        },
-        {name: "id", label: "", hide: true},
-        {name: "start_date", label: "开始时间", width: 120, resize: true, align: "left"},
-        {
-            name: "head", width: 110, height: 40, label: "负责人", resize: true, align: "center",
-            // editor: {
-            //      map_to: "head_id", type: "select", options: gantt.serverList("staff"),
-            // },
-            // #这里的template渲染的是任务头像跟名称，this.genttDealById 是在methods定义的方法根据id获取名称，gantt.serverList()是甘特图获取数据集分发
-
-        },
-        // { name: "end_date", label: "结束时间", align: "center" },
-        {
-            name: "taskProgress", label: "任务状态", align: "center", width: 130, editor: {
-                type: "select", map_to: "taskProgress", options: [
-                    // #这里的labels.taskProgress_0属性是自定义汉化属性描述
-                    {key: "0", label: locale.labels.taskProgress_0},
-                    {key: "1", label: locale.labels.taskProgress_1},
-                    {key: "2", label: locale.labels.taskProgress_2},
-                    {key: "3", label: locale.labels.taskProgress_3},
-                    {key: "4", label: locale.labels.taskProgress_4},
-                ],
-            },
-            // #obj形参是单个的tasks.data中的数据
-            template: function (obj) {
-                let re = '';
-                switch (obj.taskProgress) {
-                    case "0":
-                        // #这里的样式类名只能通过css读取，写在less scss无法读取
-                        re = `<div class='taskProgress color_bg_1' >未开始</div>`
-                        break;
-                    case "1":
-                        re = `<div class='taskProgress color_bg_2' >进行中</div>`
-                        break;
-                    case "2":
-                        re = `<div class='taskProgress color_bg_3'  >已完成</div>`
-                        break;
-                    case "3":
-                        re = `<div  class='taskProgress color_bg_4'>已延期</div>`
-                        break;
-                    case "4":
-                        re = `<div  class='taskProgress color_bg_5' >搁置中</div>`
-                        break;
-                }
-                return re
-            }
-        },
-    ],
 };
 
 

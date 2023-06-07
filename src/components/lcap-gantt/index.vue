@@ -135,7 +135,7 @@ export default {
       gantt.init(this.$refs.gantt);
       let ganttFinalDataSources = this.innerDataSource || initialData.data;
       ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
-      console.log('after', ganttFinalDataSources)
+      // console.log('after', ganttFinalDataSources)
       gantt.parse({
         data: ganttFinalDataSources,
         // links: this.innerLinkSource || initialData.links,
@@ -297,6 +297,7 @@ export default {
         obj = Object.assign(obj, {
           label: item.labelField,
           resize: true,
+          width: item.width,
           align: "center",
           tree: true,
         });

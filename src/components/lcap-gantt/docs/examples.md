@@ -12,9 +12,9 @@
         { id: 3, source: 3, target: 4, type: '0' },
     ]"
             :ganttTableConfig="[
-            {'labelField':'项目名称','iconField':'icon','showIcon':false,'nameField':'text', showTooltip: true},
-            {'labelField':'负责人','iconField':'icon','showIcon':false,'nameField':'head', showTooltip: true},
-            {'labelField':'开始日期','iconField':'icon','showIcon':false,'nameField':'start', showTooltip: true}
+            {'labelField':'项目名称','iconField':'icon','showIcon':false,'nameField':'text', showTooltip: true, width: '100'},
+            {'labelField':'负责人','iconField':'icon','showIcon':false,'nameField':'head', showTooltip: true, width: '100'},
+            {'labelField':'开始日期','iconField':'icon','showIcon':false,'nameField':'start', showTooltip: true, width: '150'}
             ]"
             parent-field="parent"
             start-date-field="start"
