@@ -1,5 +1,6 @@
 import {gantt} from 'dhtmlx-gantt';
 import {locale} from "@/locale";
+import moment from "moment";
 
 function ganttDealById(list, id) {
     for (let i = 0; i < list.length; i++) {
@@ -67,6 +68,33 @@ export const basicConfig = {
         ],
     },
 };
+export const basicTemplate = {
+    task_end_date: function (date) {
+        return gantt.templates.task_date(moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD"));
+    },
+    //弹窗标题 日期范围
+    task_time: function (start, end, task) {
+        return "周期：" + moment(start).format('YYYY-MM-DD') + " 至 " + moment(end).format('YYYY-MM-DD');
+    },
+    //弹窗标题 计划名称
+    task_text: function (start, end, task) {
+        return task.text;
+    },
+    timeline_cell_class: function (task, date) {
+        if (!gantt.isWorkTime({task: task, date: date})) {
+            return "weekend";
+        } else {
+            return 'weekday'
+        }
+    },
+    grid_date_format: function (date, column) {
+        if (column === "end_date") {
+            return moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD");
+        } else if (column === "start_date") {
+            return moment(date).format("YYYY-MM-DD");
+        }
+    }
+}
 
 
 

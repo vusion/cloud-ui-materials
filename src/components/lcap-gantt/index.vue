@@ -24,7 +24,7 @@
 import {gantt} from 'dhtmlx-gantt';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css'; // 样式模块
 import {locale} from "@/locale";
-import {basicConfig, initialData, ganttPlugins} from "@/ganttConfig";
+import {basicConfig, initialData, ganttPlugins, basicTemplate} from "@/ganttConfig";
 import supportDataSource from "@/mixins/support.datasource";
 import _ from 'lodash';
 import moment from 'moment';
@@ -112,18 +112,15 @@ export default {
     },
     initGantt() {
       gantt.clearAll();
-      gantt.serverList("priority", [
-        {key: 0, label: "最高"},
-        {key: 1, label: "较高"},
-        {key: 2, label: "普通"},
-        {key: 3, label: "较低"},
-        {key: 4, label: "最低"},
-      ]);
       gantt.locale = locale;
       // 启用动态加载
       gantt.config = {
         ...gantt.config,
         ...basicConfig,
+      };
+      gantt.templates = {
+        ...gantt.templates,
+        ...basicTemplate,
       };
       gantt.plugins(ganttPlugins);
       if (this.showToday) {
@@ -214,11 +211,6 @@ export default {
     ganttChangeEvent() {
       // gantt渲染
       this.ganttEvent.onGanttReady = gantt.attachEvent("onGanttReady", () => {
-        //弹窗标题 日期范围
-        gantt.templates.task_time = function (start, end, task) {
-          return "周期：" + moment(start).format('YYYY-MM-DD') + " 至 " + moment(end).format('YYYY-MM-DD');
-        };
-        // 浮窗
         gantt.templates.tooltip_text = (start, end, task) => {
           let template = "";
           for (let item of this.ganttTableConfig) {
@@ -232,28 +224,6 @@ export default {
             + "<br/><b>结束时间:</b> "
             + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
           return template;
-        }
-        //弹窗标题 计划名称
-        gantt.templates.task_text = function (start, end, task) {
-          return task.text;
-        };
-
-        gantt.templates.timeline_cell_class = function (task, date) {
-          if (!gantt.isWorkTime({task: task, date: date})) {
-            return "weekend";
-          } else {
-            return 'weekday'
-          }
-        };
-        gantt.templates.task_end_date = (date) => {
-          return gantt.templates.task_date(moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD"));
-        };
-        gantt.templates.grid_date_format = (date, column) => {
-          if (column === "end_date") {
-            return moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format("YYYY-MM-DD");
-          } else if (column === "start_date") {
-            return moment(date).format("YYYY-MM-DD");
-          }
         }
       });
       // 修改默认弹窗
