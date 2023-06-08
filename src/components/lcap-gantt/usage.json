@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-gantt",
     "name": "甘特图",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -32,6 +32,70 @@
                 "type": "Array<Item> | Function | object | DataSource",
                 "designer-value": "[{}, {}, {}]",
                 "description": "甘特图的数据源，数据集对象或者返回数据集的逻辑",
+                "group": "数据属性"
+            },
+            {
+                "name": "data-schema",
+                "title": "数据类型",
+                "type": "schema",
+                "description": "集合类型每一元素的数据类型",
+                "group": "数据属性",
+                "compType": "dataTypeSelect"
+            },
+            {
+                "name": "text-field",
+                "title": "文本字段",
+                "type": "string",
+                "default": "",
+                "description": "设置泳道图文本字段",
+                "group": "数据属性"
+            },
+            {
+                "name": "start-field",
+                "title": "开始日期字段",
+                "type": "string",
+                "default": "",
+                "description": "设置泳道图开始日期字段",
+                "group": "数据属性"
+            },
+            {
+                "name": "duration-field",
+                "title": "持续时间字段",
+                "type": "string",
+                "default": "",
+                "description": "设置泳道图持续时间字段",
+                "group": "数据属性"
+            },
+            {
+                "name": "progress-field",
+                "title": "进度字段",
+                "type": "string",
+                "default": "",
+                "description": "设置泳道图进度字段",
+                "group": "数据属性"
+            },
+            {
+                "name": "id-field",
+                "title": "id字段",
+                "type": "string",
+                "default": "",
+                "description": "设置泳道图id字段",
+                "group": "数据属性"
+            },
+            {
+                "name": "parent-field",
+                "title": "父级字段",
+                "type": "string",
+                "default": "",
+                "description": "设置泳道图父级字段",
+                "group": "数据属性"
+            },
+            {
+                "name": "color-field",
+                "title": "数据颜色字段",
+                "type": "string",
+                "default": "",
+                "description": "设置泳道图数据颜色字段",
                 "group": "数据属性"
             },
             {
@@ -74,12 +138,46 @@
                 "default": true,
                 "description": "设置显示今日标记线",
                 "group": "展示属性"
+            },
+            {
+                "name": "skins",
+                "title": "皮肤",
+                "type": "string",
+                "default": "default",
+                "description": "设置甘特图皮肤",
+                "group": "展示属性",
+                "options": [
+                    {
+                        "value": "default",
+                        "title": "默认"
+                    },
+                    {
+                        "value": "skyblue",
+                        "title": "天蓝"
+                    },
+                    {
+                        "value": "meadow",
+                        "title": "草地"
+                    },
+                    {
+                        "value": "broadway",
+                        "title": "百老汇"
+                    }
+                ]
             }
         ],
         "slots": [
             {
                 "name": "default",
                 "description": "插入文本或 HTML。"
+            }
+        ],
+        "methods": [
+            {
+                "name": "changeToday",
+                "title": "定位到今日标记线",
+                "description": "定位到今日标记线",
+                "params": []
             }
         ],
         "events": [

@@ -1,11 +1,11 @@
 {
   "name": "lcap-gantt",
   "description": "",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hadev.163yun.com/lowcode-static/lcap-gantt@0.1.8/index.html",
+  "homepage": "http://ceph.lcap.hadev.163yun.com/lowcode-static/lcap-gantt@0.1.9/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

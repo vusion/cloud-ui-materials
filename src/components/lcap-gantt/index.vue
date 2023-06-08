@@ -13,7 +13,7 @@
           <u-select-item value="w">周</u-select-item>
           <u-select-item value="d">日</u-select-item>
         </u-select>
-        <u-button icon="" v-if="showToday" @click="changeToday">今日</u-button>
+        <u-button icon="" v-if="showToday" @click="changeToday">今天</u-button>
       </div>
     </u-linear-layout>
     <div id="gantt" ref="gantt" class="ganttContainer"/>
@@ -47,8 +47,11 @@ export default {
     showToday: {type: Boolean, default: true},
     taskView: {type: String, default: 'd'},
     ganttTableConfig: [Function, Array, Object],
-    startDateField: {type: String, default: ''},
+    startField: {type: String, default: ''},
     durationField: {type: String, default: ''},
+    progressField: {type: String, default: ''},
+    colorField: {type: String, default: ''},
+    textField: {type: String, default: ''},
     endDateField: {type: String, default: ''},
     idField: {type: String, default: ''},
     parentField: {type: String, default: ''},
@@ -74,8 +77,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {dataSource, linkSource, ganttTableConfig, skins} = this;
-      return {dataSource, linkSource, ganttTableConfig, skins};
+      let {currentDataSource, ganttTableConfig, skins} = this;
+      return {currentDataSource,ganttTableConfig, skins};
     },
   },
   watch: {
@@ -154,9 +157,9 @@ export default {
       this.initSkins();
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
-      let ganttFinalDataSources = this.innerDataSource || initialData.data;
+      let ganttFinalDataSources = this.currentDataSource.data;
       ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
-      // console.log('after', ganttFinalDataSources)
+      console.log('ganttFinalDataSources', ganttFinalDataSources);
       gantt.parse({
         data: ganttFinalDataSources,
         // links: this.innerLinkSource || initialData.links,
@@ -238,9 +241,11 @@ export default {
         gantt.templates.tooltip_text = (start, end, task) => {
           let template = "";
           for (let item of this.ganttTableConfig) {
-            const startField = this.extractEntityField(item?.nameField);
-            if (item.showTooltip && startField !== this.startDateField) {
-              template += `<b>${item.labelField}:</b> ${task[item.nameField]}<br/>`;
+            const currentField = this.extractEntityField(item?.nameField);
+            if (item.showTooltip && currentField === this.extractEntityField(this.textField)) {
+              template += `<b>${item.labelField}:</b> ${task.text}<br/>`;
+            } else if (item.showTooltip && currentField !== this.extractEntityField(this.startField)) {
+              template += `<b>${item.labelField}:</b> ${task[currentField]}<br/>`;
             }
           }
           template += "<b>开始时间:</b> "
@@ -277,16 +282,18 @@ export default {
       let tableConfig = [];
       config.map(item => {
         let obj = {};
-        const startField = this.extractEntityField(item?.nameField);
-        if (startField === this.startDateField) {
+        const currentField = this.extractEntityField(item?.nameField);
+        if (currentField === this.startField) {
           obj = {
             name: 'start_date',
             template: function (task) {
               return moment(task.start_date).format("YYYY-MM-DD")
             },
           };
+        } else if (currentField === this.extractEntityField(this.textField)) {
+          obj = {name: 'text'};
         } else {
-          obj = {name: item.nameField};
+          obj = {name: this.extractEntityField(item.nameField)};
         }
         obj = Object.assign(obj, {
           label: item.labelField,
@@ -357,10 +364,13 @@ export default {
       this.entityName = entityName;
       ganttFinalDataSources = this.flatList(ganttFinalDataSources, entityName);
       ganttFinalDataSources.map((obj) => {
-        this.changeObjKey(obj, this.extractEntityField(this.startDateField), 'start_date');
+        this.changeObjKey(obj, this.extractEntityField(this.startField), 'start_date');
         this.changeObjKey(obj, this.extractEntityField(this.durationField), 'duration');
         this.changeObjKey(obj, this.extractEntityField(this.idField), 'id');
+        this.changeObjKey(obj, this.extractEntityField(this.colorField), 'color');
+        this.changeObjKey(obj, this.extractEntityField(this.progressField), 'progress');
         this.changeObjKey(obj, this.extractEntityField(this.parentField), 'parent');
+        this.changeObjKey(obj, this.extractEntityField(this.textField), 'text');
       })
       return ganttFinalDataSources
     }
@@ -388,24 +398,8 @@ export default {
   background: #fff;
 }
 
-.milestone-default {
-  border: none;
-  background: rgba(0, 0, 0, 0.45);
-}
-
-.milestone-unfinished {
-  border: none;
-  background: #5692f0 !important;
-}
-
-.milestone-finished {
-  border: none;
-  background: #84bd54 !important;
-}
-
-.milestone-canceled {
-  border: none;
-  background: #da645d !important;
+.gantt_message_area {
+  display: none !important;
 }
 
 .gantt_task_progress {

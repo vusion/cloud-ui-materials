@@ -16,35 +16,47 @@
       description: 集合类型每一元素的数据类型
       group: 数据属性
       compType: dataTypeSelect
-    - name: start-date-field
+    - name: text-field
+      title: 文本字段
+      type: string
+      default: ''
+      description: 设置泳道图文本字段
+      group: 数据属性
+    - name: start-field
       title: 开始日期字段
       type: string
       default: ''
-      description: 设置开始日期字段
-      group: 数据属性
-    - name: end-date-field
-      title: 结束日期字段
-      type: string
-      default: ''
-      description: 设置结束日期字段
+      description: 设置泳道图开始日期字段
       group: 数据属性
     - name: duration-field
       title: 持续时间字段
       type: string
       default: ''
-      description: 设置持续时间字段
+      description: 设置泳道图持续时间字段
+      group: 数据属性
+    - name: progress-field
+      title: 进度字段
+      type: string
+      default: ''
+      description: 设置泳道图进度字段
       group: 数据属性
     - name: id-field
       title: id字段
       type: string
       default: ''
-      description: 设置id字段
+      description: 设置泳道图id字段
       group: 数据属性
     - name: parent-field
       title: 父级字段
       type: string
       default: ''
-      description: 设置父级字段
+      description: 设置泳道图父级字段
+      group: 数据属性
+    - name: color-field
+      title: 数据颜色字段
+      type: string
+      default: ''
+      description: 设置泳道图数据颜色字段
       group: 数据属性
     - name: ganttTableConfig
       title: 甘特图表格配置
@@ -100,3 +112,8 @@
         - name: $event.param2
           type: number
           description: 参数2
+  methods:
+    - name: changeToday
+      title: 定位到今日标记线
+      description: 定位到今日标记线
+      params: []
