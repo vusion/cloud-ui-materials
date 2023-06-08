@@ -20,6 +20,7 @@
             start-date-field="start"
             duration-field="duration"
             id-field="id"
+            skins="default"
 >
 </lcap-gantt>
 ```

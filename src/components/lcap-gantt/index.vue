@@ -37,6 +37,7 @@ export default {
       ganttInstance: null,
       searchTitle: '',
       ganttEvent: {},
+      customStyle: {},
       entityName: '',
     };
   },
@@ -51,9 +52,20 @@ export default {
     endDateField: {type: String, default: ''},
     idField: {type: String, default: ''},
     parentField: {type: String, default: ''},
+    skins: {type: String, default: 'default'},
   },
   mixins: [supportDataSource],
   mounted() {
+    // 监听style样式变化
+    this.customStyle = this.parseCustomStyle(this.$el);
+    const observer = new MutationObserver(function (mutations) {
+      mutations.map(function (mutation) {
+        if (mutation.type === 'attributes') {
+          this.customStyle = this.parseCustomStyle(this.$el);
+        }
+      }.bind(this));
+    }.bind(this));
+    observer.observe(this.$el, {attributes: true});
     this.$nextTick(() => {
       this.initGantt();
       // console.log(_.at({ 'a': [{ 'b': { 'c': 3 } }, 4] }, 'a[0].b.c'));
@@ -62,8 +74,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {dataSource, linkSource, ganttTableConfig} = this;
-      return {dataSource, linkSource, ganttTableConfig};
+      let {dataSource, linkSource, ganttTableConfig, skins} = this;
+      return {dataSource, linkSource, ganttTableConfig, skins};
     },
   },
   watch: {
@@ -90,6 +102,17 @@ export default {
         if (task.text.toLowerCase().indexOf(this.searchTitle) !== -1)
           return true;
       }
+    },
+    parseCustomStyle(element) {
+      const cssList = element.style.cssText.split(';');
+      const cssObj = {};
+      cssList.forEach(item => {
+        const [key, value] = item.split(':');
+        if (key && value) {
+          cssObj[key.trim()] = value.trim();
+        }
+      });
+      return cssObj;
     },
     searchTask() {
       if (this.searchTitle) {
@@ -128,6 +151,7 @@ export default {
       }
       this.changeTaskColor();
       this.highlightWeekend();
+      this.initSkins();
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
       let ganttFinalDataSources = this.innerDataSource || initialData.data;
@@ -275,6 +299,22 @@ export default {
       });
       console.log('tableConfig', tableConfig);
       gantt.config.columns = tableConfig;
+    },
+    initSkins() {
+      switch (this.skins) {
+        case 'default':
+          require('dhtmlx-gantt/codebase/dhtmlxgantt.css'); // 样式模块
+          break;
+        case 'skyblue':
+          require('dhtmlx-gantt/codebase/skins/dhtmlxgantt_skyblue.css');
+          break;
+        case 'meadow':
+          require('dhtmlx-gantt/codebase/skins/dhtmlxgantt_meadow.css');
+          break;
+        case 'broadway':
+          require('dhtmlx-gantt/codebase/skins/dhtmlxgantt_broadway.css');
+          break;
+      }
     },
     changeObjKey(obj, oldKey, newKey) {
       if (oldKey === newKey) return;

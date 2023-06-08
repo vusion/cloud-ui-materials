@@ -72,7 +72,21 @@
       default: true
       description: 设置显示今日标记线
       group: 展示属性
-
+    - name: skins
+      title: 皮肤
+      type: string
+      default: default
+      description: 设置甘特图皮肤
+      group: 展示属性
+      options:
+        - value: default
+          title: 默认
+        - value: skyblue
+          title: 天蓝
+        - value: meadow
+          title: 草地
+        - value: broadway
+          title: 百老汇
   slots:
     - name: default
       description: 插入文本或 HTML。
