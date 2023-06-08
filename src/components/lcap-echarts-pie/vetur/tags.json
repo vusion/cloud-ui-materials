@@ -2,10 +2,11 @@
   "lcap-echarts-pie": {
     "attributes": [
       "data-source",
+      "data-schema",
+      "undefinedToZero",
+      "initialLoad",
       "xAxis",
       "yAxis",
-      "width",
-      "height",
       "title",
       "theme",
       "showLabelName",
@@ -13,7 +14,9 @@
       "showLabelPercent",
       "allowShowHint",
       "allowShowLegend",
-      "titleFontSize",
+      "legendPosition",
+      "legendScroll",
+      "pieType",
       "titleFontStyle",
       "allowDownload"
     ],

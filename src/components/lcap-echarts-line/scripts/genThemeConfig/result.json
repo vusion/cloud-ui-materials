@@ -1,0 +1,26 @@
+[
+    {
+        "id": 0.1,
+        "title": "高级设置",
+        "toPosition": "highLevelSetting",
+        "items": [
+            {
+                "id": 6,
+                "name": "lcap-echarts-line",
+                "title": "线性布局",
+                "toPosition": "materials",
+                "type": [
+                    "vertical",
+                    "horizontal",
+                    "space-between"
+                ],
+                "cssProperty": {
+                    "--echarts-line-color": {
+                        "type": "color",
+                        "desc": "折线图线条颜色,如：#223325"
+                    }
+                }
+            }
+        ]
+    }
+]

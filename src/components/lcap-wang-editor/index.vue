@@ -9,7 +9,7 @@
             v-show="!readOnly"
         ></toolbar>
         <!-- v-viewer下所有图片能够进行放大操作 -->
-        <div v-viewer="{movable: false}">
+        <div v-viewer="{movable: false, zIndex: 8000}">
             <editor
                 ref="editor"
                 :style="rootStyle"

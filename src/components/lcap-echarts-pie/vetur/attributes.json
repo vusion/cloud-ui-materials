@@ -3,21 +3,35 @@
     "type": "Array<Item> | Function | object | DataSource",
     "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
   },
+  "lcap-echarts-pie/data-schema": {
+    "type": "schema",
+    "description": "表格每一行的数据类型"
+  },
+  "lcap-echarts-pie/undefinedToZero": {
+    "type": "string",
+    "options": [
+      {
+        "value": "empty",
+        "title": "空距"
+      },
+      {
+        "value": "zero",
+        "title": "零"
+      }
+    ],
+    "description": "设置将未定义的值如undefined，null转换为0或空距"
+  },
+  "lcap-echarts-pie/initialLoad": {
+    "type": "boolean",
+    "description": "是否在初始时立即加载"
+  },
   "lcap-echarts-pie/xAxis": {
     "type": "string",
-    "description": "设置维度"
+    "description": "设置维度(统计类别)"
   },
   "lcap-echarts-pie/yAxis": {
     "type": "string",
-    "description": "设置指标"
-  },
-  "lcap-echarts-pie/width": {
-    "type": "string",
-    "description": "设置图宽度"
-  },
-  "lcap-echarts-pie/height": {
-    "type": "string",
-    "description": "设置图高度"
+    "description": "设置度量（统计值）"
   },
   "lcap-echarts-pie/title": {
     "type": "string",
@@ -65,9 +79,58 @@
     "type": "boolean",
     "description": "设置是否显示图例"
   },
-  "lcap-echarts-pie/titleFontSize": {
-    "type": "number",
-    "description": "设置标题文字字号"
+  "lcap-echarts-pie/legendPosition": {
+    "type": "string",
+    "options": [
+      {
+        "value": "top",
+        "title": "上"
+      },
+      {
+        "value": "bottom",
+        "title": "下"
+      },
+      {
+        "value": "left",
+        "title": "左"
+      },
+      {
+        "value": "right",
+        "title": "右"
+      }
+    ],
+    "description": "设置图例位置"
+  },
+  "lcap-echarts-pie/legendScroll": {
+    "type": "string",
+    "options": [
+      {
+        "value": "normal",
+        "title": "普通"
+      },
+      {
+        "value": "scroll",
+        "title": "滚动"
+      }
+    ],
+    "description": "设置图例是否滚动"
+  },
+  "lcap-echarts-pie/pieType": {
+    "type": "string",
+    "options": [
+      {
+        "value": "pie",
+        "title": "饼型"
+      },
+      {
+        "value": "circle",
+        "title": "环型"
+      },
+      {
+        "value": "semiCircle",
+        "title": "半环形"
+      }
+    ]
   },
   "lcap-echarts-pie/titleFontStyle": {
     "type": "string",

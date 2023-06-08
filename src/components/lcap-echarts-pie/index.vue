@@ -4,6 +4,7 @@
       v-if="!loading"
       :axisData="axisData"
       :size="size"
+      :customStyle="customStyle"
       :sourceData="sourceData"
       @startLoading="startLoading"
       ref="echart"
@@ -21,7 +22,8 @@ import * as echarts from 'echarts';
 import './theme';
 import Vue from 'vue';
 
-Vue.prototype.$echarts = echarts
+Vue.prototype.$echarts = echarts;
+let firstFlag = true;
 export default {
   name: 'lcap-echarts-pie',
   components: {echartPie},
@@ -41,15 +43,44 @@ export default {
     showLabelName: {type: Boolean, default: true},
     showLabelValue: {type: Boolean, default: true},
     showLabelPercent: {type: Boolean, default: true},
+    pieType: {type: String, default: 'pie'},
+    legendPosition: {type: String, default: 'bottom'},
+    legendScroll: {type: String, default: 'normal'},
+    initialLoad: {type: Boolean, default: true},
+    undefinedToZero: {type: String, default: 'empty'},
   },
   data() {
     return {
       sourceData: undefined,
       loading: false,
+      customStyle: {},
     };
   },
   created() {
-    this.init();
+    if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+      this.init();
+    } else {
+      if (firstFlag && !this.initialLoad) {
+        this.startLoading();
+      } else {
+        this.init();
+      }
+      setTimeout(() => {
+        firstFlag = false;
+      }, 1000);
+    }
+  },
+  mounted() {
+    // 监听style样式变化
+    this.customStyle = this.parseCustomStyle(this.$el);
+    const observer = new MutationObserver(function (mutations) {
+      mutations.map(function (mutation) {
+        if (mutation.type === 'attributes') {
+          this.customStyle = this.parseCustomStyle(this.$el);
+        }
+      }.bind(this));
+    }.bind(this));
+    observer.observe(this.$el, {attributes: true});
   },
   computed: {
     size() {
@@ -72,23 +103,16 @@ export default {
         showLabelName: this.showLabelName,
         showLabelValue: this.showLabelValue,
         showLabelPercent: this.showLabelPercent,
+        pieType: this.pieType,
+        legendPosition: this.legendPosition,
+        legendScroll: this.legendScroll,
+        undefinedToZero: this.undefinedToZero,
       }
     },
     changedObj() {
       let {xAxis, yAxis} = this;
       return {xAxis, yAxis};
     },
-    baseConfig() {
-      const myConfig = {
-        title: {
-          text: this.title,
-          textStyle: {
-            fontSize: this.fontSize,
-          }
-        },
-      };
-      return myConfig;
-    }
   },
   watch: {
     changedObj: {
@@ -98,13 +122,24 @@ export default {
     }
   },
   methods: {
+    parseCustomStyle(element) {
+      const cssList = element.style.cssText.split(';');
+      const cssObj = {};
+      cssList.forEach(item => {
+        const [key, value] = item.split(':');
+        if (key && value) {
+          cssObj[key.trim()] = value.trim();
+        }
+      });
+      return cssObj;
+    },
     reload() {
       this.sourceData = 'fakeData';
       this.$nextTick(async () => {
         this.sourceData = await this.handleDataSource(this.dataSource);
         this.loading = false;
         this.$refs.echart && this.$refs.echart.reload();
-        console.log('source', this.sourceData);
+        // console.log('source', this.sourceData);
       });
     },
     async init() {

@@ -5,6 +5,28 @@
 </template>
 
 <script>
+const legendPositionMap = {
+  top: {
+    orient: 'horizontal',
+    top: '7%',
+    left: 'center',
+  },
+  bottom: {
+    orient: 'horizontal',
+    bottom: '0%',
+    left: 'center',
+  },
+  left: {
+    orient: 'vertical',
+    top: 'middle',
+    left: '0%',
+  },
+  right: {
+    orient: 'vertical',
+    top: 'middle',
+    right: '0%',
+  },
+}
 import * as echarts from 'echarts/core'
 
 export default {
@@ -13,6 +35,7 @@ export default {
     sourceData: [Array, Object],
     size: [Object],
     axisData: [Object],
+    customStyle: [Object],
   },
   data() {
     return {
@@ -25,12 +48,17 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData} = this;
-      return {size, axisData, sourceData};
+      let {size, axisData, sourceData, customStyle} = this;
+      return {size, axisData, sourceData, customStyle};
     },
     formattedSize() {
-      let width = this.size.width.replace("px", "") || 340;
-      let height = this.size.height.replace("px", "") || 300;
+      // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
+      const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
+      const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
+      const propsWidth = this.size.width && this.size.width.replace("px", "");
+      const propsHeight = this.size.height && this.size.height.replace("px", "");
+      const width = styleWidth || propsWidth || 340;
+      const height = styleHeight || propsHeight || 300;
       return {
         width: `${width}px`,
         height: `${height}px`,
@@ -91,9 +119,8 @@ export default {
       if (Array.isArray(data)) {
         for (let item of data) {
           let axisData = this.recurGetValue(item, axis);
-          if (axisData || axisData === 0) {
-            res.push(this.recurGetValue(item, axis));
-          }
+          const showZero = this.axisData.undefinedToZero === 'empty' ? null : 0;
+          res.push(axisData || axisData === 0 ? this.recurGetValue(item, axis) : showZero);
         }
       } else {
         for (let item in data) {
@@ -104,11 +131,28 @@ export default {
     },
     generatePieData(data, xAxisData, yAxisData) {
       let pieData = [];
+      const pieSectorsColor = this.customStyle['--pie-sectors-color'] && this.customStyle['--pie-sectors-color'].split(' ');
       for (let index = 0; index < xAxisData.length; index++) {
         pieData.push({
-            value: yAxisData[index],
-            name: xAxisData[index],
+          value: yAxisData[index],
+          name: xAxisData[index],
           });
+        if (pieSectorsColor?.length) {
+          pieData.map((item, index) => {
+            item.itemStyle = {color: pieSectorsColor[index]};
+          })
+        }
+      }
+      if (this.axisData.pieType === 'semiCircle') {
+        const sum = yAxisData.reduce((total, num) => total + num);
+        pieData.push({
+          value: sum,
+          itemStyle: {
+            color: 'none',
+            decal: {symbol: 'none'}
+          },
+          label: {show: false}
+        })
       }
       return pieData;
     },
@@ -159,9 +203,9 @@ export default {
           }
         },
         legend: {
+          type: this.axisData.legendScroll === 'normal' ? 'plain' : 'scroll',
           show: this.axisData.allowShowLegend,
-          bottom: '-1%',
-          left: 'center',
+          ...legendPositionMap[this.axisData.legendPosition],
         },
         tooltip: {
           show: this.axisData.allowShowHint,
@@ -178,7 +222,8 @@ export default {
         title: {
           text: this.axisData.title,
           textStyle: {
-            fontSize: this.axisData.titleFontSize,
+            fontSize: this.customStyle['--echart-title-font-size'] || this.axisData.titleFontSize,
+            color: this.customStyle['--title-font-color'],
             fontStyle: this.axisData.titleFontStyle,
           }
         },
@@ -186,10 +231,23 @@ export default {
           {
             type: 'pie',
             data: pieData,
+            radius: this.axisData.pieType !== 'pie' ? ['40%', '65%'] : [0, '65%'],
+            startAngle: this.axisData.pieType === 'semiCircle' ? 180 : 0,
+            center: this.axisData.pieType === 'semiCircle' ? ['50%', '70%'] : ['50%', '50%'],
             label: {
               show: showLabel,
               formatter: labelData,
-            }
+              color: this.customStyle['--label-font-color'],
+              fontSize: this.customStyle['--label-font-size'],
+              position: this.axisData.pieType !== 'pie' ? 'center' : 'outside',
+            },
+            itemStyle: this.axisData.pieType !== 'semiCircle' ? {
+              borderColor: this.customStyle['--pie-sectors-border-color'],
+              borderWidth: 1,
+              borderRadius: 5,
+            } : {
+              borderRadius: 5,
+            },
           }
         ],
       };
