@@ -37,7 +37,7 @@ export const basicConfig = {
     order_branch: true,
     autofit: true,
     drag_links: false,//连线
-    readonly: false, //只读
+    readonly: true, //只读
     date_scale: "%m月%d日", //右侧显示列名
     layout: {//拖拽布局
         css: "gantt_container",
@@ -68,16 +68,7 @@ export const basicConfig = {
     work_time: true,
     resize_rows: true,
     fit_tasks: true,
-    lightbox: {
-        sections: [
-            {name: "text", height: 70, map_to: "text", type: "textarea", focus: true, width: "*"},
-            {name: "time", height: 40, map_to: "auto", type: "duration", time_format: ["%Y", "%m", "%d"]},
-            {name: "projectClass", height: 30, map_to: "proTemplate", type: "template",},
-            {name: "head", height: 22, map_to: "head_id", type: "select", options: gantt.serverList('staff', [])},
-            {name: "description", height: 70, map_to: "description", type: "textarea"},
-            {name: "priority", height: 40, map_to: "priority", type: "radio", options: gantt.serverList("priority")},
-        ],
-    },
+
 };
 export const basicTemplate = {
     task_end_date: function (date) {

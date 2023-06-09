@@ -69,11 +69,7 @@ export default {
       }.bind(this));
     }.bind(this));
     observer.observe(this.$el, {attributes: true});
-    this.$nextTick(() => {
-      this.initGantt();
-      // console.log(_.at({ 'a': [{ 'b': { 'c': 3 } }, 4] }, 'a[0].b.c'));
-      this.ganttChangeEvent();//交互事件
-    });
+
   },
   computed: {
     changedObj() {
@@ -238,6 +234,14 @@ export default {
 
     // gantt交互事件注册
     ganttChangeEvent() {
+      this.ganttEvent.onTaskClick = gantt.attachEvent("onTaskClick", (id, e) => {
+        const task = gantt.getTask(id);
+        this.$emit('taskClick', task);
+      });
+      this.ganttEvent.onScaleClick = gantt.attachEvent("onScaleClick", (e, date) => {
+        this.$emit('scaleClick', date);
+      });
+
       // gantt渲染
       this.ganttEvent.onGanttReady = gantt.attachEvent("onGanttReady", () => {
         gantt.templates.tooltip_text = (start, end, task) => {
@@ -260,7 +264,6 @@ export default {
         gantt.templates.grid_file = (item) => {
           if (!item) return "<div class='gantt_tree_icon gantt_file'></div>";
           let template = "";
-          console.log('item', item, this.iconField, this.extractEntityField(this.iconField));
           const iconUrl = item[this.extractEntityField(this.iconField)];
           const isSvg = iconUrl && iconUrl.endsWith('.svg');
           if (iconUrl) {
@@ -321,7 +324,7 @@ export default {
 
         tableConfig.push(obj);
       });
-      console.log('tableConfig', tableConfig);
+      // console.log('tableConfig', tableConfig);
       gantt.config.columns = tableConfig;
     },
     initSkins() {
