@@ -1,0 +1,174 @@
+{
+    "symbol": "lcap-markdown-doc-search",
+    "name": "文档搜索框",
+    "version": "0.1.2",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "请在这里添加描述",
+    "labels": [
+        "Other"
+    ],
+    "screenShot": "",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-markdown-doc-search></lcap-markdown-doc-search>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-markdown-doc-search",
+        "title": "文档搜索框",
+        "description": "请在这里添加描述",
+        "category": "Other",
+        "screenShot": "",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-markdown-doc-search></lcap-markdown-doc-search>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "value",
+                "title": "值",
+                "type": "String",
+                "description": "输入的值"
+            },
+            {
+                "name": "data-source",
+                "title": "列表数据",
+                "type": "Array<Item>",
+                "description": "搜索结果列表数据"
+            },
+            {
+                "name": "data-schema",
+                "title": "数据类型",
+                "type": "schema",
+                "description": "选择器每一行的数据类型",
+                "compType": "dataTypeSelect"
+            },
+            {
+                "name": "text-field",
+                "title": "结果项标题字段",
+                "type": "string",
+                "default": "text",
+                "description": "显示结果项标题字段的属性"
+            },
+            {
+                "name": "description-field",
+                "title": "结果项描述字段",
+                "type": "string",
+                "description": "用于显示结果项描述字段的属性"
+            },
+            {
+                "name": "align",
+                "title": "结果列表对齐",
+                "type": "string",
+                "default": "left",
+                "options": [
+                    {
+                        "value": "left",
+                        "title": "左"
+                    },
+                    {
+                        "value": "right",
+                        "title": "右"
+                    }
+                ]
+            },
+            {
+                "name": "prefix",
+                "title": "前缀图标",
+                "type": "icon",
+                "description": "",
+                "default": "",
+                "clearable": true
+            },
+            {
+                "name": "suffix",
+                "title": "后缀图标",
+                "type": "icon",
+                "description": "",
+                "default": "",
+                "clearable": true
+            }
+        ],
+        "methods": [
+            {
+                "name": "focus",
+                "description": "让输入框获取焦点。",
+                "params": []
+            },
+            {
+                "name": "blur",
+                "description": "让输入框失去焦点。",
+                "params": []
+            }
+        ],
+        "events": [
+            {
+                "name": "input",
+                "title": "输入时",
+                "description": "输入时触发",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "string",
+                        "description": "输入框的值"
+                    }
+                ]
+            },
+            {
+                "name": "focus",
+                "title": "聚焦时",
+                "description": "聚焦时触发"
+            },
+            {
+                "name": "blur",
+                "title": "失焦时",
+                "description": "失焦时触发"
+            },
+            {
+                "name": "select",
+                "title": "选择时",
+                "description": "选择结果时触发",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "选择对象"
+                    }
+                ]
+            },
+            {
+                "name": "click-prefix",
+                "title": "点击前缀图标",
+                "description": "点击前缀图标后触发",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "鼠标事件对象",
+                        "schema": {
+                            "$ref": "#/systemTypes/MouseEvent"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "click-suffix",
+                "title": "点击后缀图标",
+                "description": "点击后缀图标后触发",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "object",
+                        "description": "鼠标事件对象",
+                        "schema": {
+                            "$ref": "#/systemTypes/MouseEvent"
+                        }
+                    }
+                ]
+            }
+        ],
+        "children": []
+    }
+}

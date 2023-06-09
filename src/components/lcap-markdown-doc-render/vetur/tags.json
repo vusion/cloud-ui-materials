@@ -1,0 +1,9 @@
+{
+  "lcap-markdown-doc-render": {
+    "attributes": [
+      "text",
+      "scrollContainer"
+    ],
+    "description": "渲染Markdown文档的组件"
+  }
+}
