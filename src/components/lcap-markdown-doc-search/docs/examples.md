@@ -8,11 +8,6 @@
     :data-source="suggestions"
     text-field="highlightedTitle"
     description-field="highlightedContent"
-
-    :disabled="true"
-
-    prefix="folder-add"
-    suffix="folder-add"
     @input="onInput"
     @change="onChange"
   ></lcap-markdown-doc-search>

@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-markdown-doc-search",
     "name": "文档搜索框",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
