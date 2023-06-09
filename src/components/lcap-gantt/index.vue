@@ -53,6 +53,7 @@ export default {
     colorField: {type: String, default: ''},
     textField: {type: String, default: ''},
     endDateField: {type: String, default: ''},
+    iconField: {type: String, default: ''},
     idField: {type: String, default: ''},
     parentField: {type: String, default: ''},
     skins: {type: String, default: 'default'},
@@ -155,7 +156,9 @@ export default {
       this.changeTaskColor();
       this.highlightWeekend();
       this.initSkins();
+      if (this.$env.VUE_APP_DESIGNER) return;
       this.parseIDETableConfig(this.ganttTableConfig);
+      // this.addIcon2Columns();
       gantt.init(this.$refs.gantt);
       let ganttFinalDataSources = this.currentDataSource.data;
       ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
@@ -234,12 +237,27 @@ export default {
       }
       gantt.render();
     },
+    addIcon2Columns() {
+      gantt.templates.grid_file = function(item) {
+        if (!item) return "";
+        let template = "";
+        let iconUrl = item[this.extractEntityField(this.iconField)];
+        if (item[this.extractEntityField(this.iconField)]) {
+          template += `<div><i-ico :name="${iconUrl}"></i-ico></div>`;
+          return template;
+        } else {
+          return "<div class='gantt_tree_icon gantt_file'></div>";
+        }
+        console.log('item', item);
+      };
+    },
     // gantt交互事件注册
     ganttChangeEvent() {
       // gantt渲染
       this.ganttEvent.onGanttReady = gantt.attachEvent("onGanttReady", () => {
         gantt.templates.tooltip_text = (start, end, task) => {
           let template = "";
+          if (!this.ganttTableConfig) return template;
           for (let item of this.ganttTableConfig) {
             const currentField = this.extractEntityField(item?.nameField);
             if (item.showTooltip && currentField === this.extractEntityField(this.textField)) {
@@ -291,7 +309,7 @@ export default {
             },
           };
         } else if (currentField === this.extractEntityField(this.textField)) {
-          obj = {name: 'text'};
+          obj = {name: 'text', tree: true,};
         } else {
           obj = {name: this.extractEntityField(item.nameField)};
         }
@@ -300,8 +318,9 @@ export default {
           resize: true,
           width: item.width,
           align: "center",
-          tree: true,
+          customIcon: item.iconField,
         });
+
         tableConfig.push(obj);
       });
       console.log('tableConfig', tableConfig);
@@ -342,6 +361,9 @@ export default {
       }
     },
     extractEntityField(string) {
+      if (!string) {
+        return ''
+      }
       if (string.indexOf('.') !== -1) {
         const len = string.split('.').length;
         return string.split('.')[len - 1];

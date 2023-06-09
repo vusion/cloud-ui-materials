@@ -2,15 +2,15 @@
 
 ```html
 <lcap-gantt :data-source="[
-        { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', duration: 9, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0' },
-        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0' },
+        { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', duration: 9, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0', iconUrl: '' },
+        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0', iconUrl: 'http://ceph.dev.env.com/lowcode-static/user/defaulttenant/1669607340551_star.svg' },
         { id: 3, text1: '实施', start: '2023-04-24 00:00', duration: 4, progress: 0.5, parent: 1, head: '孙三', state: 'unfinished', color: '#84bd54' },
         { id: 4, text1: '复盘', start: '2023-04-28 00:00', duration: 3, progress: 0.1, parent: 1, head: '李四', state: 'canceled', color: '#da645d' },
     ]"
             :ganttTableConfig="[
-            {'labelField':'项目名称','iconField':'icon','showIcon':false,'nameField':'text1', showTooltip: true, width: '100'},
-            {'labelField':'负责人','iconField':'icon','showIcon':false,'nameField':'head', showTooltip: true, width: '100'},
-            {'labelField':'开始日期','iconField':'icon','showIcon':false,'nameField':'start', showTooltip: true, width: '150'}
+            {'labelField':'项目名称','nameField':'text1', showTooltip: true, width: '100'},
+            {'labelField':'负责人','nameField':'head', showTooltip: true, width: '100'},
+            {'labelField':'开始日期','nameField':'start', showTooltip: true, width: '150'}
             ]"
             parent-field="parent"
             start-field="start"
@@ -19,6 +19,7 @@
             text-field="text1"
             color-field="color"
             id-field="id"
+            icon-field="iconUrl"
             skins="default"
 >
 </lcap-gantt>

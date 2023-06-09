@@ -41,6 +41,16 @@ export const basicConfig = {
     date_scale: "%m月%d日", //右侧显示列名
     layout: {//拖拽布局
         css: "gantt_container",
+        resizer: true,
+        cols: [
+            {
+                // adding horizontal scrollbar to the grid via the scrollX attribute
+                rows:[
+                    {view: "grid", scrollX: "gridScroll", scrollable: true, scrollY: "scrollVer"},
+                    {view: "scrollbar", id: "gridScroll"}
+                ]
+            },
+        ],
         rows: [
             {
                 cols: [
@@ -51,8 +61,9 @@ export const basicConfig = {
                 ]
             },
             {view: "scrollbar", scroll: "x", id: "scrollHor", height: 20}
-        ]
-    },
+        ],
+
+},
     start_on_monday: true,
     work_time: true,
     resize_rows: true,
@@ -93,7 +104,7 @@ export const basicTemplate = {
         } else if (column === "start_date") {
             return moment(date).format("YYYY-MM-DD");
         }
-    }
+    },
 }
 
 
