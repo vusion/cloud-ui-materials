@@ -26,7 +26,6 @@ import 'dhtmlx-gantt/codebase/dhtmlxgantt.css'; // 样式模块
 import {locale} from "@/locale";
 import {basicConfig, initialData, ganttPlugins, basicTemplate} from "@/ganttConfig";
 import supportDataSource from "@/mixins/support.datasource";
-import _ from 'lodash';
 import moment from 'moment';
 
 export default {
@@ -158,7 +157,6 @@ export default {
       this.initSkins();
       if (this.$env.VUE_APP_DESIGNER) return;
       this.parseIDETableConfig(this.ganttTableConfig);
-      // this.addIcon2Columns();
       gantt.init(this.$refs.gantt);
       let ganttFinalDataSources = this.currentDataSource.data;
       ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
@@ -237,20 +235,7 @@ export default {
       }
       gantt.render();
     },
-    addIcon2Columns() {
-      gantt.templates.grid_file = function(item) {
-        if (!item) return "";
-        let template = "";
-        let iconUrl = item[this.extractEntityField(this.iconField)];
-        if (item[this.extractEntityField(this.iconField)]) {
-          template += `<div><i-ico :name="${iconUrl}"></i-ico></div>`;
-          return template;
-        } else {
-          return "<div class='gantt_tree_icon gantt_file'></div>";
-        }
-        console.log('item', item);
-      };
-    },
+
     // gantt交互事件注册
     ganttChangeEvent() {
       // gantt渲染
@@ -272,10 +257,23 @@ export default {
             + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
           return template;
         }
+        gantt.templates.grid_file = (item) => {
+          if (!item) return "<div class='gantt_tree_icon gantt_file'></div>";
+          let template = "";
+          console.log('item', item, this.iconField, this.extractEntityField(this.iconField));
+          const iconUrl = item[this.extractEntityField(this.iconField)];
+          const isSvg = iconUrl && iconUrl.endsWith('.svg');
+          if (iconUrl) {
+            template += `<div class="gantt_tree_icon"><img src="${iconUrl}"></img></div>`;
+            return template;
+          } else {
+            return "<div class='gantt_tree_icon gantt_file'></div>";
+          }
+        };
       });
       // 修改默认弹窗
       gantt.attachEvent("onBeforeLightbox", (id) => {
-        var task = gantt.getTask(id);
+        let task = gantt.getTask(id);
         task.proTemplate = `${gantt.locale.labels.taskProjectType_0}`
         return true;
       });

@@ -58,6 +58,12 @@
       default: ''
       description: 设置泳道图数据颜色字段
       group: 数据属性
+    - name: icon-field
+      title: 图标字段
+      type: string
+      default: ''
+      description: 设置数据列表图标字段
+      group: 数据属性
     - name: ganttTableConfig
       title: 甘特图表格配置
       type: Array<Item>

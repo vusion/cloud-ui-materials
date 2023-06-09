@@ -3,7 +3,7 @@
 ```html
 <lcap-gantt :data-source="[
         { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', duration: 9, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0', iconUrl: '' },
-        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0', iconUrl: 'http://ceph.dev.env.com/lowcode-static/user/defaulttenant/1669607340551_star.svg' },
+        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0', iconUrl: 'http://ceph.lcap.hadev.163yun.com/lowcode-static/user/defaulttenant/1686301210678_%E5%8A%A0%E6%B2%B9.jpg' },
         { id: 3, text1: '实施', start: '2023-04-24 00:00', duration: 4, progress: 0.5, parent: 1, head: '孙三', state: 'unfinished', color: '#84bd54' },
         { id: 4, text1: '复盘', start: '2023-04-28 00:00', duration: 3, progress: 0.1, parent: 1, head: '李四', state: 'canceled', color: '#da645d' },
     ]"
