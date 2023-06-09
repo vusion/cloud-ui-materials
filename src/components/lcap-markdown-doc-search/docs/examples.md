@@ -3,13 +3,18 @@
 ``` vue
 <template>
   <lcap-markdown-doc-search
+    placeholder="请输入"
     :value.sync="value"
     :data-source="suggestions"
     text-field="highlightedTitle"
     description-field="highlightedContent"
+
+    :disabled="true"
+
     prefix="folder-add"
     suffix="folder-add"
     @input="onInput"
+    @change="onChange"
   ></lcap-markdown-doc-search>
 </template>
 
@@ -40,9 +45,12 @@ export default {
       }, 1000)
     },
     onInput(e) {
-      console.log(e)
+      console.log('onInput', e)
       this.fetchData(e)
     },
+    onChange(e) {
+      console.log('onChange', e)
+    }
   }
 }
 </script>

@@ -460,24 +460,6 @@ div[class~=language-php]:before {
   border-right: 6px solid #ccc
 }
 
-.theme-default-content:not(.custom) {
-  max-width: 740px;
-  margin: 0 auto;
-  padding: 2rem 2.5rem
-}
-
-@media (max-width: 959px) {
-  .theme-default-content:not(.custom) {
-    padding: 2rem
-  }
-}
-
-@media (max-width: 419px) {
-  .theme-default-content:not(.custom) {
-    padding: 1.5rem
-  }
-}
-
 .table-of-contents .badge {
   vertical-align: middle
 }

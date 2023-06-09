@@ -1,37 +1,36 @@
 
 <template>
-  <div class="markdown-doc-search-box">
-    <span v-if="prefix" class="prefix" @click="$emit('click-prefix', $event)">
-        <i-ico
-            :name="prefix"
-            class="singleicon"
-            notext
-        ></i-ico>
-    </span>
-    <input
-      ref="input"
-      :value="query"
-      aria-label="Search"
-      :class="{ 'focused': focused }"
-      :placeholder="placeholder"
-      autocomplete="off"
-      spellcheck="false"
-      :suffix="suffix" 
-      :prefix="prefix"
-      @input="onInput"
-      @focus="onFocus"
-      @blur="onBlur"
-      @keyup.enter="go(focusIndex)"
-      @keyup.up="onUp"
-      @keyup.down="onDown"
-    >
-    <span v-if="suffix" class="suffix" @click="$emit('click-suffix', $event)">
-        <i-ico
-            :name="suffix"
-            class="singleicon"
-            notext
-        ></i-ico>
-    </span>
+  <div 
+    class="markdown-doc-search-box"
+    @keyup.enter="go(focusIndex)"
+    @keyup.up="onUp"
+    @keyup.down="onDown"
+  >
+    <u-input
+        ref="input"
+
+        :value.sync="query"
+        :clearable="clearable"
+        :placeholder="placeholder"
+        :maxlength="maxlength"
+        :autofocus="autofocus"
+        :readonly="readonly"
+        :disabled="disabled"
+        :width="width"
+        :height="height"      
+        :suffix="suffix" 
+        :prefix="prefix"
+
+        @before-input="onBeforeInput"
+        @input="onInput"
+        @change="onChange"
+        @focus="onFocus"
+        @blur="onBlur"
+        @before-clear="onBeforeClear"
+        @clear="onClear"
+        @click-prefix="onClickPrefix"
+        @click-suffix="onClickSuffix"
+    />
 
     <ul
       v-if="showSuggestions"
@@ -61,8 +60,9 @@
     </ul>
   </div>
 </template>
-
 <script>
+import debounce from 'lodash.debounce'
+// import UInput from 'cloud-ui.vusion/src/components/u-input.vue'
 
 export default {
     name: 'lcap-markdown-doc-search',
@@ -74,23 +74,31 @@ export default {
         },
         textField: String,
         descriptionField: String,
+        
         align: {
            type: String,
            default: 'left' 
         },
+        clearable: Boolean,
+        placeholder: String,
+        maxlength: Number,
+        autofocus: { type: Boolean, default: false },
+        readonly: { type: Boolean, default: false },
+        disabled: { type: Boolean, default: false },
+        width: { type: String, default: 'normal' },
+        height: { type: String, default: 'normal' },
         prefix: String,
         suffix: String,
     },
     components: {
-       
+        // UInput,
     },
     data () {
         return {
             composing: false,
-            query: '',
-            focused: false,
+            query: this.value,
+            show: false,
             focusIndex: 0,
-            placeholder: undefined
         }
     },
 
@@ -99,19 +107,18 @@ export default {
             return this.dataSource
         },
         showSuggestions () {
-        return (
-            this.focused
-            && this.query
-        )
+            return (
+                this.show
+                && this.query
+            )
         },
     },
     watch: {
         value(value) {
             this.query = value;
         },
-        query(value, oldValue) {
-            this.$emit('update', value, this);
-            this.$emit('change', { value, oldValue }, this);
+        query(value) {
+            this.$emit('update:value', value)
         },
     },
 
@@ -125,19 +132,21 @@ export default {
 
     methods: {
         onHotkey (event) {
-        if (event.srcElement === document.body && ['s', '/'].includes(event.key)) {
-            this.$refs.input.focus()
-            event.preventDefault()
-        }
+            if (event.srcElement === document.body && ['s', '/'].includes(event.key)) {
+                this.$refs.input.focus()
+                event.preventDefault()
+            }
         },
-
+        onBeforeInput($event) {
+            this.$emit('before-input', $event)
+        },
         onInput($event) {
-            if (this.composing) { return }
-
-            this.query = $event.target.value
-            this.$emit('input', $event.target.value)
-            this.$emit('update:value', $event.target.value);
+            this.$emit('input', $event)
         },
+
+        onChange: debounce(function ($event) {
+            this.$emit('change', $event)
+        }, 500),
 
         onCompositionStart($event) {
             this.composing = true;
@@ -152,13 +161,28 @@ export default {
         },
 
         onFocus() {
-            this.focused = true
+            this.show = true
             this.$emit('focus')
         },
 
         onBlur() {
-            this.focused = false
+            this.show = false
             this.$emit('blur')
+        },
+
+        onBeforeClear($event) {
+            this.$emit('before-clear', $event)
+        },
+
+        onClear($event) {
+            this.$emit('clear', $event)
+        },
+
+        onClickPrefix($event) {
+            this.$emit('click-prefix', $event)
+        },
+        onClickSuffix($event) {
+            this.$emit('click-suffix', $event)  
         },
 
         onUp () {
@@ -191,11 +215,10 @@ export default {
                 return
             }
 
-            console.log('selected:', selected);
-            this.$emit('select', selected)
-
-            this.query = ''
-            this.focusIndex = 0
+            this.$emit('select', {
+                item: selected
+            })
+            this.show = false
         },
 
         onMouseEnter (i) {
@@ -209,12 +232,18 @@ export default {
         getContent(str) {
             return str.replace(/<mark>/g, `<span class="highlight">`).replace(/<\/mark>/g, '</span>')
         },
+        // @exposed-api
         focus() {
             this.$refs.input.focus();
         },
+        // @exposed-api
         blur() {
             this.$refs.input.blur();
         },
+        // @exposed-api
+        clear() {
+            this.$refs.input.clear();
+        }
     }
 }
 </script>
@@ -236,34 +265,16 @@ export default {
     color: #666
 }
 
-.markdown-doc-search-box input {
-    cursor: text;
-    width: 13rem;
-    height: 2rem;
-    color: #4e6e8e;
-    display: inline-block;
-    border: 1px solid #cfd4db;
-    border-radius: 4px;
-    font-size: .9rem;
-    line-height: 2rem;
-    padding: 0 .5rem;
-    outline: none;
-    transition: all .2s ease;
-    background: #fff url(/assets/img/search.237d6f6a.svg) no-repeat;
-    background-position: right 5% center;
-    background-size: 1rem
-}
-
-.markdown-doc-search-box input:focus {
+/* .markdown-doc-search-box input:focus {
     cursor: auto;
     border-color: #337eff
-}
+} */
 
-.markdown-doc-search-box input[prefix] {
+/* .markdown-doc-search-box input[prefix] {
     padding-left: 30px;
-}
+} */
 
-.markdown-doc-search-box input[suffix] {
+/* .markdown-doc-search-box input[suffix] {
     padding-right: 30px;
 }
 
@@ -286,7 +297,7 @@ export default {
 
 .markdown-doc-search-box .suffix .singleicon{
     color: var(--input-icon-color);
-}
+} */
 
 .markdown-doc-search-box .suggestions {
     background: #fff;
@@ -300,7 +311,7 @@ export default {
     border-radius: 6px;
     padding: .4rem;
     list-style-type: none
-}
+} 
 
 .markdown-doc-search-box .suggestions.align-left {
     left: 0

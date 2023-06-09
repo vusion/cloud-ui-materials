@@ -19,13 +19,18 @@
 ``` vue
 <template>
   <lcap-markdown-doc-search
+    placeholder="请输入"
     :value.sync="value"
     :data-source="suggestions"
     text-field="highlightedTitle"
     description-field="highlightedContent"
+
+    :disabled="true"
+
     prefix="folder-add"
     suffix="folder-add"
     @input="onInput"
+    @change="onChange"
   ></lcap-markdown-doc-search>
 </template>
 
@@ -56,9 +61,12 @@ export default {
       }, 1000)
     },
     onInput(e) {
-      console.log(e)
+      console.log('onInput', e)
       this.fetchData(e)
     },
+    onChange(e) {
+      console.log('onChange', e)
+    }
   }
 }
 </script>
@@ -70,32 +78,24 @@ export default {
 
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
-| value | String |  |  | 输入的值 |
+| value.sync, v-model | String |  |  | 输入的值 |
 | data-source | Array\<Item\> |  |  | 搜索结果列表数据 |
 | data-schema | schema |  |  | 选择器每一行的数据类型 |
 | text-field | string |  | `'text'` | 显示结果项标题字段的属性 |
 | description-field | string |  |  | 用于显示结果项描述字段的属性 |
 | align | string | `[object Object]`<br/>`[object Object]` | `'left'` | undefined |
+| clearable | boolean |  |  | 开启并在输入框有内容时会显示清除按钮 |
+| placeholder | string |  |  | 为空时的提示文本 |
+| maxlength | number |  |  |  |
+| autofocus | boolean |  | `false` | 是否自动获取焦点 |
+| readonly | boolean |  | `false` |  |
+| disabled | boolean |  | `false` |  |
+| width | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'normal'` | 设置单行输入框宽度大小 |
+| height | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'normal'` | 设置单行输入框高度大小 |
 | prefix | icon |  | `''` |  |
 | suffix | icon |  | `''` |  |
 
 ### Events
-
-#### @input
-
-输入时触发
-
-| Param | Type | Description |
-| ----- | ---- | ----------- |
-| $event | string | 输入框的值 |
-
-#### @focus
-
-聚焦时触发
-
-#### @blur
-
-失焦时触发
 
 #### @select
 
@@ -103,7 +103,73 @@ export default {
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event | object | 选择对象 |
+| $event.item | object | 选择项相关对象 |
+
+#### @before-input
+
+输入前触发。可以在这个阶段阻止输入，或者修改输入的值 $event.value
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 自定义事件对象 |
+| $event.oldValue | string | 旧的值 |
+| $event.value | string | 输入框的值 |
+| $event.preventDefault | Function | 阻止输入流程 |
+
+#### @input
+
+输入时触发。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | string | 输入框的值 |
+
+#### @change
+
+值变化时触发。（注意：与原生事件不同）
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 自定义事件对象 |
+| $event.value | string | 改变后的值 |
+| $event.oldValue | string | 旧的值 |
+
+#### @focus
+
+获得焦点时触发。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | FocusEvent | 原生事件对象 |
+
+#### @blur
+
+失去焦点时触发。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | FocusEvent | 原生事件对象 |
+
+#### @before-clear
+
+清空前触发。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 自定义事件对象 |
+| $event.value | string | 清空后的值 |
+| $event.oldValue | string | 待清空的值 |
+| $event.preventDefault | Function | 阻止清空流程 |
+
+#### @clear
+
+清空后触发。
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | object | 自定义事件对象 |
+| $event.value | string | 清空后的值 |
+| $event.oldValue | string | 旧的值 |
 
 #### @click-prefix
 
@@ -133,6 +199,13 @@ Methods
 #### blur()
 
 让输入框失去焦点。
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
+
+#### clear()
+
+清空输入框。
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |
