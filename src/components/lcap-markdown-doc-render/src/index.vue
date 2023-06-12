@@ -501,19 +501,19 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 }
 
 .foldIcon .iconItem.show {
-    background-image: url(./assets/show.svg);
+    background-image: url(./assets/show.png);
 }
 
 .foldIcon .iconItem.hide {
-     background-image: url(./assets/hide.svg);
+     background-image: url(./assets/hide.png);
 }
 
 .foldIcon .iconItem.fold {
-     background-image: url(./assets/fold.svg);
+     background-image: url(./assets/fold.png);
 }
 
 .foldIcon .iconItem.unfold {
-    background-image: url(./assets/unfold.svg);
+    background-image: url(./assets/unfold.png);
 }
 
 </style>
