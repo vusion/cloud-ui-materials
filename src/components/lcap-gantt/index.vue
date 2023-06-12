@@ -151,7 +151,6 @@ export default {
       this.changeTaskColor();
       this.highlightWeekend();
       this.initSkins();
-      if (this.$env.VUE_APP_DESIGNER) return;
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
       let ganttFinalDataSources = this.currentDataSource.data;
@@ -345,7 +344,7 @@ export default {
     },
     changeObjKey(obj, oldKey, newKey) {
       if (oldKey === newKey) return;
-      if (obj.hasOwnProperty(oldKey)) {
+      if (obj?.hasOwnProperty(oldKey)) {
         obj[newKey] = obj[oldKey];
         delete obj[oldKey];
       }
