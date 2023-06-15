@@ -8,7 +8,7 @@
   >
     <u-input
         ref="input"
-
+        :style="{ borderRadius }"
         :value.sync="query"
         :clearable="clearable"
         :placeholder="placeholder"
@@ -32,8 +32,18 @@
         @click-suffix="onClickSuffix"
     />
 
+
     <ul
-      v-if="showSuggestions"
+      v-if="searching"
+      class="suggestions"
+      :class="{ [`align-${align}`]: true }"
+    >
+        <li class="total-suggestions">
+            <u-loading size="small"></u-loading> 正在加载中...
+        </li>
+    </ul>
+    <ul
+      v-else-if="!searching && showSuggestions"
       class="suggestions"
       :class="{ [`align-${align}`]: true }"
       @mouseleave="onMouseLeave"
@@ -89,6 +99,10 @@ export default {
         height: { type: String, default: 'normal' },
         prefix: String,
         suffix: String,
+        borderRadius: {
+            type: String, 
+            default: '0px'
+        }
     },
     components: {
         // UInput,
@@ -99,6 +113,7 @@ export default {
             query: this.value,
             show: false,
             focusIndex: 0,
+            searching: false,
         }
     },
 
@@ -141,11 +156,15 @@ export default {
             this.$emit('before-input', $event)
         },
         onInput($event) {
+            this.searching = true;
             this.$emit('input', $event)
         },
 
         onChange: debounce(function ($event) {
             this.$emit('change', $event)
+            setTimeout(() => {
+                this.searching = false;
+            }, 200);
         }, 500),
 
         onCompositionStart($event) {

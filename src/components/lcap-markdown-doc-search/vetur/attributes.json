@@ -131,5 +131,8 @@
   "lcap-markdown-doc-search/suffix": {
     "type": "icon",
     "description": ""
+  },
+  "lcap-markdown-doc-search/border-radius": {
+    "type": "string"
   }
 }
