@@ -129,3 +129,68 @@
       title: 定位到今日标记线
       description: 定位到今日标记线
       params: []
+  themes:
+    - name: --gantt-table-header-font-size
+      title: 表头字体大小
+      description: 设置表头字体大小
+      type: input
+      default: 12px
+      group: 表头
+    - name: --gantt-table-header-font-color
+      title: 表头字体颜色
+      description: 设置表头字体颜色
+      type: color
+      default: '#000'
+      group: 表头
+    - name: --gantt-table-header-text-align
+      title: 表头对齐方式
+      description: 设置表头对齐方式
+      type: input
+      default: center
+      group: 表头
+    - name: --gantt-table-header-background-color
+      title: 表头背景颜色
+      description: 设置表头背景颜色
+      type: color
+      default: '#fff'
+      group: 表头
+    - name: --gantt-table-header-font-weight
+      title: 表头字体加粗
+      description: 设置表头字体加粗
+      type: input
+      default: normal
+      group: 表头
+    - name: --gantt-table-background-color
+      title: 表格背景颜色
+      description: 设置表格背景颜色
+      type: color
+      default: '#fff'
+      group: 表格行
+    - name: --gantt-table-background-color-hover
+      title: 表格鼠标悬浮背景颜色
+      description: 设置表格鼠标悬浮背景颜色
+      type: color
+      default: '#f5f5f5'
+      group: 表格行
+    - name: --gantt-table-background-color-striped
+      title: 表格斑马纹背景颜色
+      description: 设置表格斑马纹背景颜色
+      type: color
+      default: '#fff'
+      group: 表格行
+    - name: --gantt-table-border-color
+      title: 表格边框颜色
+      description: 设置表格边框颜色
+      type: color
+      default: '#ebeef5'
+      group: 表格行
+    - name: --gantt-table-cell-color
+      title: 表格单元格字体颜色
+      description: 设置表格单元格颜色
+      type: color
+      default: '#000'
+      group: 表格单元格
+
+
+
+

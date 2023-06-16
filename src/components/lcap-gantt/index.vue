@@ -73,8 +73,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {currentDataSource, ganttTableConfig, skins} = this;
-      return {currentDataSource,ganttTableConfig, skins};
+      let {currentDataSource, ganttTableConfig, skins, customStyle} = this;
+      return {currentDataSource,ganttTableConfig, skins, customStyle};
     },
   },
   watch: {
@@ -401,6 +401,20 @@ export default {
 </script>
 
 <style>
+:root {
+  --gantt-table-header-font-size: 12px;
+  --gantt-table-header-font-color: #000;
+  --gantt-table-header-background-color: #fff;
+  --gantt-table-header-text-align: center;
+  --gantt-table-background-color: #fff;
+  --gantt-table-background-color-striped: #f5f5f5;
+  --gantt-table-background-color-hover: #f5f5f5;
+  --gantt-table-border-color: #ebebeb;
+  --gantt-table-cell-color: #454545;
+  --gantt-table-header-font-weight: normal;
+
+}
+
 .ganttRoot {
   width: 100%;
   height: 600px;
@@ -427,5 +441,37 @@ export default {
 .gantt_task_progress {
   opacity: 0.2 !important;
 }
+
+.gantt_grid_scale .gantt_grid_head_cell {
+  color: var(--gantt-table-header-font-color);
+  font-size:var(--gantt-table-header-font-size);
+  background-color: var(--gantt-table-header-background-color);
+  font-weight: var(--gantt-table-header-font-weight);
+  text-align: var(--gantt-table-header-text-align);
+}
+
+.gantt_cell {
+  color: var(--gantt-table-cell-color) !important;
+}
+.gantt_row, .gantt_row.odd {
+  background-color: var(--gantt-table-background-color);
+}
+
+.gantt_row:hover, .gantt_row.odd:hover {
+  background-color: var(--gantt-table-background-color-hover) !important;
+}
+
+.gantt_row.odd {
+  background-color: var(--gantt-table-background-color-striped);
+}
+
+.gantt_task_grid_row_resize {
+  background-color: var(--gantt-table-border-color) !important;
+}
+.gantt_row gantt_row_task {
+  height: 100px !important;
+  line-height: 100px !important;
+}
+
 
 </style>

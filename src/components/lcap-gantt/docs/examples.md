@@ -21,6 +21,15 @@
             id-field="id"
             icon-field="iconUrl"
             skins="default"
+            style="--gantt-table-header-font-size:12px;
+                --gantt-table-header-font-color:red; 
+                --gantt-table-header-text-align: center;
+                --gantt-table-background-color-striped: #f5f5f5;
+               --gantt-table-background-color-hover: #f5f5f5;
+               --gantt-table-cell-color: #000;
+                --gantt-table-header-font-weight: bold;
+                
+"
 >
 </lcap-gantt>
 ```
