@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-markdown-doc-render",
     "name": "文档渲染组件",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -47,6 +47,30 @@
                     {
                         "value": "root",
                         "title": "根节点"
+                    }
+                ]
+            },
+            {
+                "name": "outline-position-top",
+                "title": "大纲定位距离窗口上",
+                "type": "number",
+                "default": 200,
+                "description": "当滚动容器为窗口时生效",
+                "dependency": [
+                    {
+                        "scrollContainer": "window"
+                    }
+                ]
+            },
+            {
+                "name": "outline-position-right",
+                "title": "大纲定位距离窗口右",
+                "type": "number",
+                "default": 100,
+                "description": "当滚动容器为窗口时生效",
+                "dependency": [
+                    {
+                        "scrollContainer": "window"
                     }
                 ]
             }

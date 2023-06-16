@@ -7,7 +7,7 @@
             @click="onTapMarkdown"></div>
     </div>
 
-    <div class="anchor-wrap">
+    <div class="anchor-wrap" :style="anchorStyle">
         <div class="foldIcon" v-if="tocData && tocData.length">
             <div 
                 v-tooltip.top="pinned ? '隐藏目录' : '显示目录'" 
@@ -103,6 +103,14 @@ export default {
         scrollContainer: {
             type: String,
             default: 'window'
+        },
+        outlinePositionTop: {
+            type: Number,
+            default: 200
+        },
+        outlinePositionRight: {
+            type: Number,
+            default: 100
         }
     },
     components: {
@@ -120,6 +128,18 @@ export default {
         toggle: true,
         pinned: true,
     }),
+    computed: {
+        anchorStyle() { 
+            let style = {};
+            if (this.scrollContainer === 'window') {
+                style.position = 'fixed';
+                style.top = this.outlinePositionTop + 'px'
+                style.right = this.outlinePositionRight + 'px'
+            }
+
+            return style;
+        }
+    },
     watch: {
         text(val) {
             this.renderMarkdown(val)
@@ -133,7 +153,8 @@ export default {
     },
     mounted() {
         if (this.scrollContainer === 'window') {
-            this.scrollWraper = document.documentElement
+            // this.scrollWraper = document.documentElement
+            this.scrollWraper = document
         } else if (this.scrollContainer === 'root') {
             this.scrollWraper = this.$refs.content
         }
@@ -263,6 +284,7 @@ export default {
                 if (clickFlag) return;
                 curHeight = this.scrollWraper.scrollTop;
                 curHeight += 80;
+                console.log('scroll');
                 const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
                 const tocList = document.querySelectorAll(".tocItem");
 
@@ -405,14 +427,18 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
   max-height: 100%;
   padding: 0 0 0 40px;
   overflow: scroll;
-  padding-right: 200px;
+  padding-right: 365px;
+}
+
+.markdown-root .content ul {
+    list-style: inherit;
 }
 
 .markdown-root .anchor-wrap {
   position: absolute;
   right: 5px;
   top: 40px;
-  width: 200px;
+  width: 320px;
 }
 
 .toc::-webkit-scrollbar {

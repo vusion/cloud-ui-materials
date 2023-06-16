@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-markdown-doc-search",
     "name": "文档搜索框",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -205,6 +205,12 @@
                 "description": "",
                 "default": "",
                 "clearable": true
+            },
+            {
+                "name": "border-radius",
+                "title": "圆角",
+                "type": "string",
+                "default": "0px"
             }
         ],
         "methods": [

@@ -117,6 +117,10 @@
       description: ""
       default: ""
       clearable: true
+    - name: border-radius
+      title: 圆角
+      type: string
+      default: 0px
   events:
     - name: select
       title: 选择时
