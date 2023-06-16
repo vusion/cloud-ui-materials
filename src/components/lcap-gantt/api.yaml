@@ -1,0 +1,131 @@
+- name: lcap-gantt
+  title: 甘特图
+  description: 请在这里添加描述
+  labels: [Chart]
+  icon: default
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 甘特图的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据属性
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 集合类型每一元素的数据类型
+      group: 数据属性
+      compType: dataTypeSelect
+    - name: text-field
+      title: 文本字段
+      type: string
+      default: ''
+      description: 设置泳道图文本字段
+      group: 数据属性
+    - name: start-field
+      title: 开始日期字段
+      type: string
+      default: ''
+      description: 设置泳道图开始日期字段
+      group: 数据属性
+    - name: duration-field
+      title: 持续时间字段
+      type: string
+      default: ''
+      description: 设置泳道图持续时间字段
+      group: 数据属性
+    - name: progress-field
+      title: 进度字段
+      type: string
+      default: ''
+      description: 设置泳道图进度字段
+      group: 数据属性
+    - name: id-field
+      title: id字段
+      type: string
+      default: ''
+      description: 设置泳道图id字段
+      group: 数据属性
+    - name: parent-field
+      title: 父级字段
+      type: string
+      default: ''
+      description: 设置泳道图父级字段
+      group: 数据属性
+    - name: color-field
+      title: 数据颜色字段
+      type: string
+      default: ''
+      description: 设置泳道图数据颜色字段
+      group: 数据属性
+    - name: icon-field
+      title: 图标字段
+      type: string
+      default: ''
+      description: 设置数据列表图标字段，仅支持png,jpg类型的图片链接
+      group: 数据属性
+    - name: ganttTableConfig
+      title: 甘特图表格配置
+      type: Array<Item>
+      description: 配置甘特图表格相
+      group: 数据属性
+    - name: taskView
+      title: 切换日期视图
+      type: string
+      default: d
+      description: 切换日期视图
+      options:
+        - value: d
+          title: 日
+        - value: w
+          title: 周
+        - value: m
+          title: 月
+        - value: y
+          title: 年
+      group: 展示属性
+    - name: showToday
+      title: 显示今日标记线
+      type: boolean
+      default: true
+      description: 设置显示今日标记线
+      group: 展示属性
+    - name: skins
+      title: 皮肤
+      type: string
+      default: default
+      description: 设置甘特图皮肤
+      group: 展示属性
+      options:
+        - value: default
+          title: 默认
+        - value: skyblue
+          title: 天蓝
+        - value: meadow
+          title: 草地
+        - value: broadway
+          title: 百老汇
+  events:
+    - name: taskClick
+      title: 任务点击时
+      description: 任务点击时触发
+      params:
+        - name: $event
+          type: Object
+          description: 任务详情
+    - name: scaleClick
+      title: 刻度点击时
+      description: 刻度点击时触发
+      params:
+        - name: $event
+          type: string
+          description: 点击时间
+  methods:
+    - name: load
+      title: 重新加载
+      description: 重新加载甘特图
+      params: []
+    - name: changeToday
+      title: 定位到今日标记线
+      description: 定位到今日标记线
+      params: []
