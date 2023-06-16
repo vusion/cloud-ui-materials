@@ -26,8 +26,13 @@
         </div>
 
         <u-tree-view ref="treeView" class="toc" :data="tocData" expand-trigger="click-expander" v-show="pinned" @toggle="handleToggleToc">
-            <div slot="text" slot-scope="{ node }" :class="[curTocItem.value === node.slug ? 'active' : '', 'tocItem']" @click="handleTocSelected(node)">
-                <a :href="`#${node.slug}`">{{ node.title }}</a>
+            <div 
+                slot="text" 
+                slot-scope="{ node }" 
+                :class="[curTocItem.value === node.slug ? 'active' : '', 'tocItem']" 
+                @click="handleTocSelected(node)">
+                <a>{{ node.title }}</a>
+                <!-- <a :href="`#${node.slug}`">{{ node.title }}</a> -->
             </div>
         </u-tree-view>
     </div>
@@ -110,7 +115,7 @@ export default {
         },
         outlinePositionRight: {
             type: Number,
-            default: 100
+            default: 0
         }
     },
     components: {
@@ -127,15 +132,15 @@ export default {
 
         toggle: true,
         pinned: true,
+
+        headersTop: {}
     }),
     computed: {
         anchorStyle() { 
             let style = {};
-            if (this.scrollContainer === 'window') {
-                style.position = 'fixed';
-                style.top = this.outlinePositionTop + 'px'
-                style.right = this.outlinePositionRight + 'px'
-            }
+            style.position = 'fixed';
+            style.top = this.outlinePositionTop + 'px'
+            style.right = this.outlinePositionRight + 'px'
 
             return style;
         }
@@ -152,13 +157,7 @@ export default {
         
     },
     mounted() {
-        if (this.scrollContainer === 'window') {
-            // this.scrollWraper = document.documentElement
-            this.scrollWraper = document
-        } else if (this.scrollContainer === 'root') {
-            this.scrollWraper = this.$refs.content
-        }
-        
+        this.scrollWraper = document
         this.renderMarkdown(this.text);
     },
     beforeDestroy() {
@@ -169,8 +168,8 @@ export default {
     },
     methods: {
         renderMarkdown(text) {
-            this.scrollWraper.scrollTop = 0;
-
+            window.scrollTo(0, 0)
+            
             let htmlString = md.render(text)
             const headers = extractHeaders(text, ['h2', 'h3'], md)
 
@@ -192,6 +191,9 @@ export default {
                 if (!/^#/.test(href)) {
                     link.removeAttribute("href");
                     link.setAttribute("_href", href)
+                } else {
+                    link.removeAttribute("href");
+                    link.setAttribute("_href", href.toLowerCase())
                 }
             }
 
@@ -205,6 +207,8 @@ export default {
             this.$nextTick(() => {
                 this.$refs.treeView?.toggleAll(true);
                 this.initialTocListener();
+
+                this.initHeadersTopDistance();
             })
 
             if (process.env.NODE_ENV !== 'production') {
@@ -236,9 +240,12 @@ export default {
             return result;
         },
         handleTocSelected(node) {
-            this.curTocItem.value = node.slug;
             // 阻止锚点定位时所触发的滚动事件
             clickFlag = true;
+
+            this.curTocItem.value = node.slug;
+            window.scrollTo(0, this.headersTop[node.slug] - this.outlinePositionTop)
+            
             setTimeout(() => {
                 clickFlag = false;
             }, 500);
@@ -279,27 +286,28 @@ export default {
             let resFun
             let curHeight;
             let activeTocItem;
+
             this.scrollWraper.addEventListener( "scroll", (resFun = debounce(() => {
                 let curTocIndex = 0;
                 if (clickFlag) return;
-                curHeight = this.scrollWraper.scrollTop;
-                curHeight += 80;
+                curHeight = document.documentElement.scrollTop;
+                curHeight += this.outlinePositionTop;
                 console.log('scroll');
                 const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
                 const tocList = document.querySelectorAll(".tocItem");
 
                 // 判断当前滚动的高度是否大于前一个节点的高度,小于后一个节点的高度
-                if (headers[0]?.offsetTop > curHeight) {
+                if (this.getElementTopDistance(headers[0]) > curHeight) {
                     ref.value = headers[0]?.id;
                     activeTocItem = tocList[0];
                     curTocIndex = 0;
-                } else if (headers[headers.length - 1]?.offsetTop < curHeight) {
+                } else if (this.getElementTopDistance(headers[headers.length - 1]) < curHeight) {
                     ref.value = headers[headers.length - 1]?.id;
                     activeTocItem = tocList[headers.length - 1];
                     curTocIndex = headers.length - 1;
                 } else {
                     for (let i = 0; i < headers.length; i++) {
-                        if (headers[i]?.offsetTop < curHeight && headers[i + 1]?.offsetTop > curHeight) {
+                        if (this.getElementTopDistance(headers[i]) < curHeight && this.getElementTopDistance(headers[i+1]) > curHeight) {
                             ref.value = headers[i]?.id;
                             activeTocItem = tocList[i];
                             curTocIndex = i;
@@ -336,11 +344,27 @@ export default {
                 this.$emit('link', decodeURIComponent(_href))
             }
         },
+        getElementTopDistance(element) {
+            let distance = 0;
+            while (element) {
+                distance += element.offsetTop;
+                element = element.offsetParent;
+            }
 
-        onScroll: debounce(function () {
-            // this.setActiveHash()
-        }, 300),
+            return distance;
+        },
 
+        initHeadersTopDistance() {
+            let map = {}
+            const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
+            for (let i = 0; i < headers.length; i++) {
+                const element = headers[i];
+                map[element?.id] = this.getElementTopDistance(element)
+            }
+
+            this.headersTop = map;
+        },
+        // 页面滚动时给地址栏加hash
         setActiveHash() {
             const sidebarLinks = [].slice.call(document.querySelectorAll('.sidebar-link'))
             const anchors = [].slice.call(document.querySelectorAll('.header-anchor'))
@@ -369,23 +393,23 @@ export default {
 
                 const routeHash = decodeURIComponent(this.$route.hash)
                 if (isActive && routeHash !== decodeURIComponent(anchor.hash)) {
-                const activeAnchor = anchor
-                // check if anchor is at the bottom of the page to keep $route.hash consistent
-                if (bottomY === scrollHeight) {
-                    for (let j = i + 1; j < anchors.length; j++) {
-                    if (routeHash === decodeURIComponent(anchors[j].hash)) {
-                        return
+                    const activeAnchor = anchor
+                    // check if anchor is at the bottom of the page to keep $route.hash consistent
+                    if (bottomY === scrollHeight) {
+                        for (let j = i + 1; j < anchors.length; j++) {
+                            if (routeHash === decodeURIComponent(anchors[j].hash)) {
+                                return
+                            }
+                        }
                     }
-                    }
-                }
-                this.$vuepress.$set('disableScrollBehavior', true)
-                this.$router.replace(decodeURIComponent(activeAnchor.hash), () => {
-                    // execute after scrollBehavior handler.
-                    this.$nextTick(() => {
-                    this.$vuepress.$set('disableScrollBehavior', false)
+                    this.$vuepress.$set('disableScrollBehavior', true)
+                    this.$router.replace(decodeURIComponent(activeAnchor.hash), () => {
+                        // execute after scrollBehavior handler.
+                        this.$nextTick(() => {
+                        this.$vuepress.$set('disableScrollBehavior', false)
+                        })
                     })
-                })
-                return
+                    return
                 }
             }
         }
@@ -432,6 +456,10 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 
 .markdown-root .content ul {
     list-style: inherit;
+}
+
+.markdown-root .content ol {
+    list-style-type: decimal;
 }
 
 .markdown-root .anchor-wrap {
@@ -488,7 +516,9 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 
 .toc {
     color: #2c3e50;
-    font-weight: 400
+    font-weight: 400;
+    max-height: 60vh;
+    overflow-y: scroll;
 }
 
 .toc .active {

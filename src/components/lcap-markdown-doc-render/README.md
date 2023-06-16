@@ -44,7 +44,7 @@ export default {
 | text | string |  | `''` | 需要传入的文本 |
 | scrollContainer | string | `[object Object]`<br/>`[object Object]` | `'window'` | 监听文档滚动的容器 |
 | outline-position-top | number |  | `200` | 当滚动容器为窗口时生效 |
-| outline-position-right | number |  | `100` | 当滚动容器为窗口时生效 |
+| outline-position-right | number |  | `0` | 当滚动容器为窗口时生效 |
 
 ### Events
 
