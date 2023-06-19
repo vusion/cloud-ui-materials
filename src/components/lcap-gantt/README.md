@@ -6,7 +6,6 @@
     - [基本用法](#基本用法)
 - [API]()
     - [Props/Attrs](#propsattrs)
-    - [Slots](#slots)
     - [Events](#events)
     - [Methods](#methods)
 
@@ -19,15 +18,15 @@
 
 ```html
 <lcap-gantt :data-source="[
-        { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', duration: 9, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0' },
-        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0' },
+        { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', duration: 9, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0', iconUrl: '' },
+        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0', iconUrl: 'http://ceph.lcap.hadev.163yun.com/lowcode-static/user/defaulttenant/1686301210678_%E5%8A%A0%E6%B2%B9.jpg' },
         { id: 3, text1: '实施', start: '2023-04-24 00:00', duration: 4, progress: 0.5, parent: 1, head: '孙三', state: 'unfinished', color: '#84bd54' },
         { id: 4, text1: '复盘', start: '2023-04-28 00:00', duration: 3, progress: 0.1, parent: 1, head: '李四', state: 'canceled', color: '#da645d' },
     ]"
             :ganttTableConfig="[
-            {'labelField':'项目名称','iconField':'icon','showIcon':false,'nameField':'text1', showTooltip: true, width: '100'},
-            {'labelField':'负责人','iconField':'icon','showIcon':false,'nameField':'head', showTooltip: true, width: '100'},
-            {'labelField':'开始日期','iconField':'icon','showIcon':false,'nameField':'start', showTooltip: true, width: '150'}
+            {'labelField':'项目名称','nameField':'text1', showTooltip: true, width: '100'},
+            {'labelField':'负责人','nameField':'head', showTooltip: true, width: '100'},
+            {'labelField':'开始日期','nameField':'start', showTooltip: true, width: '150'}
             ]"
             parent-field="parent"
             start-field="start"
@@ -36,7 +35,17 @@
             text-field="text1"
             color-field="color"
             id-field="id"
+            icon-field="iconUrl"
             skins="default"
+            style="--gantt-table-header-font-size:12px;
+                --gantt-table-header-font-color:red; 
+                --gantt-table-header-text-align: center;
+                --gantt-table-background-color-striped: #f5f5f5;
+               --gantt-table-background-color-hover: #f5f5f5;
+               --gantt-table-cell-color: #000;
+                --gantt-table-header-font-weight: bold;
+                
+"
 >
 </lcap-gantt>
 ```
@@ -55,29 +64,38 @@
 | id-field | string |  | `''` | 设置泳道图id字段 |
 | parent-field | string |  | `''` | 设置泳道图父级字段 |
 | color-field | string |  | `''` | 设置泳道图数据颜色字段 |
+| icon-field | string |  | `''` | 设置数据列表图标字段，仅支持png,jpg类型的图片链接 |
 | ganttTableConfig | Array\<Item\> |  |  | 配置甘特图表格相 |
 | taskView | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'d'` | 切换日期视图 |
 | showToday | boolean |  | `true` | 设置显示今日标记线 |
 | skins | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'default'` | 设置甘特图皮肤 |
 
-### Slots
-
-#### (default)
-
-插入文本或 HTML。
-
 ### Events
 
-#### @change
+#### @taskClick
 
-修改时触发
+任务点击时触发
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |
-| $event.param1 | string | 参数1 |
-| $event.param2 | number | 参数2 |
+| $event | Object | 任务详情 |
+
+#### @scaleClick
+
+刻度点击时触发
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | string | 点击时间 |
 
 Methods
+
+#### load()
+
+重新加载甘特图
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
 
 #### changeToday()
 

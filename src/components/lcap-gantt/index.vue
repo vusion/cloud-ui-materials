@@ -4,7 +4,7 @@
 
       <div>
         <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput"></u-input>
-        <u-button icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
+        <u-button class="ganttSearchButton" icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
       </div>
       <div>
         <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
@@ -13,7 +13,7 @@
           <u-select-item value="w">周</u-select-item>
           <u-select-item value="d">日</u-select-item>
         </u-select>
-        <u-button icon="" v-if="showToday" @click="changeToday">今天</u-button>
+        <u-button class="showTodayButton" icon="" v-if="showToday" @click="changeToday">今天</u-button>
       </div>
     </u-linear-layout>
     <div id="gantt" ref="gantt" class="ganttContainer"/>
@@ -153,7 +153,12 @@ export default {
       this.initSkins();
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
-      let ganttFinalDataSources = this.currentDataSource.data;
+      let ganttFinalDataSources;
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+        ganttFinalDataSources = initialData.data;
+      }else {
+        ganttFinalDataSources = this.currentDataSource.data;
+      }
       ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
       console.log('ganttFinalDataSources', ganttFinalDataSources);
       gantt.parse({
@@ -418,6 +423,24 @@ export default {
 .ganttRoot {
   width: 100%;
   height: 600px;
+}
+
+.showTodayButton {
+  border: 1px solid #ebebeb;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #454545;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.ganttSearchButton {
+  border: 1px solid #ebebeb;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #454545;
+  cursor: pointer;
+  padding: 0 8px;
 }
 
 .ganttContainer {
