@@ -171,7 +171,7 @@ export default {
             window.scrollTo(0, 0)
             
             let htmlString = md.render(text)
-            const headers = extractHeaders(text, ['h2', 'h3'], md)
+            const headers = extractHeaders(text, ['h2', 'h3', 'h4', 'h5'], md)
 
             // 处理a签
             // 创建DOM解析器对象
