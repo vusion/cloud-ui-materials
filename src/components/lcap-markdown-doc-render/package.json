@@ -1,11 +1,11 @@
 {
   "name": "lcap-markdown-doc-render",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "jiyufeng",
   "repository": "",
-  "homepage": "https://lcap-official-bucket.codewave.163.com/lcap-markdown-doc-render@0.1.4/index.html",
+  "homepage": "https://lcap-official-bucket.codewave.163.com/lcap-markdown-doc-render@0.1.5/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

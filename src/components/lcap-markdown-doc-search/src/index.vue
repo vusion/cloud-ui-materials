@@ -58,7 +58,9 @@
             @mouseenter="onMouseEnter(i)"
         >
             <a @click.prevent>
-            <div class="parent-page-title">{{ s[textField] }}</div>
+            <div class="parent-page-title">
+                <div v-html="getContent(s[textField])"></div>
+            </div>
 
             <div class="suggestion-row">
                 <div class="suggestion-content">
@@ -164,7 +166,7 @@ export default {
             this.$emit('change', $event)
             setTimeout(() => {
                 this.searching = false;
-            }, 200);
+            }, 100);
         }, 500),
 
         onCompositionStart($event) {
@@ -342,7 +344,8 @@ export default {
 
 .markdown-doc-search-box .suggestions .highlight {
     color: #337eff;
-    font-weight: 600
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .markdown-doc-search-box .total-suggestions {
@@ -406,7 +409,7 @@ export default {
 }
 
 .markdown-doc-search-box .suggestion a .suggestion-row .suggestion-content .highlight {
-    text-decoration: underline
+    /* text-decoration: underline */
 }
 
 .markdown-doc-search-box .suggestion a .suggestion-row .suggestion-content .header {
