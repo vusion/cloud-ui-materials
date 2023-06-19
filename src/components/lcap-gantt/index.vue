@@ -1,7 +1,6 @@
 <template>
   <div class="ganttRoot">
     <u-linear-layout type="flex" justify="space-between" class="functionBar">
-
       <div>
         <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput"></u-input>
         <u-button class="ganttSearchButton" icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
@@ -56,6 +55,8 @@ export default {
     idField: {type: String, default: ''},
     parentField: {type: String, default: ''},
     skins: {type: String, default: 'default'},
+    ganttStartDate: {type: String, default: ''},
+    ganttEndDate: {type: String, default: ''},
   },
   mixins: [supportDataSource],
   mounted() {
@@ -73,8 +74,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {currentDataSource, ganttTableConfig, skins, customStyle} = this;
-      return {currentDataSource,ganttTableConfig, skins, customStyle};
+      let {currentDataSource, ganttTableConfig, skins, customStyle, ganttStartDate, ganttEndDate} = this;
+      return {currentDataSource,ganttTableConfig, skins, customStyle, ganttStartDate, ganttEndDate};
     },
   },
   watch: {
@@ -151,6 +152,7 @@ export default {
       this.changeTaskColor();
       this.highlightWeekend();
       this.initSkins();
+      this.initStartEndDate();
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
       let ganttFinalDataSources;
@@ -230,7 +232,6 @@ export default {
           gantt.config.step = 1;
           gantt.config.date_scale = "%m月%d日";
           gantt.templates.date_scale = null;
-          gantt.config.subscales = null;
           break;
       }
       gantt.render();
@@ -345,6 +346,14 @@ export default {
         case 'broadway':
           require('dhtmlx-gantt/codebase/skins/dhtmlxgantt_broadway.css');
           break;
+      }
+    },
+    initStartEndDate() {
+      if (this.ganttStartDate) {
+        gantt.config.start_date = this.ganttStartDate;
+      }
+      if (this.ganttEndDate) {
+        gantt.config.end_date = this.ganttEndDate;
       }
     },
     changeObjKey(obj, oldKey, newKey) {

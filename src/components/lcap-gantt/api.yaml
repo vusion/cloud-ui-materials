@@ -105,6 +105,18 @@
           title: 草地
         - value: broadway
           title: 百老汇
+    - name: ganttStartDate
+      title: 横道图标尺开始日期
+      type: string
+      default: ''
+      description: 设置甘特图开始日期
+      group: 展示属性
+    - name: ganttEndDate
+      title: 横道图标尺结束日期
+      type: string
+      default: ''
+      description: 设置甘特图结束日期
+      group: 展示属性
   events:
     - name: taskClick
       title: 任务点击时

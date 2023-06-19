@@ -21,6 +21,7 @@
             id-field="id"
             icon-field="iconUrl"
             skins="default"
+            ganttEndDate="2023-07-19 20:07:41"
             style="--gantt-table-header-font-size:12px;
                 --gantt-table-header-font-color:red; 
                 --gantt-table-header-text-align: center;
