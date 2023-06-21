@@ -50,6 +50,7 @@
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-emoji": "^2.0.2",
     "markdown-it-table-of-contents": "^0.6.0",
+    "medium-zoom": "^1.0.8",
     "prismjs": "^1.29.0"
   },
   "devDependencies": {},

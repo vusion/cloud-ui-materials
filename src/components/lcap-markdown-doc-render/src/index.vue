@@ -46,6 +46,8 @@ import tocPlugin from 'markdown-it-table-of-contents'
 import emojiPlugin from 'markdown-it-emoji'
 import debounce from 'lodash.debounce'
 
+import mediumZoom from 'medium-zoom'
+
 import slugify from './utils/slugify'
 import parseHeaders from './utils/parseHeaders'
 import extractHeaders from './utils/extractHeaders'
@@ -160,6 +162,15 @@ export default {
         this.scrollWraper = document
         this.renderMarkdown(this.text);
     },
+    updated() {
+        const selector = '.theme-default-content img'
+        if (!this.zoomInstance) {
+            this.zoomInstance = mediumZoom(selector)
+        } else {
+            this.zoomInstance.detach()
+            this.zoomInstance.attach(selector)
+        }
+    },
     beforeDestroy() {
         this.scrollWraper.removeEventListener('scroll', scrollListener)
     },
@@ -188,12 +199,13 @@ export default {
                 const link = links[i];
                 const href = link.getAttribute("href");
 
+                // 跳转链接
                 if (!/^#/.test(href)) {
                     link.removeAttribute("href");
                     link.setAttribute("_href", href)
-                } else {
+                } else { // 内部锚点
                     link.removeAttribute("href");
-                    link.setAttribute("_href", href.toLowerCase())
+                    link.setAttribute("slug", href.replace(/^#/, ''))
                 }
             }
 
@@ -207,8 +219,6 @@ export default {
             this.$nextTick(() => {
                 this.$refs.treeView?.toggleAll(true);
                 this.initialTocListener();
-
-                this.initHeadersTopDistance();
             })
 
             if (process.env.NODE_ENV !== 'production') {
@@ -240,6 +250,8 @@ export default {
             return result;
         },
         handleTocSelected(node) {
+            // 获取最准确的位置信息
+            this.initHeadersTopDistance();
             // 阻止锚点定位时所触发的滚动事件
             clickFlag = true;
 
@@ -337,11 +349,18 @@ export default {
 
         onTapMarkdown(e) {
             const { tagName } = e.target;
-            const _href = e.target.getAttribute("_href")
 
-            if (['A'].includes(tagName) && _href) {
+            if (!['A'].includes(tagName)) return;
+
+
+            const _href = e.target.getAttribute("_href") // link
+            const slug = e.target.getAttribute("slug") // hash
+
+            if (_href) {
                 console.log('link:', decodeURIComponent(_href));
                 this.$emit('link', decodeURIComponent(_href))
+            } else if (slug) {
+                this.handleTocSelected({ slug: decodeURIComponent(slug).toLowerCase() })
             }
         },
         getElementTopDistance(element) {
@@ -455,11 +474,19 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 }
 
 .markdown-root .content ul {
-    list-style: inherit;
+    list-style-type: disc;
 }
 
 .markdown-root .content ol {
     list-style-type: decimal;
+}
+
+.markdown-root .content ol ul {
+    list-style-type: circle;
+}
+
+.markdown-root .content ul ul {
+    list-style-type: circle;
 }
 
 .markdown-root .anchor-wrap {
