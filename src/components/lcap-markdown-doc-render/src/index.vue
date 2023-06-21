@@ -476,7 +476,7 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 .markdown-root .content {
   max-height: 100%;
   padding: 0 0 0 40px;
-  overflow: scroll;
+  /* overflow: scroll; */
   padding-right: 365px;
 }
 
