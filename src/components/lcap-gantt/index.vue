@@ -1,10 +1,9 @@
 <template>
   <div class="ganttRoot">
     <u-linear-layout type="flex" justify="space-between" class="functionBar">
-
       <div>
         <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput"></u-input>
-        <u-button icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
+        <u-button class="ganttSearchButton" icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
       </div>
       <div>
         <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
@@ -13,7 +12,7 @@
           <u-select-item value="w">周</u-select-item>
           <u-select-item value="d">日</u-select-item>
         </u-select>
-        <u-button icon="" v-if="showToday" @click="changeToday">今天</u-button>
+        <u-button class="showTodayButton" icon="" v-if="showToday" @click="changeToday">今天</u-button>
       </div>
     </u-linear-layout>
     <div id="gantt" ref="gantt" class="ganttContainer"/>
@@ -56,6 +55,8 @@ export default {
     idField: {type: String, default: ''},
     parentField: {type: String, default: ''},
     skins: {type: String, default: 'default'},
+    ganttStartDate: {type: String, default: ''},
+    ganttEndDate: {type: String, default: ''},
   },
   mixins: [supportDataSource],
   mounted() {
@@ -73,8 +74,8 @@ export default {
   },
   computed: {
     changedObj() {
-      let {currentDataSource, ganttTableConfig, skins} = this;
-      return {currentDataSource,ganttTableConfig, skins};
+      let {currentDataSource, ganttTableConfig, skins, customStyle, ganttStartDate, ganttEndDate} = this;
+      return {currentDataSource,ganttTableConfig, skins, customStyle, ganttStartDate, ganttEndDate};
     },
   },
   watch: {
@@ -151,9 +152,15 @@ export default {
       this.changeTaskColor();
       this.highlightWeekend();
       this.initSkins();
+      this.initStartEndDate();
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
-      let ganttFinalDataSources = this.currentDataSource.data;
+      let ganttFinalDataSources;
+      if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+        ganttFinalDataSources = initialData.data;
+      }else {
+        ganttFinalDataSources = this.currentDataSource.data;
+      }
       ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
       console.log('ganttFinalDataSources', ganttFinalDataSources);
       gantt.parse({
@@ -225,7 +232,6 @@ export default {
           gantt.config.step = 1;
           gantt.config.date_scale = "%m月%d日";
           gantt.templates.date_scale = null;
-          gantt.config.subscales = null;
           break;
       }
       gantt.render();
@@ -342,6 +348,14 @@ export default {
           break;
       }
     },
+    initStartEndDate() {
+      if (this.ganttStartDate) {
+        gantt.config.start_date = this.ganttStartDate;
+      }
+      if (this.ganttEndDate) {
+        gantt.config.end_date = this.ganttEndDate;
+      }
+    },
     changeObjKey(obj, oldKey, newKey) {
       if (oldKey === newKey) return;
       if (obj?.hasOwnProperty(oldKey)) {
@@ -401,9 +415,41 @@ export default {
 </script>
 
 <style>
+:root {
+  --gantt-table-header-font-size: 12px;
+  --gantt-table-header-font-color: #000;
+  --gantt-table-header-background-color: #fff;
+  --gantt-table-header-text-align: center;
+  --gantt-table-background-color: #fff;
+  --gantt-table-background-color-striped: #f5f5f5;
+  --gantt-table-background-color-hover: #f5f5f5;
+  --gantt-table-border-color: #ebebeb;
+  --gantt-table-cell-color: #454545;
+  --gantt-table-header-font-weight: normal;
+
+}
+
 .ganttRoot {
   width: 100%;
   height: 600px;
+}
+
+.showTodayButton {
+  border: 1px solid #ebebeb;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #454545;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.ganttSearchButton {
+  border: 1px solid #ebebeb;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #454545;
+  cursor: pointer;
+  padding: 0 8px;
 }
 
 .ganttContainer {
@@ -427,5 +473,37 @@ export default {
 .gantt_task_progress {
   opacity: 0.2 !important;
 }
+
+.gantt_grid_scale .gantt_grid_head_cell {
+  color: var(--gantt-table-header-font-color);
+  font-size:var(--gantt-table-header-font-size);
+  background-color: var(--gantt-table-header-background-color);
+  font-weight: var(--gantt-table-header-font-weight);
+  text-align: var(--gantt-table-header-text-align);
+}
+
+.gantt_cell {
+  color: var(--gantt-table-cell-color) !important;
+}
+.gantt_row, .gantt_row.odd {
+  background-color: var(--gantt-table-background-color);
+}
+
+.gantt_row:hover, .gantt_row.odd:hover {
+  background-color: var(--gantt-table-background-color-hover) !important;
+}
+
+.gantt_row.odd {
+  background-color: var(--gantt-table-background-color-striped);
+}
+
+.gantt_task_grid_row_resize {
+  background-color: var(--gantt-table-border-color) !important;
+}
+.gantt_row gantt_row_task {
+  height: 100px !important;
+  line-height: 100px !important;
+}
+
 
 </style>

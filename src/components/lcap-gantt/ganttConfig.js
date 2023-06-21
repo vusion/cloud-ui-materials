@@ -19,11 +19,14 @@ export const ganttPlugins = {
     undo: true // 允许撤销
 };
 
+const currTime = moment(new Date().valueOf()).format('YYYY-MM-DD');
+const project1Time = moment(new Date().valueOf() + 2 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
+const project2Time = moment(new Date().valueOf() + 4 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
 export const initialData = {
     data: [
-        {id: 1, text: '项目 #1', start_date: '2023-04-15 00:00', duration: 3, progress: 0.6, open: true},
-        {id: 2, text: '任务 #1', start_date: '2023-04-18 00:00', duration: 3, progress: 0.4, parent: 1},
-        {id: 3, text: '任务 #2', start_date: '2023-04-20 00:00', duration: 3, progress: 0.4, parent: 1},
+        {id: 1, text: '项目 #1', start_date: currTime, duration: 3, progress: 0.6, open: true},
+        {id: 2, text: '示例1', start_date: project1Time, duration: 3, progress: 0.4, parent: 1},
+        {id: 3, text: '示例2', start_date: project2Time, duration: 3, progress: 0.4, parent: 1},
     ],
     links: [
         {id: 1, source: 1, target: 2, type: '0'},
