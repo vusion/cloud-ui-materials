@@ -46,7 +46,8 @@ import tocPlugin from 'markdown-it-table-of-contents'
 import emojiPlugin from 'markdown-it-emoji'
 import debounce from 'lodash.debounce'
 
-import mediumZoom from 'medium-zoom'
+// import mediumZoom from 'medium-zoom'
+import Zooming from 'zooming'
 
 import slugify from './utils/slugify'
 import parseHeaders from './utils/parseHeaders'
@@ -156,7 +157,10 @@ export default {
         // }
     },
     created() {
-        
+        this.zoomInstance = new Zooming({
+            customSize: '100%',
+            enableGrab: false,
+        })
     },
     mounted() {
         this.scrollWraper = document
@@ -164,12 +168,15 @@ export default {
     },
     updated() {
         const selector = '.theme-default-content img'
-        if (!this.zoomInstance) {
-            this.zoomInstance = mediumZoom(selector)
-        } else {
-            this.zoomInstance.detach()
-            this.zoomInstance.attach(selector)
-        }
+
+        this.zoomInstance.listen(selector);
+
+        // if (!this.mediumZoomInstance) {
+        //     this.mediumZoomInstance = mediumZoom(selector)
+        // } else {
+        //     this.mediumZoomInstance.detach()
+        //     this.mediumZoomInstance.attach(selector)
+        // }
     },
     beforeDestroy() {
         this.scrollWraper.removeEventListener('scroll', scrollListener)
