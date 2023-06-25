@@ -134,6 +134,10 @@ export default {
                     const toolHeight = this.$refs.toolbar.$el.getBoundingClientRect().height;
                     height = this.removePX(height);
                     this.editorHeight.height = height - toolHeight - 2 + 'px';
+                    // 部分场景在编辑器内，删除高度会导致页面反复重新渲染，所以在编辑器下不删除高度
+                    if (!this.$env.VUE_APP_DESIGNER) {
+                        this.$refs.root.style.removeProperty('height');
+                    }
                 }
                 this.defaultHeight = this.editorHeight.height;
                 if (!this.scroll) {
