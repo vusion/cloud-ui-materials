@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-h5-tk-getuserinfo",
     "name": "泰康sdk获取用户信息",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
