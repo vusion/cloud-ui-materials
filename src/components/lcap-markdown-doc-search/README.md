@@ -89,6 +89,7 @@ export default {
 | data-schema | schema |  |  | 选择器每一行的数据类型 |
 | text-field | string |  | `'text'` | 显示结果项标题字段的属性 |
 | description-field | string |  |  | 用于显示结果项描述字段的属性 |
+| loading | boolean |  | `false` | 用于显示加载状态 |
 | align | string | `[object Object]`<br/>`[object Object]` | `'left'` | undefined |
 | clearable | boolean |  |  | 开启并在输入框有内容时会显示清除按钮 |
 | placeholder | string |  |  | 为空时的提示文本 |

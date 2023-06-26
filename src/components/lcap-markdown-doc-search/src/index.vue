@@ -32,9 +32,8 @@
         @click-suffix="onClickSuffix"
     />
 
-
     <ul
-      v-if="searching"
+      v-if="searching || loading"
       class="suggestions"
       :class="{ [`align-${align}`]: true }"
     >
@@ -104,7 +103,8 @@ export default {
         borderRadius: {
             type: String, 
             default: '0px'
-        }
+        },
+        loading: { type: Boolean, default: false },
     },
     components: {
         // UInput,
