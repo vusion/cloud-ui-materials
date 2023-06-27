@@ -1,0 +1,21 @@
+{
+  "lcap-gantt": {
+    "attributes": [
+      "data-source",
+      "data-schema",
+      "text-field",
+      "start-field",
+      "duration-field",
+      "progress-field",
+      "id-field",
+      "parent-field",
+      "color-field",
+      "icon-field",
+      "ganttTableConfig",
+      "taskView",
+      "showToday",
+      "skins"
+    ],
+    "description": "请在这里添加描述"
+  }
+}

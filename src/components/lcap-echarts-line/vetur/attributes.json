@@ -3,25 +3,79 @@
     "type": "Array<Item> | Function | object | DataSource",
     "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
   },
+  "lcap-echarts-line/data-schema": {
+    "type": "schema",
+    "description": "表格每一行的数据类型"
+  },
+  "lcap-echarts-line/undefinedToZero": {
+    "type": "string",
+    "options": [
+      {
+        "value": "empty",
+        "title": "空距"
+      },
+      {
+        "value": "zero",
+        "title": "零"
+      }
+    ],
+    "description": "设置将未定义的值如undefined，null转换为0或空距"
+  },
+  "lcap-echarts-line/initialLoad": {
+    "type": "boolean",
+    "description": "是否在初始时立即加载"
+  },
   "lcap-echarts-line/xAxis": {
     "type": "string",
-    "description": "设置维度(x轴)"
+    "description": "设置维度(统计类别)"
   },
   "lcap-echarts-line/yAxis": {
     "type": "string",
-    "description": "设置指标（y轴），多个指标以逗号分隔"
-  },
-  "lcap-echarts-line/width": {
-    "type": "string",
-    "description": "设置图宽度"
-  },
-  "lcap-echarts-line/height": {
-    "type": "string",
-    "description": "设置图高度"
+    "description": "设置度量（统计值）"
   },
   "lcap-echarts-line/title": {
     "type": "string",
-    "description": "设置主标题"
+    "description": "设置图表标题"
+  },
+  "lcap-echarts-line/axisSplitLine": {
+    "type": "string",
+    "options": [
+      {
+        "title": "无",
+        "value": "hidden"
+      },
+      {
+        "title": "水平网格线",
+        "value": "horizontal"
+      },
+      {
+        "title": "垂直网格线",
+        "value": "vertical"
+      },
+      {
+        "title": "全部网格线",
+        "value": "both"
+      }
+    ],
+    "description": "设置坐标系网格线"
+  },
+  "lcap-echarts-line/axisSplitLineType": {
+    "type": "string",
+    "options": [
+      {
+        "title": "实线",
+        "value": "solid"
+      },
+      {
+        "title": "虚线",
+        "value": "dotted"
+      },
+      {
+        "title": "点线",
+        "value": "dashed"
+      }
+    ],
+    "description": "设置网格线线型"
   },
   "lcap-echarts-line/theme": {
     "type": "string",
@@ -45,9 +99,35 @@
     ],
     "description": "设置图表配色方案"
   },
-  "lcap-echarts-line/allowShowLabel": {
-    "type": "boolean",
-    "description": "设置是否显示标签"
+  "lcap-echarts-line/labelPosition": {
+    "type": "string",
+    "options": [
+      {
+        "value": "top",
+        "title": "上"
+      },
+      {
+        "value": "bottom",
+        "title": "下"
+      },
+      {
+        "value": "left",
+        "title": "左"
+      },
+      {
+        "value": "right",
+        "title": "右"
+      },
+      {
+        "value": "inside",
+        "title": "居中"
+      },
+      {
+        "value": "hidden",
+        "title": "无"
+      }
+    ],
+    "description": "设置数据标签位置"
   },
   "lcap-echarts-line/allowShowHint": {
     "type": "boolean",
@@ -60,6 +140,79 @@
   "lcap-echarts-line/legendName": {
     "type": "string",
     "description": "设置图例别名；修改成功后，图例名字会从\"指标\"改为\"别名\""
+  },
+  "lcap-echarts-line/areaFilled": {
+    "type": "boolean",
+    "description": "设置是否填充折线下方区域"
+  },
+  "lcap-echarts-line/lineType": {
+    "type": "string",
+    "options": [
+      {
+        "value": "solid",
+        "title": "实线"
+      },
+      {
+        "value": "dotted",
+        "title": "虚线"
+      },
+      {
+        "value": "dashed",
+        "title": "点线"
+      }
+    ],
+    "description": "设置线条类型"
+  },
+  "lcap-echarts-line/lineStyleSmooth": {
+    "type": "string",
+    "options": [
+      {
+        "value": "normal",
+        "title": "基础"
+      },
+      {
+        "value": "smooth",
+        "title": "平滑"
+      }
+    ],
+    "description": "设置线条样式"
+  },
+  "lcap-echarts-line/lineStyleSymbol": {
+    "type": "string",
+    "options": [
+      {
+        "value": "emptyCircle",
+        "title": "空心圆"
+      },
+      {
+        "value": "circle",
+        "title": "圆形"
+      },
+      {
+        "value": "rect",
+        "title": "矩形"
+      },
+      {
+        "value": "triangle",
+        "title": "三角形"
+      },
+      {
+        "value": "diamond",
+        "title": "菱形"
+      },
+      {
+        "value": "pin",
+        "title": "水滴"
+      },
+      {
+        "value": "arrow",
+        "title": "箭头"
+      },
+      {
+        "value": "none",
+        "title": "无"
+      }
+    ]
   },
   "lcap-echarts-line/xAxisTitle": {
     "type": "string",
@@ -106,10 +259,6 @@
   "lcap-echarts-line/showYAxisLabel": {
     "type": "boolean",
     "description": "设置是否显示Y轴数值标签"
-  },
-  "lcap-echarts-line/titleFontSize": {
-    "type": "number",
-    "description": "设置标题文字字号"
   },
   "lcap-echarts-line/titleFontStyle": {
     "type": "string",

@@ -1,0 +1,75 @@
+- name: lcap-tree-diagram
+  title: 树状结构图
+  description: 请在这里添加描述
+  labels: [Other]
+  icon: default
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 表格的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据属性
+    - name: value-field
+      title: 值字段
+      type: string
+      default: "id"
+      description: 用户标识选中值的属性
+    - name: text-field
+      title: 文本字段
+      type: string
+      default: 'label'
+      description: 用于显示文本的字段名
+    - name: showChildDotNum
+      title: 子节点收起显示子节点总数  
+      type: boolean
+      default: true
+      description: 默认开启；开启后显示其子节点的全部数量
+    - name: parent-field
+      title: 父级选项值
+      type: string
+      default: "parentId"
+      description: 集合的元素类型中，用于标识父节点的属性
+      group: 数据属性
+    - name: data-entity
+      title: 数据实体名称
+      type: string
+      default: ""
+      description: 属于匿名数据结构的需要传递数据实体名称，否则不用
+  slots:
+    - concept: Slot
+      name: dialog
+      description: 自定义插槽
+      slotProps:
+        concept: Param
+        name: scope
+        typeAnnotation:
+          concept: TypeAnnotation
+          typeKind: generic
+          typeNamespace: nasl.ui
+          typeName: ScopeOf
+          typeArguments:
+            - concept: TypeAnnotation
+              typeKind: typeParam
+              typeName: T
+  events:
+    - name: onEdit
+      title: 弹窗编辑
+      params:
+        - name: $event
+          type: ChangeItemEvent
+          description: 鼠标事件对象
+          schema:
+            $ref: "#/systemTypes/ChangeItemEvent"
+    - name: onDelete
+      title: 弹窗删除
+      params:
+        - name: $event
+          type: ChangeItemEvent
+          description: 鼠标事件对象
+          schema:
+            $ref: "#/systemTypes/ChangeItemEvent"
+  methods:
+    - name: reload
+      description: 重新加载
+      params: []

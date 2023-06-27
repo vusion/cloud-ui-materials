@@ -32,7 +32,7 @@ export const fakeData = {
         "updatedBy": null,
         "fakeXAxis": "数据2",
         "指标1": 75,
-        "指标2": 100,
+        "指标2": null,
         "指标3": 85,
         "age": 20,
         "sex": "女",

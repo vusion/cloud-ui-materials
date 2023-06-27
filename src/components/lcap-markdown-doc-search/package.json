@@ -1,11 +1,11 @@
 {
   "name": "lcap-markdown-doc-search",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-markdown-doc-search@0.1.2/index.html",
+  "homepage": "http://lcap-official-bucket.codewave.163.com/lcap-markdown-doc-search@0.1.6/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

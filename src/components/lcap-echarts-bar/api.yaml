@@ -9,33 +9,99 @@
       type: Array<Item> | Function | object | DataSource
       designer-value: "[{}, {}, {}]"
       description: 表格的数据源，数据集对象或者返回数据集的逻辑
-      group: 数据属性
+      group: 数据源
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 表格每一行的数据类型
+      group: 数据源
+      compType: dataTypeSelect
+    - name: undefinedToZero
+      title: 空值处理规则
+      type: string
+      default: empty
+      options:
+        - value: empty
+          title: 空距
+        - value: zero
+          title: 零
+      description: 设置将未定义的值如undefined，null转换为0或空距
+      group: 数据源
+    - name: initialLoad
+      title: 初始加载
+      type: boolean
+      default: true
+      description: 是否在初始时立即加载
+      group: 数据源
     - name: xAxis
       title: 维度
       type: string
-      bindHide: true
       default: ''
-      description: 设置维度(x轴)
-      group: 维度指标
+      description: 设置维度(统计类别)
+      group: 图表数据
     - name: yAxis
-      title: 指标
+      title: 度量
       type: string
-      bindHide: true
       default: ''
-      description: 设置指标（y轴），多个指标以逗号分隔
-      group: 维度指标
-    - name: width
-      title: 宽度
+      description: 设置度量（统计值）
+      group: 图表数据
+    - name: xAxisType
+      title: 轴数据
       type: string
-      default: 340px
-      description: 设置图宽度
-      group: 图表基础
-    - name: height
-      title: 高度
+      options:
+        - value: xBase
+          title: X轴表示分类（柱状图）
+        - value: yBase
+          title: Y轴表示分类（条形图）
+      default: xBase
+      group: 图表属性
+    - name: axisSplitLine
+      title: 坐标系网格线
       type: string
-      default: 300px
-      description: 设置图高度
-      group: 图表基础
+      default: horizontal
+      description: 设置坐标系网格线
+      options:
+        - title: 无
+          value: hidden
+        - title: 水平网格线
+          value: horizontal
+        - title: 垂直网格线
+          value: vertical
+        - title: 全部网格线
+          value: both
+      group: 图表属性
+    - name: axisSplitLineType
+      title: 网格线线型
+      type: string
+      default: solid
+      description: 设置网格线线型
+      group: 图表属性
+      options:
+        - title: 实线
+          value: solid
+        - title: 虚线
+          value: dotted
+        - title: 点线
+          value: dashed
+    - name: labelPosition
+      title: 数据标签位置
+      type: string
+      default: inside
+      options:
+        - value: top
+          title: 上
+        - value: bottom
+          title: 下
+        - value: left
+          title: 左
+        - value: right
+          title: 右
+        - value: inside
+          title: 居中
+        - value: hidden
+          title: 无
+      description: 设置数据标签位置
+      group: 图表属性
     - name: title
       title: 标题
       type: string
@@ -56,12 +122,6 @@
           title: 淡雅
         - value: theme4
           title: 经典
-      group: 图表基础
-    - name: allowShowLabel
-      title: 显示标签
-      type: boolean
-      default: true
-      description: 设置是否显示标签
       group: 图表基础
     - name: allowShowHint
       title: 显示提示
@@ -132,12 +192,6 @@
       default: true
       description: 设置是否显示Y轴数值标签
       group: 坐标轴
-    - name: titleFontSize
-      title: 标题文字字号
-      type: number
-      default: 18
-      description: 设置标题文字字号
-      group: 字体
     - name: titleFontStyle
       title: 标题文字字体风格
       type: string
@@ -148,7 +202,7 @@
           title: 正常
         - value: italic
           title: 斜体
-      group: 字体
+      group: 标题
     - name: allowDownload
       title: 允许下载
       type: boolean
@@ -160,3 +214,83 @@
       title: reload
       description: 刷新数据
       params: []
+  themes:
+    - name: --echart-title-font-size
+      title: 标题文字大小
+      default: 14
+      type: input
+      description: 设置数据标签文字大小
+      group: 标题
+    - name: --title-font-color
+      title: 标题文字颜色
+      default: '#000'
+      type: color
+      description: 设置数据标签文字颜色
+      group: 标题
+    - name: --bar-item-color
+      title: 柱条颜色
+      default: 'none'
+      type: color
+      description: 设置柱条颜色
+      group: 柱条样式
+    - name: --bar-item-border-color
+      title: 柱条边框颜色
+      default: 'none'
+      type: color
+      description: 设置柱条边框颜色
+      group: 柱条样式
+    - name: --bar-item-backgroundColor
+      title: 柱条背景颜色
+      default: 'none'
+      type: color
+      description: 设置柱条背景颜色
+      group: 柱条样式
+    - name: --label-font-size
+      title: 数据标签文字大小
+      default: 12
+      type: input
+      description: 设置数据签文字大小
+      group: 数据标签
+    - name: --label-font-color
+      title: 数据标签文字颜色
+      default: 'none'
+      type: color
+      description: 设置数据标签文字颜色
+      group: 数据标签
+    - name: --grid-line-background-color
+      title: 网格线背景颜色
+      default: 'rgba(180, 180, 180, 0.2)'
+      type: color
+      description: 设置网格线背景颜色
+      group: 坐标系网格线
+    - name: --grid-line-border-color
+      title: 网格线边框颜色
+      default: 'none'
+      type: color
+      description: 设置网格线边框颜色
+      group: 坐标系网格线
+    - name: --grid-line-color
+      title: 网格线线条颜色
+      default: '#ccc'
+      type: color
+      description: 设置网格线线条颜色
+      group: 坐标系网格线
+    - name: --axis-line-color
+      title: 坐标轴线颜色
+      default: '#333'
+      type: color
+      description: 设置坐标轴线颜色
+      group: 坐标轴
+    - name: --xAxis-label-font-size
+      title: X轴文字大小
+      default: 12
+      type: input
+      description: 设置X轴文字大小, X轴文字显示不全时，需调小字体尺寸
+      group: 坐标轴
+    - name: --yAxis-label-font-size
+      title: Y轴文字大小
+      default: 12
+      type: input
+      description: 设置Y轴文字大小，Y轴文字显示不全时，需调小字体尺寸
+      group: 坐标轴
+

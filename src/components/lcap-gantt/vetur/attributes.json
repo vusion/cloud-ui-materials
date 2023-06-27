@@ -1,0 +1,94 @@
+{
+  "lcap-gantt/data-source": {
+    "type": "Array<Item> | Function | object | DataSource",
+    "description": "甘特图的数据源，数据集对象或者返回数据集的逻辑"
+  },
+  "lcap-gantt/data-schema": {
+    "type": "schema",
+    "description": "集合类型每一元素的数据类型"
+  },
+  "lcap-gantt/text-field": {
+    "type": "string",
+    "description": "设置泳道图文本字段"
+  },
+  "lcap-gantt/start-field": {
+    "type": "string",
+    "description": "设置泳道图开始日期字段"
+  },
+  "lcap-gantt/duration-field": {
+    "type": "string",
+    "description": "设置泳道图持续时间字段"
+  },
+  "lcap-gantt/progress-field": {
+    "type": "string",
+    "description": "设置泳道图进度字段"
+  },
+  "lcap-gantt/id-field": {
+    "type": "string",
+    "description": "设置泳道图id字段"
+  },
+  "lcap-gantt/parent-field": {
+    "type": "string",
+    "description": "设置泳道图父级字段"
+  },
+  "lcap-gantt/color-field": {
+    "type": "string",
+    "description": "设置泳道图数据颜色字段"
+  },
+  "lcap-gantt/icon-field": {
+    "type": "string",
+    "description": "设置数据列表图标字段，仅支持png,jpg类型的图片链接"
+  },
+  "lcap-gantt/ganttTableConfig": {
+    "type": "Array<Item>",
+    "description": "配置甘特图表格相"
+  },
+  "lcap-gantt/taskView": {
+    "type": "string",
+    "options": [
+      {
+        "value": "d",
+        "title": "日"
+      },
+      {
+        "value": "w",
+        "title": "周"
+      },
+      {
+        "value": "m",
+        "title": "月"
+      },
+      {
+        "value": "y",
+        "title": "年"
+      }
+    ],
+    "description": "切换日期视图"
+  },
+  "lcap-gantt/showToday": {
+    "type": "boolean",
+    "description": "设置显示今日标记线"
+  },
+  "lcap-gantt/skins": {
+    "type": "string",
+    "options": [
+      {
+        "value": "default",
+        "title": "默认"
+      },
+      {
+        "value": "skyblue",
+        "title": "天蓝"
+      },
+      {
+        "value": "meadow",
+        "title": "草地"
+      },
+      {
+        "value": "broadway",
+        "title": "百老汇"
+      }
+    ],
+    "description": "设置甘特图皮肤"
+  }
+}

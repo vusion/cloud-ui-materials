@@ -16,5 +16,13 @@
       }
     ],
     "description": "监听文档滚动的容器"
+  },
+  "lcap-markdown-doc-render/outline-position-top": {
+    "type": "number",
+    "description": "当滚动容器为窗口时生效"
+  },
+  "lcap-markdown-doc-render/outline-position-right": {
+    "type": "number",
+    "description": "当滚动容器为窗口时生效"
   }
 }

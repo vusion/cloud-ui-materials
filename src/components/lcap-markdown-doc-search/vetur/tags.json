@@ -6,9 +6,19 @@
       "data-schema",
       "text-field",
       "description-field",
+      "loading",
       "align",
+      "clearable",
+      "placeholder",
+      "maxlength",
+      "autofocus",
+      "readonly",
+      "disabled",
+      "width",
+      "height",
       "prefix",
-      "suffix"
+      "suffix",
+      "border-radius"
     ],
     "description": "请在这里添加描述"
   }

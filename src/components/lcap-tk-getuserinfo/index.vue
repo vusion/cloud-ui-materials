@@ -34,8 +34,9 @@ export default {
             return new Promise(((resolve, reject) => {
                 // eslint-disable-next-line consistent-this
                 const that = this;
-                window.ISALES.callApp('getUserInfoExternal', {
+                window.ISALES.callApp('userInfo', {
                     callback(info) {
+                        console.log(info);
                         // eslint-disable-next-line eqeqeq
                         if (info.code == 0) {
                             that.msg = JSON.stringify(info.msg);

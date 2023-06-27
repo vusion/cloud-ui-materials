@@ -19,6 +19,17 @@
           title: 窗口
         - value: root
           title: 根节点
+      advance: true
+    - name: outline-position-top
+      title: 大纲定位距离窗口上
+      type: number
+      default: 200
+      description: 当滚动容器为窗口时生效
+    - name: outline-position-right
+      title: 大纲定位距离窗口右
+      type: number
+      default: 0
+      description: 当滚动容器为窗口时生效
   events:
     - name: link
       title: 点击链接时

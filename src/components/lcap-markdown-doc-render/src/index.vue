@@ -7,7 +7,7 @@
             @click="onTapMarkdown"></div>
     </div>
 
-    <div class="anchor-wrap">
+    <div class="anchor-wrap" :style="anchorStyle">
         <div class="foldIcon" v-if="tocData && tocData.length">
             <div 
                 v-tooltip.top="pinned ? '隐藏目录' : '显示目录'" 
@@ -26,8 +26,13 @@
         </div>
 
         <u-tree-view ref="treeView" class="toc" :data="tocData" expand-trigger="click-expander" v-show="pinned" @toggle="handleToggleToc">
-            <div slot="text" slot-scope="{ node }" :class="[curTocItem.value === node.slug ? 'active' : '', 'tocItem']" @click="handleTocSelected(node)">
-                <a :href="`#${node.slug}`">{{ node.title }}</a>
+            <div 
+                slot="text" 
+                slot-scope="{ node }" 
+                :class="[curTocItem.value === node.slug ? 'active' : '', 'tocItem']" 
+                @click="handleTocSelected(node)">
+                <a>{{ node.title }}</a>
+                <!-- <a :href="`#${node.slug}`">{{ node.title }}</a> -->
             </div>
         </u-tree-view>
     </div>
@@ -41,6 +46,9 @@ import tocPlugin from 'markdown-it-table-of-contents'
 import emojiPlugin from 'markdown-it-emoji'
 import debounce from 'lodash.debounce'
 
+// import mediumZoom from 'medium-zoom'
+import Zooming from 'zooming'
+
 import slugify from './utils/slugify'
 import parseHeaders from './utils/parseHeaders'
 import extractHeaders from './utils/extractHeaders'
@@ -50,8 +58,7 @@ const highlightLinesPlugin = require('./lib/highlightLines')
 const preWrapperPlugin = require('./lib/preWrapper')
 const lineNumbersPlugin = require('./lib/lineNumbers')
 
-import './theme.css';
-// import './index.css';
+import './theme.less';
 
 const md = new MarkdownIt({
   html: true,
@@ -103,6 +110,14 @@ export default {
         scrollContainer: {
             type: String,
             default: 'window'
+        },
+        outlinePositionTop: {
+            type: Number,
+            default: 200
+        },
+        outlinePositionRight: {
+            type: Number,
+            default: 0
         }
     },
     components: {
@@ -119,7 +134,19 @@ export default {
 
         toggle: true,
         pinned: true,
+
+        headersTop: {}
     }),
+    computed: {
+        anchorStyle() { 
+            let style = {};
+            style.position = 'fixed';
+            style.top = this.outlinePositionTop + 'px'
+            style.right = this.outlinePositionRight + 'px'
+
+            return style;
+        }
+    },
     watch: {
         text(val) {
             this.renderMarkdown(val)
@@ -129,16 +156,26 @@ export default {
         // }
     },
     created() {
-        
+        this.zoomInstance = new Zooming({
+            customSize: '100%',
+            enableGrab: false,
+        })
     },
     mounted() {
-        if (this.scrollContainer === 'window') {
-            this.scrollWraper = document.documentElement
-        } else if (this.scrollContainer === 'root') {
-            this.scrollWraper = this.$refs.content
-        }
-        
+        this.scrollWraper = document
         this.renderMarkdown(this.text);
+    },
+    updated() {
+        const selector = '.theme-default-content img'
+
+        this.zoomInstance.listen(selector);
+
+        // if (!this.mediumZoomInstance) {
+        //     this.mediumZoomInstance = mediumZoom(selector)
+        // } else {
+        //     this.mediumZoomInstance.detach()
+        //     this.mediumZoomInstance.attach(selector)
+        // }
     },
     beforeDestroy() {
         this.scrollWraper.removeEventListener('scroll', scrollListener)
@@ -148,10 +185,10 @@ export default {
     },
     methods: {
         renderMarkdown(text) {
-            this.scrollWraper.scrollTop = 0;
-
+            window.scrollTo(0, 0)
+            
             let htmlString = md.render(text)
-            const headers = extractHeaders(text, ['h2', 'h3'], md)
+            const headers = extractHeaders(text, ['h2', 'h3', 'h4', 'h5'], md)
 
             // 处理a签
             // 创建DOM解析器对象
@@ -168,9 +205,13 @@ export default {
                 const link = links[i];
                 const href = link.getAttribute("href");
 
+                // 跳转链接
                 if (!/^#/.test(href)) {
                     link.removeAttribute("href");
                     link.setAttribute("_href", href)
+                } else { // 内部锚点
+                    link.removeAttribute("href");
+                    link.setAttribute("slug", href.replace(/^#/, ''))
                 }
             }
 
@@ -215,9 +256,14 @@ export default {
             return result;
         },
         handleTocSelected(node) {
-            this.curTocItem.value = node.slug;
+            // 获取最准确的位置信息
+            this.initHeadersTopDistance();
             // 阻止锚点定位时所触发的滚动事件
             clickFlag = true;
+
+            this.curTocItem.value = node.slug;
+            window.scrollTo(0, this.headersTop[node.slug] - this.outlinePositionTop)
+            
             setTimeout(() => {
                 clickFlag = false;
             }, 500);
@@ -258,26 +304,28 @@ export default {
             let resFun
             let curHeight;
             let activeTocItem;
+
             this.scrollWraper.addEventListener( "scroll", (resFun = debounce(() => {
                 let curTocIndex = 0;
                 if (clickFlag) return;
-                curHeight = this.scrollWraper.scrollTop;
-                curHeight += 80;
+                curHeight = document.documentElement.scrollTop;
+                curHeight += this.outlinePositionTop;
+                console.log('scroll');
                 const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
                 const tocList = document.querySelectorAll(".tocItem");
 
                 // 判断当前滚动的高度是否大于前一个节点的高度,小于后一个节点的高度
-                if (headers[0]?.offsetTop > curHeight) {
+                if (this.getElementTopDistance(headers[0]) > curHeight) {
                     ref.value = headers[0]?.id;
                     activeTocItem = tocList[0];
                     curTocIndex = 0;
-                } else if (headers[headers.length - 1]?.offsetTop < curHeight) {
+                } else if (this.getElementTopDistance(headers[headers.length - 1]) < curHeight) {
                     ref.value = headers[headers.length - 1]?.id;
                     activeTocItem = tocList[headers.length - 1];
                     curTocIndex = headers.length - 1;
                 } else {
                     for (let i = 0; i < headers.length; i++) {
-                        if (headers[i]?.offsetTop < curHeight && headers[i + 1]?.offsetTop > curHeight) {
+                        if (this.getElementTopDistance(headers[i]) < curHeight && this.getElementTopDistance(headers[i+1]) > curHeight) {
                             ref.value = headers[i]?.id;
                             activeTocItem = tocList[i];
                             curTocIndex = i;
@@ -307,18 +355,41 @@ export default {
 
         onTapMarkdown(e) {
             const { tagName } = e.target;
-            const _href = e.target.getAttribute("_href")
 
-            if (['A'].includes(tagName) && _href) {
+            if (!['A'].includes(tagName)) return;
+
+
+            const _href = e.target.getAttribute("_href") // link
+            const slug = e.target.getAttribute("slug") // hash
+
+            if (_href) {
                 console.log('link:', decodeURIComponent(_href));
                 this.$emit('link', decodeURIComponent(_href))
+            } else if (slug) {
+                this.handleTocSelected({ slug: decodeURIComponent(slug).toLowerCase() })
             }
         },
+        getElementTopDistance(element) {
+            let distance = 0;
+            while (element) {
+                distance += element.offsetTop;
+                element = element.offsetParent;
+            }
 
-        onScroll: debounce(function () {
-            // this.setActiveHash()
-        }, 300),
+            return distance;
+        },
 
+        initHeadersTopDistance() {
+            let map = {}
+            const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
+            for (let i = 0; i < headers.length; i++) {
+                const element = headers[i];
+                map[element?.id] = this.getElementTopDistance(element)
+            }
+
+            this.headersTop = map;
+        },
+        // 页面滚动时给地址栏加hash
         setActiveHash() {
             const sidebarLinks = [].slice.call(document.querySelectorAll('.sidebar-link'))
             const anchors = [].slice.call(document.querySelectorAll('.header-anchor'))
@@ -347,23 +418,23 @@ export default {
 
                 const routeHash = decodeURIComponent(this.$route.hash)
                 if (isActive && routeHash !== decodeURIComponent(anchor.hash)) {
-                const activeAnchor = anchor
-                // check if anchor is at the bottom of the page to keep $route.hash consistent
-                if (bottomY === scrollHeight) {
-                    for (let j = i + 1; j < anchors.length; j++) {
-                    if (routeHash === decodeURIComponent(anchors[j].hash)) {
-                        return
+                    const activeAnchor = anchor
+                    // check if anchor is at the bottom of the page to keep $route.hash consistent
+                    if (bottomY === scrollHeight) {
+                        for (let j = i + 1; j < anchors.length; j++) {
+                            if (routeHash === decodeURIComponent(anchors[j].hash)) {
+                                return
+                            }
+                        }
                     }
-                    }
-                }
-                this.$vuepress.$set('disableScrollBehavior', true)
-                this.$router.replace(decodeURIComponent(activeAnchor.hash), () => {
-                    // execute after scrollBehavior handler.
-                    this.$nextTick(() => {
-                    this.$vuepress.$set('disableScrollBehavior', false)
+                    this.$vuepress.$set('disableScrollBehavior', true)
+                    this.$router.replace(decodeURIComponent(activeAnchor.hash), () => {
+                        // execute after scrollBehavior handler.
+                        this.$nextTick(() => {
+                        this.$vuepress.$set('disableScrollBehavior', false)
+                        })
                     })
-                })
-                return
+                    return
                 }
             }
         }
@@ -404,15 +475,31 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 .markdown-root .content {
   max-height: 100%;
   padding: 0 0 0 40px;
-  overflow: scroll;
-  padding-right: 200px;
+  /* overflow: scroll; */
+  padding-right: 365px;
+}
+
+.markdown-root .content ul {
+    list-style-type: disc;
+}
+
+.markdown-root .content ol {
+    list-style-type: decimal;
+}
+
+.markdown-root .content ol ul {
+    list-style-type: circle;
+}
+
+.markdown-root .content ul ul {
+    list-style-type: circle;
 }
 
 .markdown-root .anchor-wrap {
   position: absolute;
   right: 5px;
   top: 40px;
-  width: 200px;
+  width: 320px;
 }
 
 .toc::-webkit-scrollbar {
@@ -462,7 +549,9 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 
 .toc {
     color: #2c3e50;
-    font-weight: 400
+    font-weight: 400;
+    max-height: 60vh;
+    overflow-y: scroll;
 }
 
 .toc .active {
@@ -501,19 +590,19 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 }
 
 .foldIcon .iconItem.show {
-    background-image: url(./assets/show.svg);
+    background-image: url(./assets/show.png);
 }
 
 .foldIcon .iconItem.hide {
-     background-image: url(./assets/hide.svg);
+     background-image: url(./assets/hide.png);
 }
 
 .foldIcon .iconItem.fold {
-     background-image: url(./assets/fold.svg);
+     background-image: url(./assets/fold.png);
 }
 
 .foldIcon .iconItem.unfold {
-    background-image: url(./assets/unfold.svg);
+    background-image: url(./assets/unfold.png);
 }
 
 </style>

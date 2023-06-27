@@ -19,6 +19,10 @@
     "type": "string",
     "description": "用于显示结果项描述字段的属性"
   },
+  "lcap-markdown-doc-search/loading": {
+    "type": "boolean",
+    "description": "用于显示加载状态"
+  },
   "lcap-markdown-doc-search/align": {
     "type": "string",
     "options": [
@@ -32,6 +36,98 @@
       }
     ]
   },
+  "lcap-markdown-doc-search/clearable": {
+    "type": "boolean",
+    "description": "开启并在输入框有内容时会显示清除按钮"
+  },
+  "lcap-markdown-doc-search/placeholder": {
+    "type": "string",
+    "description": "为空时的提示文本"
+  },
+  "lcap-markdown-doc-search/maxlength": {
+    "type": "number",
+    "description": ""
+  },
+  "lcap-markdown-doc-search/autofocus": {
+    "type": "boolean",
+    "description": "是否自动获取焦点"
+  },
+  "lcap-markdown-doc-search/readonly": {
+    "type": "boolean",
+    "description": ""
+  },
+  "lcap-markdown-doc-search/disabled": {
+    "type": "boolean",
+    "description": ""
+  },
+  "lcap-markdown-doc-search/width": {
+    "type": "string",
+    "options": [
+      {
+        "value": "full",
+        "title": "占满"
+      },
+      {
+        "value": "huge",
+        "title": "巨大"
+      },
+      {
+        "value": "large",
+        "title": "大"
+      },
+      {
+        "value": "medium",
+        "title": "中型"
+      },
+      {
+        "value": "normal",
+        "title": "正常"
+      },
+      {
+        "value": "small",
+        "title": "小"
+      },
+      {
+        "value": "mini",
+        "title": "迷你"
+      }
+    ],
+    "description": "设置单行输入框宽度大小"
+  },
+  "lcap-markdown-doc-search/height": {
+    "type": "string",
+    "options": [
+      {
+        "value": "full",
+        "title": "占满"
+      },
+      {
+        "value": "huge",
+        "title": "巨大"
+      },
+      {
+        "value": "large",
+        "title": "大"
+      },
+      {
+        "value": "medium",
+        "title": "中型"
+      },
+      {
+        "value": "normal",
+        "title": "正常"
+      },
+      {
+        "value": "small",
+        "title": "小"
+      },
+      {
+        "value": "mini",
+        "title": "迷你"
+      }
+    ],
+    "description": "设置单行输入框高度大小"
+  },
   "lcap-markdown-doc-search/prefix": {
     "type": "icon",
     "description": ""
@@ -39,5 +135,8 @@
   "lcap-markdown-doc-search/suffix": {
     "type": "icon",
     "description": ""
+  },
+  "lcap-markdown-doc-search/border-radius": {
+    "type": "string"
   }
 }
