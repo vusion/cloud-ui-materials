@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-video",
     "name": "视频",
-    "version": "0.1.7",
+    "version": "0.1.9",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -31,6 +31,13 @@
                 "title": "地址",
                 "type": "string",
                 "description": "视频流地址"
+            },
+            {
+                "name": "poster",
+                "title": "封面地址",
+                "type": "image",
+                "compType": "linkInput",
+                "description": "视频默认封面地址"
             },
             {
                 "name": "breakProgress",

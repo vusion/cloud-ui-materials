@@ -1,7 +1,7 @@
 {
   "name": "lcap-video",
   "description": "",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -44,7 +44,7 @@
     "access": "public"
   },
   "dependencies": {
-    "video.js": "^7.20.3"
+    "video.js": "^7.21.4"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
