@@ -1,11 +1,11 @@
 {
   "name": "lcap-video",
   "description": "",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/lcap-video@0.1.7/index.html",
+  "homepage": "http://static-vusion.nos.lcap.163yun.com/lcap-video@0.2.0/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

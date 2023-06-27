@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-video",
     "name": "视频",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
