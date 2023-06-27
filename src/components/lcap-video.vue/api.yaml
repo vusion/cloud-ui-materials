@@ -8,6 +8,10 @@
       title: 地址
       type: string
       description: 视频流地址
+    - name: poster
+      title: 封面地址
+      type: string
+      description: 视频默认封面地址
     - name: breakProgress
       title: 中断进度
       type: string
