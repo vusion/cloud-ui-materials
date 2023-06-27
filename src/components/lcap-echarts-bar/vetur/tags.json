@@ -2,13 +2,17 @@
   "lcap-echarts-bar": {
     "attributes": [
       "data-source",
+      "data-schema",
+      "undefinedToZero",
+      "initialLoad",
       "xAxis",
       "yAxis",
-      "width",
-      "height",
+      "xAxisType",
+      "axisSplitLine",
+      "axisSplitLineType",
+      "labelPosition",
       "title",
       "theme",
-      "allowShowLabel",
       "allowShowHint",
       "allowShowLegend",
       "legendName",
@@ -19,7 +23,6 @@
       "yAxisTitle",
       "showYAxisLine",
       "showYAxisLabel",
-      "titleFontSize",
       "titleFontStyle",
       "allowDownload"
     ],

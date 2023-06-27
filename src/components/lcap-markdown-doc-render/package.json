@@ -1,11 +1,11 @@
 {
   "name": "lcap-markdown-doc-render",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "jiyufeng",
   "repository": "",
-  "homepage": "http://lcap-official-bucket.codewave.163.com/lcap-markdown-doc-render@0.1.2/index.html",
+  "homepage": "https://lcap-official-bucket.codewave.163.com/lcap-markdown-doc-render@0.1.5/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -50,7 +50,9 @@
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-emoji": "^2.0.2",
     "markdown-it-table-of-contents": "^0.6.0",
-    "prismjs": "^1.29.0"
+    "medium-zoom": "^1.0.8",
+    "prismjs": "^1.29.0",
+    "zooming": "^2.1.1"
   },
   "devDependencies": {},
   "peerDependencies": {

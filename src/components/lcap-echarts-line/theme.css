@@ -1,0 +1,5 @@
+:root {
+
+    /* @component lcap-echarts-line */
+    --echarts-line-color: blue; /* @type color */ /* @desc 折线图线条颜色,如：#223325 */
+}

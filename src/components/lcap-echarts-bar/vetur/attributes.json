@@ -3,21 +3,118 @@
     "type": "Array<Item> | Function | object | DataSource",
     "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
   },
+  "lcap-echarts-bar/data-schema": {
+    "type": "schema",
+    "description": "表格每一行的数据类型"
+  },
+  "lcap-echarts-bar/undefinedToZero": {
+    "type": "string",
+    "options": [
+      {
+        "value": "empty",
+        "title": "空距"
+      },
+      {
+        "value": "zero",
+        "title": "零"
+      }
+    ],
+    "description": "设置将未定义的值如undefined，null转换为0或空距"
+  },
+  "lcap-echarts-bar/initialLoad": {
+    "type": "boolean",
+    "description": "是否在初始时立即加载"
+  },
   "lcap-echarts-bar/xAxis": {
     "type": "string",
-    "description": "设置维度(x轴)"
+    "description": "设置维度(统计类别)"
   },
   "lcap-echarts-bar/yAxis": {
     "type": "string",
-    "description": "设置指标（y轴），多个指标以逗号分隔"
+    "description": "设置度量（统计值）"
   },
-  "lcap-echarts-bar/width": {
+  "lcap-echarts-bar/xAxisType": {
     "type": "string",
-    "description": "设置图宽度"
+    "options": [
+      {
+        "value": "xBase",
+        "title": "X轴表示分类（柱状图）"
+      },
+      {
+        "value": "yBase",
+        "title": "Y轴表示分类（条形图）"
+      }
+    ]
   },
-  "lcap-echarts-bar/height": {
+  "lcap-echarts-bar/axisSplitLine": {
     "type": "string",
-    "description": "设置图高度"
+    "options": [
+      {
+        "title": "无",
+        "value": "hidden"
+      },
+      {
+        "title": "水平网格线",
+        "value": "horizontal"
+      },
+      {
+        "title": "垂直网格线",
+        "value": "vertical"
+      },
+      {
+        "title": "全部网格线",
+        "value": "both"
+      }
+    ],
+    "description": "设置坐标系网格线"
+  },
+  "lcap-echarts-bar/axisSplitLineType": {
+    "type": "string",
+    "options": [
+      {
+        "title": "实线",
+        "value": "solid"
+      },
+      {
+        "title": "虚线",
+        "value": "dotted"
+      },
+      {
+        "title": "点线",
+        "value": "dashed"
+      }
+    ],
+    "description": "设置网格线线型"
+  },
+  "lcap-echarts-bar/labelPosition": {
+    "type": "string",
+    "options": [
+      {
+        "value": "top",
+        "title": "上"
+      },
+      {
+        "value": "bottom",
+        "title": "下"
+      },
+      {
+        "value": "left",
+        "title": "左"
+      },
+      {
+        "value": "right",
+        "title": "右"
+      },
+      {
+        "value": "inside",
+        "title": "居中"
+      },
+      {
+        "value": "hidden",
+        "title": "无"
+      }
+    ],
+    "description": "设置数据标签位置"
   },
   "lcap-echarts-bar/title": {
     "type": "string",
@@ -44,10 +141,6 @@
       }
     ],
     "description": "设置图表配色方案"
-  },
-  "lcap-echarts-bar/allowShowLabel": {
-    "type": "boolean",
-    "description": "设置是否显示标签"
   },
   "lcap-echarts-bar/allowShowHint": {
     "type": "boolean",
@@ -106,10 +199,6 @@
   "lcap-echarts-bar/showYAxisLabel": {
     "type": "boolean",
     "description": "设置是否显示Y轴数值标签"
-  },
-  "lcap-echarts-bar/titleFontSize": {
-    "type": "number",
-    "description": "设置标题文字字号"
   },
   "lcap-echarts-bar/titleFontStyle": {
     "type": "string",
