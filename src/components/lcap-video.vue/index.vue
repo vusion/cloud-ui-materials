@@ -1,7 +1,7 @@
 <template>
-    <div :class="$style.root" :style="rootStyle">
-        <video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered vjs-fluid"></video>
-    </div>
+<div :class="$style.root" :style="rootStyle">
+    <video ref="videoPlayer" playsinline class="video-js vjs-big-play-centered vjs-fluid"></video>
+</div>
 </template>
 
 <script>
@@ -37,6 +37,7 @@ export default {
             type: String,
             default: '',
         },
+        poster: String,
         options: {
             type: Object,
             default() {
@@ -53,7 +54,7 @@ export default {
     },
     computed: {
         rootStyle() {
-            const {width, height} = this;
+            const { width, height } = this;
             const rootStyle = {};
             const widthSize = this.fixSize(width);
             const heightSize = this.fixSize(height);
@@ -68,7 +69,8 @@ export default {
     },
     watch: {
         draggable(val) {
-            if (!this.player) return;
+            if (!this.player)
+                return;
             if (val) {
                 this.player.controlBar.progressControl.enable();
             } else {
@@ -82,12 +84,13 @@ export default {
             }
         },
         breakProgress(val) {
-            if(!val) return;
-            setTimeout(()=>{
+            if (!val)
+                return;
+            setTimeout(() => {
                 const percent = val.replace('%', '') / 100;
                 this.$toast.success('已为您跳转到上次观看位置');
                 this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
-            }, 1500)
+            }, 1500);
         },
     },
     mounted() {
@@ -97,7 +100,7 @@ export default {
         this.progressTimer = setInterval(() => {
             const videoDuration = this.player && this.player.duration();
             const remainTime = this.player && this.player.remainingTime();
-            let videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
+            const videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
             this.$emit('videoProgress', videoProgress);
         }, 10000);
         const percent = this.breakProgress.replace('%', '') / 100;
@@ -115,18 +118,17 @@ export default {
             });
         }
         // 拖动进度条时记录进度, 时间差大于3s视为拖动进度条
-        let lastDragProgress = 0
-        this.player.on('timeupdate', (e)=> {
-            let currentTime = this.$refs.videoPlayer.currentTime
+        let lastDragProgress = 0;
+        this.player.on('timeupdate', (e) => {
+            const currentTime = this.$refs.videoPlayer.currentTime;
             if (currentTime - lastDragProgress > 3 || lastDragProgress - currentTime > 3) {
                 const videoDuration = this.player && this.player.duration();
                 const remainTime = this.player && this.player.remainingTime();
-                let videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
+                const videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
                 this.$emit('videoProgress', videoProgress);
             }
             lastDragProgress = currentTime;
-        })
-
+        });
     },
     beforeDestroy() {
         clearInterval(this.progressTimer);
@@ -134,7 +136,7 @@ export default {
     },
     methods: {
         init() {
-            const {src, autoplay, loop, draggable, muted, options} = this;
+            const { src, autoplay, loop, draggable, muted, options } = this;
             const sources = this.getSources(src);
             const me = this;
             this.player = videojs(this.$refs.videoPlayer, {
@@ -144,9 +146,10 @@ export default {
                 sources,
                 loop,
                 muted,
+                poster: this.poster,
                 controls: true,
                 responsive: true,
-                playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2]
+                playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
             }, function onPlayerReady() {
                 if (!draggable) {
                     this.controlBar.progressControl.disable();
@@ -155,8 +158,8 @@ export default {
                     this.play();
                 }
                 this.on('play', (e) => {
-                    const {player} = e.target;
-                    let currentTime = player.currentTime();
+                    const { player } = e.target;
+                    const currentTime = player.currentTime();
                     // 初始播放时间 < 0.2s 认为是开始播放
                     if (currentTime * 10 < 2) {
                         me.$emit('start', e.target.player);
