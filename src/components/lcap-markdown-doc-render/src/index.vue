@@ -58,8 +58,7 @@ const highlightLinesPlugin = require('./lib/highlightLines')
 const preWrapperPlugin = require('./lib/preWrapper')
 const lineNumbersPlugin = require('./lib/lineNumbers')
 
-import './theme.css';
-// import './index.css';
+import './theme.less';
 
 const md = new MarkdownIt({
   html: true,
