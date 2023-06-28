@@ -8,7 +8,7 @@
     child-key="child.name"
     start-key="child.startTime"
 >
-    <template #default="scope">
+    <template #default="current">
         <u-linear-layout gap="small"></u-linear-layout>
     </template>
 </u-calendar-table>

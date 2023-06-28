@@ -25,8 +25,8 @@
         @select="$emit('select', $event, this)"
         @change="$emit('change', $event, this)"
       >
-        <template v-slot="scope">
-          <slot :item="scope.item"></slot>
+        <template  v-slot="current" >
+          <slot  :item="current"></slot>
         </template>
       </date-table>
     </div>
