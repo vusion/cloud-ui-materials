@@ -22,19 +22,19 @@
     first-title="姓名"
     first-field="${parent.name} (${parent.age}) [${parent.home}]"
     :data-source-parent="dateSourceParent"
-    :data-source="dateSourceChild"
+    :data-source="dateSource"
     parent-key="parent.name"
     child-key="child.name"
     start-key="child.startTime"
     first-width="160"
     width="88"
   >
-    <template #default="scope">
-      <p v-if="scope.item.child && scope.item.child.count">
-        Count: {{ scope.item.child.count }}
+    <template #default="current">
+      <p v-if="current.item.child && current.item.child.count">
+        Count: {{ current.item.child.count }}
       </p>
-      <p v-if="scope.item.child && scope.item.child.name">
-        Name: {{ scope.item.child.name }}
+      <p v-if="current.item.child && current.item.child.name">
+        Name: {{ current.item.child.name }}
       </p>
     </template>
   </u-calendar-table>
@@ -56,7 +56,7 @@ export default {
         totalElements: 5,
         totalPages: 1,
       },
-      dateSourceChild: {
+      dateSource: {
         content: [
           { child: { name: "张三", count: 3, startTime: "2021-10-14" } },
           { child: { name: "李四", count: 4, startTime: "2021-10-01" } },

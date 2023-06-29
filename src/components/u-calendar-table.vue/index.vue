@@ -26,7 +26,7 @@
         @change="$emit('change', $event, this)"
       >
         <template  v-slot="current" >
-          <slot  :item="current"></slot>
+          <slot  :item="current.item"></slot>
         </template>
       </date-table>
     </div>

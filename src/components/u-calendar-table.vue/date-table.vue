@@ -120,7 +120,7 @@ export default {
         getCells(children, parent) {
             const { ths, startKey, endKey } = this;
             return ths.map((thItem) => {
-                const currentDate = dayjs(thItem.key, DefaultFormatType);
+                const currentDate = dayjs(thItem.key);
                 const commonProps = {
                     __key__: thItem.key,
                     year: thItem.Date.year(),
@@ -140,7 +140,8 @@ export default {
                     if (endDate) {
                         return currentDate.isSameOrBefore(endDate) && currentDate.isSameOrAfter(startDate);
                     }
-                    return currentDate.format(DefaultFormatType) === startDate.format(DefaultFormatType);
+                    const isSame = currentDate.format(DefaultFormatType) === startDate.format(DefaultFormatType);
+                    return isSame;
                 });
                 if (!validData.length)
                     return { ...parent, ...commonProps };
