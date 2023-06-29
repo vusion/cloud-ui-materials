@@ -6,6 +6,7 @@
       "data-schema",
       "text-field",
       "description-field",
+      "loading",
       "align",
       "clearable",
       "placeholder",

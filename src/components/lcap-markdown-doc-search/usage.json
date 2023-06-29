@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-markdown-doc-search",
     "name": "文档搜索框",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
@@ -59,6 +59,13 @@
                 "title": "结果项描述字段",
                 "type": "string",
                 "description": "用于显示结果项描述字段的属性"
+            },
+            {
+                "name": "loading",
+                "title": "加载状态",
+                "type": "boolean",
+                "description": "用于显示加载状态",
+                "default": false
             },
             {
                 "name": "align",

@@ -19,6 +19,10 @@
     "type": "string",
     "description": "用于显示结果项描述字段的属性"
   },
+  "lcap-markdown-doc-search/loading": {
+    "type": "boolean",
+    "description": "用于显示加载状态"
+  },
   "lcap-markdown-doc-search/align": {
     "type": "string",
     "options": [

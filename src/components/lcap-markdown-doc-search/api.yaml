@@ -28,6 +28,11 @@
       title: 结果项描述字段
       type: string
       description: 用于显示结果项描述字段的属性
+    - name: loading
+      title: 加载状态
+      type: boolean
+      description: 用于显示加载状态
+      default: false
     - name: align
       title: 结果列表对齐
       type: string
