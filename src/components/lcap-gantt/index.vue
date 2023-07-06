@@ -2,8 +2,7 @@
   <div class="ganttRoot">
     <u-linear-layout type="flex" justify="space-between" class="functionBar">
       <div>
-        <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput"></u-input>
-        <u-button class="ganttSearchButton" icon="search" text="搜索" color="primary" @click="searchTask">搜索</u-button>
+        <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput" @change="searchTask"></u-input>
       </div>
       <div>
         <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
@@ -57,6 +56,7 @@ export default {
     skins: {type: String, default: 'default'},
     ganttStartDate: {type: String, default: ''},
     ganttEndDate: {type: String, default: ''},
+    jumpWeekend: {type: Boolean, default: false},
   },
   mixins: [supportDataSource],
   mounted() {
@@ -169,6 +169,7 @@ export default {
       });
     },
     highlightWeekend() {
+      gantt.config.work_time = this.jumpWeekend;
       gantt.templates.timeline_cell_class = (item, date) => {
         if (date.getDay() === 0 || date.getDay() === 6) {
           return 'weekend';
@@ -239,10 +240,6 @@ export default {
 
     // gantt交互事件注册
     ganttChangeEvent() {
-      this.ganttEvent.onTaskClick = gantt.attachEvent("onTaskClick", (id, e) => {
-        const task = gantt.getTask(id);
-        this.$emit('taskClick', task);
-      });
       this.ganttEvent.onScaleClick = gantt.attachEvent("onScaleClick", (e, date) => {
         this.$emit('scaleClick', date);
       });
@@ -279,27 +276,7 @@ export default {
           }
         };
       });
-      // 修改默认弹窗
-      gantt.attachEvent("onBeforeLightbox", (id) => {
-        let task = gantt.getTask(id);
-        task.proTemplate = `${gantt.locale.labels.taskProjectType_0}`
-        return true;
-      });
-      // 用户完成拖动并释放鼠标
-      this.ganttEvent.onAfterTaskChanged = gantt.attachEvent("onAfterTaskChanged", (id, mode, task) => {
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          gantt.render();
-        }, 500)
-      });
-      // 保存新增
-      this.ganttEvent.onLightboxSave = gantt.attachEvent("onLightboxSave", (id, item) => {
-        if (!item.text) {
-          this.$toast.error("请填写计划名称!");
-          return false;
-        }
-        return true;
-      });
+
     },
     parseIDETableConfig(config) {
       if (!config) return;
@@ -426,7 +403,8 @@ export default {
   --gantt-table-border-color: #ebebeb;
   --gantt-table-cell-color: #454545;
   --gantt-table-header-font-weight: normal;
-
+  --gantt-table-scale-color: rgb(166, 166, 166);
+  --gantt-table-scale-font-size: 12px;
 }
 
 .ganttRoot {
@@ -480,6 +458,11 @@ export default {
   background-color: var(--gantt-table-header-background-color);
   font-weight: var(--gantt-table-header-font-weight);
   text-align: var(--gantt-table-header-text-align);
+}
+
+.gantt_task .gantt_task_scale .gantt_scale_cell {
+  color: var(--gantt-table-scale-color);
+  font-size: var(--gantt-table-scale-font-size);
 }
 
 .gantt_cell {

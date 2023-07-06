@@ -68,6 +68,7 @@
       title: 甘特图表格配置
       type: Array<Item>
       description: 配置甘特图表格相
+      bindHide: true
       group: 数据属性
     - name: taskView
       title: 切换日期视图
@@ -90,21 +91,11 @@
       default: true
       description: 设置显示今日标记线
       group: 展示属性
-    - name: skins
-      title: 皮肤
-      type: string
-      default: default
-      description: 设置甘特图皮肤
-      group: 展示属性
-      options:
-        - value: default
-          title: 默认
-        - value: skyblue
-          title: 天蓝
-        - value: meadow
-          title: 草地
-        - value: broadway
-          title: 百老汇
+    - name: jumpWeekend
+      title: 是否跳过周末
+      type: boolean
+      default: false
+      description: 设置是否跳过周末
     - name: ganttStartDate
       title: 横道图标尺开始日期
       type: string
@@ -117,21 +108,6 @@
       default: ''
       description: 设置甘特图结束日期
       group: 展示属性
-  events:
-    - name: taskClick
-      title: 任务点击时
-      description: 任务点击时触发
-      params:
-        - name: $event
-          type: Object
-          description: 任务详情
-    - name: scaleClick
-      title: 刻度点击时
-      description: 刻度点击时触发
-      params:
-        - name: $event
-          type: string
-          description: 点击时间
   methods:
     - name: load
       title: 重新加载
@@ -153,6 +129,18 @@
       description: 设置表头字体颜色
       type: color
       default: '#000'
+      group: 表头
+    - name: --gantt-table-scale-color
+      title: 表头刻度颜色
+      description: 设置表头刻度颜色
+      type: color
+      default: '#000'
+      group: 表头
+    - name: --gantt-table-scale-font-size
+      title: 表头刻度字体大小
+      description: 设置表头刻度字体大小
+      type: input
+      default: 12px
       group: 表头
     - name: --gantt-table-header-text-align
       title: 表头对齐方式

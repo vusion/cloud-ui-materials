@@ -11,7 +11,7 @@ function ganttDealById(list, id) {
 }
 
 export const ganttPlugins = {
-    click_drag: true,
+    click_drag: false,
     drag_timeline: true,// 拖动图
     marker: true,// 时间标记
     fullscreen: true,// 全屏
@@ -68,10 +68,10 @@ export const basicConfig = {
 
 },
     start_on_monday: true,
-    work_time: true,
+    work_time: false,
     resize_rows: true,
     fit_tasks: true,
-
+    tooltip_hide_timeout: 0,
 };
 export const basicTemplate = {
     task_end_date: function (date) {
