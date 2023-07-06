@@ -223,7 +223,7 @@ export default {
           text: this.axisData.title,
           textStyle: {
             fontSize: this.customStyle['--echart-title-font-size'] || this.axisData.titleFontSize,
-            color: this.customStyle['--title-font-color'],
+            color: this.customStyle['--title-font-color'] || '#000',
             fontStyle: this.axisData.titleFontStyle,
           }
         },
