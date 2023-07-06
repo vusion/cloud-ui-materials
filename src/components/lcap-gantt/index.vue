@@ -163,9 +163,9 @@ export default {
       }
       ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
       console.log('ganttFinalDataSources', ganttFinalDataSources);
+      if (!ganttFinalDataSources[0]) return;
       gantt.parse({
         data: ganttFinalDataSources,
-        // links: this.innerLinkSource || initialData.links,
       });
     },
     highlightWeekend() {
