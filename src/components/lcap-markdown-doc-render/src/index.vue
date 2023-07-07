@@ -1,6 +1,6 @@
 <template>
 <div class="markdown-root">
-    <div class="content" ref="content">
+    <div :class="{ 'content': true, 'pinned': pinned }" ref="content">
         <div
             class="theme-default-content" 
             v-html="html"
@@ -9,12 +9,12 @@
 
     <div class="anchor-wrap" :style="anchorStyle">
         <div class="foldIcon" v-if="tocData && tocData.length">
-            <!-- <div 
+            <div 
                 v-tooltip.top="pinned ? '隐藏目录' : '显示目录'" 
                 style="display: inline-block" 
                 @click="pinToc()"  
                 :class="['iconItem', pinned ? 'show' : 'hide']">
-            </div> -->
+            </div>
 
             <div
                 v-tooltip.top="toggle ? '全部收起' : '全部展开'" 
@@ -475,7 +475,11 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
   max-height: 100%;
   padding: 0 0 0 40px;
   /* overflow: scroll; */
-  padding-right: 365px;
+  /* padding-right: 365px; */
+}
+
+.markdown-root .content.pinned {
+    padding-right: 365px;
 }
 
 .markdown-root .content ul {
