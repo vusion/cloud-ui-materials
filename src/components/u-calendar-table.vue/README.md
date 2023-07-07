@@ -7,6 +7,7 @@
 - [API]()
     - [Props/Attrs](#propsattrs)
     - [Slots](#slots)
+    - [Events](#events)
     - [Methods](#methods)
 
 **Table**
@@ -108,6 +109,16 @@ export default {
 
 自定义选项的结构和样式
 
+### Events
+
+#### @change
+
+
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+| $event | string | 参数1 |
+
 Methods
 
 #### load()
@@ -120,6 +131,20 @@ Methods
 #### reload()
 
 清除缓存，重新加载
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
+
+#### getSelectYear()
+
+获取当前选择的年份
+
+| Param | Type | Default | Description |
+| ----- | ---- | ------- | ----------- |
+
+#### getSelectMonth()
+
+获取当前选择的月份
 
 | Param | Type | Default | Description |
 | ----- | ---- | ------- | ----------- |

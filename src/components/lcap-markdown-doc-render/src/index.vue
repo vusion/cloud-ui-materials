@@ -1,6 +1,6 @@
 <template>
 <div class="markdown-root">
-    <div class="content" ref="content">
+    <div :class="{ 'content': true, 'pinned': pinned }" ref="content">
         <div
             class="theme-default-content" 
             v-html="html"
@@ -189,7 +189,6 @@ export default {
             
             let htmlString = md.render(text)
             const headers = extractHeaders(text, ['h2', 'h3', 'h4', 'h5'], md)
-
             // 处理a签
             // 创建DOM解析器对象
             const parser = new DOMParser();
@@ -476,7 +475,11 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
   max-height: 100%;
   padding: 0 0 0 40px;
   /* overflow: scroll; */
-  padding-right: 365px;
+  /* padding-right: 365px; */
+}
+
+.markdown-root .content.pinned {
+    padding-right: 365px;
 }
 
 .markdown-root .content ul {

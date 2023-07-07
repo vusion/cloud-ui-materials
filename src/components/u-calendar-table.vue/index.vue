@@ -1,8 +1,9 @@
 <template>
   <u-linear-layout direction="vertical" :class="$style.root">
     <u-linear-layout gap="small">
-      <u-select size="mini" v-model="year" :data-source="years"></u-select>
+      <u-select @change="handleChange" size="mini" v-model="year" :data-source="years"></u-select>
       <u-select
+        @change="handleChange"
         size="mini"
         v-model="month"
         :data-source="months"
@@ -203,6 +204,10 @@ export default {
     },
   },
   methods: {
+    handleChange() {
+      const m = this.month+1 >9?this.month+1:"0"+(this.month+1)
+      this.$emit("change", this.year+"-"+ m );  
+    },
     async load() {
       const { dataSourceParent, dataSource, firstField, parentKey, childKey } =
         this;
@@ -328,6 +333,18 @@ export default {
       this.minMonths = minMonths;
       this.maxMonths = maxMonths;
     },
+    /**
+     * 获取当前年份
+     *  */ 
+    getSelectMonth() {
+      return this.month
+    },
+    /**
+     * 获取当前年份
+     *  */ 
+     getSelectYear() {
+      return this.year
+    }
   },
 };
 </script>
