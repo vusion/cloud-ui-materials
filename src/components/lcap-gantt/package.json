@@ -1,11 +1,11 @@
 {
   "name": "lcap-gantt",
   "description": "",
-  "version": "0.1.10",
+  "version": "0.1.14",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-gantt@0.1.10/index.html",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-gantt@0.1.14/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

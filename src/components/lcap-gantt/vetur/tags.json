@@ -1,20 +1,22 @@
 {
   "lcap-gantt": {
     "attributes": [
+      "ganttTableConfig",
       "data-source",
       "data-schema",
       "text-field",
       "start-field",
+      "end-field",
       "duration-field",
       "progress-field",
       "id-field",
       "parent-field",
       "color-field",
       "icon-field",
-      "ganttTableConfig",
-      "taskView",
       "showToday",
       "jumpWeekend",
+      "showFunctionBar",
+      "taskView",
       "ganttStartDate",
       "ganttEndDate"
     ],

@@ -86,11 +86,13 @@
       title: 跳过周末
       type: boolean
       default: false
+      group: 展示属性
       description: 设置是否跳过周末，仅适用于配置持续时间字段时生效
     - name: showFunctionBar
       title: 显示功能栏
       type: boolean
       default: false
+      group: 展示属性
       description: 设置是否显示默认功能栏
     - name: taskView
       title: 切换日期视图
