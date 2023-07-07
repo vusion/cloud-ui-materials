@@ -22,7 +22,7 @@
 import {gantt} from 'dhtmlx-gantt';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css'; // 样式模块
 import {locale} from "@/locale";
-import {basicConfig, initialData, ganttPlugins, basicTemplate} from "@/ganttConfig";
+import {basicConfig, initialData, initialTableConfig, ganttPlugins, basicTemplate} from "@/ganttConfig";
 import supportDataSource from "@/mixins/support.datasource";
 import moment from 'moment';
 
@@ -138,14 +138,8 @@ export default {
       gantt.clearAll();
       gantt.locale = locale;
       // 启用动态加载
-      gantt.config = {
-        ...gantt.config,
-        ...basicConfig,
-      };
-      gantt.templates = {
-        ...gantt.templates,
-        ...basicTemplate,
-      };
+      gantt.config = {...gantt.config, ...basicConfig};
+      gantt.templates = {...gantt.templates, ...basicTemplate};
       gantt.plugins(ganttPlugins);
       if (this.showToday) {
         this.createTodayLine();
@@ -153,7 +147,12 @@ export default {
       this.highlightWeekend();
       this.initSkins();
       this.initStartEndDate();
-      this.parseIDETableConfig(this.ganttTableConfig);
+      // 无配置项时，使用默认配置来兜底显示
+      if (this.ganttTableConfig) {
+        this.parseIDETableConfig(JSON.parse(JSON.stringify(this.ganttTableConfig)));
+      } else {
+        this.parseIDETableConfig(initialTableConfig);
+      }
       gantt.init(this.$refs.gantt);
       let ganttDataSources, ganttFinalDataSources;
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
@@ -163,6 +162,7 @@ export default {
       }
       ganttDataSources = this.handleDateDiff(JSON.parse(JSON.stringify(ganttDataSources)));
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
+      console.log(ganttFinalDataSources);
       if (!ganttFinalDataSources[0]) return;
       gantt.parse({
         data: ganttFinalDataSources,
@@ -179,8 +179,8 @@ export default {
     },
     // 今日线
     createTodayLine() {
-      var dateToStr = gantt.date.date_to_str("%Y年%M%d日");
-      var markerId = gantt.addMarker({
+      let dateToStr = gantt.date.date_to_str("%Y年%M%d日");
+      let markerId = gantt.addMarker({
         id: 'markerLine',
         start_date: new Date(),
         css: "today",
@@ -300,7 +300,7 @@ export default {
         tableConfig.push(obj);
       });
       // console.log('tableConfig', tableConfig);
-      gantt.config.columns = tableConfig;
+      gantt.config.columns = JSON.parse(JSON.stringify(tableConfig));
     },
     initSkins() {
       switch (this.skins) {
@@ -385,7 +385,6 @@ export default {
         dataSource.map(item => {
           const start = item[this.extractEntityField(this.startField)];
           const end = item[this.extractEntityField(this.endField)];
-          console.log('start', item, start, end);
           const diff = moment(end).diff(moment(start), 'days');
           item.duration = diff;
         })

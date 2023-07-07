@@ -1,17 +1,8 @@
 import {gantt} from 'dhtmlx-gantt';
-import {locale} from "@/locale";
 import moment from "moment";
 
-function ganttDealById(list, id) {
-    for (let i = 0; i < list.length; i++) {
-        if (list[i].key == id)
-            return list[i].label;
-    }
-    return "";
-}
-
 export const ganttPlugins = {
-    click_drag: false,
+    click_drag: false, // 是否可拖动
     drag_timeline: true,// 拖动图
     marker: true,// 时间标记
     fullscreen: true,// 全屏
@@ -24,15 +15,19 @@ const project1Time = moment(new Date().valueOf() + 2 * 24 * 60 * 60 * 1000).form
 const project2Time = moment(new Date().valueOf() + 4 * 24 * 60 * 60 * 1000).format('YYYY-MM-DD');
 export const initialData = {
     data: [
-        {id: 1, text: '项目 #1', start_date: currTime, duration: 3, progress: 0.6, open: true},
-        {id: 2, text: '示例1', start_date: project1Time, duration: 3, progress: 0.4, parent: 1},
-        {id: 3, text: '示例2', start_date: project2Time, duration: 3, progress: 0.4, parent: 1},
+        {id: 1, text: '项目 #1', start_date: currTime, duration: 3, progress: 0.6, open: true, color: '#468fe3'},
+        {id: 2, text: '示例1', start_date: project1Time, duration: 3, progress: 0.4, parent: 1, color: '#109b1b'},
+        {id: 3, text: '示例2', start_date: project2Time, duration: 3, progress: 0.4, parent: 1, color: '#ce4a46'},
     ],
     links: [
         {id: 1, source: 1, target: 2, type: '0'},
         {id: 2, source: 2, target: 3, type: '0'},
     ],
 };
+export const initialTableConfig = [
+    {labelField: '项目名称', nameField: 'text', showTooltip: true, width: 120},
+    {labelField: '开始日期', nameField: 'start_date', showTooltip: true, width: 140},
+]
 
 export const basicConfig = {
     branch_loading: true,
@@ -48,7 +43,7 @@ export const basicConfig = {
         cols: [
             {
                 // adding horizontal scrollbar to the grid via the scrollX attribute
-                rows:[
+                rows: [
                     {view: "grid", scrollX: "gridScroll", scrollable: true, scrollY: "scrollVer"},
                     {view: "scrollbar", id: "gridScroll"}
                 ]
@@ -66,7 +61,7 @@ export const basicConfig = {
             {view: "scrollbar", scroll: "x", id: "scrollHor", height: 20}
         ],
 
-},
+    },
     start_on_monday: true,
     work_time: false,
     resize_rows: true,
