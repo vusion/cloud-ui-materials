@@ -19,8 +19,9 @@
             text-field="text1"
             color-field="color"
             id-field="id"
-            :jumpWeekend="false"
             icon-field="iconUrl"
+            :jumpWeekend="false"
+            :showFunctionBar="true"
             skins="default"
             ganttEndDate="2023-07-19 20:07:41"
             style="--gantt-table-header-font-size:15px;

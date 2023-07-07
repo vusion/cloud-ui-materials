@@ -41,7 +41,7 @@
   },
   "lcap-gantt/ganttTableConfig": {
     "type": "Array<Item>",
-    "description": "配置甘特图表格相"
+    "description": "配置甘特图左侧表格"
   },
   "lcap-gantt/taskView": {
     "type": "string",
@@ -69,26 +69,16 @@
     "type": "boolean",
     "description": "设置显示今日标记线"
   },
-  "lcap-gantt/skins": {
+  "lcap-gantt/jumpWeekend": {
+    "type": "boolean",
+    "description": "设置是否跳过周末"
+  },
+  "lcap-gantt/ganttStartDate": {
     "type": "string",
-    "options": [
-      {
-        "value": "default",
-        "title": "默认"
-      },
-      {
-        "value": "skyblue",
-        "title": "天蓝"
-      },
-      {
-        "value": "meadow",
-        "title": "草地"
-      },
-      {
-        "value": "broadway",
-        "title": "百老汇"
-      }
-    ],
-    "description": "设置甘特图皮肤"
+    "description": "设置甘特图开始日期"
+  },
+  "lcap-gantt/ganttEndDate": {
+    "type": "string",
+    "description": "设置甘特图结束日期"
   }
 }

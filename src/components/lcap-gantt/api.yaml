@@ -4,6 +4,12 @@
   labels: [Chart]
   icon: default
   attrs:
+    - name: ganttTableConfig
+      title: 甘特图表格配置
+      type: Array<Item>
+      description: 配置甘特图左侧表格
+      bindHide: true
+      group: 数据属性
     - name: data-source
       title: 数据源
       type: Array<Item> | Function | object | DataSource
@@ -20,7 +26,7 @@
       title: 文本字段
       type: string
       default: ''
-      description: 设置泳道图文本字段
+      description: 设置泳道图文本字段，用于显示泳道图上的文本
       group: 数据属性
     - name: start-field
       title: 开始日期字段
@@ -44,118 +50,112 @@
       title: 进度字段
       type: string
       default: ''
-      description: 设置泳道图进度字段
+      description: 设置泳道图进度字段，以小数形式计算，如0.5表示50%
       group: 数据属性
     - name: id-field
       title: 值字段
       type: string
       default: ''
-      description: 设置泳道图id字段
+      description: 设置泳道图值字段，用于设置泳道图的层级关系，父级字段值指向值字段具体值以构成层级关系
       group: 数据属性
     - name: parent-field
       title: 父级字段
       type: string
       default: ''
-      description: 设置泳道图父级字段
+      description: 设置泳道图父级字段，用于设置泳道图的层级关系，父级字段值指向值字段具体值以构成层级关系
       group: 数据属性
     - name: color-field
       title: 数据颜色字段
       type: string
       default: ''
-      description: 设置泳道图数据颜色字段
+      description: 设置泳道图数据颜色字段，支持hex、英文名称格式
       group: 数据属性
     - name: icon-field
       title: 图标字段
       type: string
       default: ''
-      description: 设置数据列表图标字段，仅支持png,jpg类型的图片链接
+      description: 设置数据列表图标字段，仅会在文本字段上生效，支持配置png,jpg格式的图片链接
       group: 数据属性
-    - name: ganttTableConfig
-      title: 甘特图表格配置
-      type: Array<Item>
-      description: 配置甘特图左侧表格
-      bindHide: true
-      group: 数据属性
-    - name: taskView
-      title: 切换日期视图
-      type: string
-      default: d
-      description: 切换日期视图
-      options:
-        - value: d
-          title: 日
-        - value: w
-          title: 周
-        - value: m
-          title: 月
-        - value: y
-          title: 年
-      group: 展示属性
     - name: showToday
       title: 显示今日标记线
       type: boolean
       default: true
-      description: 设置显示今日标记线
+      description: 设置是否显示今日标记线
       group: 展示属性
     - name: jumpWeekend
-      title: 是否跳过周末
+      title: 跳过周末
       type: boolean
       default: false
       description: 设置是否跳过周末，仅适用于配置持续时间字段时生效
-    - name: ganttStartDate
-      title: 横道图标尺开始日期
-      type: string
-      default: ''
-      description: 设置甘特图开始日期
-      group: 展示属性
-    - name: ganttEndDate
-      title: 横道图标尺结束日期
-      type: string
-      default: ''
-      description: 设置甘特图结束日期
-      group: 展示属性
     - name: showFunctionBar
       title: 显示功能栏
       type: boolean
       default: false
       description: 设置是否显示默认功能栏
+    - name: taskView
+      title: 切换日期视图
+      type: string
+      default: day
+      description: 切换日期视图
+      options:
+        - value: day
+          title: 日
+        - value: week
+          title: 周
+        - value: month
+          title: 月
+        - value: year
+          title: 年
+      group: 展示属性
+    - name: ganttStartDate
+      title: 横道图标尺开始日期
+      type: string
+      default: ''
+      description: 设置甘特图开始显示的日期
+      group: 展示属性
+    - name: ganttEndDate
+      title: 横道图标尺结束日期
+      type: string
+      default: ''
+      description: 设置甘特图结束显示的日期
+      group: 展示属性
   methods:
     - name: load
       title: 重新加载
       description: 重新加载甘特图
       params: []
     - name: changeToday
-      title: 定位到今日标记线
-      description: 定位到今日标记线
+      title: 立刻定位到今日标记线
+      description: 立刻定位到今日标记线
       params: []
   themes:
     - name: --gantt-table-header-font-size
-      title: 表头字体大小
-      description: 设置表头字体大小
+      title: 表格表头字体大小
+      description: 设置表格表头字体大小
       type: input
       default: 12px
       group: 表头
     - name: --gantt-table-header-font-color
-      title: 表头字体颜色
-      description: 设置表头字体颜色
+      title: 表格表头字体颜色
+      description: 设置表格表头字体颜色
       type: color
       default: '#000'
       group: 表头
     - name: --gantt-table-scale-color
-      title: 表头刻度颜色
-      description: 设置表头刻度颜色
+      title: 泳道图刻度颜色
+      description: 设置泳道图刻度颜色
       type: color
       default: '#000'
       group: 表头
     - name: --gantt-table-scale-font-size
-      title: 表头刻度字体大小
-      description: 设置表头刻度字体大小
+      title: 泳道图刻度字体大小
+      description: 设置泳道图刻度字体大小
       type: input
       default: 12px
       group: 表头
     - name: --gantt-table-header-text-align
       title: 表头对齐方式
-      description: 设置表头对齐方式
+      description: 设置表头对齐方式（left、center、right）
       type: input
       default: center
       group: 表头

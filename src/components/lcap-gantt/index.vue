@@ -43,7 +43,7 @@ export default {
     linkSource: [Function, Array, Object],
     showToday: {type: Boolean, default: true},
     showFunctionBar: {type: Boolean, default: false},
-    taskView: {type: String, default: 'd'},
+    taskView: {type: String, default: 'day'},
     ganttTableConfig: [Function, Array, Object],
     startField: {type: String, default: ''},
     endField: {type: String, default: ''},
@@ -203,26 +203,26 @@ export default {
     // 切换年月周日视图
     ganttChangeDateView(event) {
       switch (event.value) {
-        case 'y':
+        case 'year':
           gantt.config.scale_unit = "year";
           gantt.config.step = 1;
           gantt.config.subscales = null;
           gantt.config.date_scale = "%Y年";
           gantt.templates.date_scale = null;
           break;
-        case 'm':
+        case 'month':
           gantt.config.scale_unit = 'month';
           gantt.config.step = 1;
           gantt.config.date_scale = "%m月";
           gantt.templates.date_scale = null;
           break;
-        case 'w':
+        case 'week':
           gantt.config.scale_unit = 'week';
           gantt.config.step = 1;
           gantt.config.date_scale = "第%w周";
           gantt.templates.date_scale = null;
           break;
-        case 'd':
+        case 'day':
           gantt.config.scale_unit = 'day';
           gantt.config.step = 1;
           gantt.config.date_scale = "%m月%d日";

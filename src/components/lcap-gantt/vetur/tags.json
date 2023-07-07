@@ -14,7 +14,9 @@
       "ganttTableConfig",
       "taskView",
       "showToday",
-      "skins"
+      "jumpWeekend",
+      "ganttStartDate",
+      "ganttEndDate"
     ],
     "description": "请在这里添加描述"
   }

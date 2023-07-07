@@ -6,7 +6,6 @@
     - [基本用法](#基本用法)
 - [API]()
     - [Props/Attrs](#propsattrs)
-    - [Events](#events)
     - [Methods](#methods)
 
 **Chart**
@@ -18,8 +17,8 @@
 
 ```html
 <lcap-gantt :data-source="[
-        { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', duration: 9, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0', iconUrl: '' },
-        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0', iconUrl: 'http://ceph.lcap.hadev.163yun.com/lowcode-static/user/defaulttenant/1686301210678_%E5%8A%A0%E6%B2%B9.jpg' },
+        { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', duration: 4, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0', iconUrl: '' },
+        { id: 2, text1: '规划', start: '2023-04-20 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0', iconUrl: 'https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7d177d0536094224a3132392c8a83c0b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?' },
         { id: 3, text1: '实施', start: '2023-04-24 00:00', duration: 4, progress: 0.5, parent: 1, head: '孙三', state: 'unfinished', color: '#84bd54' },
         { id: 4, text1: '复盘', start: '2023-04-28 00:00', duration: 3, progress: 0.1, parent: 1, head: '李四', state: 'canceled', color: '#da645d' },
     ]"
@@ -35,9 +34,13 @@
             text-field="text1"
             color-field="color"
             id-field="id"
+            :jumpWeekend="false"
             icon-field="iconUrl"
             skins="default"
-            style="--gantt-table-header-font-size:12px;
+            ganttEndDate="2023-07-19 20:07:41"
+            style="--gantt-table-header-font-size:15px;
+                --gantt-table-scale-color: green;
+                --gantt-table-scale-font-size: 12px;
                 --gantt-table-header-font-color:red; 
                 --gantt-table-header-text-align: center;
                 --gantt-table-background-color-striped: #f5f5f5;
@@ -65,28 +68,12 @@
 | parent-field | string |  | `''` | 设置泳道图父级字段 |
 | color-field | string |  | `''` | 设置泳道图数据颜色字段 |
 | icon-field | string |  | `''` | 设置数据列表图标字段，仅支持png,jpg类型的图片链接 |
-| ganttTableConfig | Array\<Item\> |  |  | 配置甘特图表格相 |
+| ganttTableConfig | Array\<Item\> |  |  | 配置甘特图左侧表格 |
 | taskView | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'d'` | 切换日期视图 |
 | showToday | boolean |  | `true` | 设置显示今日标记线 |
-| skins | string | `[object Object]`<br/>`[object Object]`<br/>`[object Object]`<br/>`[object Object]` | `'default'` | 设置甘特图皮肤 |
-
-### Events
-
-#### @taskClick
-
-任务点击时触发
-
-| Param | Type | Description |
-| ----- | ---- | ----------- |
-| $event | Object | 任务详情 |
-
-#### @scaleClick
-
-刻度点击时触发
-
-| Param | Type | Description |
-| ----- | ---- | ----------- |
-| $event | string | 点击时间 |
+| jumpWeekend | boolean |  | `false` | 设置是否跳过周末 |
+| ganttStartDate | string |  | `''` | 设置甘特图开始日期 |
+| ganttEndDate | string |  | `''` | 设置甘特图结束日期 |
 
 Methods
 
