@@ -1,6 +1,6 @@
 <template>
   <div class="ganttRoot">
-    <u-linear-layout type="flex" justify="space-between" class="functionBar">
+    <u-linear-layout v-if="showFunctionBar" type="flex" justify="space-between" class="functionBar">
       <div>
         <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput" @change="searchTask"></u-input>
       </div>
@@ -42,6 +42,7 @@ export default {
     dataSource: [Function, Array, Object],
     linkSource: [Function, Array, Object],
     showToday: {type: Boolean, default: true},
+    showFunctionBar: {type: Boolean, default: false},
     taskView: {type: String, default: 'd'},
     ganttTableConfig: [Function, Array, Object],
     startField: {type: String, default: ''},
@@ -57,6 +58,7 @@ export default {
     ganttStartDate: {type: String, default: ''},
     ganttEndDate: {type: String, default: ''},
     jumpWeekend: {type: Boolean, default: false},
+
   },
   mixins: [supportDataSource],
   mounted() {
@@ -75,7 +77,7 @@ export default {
   computed: {
     changedObj() {
       let {currentDataSource, ganttTableConfig, skins, customStyle, ganttStartDate, ganttEndDate} = this;
-      return {currentDataSource,ganttTableConfig, skins, customStyle, ganttStartDate, ganttEndDate};
+      return {currentDataSource, ganttTableConfig, skins, customStyle, ganttStartDate, ganttEndDate};
     },
   },
   watch: {
@@ -148,7 +150,6 @@ export default {
       if (this.showToday) {
         this.createTodayLine();
       }
-      this.changeTaskColor();
       this.highlightWeekend();
       this.initSkins();
       this.initStartEndDate();
@@ -162,7 +163,6 @@ export default {
       }
       ganttDataSources = this.handleDateDiff(JSON.parse(JSON.stringify(ganttDataSources)));
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
-      console.log('ganttFinalDataSources', ganttFinalDataSources);
       if (!ganttFinalDataSources[0]) return;
       gantt.parse({
         data: ganttFinalDataSources,
@@ -199,12 +199,6 @@ export default {
           console.log('图上未显示今日标记线');
         }
       })
-    },
-    changeTaskColor() {
-      gantt.templates.task_class = function (start, end, task) {
-        // task.state值为default/unfinished/finished/canceled其中一种
-        return `milestone-${task.state}`;
-      }
     },
     // 切换年月周日视图
     ganttChangeDateView(event) {
@@ -258,9 +252,9 @@ export default {
             }
           }
           template += "<b>开始时间:</b> "
-            + moment(start).format('YYYY-MM-DD')
-            + "<br/><b>结束时间:</b> "
-            + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
+              + moment(start).format('YYYY-MM-DD')
+              + "<br/><b>结束时间:</b> "
+              + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
           return template;
         }
         gantt.templates.grid_file = (item) => {
@@ -276,8 +270,8 @@ export default {
           }
         };
       });
-
     },
+    // 解析左侧数据表格配置项
     parseIDETableConfig(config) {
       if (!config) return;
       let tableConfig = [];
@@ -303,7 +297,6 @@ export default {
           align: "center",
           customIcon: item.iconField,
         });
-
         tableConfig.push(obj);
       });
       // console.log('tableConfig', tableConfig);
@@ -392,116 +385,19 @@ export default {
         dataSource.map(item => {
           const start = item[this.extractEntityField(this.startField)];
           const end = item[this.extractEntityField(this.endField)];
-          console.log('start',item, start, end);
+          console.log('start', item, start, end);
           const diff = moment(end).diff(moment(start), 'days');
           item.duration = diff;
         })
         gantt.config.work_time = false;
-        return dataSource;
-      } else {
-        return dataSource;
       }
+      return dataSource;
     }
   }
 };
 </script>
 
 <style>
-:root {
-  --gantt-table-header-font-size: 12px;
-  --gantt-table-header-font-color: #000;
-  --gantt-table-header-background-color: #fff;
-  --gantt-table-header-text-align: center;
-  --gantt-table-background-color: #fff;
-  --gantt-table-background-color-striped: #f5f5f5;
-  --gantt-table-background-color-hover: #f5f5f5;
-  --gantt-table-border-color: #ebebeb;
-  --gantt-table-cell-color: #454545;
-  --gantt-table-header-font-weight: normal;
-  --gantt-table-scale-color: rgb(166, 166, 166);
-  --gantt-table-scale-font-size: 12px;
-}
-
-.ganttRoot {
-  width: 100%;
-  height: 600px;
-}
-
-.showTodayButton {
-  border: 1px solid #ebebeb;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #454545;
-  cursor: pointer;
-  padding: 0 8px;
-}
-
-.ganttSearchButton {
-  border: 1px solid #ebebeb;
-  border-radius: 2px;
-  background-color: #fff;
-  color: #454545;
-  cursor: pointer;
-  padding: 0 8px;
-}
-
-.ganttContainer {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.weekend {
-  background: #fafafa !important;
-}
-
-.weekday {
-  background: #fff;
-}
-
-.gantt_message_area {
-  display: none !important;
-}
-
-.gantt_task_progress {
-  opacity: 0.2 !important;
-}
-
-.gantt_grid_scale .gantt_grid_head_cell {
-  color: var(--gantt-table-header-font-color);
-  font-size:var(--gantt-table-header-font-size);
-  background-color: var(--gantt-table-header-background-color);
-  font-weight: var(--gantt-table-header-font-weight);
-  text-align: var(--gantt-table-header-text-align);
-}
-
-.gantt_task .gantt_task_scale .gantt_scale_cell {
-  color: var(--gantt-table-scale-color);
-  font-size: var(--gantt-table-scale-font-size);
-}
-
-.gantt_cell {
-  color: var(--gantt-table-cell-color) !important;
-}
-.gantt_row, .gantt_row.odd {
-  background-color: var(--gantt-table-background-color);
-}
-
-.gantt_row:hover, .gantt_row.odd:hover {
-  background-color: var(--gantt-table-background-color-hover) !important;
-}
-
-.gantt_row.odd {
-  background-color: var(--gantt-table-background-color-striped);
-}
-
-.gantt_task_grid_row_resize {
-  background-color: var(--gantt-table-border-color) !important;
-}
-.gantt_row gantt_row_task {
-  height: 100px !important;
-  line-height: 100px !important;
-}
-
+@import "./index.css";
 
 </style>

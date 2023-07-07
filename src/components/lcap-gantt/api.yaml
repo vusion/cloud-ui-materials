@@ -114,6 +114,11 @@
       default: ''
       description: 设置甘特图结束日期
       group: 展示属性
+    - name: showFunctionBar
+      title: 显示功能栏
+      type: boolean
+      default: false
+      description: 设置是否显示默认功能栏
   methods:
     - name: load
       title: 重新加载
