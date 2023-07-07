@@ -9,12 +9,12 @@
 
     <div class="anchor-wrap" :style="anchorStyle">
         <div class="foldIcon" v-if="tocData && tocData.length">
-            <div 
+            <!-- <div 
                 v-tooltip.top="pinned ? '隐藏目录' : '显示目录'" 
                 style="display: inline-block" 
                 @click="pinToc()"  
                 :class="['iconItem', pinned ? 'show' : 'hide']">
-            </div>
+            </div> -->
 
             <div
                 v-tooltip.top="toggle ? '全部收起' : '全部展开'" 
@@ -189,7 +189,6 @@ export default {
             
             let htmlString = md.render(text)
             const headers = extractHeaders(text, ['h2', 'h3', 'h4', 'h5'], md)
-
             // 处理a签
             // 创建DOM解析器对象
             const parser = new DOMParser();

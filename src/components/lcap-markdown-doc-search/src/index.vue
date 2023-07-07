@@ -158,6 +158,7 @@ export default {
             this.$emit('before-input', $event)
         },
         onInput($event) {
+            this.show = true
             this.searching = true;
             this.$emit('input', $event)
         },
