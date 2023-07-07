@@ -101,6 +101,13 @@
             - concept: TypeAnnotation
               typeKind: typeParam
               typeName: T
+  events:
+    - name: change
+      title: 年份日期改变时
+      params:
+        - name: $event
+          type: string
+          description: 参数1
   methods:
     - name: load
       description: 带缓存地加载
@@ -108,3 +115,10 @@
     - name: reload
       description: 清除缓存，重新加载
       params: []
+    - name: getSelectYear
+      description: 获取当前选择的年份
+      params: []
+    - name: getSelectMonth
+      description: 获取当前选择的月份
+      params: []
+    
