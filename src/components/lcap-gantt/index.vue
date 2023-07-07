@@ -45,11 +45,11 @@ export default {
     taskView: {type: String, default: 'd'},
     ganttTableConfig: [Function, Array, Object],
     startField: {type: String, default: ''},
+    endField: {type: String, default: ''},
     durationField: {type: String, default: ''},
     progressField: {type: String, default: ''},
     colorField: {type: String, default: ''},
     textField: {type: String, default: ''},
-    endDateField: {type: String, default: ''},
     iconField: {type: String, default: ''},
     idField: {type: String, default: ''},
     parentField: {type: String, default: ''},
@@ -87,7 +87,6 @@ export default {
         });
       },
       deep: true,
-      immediate: true,
     },
     taskView: {
       handler() {
@@ -155,13 +154,14 @@ export default {
       this.initStartEndDate();
       this.parseIDETableConfig(this.ganttTableConfig);
       gantt.init(this.$refs.gantt);
-      let ganttFinalDataSources;
+      let ganttDataSources, ganttFinalDataSources;
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
-        ganttFinalDataSources = initialData.data;
-      }else {
-        ganttFinalDataSources = this.currentDataSource.data;
+        ganttDataSources = initialData.data;
+      } else {
+        ganttDataSources = this.currentDataSource.data;
       }
-      ganttFinalDataSources = this.normalizeGanttData(ganttFinalDataSources);
+      ganttDataSources = this.handleDateDiff(JSON.parse(JSON.stringify(ganttDataSources)));
+      ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
       console.log('ganttFinalDataSources', ganttFinalDataSources);
       if (!ganttFinalDataSources[0]) return;
       gantt.parse({
@@ -386,6 +386,21 @@ export default {
         this.changeObjKey(obj, this.extractEntityField(this.textField), 'text');
       })
       return ganttFinalDataSources
+    },
+    handleDateDiff(dataSource) {
+      if (this.endField) {
+        dataSource.map(item => {
+          const start = item[this.extractEntityField(this.startField)];
+          const end = item[this.extractEntityField(this.endField)];
+          console.log('start',item, start, end);
+          const diff = moment(end).diff(moment(start), 'days');
+          item.duration = diff;
+        })
+        gantt.config.work_time = false;
+        return dataSource;
+      } else {
+        return dataSource;
+      }
     }
   }
 };

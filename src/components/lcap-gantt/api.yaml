@@ -28,11 +28,17 @@
       default: ''
       description: 设置泳道图开始日期字段
       group: 数据属性
+    - name: end-field
+      title: 结束日期字段
+      type: string
+      default: ''
+      description: 设置泳道图结束日期字段，和持续时间字段二选一，同时设置以结束日期字段为准
+      group: 数据属性
     - name: duration-field
       title: 持续时间字段
       type: string
       default: ''
-      description: 设置泳道图持续时间字段
+      description: 设置泳道图持续时间字段，和结束日期字段二选一，同时设置以结束日期字段为准
       group: 数据属性
     - name: progress-field
       title: 进度字段
@@ -41,7 +47,7 @@
       description: 设置泳道图进度字段
       group: 数据属性
     - name: id-field
-      title: id字段
+      title: 值字段
       type: string
       default: ''
       description: 设置泳道图id字段
@@ -67,7 +73,7 @@
     - name: ganttTableConfig
       title: 甘特图表格配置
       type: Array<Item>
-      description: 配置甘特图表格相
+      description: 配置甘特图左侧表格
       bindHide: true
       group: 数据属性
     - name: taskView
@@ -95,7 +101,7 @@
       title: 是否跳过周末
       type: boolean
       default: false
-      description: 设置是否跳过周末
+      description: 设置是否跳过周末，仅适用于配置持续时间字段时生效
     - name: ganttStartDate
       title: 横道图标尺开始日期
       type: string
