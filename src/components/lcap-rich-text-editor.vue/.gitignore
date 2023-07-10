@@ -1,9 +1,0 @@
-.DS_Store
-node_modules
-
-dist-theme
-public
-screenshots
-vetur
-
-package-lock.json

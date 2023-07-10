@@ -1,6 +1,0 @@
-{
-  "x-monaco-editor/value": {
-    "type": "string",
-    "description": "代码段"
-  }
-}

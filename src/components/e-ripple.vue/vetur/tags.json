@@ -1,8 +1,0 @@
-{
-  "e-ripple": {
-    "attributes": [
-      "color"
-    ],
-    "description": "波纹，插入到需要添加波纹的元素或组件内部"
-  }
-}
