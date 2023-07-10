@@ -1,0 +1,344 @@
+- name: cw-echart-line-view
+  title: 折线图
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 表格的数据源，数据集对象或者返回数据集的逻辑
+      group: 数据源
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 表格每一行的数据类型
+      group: 数据源
+      compType: dataTypeSelect
+    - name: undefinedToZero
+      title: 空值处理规则
+      type: string
+      default: empty
+      options:
+        - value: empty
+          title: 空距
+        - value: zero
+          title: 零
+      description: 设置将未定义的值如undefined，null转换为0或空距
+      group: 数据源
+    - name: initialLoad
+      title: 初始加载
+      type: boolean
+      default: true
+      description: 是否在初始时立即加载
+      group: 数据源
+    - name: xAxis
+      title: 维度
+      type: string
+      default: ''
+      description: 设置维度(统计类别)
+      group: 图表数据
+    - name: yAxis
+      title: 度量
+      type: string
+      default: ''
+      description: 设置度量（统计值）
+      group: 图表数据
+    - name: title
+      title: 图表标题
+      type: string
+      default: 标题
+      description: 设置图表标题
+      group: 图表属性
+    - name: axisSplitLine
+      title: 坐标系网格线
+      type: string
+      default: horizontal
+      description: 设置坐标系网格线
+      options:
+        - title: 无
+          value: hidden
+        - title: 水平网格线
+          value: horizontal
+        - title: 垂直网格线
+          value: vertical
+        - title: 全部网格线
+          value: both
+      group: 图表属性
+    - name: axisSplitLineType
+      title: 网格线线型
+      type: string
+      default: solid
+      description: 设置网格线线型
+      group: 图表属性
+      options:
+        - title: 实线
+          value: solid
+        - title: 虚线
+          value: dotted
+        - title: 点线
+          value: dashed
+    - name: theme
+      title: 配色方案
+      type: string
+      default: theme1
+      description: 设置图表配色方案
+      options:
+        - value: theme1
+          title: 科技
+        - value: theme2
+          title: 清新
+        - value: theme3
+          title: 淡雅
+        - value: theme4
+          title: 经典
+      group: 图表属性
+    - name: labelPosition
+      title: 数据标签位置
+      type: string
+      default: top
+      options:
+        - value: top
+          title: 上
+        - value: bottom
+          title: 下
+        - value: left
+          title: 左
+        - value: right
+          title: 右
+        - value: inside
+          title: 居中
+        - value: hidden
+          title: 无
+      description: 设置数据标签位置
+      group: 图表属性
+    - name: allowShowHint
+      title: 显示提示
+      type: boolean
+      default: true
+      description: 设置是否显示提示
+      group: 图表属性
+    - name: allowShowLegend
+      title: 显示图例
+      type: boolean
+      default: true
+      description: 设置是否显示图例
+      group: 图表属性
+    - name: legendName
+      title: 图例别名
+      type: string
+      default: ''
+      description: 设置图例别名；修改成功后，图例名字会从"指标"改为"别名"
+      group: 图表属性
+    - name: areaFilled
+      title: 区域填充
+      type: boolean
+      default: false
+      description: 设置是否填充折线下方区域
+      group: 图表属性
+    - name: lineType
+      title: 线条类型
+      type: string
+      default: solid
+      description: 设置线条类型
+      options:
+        - value: solid
+          title: 实线
+        - value: dotted
+          title: 虚线
+        - value: dashed
+          title: 点线
+      group: 线条属性
+    - name: lineStyleSmooth
+      title: 线条样式
+      type: string
+      default: normal
+      options:
+        - value: normal
+          title: 基础
+        - value: smooth
+          title: 平滑
+      description: 设置线条样式
+      group: 线条属性
+    - name: lineStyleSymbol
+      title: 线条标记
+      type: string
+      default: emptyCircle
+      options:
+        - value: emptyCircle
+          title: 空心圆
+        - value: circle
+          title: 圆形
+        - value: rect
+          title: 矩形
+        - value: triangle
+          title: 三角形
+        - value: diamond
+          title: 菱形
+        - value: pin
+          title: 水滴
+        - value: arrow
+          title: 箭头
+        - value: none
+          title: 无
+      group: 线条属性
+    - name: xAxisTitle
+      title: X轴标题
+      type: string
+      default: X轴标题
+      description: 设置x轴标题
+      group: 坐标轴
+    - name: showXAxisLine
+      title: 显示X轴轴线
+      type: boolean
+      default: true
+      description: 设置显示X轴轴线
+      group: 坐标轴
+    - name: showXAxisLabel
+      title: 显示X轴文字标签
+      type: boolean
+      default: true
+      description: 设置是否显示X轴文字标签
+      group: 坐标轴
+    - name: xAxisLabelRotate
+      title: X轴文字标签方向
+      type: string
+      default: '0'
+      options:
+        - value: '0'
+          title: 横向
+        - value: '90'
+          title: 纵向
+        - value: '45'
+          title: 左倾斜
+        - value: '-45'
+          title: 右倾斜
+      description: 设置显示X轴文字标签的方向
+      group: 坐标轴
+    - name: yAxisTitle
+      title: Y轴标题
+      type: string
+      default: Y轴标题
+      description: 设置Y轴标题
+      group: 坐标轴
+    - name: showYAxisLine
+      title: 显示Y轴轴线
+      type: boolean
+      default: true
+      description: 设置显示Y轴轴线
+      group: 坐标轴
+    - name: showYAxisLabel
+      title: 显示Y轴数值标签
+      type: boolean
+      default: true
+      description: 设置是否显示Y轴数值标签
+      group: 坐标轴
+    - name: titleFontStyle
+      title: 标题文字字体风格
+      type: string
+      default: normal
+      description: 设置普通文字字号
+      options:
+        - value: normal
+          title: 正常
+        - value: italic
+          title: 斜体
+      group: 标题
+    - name: allowDownload
+      title: 允许下载
+      type: boolean
+      default: true
+      description: 允许用户设置保存图片
+      group: 图表功能
+  methods:
+    - name: reload
+      title: reload
+      description: 刷新数据
+      params: []
+  themes:
+    - name: --echart-title-font-size
+      title: 标题文字大小
+      default: 14
+      type: input
+      description: 设置标题标签文字大小
+      group: 标题
+    - name: --title-font-color
+      title: 标题文字颜色
+      default: '#000'
+      type: color
+      description: 设置标题文字颜色
+      group: 标题
+    - name: --line-item-color
+      title: 线条颜色
+      default: 'none'
+      type: color
+      description: 设置线条颜色
+      group: 线条样式
+    - name: --line-symbol-size
+      title: 线条标记大小
+      default: 6
+      type: input
+      description: 设置线条标签文字大小
+      group: 线条样式
+    - name: --label-font-size
+      title: 数据标签文字大小
+      default: 12
+      type: input
+      description: 设置数据签文字大小
+      group: 数据标签
+    - name: --label-font-color
+      title: 数据标签文字颜色
+      default: 'none'
+      type: color
+      description: 设置数据标签文字颜色
+      group: 数据标签
+    - name: --grid-line-background-color
+      title: 网格线背景颜色
+      default: 'none'
+      type: color
+      description: 设置网格线背景颜色
+      group: 坐标系网格线
+    - name: --grid-line-border-color
+      title: 网格线边框颜色
+      default: 'none'
+      type: color
+      description: 设置网格线边框颜色
+      group: 坐标系网格线
+    - name: --grid-line-color
+      title: 网格线线条颜色
+      default: '#ccc'
+      type: color
+      description: 设置网格线线条颜色
+      group: 坐标系网格线
+    - name: --axis-line-color
+      title: 坐标轴线颜色
+      default: '#333'
+      type: color
+      description: 设置坐标轴线颜色
+      group: 坐标轴
+    - name: --area-fill-color
+      title: 面积图填充颜色
+      default: 'none'
+      type: color
+      description: 设置面积图填充颜色
+      group: 面积颜色
+    - name: --area-linearGradient-color
+      title: 面积图渐变颜色
+      default: 'none'
+      type: color
+      description: 设置面积图渐变颜色
+      group: 面积颜色
+    - name: --xAxis-label-font-size
+      title: X轴文字大小
+      default: 12
+      type: input
+      description: 设置X轴文字大小, X轴文字显示不全时，需调小字体尺寸
+      group: 坐标轴
+    - name: --yAxis-label-font-size
+      title: Y轴文字大小
+      default: 12
+      type: input
+      description: 设置Y轴文字大小，Y轴文字显示不全时，需调小字体尺寸
+      group: 坐标轴
+

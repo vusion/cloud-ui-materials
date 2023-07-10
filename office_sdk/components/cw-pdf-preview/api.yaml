@@ -1,0 +1,11 @@
+- name: cw-pdf-preview
+  title: pdf预览
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 链接地址
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值

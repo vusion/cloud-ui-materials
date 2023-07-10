@@ -1,0 +1,11 @@
+{
+    "PlatformInfo":{
+        "platform": "String-系统类型-false",
+        "subPlatform": "String-系统细分类型-false",
+        "model": "String-设备品牌-true",
+        "pixelRatio": "String-设备型号-true",
+        "hostVersion": "String-APP的版本号-true",
+        "hostBuildVersion": "String-APP构建版本号-true",
+        "__description":"系统信息"
+    }
+}
