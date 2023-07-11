@@ -1,9 +1,9 @@
 import UtilsLogics from './logics';
 // COMPONENT IMPORTS
 
-import './notification.css';
-import "./style.css"
-// import "./base.css"
+import './style/notification.css';
+import "./style/style.css"
+// import "./style/base.css"
 export {
 	UtilsLogics,
 // COMPONENT EXPORTS
