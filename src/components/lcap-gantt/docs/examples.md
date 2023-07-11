@@ -17,6 +17,7 @@
             duration-field="duration"
             progress-field="progress"
             text-field="text1"
+            taskView="day"
             color-field="color"
             id-field="id"
             icon-field="iconUrl"

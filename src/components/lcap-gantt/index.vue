@@ -6,10 +6,10 @@
       </div>
       <div>
         <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
-          <u-select-item value="y">年</u-select-item>
-          <u-select-item value="m">月</u-select-item>
-          <u-select-item value="w">周</u-select-item>
-          <u-select-item value="d">日</u-select-item>
+          <u-select-item value="year">年</u-select-item>
+          <u-select-item value="month">月</u-select-item>
+          <u-select-item value="week">周</u-select-item>
+          <u-select-item value="day">日</u-select-item>
         </u-select>
         <u-button class="showTodayButton" icon="" v-if="showToday" @click="changeToday">今天</u-button>
       </div>
@@ -202,7 +202,7 @@ export default {
     },
     // 切换年月周日视图
     ganttChangeDateView(event) {
-      switch (event.value) {
+      switch (event) {
         case 'year':
           gantt.config.scale_unit = "year";
           gantt.config.step = 1;
