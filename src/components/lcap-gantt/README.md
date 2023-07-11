@@ -23,9 +23,11 @@
         { id: 4, text1: '复盘', start: '2023-04-28 00:00', end: '2023-05-3 00:00', duration: 3, progress: 0.1, parent: 1, head: '李四', state: 'canceled', color: '#da645d' },
     ]"
             :ganttTableConfig="[
-            {'labelField':'项目名称','nameField':'text1', showTooltip: true, width: '100'},
+            {'labelField':'项目名称','nameField':'text1', showTooltip: true, width: '70'},
             {'labelField':'负责人','nameField':'head', showTooltip: true, width: '100'},
-            {'labelField':'开始日期','nameField':'start', showTooltip: true, width: '150'}
+            {'labelField':'开始日期','nameField':'start', showTooltip: true, width: '150'},
+            {'labelField':'结束日期','nameField':'end', showTooltip: true, width: '150'}
+            
             ]"
             parent-field="parent"
             start-field="start"

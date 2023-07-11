@@ -14,7 +14,7 @@
         <u-button class="showTodayButton" icon="" v-if="showToday" @click="changeToday">今天</u-button>
       </div>
     </u-linear-layout>
-    <div id="gantt" ref="gantt" class="ganttContainer"/>
+    <div id="gantt" ref="gantt" class="ganttContainer" :hide="hideTooltip"/>
   </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
       ganttEvent: {},
       customStyle: {},
       entityName: '',
+      hideTooltip: false
     };
   },
   props: {
@@ -72,6 +73,7 @@ export default {
       }.bind(this));
     }.bind(this));
     observer.observe(this.$el, {attributes: true});
+    this.initBlurEvent();
 
   },
   computed: {
@@ -254,7 +256,6 @@ export default {
               + moment(start).format('YYYY-MM-DD')
               + "<br/><b>结束时间:</b> "
               + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
-          console.log(template);
           return template;
         }
         gantt.templates.grid_file = (item) => {
@@ -399,7 +400,22 @@ export default {
         gantt.config.work_time = false;
       }
       return dataSource;
-    }
+    },
+    initBlurEvent(){
+      const ganttContainer = document.querySelector('.ganttContainer');
+      ganttContainer.addEventListener('mouseleave', function (e) {
+        const template = document.querySelector('.gantt_tooltip');
+        if (template) {
+          template.style.display = 'none';
+        }
+      }, true);
+      ganttContainer.addEventListener('mouseenter', function (e) {
+        const template = document.querySelector('.gantt_tooltip');
+        if (template) {
+          template.style.display = 'block';
+        }
+      }, true);
+    },
   }
 };
 </script>
