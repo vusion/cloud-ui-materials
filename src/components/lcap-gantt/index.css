@@ -38,8 +38,8 @@
 
 .ganttContainer {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    height: 96%;
+    overflow-y: scroll;
 }
 
 .weekend {
@@ -73,6 +73,11 @@
 
 .gantt_cell {
     color: var(--gantt-table-cell-color) !important;
+    overflow-x: scroll;
+}
+
+.gantt_cell::-webkit-scrollbar {
+    display: none;
 }
 
 .gantt_row, .gantt_row.odd {

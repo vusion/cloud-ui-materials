@@ -40,6 +40,7 @@ export const locale = {
         /* grid columns */
         column_text: "计划名称",
         column_start_date: "开始时间",
+        column_end_date: "结束时间",
         column_duration: "持续时间",
         column_add: "",
         column_priority: "难度",

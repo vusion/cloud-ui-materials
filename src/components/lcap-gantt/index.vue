@@ -162,7 +162,6 @@ export default {
       }
       ganttDataSources = this.handleDateDiff(JSON.parse(JSON.stringify(ganttDataSources)));
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
-      console.log(ganttFinalDataSources);
       if (!ganttFinalDataSources[0]) return;
       gantt.parse({
         data: ganttFinalDataSources,
@@ -247,7 +246,7 @@ export default {
             const currentField = this.extractEntityField(item?.nameField);
             if (item.showTooltip && currentField === this.extractEntityField(this.textField)) {
               template += `<b>${item.labelField}:</b> ${task.text}<br/>`;
-            } else if (item.showTooltip && currentField !== this.extractEntityField(this.startField)) {
+            } else if (item.showTooltip && (currentField !== this.extractEntityField(this.startField) || (currentField !== this.extractEntityField(this.endField)))) {
               template += `<b>${item.labelField}:</b> ${task[currentField]}<br/>`;
             }
           }
