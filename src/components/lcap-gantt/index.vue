@@ -164,6 +164,7 @@ export default {
       }
       ganttDataSources = this.handleDateDiff(JSON.parse(JSON.stringify(ganttDataSources)));
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
+      // console.log('ganttFinalDataSources',ganttFinalDataSources);
       if (!ganttFinalDataSources[0]) return;
       gantt.parse({
         data: ganttFinalDataSources,
@@ -339,7 +340,9 @@ export default {
       if (oldKey === newKey) return;
       if (obj?.hasOwnProperty(oldKey)) {
         obj[newKey] = obj[oldKey];
-        delete obj[oldKey];
+        if (!['start_date', 'end_date'].includes(newKey)) {
+          delete obj[oldKey];
+        }
       }
     },
     extractEntityName(list) {
@@ -380,6 +383,7 @@ export default {
       ganttFinalDataSources = this.flatList(ganttFinalDataSources, entityName);
       ganttFinalDataSources.map((obj) => {
         this.changeObjKey(obj, this.extractEntityField(this.startField), 'start_date');
+        this.changeObjKey(obj, this.extractEntityField(this.endField), 'end_date');
         this.changeObjKey(obj, this.extractEntityField(this.durationField), 'duration');
         this.changeObjKey(obj, this.extractEntityField(this.idField), 'id');
         this.changeObjKey(obj, this.extractEntityField(this.colorField), 'color');

@@ -42,9 +42,8 @@
     overflow-y: scroll;
 }
 
-.gantt_tree_icon {
-    max-width: 28px;
-    line-height: 50px;
+.gantt_tree_icon > img{
+    width: 20px;
 }
 
 .weekend {
