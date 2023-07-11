@@ -413,6 +413,14 @@ export default {
           template.style.display = 'none';
         }
       }, true);
+      ganttContainer.addEventListener('click', function (e) {
+        const template = document.querySelector('.gantt_tooltip');
+        if (template) {
+          setTimeout(() => {
+            template.style.display = 'none';
+          }, 1000)
+        }
+      }, true);
       ganttContainer.addEventListener('mouseenter', function (e) {
         const template = document.querySelector('.gantt_tooltip');
         if (template) {

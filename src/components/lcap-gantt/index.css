@@ -44,6 +44,7 @@
 
 .gantt_tree_icon > img{
     width: 20px;
+    vertical-align: middle;
 }
 
 .weekend {
