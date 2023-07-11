@@ -201,7 +201,7 @@ export default {
     },
     // 切换年月周日视图
     ganttChangeDateView(event) {
-      switch (event) {
+      switch (event.value || event) {
         case 'year':
           gantt.config.scale_unit = "year";
           gantt.config.step = 1;
@@ -254,6 +254,7 @@ export default {
               + moment(start).format('YYYY-MM-DD')
               + "<br/><b>结束时间:</b> "
               + moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format('YYYY-MM-DD');
+          console.log(template);
           return template;
         }
         gantt.templates.grid_file = (item) => {
@@ -280,20 +281,28 @@ export default {
         if (currentField === this.startField) {
           obj = {
             name: 'start_date',
+            align: "center",
+            template: function (task) {
+              return moment(task.start_date).format("YYYY-MM-DD")
+            },
+          };
+        } else if (currentField === this.endField) {
+          obj = {
+            name: 'end_date',
+            align: "center",
             template: function (task) {
               return moment(task.start_date).format("YYYY-MM-DD")
             },
           };
         } else if (currentField === this.extractEntityField(this.textField)) {
-          obj = {name: 'text', tree: true,};
+          obj = {name: 'text', tree: true, align: "left"};
         } else {
-          obj = {name: this.extractEntityField(item.nameField)};
+          obj = {name: this.extractEntityField(item.nameField), align: "center"};
         }
         obj = Object.assign(obj, {
           label: item.labelField,
           resize: true,
           width: item.width,
-          align: "center",
           customIcon: item.iconField,
         });
         tableConfig.push(obj);

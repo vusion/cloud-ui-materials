@@ -38,8 +38,13 @@
 
 .ganttContainer {
     width: 100%;
-    height: 96%;
+    height: 94%;
     overflow-y: scroll;
+}
+
+.gantt_tree_icon {
+    max-width: 28px;
+    line-height: 50px;
 }
 
 .weekend {
@@ -73,10 +78,14 @@
 
 .gantt_cell {
     color: var(--gantt-table-cell-color) !important;
-    overflow-x: scroll;
+    overflow: auto;
 }
 
 .gantt_cell::-webkit-scrollbar {
+    display: none;
+}
+
+.ganttContainer::-webkit-scrollbar {
     display: none;
 }
 
