@@ -2,7 +2,7 @@
   "name": "notification_sdk",
   "title": "全局提示",
   "description": "",
-  "version": "0.1.9",
+  "version": "0.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
