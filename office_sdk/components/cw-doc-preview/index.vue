@@ -27,7 +27,7 @@ export default {
     return {
       // url:"http://static.shanhuxueyuan.com/test6.docx",
       docxOptions: {
-                className: "kaimo-docx-666", // string：默认和文档样式类的类名/前缀
+                className: "kaimo-docx", // string：默认和文档样式类的类名/前缀
                 inWrapper:  true, // boolean：启用围绕文档内容的包装器渲染
                 ignoreWidth: false, // boolean：禁用页面的渲染宽度
                 ignoreHeight: false, // boolean：禁止渲染页面高度
@@ -89,5 +89,11 @@ export default {
 .room{
   height: 300px;
   overflow: hidden;
+}
+</style>
+
+<style>
+.kaimo-docx-wrapper{
+  padding:0 !important;
 }
 </style>

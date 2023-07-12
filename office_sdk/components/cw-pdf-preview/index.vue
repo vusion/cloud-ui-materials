@@ -1,6 +1,5 @@
 <template>
     <div style="display: flex;flex-direction: column;" ref="pdf-preview" :class="$env.VUE_APP_DESIGNER&&$style.room">
-      <div v-if="isLoad===2">无效链接</div>
     </div>
 </template>
 
@@ -14,7 +13,6 @@ export default {
   },
   data() {
     return {
-      isLoad:0
     }
   },
 
@@ -90,7 +88,6 @@ export default {
         })
       } catch (error) {
         console.log(error);
-        this.isLoad=2
       }
      
     }
