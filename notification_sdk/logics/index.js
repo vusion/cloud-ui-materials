@@ -7,7 +7,7 @@ import notification from './notification'
 UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library = Vue.prototype.$library || {}
     Vue.prototype.$library[`${$libraryName}`] = {}
-    Vue.prototype.$library[`${$libraryName}`].notification=notification
+    Vue.prototype.$library[`${$libraryName}`].notification = notification
     // LOGIC USE
 }
 
