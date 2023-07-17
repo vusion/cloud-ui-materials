@@ -77,6 +77,7 @@ export default {
     top: 0;
     width: 100vw;
     background: white;
+    z-index: 9000;
   }
 
   .print-view{
@@ -87,6 +88,15 @@ export default {
   }
  @media print {
     [class^='l-root__']{
+      display: none;
+    }
+    body>div:first-of-type{
+      display: none;
+    }
+    [class^='u-drawer_drawer__']{
+      display: none;
+    }
+    [class^='u-modal_dialog__']{
       display: none;
     }
     .print-block-room{
