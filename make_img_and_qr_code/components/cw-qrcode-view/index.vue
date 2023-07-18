@@ -15,7 +15,7 @@ export default {
       },
       src: {
         type:String,
-        default:"https://img1.baidu.com/it/u=1919509102,1927615551&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1687366800&t=18a6b2674b479851b37c3c4bcd8db378"
+        // default:"https://img1.baidu.com/it/u=1919509102,1927615551&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1687366800&t=18a6b2674b479851b37c3c4bcd8db378"
       }
   },
   data() {
@@ -56,11 +56,13 @@ export default {
         width: 199,
       })
       var context = canvas.getContext('2d');
-      const image =  await this.loadImg()
-      context.drawImage(image, 66.6 ,66.6, 66.6, 66.6); 
-      context.strokeStyle = "white";
-      context.lineWidth = 3;
-      context.strokeRect( 66.6 ,66.6, 66.6, 66.6)       
+      if (this.src) {
+        const image = await this.loadImg()
+        context.drawImage(image, 66.6 ,66.6, 66.6, 66.6); 
+        context.strokeStyle = "white";
+        context.lineWidth = 3;
+        context.strokeRect( 66.6 ,66.6, 66.6, 66.6)    
+      }
       var base64Data = canvas.toDataURL("image/jpeg", 1)
       this.qrimg = base64Data
     },
