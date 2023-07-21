@@ -11,6 +11,8 @@
     --gantt-table-header-font-weight: normal;
     --gantt-table-scale-color: rgb(166, 166, 166);
     --gantt-table-scale-font-size: 12px;
+    --gantt-table-selected-color: #fff3a1;
+    --gantt-item-progress-transparent: 0.2;
 }
 
 .ganttRoot {
@@ -59,8 +61,8 @@
     display: none !important;
 }
 
-.gantt_task_progress {
-    opacity: 0.2 !important;
+.gantt_task_line  .gantt_task_progress_wrapper .gantt_task_progress {
+    opacity: var(--gantt-item-progress-transparent);
 }
 
 .gantt_grid_scale .gantt_grid_head_cell {
@@ -110,3 +112,8 @@
     line-height: 100px !important;
 }
 
+.gantt_grid_data .gantt_row.gantt_selected,
+.gantt_grid_data .gantt_row.odd.gantt_selected,
+.gantt_task_row.gantt_selected {
+    background-color: var(--gantt-table-selected-color);
+}
