@@ -14,3 +14,8 @@
       type: image
       description: 用于显示二维码中间的图片
       compType: linkInput
+  events:
+    - name: load
+      title: 加载事件
+      description: 加载事件
+      params: []

@@ -64,6 +64,7 @@ export default {
         context.strokeRect( 66.6 ,66.6, 66.6, 66.6)    
       }
       var base64Data = canvas.toDataURL("image/jpeg", 1)
+      this.$emit('load', base64Data)
       this.qrimg = base64Data
     },
     getImg() {
