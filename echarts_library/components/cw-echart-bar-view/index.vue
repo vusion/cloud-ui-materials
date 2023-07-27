@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root" border>
+  <div :class="$style.root" border ref="room">
     <echart-bar
       v-if="!loading"
       :axisData="axisData"
@@ -80,6 +80,7 @@ export default {
   mounted() {
     // 监听style样式变化
     this.customStyle = this.parseCustomStyle(this.$el);
+    console.log(this.customStyle);
     const observer = new MutationObserver(function (mutations) {
       mutations.map(function (mutation) {
         if (mutation.type === 'attributes') {
@@ -87,6 +88,11 @@ export default {
         }
       }.bind(this));
     }.bind(this));
+    this.width = this.$refs.room.clientWidth + "px"
+    // window.addEventListener('resize', () => {
+    //   this.width = this.$refs.room.clientWidth - 30 + "px"
+    // });
+
     observer.observe(this.$el, {attributes: true});
   },
   computed: {
@@ -208,7 +214,7 @@ export default {
 
 .root[border] {
   border: 1px solid var(--border-color-base);
-  padding: 15px;
+  /* padding: 15px; */
 }
 
 .emptyImage {

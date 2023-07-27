@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root" border>
+  <div :class="$style.root" border ref="room" >
     <echart-pie
       v-if="!loading"
       :axisData="axisData"
@@ -80,7 +80,8 @@ export default {
         }
       }.bind(this));
     }.bind(this));
-    observer.observe(this.$el, {attributes: true});
+    observer.observe(this.$el, { attributes: true });
+    this.width = this.$refs.room.clientWidth + "px";
   },
   computed: {
     size() {
@@ -193,7 +194,7 @@ export default {
 
 .root[border] {
   border: 1px solid var(--border-color-base);
-  padding: 15px;
+  /* padding: 15px; */
 }
 
 .emptyImage {
