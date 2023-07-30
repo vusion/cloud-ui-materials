@@ -87,9 +87,13 @@
               if (!val)
                   return;
               setTimeout(() => {
-                  const percent = val.replace('%', '') / 100;
-                  this.$toast.success('已为您跳转到上次观看位置');
-                  this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
+                    if (val.indexOf('%') === -1) {
+                        this.$refs.videoPlayer.currentTime = val
+                      } else {
+                        const percent = val.replace('%', '') / 100;
+                        this.$toast.success('已为您跳转到上次观看位置');
+                        this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
+                    }
               }, 1500);
           },
       },
@@ -103,9 +107,23 @@
               const videoProgress = ((videoDuration - remainTime) / videoDuration * 100).toFixed(1) + '%';
               this.$emit('videoProgress', videoProgress);
           }, 10000);
-          const percent = this.breakProgress.replace('%', '') / 100;
+         
           // 仅第一次播放跳转到上次播放位置
           if (this.breakProgress) {
+                if (this.breakProgress.indexOf('%') === -1) {
+
+              this.player.on('loadedmetadata', () => {
+                  this.$refs.videoPlayer.currentTime = this.breakProgress
+              });
+              this.player.on('play', () => {
+                  if (this.firstPlay) {
+                      // this.$toast.success('已为您跳转到上次观看位置');
+                      this.$refs.videoPlayer.currentTime = this.breakProgress
+                      this.firstPlay = false;
+                  }
+              });
+        } else {
+              const percent = this.breakProgress.replace('%', '') / 100;
               this.player.on('loadedmetadata', () => {
                   this.$refs.videoPlayer.currentTime = this.player.duration() * percent;
               });
@@ -116,6 +134,8 @@
                       this.firstPlay = false;
                   }
               });
+            }
+           
           }
           // 拖动进度条时记录进度, 时间差大于3s视为拖动进度条
           let lastDragProgress = 0;
