@@ -43,7 +43,7 @@ export default {
                     let canvasWidth = this.canvasHeight === 'auto' ? document.body.clientWidth : this.canvasWidth;
                     let canvasHeight = this.canvasHeight === 'auto' ? document.body.clientHeight : this.canvasHeight;
                     this.getPdf({
-                        element: document.querySelector('body'),  // pdf模板节点：上面第一步中的模板内容节点
+                        element: document.querySelector(this.printDOM),  // pdf模板节点：上面第一步中的模板内容节点
                         title: this.fileName,  // pdf文件名
                         allowDownload: this.download,  // 是否允许下载
                         fileType: this.fileType,  // 文件类型
