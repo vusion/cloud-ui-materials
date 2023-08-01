@@ -18,7 +18,7 @@
 import {fakeData} from "@/fakeData";
 import echartBasic from "@/component/echartBasic";
 import * as echarts from 'echarts';
-
+import Vue from 'vue';
 Vue.prototype.$echarts = echarts
 export default {
   name: 'lcap-echarts-basic',

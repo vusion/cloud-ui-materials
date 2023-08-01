@@ -2,6 +2,7 @@
   "lcap-video": {
     "attributes": [
       "src",
+      "poster",
       "breakProgress",
       "autoplay",
       "draggable",

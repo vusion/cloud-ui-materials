@@ -19,7 +19,7 @@
 
 ``` vue
 <template>
-  <lcap-video :src="src" width="1200" @start="onStart" @play="onPlay"></lcap-video>
+  <lcap-video :src="src" poster="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fsafe-img.xhscdn.com%2Fbw1%2Fd7cf4b85-be50-4ab8-b21e-4d4bb5f78460%3FimageView2%2F2%2Fw%2F1080%2Fformat%2Fjpg&refer=http%3A%2F%2Fsafe-img.xhscdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1690422928&t=815c2bd1e4445a1fd1904242842dc062" width="1200" @start="onStart" @play="onPlay"></lcap-video>
 </template>
 
 <script>
@@ -76,6 +76,7 @@ export default {
 | Prop/Attr | Type | Options | Default | Description |
 | --------- | ---- | ------- | ------- | ----------- |
 | src | string |  |  | 视频流地址 |
+| poster | image |  |  | 视频默认封面地址 |
 | breakProgress | string |  |  | 从中断的进度开始播放 |
 | autoplay | boolean |  | `false` | 是否自动播放 |
 | draggable | boolean |  | `true` | 是否可拖放 |

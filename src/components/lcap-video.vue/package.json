@@ -1,11 +1,11 @@
 {
   "name": "lcap-video",
   "description": "",
-  "version": "0.1.7",
+  "version": "0.1.10",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/lcap-video@0.1.7/index.html",
+  "homepage": "http://lcap-official-bucket.codewave.163.com/lcap-video@0.1.10/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -44,7 +44,8 @@
     "access": "public"
   },
   "dependencies": {
-    "video.js": "^7.20.3"
+    "video.js": "^7.20.3",
+    "vue-loader": "~15.9.8"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",

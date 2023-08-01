@@ -1,0 +1,11 @@
+{
+  "lcap-echarts-basic": {
+    "attributes": [
+      "options",
+      "data-source",
+      "width",
+      "height"
+    ],
+    "description": "请在这里添加描述"
+  }
+}

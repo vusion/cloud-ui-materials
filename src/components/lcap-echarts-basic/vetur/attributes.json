@@ -1,0 +1,18 @@
+{
+  "lcap-echarts-basic/options": {
+    "type": "object | string",
+    "description": "option配置项"
+  },
+  "lcap-echarts-basic/data-source": {
+    "type": "Array<Item> | Function | object | DataSource",
+    "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
+  },
+  "lcap-echarts-basic/width": {
+    "type": "string",
+    "description": "设置图宽度"
+  },
+  "lcap-echarts-basic/height": {
+    "type": "string",
+    "description": "设置图高度"
+  }
+}

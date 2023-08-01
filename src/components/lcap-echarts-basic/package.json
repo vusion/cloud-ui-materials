@@ -1,11 +1,11 @@
 {
   "name": "lcap-echarts-basic",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "",
+  "homepage": "http://lcap-official-bucket.codewave.163.com/lcap-echarts-basic@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",

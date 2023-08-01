@@ -1,0 +1,69 @@
+{
+    "symbol": "lcap-echarts-basic",
+    "name": "通用echarts图",
+    "version": "0.1.1",
+    "icon": "default",
+    "repoAddr": "",
+    "depDescription": {},
+    "description": "请在这里添加描述",
+    "labels": [
+        "DataDisplay"
+    ],
+    "screenShot": "",
+    "blocks": "[{\"title\":\"基本用法\",\"description\":\"\",\"code\":\"<template>\\n<lcap-echarts-basic></lcap-echarts-basic>\\n</template>\\n\"}]",
+    "jsonSchema": {
+        "name": "lcap-echarts-basic",
+        "title": "通用echarts图",
+        "description": "请在这里添加描述",
+        "category": "DataDisplay",
+        "screenShot": "",
+        "drawings": "",
+        "blocks": [
+            {
+                "title": "基本用法",
+                "description": "",
+                "code": "<template>\n<lcap-echarts-basic></lcap-echarts-basic>\n</template>\n"
+            }
+        ],
+        "attrs": [
+            {
+                "name": "options",
+                "type": "object | string",
+                "default": "",
+                "description": "option配置项"
+            },
+            {
+                "name": "data-source",
+                "title": "数据源",
+                "type": "Array<Item> | Function | object | DataSource",
+                "designer-value": "[{}, {}, {}]",
+                "description": "表格的数据源，数据集对象或者返回数据集的逻辑"
+            },
+            {
+                "name": "width",
+                "title": "宽度",
+                "type": "string",
+                "default": "380px",
+                "description": "设置图宽度",
+                "group": "图表基础"
+            },
+            {
+                "name": "height",
+                "title": "高度",
+                "type": "string",
+                "default": "300px",
+                "description": "设置图高度",
+                "group": "图表基础"
+            }
+        ],
+        "methods": [
+            {
+                "name": "reload",
+                "title": "reload",
+                "description": "刷新数据",
+                "params": []
+            }
+        ],
+        "children": []
+    }
+}
