@@ -197,6 +197,18 @@
       type: color
       default: '#ebeef5'
       group: 表格行
+    - name: --gantt-table-selected-color
+      title: 表格行选中颜色
+      description: 设置表格选中颜色
+      type: color
+      default: '#fff3a1'
+      group: 表格行
+    - name: --gantt-item-progress-transparent
+      title: 表格进度条透明度
+      description: 设置表格进度条透明度
+      type: input
+      default: 0.2
+      group: 表格行
     - name: --gantt-table-cell-color
       title: 表格单元格字体颜色
       description: 设置表格单元格颜色

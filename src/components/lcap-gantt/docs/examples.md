@@ -36,6 +36,7 @@
                --gantt-table-background-color-hover: #f5f5f5;
                --gantt-table-cell-color: #000;
                 --gantt-table-header-font-weight: bold;
+                --gantt-item-progress-transparent: 0.5;
                 
 "
 >

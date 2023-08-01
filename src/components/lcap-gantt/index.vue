@@ -14,7 +14,7 @@
         <u-button class="showTodayButton" icon="" v-if="showToday" @click="changeToday">今天</u-button>
       </div>
     </u-linear-layout>
-    <div id="gantt" ref="gantt" class="ganttContainer" :hide="hideTooltip"/>
+    <div id="gantt" ref="gantt" class="ganttContainer"/>
   </div>
 </template>
 
@@ -36,7 +36,6 @@ export default {
       ganttEvent: {},
       customStyle: {},
       entityName: '',
-      hideTooltip: false
     };
   },
   props: {
