@@ -1,0 +1,5 @@
+- name: startWebView
+  description: 打开原生WebView
+  type: h5
+  belong: logic
+  labels: [Runtime]
