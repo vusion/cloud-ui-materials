@@ -42,16 +42,17 @@
     "access": "public"
   },
   "dependencies": {
-    "dhtmlx-gantt": "^8.0.1",
+    "dhtmlx-gantt": "^8.0.4",
     "lodash": "^4.17.21",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "vue-loader": "~15.9.8"
   },
   "devDependencies": {},
   "peerDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "vue-cli-plugin-vusion": "^0.13.3",
+    "cloud-ui.vusion": "^0.11.20",
     "vue": "^2.6.10",
-    "cloud-ui.vusion": "^0.11.20"
+    "vue-cli-plugin-vusion": "^0.13.3"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
