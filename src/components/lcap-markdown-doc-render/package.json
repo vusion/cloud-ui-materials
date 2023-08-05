@@ -52,7 +52,8 @@
     "markdown-it-table-of-contents": "^0.6.0",
     "medium-zoom": "^1.0.8",
     "prismjs": "^1.29.0",
-    "zooming": "^2.1.1"
+    "zooming": "^2.1.1",
+    "vue-loader": "15.9.8"
   },
   "devDependencies": {
     "less": "^4.1.3",
