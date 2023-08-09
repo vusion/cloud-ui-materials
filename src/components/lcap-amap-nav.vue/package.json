@@ -39,7 +39,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@lcap/mobile-ui": "^0.12.23-beta1",
     "@vue/cli-service": "^4.4.1",
     "core-js": "^3.6.5",
     "vue": "^2.6.10",
