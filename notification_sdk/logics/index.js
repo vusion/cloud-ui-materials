@@ -1,4 +1,4 @@
-const $libraryName = 'notification_sdk'
+const $libraryName = 'cw_notification_sdk'
 
 const UtilsLogics = {}
 import notification from './notification'
