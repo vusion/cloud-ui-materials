@@ -42,7 +42,7 @@
     "@vue/cli-service": "^4.4.1",
     "core-js": "^3.6.5",
     "vue": "^2.6.10",
-    "vue-cli-plugin-vusion": "^0.14.4",
+    "vue-cli-plugin-vusion": "0.14.4",
     "vue-loader": "~15.9.8"
   },
   "peerDependencies": {
