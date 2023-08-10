@@ -5,7 +5,7 @@
  * @param {Long} duration <false> 这是一个描述
  * @param {Boolean} showClose <false> 这是一个描述
  */
-import  Notification  from 'element-ui/lib/notification';
+import  Notification  from './notification';
 
 export default (...options) => {
     // TODO
