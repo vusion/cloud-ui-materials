@@ -2,7 +2,7 @@
   "name": "calendar_library",
   "title": "日历相关依赖库",
   "description": "包含日历组件",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",

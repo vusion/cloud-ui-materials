@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root" border>
+  <div :class="$style.root" border ref="room" >
     <echart-line
       v-if="!loading"
       :axisData="axisData"
@@ -90,6 +90,7 @@ export default {
         }
       }.bind(this));
     }.bind(this));
+    this.width = this.$refs.room.clientWidth + "px"
     observer.observe(this.$el, {attributes: true});
   },
   computed: {
@@ -199,7 +200,7 @@ export default {
 
 .root[border] {
   border: 1px solid var(--border-color-base);
-  padding: 15px;
+  /* padding: 15px; */
 }
 
 .emptyImage {

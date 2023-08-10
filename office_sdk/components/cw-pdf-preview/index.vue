@@ -1,5 +1,6 @@
 <template>
-    <div style="display: flex;flex-direction: column;" ref="pdf-preview" :class="$env.VUE_APP_DESIGNER&&$style.room"></div>
+    <div style="display: flex;flex-direction: column;" ref="pdf-preview" :class="$env.VUE_APP_DESIGNER&&$style.room">
+    </div>
 </template>
 
 <script>  
@@ -8,7 +9,6 @@ export default {
     props:{
         value:{
           type:String,
-          default:"请在这里编写代码"
         }
   },
   data() {
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     copyCanvasData(target, source) {
-        console.log(target)
+        // console.log(target)
         return  new Promise((resolve, reject) => {
           const data = source.toDataURL("image/png")
           console.log(data);
@@ -64,24 +64,32 @@ export default {
    
     },
     init() {
-      const pdfUrl = this.value ;
-      const parent  = this.$refs["pdf-preview"]
-      pdfjsLib.getDocument(pdfUrl).promise.then(function (pdfDoc) {
-        for (let i = 1; i < pdfDoc.numPages + 1; i++){
-            pdfDoc.getPage(i).then(function(page) {
-            const viewport = page.getViewport({ scale: 2 });
-            const canvas = document.createElement('canvas');
-            parent.append(canvas);
-            const context = canvas.getContext('2d');
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-            page.render({
-              canvasContext: context,
-              viewport: viewport
+      try {
+        const pdfUrl = this.value;
+        if (!this.value) {
+          throw new Error("无效链接")
+        }
+        const parent = this.$refs["pdf-preview"]
+        pdfjsLib.getDocument(pdfUrl).promise.then(function (pdfDoc) {
+          for (let i = 1; i < pdfDoc.numPages + 1; i++){
+              pdfDoc.getPage(i).then(function(page) {
+              const viewport = page.getViewport({ scale: 2 });
+              const canvas = document.createElement('canvas');
+              parent.append(canvas);
+              const context = canvas.getContext('2d');
+              canvas.height = viewport.height;
+              canvas.width = viewport.width;
+              page.render({
+                canvasContext: context,
+                viewport: viewport
+              });
             });
-          });
-        } 
-      });
+          } 
+        })
+      } catch (error) {
+        console.log(error);
+      }
+     
     }
   }
 }

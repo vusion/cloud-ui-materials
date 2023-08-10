@@ -26,11 +26,11 @@
   </template>
   
   <script>
-//   import { MField } from 'cloud-ui.vusion/src/components/m-field.vue';
+  import { MField } from '../../widgets/m-field';
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
   import '@wangeditor/editor/dist/css/style.css';
   import 'viewerjs/dist/viewer.css';
-  import whiteListOption from '../utils/whiteListTag';
+  import whiteListOption from '../../utils/whiteListTag';
   import Viewer from 'v-viewer';
   import Vue from 'vue';
   import xss from 'xss';
@@ -40,7 +40,7 @@
   export default {
       name: 'cw-wang-editor',
       components: { Editor, Toolbar },
-    //   mixins: [MField],
+      mixins: [MField],
       props: {
           value: String,
           readOnly: Boolean,
@@ -98,8 +98,25 @@
               },
           };
       },
-,
-,
+      computed: {
+        rootStyle() {
+            return {
+                ...this.editorHeight,
+                ...this.parseStyleAttr(this.editorStyle),
+            };
+        },
+    },
+    watch: {
+        readOnly(val) {
+            val ? this.editor.disable() : this.editor.enable();
+        },
+        value: {
+            handler(v) {
+                this.currentValue = myxss.process(v);
+            },
+            immediate: true,
+        },
+    },
       beforeDestroy() {
           const { editor } = this;
           if (editor === null)

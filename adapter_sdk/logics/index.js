@@ -1,13 +1,13 @@
-const $libraryName = 'cw_notification_sdk'
+const $libraryName = 'adapter_sdk'
 
 const UtilsLogics = {}
-import notification from './notification'
+import init from './init'
 // LOGIC IMPORTS
 
 UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library = Vue.prototype.$library || {}
     Vue.prototype.$library[`${$libraryName}`] = {}
-    Vue.prototype.$library[`${$libraryName}`].notification = notification
+    Vue.prototype.$library[`${$libraryName}`].init=init
     // LOGIC USE
 }
 

@@ -1,6 +1,6 @@
 {
-  "name": "cw_office_sdk",
-  "title": "文档SDK",
+  "name": "piecewise_scale",
+  "title": "分段缩放",
   "description": "",
   "version": "0.1.0",
   "main": "./index.js",
@@ -30,11 +30,11 @@
   },
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
-    "vue": "^2.6.10",
+    "vue-loader": "15.9.8",
     "vue-cli-plugin-vusion": "0.14.2-beta",
-    "vue-loader": "15.9.8"
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.10"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
@@ -46,11 +46,5 @@
   },
   "template": {
     "inited": true
-  },
-  "dependencies": {
-    "@babel/traverse": "^7.22.6",
-    "docx-preview": "^0.1.18",
-    "pdfjs": "^2.5.0",
-    "vue-pdf": "^4.3.0"
   }
 }
