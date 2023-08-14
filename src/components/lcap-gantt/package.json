@@ -5,7 +5,7 @@
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-gantt@0.1.14/index.html",
+  "homepage": "http://ceph.lcap.hatest.163yun.com/lcap-test-static/lcap-gantt@0.1.16/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -42,7 +42,7 @@
     "access": "public"
   },
   "dependencies": {
-    "dhtmlx-gantt": "^8.0.4",
+    "dhtmlx-gantt": "7.0.4",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "vue-loader": "~15.9.8"
