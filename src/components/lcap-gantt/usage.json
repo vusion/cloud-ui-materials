@@ -203,6 +203,20 @@
                 "params": []
             }
         ],
+        "events": [
+            {
+                "name": "click",
+                "title": "点击",
+                "description": "点击时触发的事件",
+                "params": [
+                    {
+                        "name": "$event",
+                        "type": "any",
+                        "description": "当前值"
+                    }
+                ]
+            }
+        ],
         "themes": [
             {
                 "name": "--gantt-table-header-font-size",

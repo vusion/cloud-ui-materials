@@ -130,6 +130,14 @@
       title: 立刻定位到今日标记线
       description: 立刻定位到今日标记线
       params: []
+  events:
+    - name: click
+      title: 点击
+      description: 点击时触发的事件
+      params:
+        - name: $event
+          type: any
+          description: 当前值
   themes:
     - name: --gantt-table-header-font-size
       title: 表格表头字体大小

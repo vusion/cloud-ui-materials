@@ -73,7 +73,11 @@ export default {
     }.bind(this));
     observer.observe(this.$el, {attributes: true});
     this.initBlurEvent();
-
+    gantt.attachEvent("onTaskClick", (id) => {
+      // 处理单击事件的代码
+      console.log('click', id)
+      this.$emit('click', id);
+    });
   },
   computed: {
     changedObj() {
@@ -154,6 +158,9 @@ export default {
       } else {
         this.parseIDETableConfig(initialTableConfig);
       }
+      gantt.config.sections = [
+        { key: "row", label: "", align: "center", width: 80 }
+      ];
       gantt.init(this.$refs.gantt);
       let ganttDataSources, ganttFinalDataSources;
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
@@ -165,6 +172,7 @@ export default {
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
       // console.log('ganttFinalDataSources',ganttFinalDataSources);
       if (!ganttFinalDataSources[0]) return;
+      
       gantt.parse({
         data: ganttFinalDataSources,
       });
