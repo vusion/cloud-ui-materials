@@ -61,7 +61,7 @@ export default {
     },
     createMyChart() {
       const myChart = this.$refs.myChart;
-      console.log(case1)
+      // console.log(case1)
       this.initChart(myChart, this.options);
     },
     initChart(chart, config) {

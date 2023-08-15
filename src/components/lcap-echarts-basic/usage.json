@@ -1,7 +1,7 @@
 {
     "symbol": "lcap-echarts-basic",
     "name": "通用echarts图",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "icon": "default",
     "repoAddr": "",
     "depDescription": {},
