@@ -1,0 +1,5 @@
+- name: downloadFile
+  description: 下载文件到本地
+  type: h5
+  belong: logic
+  labels: [Runtime]

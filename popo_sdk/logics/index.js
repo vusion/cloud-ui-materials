@@ -9,6 +9,7 @@ import share from './share'
 import getPlatformInfo from './getPlatformInfo'
 import login from './login'
 import startWebView from './startWebView'
+import downloadFile from './downloadFile'
 // LOGIC IMPORTS
 
 UtilsLogics.install = function (Vue, option = {}) {
@@ -22,6 +23,7 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].getPlatformInfo=getPlatformInfo
     Vue.prototype.$library[`${$libraryName}`].login=login
     Vue.prototype.$library[`${$libraryName}`].startWebView=startWebView
+    Vue.prototype.$library[`${$libraryName}`].downloadFile=downloadFile
     // LOGIC USE
 }
 
