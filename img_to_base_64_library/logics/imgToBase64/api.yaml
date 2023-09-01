@@ -1,0 +1,5 @@
+- name: imgToBase64
+  description: 图片url转base64
+  type: both
+  belong: logic
+  labels: [Runtime]
