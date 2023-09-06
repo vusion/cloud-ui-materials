@@ -1,0 +1,5 @@
+- name: contentToFile
+  description: 内容转文件链接并下载
+  type: both
+  belong: logic
+  labels: [Runtime]
