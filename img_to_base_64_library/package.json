@@ -1,8 +1,8 @@
 {
-  "name": "swiper_library",
-  "title": "轮播图依赖库",
+  "name": "img_to_base_64_library",
+  "title": "图片url转base64",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -17,7 +17,7 @@
     "dev": "vue-cli-service doc --port 9090",
     "build:theme": "vue-cli-service library-build --dest dist-theme",
     "build:doc": "vue-cli-service doc-build",
-    "build": "npm run build:theme && npm run build:doc",
+    "build": "npm run build:theme",
     "usage": "lcap usage",
     "deploy": "lcap deploy && lcap deploy dist-theme",
     "prepublishOnly": "npm run build && lcap usage",
@@ -28,12 +28,10 @@
   "vusion": {
     "ui": "cloud-ui.vusion"
   },
-  "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
     "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
-    "url-loader": "^4.1.1",
     "vue": "^2.6.10",
     "vue-cli-plugin-vusion": "0.14.2-beta",
     "vue-loader": "15.9.8"
@@ -50,7 +48,6 @@
     "inited": true
   },
   "dependencies": {
-    "swiper": "5.4.5",
-    "vue-awesome-swiper": "4.1.1"
+    "mime-types": "^2.1.35"
   }
 }
