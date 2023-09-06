@@ -110,7 +110,7 @@ export default {
     this.initBlurEvent();
     gantt.attachEvent("onTaskClick", (id) => {
       // 处理单击事件的代码
-      this.$emit("clickTask", id, this);
+      this.$emit("click", id);
     });
     this.addMarker();
   },
@@ -229,7 +229,6 @@ export default {
         JSON.parse(JSON.stringify(ganttDataSources))
       );
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
-      // console.log('ganttFinalDataSources',ganttFinalDataSources);
       if (!ganttFinalDataSources[0]) return;
 
       gantt.parse({
@@ -246,7 +245,6 @@ export default {
         return legendContent;
       };
       gantt.templates.scale_cell_class = (item) => {
-        console.log("item", item);
         let className = '';
         this.markers.forEach((marker) => {
           if (item >= marker.start && item <= marker.end) {
@@ -413,7 +411,6 @@ export default {
         });
         tableConfig.push(obj);
       });
-      // console.log('tableConfig', tableConfig);
       gantt.config.columns = JSON.parse(JSON.stringify(tableConfig));
     },
     initSkins() {

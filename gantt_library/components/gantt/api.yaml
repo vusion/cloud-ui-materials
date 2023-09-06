@@ -1,5 +1,5 @@
 - name: gantt
-  title: 甘特图升级款
+  title: 甘特图
   type: pc
   belong: component
   labels: [Runtime]
@@ -149,7 +149,7 @@
       description: 立刻定位到今日标记线
       params: []
   events:
-    - name: clickTask
+    - name: click
       title: 点击
       description: 点击时触发的事件
       params: []
