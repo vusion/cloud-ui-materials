@@ -1,0 +1,60 @@
+{
+  "name": "library_gantt",
+  "title": "甘特图升级款",
+  "description": "",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme && npm run build:doc",
+    "usage": "lcap usage",
+    "deploy": "lcap deploy && lcap deploy dist-theme",
+    "prepublishOnly": "npm run build && lcap usage",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {
+    "presets": [
+      "@vue/babel-preset-app"
+    ]
+  },
+  "vusion": {
+    "ui": "cloud-ui.vusion"
+  },
+  "devDependencies": {
+    "@vue/babel-preset-app": "^5.0.8",
+    "@vue/cli-plugin-babel": "4.4.1",
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.10",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
+  },
+  "peerDependencies": {
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.10"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  },
+  "dependencies": {
+    "dhtmlx-gantt": "7.0.4",
+    "moment": "2.29.4"
+  }
+}
