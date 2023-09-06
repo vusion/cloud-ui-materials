@@ -110,8 +110,7 @@ export default {
     this.initBlurEvent();
     gantt.attachEvent("onTaskClick", (id) => {
       // 处理单击事件的代码
-      console.log("click", id);
-      this.$emit("click", id);
+      this.$emit("clickTask", id, this);
     });
     this.addMarker();
   },
@@ -199,7 +198,7 @@ export default {
       gantt.clearAll();
       gantt.locale = locale;
       // 启用动态加载
-      gantt.config = { ...gantt.config, ...basicConfig };
+      gantt.config = { ...gantt.config, ...basicConfig, date_scale: this.dayDateScale };
       gantt.templates = { ...gantt.templates, ...basicTemplate };
       gantt.plugins(ganttPlugins);
       if (this.showToday) {

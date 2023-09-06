@@ -64,12 +64,10 @@ export const initialTableConfig = [
 
 export const basicConfig = {
   branch_loading: true,
-  xml_date: "%Y-%m-%d-星期%D",
   order_branch: true,
   autofit: true,
   drag_links: false, //连线
   readonly: true, //只读
-  date_scale: "%m月%d日星期%D", //右侧显示列名
   layout: {
     //拖拽布局
     css: "gantt_container",
