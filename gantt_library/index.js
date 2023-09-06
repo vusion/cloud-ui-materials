@@ -1,6 +1,6 @@
-import WybieGantt from './components/gantt';
+import Gantt from './components/gantt';
 // COMPONENT IMPORTS
 export {
-	WybieGantt,
+	Gantt,
 // COMPONENT EXPORTS
 };

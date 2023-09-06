@@ -1,6 +1,6 @@
 <template>
   <div class="ganttRoot">
-    <div id="legend_container"></div>
+    <div v-if="isShowLegend" id="legend_container"></div>
     <u-linear-layout
       v-if="showFunctionBar"
       type="flex"
@@ -84,8 +84,12 @@ export default {
     ganttStartDate: { type: String, default: "" },
     ganttEndDate: { type: String, default: "" },
     jumpWeekend: { type: Boolean, default: true },
+    isShowLegend: { type: Boolean, default: true },
     dayDateScale: { type: String, default: "%m月%d日" },
-    markers: { type: Array, default: () => [] },
+    markers: {
+      type: Array,
+      default: () => [],
+    },
   },
   mixins: [supportDataSource],
   mounted() {
@@ -236,15 +240,21 @@ export default {
     addMarker() {
       gantt.templates.legend = () => {
         let legendContent = "";
+
         this.markers.forEach((marker) => {
           legendContent += `<div style='width: fit-content;background: ${marker.color};'>${marker.label}</div>`;
-          gantt.addMarker({
-            start_date: marker.start,
-            end_date: marker.end,
-            css: `bg-${marker.color}`,
-          });
         });
         return legendContent;
+      };
+      gantt.templates.scale_cell_class = (item) => {
+        console.log("item", item);
+        let className = '';
+        this.markers.forEach((marker) => {
+          if (item >= marker.start && item <= marker.end) {
+            className = `bg-${marker.color}`; // 返回包含background-color样式的字符串
+          }
+        });
+        return className
       };
       var legendContainer = document.getElementById("legend_container");
       legendContainer.innerHTML = gantt.templates.legend();

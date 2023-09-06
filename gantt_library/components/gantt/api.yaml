@@ -6,9 +6,9 @@
   attrs:
     - name: ganttTableConfig
       title: 甘特表格配置
-      type: Array<Item>
+      type: Array<Item> | Function | object | DataSource
       description: 配置甘特左侧表格
-      bindHide: true
+      # bindHide: true
       group: 数据属性
     - name: data-source
       title: 数据源
@@ -121,6 +121,12 @@
       designer-value: "[{}, {}, {}]"
       description: 给指定时间范围添加背景色的属性，形如ArrayList<{start, end, color, label}>，其中start/end表示开始结束时间，颜色表示图例背景色（red|blue|pink|yellow|green|orange|purple），label表示图例文案
       group: 数据属性
+    - name: isShowLegend
+      title: 是否展示图例
+      type: boolean
+      default: true
+      description: 是否展示左上角图例
+      group: 展示属性
     - name: ganttStartDate
       title: 横道图标尺开始日期
       type: string

@@ -1,3 +1,3 @@
-import WybieGantt from "./index.vue"
+import Gantt from "./index.vue"
 
-export default WybieGantt
+export default Gantt
