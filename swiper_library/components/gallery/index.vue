@@ -38,7 +38,7 @@
         <div v-for="gridIndex in grid" :key="gridIndex">
           <img
             alt="图片获取失败"
-            class="img"
+            :class="item[gridIndex - 1].link ? 'img' : 'linkless-img'"
             :src="item[gridIndex - 1].url"
             :width="imgWidth"
             :height="imgHeight"
@@ -98,11 +98,14 @@ export default {
     dataSource: {
       type: Array,
       default: () => {
-        return new Array(20).fill({
+        return new Array(10).fill({
           url:
             "https://img2.baidu.com/it/u=3006610358,19267819&fm=253&fmt=auto&app=138&f=JPEG",
           link: "https://news.163.com/",
-        });
+        }).concat(new Array(10).fill({
+          url:
+            "https://img2.baidu.com/it/u=3006610358,19267819&fm=253&fmt=auto&app=138&f=JPEG",
+        }));
       },
     },
   },
@@ -161,7 +164,9 @@ export default {
       console.log("onSlideChange", e);
     },
     onGalleryItemClick(link) {
-      window.open(link);
+      if(link) {
+        window.open(link);
+      }
     },
   },
 };
@@ -178,6 +183,12 @@ export default {
 }
 .gallery-container .img {
   cursor: pointer;
+  border: 1px solid #e7e7e7;
+  background: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.gallery-container .linkless-img {
   border: 1px solid #e7e7e7;
   background: #fff;
   overflow: hidden;
