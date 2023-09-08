@@ -2,7 +2,7 @@
   "name": "make_img_and_qr_code",
   "title": "生成二维码图片",
   "description": "",
-  "version": "0.1.2",
+  "version": "1.1.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
