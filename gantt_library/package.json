@@ -2,7 +2,7 @@
   "name": "gantt_library",
   "title": "甘特图",
   "description": "",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",

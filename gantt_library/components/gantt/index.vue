@@ -230,7 +230,7 @@ export default {
       );
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
       if (!ganttFinalDataSources[0]) return;
-
+      console.log(ganttFinalDataSources, initialData, this.currentDataSource)
       gantt.parse({
         data: ganttFinalDataSources,
       });
