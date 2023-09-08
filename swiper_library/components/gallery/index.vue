@@ -219,7 +219,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
 }
 .gallery-container .swiper-button-next {
   z-index: 10;
