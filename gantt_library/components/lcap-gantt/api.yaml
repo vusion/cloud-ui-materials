@@ -1,4 +1,4 @@
-- name: gantt
+- name: lcap-gantt
   title: 甘特图
   type: pc
   belong: component
@@ -8,7 +8,7 @@
       title: 甘特表格配置
       type: Array<Item> | Function | object | DataSource
       description: 配置甘特左侧表格
-      # bindHide: true
+      bindHide: true
       group: 数据属性
     - name: data-source
       title: 数据源

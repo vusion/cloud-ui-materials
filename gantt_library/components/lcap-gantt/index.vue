@@ -53,7 +53,7 @@ import supportDataSource from "./mixins/support.datasource";
 import moment from "moment";
 
 export default {
-  name: "gantt",
+  name: "lcap-gantt",
   data() {
     return {
       defaultDateView: "d",

@@ -1,5 +1,5 @@
 ### 基本用法
 
 ```html
-<gantt></gantt>
+<lcap-gantt></lcap-gantt>
 ```

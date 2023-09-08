@@ -1,7 +1,7 @@
 ### 基本用法
 
 ```html
-<gantt
+<lcap-gantt
   :data-source="[
         { id: 1, text1: '项目 #1', start: '2023-04-20 00:00', end: '2023-04-24 00:00', duration: 4, progress: 0.6, open: true, head: '赵一', state: 'default', color: '#5692f0', iconUrl: '' },
         { id: 2, text1: '规划', start: '2023-04-20 00:00', end: '2023-04-24 00:00', duration: 3, progress: 0.8, parent: 1, head: '钱二', state: 'finished', color: '#5692f0', iconUrl: 'https://picnew7.photophoto.cn/20130122/shuimopingguotupian-10863377_1.jpg' },
@@ -41,5 +41,5 @@
                 
 "
 >
-</gantt>
+</lcap-gantt>
 ```
