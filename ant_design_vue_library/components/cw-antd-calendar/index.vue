@@ -102,4 +102,8 @@ export default {
   display: inline-block;
   margin-top: 0px;
 }
+
+.ant-fullcalendar-selected-day .cicle{
+  background: #fff;
+}
 </style>

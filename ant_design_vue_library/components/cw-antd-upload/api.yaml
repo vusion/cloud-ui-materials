@@ -38,6 +38,16 @@
       title: 上传地址
       type: string
       description: 上传地址,默认平台地址可自定义
+    - name: zoom
+      title: 图片缩放比例
+      type: string
+      description: 图片缩放比例,默认1。
+    - name: info
+      title: 截图信息
+      default: true
+      type: boolean
+      description: 截图信息,默认true展示
+
   events:
     - name: onSuccess
       description: 上传成功时
