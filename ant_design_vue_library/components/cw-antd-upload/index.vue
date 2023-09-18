@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="file-room" vusion-slot-name="default" style="min-height:30px;">
-      <input v-if="!$env.VUE_APP_DESIGNER" type="file" :accept="accept" :capture="capture" @change="handleFileChange" />
+      <input ref="input" v-if="!$env.VUE_APP_DESIGNER" type="file" :accept="accept" :capture="capture" @change="handleFileChange" />
       <div v-if="$env.VUE_APP_DESIGNER && !$slots.default">+</div>
       <slot></slot>
     </div>
@@ -94,7 +94,6 @@ export default {
   },
   methods: {
     async handleFileChange(e) {
-      console.log(e);
       const file =  e.target.files[0]
       this.filename = file.name
       this.image = URL.createObjectURL(file) 
@@ -134,7 +133,8 @@ export default {
     async handleClick(e) {
       this.$refs.cropper.getCropBlob(async data => {
         let result = null
-        if (this.zoom !== "1") {
+        try {
+          if (this.zoom !== "1") {
           const url = window.URL.createObjectURL(data)
           const image = await this.loadImg(url)
           const canvas = document.createElement('canvas')
@@ -143,10 +143,10 @@ export default {
           var context = canvas.getContext('2d');
           context.drawImage(image, 0, 0, canvas.width, canvas.height);
           result = await this.canvasToFile(canvas)
-          // console.log(result);
           console.log(URL.createObjectURL(result));
+        } else {
+          result = data
         }
-        result = data
         const formData = new FormData()
         formData.append('file', new File([result],this.filename, { type: data.type }))
         const authorization = this.getCookie('authorization');
@@ -158,7 +158,11 @@ export default {
         }else{
           this.$emit("onError",r.data.message)
         }
-        this.isShow = false
+        } catch (error) {
+        } finally {
+          this.$refs.input.value = ''
+          this.isShow = false
+        }
       })
     },
     getCookie(cname) {
