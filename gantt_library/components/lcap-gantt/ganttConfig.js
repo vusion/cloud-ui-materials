@@ -62,7 +62,7 @@ export const initialTableConfig = [
   },
 ];
 
-export const basicConfig = {
+export const basicConfigDefault = {
   xml_date: "%Y-%m-%d-星期%D",
   branch_loading: true,
   order_branch: true,
@@ -110,17 +110,71 @@ export const basicConfig = {
     ],
   },
   start_on_monday: true,
-//   work_time: {
-//     days: [1, 2, 3, 4, 5],
-//     hours: [
-//         { from: 9, to: 12 },
-//         { from: 13, to: 17 }
-//     ],
-//     breaks: [6, 7]
-//   },
+  //   work_time: {
+  //     days: [1, 2, 3, 4, 5],
+  //     hours: [
+  //         { from: 9, to: 12 },
+  //         { from: 13, to: 17 }
+  //     ],
+  //     breaks: [6, 7]
+  //   },
   resize_rows: true,
   fit_tasks: true,
   tooltip_hide_timeout: 0,
+};
+export const basicConfig = (gridWidth) => {
+  if (gridWidth) {
+    return {
+      xml_date: "%Y-%m-%d-星期%D",
+      branch_loading: true,
+      order_branch: true,
+      autofit: true,
+      drag_links: false, // 连线
+      readonly: true, // 只读
+      layout: {
+        //拖拽布局
+        css: "gantt_container",
+        cols: [
+          {
+            width: gridWidth,
+            min_width: gridWidth,
+            rows: [
+              {
+                view: "grid",
+                scrollX: "gridScroll",
+                scrollable: true,
+                scrollY: "scrollVer",
+              },
+              { view: "scrollbar", id: "gridScroll", group: "horizontal" },
+            ],
+          },
+          {
+            resizer: true,
+            width: 1,
+          },
+          {
+            rows: [
+              {
+                view: "timeline",
+                scrollX: "scrollHor",
+                scrollY: "scrollVer",
+              },
+              { view: "scrollbar", id: "scrollHor", group: "horizontal" },
+            ],
+          },
+          {
+            view: "scrollbar",
+            id: "scrollVer",
+          },
+        ],
+      },
+      start_on_monday: true,
+      resize_rows: true,
+      fit_tasks: true,
+      tooltip_hide_timeout: 0,
+    };
+  }
+  return basicConfigDefault;
 };
 export const basicTemplate = {
   task_end_date: function(date) {

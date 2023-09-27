@@ -34,7 +34,7 @@
         >
       </div>
     </u-linear-layout>
-    <div id="gantt" ref="gantt" class="ganttContainer" />
+    <div ref="gantt" class="ganttContainer" />
   </div>
 </template>
 
@@ -89,6 +89,10 @@ export default {
     markers: {
       type: Array,
       default: () => [],
+    },
+    gridWidth: {
+      type: Number,
+      default: null,
     },
   },
   mixins: [supportDataSource],
@@ -195,10 +199,14 @@ export default {
       }
     },
     initGantt() {
-      gantt.clearAll();
+      // gantt.clearAll();
       gantt.locale = locale;
       // 启用动态加载
-      gantt.config = { ...gantt.config, ...basicConfig, date_scale: this.dayDateScale };
+      gantt.config = {
+        ...gantt.config,
+        ...basicConfig(this.gridWidth),
+        date_scale: this.dayDateScale,
+      };
       gantt.templates = { ...gantt.templates, ...basicTemplate };
       gantt.plugins(ganttPlugins);
       if (this.showToday) {
@@ -219,6 +227,7 @@ export default {
         { key: "row", label: "", align: "center", width: 80 },
       ];
       gantt.init(this.$refs.gantt);
+      console.log("this.$refs.gantt", this.$refs.gantt);
       let ganttDataSources, ganttFinalDataSources;
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         ganttDataSources = initialData.data;
@@ -230,7 +239,7 @@ export default {
       );
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
       if (!ganttFinalDataSources[0]) return;
-      console.log(ganttFinalDataSources, initialData, this.currentDataSource)
+      console.log(ganttFinalDataSources, initialData, this.currentDataSource);
       gantt.parse({
         data: ganttFinalDataSources,
       });
@@ -245,13 +254,13 @@ export default {
         return legendContent;
       };
       gantt.templates.scale_cell_class = (item) => {
-        let className = '';
+        let className = "";
         this.markers.forEach((marker) => {
           if (item >= marker.start && item <= marker.end) {
             className = `bg-${marker.color}`; // 返回包含background-color样式的字符串
           }
         });
-        return className
+        return className;
       };
       var legendContainer = document.getElementById("legend_container");
       legendContainer.innerHTML = gantt.templates.legend();

@@ -1,6 +1,6 @@
-import Gantt from './components/lcap-gantt';
+import LcapGantt from './components/lcap-gantt';
 // COMPONENT IMPORTS
 export {
-	Gantt,
+	LcapGantt,
 // COMPONENT EXPORTS
 };
