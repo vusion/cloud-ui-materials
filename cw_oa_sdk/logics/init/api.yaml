@@ -1,0 +1,5 @@
+- name: init
+  description: 初始化
+  type: pc
+  belong: logic
+  labels: [Runtime]
