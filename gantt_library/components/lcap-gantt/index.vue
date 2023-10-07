@@ -112,9 +112,22 @@ export default {
     );
     observer.observe(this.$el, { attributes: true });
     this.initBlurEvent();
-    gantt.attachEvent("onTaskClick", (id) => {
-      // 处理单击事件的代码
+    gantt.attachEvent("onTaskClick", (id, e) => {
+      e.preventDefault(); // 阻止默认行为
+      e.stopPropagation(); // 阻止事件冒泡
       this.$emit("click", id);
+
+      var task = gantt.getTask(id);
+      if (task.$open) {
+        gantt.close(id); // 关闭任务
+      } else {
+        gantt.open(id); // 展开任务
+        gantt.eachTask(function(child) {
+          if (child.parent === id) {
+            gantt.open(child.id); // 展开子任务
+          }
+        });
+      }
     });
     this.addMarker();
   },
