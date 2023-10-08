@@ -1,8 +1,8 @@
 {
-  "name": "calendar_library",
+  "name": "cw_calendar_library",
   "title": "日历相关依赖库",
   "description": "包含日历组件",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
