@@ -212,7 +212,7 @@ export default {
       }
     },
     initGantt() {
-      // gantt.clearAll();
+      gantt.clearAll();
       gantt.locale = locale;
       // 启用动态加载
       gantt.config = {
