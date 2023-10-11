@@ -76,11 +76,13 @@ export default {
     onSelect(value) {
       this.$emit('update:value', value)
       this.$emit('onChange',value)
+      this.$emit('update', value)
     },
     async handleSearch(value) {
       this.listSource = []
       this.listSource = value ? await this.searchResult(value) : [];
       this.$emit('update:value', value)
+      this.$emit('update', value)
       this.$emit('onChange',value)
     },
     async searchResult(query) {
