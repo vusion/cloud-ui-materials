@@ -357,7 +357,8 @@ export default {
 
       // gantt渲染
       this.ganttEvent.onGanttReady = gantt.attachEvent("onGanttReady", () => {
-        gantt.templates.tooltip_text = (start, end, task) => {
+        if(this.showTooltips) {
+          gantt.templates.tooltip_text = (start, end, task) => {
           let template = "";
           if (!this.ganttTableConfig) return template;
           for (let item of this.ganttTableConfig) {
@@ -383,7 +384,10 @@ export default {
               "YYYY-MM-DD"
             );
           return template;
-        };
+          }
+        } else {
+          gantt.templates.tooltip_text = () => { return "" };
+        }
         gantt.templates.grid_file = (item) => {
           if (!item) return "<div class='gantt_tree_icon gantt_file'></div>";
           let template = "";

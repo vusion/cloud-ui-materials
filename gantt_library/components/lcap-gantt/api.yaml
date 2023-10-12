@@ -152,7 +152,7 @@
       description: 设置甘特结束显示的日期
       group: 展示属性
     - name: showTooltips
-      title: 鼠标悬浮是否展示tooltips
+      title: 是否展示tooltips
       type: boolean
       default: true
       description: 鼠标悬浮是否展示tooltips
