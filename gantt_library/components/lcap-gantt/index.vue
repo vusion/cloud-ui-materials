@@ -86,6 +86,7 @@ export default {
     jumpWeekend: { type: Boolean, default: true },
     isShowLegend: { type: Boolean, default: true },
     dayDateScale: { type: String, default: "%m月%d日" },
+    showTooltips: { type: Boolean, default: true },
     markers: {
       type: Array,
       default: () => [],
@@ -111,7 +112,7 @@ export default {
       }.bind(this)
     );
     observer.observe(this.$el, { attributes: true });
-    this.initBlurEvent();
+    if(this.showTooltips) this.initBlurEvent();
     gantt.attachEvent("onTaskClick", this.clickEvent);
     this.addMarker();
   },
@@ -245,7 +246,6 @@ export default {
         { key: "row", label: "", align: "center", width: 80 },
       ];
       gantt.init(this.$refs.gantt);
-      console.log("this.$refs.gantt", this.$refs.gantt);
       let ganttDataSources, ganttFinalDataSources;
       if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
         ganttDataSources = initialData.data;
@@ -257,7 +257,6 @@ export default {
       );
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
       if (!ganttFinalDataSources[0]) return;
-      console.log(ganttFinalDataSources, initialData, this.currentDataSource);
       gantt.parse({
         data: ganttFinalDataSources,
       });
