@@ -112,24 +112,11 @@ export default {
     );
     observer.observe(this.$el, { attributes: true });
     this.initBlurEvent();
-    gantt.attachEvent("onTaskClick", (id, e) => {
-      e.preventDefault(); // 阻止默认行为
-      e.stopPropagation(); // 阻止事件冒泡
-      this.$emit("click", id);
-
-      var task = gantt.getTask(id);
-      if (task.$open) {
-        gantt.close(id); // 关闭任务
-      } else {
-        gantt.open(id); // 展开任务
-        gantt.eachTask(function(child) {
-          if (child.parent === id) {
-            gantt.open(child.id); // 展开子任务
-          }
-        });
-      }
-    });
+    gantt.attachEvent("onTaskClick", this.clickEvent);
     this.addMarker();
+  },
+  beforeDestroy() {
+    gantt.detachAllEvents();
   },
   computed: {
     changedObj() {
@@ -169,6 +156,24 @@ export default {
     },
   },
   methods: {
+    clickEvent(id, e) {
+      // e.preventDefault(); // 阻止默认行为
+      // e.stopPropagation(); // 阻止事件冒泡
+      console.log("点击事件触发");
+      this.$emit("click", id);
+
+      var task = gantt.getTask(id);
+      if (task.$open) {
+        gantt.close(id); // 关闭任务
+      } else {
+        gantt.open(id); // 展开任务
+        gantt.eachTask(function(child) {
+          if (child.parent === id) {
+            gantt.open(child.id); // 展开子任务
+          }
+        });
+      }
+    },
     hasSubstr(parentId, type) {
       let task = gantt.getTask(parentId);
       if (type == "title") {
