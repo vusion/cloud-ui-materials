@@ -140,7 +140,7 @@
                           this.$refs.root.style.removeProperty('height');
                       }
                   }
-                  this.defaultHeight = this.editorHeight.height;
+                  this.defaultHeight = this.editorHeight.height || '';
                   if (!this.scroll) {
                       this.setHeight();
                   }
