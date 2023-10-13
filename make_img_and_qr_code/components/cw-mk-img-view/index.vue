@@ -24,14 +24,12 @@ export default {
   },
   methods: {
     async run() {
+      this.$emit('preRun');
       const result = await html2canvas(this.$refs.html2canvas, {
         useCORS: true, //图片跨域
         allowTaint: false,
       });
       let img = result.toDataURL("image/png");
-      // console.log(img);
-      // this.$emit("update:value", img) // 传递给父组件
-      // console.log(img);
       return img;
     },
   },

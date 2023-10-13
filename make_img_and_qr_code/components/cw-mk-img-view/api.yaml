@@ -7,3 +7,7 @@
     - name: run
       description: 生成图片
       params: []
+  events:
+    - name: preRun
+      title: 生成前
+      description: 生成图片前⌚️
