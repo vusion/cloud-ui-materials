@@ -52,6 +52,7 @@
       data() {
           const authorization = this.getCookie('authorization');
           const headers = authorization ? { Authorization: authorization } : {};
+          const vm = this;
           return {
               currentValue: '',
               editor: null,
@@ -93,8 +94,8 @@
               mode: 'default', // or 'simple',
               defaultHeight: '',
               editorHeight: {
-                  height: '180px',
-                  'min-height': null,
+                  height: vm.scroll ? '180px' : null,
+                  'min-height': vm.scroll ? null : '180px' ,
               },
           };
       },
