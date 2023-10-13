@@ -23,8 +23,14 @@ export default {
     },
   },
   methods: {
+    sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    },
     async run() {
-      this.$emit('preRun');
+      this.$emit("preRun");
+      // 以下两行代码用于兼容ios，误删，这里需要停顿一桢+停顿1ms
+      await this.$nextTick();
+      await this.sleep(1)
       const result = await html2canvas(this.$refs.html2canvas, {
         useCORS: true, //图片跨域
         allowTaint: false,
