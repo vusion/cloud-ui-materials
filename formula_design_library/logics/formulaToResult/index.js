@@ -4,7 +4,6 @@
  */
 import { codeList ,codeMap} from '@/utils'
 export default (resource,target,code)=>{
-    // TODO
     if (code) {
         let arr = []
         code.split(",").map(item => {
@@ -13,7 +12,7 @@ export default (resource,target,code)=>{
             }
         })
         let str = arr.join("").replace(/当前值/g,resource).replace(/目标值/g,target)
-        return str
+        return eval(str)
     }else {
         return ''
     }

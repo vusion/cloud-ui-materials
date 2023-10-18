@@ -1,8 +1,8 @@
 <template>
   <div class="formula-design-view"> 
     <div class="left">
-      <textarea  @keydown="handleKeyPress" ref="myTextarea"   class="left-textarea" v-model="formulaString" name="" id="" cols="30" rows="10"></textarea>
-      <!-- <div @click="handleLeftClick(item,index)" class="cell" v-for="(item,index) in formulaList" :key="index"> {{item.name}}</div> <div class="cursor"></div> -->
+      <textarea></textarea>
+      <textarea  @click="handleSelectionChange"  @keydown="handleKeyPress" ref="myTextarea"   class="left-textarea" v-model="formulaString" name="" id=""  rows="10"></textarea>
     </div>
     <div class="right">
         <div @click="handleClick(item)" class="code-cell" v-for="item in codeList" :key="item.code" >
@@ -39,10 +39,8 @@ export default {
     watch:{
       value:{
         handler(val){
-          console.log(val);
           if(val){
             val.split(",").map(item=>{
-                console.log(item,this.codeMap);
                 if(this.codeMap[item]){
                   this.formulaList.push(this.codeMap[item])
                 }
@@ -62,46 +60,61 @@ export default {
       handleKeyPress(e){
         e.preventDefault()
       },
+
       getTextIndex(targetIndex){
+        if(targetIndex===0){
+          return [0,0]
+        }
         let i = 0;
         let lastIndex = this.formulaList.length
-        this.formulaList.forEach((item,index)=>{
-          console.log(item.code.length);
-           i =item.code.length +i
-           if(i>targetIndex){
-             lastIndex = index -1
+        this.formulaList.find((item,index)=>{
+           i =item.name.length +i
+           if(i>=targetIndex ){
+            lastIndex = index
+            return true
            }
         })
-        return lastIndex
+        return  [lastIndex,i] 
+      },
+      handleSelectionChange(){
+        const myTextarea = this.$refs.myTextarea
+        let index = myTextarea.selectionStart
+        console.log(index);
+        const [listIndex,i] = this.getTextIndex(index)
+        console.log(listIndex,i);
+        index= i 
+        setTimeout(()=>{  
+        myTextarea.focus();
+        myTextarea.selectionStart = index; // 设置光标起始位置
+        myTextarea.selectionEnd = index; // 设置光标结束位置
+        },100)
       },
       handleClick(item){
          const myTextarea = this.$refs.myTextarea
-         const index = myTextarea.selectionStart
-         console.log(index);
-         const listIndex = this.getTextIndex(index)
-         console.log(listIndex);
-         const codeLen = item.code.length
-        if(item.code==='C'){
+         let index = myTextarea.selectionStart
+         const [listIndex,i] = this.getTextIndex(index)
+         const nameLen = item.name.length
+        if(item.name==='C'){
           this.formulaList = []
           return;
-        }else if(item.code ==="←"){
-           this.formulaList.splice(listIndex-1,1)
+        }else if(item.name ==="←"){
+           this.formulaList.splice(listIndex,1)
            console.log(this.formulaList);
             setTimeout(()=>{  
               myTextarea.focus();
-              myTextarea.selectionStart = index-codeLen; // 设置光标起始位置
-              myTextarea.selectionEnd = index-codeLen; // 设置光标结束位置
+              myTextarea.selectionStart = index-nameLen; // 设置光标起始位置
+              myTextarea.selectionEnd = index-nameLen; // 设置光标结束位置
             },100)
           return;
         } else{
-          this.formulaList.splice(listIndex,0,item)
+          this.formulaList.splice(listIndex+1,0,item)
            setTimeout(()=>{  
             myTextarea.focus();
-            myTextarea.selectionStart = index+codeLen; // 设置光标起始位置
-            myTextarea.selectionEnd = index+codeLen; // 设置光标结束位置
+            myTextarea.selectionStart = index+nameLen; // 设置光标起始位置
+            myTextarea.selectionEnd = index+nameLen; // 设置光标结束位置
           },100)
         }
-        this.$emit("update:value",this.formulaList.map(item=>item.code).join(','))
+        this.$emit("update:value",this.formulaList.map(item=>item.name).join(','))
       }
     }
 }
@@ -120,6 +133,9 @@ export default {
   outline: none;
   resize: none;
   background:#f5f5f5;
+  width: 100%;
+   word-break: keep-all;
+  white-space: pre-wrap;
 }
 .formula-design-view .left{
   padding: 20px;
@@ -132,6 +148,8 @@ export default {
   user-select: none;
   flex-shrink: 0;
   flex-grow: 1;
+  width: 100px;
+  /* word-break: keep-all */
 }
 .formula-design-view .right{
   width: 264px;

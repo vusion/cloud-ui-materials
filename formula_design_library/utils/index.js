@@ -15,7 +15,7 @@ export const codeList = [{
     name:"≥"
   },
   {
-    code:"=",
+    code:"==",
     name:"="
   },
   {
