@@ -12,8 +12,8 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].formulaToResult=formulaToResult
     // LOGIC USE
 }
-formulaToString("1,2")
-console.log("formulaToString", formulaToString("1,+,2"))
-console.log("formulaToResult", formulaToResult("1","2","1,+,2,当前值,≠,目标值"))
+// formulaToString("1,2")
+// console.log("formulaToString", formulaToString("1,+,2"))
+// console.log("formulaToResult", formulaToResult("1","2","1,+,2,当前值,目标值,+,abs,(,2,)"))
 
 export default UtilsLogics

@@ -1,8 +1,10 @@
-import FormulaDesignView from './components/formula-design-view';
+import JudgementFormulaDesignView from './components/judgement-formula-design-view';
 import UtilsLogics from './logics';
+import CalculationFormulaDesignView from './components/calculation-formula-design-view';
 // COMPONENT IMPORTS
 export {
-	FormulaDesignView,
+	JudgementFormulaDesignView,
 	UtilsLogics,
+	CalculationFormulaDesignView,
 // COMPONENT EXPORTS
 };

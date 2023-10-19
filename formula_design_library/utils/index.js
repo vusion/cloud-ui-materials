@@ -117,4 +117,92 @@ export const codeList = [{
 export const codeMap = codeList.reduce((pre,item)=>{
   pre[item.name] = item
   return pre
-},{})
+}, {})
+
+
+export const calculationCodeList = [{
+    code:"1",
+    name:"1"
+  },
+  {
+    code:"2",
+    name:"2"
+  },
+  {
+    code:"3",
+    name:"3"
+  },
+  {
+    code:"+",
+    name:"+"
+  },
+  {
+    code:"-",
+    name:"-"
+  },
+  {
+    code:"C",
+    name:"C"
+  },
+  {
+    code:"4",
+    name:"4"
+  },
+  {
+    code:"5",
+    name:"5"
+  },
+  {
+    code:"6",
+    name:"6"
+  },
+  {
+    code:"*",
+    name:"*"
+  },
+  {
+    code:"/",
+    name:"/"
+  },
+  {
+    code:"7",
+    name:"7"
+  },
+  {
+    code:"8",
+    name:"8"
+  },
+  {
+    code:"9",
+    name:"9"
+  },
+  {
+    code:"(",
+    name:"("
+  },
+  {
+    code:")",
+    name:")"
+  },
+  {
+    code:"←",
+    name:"←"
+  },
+  {
+    code:"0",
+    name:"0"
+  },
+   {
+    code:".",
+    name:"."
+  },
+  {
+    code:"Math.abs",
+    name:"abs"
+  },
+]
+
+export const calculationCodeMap = codeList.reduce((pre,item)=>{
+  pre[item.name] = item
+  return pre
+}, {})

@@ -1,11 +1,22 @@
 /** 
- * @param {string} code <false> 这是一个描述
+ * @param {string} code <true> 这是一个描述
+ * @param {[FormulaInfo]} customMapList <false> 自定义属性
  * @returns {string} result 
  */
-import { codeList ,codeMap} from '@/utils'
-export default (code) => {
+import { codeList } from '@/utils'
+export default (code,customMapList) => {
     if (code) {
         let arr = []
+        let resultCode =[]
+        if (customMapList) {
+            resultCode = [...codeList,...customMapList]
+        } else {
+            resultCode = codeList
+        }
+        const codeMap = resultCode.reduce((pre,item)=>{
+            pre[item.name] = item
+            return pre
+          }, {})
         code.split(",").map(item => {
             if (codeMap[item]) {
                 arr.push(codeMap[item].name)
