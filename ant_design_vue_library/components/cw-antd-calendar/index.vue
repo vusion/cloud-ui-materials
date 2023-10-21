@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="cw-ant-calendar" style="--calendar-primary-background: #1890ff;--calendar-value-border-radius:2px">
     <a-calendar v-model="currentValue" ref="calendar" :header-render="headerRender" :locale="locale"  valueFormat="YYYY-MM-DD"  :fullscreen="false" @panelChange="handlePanelChange" @select="handleSelect">
       <ul slot="dateCellRender" slot-scope="value" class="events">
         <span v-for="item in getListData(value)" :key="item.content" class="cicle"></span>
@@ -31,7 +31,7 @@ export default {
     dataSource: {
       type: Array,
       default: () => []
-    }
+    },
   },
   mixins: [supportDatasource],
   data() {
@@ -92,9 +92,10 @@ export default {
 }
 </script>
 
-<style scoped>
-.cicle{
-  background: #1890ff;
+<style>
+
+.cw-ant-calendar .cicle{
+  background:var(--calendar-primary-background);
   width: 4px;
   height: 4px;
   border-radius: 2px;
@@ -102,8 +103,17 @@ export default {
   display: inline-block;
   margin-top: 0px;
 }
+.cw-ant-calendar .ant-fullcalendar-value{
+  border-radius: var(--calendar-value-border-radius);
+}
+.cw-ant-calendar .ant-fullcalendar-selected-day .ant-fullcalendar-value{
+  background: var(--calendar-primary-background) ;
+}
+.cw-ant-calendar .ant-fullcalendar-today .ant-fullcalendar-value{
+  box-shadow: inset 0 0 0 1px var(--calendar-primary-background);
+}
 
-.ant-fullcalendar-selected-day .cicle{
+.cw-ant-calendar .ant-fullcalendar-selected-day .cicle{
   background: #fff;
 }
 </style>

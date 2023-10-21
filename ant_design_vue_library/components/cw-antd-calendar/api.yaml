@@ -59,3 +59,14 @@
     - name: reload
       description: 清除缓存，重新加载
       params: []
+  themes:
+    - name: --calendar-primary-background
+      title: 主题色
+      default: '#1890ff'
+      type: input
+      description:  主题色
+    - name: --calendar-value-border-radius
+      title: 日历圆角
+      default: 2px
+      type: input
+      description: 日历圆角
