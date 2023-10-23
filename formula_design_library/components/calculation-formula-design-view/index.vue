@@ -36,13 +36,14 @@ export default {
       }
     },
     mounted(){
-      if(this.customMapList){
-        const codeList = [...calculationCodeList,...this.customMapList]
-        this.codeMap = codeList.reduce((obj,item)=>{
-          obj[item.name] = item
-          return obj
-        },{})
-      }
+      // if(this.customMapList){
+      //   console.log(this.customMapList);
+      //   const codeList = [...calculationCodeList,...this.customMapList]
+      //   this.codeMap = codeList.reduce((obj,item)=>{
+      //     obj[item.name] = item
+      //     return obj
+      //   },{})
+      // }
     },
     watch:{
       value:{
@@ -72,8 +73,23 @@ export default {
           }
         },
       },
+      customMapList:{
+        handler(val){
+          if(val){
+            const codeList = [...calculationCodeList,...val]
+            this.codeMap = codeList.reduce((obj,item)=>{
+              obj[item.name] = item
+              return obj
+            },{})
+          }
+        },
+        immediate:true,
+        deep:true
+       
+      }
     },
     methods:{
+
       handleKeyPress(e){
         e.preventDefault()
         if(e.code==="Backspace"){

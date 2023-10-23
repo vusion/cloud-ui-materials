@@ -7,20 +7,39 @@
   },{code:'b',name:'b'}]"></calculation-formula-design-view>
 ```
 
-### 基本用法
 
 ``` vue
 <template>
-<calculation-formula-design-view  :value.sync="data" :customMap="customMap"></calculation-formula-design-view>
+<calculation-formula-design-view  :value.sync="data" ></calculation-formula-design-view>
 </template>
 <script>
 export default{
   data(){
     return {
-      data:'',
-      customMap:[
-        { code:'c', name:'c'}, 
-        { code:'d', name:'d'}]
+      data:'c,d',
+      customMapList:[
+        { code:'11', name:'c'}, 
+        { code:'12', name:'d'}]
+    }
+  }
+}
+</script>
+```
+
+### 基本用法
+
+``` vue
+<template>
+<calculation-formula-design-view  :value.sync="data" :customMapList="customMapList"></calculation-formula-design-view>
+</template>
+<script>
+export default{
+  data(){
+    return {
+      data:'c,d',
+      customMapList:[
+        { code:'11', name:'c'}, 
+        { code:'12', name:'d'}]
     }
   }
 }

@@ -2,7 +2,7 @@
   "name": "formula_design_library",
   "title": "公式设计依赖库",
   "description": "",
-  "version": "0.1.6",
+  "version": "0.2.2",
   "main": "./index.js",
   "author": "",
   "repository": "",

@@ -1,7 +1,7 @@
 <template>
   <div class="formula-design-view"> 
     <div class="left">
-      <textarea  @click="handleSelectionChange"  @keydown="handleKeyPress" ref="myTextarea"   class="left-textarea" v-model="formulaString" name="" id=""  rows="10"></textarea>
+      <textarea  @click="handleSelectionChange"  @keydown="handleKeyPress" ref="myTextarea"   class="left-textarea" v-model="formulaString" name="" id=""  rows="5"></textarea>
     </div>
     <div class="right">
         <div @click="handleClick(item)" class="code-cell" v-for="item in codeList" :key="item.code" >
