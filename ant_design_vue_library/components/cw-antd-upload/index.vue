@@ -69,7 +69,7 @@ export default {
       },
       capture: {
         type: String,
-        default: "camera"
+        // default: "camera"
       },
       info: {
         type: Boolean,

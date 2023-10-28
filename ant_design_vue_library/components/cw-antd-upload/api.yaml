@@ -47,7 +47,15 @@
       default: true
       type: boolean
       description: 截图信息,默认true展示
-
+    - name: uploadType
+      title: 上传方式
+      type: string
+      options:
+        - value: null
+          title: 默认
+        - value: camera
+          title: 相机   
+      description: 上传方式,默认为相机相册
   events:
     - name: onSuccess
       description: 上传成功时
