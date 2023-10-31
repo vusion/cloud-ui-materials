@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { MField } from '../../widgets/m-field';
 import { calculationCodeList ,calculationCodeMap} from '@/utils'
 export default {
     name:"judgement-calculation-formula-design-view",
@@ -23,6 +24,7 @@ export default {
         type:Array,
       }
     },
+    mixins: [MField],
     data(){
       return {
         codeList:calculationCodeList,
@@ -36,6 +38,9 @@ export default {
       }
     },
     mounted(){
+      this.$refs["myTextarea"].addEventListener("compositionend",(e)=>{
+         e.target.value = e.target.value.replace(e.data,"")  
+      })
       // if(this.customMapList){
       //   console.log(this.customMapList);
       //   const codeList = [...calculationCodeList,...this.customMapList]
@@ -146,6 +151,8 @@ export default {
           },100)
         }
         this.$emit("update:value",this.formulaList.map(item=>item.name).join(','))
+        this.$emit('change', this.formulaList.map(item=>item.name).join(','));
+        this.$emit('update', this.formulaList.map(item=>item.name).join(','));
       }
     }
 }

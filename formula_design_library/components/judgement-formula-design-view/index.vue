@@ -1,7 +1,7 @@
 <template>
   <div class="formula-design-view"> 
-    <div class="left">
-      <textarea  @click="handleSelectionChange"  @keydown="handleKeyPress" ref="myTextarea"   class="left-textarea" v-model="formulaString" name="" id=""  rows="5"></textarea>
+    <div class="left"> 
+      <textarea  @click="handleSelectionChange"  @keydown="handleKeyPress" ref="myTextarea"   class="left-textarea" :value="formulaString" name="" id=""  rows="5"></textarea>
     </div>
     <div class="right">
         <div @click="handleClick(item)" class="code-cell" v-for="item in codeList" :key="item.code" >
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { MField } from '../../widgets/m-field';
 import { codeList ,codeMap} from '@/utils'
 export default {
     name:"judgement-formula-design-view",
@@ -20,6 +21,7 @@ export default {
         type:String,
       }
     },
+    mixins: [MField],
     data(){
       return {
         codeList:codeList,
@@ -34,6 +36,9 @@ export default {
       }
     },
     mounted(){
+      this.$refs["myTextarea"].addEventListener("compositionend",(e)=>{
+         e.target.value = e.target.value.replace(e.data,"")  
+      })
     },
     watch:{
       value:{
@@ -76,7 +81,7 @@ export default {
       handleSelectionChange(){
         const myTextarea = this.$refs.myTextarea
         let index = myTextarea.selectionStart
-        console.log(index);
+        // console.log(index);
         const [listIndex,i] = this.getTextIndex(index)
         console.log(listIndex,i);
         index= i 
@@ -110,6 +115,9 @@ export default {
         }
         console.log(this.formulaList);
         this.$emit("update:value",this.formulaList.map(item=>item.name).join(','))
+        this.$emit('change', this.formulaList.map(item=>item.name).join(','));
+        this.$emit('update', this.formulaList.map(item=>item.name).join(','));
+        
       }
     }
 }
