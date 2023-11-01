@@ -1,7 +1,7 @@
 <template>
   <div>
     <CTreeDrop
-      v-model="value"
+      :value="value"
       :data="data"
       titleField="name"
       keyField="id"
@@ -22,17 +22,21 @@ import { CTreeDrop } from "@wsfe/ctree";
 import data from "./data.js";
 export default {
   name: "virtual-node-tree-select",
-  props: {},
   components: { CTreeDrop },
-  data() {
-    return {
-      value: [],
-      data,
-    };
+  props: {
+    data: {
+      type: Array,
+      default: () => [],
+    },
+    value: {
+      type: Array,
+      default: () => [],
+    },
   },
   methods: {
-    handleCheckedChange() {
-      this.$emit("change", this.value);
+    handleCheckedChange(value) {
+      this.$emit("change", value);
+      this.$emit("update:value", value);
     },
   },
 };
