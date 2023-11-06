@@ -2,7 +2,7 @@
   "name": "make_img_and_qr_code",
   "title": "生成二维码图片",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -49,6 +49,8 @@
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
-    "qrcode": "^1.5.3"
+    "jsbarcode": "^3.11.5",
+    "qrcode": "^1.5.3",
+    "vue-barcode": "^1.3.0"
   }
 }
