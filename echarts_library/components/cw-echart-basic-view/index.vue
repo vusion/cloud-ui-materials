@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root" border>
+  <div :class="$style.root" border ref="room"> 
     <echart-basic
       v-if="!loading"
       :size="size"
@@ -55,6 +55,9 @@ export default {
         this.init();
       }
     }
+  },
+  mounted() {
+    this.width = this.$refs.room.clientWidth + "px"
   },
   methods: {
     reload() {
