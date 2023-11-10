@@ -1,0 +1,13 @@
+- name: cw-qrcode-scan-view
+  title: 扫一扫
+  type: h5
+  belong: component
+  labels: [Runtime]
+  events: 
+    - name: onScan
+      title: onScan
+      description: 扫码成功后触发
+      params:
+      - name: event
+        type: string
+        description: 参数

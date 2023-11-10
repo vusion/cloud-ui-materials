@@ -1,0 +1,11 @@
+- name: judgement-formula-design-view
+  title: 判断公式组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 公式内容
+      type: string
+      sync: true
+      description: 公式内容
