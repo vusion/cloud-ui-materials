@@ -17,22 +17,38 @@ export default {
       default: "",
     },
   },
-  async mounted() {
-    if (this.src) {
-      waterMark = await WaterMark.init({
-        target: document.body,
-        image: this.src,
-        cSpace: 100,
-        vSpace: 100,
-        style: {
-          opacity: this.opacity,
-        },
-      });
-      console.log("waterMark", waterMark);
-      this.$on("hook:beforeDestroy", () => {
-        waterMark.remove();
-      });
-    }
+  beforeDestroy() {
+    waterMark.remove();
+  },
+  computed: {
+    config() {
+      return {
+        src: this.src,
+        opacity: this.opacity,
+      };
+    },
+  },
+  watch: {
+    config: {
+      handler(config) {
+        if (config.src) {
+          waterMark && waterMark.remove();
+          this.$nextTick(async () => {
+            waterMark = await WaterMark.init({
+              target: document.body,
+              image: config.src,
+              cSpace: 100,
+              vSpace: 100,
+              style: {
+                opacity: config.opacity,
+              },
+            });
+          });
+        }
+      },
+      immediate: true,
+      deep: true,
+    },
   },
 };
 </script>
