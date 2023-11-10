@@ -48,8 +48,6 @@
     "inited": true
   },
   "dependencies": {
-    "@pansy/vue-watermark": "^1.2.0",
-    "l-watermark": "^2.1.2",
     "wybie-watermark": "^0.0.2"
   }
 }

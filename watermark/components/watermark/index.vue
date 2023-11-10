@@ -12,16 +12,16 @@ export default {
       type: Number,
       default: 0.1,
     },
-    url: {
+    src: {
       type: String,
       default: "",
     },
   },
   async mounted() {
-    if (this.url) {
+    if (this.src) {
       waterMark = await WaterMark.init({
         target: document.body,
-        image: this.url,
+        image: this.src,
         cSpace: 100,
         vSpace: 100,
         style: {
