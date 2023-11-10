@@ -5,7 +5,7 @@
   labels: [Runtime]
   attrs:
     - name: url
-      type: string
+      type: image
       default: 水印图片的url
       description: 水印图片的url
       group: 展示属性
