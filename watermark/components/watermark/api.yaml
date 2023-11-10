@@ -1,0 +1,16 @@
+- name: watermark
+  title: 全局图片水印
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: url
+      type: string
+      default: 水印图片的url
+      description: 水印图片的url
+      group: 展示属性
+    - name: opacity
+      type: number
+      default: 水印图片的透明度
+      description: 水印图片的透明度
+      group: 数据属性
