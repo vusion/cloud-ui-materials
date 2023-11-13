@@ -1,14 +1,13 @@
 <template>
-  <div>
+  <div :class="isAppDesigner&&'indesigner'">
     <CTree
       ref="tree"
-      value="D001006"
-      :data="data"
-      titleField="name"
-      keyField="id"
+      :value="value"
+      :titleField="textField"
+      :keyField="valueField"
       selectable
       @select="handleSelect"
-      :expandedKeys="['D001006']"
+      :expandedKeys="currentExpandedKeys"
     />
   </div>
 </template>
@@ -16,8 +15,26 @@
 <script>
 // 大家可以根据需要是否引入VTreeNode, VTreeSearch, VTreeDrop
 import  CTree  from "@wsfe/ctree";
-import data from "./data.js";
-import data2 from "./data2.js";
+
+function dfs(node, targetId, idField, childrenField, ancestorIds = []) {
+  const id = node[idField];
+  if (id === targetId) {
+    return ancestorIds;
+  }
+  const children = node[childrenField];
+  if (Array.isArray(children) && children.length > 0) {
+    let idx = 0;
+    const ids = ancestorIds.concat(id);
+    while (idx < children.length) {
+      const result = dfs(children[idx], targetId, idField, childrenField, ids);
+      if (result) {
+        return result;
+      }
+      ++idx;
+    }
+  }
+}
+
 export default {
   name: "virtual-node-tree-view",
   components: { CTree },
@@ -41,13 +58,10 @@ export default {
   },
   data() {
       return {
-          // @inherit: nodeVMs: [],
           currentDataSource: undefined,
           loading: false,
+          currentExpandedKeys: [],
       };
-  },
-  created() {
-
   },
   mounted(){
     this.handleData(); 
@@ -56,16 +70,34 @@ export default {
     'currentDataSource.data'(value) {
       if(value){
         this.$refs.tree.setData(value); 
+        if(this.value){
+          let idx = 0;
+          while(idx < value.length){
+            const ancestorIds = dfs(value[idx],this.value,this.valueField,this.childrenField);
+            if(ancestorIds){
+              this.currentExpandedKeys = ancestorIds;
+              return;
+            }
+            ++idx;
+          }
+        }
       }
     }
   },
+  computed:{
+    isAppDesigner() {
+        return !!this.$env.VUE_APP_DESIGNER;
+    },
+  },
   methods: {
     handleData() {
-        this.currentDataSource = this.normalizeDataSource(this.dataSource || this.data || (() => data2));
-        console.log('%c [ data2 ]-65', 'font-size:13px; background:pink; color:#bf2c9f;', data2)
-        console.log('%c [ this.currentDataSource  ]-65', 'font-size:13px; background:pink; color:#bf2c9f;', this.currentDataSource )
+        this.currentDataSource = this.normalizeDataSource(this.dataSource || this.data);
         if (this.currentDataSource && this.currentDataSource.load && this.initialLoad)
             this.load();
+    },
+    getExapndedKeys(){
+
+      const id = this.$at()
     },
     list2tree(list, idField, pField) {
         const [map, treeData] = [{}, []];
@@ -156,9 +188,18 @@ export default {
     reload() {
         this.load();
     },
-    handleSelect(...args){
-      console.log('%c [ args ]-48', 'font-size:13px; background:pink; color:#bf2c9f;', args)
-
+    handleSelect(node){
+      this.$emit('input', node.id, this);
+      this.$emit('update:value',node.id, this);
+      this.$emit(
+          'select',
+          {
+              value: node.id,
+              oldValue: this.value,
+              node,
+          },
+          this,
+      );
     }
   },
 };
@@ -166,4 +207,28 @@ export default {
 
 <style>
 @import "@wsfe/ctree/dist/ctree.css";
+
+.indesigner .ctree-tree-node__title:empty{
+  background: #f7f8fa;
+  border: 1px dashed #c3c3c3;
+  text-align: center;
+  color: #999;
+  min-height: 30px;
+  min-width: 90px;
+  width: 100%;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-content: center;
+  opacity: 0.3;
+}
+.indesigner .ctree-tree-node__title:empty:before{
+  content: "+";
+  font-size: 20px;
+  line-height: 12px;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
 </style>

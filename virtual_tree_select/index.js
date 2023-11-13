@@ -1,6 +1,8 @@
-import VirtualNodeTreeSelect from './components/virtual-node-tree-select';
+// import VirtualNodeTreeSelect from './components/virtual-node-tree-select';
+import VirtualNodeTreeView from './components/virtual-node-tree-view';
 // COMPONENT IMPORTS
 export {
-	VirtualNodeTreeSelect,
+	// VirtualNodeTreeSelect,
+	VirtualNodeTreeView,
 // COMPONENT EXPORTS
 };
