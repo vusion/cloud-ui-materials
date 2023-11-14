@@ -1,11 +1,14 @@
 <template>
-  <Editor
-    class="editos"
-    :locale="zhHans"
-    :value="value"
-    :plugins="plugins"
-    @change="handleChange"
-  />
+  <div>
+    <Editor
+      class="editos"
+      :locale="zhHans"
+      :value="value"
+      :plugins="plugins"
+      @change="onChange"
+    />
+    {{ value }}
+  </div>
 </template>
 
 <script>
@@ -48,35 +51,90 @@ const plugins = [
 ];
 
 export default {
-  name: "editor",
+  name: "markdown",
   components: { Editor },
   props: {
     value: {
       type: String,
       default: "",
     },
+    mode: {
+      type: String,
+      default: "editor",
+    },
   },
   data() {
-    return { plugins, zhHans };
+    return {
+      plugins: plugins,
+      zhHans: Object.freeze(zhHans),
+    };
   },
   mounted() {
-    const sourceEl = document.querySelector("[bytemd-tippy-path='5']");
+    const sourceEl = this.$el.querySelector("[bytemd-tippy-path='5']");
     if (sourceEl) {
       sourceEl.style.display = "none";
     }
+    if (this.mode === "viewer") {
+      let statusEl = this.$el.querySelector(".bytemd-status");
+      let toolbarLeftEl = this.$el.querySelector(".bytemd-toolbar-left");
+
+      statusEl.style.display = "none";
+      toolbarLeftEl.style.display = "none";
+      for (let i = 1; i < 4; i++) {
+        const toolRightEl = this.$el.querySelector(
+          `.bytemd-tippy-right[bytemd-tippy-path='${i}']`
+        );
+        console.log("toolRightEl", toolRightEl);
+        this.$nextTick(() => {
+          toolRightEl.style.display = "none";
+        });
+      }
+
+      let previewEl = this.$el.querySelector(".bytemd-preview");
+      let editorEl = this.$el.querySelector(".bytemd-editor");
+      let sidebarEl = this.$el.querySelector(".bytemd-sidebar");
+      previewEl.style.width = "calc(100% - 50px)";
+      editorEl.style.display = "none";
+      // 创建一个 MutationObserver 实例
+      const observer = new MutationObserver((mutationsList) => {
+        for (const mutation of mutationsList) {
+          if (
+            mutation.type === "attributes" &&
+            mutation.attributeName === "class"
+          ) {
+            // 类名发生变化
+            if (mutation.target.classList.contains("bytemd-hidden")) {
+              previewEl.style.width = "100%";
+            } else {
+              previewEl.style.width = "calc(100% - 280px)";
+              editorEl.style.display = "none";
+            }
+          }
+        }
+      });
+
+      // 配置观察选项
+      const observerOptions = {
+        attributes: true, // 监听属性变化
+        attributeFilter: ["class"], // 仅监听类名的变化
+      };
+
+      // 开始观察目标元素
+      observer.observe(sidebarEl, observerOptions);
+      this.$on("hook:beforeDestroy", () => {
+        observer.disconnect();
+      });
+    }
   },
   methods: {
-    handleChange(v) {
-      this.value = v;
+    onChange(value) {
+      this.$emit("update:value", value);
     },
   },
 };
 </script>
 
 <style lang="less">
-@import url("https://github.githubassets.com/assets/gist-embed-0e0c6f2f7e3d8e7be9a1f48f29b3809a.css");
-@import url("https://github.githubassets.com/assets/github-4e4d0c7d0a258ed9790e39798cad24c0.css");
-@import url("https://github.githubassets.com/assets/github-markdown-34d7e31e8f9ac8f3e0e3b8c3e5f8c1f2.css");
 .markdown-body {
   pre {
     position: relative;

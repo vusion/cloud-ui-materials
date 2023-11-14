@@ -1,8 +1,6 @@
-import Editor from './components/editor';
-import Viewer from './components/viewer';
+import Markdown from './components/markdown';
 // COMPONENT IMPORTS
 export {
-	Editor,
-	Viewer,
+	Markdown,
 // COMPONENT EXPORTS
 };
