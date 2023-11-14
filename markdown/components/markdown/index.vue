@@ -7,7 +7,6 @@
       :plugins="plugins"
       @change="onChange"
     />
-    {{ value }}
   </div>
 </template>
 
@@ -56,7 +55,7 @@ export default {
   props: {
     value: {
       type: String,
-      default: "",
+      default: () => "",
     },
     mode: {
       type: String,
@@ -66,14 +65,25 @@ export default {
   data() {
     return {
       plugins: plugins,
-      zhHans: Object.freeze(zhHans),
+      zhHans: zhHans,
     };
   },
   mounted() {
+    // inherit style
+    const mdEl = this.$el.querySelector(".bytemd");
+    this.$nextTick(() => {
+      mdEl.style = this.$el.style.cssText;
+    });
+    // disable event trigger when design mode
+    if (this.$env.VUE_APP_DESIGNER) {
+      mdEl.classList.add("event-disabled");
+    }
+    // hide github
     const sourceEl = this.$el.querySelector("[bytemd-tippy-path='5']");
     if (sourceEl) {
       sourceEl.style.display = "none";
     }
+    // viewer mode should hide some items
     if (this.mode === "viewer") {
       let statusEl = this.$el.querySelector(".bytemd-status");
       let toolbarLeftEl = this.$el.querySelector(".bytemd-toolbar-left");
@@ -93,8 +103,10 @@ export default {
       let previewEl = this.$el.querySelector(".bytemd-preview");
       let editorEl = this.$el.querySelector(".bytemd-editor");
       let sidebarEl = this.$el.querySelector(".bytemd-sidebar");
-      previewEl.style.width = "calc(100% - 50px)";
+      previewEl.style.width = "100%";
       editorEl.style.display = "none";
+      let previewBody = this.$el.querySelector(".markdown-body");
+      previewBody.style = 'width: 100%; margin:unset;'
       // 创建一个 MutationObserver 实例
       const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
@@ -103,11 +115,11 @@ export default {
             mutation.attributeName === "class"
           ) {
             // 类名发生变化
+            editorEl.style.display = "none";
             if (mutation.target.classList.contains("bytemd-hidden")) {
               previewEl.style.width = "100%";
             } else {
               previewEl.style.width = "calc(100% - 280px)";
-              editorEl.style.display = "none";
             }
           }
         }
@@ -128,6 +140,8 @@ export default {
   },
   methods: {
     onChange(value) {
+      console.log("value", value);
+      this.$emit("change", value);
       this.$emit("update:value", value);
     },
   },
@@ -135,6 +149,9 @@ export default {
 </script>
 
 <style lang="less">
+.event-disabled {
+  pointer-events: none;
+}
 .markdown-body {
   pre {
     position: relative;

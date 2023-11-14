@@ -17,3 +17,10 @@
           title: 编辑器
         - value: viewer
           title: 渲染器
+  events:
+    - name: change
+      title: 内容变化时
+      params:
+        - name: $event
+          type: string
+          description: value
