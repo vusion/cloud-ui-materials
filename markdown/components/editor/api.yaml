@@ -6,5 +6,5 @@
   attrs:
     - name: value
       type: string
-      default: 请在这里编写代码
+      default: ''
       description: 需要传入的值
