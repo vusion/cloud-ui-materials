@@ -1,0 +1,10 @@
+- name: cx-countup
+  title: 数字渐变
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值
