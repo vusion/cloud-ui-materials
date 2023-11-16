@@ -1,9 +1,9 @@
 - name: virtual-node-tree-view
   title: 虚拟节点树形视图
   icon: tree-view-new
-  description: 树形视图
-  labels:
-    - Selector
+  type: pc
+  belong: component
+  labels: [Runtime]
   attrs:
     - name: data-source
       title: 数据源
@@ -72,40 +72,6 @@
       tooltipLink: ""
   slots: false
   events:
-    - name: before-select
-      title: 选择前
-      description: 选择某一项前触发
-      advanced: true
-      params:
-        - name: $event
-          type: object
-          description: 自定义事件对象
-          schema:
-            $ref: "#/systemTypes/TreeChangeEvent"
-        - name: $event.value
-          type: any
-          description: 选择项的值
-        - name: $event.oldValue
-          type: any
-          description: 旧的值
-        - name: $event.node
-          type: object
-          description: 选择项相关对象
-        - name: $event.oldNode
-          type: object
-          description: 旧的选择项相关对象
-        - name: $event.nodeVM
-          type: UTreeViewNode
-          description: 选择项子组件
-        - name: $event.oldVM
-          type: UTreeViewNode
-          description: 旧的选择项子组件
-        - name: $event.preventDefault
-          type: Function
-          description: 阻止选择流程
-        - name: senderVM
-          type: UTreeView
-          description: 发送事件实例
     - name: select
       title: 选择后
       description: 选择某一项时触发
@@ -113,8 +79,6 @@
         - name: $event
           type: object
           description: 自定义事件对象
-          schema:
-            $ref: "#/systemTypes/TreeChangeEvent"
         - name: $event.value
           type: any
           description: 改变后的值
@@ -135,108 +99,4 @@
           description: 旧的选择项子组件
         - name: senderVM
           type: UTreeView
-          description: 发送事件实例
-    - name: change
-      title: 改变后
-      description: 选择值改变时触发
-      params:
-        - name: $event
-          type: object
-          description: 自定义事件对象
-          schema:
-            $ref: "#/systemTypes/TreeChangeEvent"
-        - name: $event.value
-          type: any
-          description: 选择项的值
-        - name: $event.oldValue
-          type: any
-          description: 旧的值
-        - name: $event.node
-          type: object
-          description: 选择项相关对象
-        - name: $event.oldNode
-          type: object
-          description: 旧的选择项相关对象
-        - name: $event.nodeVM
-          type: UTreeViewNode
-          description: 选择项子组件
-        - name: $event.oldVM
-          type: UTreeViewNode
-          description: 旧的选择项子组件
-        - name: senderVM
-          type: UTreeView
-          description: 发送事件实例
-    - name: toggle
-      title: 展开折叠后
-      description: 展开/折叠某节点时触发
-      params:
-        - name: $event
-          type: object
-          description: 自定义事件对象
-          schema:
-            $ref: "#/systemTypes/CollapseEvent"
-        - name: $event.expanded
-          type: boolean
-          description: 展开/折叠状态
-        - name: $event.node
-          type: object
-          description: 节点相关对象
-        - name: $event.nodeVM
-          type: UTreeViewNode
-          description: 节点组件
-        - name: senderVM
-          type: UTreeView
-          description: 发送事件实例
-    - name: check
-      title: 选中取消后
-      description: 选中/取消节点时触发
-      params:
-        - name: $event
-          type: object
-          description: 自定义事件对象
-          schema:
-            $ref: "#/systemTypes/CheckedEvent"
-        - name: $event.checked
-          type: boolean
-          description: 选中/取消状态
-        - name: $event.oldChecked
-          type: boolean
-          description: 旧的选中/取消状态
-        - name: $event.values
-          type: Array
-          description: 所有选中节点的值
-        - name: $event.node
-          type: object
-          description: 节点相关对象
-        - name: $event.nodeVM
-          type: UTreeViewNode
-          description: 节点组件
-        - name: senderVM
-          type: UTreeView
-          description: 发送事件实例
-    - name: before-load
-      title: 加载前
-      description: 加载前触发
-      advanced: true
-      params:
-        - name: $event
-          type: object
-          description: 自定义事件对象
-          schema:
-            $ref: "#/systemTypes/EventTarget"
-        - name: $event.preventDefault
-          type: Function
-          description: 阻止加载流程
-        - name: senderVM
-          type: UTableView
-          description: 发送事件实例
-    - name: load
-      title: 加载后
-      description: 加载后触发
-      params:
-        - name: $event
-          type: "null"
-          description: 无
-        - name: senderVM
-          type: UTableView
           description: 发送事件实例

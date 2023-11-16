@@ -82,6 +82,9 @@ export default {
           }
         }
       }
+    },
+    dataSource(){
+      this.handleData();
     }
   },
   computed:{
