@@ -22,7 +22,7 @@
     - name: displayValue
       title: 是否显示内容
       type: boolean
-      default: false
+      default: true
       description: 是否显示条形码内容
     - name: format
       title: 条形码类型
