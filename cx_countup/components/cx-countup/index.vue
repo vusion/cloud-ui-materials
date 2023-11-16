@@ -9,7 +9,8 @@
   </template>
   
   <script>
-  import Countup from 'countup.js';
+  import { CountUp } from 'countup.js';
+  import { Odometer } from 'odometer_countup';
   
   export default {
       name: 'cx-countup',
@@ -21,10 +22,7 @@
           isEasing: { type: Boolean, default: false },
           isGroup: { type: Boolean, default: false },
           separator: { type: String, default: ',' },
-          decimals: { type: Number, default: 0 }, // decimal: {
-          //     type: String,
-          //     default: '.',
-          // },
+          decimals: { type: Number, default: 0 },
           unit: {
               type: Array,
               default: () => [
@@ -45,12 +43,8 @@
           },
           endCallback: { type: Function },
           loop: { type: Boolean, default: false},
-          delay: { type: Number, default: 1000 },
-          autoStart: { type: Boolean, default: true }, // formattingFn: {
-          //     type: Function,
-          //     default() {
-          //     },
-          // },
+          delay: { type: Number, default: 1 },
+          autoStart: { type: Boolean, default: true },
       },
       data() {
           return { unitText: '', timeoutId: null, };
@@ -89,19 +83,20 @@
               } else {
                   end = this.end;
               }
-              this.counter = new Countup(
+              this.counter = new CountUp(
                   this.$refs.count,
-                  this.start,
                   end,
-                  this.decimals,
-                  this.duration,
                   {
+                      startVal: this.start,
+                      decimalPlaces: this.decimals,
+                      duration: this.duration, 
                       useEasing: this.isEasing,
                       useGrouping: this.isGroup,
                       separator: this.separator,
                       decimals: this.decimals,
                       suffix: this.suffix,
                       prefix: this.prefix,
+                      plugin: new Odometer({ duration: 0.1, lastDigitDelay: 0 }),
                   },
               );
               if (!this.counter.error && this.autoStart) {
@@ -128,9 +123,10 @@
                 if(this.loop){
                   this.timeoutId = setTimeout(()=>{
                     fn();
-                  },this.delay);
+                  },(this.delay) * 1000 + 100);
                 }
               }); 
+              this.counter.update(this.end);
             }; 
             fn();
           },

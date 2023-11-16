@@ -4,7 +4,57 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: value
+    - name: start
+      title: 渐变开始数值
+      type: number
+      default: 0
+      description: 渐变开始数值
+    - name: end
+      type: number
+      description: 渐变结束数值
+      title: 渐变结束数值
+    - name: duration
+      type: number
+      default: 2
+      description: 渐变时间间隔，时间单位为秒
+      title: 渐变时间间隔
+    - name: loop
+      type: boolean
+      default: false
+      description: 是否循环播放
+      title: 是否循环播放
+    - name: delay
+      type: number
+      default: 1
+      description: 循环播放之间的间隔，时间单位为秒 
+      title: 循环播放之间的间隔
+    - name: isGroup
+      type: boolean
+      default: false
+      description: 是否分组，默认分组分隔符`'separator'`属性值为`','`
+      title: 是否分组
+    - name: separator
       type: string
-      default: 请在这里编写代码
-      description: 需要传入的值
+      default: ","
+      description: 分组分隔符
+      title: 分组分隔符
+    - name: decimals
+      type: number
+      default: 0
+      description: 小数点后几位
+      title: 小数点后几位
+    - name: prefix
+      type: string
+      default: ""
+      description: 前缀内容
+      title: 前缀内容
+    - name: suffix
+      type: string
+      default: ""
+      description: 后缀内容
+      title: 后缀内容
+    - name: autoStart
+      type: boolean
+      default: false
+      description: 是否开启渐变
+      title: 是否开启渐变

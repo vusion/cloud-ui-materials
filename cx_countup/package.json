@@ -2,7 +2,7 @@
   "name": "cx_countup",
   "title": "数字渐变",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -48,6 +48,7 @@
     "inited": true
   },
   "dependencies": {
-    "countup.js": "1.9.3"
+    "countup.js": "^2.8.0",
+    "odometer_countup": "^1.0.4"
   }
 }
