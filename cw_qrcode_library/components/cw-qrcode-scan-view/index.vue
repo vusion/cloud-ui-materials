@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     start() {
+      // console.log(html5QrCode);
       html5QrCode.start(
         // environment后置摄像头 user前置摄像头
         { facingMode: "environment" },
@@ -36,6 +37,8 @@ export default {
           //  alert(JSON.stringify(decodedResult) )
           // do something when code is read
           this.$emit("onScan", decodedText)
+          html5QrCode.stop()
+          html5QrCode.clear()
           console.log('decodedText', decodedText)
           console.log('decodedResult', decodedResult)
           // this.$emit("goBack", decodedText)
