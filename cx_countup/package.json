@@ -2,7 +2,7 @@
   "name": "cx_countup",
   "title": "数字渐变",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",

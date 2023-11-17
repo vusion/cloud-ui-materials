@@ -19,7 +19,7 @@ export default {
     },
     methods:{
         handleClick1(){
-            this.end = 999;
+            this.end = 1526995;
         },
         handleClick2(){
             this.flag = !this.flag;

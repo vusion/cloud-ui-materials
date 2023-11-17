@@ -97,6 +97,7 @@
                       suffix: this.suffix,
                       prefix: this.prefix,
                       plugin: new Odometer({ duration: 0.1, lastDigitDelay: 0 }),
+                      formattingFn: v=>`${v}`.padStart(`${this.end}`.length, '0'),
                   },
               );
               if (!this.counter.error && this.autoStart) {
