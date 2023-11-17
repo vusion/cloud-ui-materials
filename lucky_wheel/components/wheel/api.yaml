@@ -1,0 +1,77 @@
+- name: wheel
+  title: 抽奖大转盘
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: prizes
+      type: array
+      default: []
+      description: '奖品数据源，只支持变量，形如[{fonts: [{text: "特斯拉",top: "10%",fontSize: "24px",fontColor: "red",fontWeight: "700",},],imgs: [{src: "/static/imgs/prize.png",width: "40%",top: "10%"}],background: "lightblue",}, ...]'
+    - name: buttons
+      type: array
+      default: []
+      description: '最中心的抽奖按钮配置，只支持变量，形如  [{radius: "45%",imgs: [{src: "/static/imgs/wheel-btn.png", width: "100%",top: "-130%",},],},{radius: "40%",background: "#869cfa",pointer: true,fonts: [{ text: "开始\n抽奖", top: "-20px" }],},]'
+    - name: borderColor
+      type: string
+      default: ''
+      description: 转盘最外圈的颜色
+    - name: borderPadding
+      type: number
+      default: 0
+      description: 转盘最外圈的颜色的厚度
+    - name: borderImg
+      type: image
+      compType: linkInput
+      default: null
+      description: 转盘外圈的背景图
+    - name: borderImgPadding
+      type: number
+      default: 0
+      description: 转盘外圈的背景图的厚度
+    - name: borderImgWidth
+      type: string
+      default: 100%
+      description: 转盘外圈的背景图的宽度
+    - name: borderImgHeight
+      type: string
+      default: 100%
+      description: 转盘外圈的背景图的高度
+    - name: backgroundImg
+      type: image
+      compType: linkInput
+      default: null
+      description: 奖品区背景图
+    - name: backgroundImgWidth
+      type: string
+      default: 100%
+      description: 奖品区背景图宽度
+    - name: backgroundImgHeight
+      type: string
+      default: 100%
+      description: 奖品区背景图高度
+    - name: gutter
+      type: number
+      default: 10
+      description: 奖品块间隙
+  events: 
+    - name: start
+      title: start
+      description: 抽奖按钮点击时
+    - name: end
+      title: end
+      description: 抽奖结束时
+      params:
+        - name: event
+          type: string
+          description: 参数
+  methods:
+    - name: stop
+      title: stop
+      description: 获取到后端抽奖结果后调用，使转盘缓慢停止
+      params: 
+        - name: index
+          type: number
+          description: 传入被抽中奖品的index
+    
+    
