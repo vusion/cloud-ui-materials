@@ -1,8 +1,8 @@
 {
-  "name": "virtual_tree_select",
-  "title": "虚拟树形选择器",
+  "name": "virtual_tree",
+  "title": "虚拟树",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
