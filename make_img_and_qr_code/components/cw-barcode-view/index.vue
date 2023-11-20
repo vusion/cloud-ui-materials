@@ -1,5 +1,5 @@
 <template>
- <img id="barcode" ref="barcode" />
+ <img ref="barcode" />
 </template>
 
 <script>
@@ -61,7 +61,9 @@ export default {
     },
     methods:{
       init(){
-         JsBarcode("#barcode", this.value, {
+         const id =  "barcode"+ new Date().valueOf() + Math.random().toFixed(6)*1000000
+         this.$refs["barcode"].id = id
+         JsBarcode("#"+id, this.value, {
           format: this.format,
           lineColor: this.lineColor,
           height:this.height,
