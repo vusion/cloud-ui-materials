@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div :class="{readonly}"></div>
 </template>
 
 <script>
@@ -55,6 +55,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
@@ -211,4 +215,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.readonly {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+</style>

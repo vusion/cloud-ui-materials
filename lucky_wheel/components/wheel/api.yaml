@@ -1,6 +1,6 @@
 - name: wheel
   title: 抽奖大转盘
-  type: pc
+  type: both
   belong: component
   labels: [Runtime]
   attrs:
@@ -54,6 +54,13 @@
       type: number
       default: 10
       description: 奖品块间隙
+    - name: readonly
+      title: 只读
+      type: boolean
+      default: false
+      description: 正常显示，但禁止选择/输入
+      group: 状态属性
+      docDescription: 正常显示，但禁止选择或输入
   events: 
     - name: start
       title: start

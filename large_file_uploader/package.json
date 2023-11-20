@@ -1,8 +1,8 @@
 {
-  "name": "lucky_wheel",
-  "title": "抽奖大转盘",
+  "name": "large_file_uploader",
+  "title": "大文件上传",
   "description": "",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -17,10 +17,10 @@
     "dev": "vue-cli-service doc --port 9090",
     "build:theme": "vue-cli-service library-build --dest dist-theme",
     "build:doc": "vue-cli-service doc-build",
-    "build": "npm run build:theme && npm run build:doc",
+    "build": "npm run build:theme",
     "usage": "lcap usage",
-    "deploy": "lcap deploy && lcap deploy dist-theme",
-    "prepublishOnly": "npm run build && lcap usage",
+    "deploy": "lcap deploy dist-theme",
+    "prepublishOnly": "lcap publish",
     "release": "lcap publish"
   },
   "vuePlugins": {},
@@ -35,11 +35,11 @@
     "vue-loader": "15.9.8",
     "vue-cli-plugin-vusion": "0.14.2-beta",
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "vue": "^2.6.12"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "vue": "^2.6.12"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
@@ -47,8 +47,5 @@
   },
   "template": {
     "inited": true
-  },
-  "dependencies": {
-    "lucky-canvas": "^1.7.27"
   }
 }
