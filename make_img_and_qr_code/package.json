@@ -2,7 +2,7 @@
   "name": "make_img_and_qr_code",
   "title": "生成二维码图片",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -47,6 +47,7 @@
   "template": {
     "inited": true
   },
+  "lcapVersion": "0.3.0",
   "dependencies": {
     "html2canvas": "^1.4.1",
     "jsbarcode": "^3.11.5",
