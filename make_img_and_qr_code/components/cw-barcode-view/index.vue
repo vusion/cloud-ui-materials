@@ -1,5 +1,5 @@
 <template>
- <canvas id="barcode" ref="barcode"></canvas>
+ <img id="barcode" ref="barcode" />
 </template>
 
 <script>
@@ -61,15 +61,14 @@ export default {
     },
     methods:{
       init(){
-        JsBarcode("#barcode", this.value, {
+         JsBarcode("#barcode", this.value, {
           format: this.format,
           lineColor: this.lineColor,
           height:this.height,
           displayValue: this.displayValue
         });
-          var base64Data = this.$refs["barcode"].toDataURL("image/jpeg", 1)
-          console.log(base64Data)
-          this.$emit('load', base64Data)
+        console.log(this.$refs["barcode"].src)
+        this.$emit('load', this.$refs["barcode"].src)
       }
     }
 }
