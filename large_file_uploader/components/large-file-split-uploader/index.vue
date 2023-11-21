@@ -133,7 +133,6 @@ export default {
     checkFile: [Function],
     authorization: { type: Boolean, default: true },
     access: { type: String, default: null },
-    lcapIsCompress: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -198,6 +197,7 @@ export default {
     },
     upload(file) {
       console.log("file", file);
+      // todo
       // if (!this.checkFileOrigin(file)) return;
       if (
         this.$emit(
@@ -226,14 +226,13 @@ export default {
       // 分片上传
       const chunkSize = 50 * 1024 * 1024; // 50MB
       const minLastChunkSize = 5 * 1024 * 1024; // 5MB
-      let chunkEndFlag = Math.ceil(file.size / chunkSize);
-      let totalChunks = Math.floor(file.size / chunkSize) - 1;
+      let totalChunks = Math.ceil(file.size / chunkSize);
       let start = 0;
       const chunks = [];
-      for (let chunkNumber = 0; chunkNumber < chunkEndFlag; chunkNumber++) {
+      for (let chunkNumber = 0; chunkNumber < totalChunks; chunkNumber++) {
         let chunk;
-        if (chunkNumber === chunkEndFlag - 1) {
-          if (file.size - start < minLastChunkSize && chunkEndFlag > 1) {
+        if (chunkNumber === totalChunks - 1) {
+          if (file.size - start < minLastChunkSize && totalChunks > 1) {
             chunk = file.slice(start - chunkSize, file.size);
             chunks.pop();
             chunks.push(chunk);
@@ -244,15 +243,21 @@ export default {
         }
         start += chunkSize;
       }
-
-      this.postChunk(chunks, totalChunks);
+      const fileName = file.name + new Date().getTime();
+      this.postChunk(chunks, chunks.length, fileName);
     },
-    async postChunk(chunks, totalChunks) {
+    async postChunk(chunks, totalChunks, fileName) {
       // 分开两个循环，方便维护
-      let chunkNumber = 0;
+      let chunkNumber = 1;
       for (const chunk of chunks) {
         try {
-          await this.post(chunk, chunkNumber++, totalChunks);
+          await this.post(
+            chunk,
+            chunkNumber++,
+            totalChunks,
+            chunk.size,
+            fileName
+          );
           // 异步函数执行成功，继续下一轮循环
         } catch (error) {
           console.error("异步函数执行失败:", error);
@@ -260,21 +265,118 @@ export default {
         }
       }
     },
-    post(chunk, chunkNumber, totalChunks) {
+    post(chunk, chunkNumber, totalChunks, totalSize, fileName) {
       return new Promise((resolve, reject) => {
         // 模拟异步操作，这里使用setTimeout代替实际的异步函数
-        setTimeout(() => {
-          // 假设异步操作成功
-          console.log(
-            "chunk, chunkNumber, totalChunks",
-            chunk,
-            chunkNumber,
-            totalChunks
-          );
-          resolve();
-          // 假设异步操作失败
-          // reject(new Error('异步操作失败'));
-        }, 1000);
+        const {
+          lcapIsCompress,
+          data,
+          getCookie,
+          headers,
+          authorization,
+          access,
+          withCredentials,
+          name,
+        } = this;
+        const headersReq = Object.assign(
+          {},
+          headers,
+          authorization && {
+            Authorization: getCookie("authorization") || null,
+          },
+          access && {
+            "lcap-access": access,
+          },
+          window.appInfo &&
+            window.appInfo.domainName && {
+              DomainName: window.appInfo.domainName,
+            }
+        );
+        const formData = {
+          ...data,
+          totalSize,
+          fileName,
+          file: chunk,
+          chunkSize: chunk.size,
+          currentChunkSize: chunk.size,
+          chunkNumber,
+          totalChunks,
+        };
+        const requestData = {
+          url: "/split/upload",
+          withCredentials,
+          file: chunk,
+          name,
+          data: formData,
+          headers: headersReq,
+        };
+        const xhr = ajax({
+          ...requestData,
+          onProgress: (e) => {
+            this.currentValue.percent = e.percent;
+
+            this.$emit(
+              "progress",
+              {
+                e,
+                file: chunk,
+                item: this.currentValue,
+                xhr,
+              },
+              this
+            );
+          },
+          onSuccess: (res) => {
+            this.currentValue.status = "success";
+            if (res[this.urlField]) {
+              const url = res[this.urlField];
+              this.currentValue.url = url;
+            }
+            this.currentValue.response = res;
+            this.currentValue.showProgress = false;
+            if (this.currentValue.url) {
+              this.currentValue.name = this.handleFileName(
+                this.currentValue.url
+              );
+            }
+            const value = this.toValue(this.currentValue);
+            this.$emit("input", value);
+            this.$emit("update:value", value);
+            resolve();
+
+            this.$emit(
+              "success",
+              {
+                res,
+                file: chunk,
+                item: this.currentValue,
+                xhr,
+              },
+              this
+            );
+          },
+          onError: (e, res) => {
+            this.currentValue.status = "error";
+            const value = this.toValue(this.currentValue);
+            this.$emit("input", value);
+            this.$emit("update:value", value);
+            const errorMessage = `文件${this.currentValue.name}上传接口调用失败`;
+            this.errorMessage.push(errorMessage);
+            reject();
+
+            this.$emit(
+              "error",
+              {
+                e,
+                res,
+                file: chunk,
+                item: this.currentValue,
+                xhr,
+              },
+              this
+            );
+          },
+        });
       });
     },
     getCookie(cname) {
@@ -286,25 +388,32 @@ export default {
       }
       return "";
     },
-    remove() {
-      if (!this.currentValue) return;
+    remove(index) {
+      const item = this.currentValue[index];
+      if (!item) return;
+      this.modalVisible = false;
+
       if (
         this.$emitPrevent(
           "before-remove",
           {
             oldValue: this.currentValue,
+            item,
+            index,
           },
           this
         )
       )
         return;
 
-      this.currentValue = "";
+      this.currentValue.splice(index, 1);
 
       this.$emit(
         "remove",
         {
           value: this.currentValue,
+          item,
+          index,
         },
         this
       );

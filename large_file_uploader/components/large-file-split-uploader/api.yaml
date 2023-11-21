@@ -28,16 +28,6 @@
       brifeDoc: ""
       docDescription: 当前的文件列表
       tooltipLink: ""
-    - name: url
-      title: 上传地址
-      type: string
-      description: 上传的 URL 地址
-      required: true
-      compType: interfaceSelect
-      group: 数据属性
-      brifeDoc: ""
-      docDescription: 文件上传的URL地址，如/upload
-      tooltipLink: ""
     - name: name
       title: 上传的文件字段
       type: string
@@ -182,14 +172,6 @@
       description: ""
       brifeDoc: ""
       docDescription: 支持任何人可访问和用户登录后可访问两种方式
-      tooltipLink: ""
-    - name: lcapIsCompress
-      title: 启用压缩
-      type: boolean
-      description: 启用压缩后上传的文件按压缩规则进行压缩后上传，压缩规则可在自定义配置参数管理
-      group: 主要属性
-      brifeDoc: ""
-      docDescription: 启用压缩后上传的文件按压缩规则进行压缩后上传，压缩规则可在自定义配置参数管理
       tooltipLink: ""
     - name: draggable
       title: 可拖拽
