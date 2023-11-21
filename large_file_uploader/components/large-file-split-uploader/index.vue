@@ -59,41 +59,37 @@
       <div v-if="description" :class="$style.description">
         {{ description }}
       </div>
-      <f-scroll-view
-        trigger="hover"
+      <div
         v-if="showErrorMessage && errorMessage.length"
+        :class="$style.errwrap"
       >
-        <div :class="$style.errwrap">
-          <div
-            v-for="errItem in errorMessage"
-            :key="errItem"
-            :class="$style.errmessage"
-          >
-            {{ errItem }}
-          </div>
+        <div
+          v-for="errItem in errorMessage"
+          :key="errItem"
+          :class="$style.errmessage"
+        >
+          {{ errItem }}
         </div>
-      </f-scroll-view>
+      </div>
     </template>
     <div :class="$style.list">
-      <div
-        :class="$style.item"
-        v-for="(item, index) in currentValue"
-        :key="index"
-      >
-        <a :class="$style.link" :href="item.url" target="_blank">{{
-          item.name
+      <div :class="$style.item">
+        <a :class="$style.link" :href="currentValue.url" target="_blank">{{
+          currentValue.name
         }}</a>
-        <i-ico
-          name="remove"
+        <img
           v-if="!readonly && !disabled"
           :class="$style.remove"
-          @click="remove(index)"
-        ></i-ico>
-        <u-linear-progress
-          v-if="item.showProgress"
+          :src="require('../../assets/remove.svg')"
+          @click="remove"
+          alt=""
+        />
+
+        <linear-progress
+          v-if="currentValue.showProgress"
           :class="$style.progress"
-          :percent="item.percent"
-        ></u-linear-progress>
+          :percent="currentValue.percent"
+        ></linear-progress>
       </div>
     </div>
   </div>
@@ -101,6 +97,7 @@
 
 <script>
 import ajax from "./ajax";
+import LinearProgress from "./comps/linear-progress.vue";
 
 const SIZE_UNITS = {
   kB: 1024,
@@ -111,9 +108,12 @@ const SIZE_UNITS = {
 };
 
 export default {
-  name: "u-uploader",
+  name: "large-file-split-uploader",
+  components: {
+    LinearProgress,
+  },
   props: {
-    value: [Array, String],
+    value: [String, Object],
     url: { type: String, required: true },
     name: { type: String, default: "file" },
     accept: String,
@@ -127,20 +127,12 @@ export default {
     converter: String,
     readonly: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    dragDescription: {
-      type: String,
-      default() {
-        return "点击/拖动/粘贴文件到这里";
-      },
-    },
+    dragDescription: { type: String, default: "点击/拖动/粘贴文件到这里" },
     description: String, // 上传限制描述等
     showErrorMessage: { type: Boolean, default: true },
     checkFile: [Function],
     authorization: { type: Boolean, default: true },
     access: { type: String, default: null },
-    ttl: { type: Boolean, default: null },
-    ttlValue: { type: Number, default: null },
-    viaOriginURL: { type: Boolean, default: false },
     lcapIsCompress: { type: Boolean, default: false },
   },
   data() {
@@ -174,47 +166,18 @@ export default {
   },
   methods: {
     fromValue(value) {
-      if (this.converter === "json")
-        try {
-          const parsedValue = JSON.parse(value || "[]");
-          return Array.isArray(parsedValue) ? parsedValue : [];
-        } catch (err) {
-          return [];
-        }
-      else if (this.converter === "simple")
-        try {
-          if (!value) {
-            const noFinished = (this.currentValue || []).some(
-              (item) => item.status === "uploading"
-            );
-            return (noFinished && this.currentValue) || [];
-          }
-          const values = value.split(",");
-          const currentValue = this.currentValue || [];
-          values.forEach((item, index) => {
-            currentValue[index] = currentValue[index] || {};
-            currentValue[index].url = values[index];
-            currentValue[index].name = this.handleFileName(values[index]);
-          });
-          return currentValue;
-        } catch (err) {
-          return [];
-        }
-      else return value || [];
+      if (this.converter === "json") {
+        return JSON.parse(value);
+      } else {
+        return value;
+      }
     },
     toValue(value) {
-      if (this.converter === "json")
-        return Array.isArray(value) && value.length === 0
-          ? null
-          : JSON.stringify(value);
-      if (this.converter === "simple")
-        return Array.isArray(value) && value.length === 0
-          ? null
-          : this.simpleConvert(value);
-      else return value;
-    },
-    simpleConvert(value) {
-      return value.map((x) => x.url || "").join(",");
+      if (this.converter === "json") {
+        return value ? JSON.stringify(value) : null;
+      } else {
+        return value || null;
+      }
     },
     getUrl(item) {
       return item.thumb || item.url || item;
@@ -225,61 +188,31 @@ export default {
       this.$refs.file.value = "";
       this.$refs.file.click();
     },
-    onChange(e) {
-        console.log('e', e)
-      const fileEl = e.target;
-
-      let files = fileEl.files;
-      if (!files && fileEl.value) {
-        // 老版浏览器不支持 files
-        const arr = fileEl.value.split(/[\\/]/g);
-        files = [
-          {
-            name: arr[arr.length - 1],
-            size: 0,
-          },
-        ];
-      }
-
-      if (!files) return;
-      this.upload(files);
+    onChange(event) {
+      // 大文件必为单文件上传，默认取文件集合的第一个元素
+      const file = event.target.files[0];
+      // 删除逻辑直接return
+      if (!file) return;
+      // 走上传逻辑
+      this.upload(file);
     },
-    checkSize(file) {
-      // 可能出现传入为空字符串的情况
-      if (this.maxSize === Infinity || this.maxSize === "") return true;
-
-      let maxSize;
-      if (!isNaN(this.maxSize)) maxSize = +this.maxSize;
-      else {
-        const unit = this.maxSize.slice(-2);
-        if (!SIZE_UNITS[unit])
-          throw new Error(`Unknown unit ${unit} in maxSize ${this.maxSize}!`);
-
-        maxSize = this.maxSize.slice(0, -2) * SIZE_UNITS[unit];
-      }
-
-      return (file.size || 0) <= maxSize;
-    },
-    /**
-     * 单文件上传
-     */
     upload(file) {
+      console.log("file", file);
+      // if (!this.checkFileOrigin(file)) return;
       if (
-        this.$emitPrevent(
+        this.$emit(
           "before-upload",
           {
             file,
           },
           this
         )
-      )
-        return null;
-
-      const item = {
-        uid:
-          file.uid !== undefined
-            ? file.uid
-            : Date.now() + this.currentValue.length,
+      ) {
+        // todo
+        console.log("上传前可以取消上传");
+      }
+      this.currentValue = {
+        uid: file.uid ? file.uid : Date.now(),
         status: "uploading",
         name: file.name,
         size: file.size,
@@ -287,258 +220,62 @@ export default {
         showProgress: true,
       };
 
-      this.currentValue.splice(0, this.currentValue.length);
-      this.currentValue.push(item);
-
-      this.post(file, item, this.currentValue.length - 1);
-
-      return item;
+      this.uploadChunk(file);
     },
-    post(file, item, index) {
-      let Authorization = null;
-      if (this.authorization) {
-        Authorization = this.getCookie("authorization") || null;
-      }
-      const headers = {
-        ...this.headers,
-        Authorization,
-      };
-      if (this.access !== null) {
-        headers["lcap-access"] = this.access;
-      }
-      if (this.ttlValue !== null) {
-        if (this.ttl !== null) {
-          headers["lcap-ttl"] = this.ttl ? this.ttlValue : -1;
+    uploadChunk(file) {
+      // 分片上传
+      const chunkSize = 50 * 1024 * 1024; // 50MB
+      const minLastChunkSize = 5 * 1024 * 1024; // 5MB
+      let chunkEndFlag = Math.ceil(file.size / chunkSize);
+      let totalChunks = Math.floor(file.size / chunkSize) - 1;
+      let start = 0;
+      const chunks = [];
+      for (let chunkNumber = 0; chunkNumber < chunkEndFlag; chunkNumber++) {
+        let chunk;
+        if (chunkNumber === chunkEndFlag - 1) {
+          if (file.size - start < minLastChunkSize && chunkEndFlag > 1) {
+            chunk = file.slice(start - chunkSize, file.size);
+            chunks.pop();
+            chunks.push(chunk);
+          }
         } else {
-          headers["lcap-ttl"] = this.ttlValue;
+          chunk = file.slice(start, start + chunkSize);
+          chunks.push(chunk);
+        }
+        start += chunkSize;
+      }
+
+      this.postChunk(chunks, totalChunks);
+    },
+    async postChunk(chunks, totalChunks) {
+      // 分开两个循环，方便维护
+      let chunkNumber = 0;
+      for (const chunk of chunks) {
+        try {
+          await this.post(chunk, chunkNumber++, totalChunks);
+          // 异步函数执行成功，继续下一轮循环
+        } catch (error) {
+          console.error("异步函数执行失败:", error);
+          break; // 异步函数执行失败，退出循环
         }
       }
-      if (window.appInfo && window.appInfo.domainName)
-        headers.DomainName = window.appInfo.domainName;
-      const url = this.$formatMicroFrontUrl
-        ? this.$formatMicroFrontUrl(this.url)
-        : this.url;
-      const formData = {
-        ...this.data,
-        lcapIsCompress: this.lcapIsCompress,
-        viaOriginURL: this.viaOriginURL,
-      };
-      const requestData = {
-        url,
-        headers,
-        withCredentials: this.withCredentials,
-        file,
-        data: formData,
-        name: this.name,
-      };
-      const xhr = ajax({
-        ...requestData,
-        onProgress: (e) => {
-          const item = this.currentValue[index];
-          item.percent = e.percent;
-
-          this.$emit(
-            "progress",
-            {
-              e,
-              file,
-              item,
-              xhr,
-            },
-            this
+    },
+    post(chunk, chunkNumber, totalChunks) {
+      return new Promise((resolve, reject) => {
+        // 模拟异步操作，这里使用setTimeout代替实际的异步函数
+        setTimeout(() => {
+          // 假设异步操作成功
+          console.log(
+            "chunk, chunkNumber, totalChunks",
+            chunk,
+            chunkNumber,
+            totalChunks
           );
-        },
-        onSuccess: (res) => {
-          const item = this.currentValue[index];
-          item.status = "success";
-          if (res[this.urlField]) {
-            const url = res[this.urlField];
-            item.url = url;
-            if (Array.isArray(url)) {
-              item.url = url.join(",");
-            }
-          }
-          item.response = res;
-          item.showProgress = false;
-          if (item.url) {
-            item.name = this.handleFileName(item.url);
-          }
-          // 一次上传多个文件，返回数据是数组，需要处理
-          if (res[this.urlField]) {
-            const url = res[this.urlField];
-            if (Array.isArray(url)) {
-              this.currentValue.splice(this.currentValue.length - 1, 1);
-              url.forEach((urlTemp, urlIndex) => {
-                const urlItem = {
-                  status: "success",
-                  name: urlTemp
-                    ? this.handleFileName(urlTemp)
-                    : file[urlIndex].name,
-                  size: file[urlIndex].size,
-                  showProgress: false,
-                  url: urlTemp,
-                };
-                this.currentValue.push(urlItem);
-              });
-            }
-          }
-
-          const value = this.toValue(this.currentValue);
-          this.$emit("input", value);
-          this.$emit("update:value", value);
-
-          this.$emit(
-            "success",
-            {
-              res,
-              file,
-              item,
-              xhr,
-            },
-            this
-          );
-        },
-        onError: (e, res) => {
-          const item = this.currentValue[index];
-          item.status = "error";
-
-          const value = this.toValue(this.currentValue);
-          this.$emit("input", value);
-          this.$emit("update:value", value);
-          const errorMessage = `文件${item.name}上传接口调用失败`;
-          this.errorMessage.push(errorMessage);
-
-          this.$emit(
-            "error",
-            {
-              e,
-              res,
-              file,
-              item,
-              xhr,
-            },
-            this
-          );
-        },
+          resolve();
+          // 假设异步操作失败
+          // reject(new Error('异步操作失败'));
+        }, 1000);
       });
-    },
-    remove(index) {
-      const item = this.currentValue[index];
-      if (!item) return;
-
-      if (
-        this.$emitPrevent(
-          "before-remove",
-          {
-            oldValue: this.currentValue,
-            item,
-            index,
-          },
-          this
-        )
-      )
-        return;
-
-      this.currentValue.splice(index, 1);
-
-      this.$emit(
-        "remove",
-        {
-          value: this.currentValue,
-          item,
-          index,
-        },
-        this
-      );
-    },
-    clear() {
-      if (
-        this.$emitPrevent("before-clear", { oldValue: this.currentValue }, this)
-      )
-        return;
-
-      this.currentValue.splice(0, this.currentValue.length);
-
-      this.$emit("clear", { value: this.currentValue }, this);
-    },
-    onDrop(e) {
-      this.dragover = false;
-      if (this.readonly || this.disabled) return;
-
-      this.upload(e.dataTransfer.files);
-    },
-    onPaste(e) {
-      if (this.readonly || this.disabled) return;
-      if (this.pastable) this.upload(e.clipboardData.files);
-    },
-    /**
-     * 验证文件：包括文件大小，用户自定义验证函数调用
-     */
-    async checkFiles(files) {
-      const validFiles = [];
-      const tasks = files.map(async (file) => {
-        if (!this.checkSize(file)) {
-          const errorMessage = `文件${file.name} ${file.size}超出大小${this.maxSize}！`;
-          this.$emit("size-exceed", {
-            maxSize: this.maxSize,
-            size: file.size,
-            message: errorMessage,
-            name: file.name,
-            file,
-          });
-          this.errorMessage.push(errorMessage);
-          return null;
-        }
-        if (this.accept) {
-          const extension = (
-            file.name.indexOf(".") > -1 ? `.${file.name.split(".").pop()}` : ""
-          ).toLowerCase();
-          const type = file.type.toLowerCase();
-          const baseType = type.replace(/\/.*$/, "").toLowerCase();
-          const accept = this.accept
-            .split(",")
-            .map((type) => type.trim())
-            .filter((type) => type)
-            .some((acceptedType) => {
-              acceptedType = acceptedType.toLowerCase();
-              if (/^\..+$/.test(acceptedType)) {
-                return extension.toLowerCase() === acceptedType;
-              }
-              if (/\/\*$/.test(acceptedType)) {
-                return baseType === acceptedType.replace(/\/\*$/, "");
-              }
-              if (/^[^\/]+\/[^\/]+$/.test(acceptedType)) {
-                return type === acceptedType;
-              }
-              return false;
-            });
-          if (!accept) {
-            this.errorMessage.push(
-              "文件类型不匹配，请上传" + this.accept + "的文件类型"
-            );
-            return null;
-          }
-        }
-        if (
-          this.checkFile &&
-          (this.checkFile instanceof Promise ||
-            typeof this.checkFile === "function")
-        ) {
-          const message = await this.checkFile(file);
-          if (message) {
-            this.$emit("check-file", {
-              file,
-              message,
-              name: file.name,
-            });
-            this.errorMessage.push(message);
-            return null;
-          }
-        }
-        validFiles.push(file);
-      });
-      await Promise.all(tasks);
-      return validFiles;
     },
     getCookie(cname) {
       const name = `${cname}=`;
@@ -549,16 +286,34 @@ export default {
       }
       return "";
     },
-    // 展示时使用接口返回路径对应的文件名
-    handleFileName(url) {
-      const match = url.match(/\/([^/]+)$/);
-      return match ? match[1] : null;
+    remove() {
+      if (!this.currentValue) return;
+      if (
+        this.$emitPrevent(
+          "before-remove",
+          {
+            oldValue: this.currentValue,
+          },
+          this
+        )
+      )
+        return;
+
+      this.currentValue = "";
+
+      this.$emit(
+        "remove",
+        {
+          value: this.currentValue,
+        },
+        this
+      );
     },
   },
 };
 </script>
 
-<style module>
+<style module scoped>
 .root {
   display: block;
   position: relative;
@@ -610,17 +365,14 @@ export default {
   display: inline-block;
   vertical-align: middle;
 }
+
 .img {
   max-width: 100%;
   max-height: 100%;
 }
 
-.list {
-  /* min-width: 400px; */
-}
-
 .list .thumb::before {
-  icon-font: url("./assets/attachment.svg");
+  icon-font: url("../../assets/attachment.svg");
   float: left;
   margin-right: 8px;
   color: var(--uploader-item-icon-color);
@@ -694,11 +446,11 @@ export default {
 }
 
 .button[role="download"]::before {
-  icon-font: url("./assets/download.svg");
+  icon-font: url("../../assets/download.svg");
 }
 
 .button[role="remove"]::before {
-  icon-font: url("./assets/trashcan.svg");
+  icon-font: url("../../assets/trashcan.svg");
 }
 
 .draggable {
@@ -722,9 +474,10 @@ export default {
 
 .draggable::before {
   font-size: 24px;
-  icon-font: url("./assets/upload.svg");
+  icon-font: url("../../assets/upload.svg");
   color: var(--uploader-draggable-icon-color);
 }
+
 .draggable:focus::before,
 .draggable[dragover]::before {
   color: var(--uploader-draggable-color-hover);
@@ -734,6 +487,7 @@ export default {
   margin-bottom: 10px;
   color: var(--uploader-draggable-color);
 }
+
 .errwrap {
   max-height: var(--uploader-error-box-height);
   padding: 0 5px 5px 0;
@@ -748,8 +502,9 @@ export default {
   margin: 4px 0;
   font-size: 12px;
 }
+
 .errmessage::before {
-  /* icon-font: url("../i-icon.vue/assets/warning.svg"); */
+  icon-font: url("../../assets/warning.svg");
   font-size: 12px;
   margin-left: 1px;
   margin-right: 4px;
@@ -766,10 +521,12 @@ export default {
   margin: 4px 0;
   font-size: 12px;
 }
+
 .cardwrap .description,
 .cardwrap .errmessage {
   margin-left: var(--uploader-card-space);
 }
+
 .cardwrap .errwrap {
   max-width: var(--uploader-error-box-max-width);
 }

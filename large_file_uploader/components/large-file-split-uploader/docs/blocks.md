@@ -3,7 +3,7 @@
 下面的例子为单文件上传。
 
 ```html
-<u-uploader
+<large-file-split-uploader
   display="inline"
   url="/upload"
   url-field="filePath"
@@ -12,5 +12,5 @@
   converter="json"
 >
   <u-button color="primary" icon="upload">上传</u-button>
-</u-uploader>
+</large-file-split-uploader>
 ```

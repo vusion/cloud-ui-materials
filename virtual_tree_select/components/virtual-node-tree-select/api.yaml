@@ -8,10 +8,16 @@
       type: array
       default: ''
       description: 需要传入的值
+      sync: true
+      model: true
     - name: data
       type: array
       default: ''
-      description: 'options选项，形如[ {id: **, name: **},... ]'
+      description: 'options选项，形如[ {id: **, name: **, children: [...]},... ]'
+    - name: placeholder
+      type: string
+      default: 请选择
+      description: 'placeholder'
   events:
     - name: change
       title: 值改变时

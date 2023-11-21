@@ -7,7 +7,7 @@
       keyField="id"
       checkable
       clearable
-      drop-placeholder="请选择"
+      :drop-placeholder="placeholder"
       placement="bottom-start"
       :dropdown-min-width="300"
       dropdown-width-fixed
@@ -32,11 +32,14 @@ export default {
       type: Array,
       default: () => [],
     },
+    placeholder: {
+      type: String,
+      default: "请选择",
+    },
   },
   methods: {
     handleCheckedChange(value) {
-      this.$emit("change", value);
-      this.$emit("update:value", value);
+        this.$emit("change", value);
     },
   },
 };
