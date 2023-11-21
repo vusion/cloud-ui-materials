@@ -1,5 +1,5 @@
 <template>
-  <div :class="{readonly}"></div>
+  <div :class="{readonly: readonly && !$env.VUE_APP_DESIGNER}"></div>
 </template>
 
 <script>
@@ -58,7 +58,7 @@ export default {
     readonly: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   data() {
     return {

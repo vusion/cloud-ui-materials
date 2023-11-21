@@ -2,7 +2,7 @@
   "name": "lucky_wheel",
   "title": "抽奖大转盘",
   "description": "",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
