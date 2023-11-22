@@ -74,22 +74,26 @@
     </template>
     <div :class="$style.list">
       <div :class="$style.item">
-        <a :class="$style.link" :href="currentValue.url" target="_blank">{{
-          currentValue.name
-        }}</a>
-        <img
-          v-if="!readonly && !disabled"
-          :class="$style.remove"
-          :src="require('../../assets/remove.svg')"
-          @click="remove"
-          alt=""
-        />
-
+        <a
+          v-if="!currentValue.showProgress"
+          :class="$style.link"
+          :href="currentValue.url"
+          download
+          >{{ currentValue.name }}</a
+        >
+        {{ currentValue.percent }}
         <linear-progress
           v-if="currentValue.showProgress"
           :class="$style.progress"
           :percent="currentValue.percent"
         ></linear-progress>
+        <img
+          v-else-if="!readonly && !disabled"
+          :class="$style.remove"
+          :src="require('../../assets/remove.svg')"
+          @click="remove"
+          alt=""
+        />
       </div>
     </div>
   </div>
@@ -98,14 +102,6 @@
 <script>
 import ajax from "./ajax";
 import LinearProgress from "./comps/linear-progress.vue";
-
-const SIZE_UNITS = {
-  kB: 1024,
-  KB: 1024, // 兼容KB单位
-  MB: Math.pow(1024, 2),
-  GB: Math.pow(1024, 3),
-  TB: Math.pow(1024, 4),
-};
 
 export default {
   name: "large-file-split-uploader",
@@ -117,7 +113,7 @@ export default {
     url: { type: String, required: true },
     name: { type: String, default: "file" },
     accept: String,
-    headers: Object,
+    headers: { type: Object, default: () => ({}) },
     withCredentials: { type: Boolean, default: false },
     data: Object,
     maxSize: { type: [String, Number], default: Infinity },
@@ -222,7 +218,7 @@ export default {
 
       this.uploadChunk(file);
     },
-    uploadChunk(file) {
+    async uploadChunk(file) {
       // 分片上传
       const chunkSize = 50 * 1024 * 1024; // 50MB
       const minLastChunkSize = 5 * 1024 * 1024; // 5MB
@@ -243,8 +239,9 @@ export default {
         }
         start += chunkSize;
       }
-      const fileName = file.name + new Date().getTime();
-      this.postChunk(chunks, chunks.length, fileName);
+      const fileName = new Date().getTime() + "_" + file.name;
+      await this.postChunk(chunks, chunks.length, fileName);
+      this.post(file, totalChunks, totalChunks, file.size, fileName, true);
     },
     async postChunk(chunks, totalChunks, fileName) {
       // 分开两个循环，方便维护
@@ -261,15 +258,14 @@ export default {
           // 异步函数执行成功，继续下一轮循环
         } catch (error) {
           console.error("异步函数执行失败:", error);
-          break; // 异步函数执行失败，退出循环
+          return Promise.reject();
         }
       }
+      return Promise.resolve();
     },
-    post(chunk, chunkNumber, totalChunks, totalSize, fileName) {
+    post(chunk, chunkNumber, totalChunks, totalSize, fileName, isMerge) {
       return new Promise((resolve, reject) => {
-        // 模拟异步操作，这里使用setTimeout代替实际的异步函数
         const {
-          lcapIsCompress,
           data,
           getCookie,
           headers,
@@ -290,7 +286,8 @@ export default {
           window.appInfo &&
             window.appInfo.domainName && {
               DomainName: window.appInfo.domainName,
-            }
+            },
+          isMerge && { operation: "merge" }
         );
         const formData = {
           ...data,
@@ -310,11 +307,17 @@ export default {
           data: formData,
           headers: headersReq,
         };
+        let percent = this.currentValue.percent;
         const xhr = ajax({
           ...requestData,
           onProgress: (e) => {
-            this.currentValue.percent = e.percent;
-
+            console.log("e.percent", e.percent);
+            this.currentValue = {
+              name: fileName,
+              status: "uploading",
+              percent: parseInt(percent + e.percent / (totalChunks + 1)),
+              showProgress: true,
+            };
             this.$emit(
               "progress",
               {
@@ -342,6 +345,15 @@ export default {
             const value = this.toValue(this.currentValue);
             this.$emit("input", value);
             this.$emit("update:value", value);
+            console.log("res", res);
+            if (isMerge) {
+              this.currentValue = {
+                url: res.result,
+                name: fileName,
+                percent: 0,
+                showProgress: false,
+              };
+            }
             resolve();
 
             this.$emit(
@@ -388,35 +400,27 @@ export default {
       }
       return "";
     },
-    remove(index) {
-      const item = this.currentValue[index];
-      if (!item) return;
-      this.modalVisible = false;
+    remove() {
+      this.currentValue = "";
 
       if (
-        this.$emitPrevent(
+        this.$emit(
           "before-remove",
           {
             oldValue: this.currentValue,
-            item,
-            index,
+            item: this.currentValue,
           },
           this
         )
       )
-        return;
-
-      this.currentValue.splice(index, 1);
-
-      this.$emit(
-        "remove",
-        {
-          value: this.currentValue,
-          item,
-          index,
-        },
-        this
-      );
+        this.$emit(
+          "remove",
+          {
+            value: this.currentValue,
+            item: this.currentValue,
+          },
+          this
+        );
     },
   },
 };
