@@ -44,6 +44,7 @@
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
+  "lcapVersion": "0.3.0",
   "template": {
     "inited": true
   },

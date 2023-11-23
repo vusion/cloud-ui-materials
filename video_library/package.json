@@ -47,6 +47,7 @@
   "template": {
     "inited": true
   },
+  "lcapVersion": "0.3.0",
   "dependencies": {
     "video.js": "^7.20.3"
   }

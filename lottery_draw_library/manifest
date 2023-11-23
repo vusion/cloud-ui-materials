@@ -1,0 +1,8 @@
+Plugin-Version: 1.0.0
+Library-Type: Frontend
+Metadata-File: usage.json
+packages/extension/lottery_draw_library@0.1.0/dist-theme/demo.html: dist-theme/demo.html
+packages/extension/lottery_draw_library@0.1.0/dist-theme/img/prize.a15d9c62.png: dist-theme/img/prize.a15d9c62.png
+packages/extension/lottery_draw_library@0.1.0/dist-theme/img/start_huyu.821d7412.png: dist-theme/img/start_huyu.821d7412.png
+packages/extension/lottery_draw_library@0.1.0/dist-theme/index.js: dist-theme/index.js
+packages/extension/lottery_draw_library@0.1.0/dist-theme/index.js.map: dist-theme/index.js.map

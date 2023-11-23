@@ -23,6 +23,7 @@
     "prepublishOnly": "npm run build && lcap usage",
     "release": "lcap publish"
   },
+  "lcapVersion": "0.3.0",
   "vuePlugins": {},
   "babel": {},
   "vusion": {

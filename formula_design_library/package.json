@@ -40,6 +40,7 @@
     "cloud-ui.vusion": "^0.11.20",
     "vue": "^2.6.10"
   },
+  "lcapVersion": "0.3.0",
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"

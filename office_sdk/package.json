@@ -47,6 +47,7 @@
   "template": {
     "inited": true
   },
+  "lcapVersion": "0.3.0",
   "dependencies": {
     "@babel/traverse": "^7.22.6",
     "docx-preview": "^0.1.18",

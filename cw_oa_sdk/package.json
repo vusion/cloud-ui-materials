@@ -28,6 +28,7 @@
   "vusion": {
     "ui": "cloud-ui.vusion"
   },
+  "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
     "cloud-ui.vusion": "^0.11.20",

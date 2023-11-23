@@ -47,6 +47,7 @@
   "template": {
     "inited": true
   },
+  "lcapVersion": "0.3.0",
   "dependencies": {
     "@lucky-canvas/vue": "^0.1.11"
   }
