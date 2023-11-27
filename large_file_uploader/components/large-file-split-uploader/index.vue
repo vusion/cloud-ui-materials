@@ -72,7 +72,14 @@
         </div>
       </div>
     </template>
-    <div :class="$style.list">
+    <div
+      v-if="
+        !$env.VUE_APP_DESIGNER &&
+        currentValue.status &&
+        currentValue.status === 'uploading'
+      "
+      :class="$style.list"
+    >
       <div :class="$style.item">
         <a
           v-if="!currentValue.showProgress"
@@ -81,7 +88,6 @@
           download
           >{{ currentValue.name }}</a
         >
-        {{ currentValue.percent }}
         <linear-progress
           v-if="currentValue.showProgress"
           :class="$style.progress"
@@ -109,7 +115,7 @@ export default {
     LinearProgress,
   },
   props: {
-    value: [String, Object],
+    largeValue: [String, Object],
     url: { type: String, required: true },
     name: { type: String, default: "file" },
     accept: String,
@@ -132,7 +138,7 @@ export default {
   },
   data() {
     return {
-      currentValue: this.fromValue(this.value),
+      currentValue: this.fromValue(this.largeValue),
       sending: false,
       file: {},
       dragover: false,
@@ -147,7 +153,7 @@ export default {
       handler(currentValue, oldValue) {
         const value = this.toValue(currentValue);
         this.$emit("input", value);
-        this.$emit("update:value", value);
+        this.$emit("update:largeValue", value);
         this.$emit(
           "change",
           {
@@ -161,8 +167,9 @@ export default {
   },
   methods: {
     fromValue(value) {
+      console.log("value", value);
       if (this.converter === "json") {
-        return JSON.parse(value);
+        return JSON.parse(value || "{}");
       } else {
         return value;
       }
@@ -180,7 +187,7 @@ export default {
     select() {
       if (this.readonly || this.disabled || this.sending) return;
 
-      this.$refs.file.value = "";
+      this.$refs.file.largeValue = "";
       this.$refs.file.click();
     },
     onChange(event) {
@@ -193,6 +200,7 @@ export default {
     },
     upload(file) {
       console.log("file", file);
+      this.errorMessage = [];
       // todo
       // if (!this.checkFileOrigin(file)) return;
       if (
@@ -220,7 +228,7 @@ export default {
     },
     async uploadChunk(file) {
       // 分片上传
-      const chunkSize = 50 * 1024 * 1024; // 50MB
+      const chunkSize = 40 * 1024 * 1024; // 50MB
       const minLastChunkSize = 5 * 1024 * 1024; // 5MB
       let totalChunks = Math.ceil(file.size / chunkSize);
       let start = 0;
@@ -231,6 +239,9 @@ export default {
           if (file.size - start < minLastChunkSize && totalChunks > 1) {
             chunk = file.slice(start - chunkSize, file.size);
             chunks.pop();
+            chunks.push(chunk);
+          } else {
+            chunk = file.slice(start, file.size);
             chunks.push(chunk);
           }
         } else {
@@ -244,6 +255,7 @@ export default {
       this.post(file, totalChunks, totalChunks, file.size, fileName, true);
     },
     async postChunk(chunks, totalChunks, fileName) {
+      console.log("chunks", chunks);
       // 分开两个循环，方便维护
       let chunkNumber = 1;
       for (const chunk of chunks) {
@@ -287,22 +299,23 @@ export default {
             window.appInfo.domainName && {
               DomainName: window.appInfo.domainName,
             },
+          { "Transfer-Encoding": "chunked" },
           isMerge && { operation: "merge" }
         );
         const formData = {
           ...data,
           totalSize,
           fileName,
-          file: chunk,
           chunkSize: chunk.size,
           currentChunkSize: chunk.size,
+          file: isMerge ? new Blob() : chunk,
           chunkNumber,
           totalChunks,
         };
+        console.log("chunk", formData);
         const requestData = {
           url: "/split/upload",
           withCredentials,
-          file: chunk,
           name,
           data: formData,
           headers: headersReq,
@@ -330,48 +343,49 @@ export default {
             );
           },
           onSuccess: (res) => {
-            this.currentValue.status = "success";
-            if (res[this.urlField]) {
-              const url = res[this.urlField];
-              this.currentValue.url = url;
-            }
-            this.currentValue.response = res;
-            this.currentValue.showProgress = false;
-            if (this.currentValue.url) {
-              this.currentValue.name = this.handleFileName(
-                this.currentValue.url
-              );
-            }
-            const value = this.toValue(this.currentValue);
-            this.$emit("input", value);
-            this.$emit("update:value", value);
-            console.log("res", res);
             if (isMerge) {
+              if (res[this.urlField]) {
+                const url = res[this.urlField];
+                this.currentValue.url = url;
+              }
+              this.currentValue.response = res;
+              this.currentValue.showProgress = false;
+              if (this.currentValue.url) {
+                this.currentValue.name = this.handleFileName(
+                  this.currentValue.url
+                );
+              }
+              const value = this.toValue(this.currentValue);
+              this.$emit("input", value);
+              this.$emit("update:largeValue", value);
+              console.log("res", res);
               this.currentValue = {
                 url: res.result,
                 name: fileName,
                 percent: 0,
                 showProgress: false,
+                status: "success",
               };
+              resolve();
+              this.$emit(
+                "success",
+                {
+                  res,
+                  file: chunk,
+                  item: this.currentValue,
+                  xhr,
+                },
+                this
+              );
             }
             resolve();
-
-            this.$emit(
-              "success",
-              {
-                res,
-                file: chunk,
-                item: this.currentValue,
-                xhr,
-              },
-              this
-            );
           },
+
           onError: (e, res) => {
             this.currentValue.status = "error";
             const value = this.toValue(this.currentValue);
             this.$emit("input", value);
-            this.$emit("update:value", value);
+            this.$emit("update:largeValue", value);
             const errorMessage = `文件${this.currentValue.name}上传接口调用失败`;
             this.errorMessage.push(errorMessage);
             reject();
@@ -401,8 +415,6 @@ export default {
       return "";
     },
     remove() {
-      this.currentValue = "";
-
       if (
         this.$emit(
           "before-remove",
@@ -412,21 +424,24 @@ export default {
           },
           this
         )
-      )
-        this.$emit(
-          "remove",
-          {
-            value: this.currentValue,
-            item: this.currentValue,
-          },
-          this
-        );
+      ) {
+      }
+
+      this.currentValue = this.converter === "json" ? {} : "";
+      this.$emit(
+        "remove",
+        {
+          value: this.currentValue,
+          item: this.currentValue,
+        },
+        this
+      );
     },
   },
 };
 </script>
 
-<style module scoped>
+<style module>
 .root {
   display: block;
   position: relative;
@@ -617,16 +632,12 @@ export default {
 }
 
 .errmessage::before {
-  icon-font: url("../../assets/warning.svg");
-  font-size: 12px;
+  display: block;
+  height: 12px;
+  width: 12px;
   margin-left: 1px;
   margin-right: 4px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 48%,
-    rgba(255, 255, 255, 0) 48%
-  );
+  background: url("../../assets/warning.svg");
 }
 
 .description {

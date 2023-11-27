@@ -17,7 +17,7 @@
       default: false
       description: ""
       advanced: true
-    - name: value
+    - name: largeValue
       title: 值
       type: string
       sync: true

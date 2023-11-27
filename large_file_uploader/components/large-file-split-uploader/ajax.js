@@ -42,7 +42,6 @@ export default function upload(options) {
             options.onProgress(e);
         };
     }
-
     const formData = new FormData();
 
     if (options.data) {
@@ -50,9 +49,6 @@ export default function upload(options) {
             formData.append(key, options.data[key]);
         });
     }
-
-    const files = options.file.length ? Array.from(options.file) : [options.file];
-    files.forEach((file) => formData.append(options.name, file, file.name));
 
     xhr.onerror = function onerror(e) {
         options.onError(e);
