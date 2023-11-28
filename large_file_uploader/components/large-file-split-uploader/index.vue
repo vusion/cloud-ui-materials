@@ -22,15 +22,25 @@
         @click.stop
         @change="onChange"
       />
-      <div>
-        <div
-          v-if="dragDescription"
-          vusion-slot-name="dragDescription"
-          :class="$style.dragDescription"
-        >
-          <slot name="dragDescription">{{ dragDescription }}</slot>
-        </div>
-        <slot></slot>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M18.5349 9.44679L18.3493 8.59993C17.7098 5.6824 15.108 3.49951 12 3.49951C8.89196 3.49951 6.29024 5.6824 5.65073 8.59993L5.4651 9.44679L4.63864 9.70869C2.81715 10.2859 1.5 11.9908 1.5 13.9995C1.5 16.4848 3.51472 18.4995 6 18.4995H8V19.9995H6C2.68629 19.9995 0 17.3132 0 13.9995C0 11.3183 1.75873 9.04778 4.18552 8.27876C4.97271 4.68751 8.17245 1.99951 12 1.99951C15.8276 1.99951 19.0273 4.68751 19.8145 8.27876C22.2413 9.04778 24 11.3183 24 13.9995C24 17.3132 21.3137 19.9995 18 19.9995H16V18.4995H18C20.4853 18.4995 22.5 16.4848 22.5 13.9995C22.5 11.9908 21.1829 10.2859 19.3614 9.70869L18.5349 9.44679Z"
+          fill="#CCCCCC"
+        />
+        <path
+          d="M12.75 12.3101V19.9995H11.25V12.3103L8.78771 14.7726L7.72705 13.7119L11.9697 9.46927L12 9.49958L12.0304 9.46916L16.2731 13.7118L15.2124 14.7725L12.75 12.3101Z"
+          fill="#CCCCCC"
+        />
+      </svg>
+
+      <div v-if="dragDescription" :class="$style.dragDescription">
+        <span>{{ dragDescription }}</span>
       </div>
     </div>
     <div
@@ -60,7 +70,7 @@
         {{ description }}
       </div>
       <div
-        v-if="showErrorMessage && errorMessage.length"
+        v-if="showErrorMessage && errorMessage && errorMessage.length"
         :class="$style.errwrap"
       >
         <div
@@ -75,8 +85,8 @@
     <div
       v-if="
         !$env.VUE_APP_DESIGNER &&
-        currentValue.status &&
-        currentValue.status === 'uploading'
+        currentValue &&
+        (currentValue.url || currentValue.showProgress)
       "
       :class="$style.list"
     >
@@ -93,13 +103,28 @@
           :class="$style.progress"
           :percent="currentValue.percent"
         ></linear-progress>
-        <img
+        <svg
+          t="1701087344377"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="3935"
+          width="14"
+          height="14"
           v-else-if="!readonly && !disabled"
           :class="$style.remove"
-          :src="require('../../assets/remove.svg')"
           @click="remove"
-          alt=""
-        />
+        >
+          <path
+            d="M478.016 352.704v445.952H545.92V352.704H478.08zM318.912 798.72V352.64h68.032v445.952H318.912zM638.528 352.704v445.952h67.968V352.704H638.528z"
+            p-id="3936"
+          ></path>
+          <path
+            d="M452.032 64c-56.32 0-102.016 45.44-102.016 101.568v25.856H64V259.2h94.016v599.296A101.76 101.76 0 0 0 259.968 960h504c56.32 0 102.016-45.44 102.016-101.568V259.2H960V191.36h-286.016v-25.856A101.76 101.76 0 0 0 572.032 64H452.032z m153.984 127.424H417.92v-25.856a33.92 33.92 0 0 1 34.048-33.92h120a33.92 33.92 0 0 1 33.92 33.92v25.856zM225.92 858.432V259.2h572.032v599.296a33.92 33.92 0 0 1-33.984 33.92H259.904a33.92 33.92 0 0 1-33.92-33.92z"
+            p-id="3937"
+          ></path>
+        </svg>
       </div>
     </div>
   </div>
@@ -108,38 +133,42 @@
 <script>
 import ajax from "./ajax";
 import LinearProgress from "./comps/linear-progress.vue";
+import Field from "./comps/field.vue";
 
 export default {
   name: "large-file-split-uploader",
+  mixins: [Field],
   components: {
     LinearProgress,
   },
   props: {
-    largeValue: [String, Object],
+    value: [String, Object],
     url: { type: String, required: true },
     name: { type: String, default: "file" },
     accept: String,
     headers: { type: Object, default: () => ({}) },
     withCredentials: { type: Boolean, default: false },
     data: Object,
-    maxSize: { type: [String, Number], default: Infinity },
     urlField: { type: String, default: "url" },
     draggable: { type: Boolean, default: false },
     pastable: { type: Boolean, default: false },
     converter: String,
     readonly: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    dragDescription: { type: String, default: "点击/拖动/粘贴文件到这里" },
+    dragDescription: {
+      type: String,
+      default() {
+        return "点击/拖动/粘贴文件到这里";
+      },
+    },
     description: String, // 上传限制描述等
     showErrorMessage: { type: Boolean, default: true },
-    checkFile: [Function],
     authorization: { type: Boolean, default: true },
     access: { type: String, default: null },
   },
   data() {
     return {
-      currentValue: this.fromValue(this.largeValue),
-      sending: false,
+      currentValue: this.fromValue(this.value),
       file: {},
       dragover: false,
       errorMessage: [],
@@ -153,7 +182,7 @@ export default {
       handler(currentValue, oldValue) {
         const value = this.toValue(currentValue);
         this.$emit("input", value);
-        this.$emit("update:largeValue", value);
+        this.$emit("update:value", value);
         this.$emit(
           "change",
           {
@@ -166,31 +195,45 @@ export default {
     },
   },
   methods: {
+    onDrop(e) {
+      this.dragover = false;
+      if (this.readonly || this.disabled) return;
+      this.upload(e.dataTransfer.files[0]);
+    },
+    onPaste(e) {
+      if (this.readonly || this.disabled) return;
+      if (this.pastable) this.upload(e.clipboardData.files[0]);
+    },
     fromValue(value) {
-      console.log("value", value);
+      if (this.$env.VUE_APP_DESIGNER) return {};
       if (this.converter === "json") {
         return JSON.parse(value || "{}");
       } else {
-        return value;
+        if (!value) {
+          return {};
+        }
+        return { url: value, name: this.handleFileName(value) };
       }
     },
     toValue(value) {
+      console.log("toValue", value);
       if (this.converter === "json") {
         return value ? JSON.stringify(value) : null;
       } else {
-        return value || null;
+        return value.url || null;
       }
     },
     getUrl(item) {
       return item.thumb || item.url || item;
     },
     select() {
-      if (this.readonly || this.disabled || this.sending) return;
+      if (this.readonly || this.disabled) return;
 
-      this.$refs.file.largeValue = "";
+      this.$refs.file.value = "";
       this.$refs.file.click();
     },
     onChange(event) {
+      console.log("event", event.target);
       // 大文件必为单文件上传，默认取文件集合的第一个元素
       const file = event.target.files[0];
       // 删除逻辑直接return
@@ -199,22 +242,14 @@ export default {
       this.upload(file);
     },
     upload(file) {
-      console.log("file", file);
       this.errorMessage = [];
-      // todo
-      // if (!this.checkFileOrigin(file)) return;
-      if (
-        this.$emit(
-          "before-upload",
-          {
-            file,
-          },
-          this
-        )
-      ) {
-        // todo
-        console.log("上传前可以取消上传");
-      }
+      this.$emit(
+        "before-upload",
+        {
+          file,
+        },
+        this
+      );
       this.currentValue = {
         uid: file.uid ? file.uid : Date.now(),
         status: "uploading",
@@ -228,7 +263,7 @@ export default {
     },
     async uploadChunk(file) {
       // 分片上传
-      const chunkSize = 40 * 1024 * 1024; // 50MB
+      const chunkSize = 40 * 1024 * 1024; // 40MB
       const minLastChunkSize = 5 * 1024 * 1024; // 5MB
       let totalChunks = Math.ceil(file.size / chunkSize);
       let start = 0;
@@ -299,7 +334,6 @@ export default {
             window.appInfo.domainName && {
               DomainName: window.appInfo.domainName,
             },
-          { "Transfer-Encoding": "chunked" },
           isMerge && { operation: "merge" }
         );
         const formData = {
@@ -312,7 +346,6 @@ export default {
           chunkNumber,
           totalChunks,
         };
-        console.log("chunk", formData);
         const requestData = {
           url: "/split/upload",
           withCredentials,
@@ -324,7 +357,6 @@ export default {
         const xhr = ajax({
           ...requestData,
           onProgress: (e) => {
-            console.log("e.percent", e.percent);
             this.currentValue = {
               name: fileName,
               status: "uploading",
@@ -344,12 +376,14 @@ export default {
           },
           onSuccess: (res) => {
             if (isMerge) {
-              if (res[this.urlField]) {
-                const url = res[this.urlField];
-                this.currentValue.url = url;
-              }
-              this.currentValue.response = res;
-              this.currentValue.showProgress = false;
+              this.currentValue = {
+                url: res.result,
+                name: fileName,
+                percent: 100,
+                showProgress: false,
+                status: "success",
+                response: res,
+              };
               if (this.currentValue.url) {
                 this.currentValue.name = this.handleFileName(
                   this.currentValue.url
@@ -357,16 +391,8 @@ export default {
               }
               const value = this.toValue(this.currentValue);
               this.$emit("input", value);
-              this.$emit("update:largeValue", value);
-              console.log("res", res);
-              this.currentValue = {
-                url: res.result,
-                name: fileName,
-                percent: 0,
-                showProgress: false,
-                status: "success",
-              };
-              resolve();
+              this.$emit("update:value", value);
+              console.log("value-wybie", value);
               this.$emit(
                 "success",
                 {
@@ -380,16 +406,13 @@ export default {
             }
             resolve();
           },
-
           onError: (e, res) => {
             this.currentValue.status = "error";
+            this.currentValue.showProgress = false;
             const value = this.toValue(this.currentValue);
             this.$emit("input", value);
-            this.$emit("update:largeValue", value);
-            const errorMessage = `文件${this.currentValue.name}上传接口调用失败`;
+            const errorMessage = `文件${this.currentValue.name}上传接口调用失败:${e}`;
             this.errorMessage.push(errorMessage);
-            reject();
-
             this.$emit(
               "error",
               {
@@ -401,6 +424,7 @@ export default {
               },
               this
             );
+            reject();
           },
         });
       });
@@ -436,6 +460,12 @@ export default {
         },
         this
       );
+    },
+    // 展示时使用接口返回路径对应的文件名
+    handleFileName(url) {
+      const match = url.match(/\/([^/]+)$/);
+      console.log("match", match);
+      return match ? match[1] : null;
     },
   },
 };
@@ -591,6 +621,10 @@ export default {
   border-radius: var(--uploader-draggable-border-radius);
   padding: var(--uploader-draggable-padding);
   transition: all var(--transition-duration-base);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .draggable:focus,
@@ -600,15 +634,10 @@ export default {
   border-color: var(--uploader-draggable-border-color-hover);
 }
 
-.draggable::before {
+.draggable > svg {
   font-size: 24px;
-  icon-font: url("../../assets/upload.svg");
   color: var(--uploader-draggable-icon-color);
-}
-
-.draggable:focus::before,
-.draggable[dragover]::before {
-  color: var(--uploader-draggable-color-hover);
+  margin: 10px 0px;
 }
 
 .dragDescription {

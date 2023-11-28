@@ -17,7 +17,7 @@
       default: false
       description: ""
       advanced: true
-    - name: largeValue
+    - name: value
       title: 值
       type: string
       sync: true
@@ -63,14 +63,6 @@
       brifeDoc: ""
       docDescription: 补充描述
       tooltipLink: ""
-    - name: max-size
-      title: 最大文件大小
-      type: string
-      description: 可上传的最大文件大小。默认为空，表示可上传任意大小的文件；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位：`KB`、`MB`、`GB`
-      group: 数据属性
-      brifeDoc: ""
-      docDescription: 可上传的最大文件大小。默认50MB；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位kB、MB、GB
-      tooltipLink: ""
     - name: url-field
       title: URL 字段
       type: string
@@ -87,15 +79,6 @@
       group: 主要属性
       brifeDoc: ""
       docDescription: 请求头
-      tooltipLink: ""
-    - name: auto-upload
-      title: 自动上传
-      type: boolean
-      default: true
-      description: ""
-      group: 主要属性
-      brifeDoc: ""
-      docDescription: 开启后选择文件后会自动上传，默认开启
       tooltipLink: ""
     - name: converter
       title: 转换器
@@ -151,14 +134,6 @@
       group: 主要属性
       brifeDoc: ""
       docDescription: 拖拽位置的文字指引
-      tooltipLink: ""
-    - name: check-file
-      title: 文件校验
-      type: Function
-      description: 文件校验函数，可自定义校验规则，如文件名称包含特殊字符等，返回string类型的出错信息
-      group: 主要属性
-      brifeDoc: ""
-      docDescription: 文件校验函数，可自定义校验规则，如文件名称包含特殊字符等，返回string类型的出错信息
       tooltipLink: ""
     - name: access
       title: 文件访问策略
@@ -233,33 +208,7 @@
           description: 进度相关信息
         - name: senderVM
           type: UUploader
-          description: 发送事件对象
-    - name: count-exceed
-      title: 文件数量超额
-      description: 文件数量超额时触发
-      params:
-        - name: $event
-          type: object
-          description: 自定义事件对象
-        - name: $event.xml
-          type: string
-          description: 服务器回传信息
-        - name: senderVM
-          type: UUploader
-          description: 发送事件对象
-    - name: size-exceed
-      title: 文件大小超额
-      description: 文件大小超额时触发
-      params:
-        - name: $event
-          type: object
-          description: 自定义事件对象
-        - name: $event.xml
-          type: string
-          description: 服务器回传信息
-        - name: senderVM
-          type: UUploader
-          description: 发送事件对象
+          description: 发送事件对象      
     - name: success
       title: 上传成功时
       description: 上传成功时触发

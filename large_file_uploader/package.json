@@ -2,7 +2,7 @@
   "name": "large_file_uploader",
   "title": "大文件上传",
   "description": "",
-  "version": "0.2.2",
+  "version": "0.0.3",
   "main": "./index.js",
   "author": "",
   "repository": "",
