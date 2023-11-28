@@ -62,9 +62,9 @@
       group: 状态属性
       docDescription: 正常显示，但禁止选择或输入
   events: 
-    - name: start
-      title: start
-      description: 抽奖按钮点击时
+    - name: beforeStart
+      title: beforeStart
+      description: 点击开始抽奖前
     - name: end
       title: end
       description: 抽奖结束时
@@ -73,6 +73,9 @@
           type: string
           description: 参数
   methods:
+    - name: start
+      title: start
+      description: 抽奖按钮点击时
     - name: stop
       title: stop
       description: 获取到后端抽奖结果后调用，使转盘缓慢停止

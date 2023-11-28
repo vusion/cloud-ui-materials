@@ -1,5 +1,5 @@
 <template>
-  <div :class="{readonly: readonly && !$env.VUE_APP_DESIGNER}"></div>
+  <div :class="{ readonly: readonly && !$env.VUE_APP_DESIGNER }"></div>
 </template>
 
 <script>
@@ -101,6 +101,7 @@ export default {
     }
   },
   mounted() {
+    console.log("vm", this);
     // 大转盘从外到内依次设置
     // 1. 外边框border
     if (this.borderPadding) {
@@ -133,35 +134,46 @@ export default {
         },
       ];
     }
-    this.$nextTick(() => {
-      this.luckyVM = new LuckyWheel(this.$el, {
-        width: this.$el.style.width || "300px",
-        height: this.$el.style.height || "300px",
-        blocks: this.blocks,
-        prizes: this.prizes.length === 0 ? this.prizesDesign : this.prizes,
-        buttons: this.buttons.length === 0 ? this.buttonsDesign : this.buttons,
-        defaultConfig: this.defaultConfig,
-        start: this.start,
-        end: this.end,
-      });
-    });
+    this.creatVM();
   },
   watch: {
     $props: {
-      handler() {},
+      handler(value) {
+        console.log("执行了", value);
+        if (this.$env.VUE_APP_DESIGNER) {
+          this.creatVM();
+        }
+      },
+      deep: true,
+      immediate: true,
     },
-    deep: true,
-    immediate: true,
   },
   methods: {
+    creatVM() {
+      this.$nextTick(() => {
+        this.luckyVM = new LuckyWheel(this.$el, {
+          width: this.$el.style.width || "300px",
+          height: this.$el.style.height || "300px",
+          blocks: this.blocks,
+          prizes: this.prizes.length === 0 ? this.prizesDesign : this.prizes,
+          buttons:
+            this.buttons.length === 0 ? this.buttonsDesign : this.buttons,
+          defaultConfig: this.defaultConfig,
+          start: this.beforeStart,
+          end: this.end,
+        });
+      });
+    },
     stop(index) {
       this.luckyVM.stop(index);
+    },
+    beforeStart() {
+      this.$emit("beforeStart");
     },
     start() {
       // 开始游戏
       this.luckyVM.play();
       // 使用定时器模拟接口
-      this.$emit("start");
     },
     end(prize) {
       // 开始游戏
@@ -169,49 +181,6 @@ export default {
       this.$emit("end", prize);
     },
   },
-  // prizes
-  // [
-  //       {
-  //         fonts: [
-  //           {
-  //             text: "特斯拉",
-  //             top: "10%",
-  //             fontSize: "24px",
-  //             fontColor: "red",
-  //             fontWeight: "700",
-  //           },
-  //         ],
-  //         imgs: [
-  //               {
-  //                 src: '/static/imgs/prize.png',
-  //                 width: '40%',
-  //                 top: '10%'
-  //               }
-  //         ],
-  //         background: "lightblue",
-  //       },
-  //       ...
-  // ]
-
-  // buttons
-  // [
-  //       {
-  //         radius: "45%",
-  //         imgs: [
-  //           {
-  //             src: "/static/imgs/wheel-btn.png",
-  //             width: "100%",
-  //             top: "-130%",
-  //           },
-  //         ],
-  //       },
-  // {
-  //   radius: "40%",
-  //   background: "#869cfa",
-  //   pointer: true,
-  //   fonts: [{ text: "开始\n抽奖", top: "-20px" }],
-  // },
-  //     ]
 };
 </script>
 
