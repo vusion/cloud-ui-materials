@@ -242,6 +242,19 @@ export default {
       this.upload(file);
     },
     upload(file) {
+      if (
+        !this.draggable &&
+        !this.pastable &&
+        this.$children.some(
+          (item) => item && item.$attrs.flag === "large-file-uploader-button"
+        )
+      ) {
+        const buttonVM = this.$children.find(
+          (item) => item && item.$attrs.flag === "large-file-uploader-button"
+        );
+        buttonVM.$set(buttonVM, "loading", true);
+        buttonVM.$set(buttonVM, "disabled", true);
+      }
       this.errorMessage = [];
       this.$emit(
         "before-upload",
@@ -403,27 +416,56 @@ export default {
                 },
                 this
               );
+              if (
+                !this.draggable &&
+                !this.pastable &&
+                this.$children.some(
+                  (item) =>
+                    item && item.$attrs.flag === "large-file-uploader-button"
+                )
+              ) {
+                const buttonVM = this.$children.find(
+                  (item) =>
+                    item && item.$attrs.flag === "large-file-uploader-button"
+                );
+                buttonVM.$set(buttonVM, "loading", false);
+                buttonVM.$set(buttonVM, "disabled", false);
+              }
             }
             resolve();
           },
-          onError: (e, res) => {
+          onError: (e) => {
             this.currentValue.status = "error";
             this.currentValue.showProgress = false;
             const value = this.toValue(this.currentValue);
             this.$emit("input", value);
-            const errorMessage = `文件${this.currentValue.name}上传接口调用失败:${e}`;
+            const errorMessage = JSON.parse(e).Message;
             this.errorMessage.push(errorMessage);
             this.$emit(
               "error",
               {
                 e,
-                res,
                 file: chunk,
                 item: this.currentValue,
                 xhr,
               },
               this
             );
+            if (
+              !this.draggable &&
+              !this.pastable &&
+              this.$children.some(
+                (item) =>
+                  item && item.$attrs.flag === "large-file-uploader-button"
+              )
+            ) {
+              const buttonVM = this.$children.find(
+                (item) =>
+                  item && item.$attrs.flag === "large-file-uploader-button"
+              );
+              buttonVM.$set(buttonVM, "loading", false);
+              buttonVM.$set(buttonVM, "disabled", false);
+            }
             reject();
           },
         });

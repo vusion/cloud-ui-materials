@@ -11,6 +11,6 @@
   max-size="50MB"
   converter="json"
 >
-  <u-button color="primary" icon="upload">上传</u-button>
+  <u-button flag="large-file-uploader-button" color="primary" icon="upload">上传</u-button>
 </large-file-split-uploader>
 ```

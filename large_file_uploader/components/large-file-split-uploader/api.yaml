@@ -1,5 +1,5 @@
 - name: large-file-split-uploader
-  title: 大文件分片上传
+  title: 大文件上传
   type: pc
   belong: component
   labels: [Runtime]

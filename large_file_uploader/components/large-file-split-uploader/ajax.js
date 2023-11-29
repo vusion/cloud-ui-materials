@@ -8,11 +8,7 @@ function getError(url, options, xhr) {
         msg = `Fail to post ${url} ${xhr.status}`;
     }
 
-    const err = new Error(msg);
-    err.status = xhr.status;
-    err.method = 'post';
-    err.url = url;
-    return err;
+    return msg;
 }
 
 function getBody(xhr) {
