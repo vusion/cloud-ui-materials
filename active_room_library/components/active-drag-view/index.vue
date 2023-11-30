@@ -47,6 +47,7 @@ export default {
       this.$slots.default.forEach((element,index) => {
           element.elm.classList.add("drag-room-cell"+index)
       });
+      this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
       // document.querySelector(".drag-room").style.gridTemplateColumns = "2fr 1fr 3fr"
       // document.addEventListener("mouseup",()=>{
       //   this.draggable = true;
@@ -70,7 +71,8 @@ export default {
             {name:11},
             {name:12},
             {name:13},
-          ]
+          ],
+          indexList:[]
       }
     },
      components: {
@@ -79,7 +81,14 @@ export default {
     methods:{
       handleUpdate(e){
         console.log(e);
-
+        function  sort_after_drag(elements, oldIndex, newIndex){
+            element = elements[oldIndex]
+            elements.pop(oldIndex)
+            elements.insert(newIndex, element)
+            return elements
+        }
+        const resultList =  sort_after_drag(this.indexList,e.oldIndex,e.newIndex)
+        console.log(resultList);
       },
       handleStart(e){
 
