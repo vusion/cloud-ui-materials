@@ -1,0 +1,33 @@
+- name: simple-cascader
+  title: 简易级联选择
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 值
+      type: array
+      sync: true
+      model: true
+      default: ""
+      description: 数组
+      group: 数据属性
+      brifeDoc: ""
+      tooltipLink: ""
+    - name: originOptions
+      title: 选项数组
+      type: array
+      default: ""
+      description: 形如[{code, name, children}]
+      group: 数据属性
+      brifeDoc: ""
+      tooltipLink: ""
+    - name: placeholder
+      title: placeholder
+      type: string
+      default: ""
+      description: 占位文本
+      group: 数据属性
+      brifeDoc: ""
+      tooltipLink: ""
+    
