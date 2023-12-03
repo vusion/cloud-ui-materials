@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="active-drag-view-cell"> -->
-    <div class="cell" v-panel-resize:horizontal="handleResizer">
+    <div class="cell" v-panel-resize:horizontal="handleResizer" vusion-slot-name="default">
         <slot></slot>
     </div>
     <!-- <div class="cell" v-panel-resize:horizontal="handleResizer">2</div>
@@ -121,5 +121,6 @@ export default {
 .cell{
     background: pink ;
     flex-basis: 33.3%;
+    min-height: 40px;
 }
 </style>

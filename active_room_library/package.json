@@ -2,7 +2,7 @@
   "name": "active_room_library",
   "title": "自由移动布局",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",

@@ -8,3 +8,7 @@
       type: string
       default: 请在这里编写代码
       description: 需要传入的值
+  slots:
+    - concept: Slot
+      name: default
+      description: 插入默认的元素
