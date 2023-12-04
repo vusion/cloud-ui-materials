@@ -54,7 +54,9 @@ export default {
     flex-wrap: wrap;
 }
 
-
+.drag-disabled-room .ide-divider{
+    display: none;
+}
 
 .ide-divider {
     opacity: 0;

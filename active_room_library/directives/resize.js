@@ -61,7 +61,11 @@ const resizer = {
         }
 
         const handleMouseDown = (e) => {
-            target = e.target
+            target = e.target 
+            
+            if (target.parentNode) {
+                console.log(target.parentNode.parentNode.className,"target.parentNode");
+            }   
             e.preventDefault()
             document.addEventListener('mousemove', handleMouseMove, false)
             document.addEventListener('mouseup', handleMouseUp, false)
