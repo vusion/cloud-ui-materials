@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { Cascader } from "ant-design-vue";
-import "ant-design-vue/dist/antd.css";
+import Cascader from "ant-design-vue/lib/cascader";
+import "ant-design-vue/lib/cascader/style/css";
 export default {
   name: "simple-cascader",
   props: {
@@ -24,40 +24,7 @@ export default {
     originOptions: {
       type: Array,
       default() {
-        return [
-          {
-            code: "zhejiang",
-            name: "Zhejiang",
-            children: [
-              {
-                code: "hangzhou",
-                name: "Hangzhou",
-                children: [
-                  {
-                    code: "xihu",
-                    name: "West Lake",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            code: "jiangsu",
-            name: "Jiangsu",
-            children: [
-              {
-                code: "nanjing",
-                name: "Nanjing",
-                children: [
-                  {
-                    code: "zhonghuamen",
-                    name: "Zhong Hua Men",
-                  },
-                ],
-              },
-            ],
-          },
-        ];
+        return [];
       },
     },
     placeholder: {
@@ -84,7 +51,7 @@ export default {
     transformData(data) {
       return data.map((item) => {
         const transformedItem = {
-          value: item.code,
+          value: item.id,
           label: item.name,
         };
 
