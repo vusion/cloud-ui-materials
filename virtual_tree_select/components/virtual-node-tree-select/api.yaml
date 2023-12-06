@@ -14,6 +14,23 @@
       type: array
       default: ''
       description: 'options选项，形如[ {id: **, name: **, children: [...]},... ]'
+    - name: text-field
+      title: 选项文本
+      type: string
+      display: property-select
+      default: text
+      description: 集合的元素类型中，用于显示文本的属性名称
+      group: 数据属性
+    - name: value-field
+      title: 值字段
+      type: string
+      display: property-select
+      default: value
+      description: 集合的元素类型中，用于标识选中值的属性
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 集合的元素类型中，用于标识选中值的属性，支持自定义变更
+      tooltipLink: ""
     - name: placeholder
       type: string
       default: 请选择

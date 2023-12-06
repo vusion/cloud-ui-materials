@@ -3,8 +3,8 @@
     <CTreeDrop
       :value="value"
       :data="data"
-      titleField="name"
-      keyField="id"
+      :titleField="textField"
+      :keyField="valueField"
       checkable
       clearable
       :drop-placeholder="placeholder"
@@ -36,6 +36,8 @@ export default {
       type: String,
       default: "请选择",
     },
+    textField: { type: String, default: 'name' },
+    valueField: { type: String, default: 'id' },
   },
   methods: {
     handleCheckedChange(value) {
