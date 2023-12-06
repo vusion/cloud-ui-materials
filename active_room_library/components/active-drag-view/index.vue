@@ -92,6 +92,10 @@ export default {
           console.log(this.indexList);
           function reorderChildNodes(parentNode, order) {
             const childNodes = Array.from(parentNode.children);
+            childNodes.forEach((node, index) => {
+              // console.log(node);
+              node.dataset.order=index
+            });
             const reorderedChildNodes = order.map(index => childNodes[index]);
             // 移除所有子节点
             while (parentNode.firstChild) {

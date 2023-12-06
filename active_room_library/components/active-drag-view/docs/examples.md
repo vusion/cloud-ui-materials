@@ -2,9 +2,15 @@
 
 ``` html
 <active-drag-view>
-     <active-drag-view-cell :key="1">1</active-drag-view-cell>
-        <active-drag-view-cell :key="2">2</active-drag-view-cell>
-        <active-drag-view-cell :key="3">3</active-drag-view-cell>
-        <active-drag-view-cell :key="4">4</active-drag-view-cell>
+     <active-drag-view-cell :key="1">
+        1
+        <div style="margin-right:10px">12323213</div>     
+      </active-drag-view-cell>
+        <active-drag-view-cell style="padding:10px" :key="2">
+       
+        <div style="padding:10px ;background:yellow;"> 2</div>
+        </active-drag-view-cell>
+        <active-drag-view-cell style="background:blue" :key="3">3</active-drag-view-cell>
+        <active-drag-view-cell style="background:red" :key="4">4</active-drag-view-cell>
 </active-drag-view>
 ```

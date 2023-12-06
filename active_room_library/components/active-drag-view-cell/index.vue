@@ -21,11 +21,21 @@ export default {
       value:{
         type:String,
         default:"请在这里编写代码"
+      },
+        basis:{
+        type:Number,
+        default:1
+      },
+      basisLen:{
+        type:Number,
+        default:3
       }
     },
+    
     methods:{
       handleResizer(e){
-        console.log(e,888);
+          const order = e.getAttribute("data-order")
+           this.$parent.lenList[order] = len
       }
     }
 }
