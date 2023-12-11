@@ -74,7 +74,9 @@ export default {
                   text: config.text,
                   color: config.color,
                   fontSize: config.fontSize,
-                  opacity: config.opacity,
+                  style: {
+                    opacity: config.opacity,
+                  },
                 }
               : {
                   image: config.src,
