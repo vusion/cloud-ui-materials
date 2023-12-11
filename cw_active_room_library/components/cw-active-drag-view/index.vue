@@ -1,0 +1,152 @@
+<template>
+  <div class="active-room"> 
+    <button @click="handleClick">anniu{{isEdit}}</button>
+    <div vusion-slot-name="default" class="drag-room drag-disabled-room" v-if="inIDE || !isEdit" >
+        <slot></slot>
+    </div>
+    <draggable v-else  class="drag-room"  @update="handleUpdate"  >
+        <slot ></slot>
+    </draggable>
+  </div>
+</template>
+
+<script>
+import draggable from 'vuedraggable'
+export default {
+    name:"cw-active-drag-view",
+    props:{
+      value:{
+        type:String,
+        default:"请在这里编写代码"
+      }
+    },
+    mounted(){
+      // this.init()
+      // console.log(this.$slots.default)
+      // if(!$env.VUE_APP_DESIGNER){
+      // }
+      // document.querySelector(".drag-room").style.gridTemplateColumns = "2fr 1fr 3fr"
+      // document.addEventListener("mouseup",()=>{
+      //   this.draggable = true;
+      // })
+
+    },
+    watch:{
+      isEdit:{
+        handler(){
+          this.init()
+        },
+        immediate:true
+      },
+      value:{
+        handler(){
+        },
+        immediate:true
+      }
+    },
+    computed:{
+      componentList(){
+        return this.$slots.default
+      },
+      inIDE(){
+        return this.$env&& this.$env.VUE_APP_DESIGNER || false
+      }
+    },
+    data(){
+      return {
+          draggable:true,
+          componentDefaultList:[this.$slots.default],
+          indexList:[],
+          isEdit:true,
+          lenList:[]
+      }
+    },
+     components: {
+      draggable,
+    },
+    methods:{
+      handleChangeCell(e,idx){
+        console.log(e,idx);
+      },  
+      async handleClick(){
+        if(this.isEdit){
+          console.log(this.$slots.default);
+          const parentEl =document.querySelector(".drag-room")
+          parentEl.childNodes.forEach((element,index) => {
+             const order =  element.getAttribute("data-order")
+             this.lenList[order] = element.style.flexBasis
+           })
+          //  this.$slots.default.forEach((element,index) => {
+          //   console.log(element,"elm");
+          //    console.log(element.elm.style.flexBasis,"data");
+          //    const order =  element.elm.getAttribute("data-order")
+          //    this.lenList[order] = element.elm.style.flexBasis
+          //  })
+           localStorage.setItem("resultList",JSON.stringify(this.indexList))
+           localStorage.setItem("lenList",JSON.stringify(this.lenList))
+        }
+        
+        console.log(this.lenList);
+        // debugger
+          this.isEdit = !this.isEdit
+          // await this.$nextTick()
+          // console.log(this.lenList);
+        //   this.$slots.default.forEach((element,index) => {
+        //   // console.log(this.lenList);
+        //   const order =  element.elm.getAttribute("data-order")
+        //   // console.log(element.elm.__vue__.selfBasis);
+        //   console.log(element.elm);
+        //   element.elm.style.flexBasis = this.lenList[order]
+        //   // this.lenList[order] = element.elm.__vue__.selfBasis
+        //  })
+      },
+      handleUpdate(e){
+        function  sort_after_drag(elements, oldIndex, newIndex){
+          const  element = elements[oldIndex]
+          elements.splice(oldIndex, 1);
+          elements.splice(newIndex, 0, element);
+          return elements
+        }
+        this.indexList = sort_after_drag(this.indexList,e.oldIndex,e.newIndex)
+        console.log(this.resultList,this.lenList);
+      },
+      async init(){
+          await this.$nextTick()
+          this.$slots.default.forEach((element,index) => {
+              element.elm.classList.add("drag-room-cell"+index)
+          });
+          localStorage.getItem("resultList")?this.indexList = JSON.parse(localStorage.getItem("resultList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
+          localStorage.getItem("lenList")?this.lenList = JSON.parse(localStorage.getItem("lenList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
+          // console.log(this.indexList);
+          const reorderChildNodes=(parentNode, orderList) => {
+            const childNodes = Array.from(parentNode.children);
+            childNodes.forEach((node, index) => {
+              node.dataset.order=index
+              if(this.lenList){
+                 node.style.flexBasis = this.lenList[index]
+              }
+            });
+            const reorderedChildNodes = orderList.map(index => childNodes[index]);
+            // 移除所有子节点
+            while (parentNode.firstChild) {
+              parentNode.firstChild.remove();
+            }
+          // 添加重新排列后的子节点
+          reorderedChildNodes.forEach(node => {
+            parentNode.appendChild(node);
+          });
+        }
+        const parent = document.querySelector(".drag-room");
+        reorderChildNodes(parent, this.indexList);
+      }
+    }
+}
+</script>
+
+<style type="less">
+.drag-room{
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 800px;
+}
+</style>

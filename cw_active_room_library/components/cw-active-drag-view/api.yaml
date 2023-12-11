@@ -1,4 +1,4 @@
-- name: active-drag-view
+- name: cw-active-drag-view
   title: 活动布局容器
   type: pc
   belong: component

@@ -1,4 +1,4 @@
-- name: active-drag-view-cell
+- name: cw-active-drag-view-cell
   title: 可拖债单元
   type: pc
   belong: component

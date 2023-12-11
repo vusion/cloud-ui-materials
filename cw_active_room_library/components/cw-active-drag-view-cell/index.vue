@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="active-drag-view-cell"> -->
-    <div class="cell" v-panel-resize:horizontal="handleResizer" vusion-slot-name="default">
+    <div class="cell" ref="cell"  v-panel-resize:horizontal="handleResizer" vusion-slot-name="default">
         <slot></slot>
     </div>
     <!-- <div class="cell" v-panel-resize:horizontal="handleResizer">2</div>
@@ -13,7 +13,7 @@
 import PanelResize from '@/directives/resize'
 // import PanelResize from '@/directives/rezizer'
 export default {
-    name:"active-drag-view-cell",
+    name:"cw-active-drag-view-cell",
     directives: {
         PanelResize
     },
@@ -22,20 +22,36 @@ export default {
         type:String,
         default:"请在这里编写代码"
       },
-        basis:{
+      basis:{
         type:Number,
         default:1
       },
       basisLen:{
         type:Number,
-        default:3
-      }
+        default:4
+      },
     },
-    
+    data(){
+        return {
+            selfBasis:""
+        }
+       
+    },
+    mounted(){
+        this.init()
+    },
+
     methods:{
-      handleResizer(e){
-          const order = e.getAttribute("data-order")
-           this.$parent.lenList[order] = len
+        init(){
+            const flexBasis = (Math.floor (100 / (this.basisLen *this.basis)*10))/10 + "%"
+            this.$refs.cell.style.flexBasis = flexBasis
+            this.selfBasis = flexBasis
+        },
+        handleResizer(len,e){
+          this.selfBasis = len
+        //   this.$parent.lenList[order] = len
+        //   console.log(this.$parent.$parent.lenList);
+        // this.$emit("changeCell",len,order)
       }
     }
 }
@@ -45,7 +61,7 @@ export default {
 
 .active-drag-view-cell{
     width: 800px;
-    height: 600px;
+    min-height: 30px;
     background:  linear-gradient(90deg,#f5f5f5 10px, #ccc 10px, #ffffff 100%)
     linear-gradient(90deg,#f5f5f5 10px, #ccc 10px, #ffffff 100%);
     background-size: 100px 100px;
@@ -131,8 +147,12 @@ export default {
     background-color: peachpuff;
 }
 .cell{
-    background: pink ;
-    flex-basis: 33.3%;
+    /* background: pink ; */
+    /* flex-basis: 33.3%; */
     min-height: 40px;
+}
+
+.drag-room:not(.drag-disabled-room) .cell:hover{
+    box-shadow: inset 0px 0px 1px 2px #ccc;
 }
 </style>

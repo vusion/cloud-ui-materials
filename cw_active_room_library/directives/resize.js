@@ -1,6 +1,7 @@
 const resizer = {
     bind(el, binding) { 
         binding.arg = binding.arg || 'vertical';
+        const handleResizer = typeof binding.value === 'function' ? binding.value : () => {}
         const createDivider = (el,binding) => {
             el.style.position = 'relative'
             let divider = document.createElement('div')
@@ -30,7 +31,8 @@ const resizer = {
             let dx = e.clientX
             let dy = e.clientY
             // let children = getChildren(el)
-            console.log(el,"el");
+            // console.log(el,"el");
+
             const _boundingClientRect = el.parentNode.getBoundingClientRect();
             _boundingClientRect.width
             
@@ -40,6 +42,7 @@ const resizer = {
             let index = 0, nextIndex
             const basis = handleResize(el, dx, dy)
             el.style.flexBasis = basis
+            handleResizer(basis,el)
             // children.forEach((child, i) => {
             //     let weight = +(child.getAttribute('weight') || (1 / children.length))
             //     weights.push(weight)
@@ -63,9 +66,9 @@ const resizer = {
         const handleMouseDown = (e) => {
             target = e.target 
             
-            if (target.parentNode) {
-                console.log(target.parentNode.parentNode.className,"target.parentNode");
-            }   
+            // if (target.parentNode) {
+            //     console.log(target.parentNode.parentNode.className,"target.parentNode");
+            // }   
             e.preventDefault()
             document.addEventListener('mousemove', handleMouseMove, false)
             document.addEventListener('mouseup', handleMouseUp, false)
