@@ -2,7 +2,7 @@
   "name": "img_to_base_64_library",
   "title": "图片url转base64",
   "description": "",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",

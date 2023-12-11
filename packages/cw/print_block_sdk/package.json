@@ -2,7 +2,7 @@
   "name": "print_block_sdk",
   "title": "打印模块SDK",
   "description": "",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
