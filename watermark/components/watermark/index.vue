@@ -8,6 +8,30 @@ let waterMark;
 export default {
   name: "watermark",
   props: {
+    type: {
+      type: String,
+      default: "image",
+    },
+    text: {
+      type: String,
+      default: "",
+    },
+    color: {
+      type: String,
+      default: "#000",
+    },
+    fontSize: {
+      type: Number,
+      default: 16,
+    },
+    cSpace: {
+      type: Number,
+      default: 20,
+    },
+    vSpace: {
+      type: Number,
+      default: 50,
+    },
     opacity: {
       type: Number,
       default: 0.1,
