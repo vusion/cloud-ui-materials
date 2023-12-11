@@ -21,26 +21,36 @@
       title: 文字水印的内容
       description: 文字水印的内容
       group: 展示属性
+      dependency:
+      - type: text
     - name: color
       type: string
       default: "#000"
       title: 文字水印的颜色
       description: 文字水印的颜色
+      dependency:
+      - type: text
     - name: fontSize
       type: number
       default: 16
       title: 文字水印的字体大小
       description: 文字水印的字体大小
+      dependency:
+      - type: text
     - name: cSpace
       type: number
       default: 20
       title: 文字水印的水平间距
       description: 文字水印的水平间距
+      dependency:
+      - type: text
     - name: vSpace
       type: number
       default: 50
       title: 文字水印的垂直间距
       description: 文字水印的垂直间距
+      dependency:
+      - type: text
     - name: src
       type: image
       compType: linkInput
@@ -48,8 +58,12 @@
       title: 水印图片的url
       description: 水印图片的url
       group: 展示属性
+      dependency:
+      - type: image
     - name: opacity
       type: number
       title: 水印图片的透明度
       description: 水印图片的透明度
       group: 数据属性
+      dependency:
+      - type: image
