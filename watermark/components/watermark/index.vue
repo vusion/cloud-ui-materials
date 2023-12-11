@@ -61,9 +61,9 @@ export default {
   watch: {
     config: {
       handler(config) {
-        if (config.src) {
+        this.$nextTick(async () => {
           waterMark && waterMark.remove();
-          const config = Object.assign(
+          const initConfig = Object.assign(
             {
               target: document.body,
             },
@@ -83,10 +83,8 @@ export default {
                   },
                 }
           );
-          this.$nextTick(async () => {
-            waterMark = await WaterMark.init(config);
-          });
-        }
+          waterMark = await WaterMark.init(initConfig);
+        });
       },
       immediate: true,
       deep: true,
