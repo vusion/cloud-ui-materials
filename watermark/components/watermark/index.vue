@@ -47,8 +47,14 @@ export default {
   computed: {
     config() {
       return {
+        type: this.type,
         src: this.src,
         opacity: this.opacity,
+        text: this.text,
+        color: this.color,
+        fontSize: this.fontSize,
+        cSpace: this.cSpace,
+        vSpace: this.vSpace,
       };
     },
   },
@@ -57,16 +63,28 @@ export default {
       handler(config) {
         if (config.src) {
           waterMark && waterMark.remove();
-          this.$nextTick(async () => {
-            waterMark = await WaterMark.init({
+          const config = Object.assign(
+            {
               target: document.body,
-              image: config.src,
-              cSpace: 100,
-              vSpace: 100,
-              style: {
-                opacity: config.opacity,
-              },
-            });
+            },
+            config.type === "text"
+              ? {
+                  cSpace: config.cSpace,
+                  vSpace: config.vSpace,
+                  text: config.text,
+                  color: config.color,
+                  fontSize: config.fontSize,
+                  opacity: config.opacity,
+                }
+              : {
+                  image: config.src,
+                  style: {
+                    opacity: config.opacity,
+                  },
+                }
+          );
+          this.$nextTick(async () => {
+            waterMark = await WaterMark.init(config);
           });
         }
       },

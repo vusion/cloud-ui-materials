@@ -1,6 +1,6 @@
 - name: watermark
   title: 全局图片水印
-  type: pc
+  type: both
   belong: component
   labels: [Runtime]
   attrs:
