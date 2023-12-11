@@ -41,5 +41,7 @@ package.json
     "release": "lcap publish"
   },
 ```
+- 第三步
+使用lcap@0.3.1-beta.3
 
 
