@@ -1,0 +1,36 @@
+{
+  "lcap-signature/language": {
+    "type": "string",
+    "options": [
+      {
+        "value": "english",
+        "title": "英文"
+      },
+      {
+        "value": "chinese",
+        "title": "中文"
+      }
+    ],
+    "description": "语言版本"
+  },
+  "lcap-signature/openSmooth": {
+    "type": "boolean",
+    "description": "是否开启笔锋"
+  },
+  "lcap-signature/penColor": {
+    "type": "string",
+    "description": "设置画笔颜色"
+  },
+  "lcap-signature/reSignName": {
+    "type": "boolean",
+    "description": "是否允许用户重新签名"
+  },
+  "lcap-signature/penWidth": {
+    "type": "number",
+    "description": "设置画笔宽度"
+  },
+  "lcap-signature/bgColor": {
+    "type": "string",
+    "description": "设置画布背景颜色"
+  }
+}
