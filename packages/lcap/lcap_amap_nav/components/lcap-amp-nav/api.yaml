@@ -1,7 +1,8 @@
 - name: lcap-amap-nav
   title: 地图导航
-  labels: [amap]
-  icon: amapnav
+  type: both
+  belong: component
+  labels: [Runtime]
   description: 地图导航
   attrs:
     - name: canto

@@ -1,19 +1,19 @@
 - name: lcap-signature
   title: 签名板
-  description: 用于获取电子签名
-  labels: [Form]
-  icon: default
+  type: both
+  belong: component
+  labels: [Runtime]
   attrs:
     - name: language
       title: 语言
       type: string
       default: english
+      description: 语言版本
       options:
         - value: english
           title: 英文
         - value: chinese
           title: 中文
-      description: 语言版本
     - name: openSmooth
       title: 是否开启笔锋
       type: boolean
@@ -57,6 +57,4 @@
         - name: $event.signature
           type: any
           description: 返还签名的base64
-          schema:
-            $ref: "#/basicTypes/Binary"
       description: 保存签名时触发
