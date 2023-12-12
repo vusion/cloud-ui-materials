@@ -1,0 +1,257 @@
+- name: lcap-markdown-doc-search
+  title: 文档搜索框
+  description: 请在这里添加描述
+  labels: [Other]
+  icon: default
+  attrs:
+    - name: value
+      title: 值
+      type: String
+      description: 输入的值
+      sync: true
+      model: true
+    - name: data-source
+      title: 结果列表数据
+      type: Array<Item>
+      description: 搜索结果列表数据
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 选择器每一行的数据类型
+      compType: dataTypeSelect
+    - name: text-field
+      title: 结果项标题字段
+      type: string
+      default: text
+      description: 显示结果项标题字段的属性
+    - name: description-field
+      title: 结果项描述字段
+      type: string
+      description: 用于显示结果项描述字段的属性
+    - name: loading
+      title: 加载状态
+      type: boolean
+      description: 用于显示加载状态
+      default: false
+    - name: align
+      title: 结果列表对齐
+      type: string
+      default: left
+      options:
+        - value: left
+          title: 左
+        - value: right
+          title: 右
+    - name: clearable
+      title: 清除按钮
+      type: boolean
+      description: 开启并在输入框有内容时会显示清除按钮
+    - name: placeholder
+      title: 占位符
+      type: string
+      description: 为空时的提示文本
+    - name: maxlength
+      title: 最大长度
+      type: number
+      description: ""
+    - name: autofocus
+      title: 自动获取焦点
+      type: boolean
+      default: false
+      description: 是否自动获取焦点
+      designer-value: false
+    - name: readonly
+      title: 只读
+      type: boolean
+      default: false
+      description: ""
+    - name: disabled
+      title: 禁用
+      type: boolean
+      default: false
+      description: ""
+    - name: width
+      title: 宽度
+      type: string
+      options:
+        - value: full
+          title: 占满
+        - value: huge
+          title: 巨大
+        - value: large
+          title: 大
+        - value: medium
+          title: 中型
+        - value: normal
+          title: 正常
+        - value: small
+          title: 小
+        - value: mini
+          title: 迷你
+      default: normal
+      description: 设置单行输入框宽度大小
+    - name: height
+      title: 高度
+      type: string
+      options:
+        - value: full
+          title: 占满
+        - value: huge
+          title: 巨大
+        - value: large
+          title: 大
+        - value: medium
+          title: 中型
+        - value: normal
+          title: 正常
+        - value: small
+          title: 小
+        - value: mini
+          title: 迷你
+      default: normal
+      description: 设置单行输入框高度大小
+    - name: prefix
+      title: 前缀图标
+      type: icon
+      description: ""
+      default: ""
+      clearable: true
+    - name: suffix
+      title: 后缀图标
+      type: icon
+      description: ""
+      default: ""
+      clearable: true
+    - name: border-radius
+      title: 圆角
+      type: string
+      default: 0px
+  events:
+    - name: select
+      title: 选择时
+      description: 选择结果时触发
+      params:
+        - name: $event.item
+          type: object
+          description: 选择项相关对象
+    - name: before-input
+      title: 输入前
+      advanced: true
+      description: 输入前触发。可以在这个阶段阻止输入，或者修改输入的值 $event.value
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+          schema:
+            $ref: "#/systemTypes/ChangeEvent"
+        - name: $event.oldValue
+          type: string
+          description: 旧的值
+        - name: $event.value
+          type: string
+          description: 输入框的值
+        - name: $event.preventDefault
+          type: Function
+          description: 阻止输入流程
+    - name: input
+      title: 输入时
+      description: 输入时触发。
+      params:
+        - name: $event
+          type: string
+          description: 输入框的值
+    - name: change
+      title: 改变后
+      description: 值变化时触发。（注意：与原生事件不同）
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+          schema:
+            $ref: "#/systemTypes/ChangeEvent"
+        - name: $event.value
+          type: string
+          description: 改变后的值
+        - name: $event.oldValue
+          type: string
+          description: 旧的值
+    - name: focus
+      title: 获得焦点
+      description: 获得焦点时触发。
+      params:
+        - name: $event
+          type: FocusEvent
+          description: 原生事件对象
+          schema:
+            $ref: "#/systemTypes/FocusEvent"
+    - name: blur
+      title: 失去焦点
+      description: 失去焦点时触发。
+      params:
+        - name: $event
+          type: FocusEvent
+          description: 原生事件对象
+          schema:
+            $ref: "#/systemTypes/FocusEvent"
+    - name: before-clear
+      title: 清空前
+      description: 清空前触发。
+      advanced: true
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+          schema:
+            $ref: "#/systemTypes/ChangeEvent"
+        - name: $event.value
+          type: string
+          description: 清空后的值
+        - name: $event.oldValue
+          type: string
+          description: 待清空的值
+        - name: $event.preventDefault
+          type: Function
+          description: 阻止清空流程
+    - name: clear
+      title: 清空后
+      description: 清空后触发。
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+          schema:
+            $ref: "#/systemTypes/ChangeEvent"
+        - name: $event.value
+          type: string
+          description: 清空后的值
+        - name: $event.oldValue
+          type: string
+          description: 旧的值
+    - name: click-prefix
+      title: 点击前缀图标
+      description: 点击前缀图标后触发
+      params:
+        - name: $event
+          type: object
+          description: 鼠标事件对象
+          schema:
+            $ref: "#/systemTypes/MouseEvent"
+    - name: click-suffix
+      title: 点击后缀图标
+      description: 点击后缀图标后触发
+      params:
+        - name: $event
+          type: object
+          description: 鼠标事件对象
+          schema:
+            $ref: "#/systemTypes/MouseEvent"
+  methods:
+    - name: focus
+      description: 让输入框获取焦点。
+      params: []
+    - name: blur
+      description: 让输入框失去焦点。
+      params: []
+    - name: clear
+      description: 清空输入框。
+      params: []
