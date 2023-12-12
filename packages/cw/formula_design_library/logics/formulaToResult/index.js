@@ -6,7 +6,7 @@
  * @returns {string} result 
  */
 import { codeList } from '@/utils'
-export default (resource,target,code,customMapList)=>{
+export default (resource=0,target=0,code,customMapList)=>{
     if (code) {
         let arr = []
         let resultCode =[]

@@ -1,5 +1,5 @@
 /** 
- * @param {string} code <true> 这是一个描述
+ * @param {string} code <true> 公式
  * @param {[FormulaInfo]} customMapList <false> 自定义属性
  * @returns {string} result 
  */
