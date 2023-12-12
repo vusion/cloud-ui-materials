@@ -12,7 +12,7 @@ export default (code,customMapList) => {
             resultCode = [...codeList,...customMapList]
         } else {
             resultCode = codeList
-        }
+        }    
         const codeMap = resultCode.reduce((pre,item)=>{
             pre[item.name] = item
             return pre
@@ -20,6 +20,8 @@ export default (code,customMapList) => {
         code.split(",").map(item => {
             if (codeMap[item]) {
                 arr.push(codeMap[item].name)
+            } else {
+                arr.push('0')
             }
         })
         return arr.join("")

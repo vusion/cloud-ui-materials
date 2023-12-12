@@ -13,7 +13,7 @@ UtilsLogics.install = function (Vue, option = {}) {
     // LOGIC USE
 }
 // formulaToString("1,2")
-// console.log("formulaToString", formulaToString("1,+,2"))
-console.log("formulaToResult", formulaToResult(undefined,"2","1,+,2,当前值,目标值,+,abs,(,2,)"))
+// console.log("formulaToString", formulaToString("1,+,2,+,b"))
+// console.log("formulaToResult", formulaToResult(undefined,"2","1,+,2,当前值,目标值,+,abs,(,2,),+,c"))
 
 export default UtilsLogics

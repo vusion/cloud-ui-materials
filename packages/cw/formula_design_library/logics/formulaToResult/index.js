@@ -21,7 +21,9 @@ export default (resource=0,target=0,code,customMapList)=>{
           }, {})
         code.split(",").map(item => {
             if (codeMap[item]) {
-                arr.push(codeMap[item].code)
+                arr.push(codeMap[item].code||'0')
+            } else {
+                arr.push('0')
             }
         })
         let str = arr.join("").replace(/当前值/g, resource).replace(/目标值/g, target) 
