@@ -3,7 +3,6 @@
   type: both
   belong: component
   labels: [Runtime]
-  description: 地图导航
   attrs:
     - name: canto
       title: 是否开启导航		

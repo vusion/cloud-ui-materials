@@ -39,3 +39,5 @@ Methods
 
 POI点被选中后，获取经纬度以及详细地址信息
 
+
+组件库使用文档：https://docs.popo.netease.com/lingxi/52033b482f8c472f989f12da4e21fdc3?xyz=1702455380694#edit

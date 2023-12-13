@@ -1,6 +1,6 @@
-import LcapAmpNav from './components/lcap-amp-nav';
+import LcapAmapNav from './components/lcap-amap-nav';
 // COMPONENT IMPORTS
 export {
-	LcapAmpNav,
+	LcapAmapNav,
 // COMPONENT EXPORTS
 };
