@@ -1,0 +1,50 @@
+const langMap = {
+  'zh-cn': {
+    export: '导出',
+    legend: '图例：',
+    China: '中国',
+    Cayman: '开曼群岛',
+    British: '英属维尔京群岛',
+    American: '美国',
+    UnitedKingdom: '英国',
+    Canada: '加拿大',
+    France: '法国',
+    Spain: '西班牙',
+    Ireland: '爱尔兰',
+    Singapore: '新加坡',
+    Japan: '日本',
+    HongKong: '香港特别行政区',
+    Macao: '澳门特别行政区',
+    Taiwan: '台湾',
+    Sweden: '瑞典',
+    fullScreen: '全屏',
+    unFullScreen: '退出全屏',
+    zoomIn: '放大',
+    zoomOut: '缩小'
+  },
+  'en-us': {
+    export: 'Export',
+    legend: 'Legend: ',
+    China: 'China',
+    Cayman: 'Cayman Islands',
+    British: 'British Virgin Islands',
+    American: 'United States',
+    UnitedKingdom: 'United Kingdom',
+    Canada: 'Canada',
+    France: 'France',
+    Spain: 'Spain',
+    Ireland: 'Ireland',
+    Singapore: 'Singapore',
+    Japan: 'Japan',
+    HongKong: 'Hong Kong',
+    Macao: 'Macao',
+    Taiwan: 'Taiwan',
+    Sweden: 'Sweden',
+    fullScreen: 'Full screen',
+    unFullScreen: 'Exit full screen',
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out'
+  }
+}
+
+export default langMap
