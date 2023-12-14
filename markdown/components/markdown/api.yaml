@@ -8,6 +8,8 @@
       type: string
       default: ""
       description: 需要传入的值
+      sync: true
+      model: true
     - name: mode
       type: string
       description: markdown模式
