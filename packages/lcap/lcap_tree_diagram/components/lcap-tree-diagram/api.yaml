@@ -1,5 +1,5 @@
 - name: lcap-tree-diagram
-  description: 树状结构图
+  title: 树状结构图
   type: both
   belong: component
   labels: [Runtime]
