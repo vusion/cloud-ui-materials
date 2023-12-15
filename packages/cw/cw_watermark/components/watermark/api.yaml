@@ -1,0 +1,71 @@
+- name: watermark
+  title: 全局图片水印
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: type
+      type: string
+      default: image
+      title: 水印类型
+      options:
+        - value: image
+          title: 图片水印
+        - value: text
+          title: 文字水印
+      description: 请选择水印类型
+      group: 展示属性
+    - name: text
+      type: string
+      default: ""
+      title: 文字水印的内容
+      description: 文字水印的内容
+      group: 展示属性
+      dependency:
+      - type: text
+    - name: color
+      type: string
+      default: "#000"
+      title: 文字水印的颜色
+      description: 文字水印的颜色
+      group: 展示属性
+      dependency:
+      - type: text
+    - name: fontSize
+      type: number
+      default: 16
+      title: 文字水印的字体大小
+      description: 文字水印的字体大小
+      group: 展示属性
+      dependency:
+      - type: text
+    - name: cSpace
+      type: number
+      default: 20
+      title: 文字水印的水平间距
+      description: 文字水印的水平间距
+      group: 展示属性
+      dependency:
+      - type: text
+    - name: vSpace
+      type: number
+      default: 50
+      title: 文字水印的垂直间距
+      description: 文字水印的垂直间距
+      group: 展示属性
+      dependency:
+      - type: text
+    - name: src
+      type: image
+      compType: linkInput
+      default: ""
+      title: 水印图片的url
+      description: 水印图片的url
+      group: 展示属性
+      dependency:
+      - type: image
+    - name: opacity
+      type: number
+      title: 水印图片的透明度
+      description: 水印图片的透明度
+      group: 展示属性

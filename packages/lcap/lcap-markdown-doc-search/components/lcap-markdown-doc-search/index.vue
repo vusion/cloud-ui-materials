@@ -20,7 +20,6 @@
         :height="height"      
         :suffix="suffix" 
         :prefix="prefix"
-
         @before-input="onBeforeInput"
         @input="onInput"
         @change="onChange"
