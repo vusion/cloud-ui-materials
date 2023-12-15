@@ -1,0 +1,50 @@
+- name: cw-equity-chart
+  title: 股权架构图
+  type: pc
+  belong: component
+  labels: [Runtime]
+  icon: default
+  attrs:
+    - name: isShowLegend
+      type: Boolean
+      default: true
+      description: 是否展示图例
+    - name: isOnSearch
+      type: Boolean
+      default: false
+      description: 是否是查询状态
+    - name: nodeData
+      type: Object
+      default: {}
+      description: 数据
+    - name: isExportAuth
+      type: Boolean
+      default: true
+      description: 是否有导出权限
+    - name: lang
+      type: string
+      default: 'zh-cn'
+      description: 语言切换
+  slots:
+    - name: default
+      description: 插入文本或 HTML。
+  events:
+    - name: change
+      description: 修改时触发
+      params:
+        - name: $event.param1
+          type: string
+          description: 参数1
+        - name: $event.param2
+          type: number
+          description: 参数2
+    - name: node-click
+      description: 点击节点触发
+      params:
+        - name: id
+          type: string
+          description: 公司ID
+        - name: name
+          type: string 
+          description: 公司名字
+
