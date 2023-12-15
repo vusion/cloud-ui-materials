@@ -28,6 +28,7 @@
       default: "#000"
       title: 文字水印的颜色
       description: 文字水印的颜色
+      group: 展示属性
       dependency:
       - type: text
     - name: fontSize
@@ -35,6 +36,7 @@
       default: 16
       title: 文字水印的字体大小
       description: 文字水印的字体大小
+      group: 展示属性
       dependency:
       - type: text
     - name: cSpace
@@ -42,6 +44,7 @@
       default: 20
       title: 文字水印的水平间距
       description: 文字水印的水平间距
+      group: 展示属性
       dependency:
       - type: text
     - name: vSpace
@@ -49,6 +52,7 @@
       default: 50
       title: 文字水印的垂直间距
       description: 文字水印的垂直间距
+      group: 展示属性
       dependency:
       - type: text
     - name: src
@@ -64,6 +68,4 @@
       type: number
       title: 水印图片的透明度
       description: 水印图片的透明度
-      group: 数据属性
-      dependency:
-      - type: image
+      group: 展示属性
