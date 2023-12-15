@@ -1,0 +1,15 @@
+- name: cust-community-icon-image
+  title: 社区图标图片
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+      - name: src
+        title: 地址
+        type: string
+        default: 'local://wenjianjia~linear-gradient(317deg, #89B1FF 3%, #8FD7FF 100%)'
+        description: ''
+        group: 主要属性
+        brifeDoc: ''
+        tooltipLink: ''
+  slots: false
