@@ -30,7 +30,8 @@ export default {
     mounted() {
         const appendJs = () => {
             let script = document.createElement('script');
-            script.src = 'https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js';
+            // script.src = 'https://unpkg.com/jspdf@1.5.3/dist/jspdf.min.js';
+            script.src = '//dev.uploadjspdf.dogfood.lcap.163yun.com/upload/app/jspdfmin_20231215104818885.js';
             let node = document.getElementsByTagName('script')[0];
             node.parentNode.insertBefore(script, node);
         };

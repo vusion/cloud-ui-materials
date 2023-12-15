@@ -1,11 +1,11 @@
 {
-  "name": "lcap-printPage",
+  "name": "lcap-print-page",
   "description": "",
-  "version": "0.1.2",
+  "version": "0.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://static-vusion.163yun.com/lcap-printPage@0.1.2/index.html",
+  "homepage": "http://static-vusion.163yun.com/lcap-printPage@0.1.1/index.html",
   "license": "MIT",
   "keywords": [
     "lcap",
