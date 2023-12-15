@@ -16,19 +16,11 @@ export default {
     name:"cw-active-drag-view",
     props:{
       value:{
-        type:String,
-        default:"请在这里编写代码"
+        type:Array,
+        default:()=>[]
       }
     },
     mounted(){
-      // this.init()
-      // console.log(this.$slots.default)
-      // if(!$env.VUE_APP_DESIGNER){
-      // }
-      // document.querySelector(".drag-room").style.gridTemplateColumns = "2fr 1fr 3fr"
-      // document.addEventListener("mouseup",()=>{
-      //   this.draggable = true;
-      // })
 
     },
     watch:{
@@ -36,10 +28,12 @@ export default {
         handler(){
           this.init()
         },
-        immediate:true
+        // immediate:true
       },
       value:{
-        handler(){
+        handler(v){
+          console.log(v)
+            this.init()
         },
         immediate:true
       }
@@ -71,7 +65,7 @@ export default {
       async handleClick(){
         if(this.isEdit){
           console.log(this.$slots.default);
-          const parentEl =document.querySelector(".drag-room")
+          const parentEl = document.querySelector(".drag-room")
           parentEl.childNodes.forEach((element,index) => {
              const order =  element.getAttribute("data-order")
              this.lenList[order] = element.style.flexBasis
@@ -100,6 +94,9 @@ export default {
         //   // this.lenList[order] = element.elm.__vue__.selfBasis
         //  })
       },
+      handleSaveData(){
+        this.$emit("onSaveData",this.value)
+      },
       handleUpdate(e){
         function  sort_after_drag(elements, oldIndex, newIndex){
           const  element = elements[oldIndex]
@@ -115,13 +112,17 @@ export default {
           this.$slots.default.forEach((element,index) => {
               element.elm.classList.add("drag-room-cell"+index)
           });
-          localStorage.getItem("resultList")?this.indexList = JSON.parse(localStorage.getItem("resultList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
-          localStorage.getItem("lenList")?this.lenList = JSON.parse(localStorage.getItem("lenList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
+          // localStorage.getItem("resultList")?this.indexList = JSON.parse(localStorage.getItem("resultList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
+          // localStorage.getItem("lenList")?this.lenList = JSON.parse(localStorage.getItem("lenList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
           // console.log(this.indexList);
+          // console.log(this.value);
+          this.indexList = this.value.map(item=>item.order)
+          this.lenList = this.value.map(item=>item.basis)
+          
           const reorderChildNodes=(parentNode, orderList) => {
             const childNodes = Array.from(parentNode.children);
             childNodes.forEach((node, index) => {
-              node.dataset.order=index
+              node.dataset.order = index
               if(this.lenList){
                  node.style.flexBasis = this.lenList[index]
               }
