@@ -1,6 +1,7 @@
 <template>
   <div class="active-room"> 
-    <button @click="handleClick">anniu{{isEdit}}</button>
+    <!-- <button @click="handleChangeActive">anniu{{isEdit}}</button> -->
+     <!-- <button @click="handleSaveData">anniu123</button> -->
     <div vusion-slot-name="default" class="drag-room drag-disabled-room" v-if="inIDE || !isEdit" >
         <slot></slot>
     </div>
@@ -33,6 +34,7 @@ export default {
       value:{
         handler(v){
           console.log(v)
+            this.initData()
             this.init()
         },
         immediate:true
@@ -51,7 +53,7 @@ export default {
           draggable:true,
           componentDefaultList:[this.$slots.default],
           indexList:[],
-          isEdit:true,
+          isEdit:false,
           lenList:[]
       }
     },
@@ -62,9 +64,8 @@ export default {
       handleChangeCell(e,idx){
         console.log(e,idx);
       },  
-      async handleClick(){
+      async handleChangeActive(){
         if(this.isEdit){
-          console.log(this.$slots.default);
           const parentEl = document.querySelector(".drag-room")
           parentEl.childNodes.forEach((element,index) => {
              const order =  element.getAttribute("data-order")
@@ -76,8 +77,8 @@ export default {
           //    const order =  element.elm.getAttribute("data-order")
           //    this.lenList[order] = element.elm.style.flexBasis
           //  })
-           localStorage.setItem("resultList",JSON.stringify(this.indexList))
-           localStorage.setItem("lenList",JSON.stringify(this.lenList))
+          //  localStorage.setItem("resultList",JSON.stringify(this.indexList))
+          //  localStorage.setItem("lenList",JSON.stringify(this.lenList))
         }
         
         console.log(this.lenList);
@@ -95,7 +96,21 @@ export default {
         //  })
       },
       handleSaveData(){
-        this.$emit("onSaveData",this.value)
+        const parentEl = document.querySelector(".drag-room")
+          parentEl.childNodes.forEach((element) => {
+             const order =  element.getAttribute("data-order")
+             this.lenList[order] = element.style.flexBasis
+           })
+        const result =  this.indexList.map((item,index)=>{
+          return ({
+            order:item,
+            basis:this.lenList[index],
+            hidden:false,
+          })
+        })
+        
+        this.$emit("onSaveData",result)
+        return result
       },
       handleUpdate(e){
         function  sort_after_drag(elements, oldIndex, newIndex){
@@ -107,17 +122,20 @@ export default {
         this.indexList = sort_after_drag(this.indexList,e.oldIndex,e.newIndex)
         console.log(this.resultList,this.lenList);
       },
+      async initData(){
+          this.indexList = this.value.map(item=>item.order)
+          this.lenList = this.value.map(item=>item.basis)
+      },
       async init(){
           await this.$nextTick()
-          this.$slots.default.forEach((element,index) => {
+          this.$slots.default.filter(item=>item.data).forEach((element,index) => {
               element.elm.classList.add("drag-room-cell"+index)
           });
           // localStorage.getItem("resultList")?this.indexList = JSON.parse(localStorage.getItem("resultList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
           // localStorage.getItem("lenList")?this.lenList = JSON.parse(localStorage.getItem("lenList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
           // console.log(this.indexList);
           // console.log(this.value);
-          this.indexList = this.value.map(item=>item.order)
-          this.lenList = this.value.map(item=>item.basis)
+       
           
           const reorderChildNodes=(parentNode, orderList) => {
             const childNodes = Array.from(parentNode.children);

@@ -2,7 +2,7 @@
   "name": "cw_active_room_library",
   "title": "自由移动布局",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",

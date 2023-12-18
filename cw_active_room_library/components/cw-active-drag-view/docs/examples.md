@@ -3,7 +3,7 @@
 ``` vue
 
 <template>
-<cw-active-drag-view :value="comList">
+<cw-active-drag-view :value="comList" @onSaveData="handleSave">
      <cw-active-drag-view-cell :key="1" >
         1
         <div style="margin-right:10px">12323213</div>     
@@ -18,13 +18,18 @@
 </template>
 <script>
 export default {
+  methods:{
+    handleSave(e){
+      console.log(e)
+    }
+  },
   data(){
     return {
       comList:[
         {
         name:"日历",
         hidden:false,
-        order:0,
+        order:1,
         basis:"25%"
         },
         {
@@ -36,7 +41,7 @@ export default {
         {
         name:"今日任务",
         hidden:false,
-        order:1,
+        order:0,
         basis:"30%"
         },
         {

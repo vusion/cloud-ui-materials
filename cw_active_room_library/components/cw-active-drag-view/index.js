@@ -1,3 +1,3 @@
-import ActiveDragView from "./index.vue"
+import CwActiveDragView from "./index.vue"
 
-export default ActiveDragView
+export default CwActiveDragView
