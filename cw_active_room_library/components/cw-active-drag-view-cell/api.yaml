@@ -1,5 +1,5 @@
 - name: cw-active-drag-view-cell
-  title: 可拖债单元
+  title: 可拖拽单元
   type: pc
   belong: component
   labels: [Runtime]

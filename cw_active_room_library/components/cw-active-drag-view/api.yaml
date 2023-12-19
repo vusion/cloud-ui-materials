@@ -5,6 +5,7 @@
   labels: [Runtime]
   attrs:
     - name: value
+      title: 传入的值
       type: Array
       description: 需要传入的值
   slots:

@@ -22,7 +22,7 @@ export default {
       }
     },
     mounted(){
-
+      
     },
     watch:{
       isEdit:{
@@ -34,8 +34,10 @@ export default {
       value:{
         handler(v){
           console.log(v)
+           if(!inIDE){
             this.initData()
             this.init()
+           }
         },
         immediate:true
       }
