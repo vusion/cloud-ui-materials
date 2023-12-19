@@ -1,5 +1,5 @@
 - name: init
   description: 初始化
-  type: both
+  type: h5
   belong: logic
   labels: [Runtime]
