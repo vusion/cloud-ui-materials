@@ -27,11 +27,6 @@ export default {
     openSmooth: { type: Boolean, default: true },
     reSignName: { type: Boolean, default: false },
   },
-  watch: {
-    baColor() {
-      this.signature.drawBgColor();
-    },
-  },
   mounted() {
     this.signature = new SmoothSignature(document.getElementById("canvas"), {
       bgColor: this.bgColor,
