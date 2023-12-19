@@ -1,0 +1,2344 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <svg viewBox="0 0 1680 1100" id="mainsvg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:cge="http://www.cim.com" onload="loadIconDefs()">
+   <defs>
+   <style type="text/css"><![CDATA[
+   .kv0{stroke:#ed0e80;fill:none}
+   .kv10{stroke:#000001;fill:none}
+   .kv110{stroke:#000000;fill:none}
+   .kv220{stroke:#eef930;fill:none}
+   .kv35{stroke:#eef930;fill:none}
+   .kv500{stroke:#eeec80;fill:none}
+   .kv6{stroke:#000000;fill:none}
+   .kv-1{stroke:#ed0e80;fill:none}
+   ]]></style>
+   <symbol id="terminal" preserveAspectRatio="xMidYMid meet">
+   <circle cx="0" cy="0" r="1" stroke-width="0"/>
+   </symbol>
+<mydatadefine id="textlist" textidlist="32100058,32100059,32100060,32100061,32100062,32100063,32100064,32100065,32100066,32100067,32100068,32100069,32100070,32100071,32100072,32100073,32100074,32100075,32100076,32100077,32100078,32100079,32100080,32100081,32100082,32100083,32100084,32100085,32100086,32100087,32100088,32100089,32100090,32100091,32100092,32100093,32100094,32100095,32100096,32100097,32100098,32100099,32100100,32100101,32100102,32100103,32100104,32100105,32100106,32100107,32100108,32100109,32100110,32100111,32100112,32100113,32100114,32100115,32100116,32100117,32100118,32100119,32100120,32100121,32100122,32100123,32100124,32100125,32100126,32100127,32100128,32100129,32100130,32100131,32100132,32100133,32100134,32100135,32100136,32100137,32100138,32100139,32100140,32100141,32100142,32100143,32100144,32100145,32100146,32100147,32100148,32100149,32100150,32100151,32100152,32100153,32100154,32100155,32100156,32100157,32100158,32100159,32100160,32100012,32100013,32100014,32100015,32100016,32100017,32100018,32100019,32100020,32100021,32100030,32100032,32100033,32100034,32100035,32100036,32100037,32100038,32100039,32100040,32100041,32100042,32100043,32100044,32100045,32100046,32100047,32100048,32100049,32100050,32100051,32100052,32100053,32100054,32100055,32100056,32100057,"/>
+<mydatadefine id="iconlist" iconidlist="250,252,254,256,258,260,262,264,266,268,270,272,274,276,4,3,2,0,"/>
+<mydatadefine id="curvelist" curveidlist=""/>
+<mydatadefine id="barlist" baridlist=""/>
+<mydatadefine id="pielist" pieidlist=""/>
+<mydatadefine id="caoliulist" caoliuidlist=""/>
+<mydatadefine id="donghualist" donghuaidlist=""/>
+<mydatadefine id="sheetlist" sheetlist=""/>
+<mydatadefine id="meterlist" meterlist=""/>
+<mydatadefine id="slidelist" slidelist=""/>
+<mydatadefine id="waterlist" waterlist=""/>
+<mydatadefine id="thermometerlist" thermometerlist=""/>
+<mydatadefine id="baycontainerlist" baycontainerlist="32400435,32400436,32400437,32400438,32400426,32400427,32400428,32400429,32400430,32400431,32400432,32400433,32400434,32400417,32400418,32400419,32400420,32400421,32400422,32400423,32400409,32400410,32400411,32400412,32400413,32400414,32400415,32400416,"/>
+</defs>
+<script type="text/javascript" xlink:href="/se900d/js/graph.js" />
+<g id="Head_Layer">
+        <rect x="0" y="0" height="1061.5" width="1630.47" fill="rgb(0,0,38)" FacName="test" InitShowingPlane="0," />
+      </g>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(834.206,748.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(834.206,782.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(834.206,818.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(836.206,854.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(835.206,888.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(834.206,924.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(836.206,986.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(835.206,958.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<rect x="-781.5" y="-285.87" width="1563" height="571.74" transform="translate(832.176,770.743) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<g id="32400435">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1241.54,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000327" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400436">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1346.54,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000299" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400437">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1461.54,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000341" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400438">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1560.54,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000421" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400426">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(198.357,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000303" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400427">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(298.541,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000307" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400428">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(390.541,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000337" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400429">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(489.541,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000323" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400430">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(602.016,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000317" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400431">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(809.541,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000319" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400432">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(911.744,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000473" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400433">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1026.54,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000311" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400434">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1127.54,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000365" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400417">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(910.541,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000472" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400418">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1026.54,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000310" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400419">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1127.54,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000364" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400420">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1241.54,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000326" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400421">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1346.54,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000298" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400422">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1461.54,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000340" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400423">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(1560.54,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000420" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="424">
+<polyline points="1503.55,231.75 1503.55,456.75 1472.55,456.75 1472.55,406.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="425">
+<polyline points="1527.55,288.75 1527.55,459.75 1558.55,459.75 1558.55,407.75" stroke-width="3" fill="none"  stroke="rgb(0,0,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<line x1="0" y1="-40" x2="0" y2="40" transform="translate(1557.91,355.566) " stroke-width="3" fill="none"   stroke="rgb(0,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-40" x2="0" y2="40" transform="translate(1473.91,352.566) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(1357.91,387) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(1252.91,384) " stroke-width="3" fill="none"   stroke="rgb(255,255,0)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(1141.91,394) " stroke-width="3" fill="none"   stroke="rgb(255,255,0)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(1038.91,393) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(919.907,386) " stroke-width="3" fill="none"   stroke="rgb(0,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-90" x2="0" y2="90" transform="translate(812.907,381.566) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(690.907,387) " stroke-width="3" fill="none"   stroke="rgb(0,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(583.907,390) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(482.907,387) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-73.4342" x2="0" y2="73.4342" transform="translate(390.907,388) " stroke-width="3" fill="none"   stroke="rgb(255,255,0)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-87.5" x2="0" y2="87.5" transform="translate(292.907,379.066) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-82.5" x2="0" y2="82.5" transform="translate(191.779,375.382) " stroke-width="3" fill="none"   stroke="rgb(192,128,255)" Plane="0" AFMask="32783"/>
+<g id="32400409">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(198.357,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000302" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400410">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(298.541,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000306" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400411">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(390.541,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000336" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400412">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(489.541,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000322" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400413">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(602.016,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000316" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400414">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(704.541,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000474" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400415">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(704.541,1038.3) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000475" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32400416">
+<rect x="-25" y="-10" width="50" height="20" transform="translate(809.541,1006.38) " stroke-width="0"/>
+<metadata>
+<cge:PSR_Ref ObjectID="205000318" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#000000"/>
+</metadata>
+</g>
+
+<g id="32100058">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(717.657,866) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020106" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100059">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(717.657,653) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020099" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100060">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(717.657,901) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020107" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100061">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(821.657,937.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018783" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100062">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(821.657,614) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018772" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100063">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(821.657,728) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018776" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100064">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(821.657,690) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018774" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100065">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(821.657,830) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018779" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100066">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(821.657,796) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018778" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100067">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(821.657,763) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018777" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100068">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(821.657,866) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018780" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100069">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(821.657,653) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018773" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100070">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(821.657,901) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018781" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100071">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(926.657,936.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020092" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100072">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(926.657,613) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020081" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100073">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(926.657,727) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020085" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100074">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(926.657,689) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020083" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100075">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(926.657,829) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020088" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100076">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(926.657,796.167) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020087" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100077">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(926.657,762) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020086" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100078">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(926.657,865) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020089" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100079">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(926.657,652) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020082" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100080">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(926.657,900) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020090" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100081">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(1023.66,938.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018715" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100082">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(1023.66,615) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018704" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100083">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(1023.66,729) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018708" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100084">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(1023.66,691) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018706" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100085">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(1023.66,831) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018711" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100086">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(1023.66,797) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018710" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100087">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(1023.66,764) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018709" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100088">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(1023.95,865.794) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018712" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100089">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(1023.66,654) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018705" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100090">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(1023.66,902) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018713" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100091">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(1141.66,937.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019174" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100092">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(1141.66,614) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019163" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100093">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(1141.66,728) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019167" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100094">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(1141.66,690) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019165" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100095">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(1141.66,830) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019170" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100096">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(1141.66,796) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019169" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100097">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(1141.66,763) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019168" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100098">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(1141.66,866) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019171" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100099">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(1141.66,653) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019164" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100100">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(1141.66,901) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019172" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100101">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(1254.66,936.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018851" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100102">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(1254.66,613) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018840" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100103">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(1254.66,727) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018844" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100104">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(1254.66,689) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018842" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100105">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(1254.66,829) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018847" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100106">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(1254.66,795) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018846" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100107">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(1254.66,762) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018845" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100108">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(1254.66,865) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018848" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100109">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(1254.66,652) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018841" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100110">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(1254.66,900) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018849" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100111">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(1342.66,615) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018602" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100112">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(1342.66,831) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018609" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100113">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(1342.66,764) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018607" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100114">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(1342.66,903) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018611" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100115">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(1342.66,938.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018613" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100116">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(1343.05,867.915) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018610" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100117">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(1342.66,654) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018603" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100118">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(1342.66,729) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018606" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100119">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(1342.66,691) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018604" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100120">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(1342.66,797) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018608" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100121">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(1456.8,615) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018959" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100122">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(1456.8,902) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018968" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100123">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(1456.8,691) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018961" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100124">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(1456.8,831) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018966" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100125">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(1456.8,867) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018967" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100126">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(1456.8,797) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018965" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100127">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(1456.8,938.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018970" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100128">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(1456.8,729) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018963" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100129">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(1456.8,654) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018960" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100130">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(1456.8,764) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018964" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100131">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(1559.8,615) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019639" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100132">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(1559.8,902) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019648" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100133">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(1559.8,691) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019641" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100134">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(1559.8,831) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019646" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100135">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(1559.8,867) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019647" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100136">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(1559.8,797) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019645" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100137">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(1559.8,938.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019650" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100138">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(1559.8,729) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019643" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100139">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(1559.8,654) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019640" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100140">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(1559.8,764) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204019644" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100141">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(295.506,938.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018681" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100142">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(293.796,831) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000027" ObjectName="/港华集团.生态系统对接.测试电表2.测试电表2-A相电压" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100143">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(293.796,902) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000029" ObjectName="/港华集团.生态系统对接.测试电表2.测试电表2-C相电压" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100144">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(293.796,797) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018676" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100145">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(293.796,729) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018674" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100146">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(293.796,764) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018675" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100147">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(293.796,654) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000031" ObjectName="/港华集团.生态系统对接.测试电表2.测试电表2-B相电流" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100148">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(293.796,691) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000032" ObjectName="/港华集团.生态系统对接.测试电表2.测试电表2-C相电流" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100149">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(293.796,615) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000030" ObjectName="/港华集团.生态系统对接.测试电表2.测试电表2-A相电流" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100150">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(293.796,867) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000028" ObjectName="/港华集团.生态系统对接.测试电表2.测试电表2-B相电压" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100151">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(206.796,936.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000010" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-总负荷" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100152">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(206.796,828) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000001" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-A相电压" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100153">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(206.796,899) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000003" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-C相电压" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100154">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(206.796,794) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018642" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100155">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(206.796,726) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000001" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-A相电压" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100156">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(206.796,761) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018641" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100157">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(206.796,651) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000005" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-B相电流" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100158">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(206.796,688) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000006" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-C相电流" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100159">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(206.796,612) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000004" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-A相电流" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100160">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(206.796,864) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204000002" ObjectName="/港华集团.生态系统对接.测试电表1.测试电表1-B相电压" Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(291.296,162.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(289.296,274.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(289.296,216.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<text x="-41" y="10.5" transform="translate(285.401,507.706) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">测试电表2</text>
+
+<text x="-41.5" y="10.5" transform="translate(433.583,495.228) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">测试电表3</text>
+
+<text x="-24.5" y="9.5" transform="translate(362.654,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4244</text>
+
+<text x="-24.5" y="9.5" transform="translate(453.296,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4149</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(387.296,274.5) " stroke-width="1" fill="none"  stroke="#ffff00" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(482.296,160.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(480.66,219.962) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(478.597,273.731) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<text x="-53.5" y="4" transform="translate(654.295,504.728) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">媒体中心二层</text>
+<text x="-53.5" y="28" transform="translate(654.295,504.728) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">#1#2会议室</text>
+
+<text x="-24.5" y="9.5" transform="translate(555.676,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4146</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(575.296,166.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(581.296,273.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<text x="-199.5" y="33" transform="translate(831.796,29.5) " text-anchor="start" font-family="" font-size="36pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">一次接线图示例图</text>
+
+<text x="-24" y="9.5" transform="translate(662.417,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4405</text>
+
+<text x="-53.5" y="4" transform="translate(872.621,504.728) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">媒体中心二层</text>
+<text x="-53.5" y="28" transform="translate(872.621,504.728) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">#3#4会议室</text>
+
+<text x="-24" y="9.5" transform="translate(784.138,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4147</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(812.296,159.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(810.296,219.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(812.296,273.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<text x="-24.5" y="9.5" transform="translate(891.177,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4406</text>
+
+<text x="-45" y="10.5" transform="translate(104.566,1009.38) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">断路器合位</text>
+
+<text x="-45" y="10.5" transform="translate(107.263,1041.3) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">断路器故障</text>
+
+<text x="-24.5" y="9.5" transform="translate(1009.59,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4143</text>
+
+<text x="-62" y="10.5" transform="translate(1078.86,506.728) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">郡雅酒店宴会厅</text>
+
+<text x="-24" y="9.5" transform="translate(1112.78,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4212</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1037.3,160.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1035.3,275.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1035.3,219.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1138.3,275.5) " stroke-width="1" fill="none"  stroke="#ffff00" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1137.3,219.5) " stroke-width="1" fill="none"  stroke="#ffff00" />
+
+<text x="-24.5" y="9.5" transform="translate(1224.14,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4239</text>
+
+<text x="-28" y="10.5" transform="translate(1300.72,507.728) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">转播车</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1249.3,221.5) " stroke-width="1" fill="none"  stroke="#ffff00" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1251.3,274.5) " stroke-width="1" fill="none"  stroke="#ffff00" />
+
+<text x="-24" y="9.5" transform="translate(1328.89,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4137</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1352.3,157.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1353.3,213.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1355.3,273.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<text x="-40" y="4" transform="translate(1455.78,548.088) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">论坛#1、</text>
+<text x="-40" y="28" transform="translate(1455.78,548.088) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">#2变联络</text>
+
+<text x="-26" y="9.5" transform="translate(1442.3,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">400-I</text>
+
+<text x="-29.5" y="9.5" transform="translate(1599.97,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">400-II</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1471.3,158.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1472.3,218.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1471.3,274.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1500.05,216.381) " stroke-width="1" fill="none"  stroke="#ffff00" />
+
+<text x="-39" y="11.5" transform="translate(109.29,621.343) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(0,255,0)" fill="rgb(0,255,0)">Ia (A):</text>
+
+<text x="-39.5" y="11.5" transform="translate(109.29,657.37) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(170,255,255)" fill="rgb(170,255,255)">Ib (A):</text>
+
+<text x="-38.5" y="11.5" transform="translate(109.29,695.37) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(170,170,127)" fill="rgb(170,170,127)">Ic (A):</text>
+
+<text x="-50.5" y="11.5" transform="translate(103.29,731.37) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(170,170,255)" fill="rgb(170,170,255)">Uab (V):</text>
+
+<text x="-50" y="11.5" transform="translate(103.29,767.586) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(255,170,0)" fill="rgb(255,170,0)">Ubc (V):</text>
+
+<text x="-49.5" y="11.5" transform="translate(103.29,800.37) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(85,170,255)" fill="rgb(85,170,255)">Uca (V):</text>
+
+<text x="-43" y="11.5" transform="translate(109.29,837.37) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(255,85,127)" fill="rgb(255,85,127)">Ua (V):</text>
+
+<text x="-43.5" y="11.5" transform="translate(109.29,872.138) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(255,85,255)" fill="rgb(255,85,255)">Ub (V):</text>
+
+<text x="-42.5" y="11.5" transform="translate(109.29,907.138) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(170,85,255)" fill="rgb(170,85,255)">Uc (V):</text>
+
+<text x="-46.5" y="11.5" transform="translate(109.29,943.5) " text-anchor="start" font-family="" font-size="16pt" font-weight="75" font-style="normal"  stroke="rgb(85,170,255)" fill="rgb(85,170,255)">P (kW):</text>
+
+<text x="-21" y="12.5" transform="translate(107.571,546.802) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(0,170,0)" fill="rgb(0,170,0)">遥测</text>
+
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(157.977,770.022) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(833.866,600.907) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(834.206,639.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(835.206,677.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="-781.5" y1="0" x2="781.5" y2="0" transform="translate(834.206,712.5) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<text x="-19.5" y="10.5" transform="translate(110.296,972) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(0,170,0)" fill="rgb(0,170,0)">遥信</text>
+
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(344.296,771) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-252.5" x2="0" y2="252.5" transform="translate(438.296,805) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(541.296,770) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-252.5" x2="0" y2="252.5" transform="translate(653.296,805) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(758.296,771) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-252.5" x2="0" y2="252.5" transform="translate(866.296,804.25) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(965.296,771) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-252.5" x2="0" y2="252.5" transform="translate(1072.3,804) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(1181.3,771) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-252.5" x2="0" y2="252.5" transform="translate(1295.3,805) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(1401.3,770) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(1511.3,771) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<text x="-12" y="12.5" transform="translate(392.796,572.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(0,170,0)" fill="rgb(0,170,0)">主</text>
+
+<text x="-12" y="12.5" transform="translate(494.796,572.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">备</text>
+
+<text x="-12" y="12.5" transform="translate(605.296,570.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(0,170,0)" fill="rgb(0,170,0)">主</text>
+
+<text x="-12" y="12.5" transform="translate(707.296,570.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">备</text>
+
+<text x="-12" y="12.5" transform="translate(818.296,569.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(0,170,0)" fill="rgb(0,170,0)">主</text>
+
+<text x="-12" y="12.5" transform="translate(920.296,569.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">备</text>
+
+<text x="-12" y="12.5" transform="translate(1026.3,569.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(0,170,0)" fill="rgb(0,170,0)">主</text>
+
+<text x="-12" y="12.5" transform="translate(1128.3,569.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">备</text>
+
+<text x="-12" y="12.5" transform="translate(1246.3,570.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(0,170,0)" fill="rgb(0,170,0)">主</text>
+
+<text x="-12" y="12.5" transform="translate(1348.3,570.5) " text-anchor="start" font-family="" font-size="13.5pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">备</text>
+
+<text x="-40" y="4" transform="translate(1562.24,545.049) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">论坛#3、</text>
+<text x="-40" y="28" transform="translate(1562.24,545.049) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">#4变联络</text>
+
+<g id="250">
+<use x="-20" y="-35" width="40" height="70" transform="translate(1558.55,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000420" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1558.05" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="252">
+<use x="-20" y="-35" width="40" height="70" transform="translate(1473.55,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000340" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1473.05" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="254">
+<use x="-20" y="-35" width="40" height="70" transform="translate(1357.55,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000298" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1357.05" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="256">
+<use x="-20" y="-35" width="40" height="70" transform="translate(1252.55,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000326" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1252.05" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="258">
+<use x="-20" y="-35" width="40" height="70" transform="translate(1141.55,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000364" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1141.05" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="260">
+<use x="-20" y="-35" width="40" height="70" transform="translate(1038.55,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000310" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1038.05" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="262">
+<use x="-20" y="-35" width="40" height="70" transform="translate(919.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000472" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="919.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="264">
+<use x="-20" y="-35" width="40" height="70" transform="translate(812.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000318" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="812.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="266">
+<use x="-20" y="-35" width="40" height="70" transform="translate(690.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000474" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="690.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="268">
+<use x="-20" y="-35" width="40" height="70" transform="translate(583.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000316" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="583.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="270">
+<use x="-20" y="-35" width="40" height="70" transform="translate(481.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000322" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="481.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="272">
+<use x="-20" y="-35" width="40" height="70" transform="translate(390.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000336" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="390.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="274">
+<use x="-20" y="-35" width="40" height="70" transform="translate(292.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000306" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="292.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="276">
+<use x="-20" y="-35" width="40" height="70" transform="translate(191.546,387.75) scale(1,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_2_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000302" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="191.046" y="406.25" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="278">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1557.55,318.75) rotate(270) " stroke="#00ffff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#00ffff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1552.05" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="280">
+<use x="-15" y="-10" width="30" height="20" transform="translate(812.546,318.75) rotate(270) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="807.046" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="282">
+<use x="-15" y="-10" width="30" height="20" transform="translate(390.546,467.75) rotate(90) " stroke="#ffff00" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#ffff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="385.046" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(191.046,217.75) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(391.046,217.75) " stroke-width="1" fill="none"  stroke="#ffff00" />
+
+
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(578.046,219.75) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+
+
+<g id="290">
+<use x="-15" y="-10" width="30" height="20" transform="translate(191.546,318.75) rotate(270) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="186.046" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="292">
+<use x="-15" y="-10" width="30" height="20" transform="translate(191.546,467.75) rotate(90) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="186.046" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="294">
+<use x="-15" y="-10" width="30" height="20" transform="translate(390.546,318.75) rotate(270) " stroke="#ffff00" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#ffff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="385.046" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="296">
+<use x="-15" y="-10" width="30" height="20" transform="translate(482.546,318.75) rotate(270) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="477.046" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="298">
+<use x="-15" y="-10" width="30" height="20" transform="translate(583.546,318.75) rotate(270) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="578.046" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="300">
+<use x="-15" y="-10" width="30" height="20" transform="translate(690.546,318.75) rotate(270) " stroke="#00ffff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#00ffff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="685.046" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="302">
+<use x="-15" y="-10" width="30" height="20" transform="translate(920.546,467.75) rotate(90) " stroke="#00ffff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#00ffff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="915.046" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="304">
+<use x="-15" y="-10" width="30" height="20" transform="translate(482.546,467.75) rotate(90) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="477.046" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="306">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1038.55,467.75) rotate(90) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1033.05" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="308">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1140.55,318.75) rotate(270) " stroke="#ffff00" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#ffff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1135.05" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="310">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1141.55,467.75) rotate(90) " stroke="#ffff00" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#ffff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1136.05" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="312">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1252.55,467.75) rotate(90) " stroke="#ffff00" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#ffff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1247.05" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="314">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1252.55,318.75) rotate(270) " stroke="#ffff00" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#ffff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1247.05" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="316">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1357.55,318.75) rotate(270) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1352.05" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="318">
+<use x="-15" y="-10" width="30" height="20" transform="translate(291.546,467.75) rotate(90) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="286.046" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="320">
+<use x="-15" y="-10" width="30" height="20" transform="translate(584.546,467.75) rotate(90) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="579.046" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="322">
+<use x="-15" y="-10" width="30" height="20" transform="translate(690.546,467.75) rotate(90) " stroke="#00ffff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#00ffff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="685.046" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="324">
+<use x="-10" y="-15" width="20" height="30" transform="translate(812.546,467.75) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_11_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="812.046" y="483.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="326">
+<use x="-10" y="-15" width="20" height="30" transform="translate(919.546,317.75) " stroke="#00ffff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_10_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#00ffff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="919.046" y="333.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="328">
+<use x="-10" y="-15" width="20" height="30" transform="translate(1038.55,317.75) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_10_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1038.05" y="333.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="330">
+<use x="-15" y="-10" width="30" height="20" transform="translate(1357.55,467.75) rotate(90) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1352.05" y="478.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="332">
+<use x="-10" y="-15" width="20" height="30" transform="translate(1474.55,317.75) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_10_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="1474.05" y="333.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="338">
+<polyline points="122.546,275.75 121.546,275.75 121.546,275.5" stroke-width="3" fill="none"  stroke="rgb(0,255,0)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="339">
+<polyline points="122.546,275.75 121.546,275.75 121.546,275.5" stroke-width="3" fill="none"  stroke="rgb(0,255,0)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="340">
+<polyline points="121.546,217.75 121.546,217.5 121.546,217.5" stroke-width="3" fill="none"  stroke="rgb(0,128,192)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="341">
+<polyline points="121.546,217.75 121.546,217.5 121.546,217.5" stroke-width="3" fill="none"  stroke="rgb(0,128,192)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="342">
+<polyline points="122.546,158.75 121.546,158.75 121.546,158.5" stroke-width="3" fill="none"  stroke="rgb(255,255,128)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="343">
+<polyline points="122.546,158.75 121.546,158.75 121.546,158.5" stroke-width="3" fill="none"  stroke="rgb(255,255,128)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="344">
+<polyline points="122.546,99.75 121.546,99.75 121.546,99.5" stroke-width="3" fill="none"  stroke="rgb(255,0,0)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="345">
+<polyline points="122.546,99.75 121.546,99.75 121.546,99.5" stroke-width="3" fill="none"  stroke="rgb(255,0,0)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="346">
+<polyline points="1557.55,275.75 1557.55,309.75 1557.55,309.75" stroke-width="3" fill="none"  stroke="rgb(0,255,255)" />
+<metadata>
+<cge:PSR_Link MaxPinNum="2" Pin0InfoVect0LinkObjId="" Pin1InfoVect0LinkObjId="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="347">
+<polyline points="1527.55,217.75 1527.55,258.75" stroke-width="3" fill="none"  stroke="rgb(0,0,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="348">
+<polyline points="1252.55,458.75 1252.55,463.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="349">
+<polyline points="1251.55,311.75 1251.55,289.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="350">
+<polyline points="10.5459,101.75 10.5459,99.75 1617.55,99.75" stroke-width="5" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="351">
+<polyline points="10.5459,160.75 10.5459,158.75 1617.55,158.75" stroke-width="5" fill="none"  stroke="rgb(255,255,128)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="352">
+<polyline points="10.5459,219.75 10.5459,217.75 1617.55,217.75" stroke-width="5" fill="none"  stroke="rgb(0,0,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="353">
+<polyline points="9.5459,277.75 9.5459,275.75 1616.55,275.75" stroke-width="5" fill="none"  stroke="rgb(0,255,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="354">
+<polyline points="189.546,100.75 189.546,139.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="355">
+<polyline points="291.546,102.75 291.546,141.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="356">
+<polyline points="390.546,162.75 390.546,201.75" stroke-width="3" fill="none"  stroke="rgb(255,255,128)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="357">
+<polyline points="483.546,101.75 483.546,140.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="358">
+<polyline points="812.546,101.75 812.546,140.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="359">
+<polyline points="1038.55,101.75 1038.55,140.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="360">
+<polyline points="1353.55,99.75 1353.55,138.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="361">
+<polyline points="191.546,200.75 191.546,178.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="362">
+<polyline points="192.546,234.75 192.546,257.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="363">
+<polyline points="292.546,177.75 292.546,200.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="364">
+<polyline points="290.546,230.75 290.546,252.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="365">
+<polyline points="390.546,236.75 390.546,254.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="366">
+<polyline points="481.546,176.75 481.546,202.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="367">
+<polyline points="482.546,236.75 481.546,236.75 481.546,256.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="368">
+<polyline points="574.546,149.75 574.546,98.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="369">
+<polyline points="577.546,180.75 577.546,202.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="370">
+<polyline points="581.546,255.75 581.546,236.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="371">
+<polyline points="690.546,309.75 690.546,276.75" stroke-width="3" fill="none"  stroke="rgb(0,255,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="372">
+<polyline points="813.546,174.75 813.546,203.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="373">
+<polyline points="810.546,256.75 810.546,232.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="374">
+<polyline points="919.546,307.25 919.546,277.75" stroke-width="3" fill="none"  stroke="rgb(0,255,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="375">
+<polyline points="1038.55,175.75 1038.55,203.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="376">
+<polyline points="1036.55,235.75 1036.55,259.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="377">
+<polyline points="1136.55,199.75 1136.55,158.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="378">
+<polyline points="1137.55,257.75 1137.55,235.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="379">
+<polyline points="1251.55,202.75 1251.55,161.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="380">
+<polyline points="1252.55,257.75 1252.55,235.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="381">
+<polyline points="1353.55,194.75 1353.55,173.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="382">
+<polyline points="1355.55,255.75 1355.55,232.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="383">
+<polyline points="1458.55,218.75 1617.55,218.75" stroke-width="5" fill="none"  stroke="rgb(0,0,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="384">
+<polyline points="1468.55,100.75 1468.55,140.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="385">
+<polyline points="1470.55,173.75 1470.55,199.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="386">
+<polyline points="1472.55,236.75 1472.55,253.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="387">
+<polyline points="1499.55,155.75 1499.55,200.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="388">
+<polyline points="390.546,291.75 390.546,313.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="389">
+<polyline points="482.546,290.75 482.546,318.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="390">
+<polyline points="582.546,291.75 583.546,291.75 583.546,312.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="391">
+<polyline points="1039.55,291.75 1039.55,307.25" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="392">
+<polyline points="1139.55,290.75 1140.55,290.75 1140.55,309.75" stroke-width="3" fill="none"  stroke="rgb(255,255,0)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="393">
+<polyline points="1357.55,285.75 1357.55,309.75" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<g id="394">
+<polyline points="1473.55,291.75 1474.55,291.75 1474.55,312.25" stroke-width="3" fill="none"  stroke="rgb(192,128,255)" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783"/>
+</metadata>
+</g>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(1523.3,274.5) " stroke-width="1" fill="none"  stroke="#0000ff" />
+
+<line x1="-529.072" y1="0" x2="529.072" y2="0" transform="translate(872.474,550.114) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<line x1="0" y1="-285.5" x2="0" y2="285.5" transform="translate(242.703,770.401) " stroke-width="1" fill="none"   stroke="rgb(255,255,255)" Plane="0" AFMask="32783"/>
+<text x="-40" y="10.5" transform="translate(40.5,76.3) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">论坛1#变</text>
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(190.102,160.806) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<path fill-rule="evenodd" d="M 0,-15.8472 C -8.27162,-15.8472 -14.9771,-8.75217 -14.9771,0 C -14.9771,8.75217 -8.27162,15.8472 0,15.8472 C 0.889579,15.8472 1.76104,15.7651 2.608,15.6078 " transform="translate(190.296,276.5) " stroke-width="1" fill="none"  stroke="#c080ff" />
+
+<text x="-40" y="10.5" transform="translate(40.5,193.745) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">论坛3#变</text>
+
+<g id="32100012">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(398.796,614) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018925" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100013">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(398.796,653) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018926" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100014">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(398.796,690) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018927" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100015">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(398.796,728) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018929" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100016">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(398.796,763) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018930" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100017">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(398.796,796) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018931" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100018">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(398.796,830) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018932" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100019">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(398.796,866) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018933" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100020">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(398.796,901) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018934" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100021">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(398.796,936.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018936" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<text x="-24.5" y="9.5" transform="translate(158.021,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4139</text>
+
+<text x="-41.5" y="10.5" transform="translate(206.614,519.648) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">测试电表1</text>
+
+<text x="-40" y="10.5" transform="translate(40.5,136.296) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">论坛2#变</text>
+
+<text x="-40" y="10.5" transform="translate(40.5,253.5) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">论坛4#变</text>
+
+<text x="-18.5" y="9.5" transform="translate(123.296,73.5) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">401</text>
+
+<text x="-18.5" y="9.5" transform="translate(123.296,132.5) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">402</text>
+
+<text x="-19" y="9.5" transform="translate(123.296,192.5) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">403</text>
+
+<text x="-19" y="9.5" transform="translate(123.796,250.5) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">404</text>
+
+<g id="32100030">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(494.296,727.577) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018810" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<text x="-24" y="9.5" transform="translate(262.722,387.311) " text-anchor="start" font-family="" font-size="12pt" font-weight="75" font-style="normal"  stroke="rgb(255,255,255)" fill="rgb(255,255,255)">4141</text>
+
+<g id="32100032">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(494.296,689.577) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018808" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100033">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(494.296,613.577) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018806" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100034">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(494.296,762.577) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018811" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100035">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(494.296,652.577) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018807" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100036">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(494.296,899) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018815" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100037">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(494.296,934.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018817" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100038">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(494.296,829.577) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018813" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100039">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(494.296,864) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018814" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100040">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(494.296,795.577) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018812" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100041">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(597.657,938.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018766" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100042">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(597.657,615) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018755" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100043">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(597.657,729) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018759" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100044">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(597.657,691) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018757" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100045">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(597.657,831) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018762" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100046">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(597.657,797) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018761" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100047">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(597.657,764) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018760" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100048">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,255)" transform="translate(599.322,866.794) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018763" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100049">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,255,255)" transform="translate(597.657,654) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018756" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100050">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,0,127)" transform="translate(597.657,902) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204018764" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100051">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,85,255)" transform="translate(717.657,936.25) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020109" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100052">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(0,255,0)" transform="translate(717.657,615) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020098" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100053">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,255)" transform="translate(717.657,725) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020102" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100054">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(192,128,128)" transform="translate(717.657,690) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020100" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100055">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,85,127)" transform="translate(717.657,832) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020105" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100056">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(85,170,255)" transform="translate(717.657,795) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020104" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="32100057">
+<text x="35" y="14.5" text-anchor="end" font-family="" font-size="16pt" font-weight="75" font-style="normal"  fill="rgb(255,192,0)" transform="translate(717.657,760) " Plane="0" writing-mode="lr" AFMask="32783">
+99.99</text>
+<metadata>
+<cge:PSR_Ref ObjectID="204020103" ObjectName="/..." Plane="0" AFMask="32783" DataType="0" ShowStrLen="4" ShowDotNum="2" ShowSignFlag="0" isAbs="0" Stano="0"/>
+</metadata>
+</g>
+
+<g id="4">
+<use x="-31.25" y="-16.5" width="62.5" height="33" transform="translate(121.546,98.75) scale(1.08225,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_3_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000224" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="113.546" y="109.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="3">
+<use x="-31.25" y="-16.5" width="62.5" height="33" transform="translate(121.546,274.75) scale(1.08225,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_3_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000452" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="113.546" y="285.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="2">
+<use x="-31.25" y="-16.5" width="62.5" height="33" transform="translate(121.546,216.75) scale(1.08225,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_3_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000418" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff80"/>
+</metadata>
+</g>
+
+<text x="113.546" y="227.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="1">
+<use x="-15" y="-10" width="30" height="20" transform="translate(293.546,318.75) rotate(270) " stroke="#c080ff" fill="#000000" xlink:href="#Disconnector:pn_刀闸_9_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="" ObjectName="" Plane="0" AFMask="32783" oncolor="#000000" offcolor="#c080ff" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="288.046" y="329.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+<g id="0">
+<use x="-31.25" y="-16.5" width="62.5" height="33" transform="translate(121.546,157.75) scale(1.08225,1)" stroke="#000000" fill="#000000" xlink:href="#Breaker:pn_断路器_3_0" />
+<metadata>
+<cge:PSR_Ref ObjectID="205000338" ObjectName="/..." Plane="0" AFMask="32783" oncolor="#ff0000" offcolor="#00ff00" errcolor="#ffff00"/>
+</metadata>
+</g>
+
+<text x="113.546" y="168.75" font-family="" font-size="12pt" font-weight="50" font-style="normal"  fill="rgb(255,0,0)" Plane="0" AFMask="32783"></text>
+</svg>

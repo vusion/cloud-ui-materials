@@ -1,0 +1,10 @@
+- name: cust-svg-inject-view
+  title: SVG视图
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 图片地址
+      type: image
+      description: 需要传入的值
