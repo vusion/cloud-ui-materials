@@ -3,8 +3,8 @@
 ```
 cloud-ui-materials
 ├─ packages					        # 存放通用依赖库
-	├─ cust		                # 客户定制化依赖库
-	├─ cw					            # 平台依赖库
+  ├─ cust		                # 客户定制化依赖库
+  ├─ cw					            # 平台依赖库
   ├─ demo					          # 典型的依赖库案例
   ├─ lcap					          # 原有扩展组件
 ├─ README.md			            # 说明文档
