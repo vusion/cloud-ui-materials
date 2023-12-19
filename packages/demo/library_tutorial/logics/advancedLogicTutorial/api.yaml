@@ -1,0 +1,5 @@
+- name: advancedLogicTutorial
+  description: 进阶逻辑示例
+  type: both
+  belong: logic
+  labels: [Runtime]
