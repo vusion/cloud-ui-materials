@@ -1,6 +1,6 @@
 {
-  "name": "lcap_amap_nav",
-  "title": "地图导航",
+  "name": "lcap_signature_view",
+  "title": "签名板",
   "description": "",
   "version": "1.0.0",
   "main": "./index.js",
@@ -47,5 +47,8 @@
   },
   "template": {
     "inited": true
+  },
+  "dependencies": {
+    "smooth-signature": "^1.0.12"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "lcap_community_tabs",
-  "title": "社区定制选项卡",
+  "name": "lcap_amap_point",
+  "title": "地图选点",
   "description": "",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -40,6 +40,9 @@
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
     "vue": "^2.6.12"
+  },
+  "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1"
   },
   "vetur": {
     "tags": "./vetur/tags.json",

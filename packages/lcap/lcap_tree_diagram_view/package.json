@@ -1,6 +1,6 @@
 {
-  "name": "lcap_amap_poi",
-  "title": "地图选点",
+  "name": "lcap_tree_diagram_view",
+  "title": "树状结构图",
   "description": "",
   "version": "1.0.0",
   "main": "./index.js",
@@ -24,25 +24,24 @@
     "release": "lcap publish"
   },
   "vuePlugins": {},
-  "babel": {},
   "vusion": {
     "ui": "cloud-ui.vusion"
   },
   "lcapVersion": "0.3.0",
   "devDependencies": {
+    "@vue/babel-preset-app": "^4.4.1",
     "@vue/cli-service": "^4.4.1",
-    "core-js": "^3.6.5",
-    "vue-loader": "15.9.8",
-    "vue-cli-plugin-vusion": "0.14.2-beta",
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.12"
+    "core-js": "^3.6.5",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "vue": "^2.6.12",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
     "vue": "^2.6.12"
-  },
-  "dependencies": {
-    "@amap/amap-jsapi-loader": "^1.0.1"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
@@ -50,5 +49,8 @@
   },
   "template": {
     "inited": true
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }

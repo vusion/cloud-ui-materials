@@ -1,6 +1,6 @@
 {
-  "name": "lcap_tree_diagram",
-  "title": "树状结构图",
+  "name": "lcap_custom_community_tabs",
+  "title": "社区定制选项卡",
   "description": "",
   "version": "1.0.0",
   "main": "./index.js",
@@ -24,20 +24,18 @@
     "release": "lcap publish"
   },
   "vuePlugins": {},
+  "babel": {},
   "vusion": {
     "ui": "cloud-ui.vusion"
   },
   "lcapVersion": "0.3.0",
   "devDependencies": {
-    "@vue/babel-preset-app": "^4.4.1",
     "@vue/cli-service": "^4.4.1",
-    "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
-    "less": "^2.7.3",
-    "less-loader": "^4.0.5",
-    "vue": "^2.6.12",
+    "vue-loader": "15.9.8",
     "vue-cli-plugin-vusion": "0.14.2-beta",
-    "vue-loader": "15.9.8"
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
@@ -49,8 +47,5 @@
   },
   "template": {
     "inited": true
-  },
-  "dependencies": {
-    "lodash": "^4.17.21"
   }
 }
