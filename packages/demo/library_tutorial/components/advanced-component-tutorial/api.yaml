@@ -1,10 +1,76 @@
-- name: advanced-component-tutorial
-  title: 进阶组件示例
-  type: both
-  belong: component
+- name: advanced-component-tutorial # 组件/逻辑名
+  title: 进阶组件示例 # 中文名
+  type: both # 端：可选 pc h5 both
+  belong: component # 类型：可选 component logic
   labels: [Runtime]
   attrs:
-    - name: value
-      type: string
-      default: 请在这里编写代码
-      description: 需要传入的值
+    - name: placeholder # 参数名
+      title: 占位文案 # 中文名
+      type: string # 数据类型
+      default: "请为树形选择器选择值" # 默认值，需要配合vue组件中的props默认值使用
+      description: 用于展示占位符 # 可选：ide中tooltips里面展示的提示内容
+      group: 展示属性 # 用于参数分组，相同组的参数会展示在同一个card中
+    - name: options
+      title: 数据源
+      type: Array<Item> | Function | DataSource
+      description: 树选择器的数据源或返回数据集的逻辑
+      group: 数据属性
+    - name: size
+      title: 尺寸
+      type: string 
+      options:
+        - value: default
+          title: 默认
+        - value: large
+          title: 大   
+        - value: small
+          title: 小   
+      default: default
+      group: 展示属性 
+      # toggleclear:
+      #   - allowClear
+      toggleupdate:
+        - value: large
+          updateData:
+            allowClear: true
+        - value: small
+          updateData:
+            allowClear: false
+    - name: allowClear
+      title: 是否允许清除
+      type: boolean
+      default: false
+    - name: icon
+      type: image
+      compType: linkInput
+      group: 展示属性
+    - name: label-size
+      title: 标签大小
+      type: enum
+      options:
+        - small
+        - normal
+        - large
+        - huge
+      default: normal
+      description: 该项的标签大小。
+      # dependency:
+      #  - size: large
+      # sync: true # 双向绑定使用，需要在vue组件中配置this.$emit("update:simpleInputValue", [1,2,3])来抛出新值
+      # model: true # 双向绑定使
+  events: 
+    - name: change
+      title: change
+      description: 变化后
+      params:
+        - name: event
+          type: string
+          description: 参数
+  # methods:
+  #   - name: stop
+  #     title: stop
+  #     description: 获取到后端抽奖结果后调用，使转盘缓慢停止
+  #     params: 
+  #       - name: index
+  #         type: number
+  #         description: 传入被抽中奖品的index

@@ -2,7 +2,7 @@
   "name": "library_tutorial",
   "title": "依赖库开发示例",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -47,5 +47,8 @@
   },
   "template": {
     "inited": true
+  },
+  "dependencies": {
+    "ant-design-vue": "^1.7.8"
   }
 }
