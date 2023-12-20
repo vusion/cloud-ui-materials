@@ -1,6 +1,6 @@
 - name: judgement-formula-design-view
   title: 判断公式组件
-  type: both
+  type: pc
   belong: component
   labels: [Runtime]
   attrs:
