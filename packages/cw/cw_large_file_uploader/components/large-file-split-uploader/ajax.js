@@ -8,11 +8,7 @@ function getError(url, options, xhr) {
         msg = `Fail to post ${url} ${xhr.status}`;
     }
 
-    const err = new Error(msg);
-    err.status = xhr.status;
-    err.method = 'post';
-    err.url = url;
-    return err;
+    return msg;
 }
 
 function getBody(xhr) {
@@ -42,7 +38,6 @@ export default function upload(options) {
             options.onProgress(e);
         };
     }
-
     const formData = new FormData();
 
     if (options.data) {
@@ -50,9 +45,6 @@ export default function upload(options) {
             formData.append(key, options.data[key]);
         });
     }
-
-    const files = options.file.length ? Array.from(options.file) : [options.file];
-    files.forEach((file) => formData.append(options.name, file, file.name));
 
     xhr.onerror = function onerror(e) {
         options.onError(e);

@@ -2,9 +2,9 @@
 
 ``` vue
 <template>
-<u-uploader url="/api/upload" @before-send.prevent="onBeforeSend">
+<large-file-split-uploader url="/api/upload" @before-send.prevent="onBeforeSend">
     <u-button>upload</u-button>
-</u-uploader>
+</large-file-split-uploader>
 </template>
 
 <script>

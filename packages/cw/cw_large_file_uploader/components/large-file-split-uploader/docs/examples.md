@@ -2,19 +2,22 @@
 
 下面的例子为单文件上传。
 
-``` vue
+```vue
 <template>
-<u-uploader v-model="files" url="/gateway/lowcode/api/v1/app/upload">
+  <large-file-split-uploader
+    v-model="file"
+    url="/gateway/lowcode/api/v1/app/upload"
+  >
     <u-button color="primary">Upload</u-button>
-</u-uploader>
+  </large-file-split-uploader>
 </template>
 <script>
 export default {
-    data() {
-        return {
-            files: [],
-        };
-    },
-}
+  data() {
+    return {
+      file: "",
+    };
+  },
+};
 </script>
 ```

@@ -22,15 +22,25 @@
         @click.stop
         @change="onChange"
       />
-      <div>
-        <div
-          v-if="dragDescription"
-          vusion-slot-name="dragDescription"
-          :class="$style.dragDescription"
-        >
-          <slot name="dragDescription">{{ dragDescription }}</slot>
-        </div>
-        <slot></slot>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M18.5349 9.44679L18.3493 8.59993C17.7098 5.6824 15.108 3.49951 12 3.49951C8.89196 3.49951 6.29024 5.6824 5.65073 8.59993L5.4651 9.44679L4.63864 9.70869C2.81715 10.2859 1.5 11.9908 1.5 13.9995C1.5 16.4848 3.51472 18.4995 6 18.4995H8V19.9995H6C2.68629 19.9995 0 17.3132 0 13.9995C0 11.3183 1.75873 9.04778 4.18552 8.27876C4.97271 4.68751 8.17245 1.99951 12 1.99951C15.8276 1.99951 19.0273 4.68751 19.8145 8.27876C22.2413 9.04778 24 11.3183 24 13.9995C24 17.3132 21.3137 19.9995 18 19.9995H16V18.4995H18C20.4853 18.4995 22.5 16.4848 22.5 13.9995C22.5 11.9908 21.1829 10.2859 19.3614 9.70869L18.5349 9.44679Z"
+          fill="#CCCCCC"
+        />
+        <path
+          d="M12.75 12.3101V19.9995H11.25V12.3103L8.78771 14.7726L7.72705 13.7119L11.9697 9.46927L12 9.49958L12.0304 9.46916L16.2731 13.7118L15.2124 14.7725L12.75 12.3101Z"
+          fill="#CCCCCC"
+        />
+      </svg>
+
+      <div v-if="dragDescription" :class="$style.dragDescription">
+        <span>{{ dragDescription }}</span>
       </div>
     </div>
     <div
@@ -59,41 +69,62 @@
       <div v-if="description" :class="$style.description">
         {{ description }}
       </div>
-      <f-scroll-view
-        trigger="hover"
-        v-if="showErrorMessage && errorMessage.length"
-      >
-        <div :class="$style.errwrap">
-          <div
-            v-for="errItem in errorMessage"
-            :key="errItem"
-            :class="$style.errmessage"
-          >
-            {{ errItem }}
-          </div>
-        </div>
-      </f-scroll-view>
-    </template>
-    <div :class="$style.list">
       <div
-        :class="$style.item"
-        v-for="(item, index) in currentValue"
-        :key="index"
+        v-if="showErrorMessage && errorMessage && errorMessage.length"
+        :class="$style.errwrap"
       >
-        <a :class="$style.link" :href="item.url" target="_blank">{{
-          item.name
-        }}</a>
-        <i-ico
-          name="remove"
-          v-if="!readonly && !disabled"
-          :class="$style.remove"
-          @click="remove(index)"
-        ></i-ico>
-        <u-linear-progress
-          v-if="item.showProgress"
+        <div
+          v-for="errItem in errorMessage"
+          :key="errItem"
+          :class="$style.errmessage"
+        >
+          {{ errItem }}
+        </div>
+      </div>
+    </template>
+    <div
+      v-if="
+        !$env.VUE_APP_DESIGNER &&
+        currentValue &&
+        (currentValue.url || currentValue.showProgress)
+      "
+      :class="$style.list"
+    >
+      <div :class="$style.item">
+        <a
+          v-if="!currentValue.showProgress"
+          :class="$style.link"
+          :href="currentValue.url"
+          download
+          >{{ currentValue.name }}</a
+        >
+        <linear-progress
+          v-if="currentValue.showProgress"
           :class="$style.progress"
-          :percent="item.percent"
-        ></u-linear-progress>
+          :percent="currentValue.percent"
+        ></linear-progress>
+        <svg
+          t="1701087344377"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="3935"
+          width="14"
+          height="14"
+          v-else-if="!readonly && !disabled"
+          :class="$style.remove"
+          @click="remove"
+        >
+          <path
+            d="M478.016 352.704v445.952H545.92V352.704H478.08zM318.912 798.72V352.64h68.032v445.952H318.912zM638.528 352.704v445.952h67.968V352.704H638.528z"
+            p-id="3936"
+          ></path>
+          <path
+            d="M452.032 64c-56.32 0-102.016 45.44-102.016 101.568v25.856H64V259.2h94.016v599.296A101.76 101.76 0 0 0 259.968 960h504c56.32 0 102.016-45.44 102.016-101.568V259.2H960V191.36h-286.016v-25.856A101.76 101.76 0 0 0 572.032 64H452.032z m153.984 127.424H417.92v-25.856a33.92 33.92 0 0 1 34.048-33.92h120a33.92 33.92 0 0 1 33.92 33.92v25.856zM225.92 858.432V259.2h572.032v599.296a33.92 33.92 0 0 1-33.984 33.92H259.904a33.92 33.92 0 0 1-33.92-33.92z"
+            p-id="3937"
+          ></path>
+        </svg>
       </div>
     </div>
   </div>
@@ -101,26 +132,23 @@
 
 <script>
 import ajax from "./ajax";
-
-const SIZE_UNITS = {
-  kB: 1024,
-  KB: 1024, // 兼容KB单位
-  MB: Math.pow(1024, 2),
-  GB: Math.pow(1024, 3),
-  TB: Math.pow(1024, 4),
-};
+import LinearProgress from "./comps/linear-progress.vue";
+import Field from "./comps/field.vue";
 
 export default {
-  name: "u-uploader",
+  name: "large-file-split-uploader",
+  mixins: [Field],
+  components: {
+    LinearProgress,
+  },
   props: {
-    value: [Array, String],
+    value: [String, Object],
     url: { type: String, required: true },
     name: { type: String, default: "file" },
     accept: String,
-    headers: Object,
+    headers: { type: Object, default: () => ({}) },
     withCredentials: { type: Boolean, default: false },
     data: Object,
-    maxSize: { type: [String, Number], default: Infinity },
     urlField: { type: String, default: "url" },
     draggable: { type: Boolean, default: false },
     pastable: { type: Boolean, default: false },
@@ -135,18 +163,12 @@ export default {
     },
     description: String, // 上传限制描述等
     showErrorMessage: { type: Boolean, default: true },
-    checkFile: [Function],
     authorization: { type: Boolean, default: true },
     access: { type: String, default: null },
-    ttl: { type: Boolean, default: null },
-    ttlValue: { type: Number, default: null },
-    viaOriginURL: { type: Boolean, default: false },
-    lcapIsCompress: { type: Boolean, default: false },
   },
   data() {
     return {
       currentValue: this.fromValue(this.value),
-      sending: false,
       file: {},
       dragover: false,
       errorMessage: [],
@@ -173,113 +195,76 @@ export default {
     },
   },
   methods: {
+    onDrop(e) {
+      this.dragover = false;
+      if (this.readonly || this.disabled) return;
+      this.upload(e.dataTransfer.files[0]);
+    },
+    onPaste(e) {
+      if (this.readonly || this.disabled) return;
+      if (this.pastable) this.upload(e.clipboardData.files[0]);
+    },
     fromValue(value) {
-      if (this.converter === "json")
-        try {
-          const parsedValue = JSON.parse(value || "[]");
-          return Array.isArray(parsedValue) ? parsedValue : [];
-        } catch (err) {
-          return [];
+      if (this.$env.VUE_APP_DESIGNER) return {};
+      if (this.converter === "json") {
+        return JSON.parse(value || "{}");
+      } else {
+        if (!value) {
+          return {};
         }
-      else if (this.converter === "simple")
-        try {
-          if (!value) {
-            const noFinished = (this.currentValue || []).some(
-              (item) => item.status === "uploading"
-            );
-            return (noFinished && this.currentValue) || [];
-          }
-          const values = value.split(",");
-          const currentValue = this.currentValue || [];
-          values.forEach((item, index) => {
-            currentValue[index] = currentValue[index] || {};
-            currentValue[index].url = values[index];
-            currentValue[index].name = this.handleFileName(values[index]);
-          });
-          return currentValue;
-        } catch (err) {
-          return [];
-        }
-      else return value || [];
+        return { url: value, name: this.handleFileName(value) };
+      }
     },
     toValue(value) {
-      if (this.converter === "json")
-        return Array.isArray(value) && value.length === 0
-          ? null
-          : JSON.stringify(value);
-      if (this.converter === "simple")
-        return Array.isArray(value) && value.length === 0
-          ? null
-          : this.simpleConvert(value);
-      else return value;
-    },
-    simpleConvert(value) {
-      return value.map((x) => x.url || "").join(",");
+      console.log("toValue", value);
+      if (this.converter === "json") {
+        return value ? JSON.stringify(value) : null;
+      } else {
+        return value.url || null;
+      }
     },
     getUrl(item) {
       return item.thumb || item.url || item;
     },
     select() {
-      if (this.readonly || this.disabled || this.sending) return;
+      if (this.readonly || this.disabled) return;
 
       this.$refs.file.value = "";
       this.$refs.file.click();
     },
-    onChange(e) {
-        console.log('e', e)
-      const fileEl = e.target;
-
-      let files = fileEl.files;
-      if (!files && fileEl.value) {
-        // 老版浏览器不支持 files
-        const arr = fileEl.value.split(/[\\/]/g);
-        files = [
-          {
-            name: arr[arr.length - 1],
-            size: 0,
-          },
-        ];
-      }
-
-      if (!files) return;
-      this.upload(files);
+    onChange(event) {
+      console.log("event", event.target);
+      // 大文件必为单文件上传，默认取文件集合的第一个元素
+      const file = event.target.files[0];
+      // 删除逻辑直接return
+      if (!file) return;
+      // 走上传逻辑
+      this.upload(file);
     },
-    checkSize(file) {
-      // 可能出现传入为空字符串的情况
-      if (this.maxSize === Infinity || this.maxSize === "") return true;
-
-      let maxSize;
-      if (!isNaN(this.maxSize)) maxSize = +this.maxSize;
-      else {
-        const unit = this.maxSize.slice(-2);
-        if (!SIZE_UNITS[unit])
-          throw new Error(`Unknown unit ${unit} in maxSize ${this.maxSize}!`);
-
-        maxSize = this.maxSize.slice(0, -2) * SIZE_UNITS[unit];
-      }
-
-      return (file.size || 0) <= maxSize;
-    },
-    /**
-     * 单文件上传
-     */
     upload(file) {
       if (
-        this.$emitPrevent(
-          "before-upload",
-          {
-            file,
-          },
-          this
+        !this.draggable &&
+        !this.pastable &&
+        this.$children.some(
+          (item) => item && item.$attrs.flag === "large-file-uploader-button"
         )
-      )
-        return null;
-
-      const item = {
-        uid:
-          file.uid !== undefined
-            ? file.uid
-            : Date.now() + this.currentValue.length,
+      ) {
+        const buttonVM = this.$children.find(
+          (item) => item && item.$attrs.flag === "large-file-uploader-button"
+        );
+        buttonVM.$set(buttonVM, "loading", true);
+        buttonVM.$set(buttonVM, "disabled", true);
+      }
+      this.errorMessage = [];
+      this.$emit(
+        "before-upload",
+        {
+          file,
+        },
+        this
+      );
+      this.currentValue = {
+        uid: file.uid ? file.uid : Date.now(),
         status: "uploading",
         name: file.name,
         size: file.size,
@@ -287,258 +272,204 @@ export default {
         showProgress: true,
       };
 
-      this.currentValue.splice(0, this.currentValue.length);
-      this.currentValue.push(item);
-
-      this.post(file, item, this.currentValue.length - 1);
-
-      return item;
+      this.uploadChunk(file);
     },
-    post(file, item, index) {
-      let Authorization = null;
-      if (this.authorization) {
-        Authorization = this.getCookie("authorization") || null;
-      }
-      const headers = {
-        ...this.headers,
-        Authorization,
-      };
-      if (this.access !== null) {
-        headers["lcap-access"] = this.access;
-      }
-      if (this.ttlValue !== null) {
-        if (this.ttl !== null) {
-          headers["lcap-ttl"] = this.ttl ? this.ttlValue : -1;
+    async uploadChunk(file) {
+      // 分片上传
+      const chunkSize = 40 * 1024 * 1024; // 40MB
+      const minLastChunkSize = 5 * 1024 * 1024; // 5MB
+      let totalChunks = Math.ceil(file.size / chunkSize);
+      let start = 0;
+      const chunks = [];
+      for (let chunkNumber = 0; chunkNumber < totalChunks; chunkNumber++) {
+        let chunk;
+        if (chunkNumber === totalChunks - 1) {
+          if (file.size - start < minLastChunkSize && totalChunks > 1) {
+            chunk = file.slice(start - chunkSize, file.size);
+            chunks.pop();
+            chunks.push(chunk);
+          } else {
+            chunk = file.slice(start, file.size);
+            chunks.push(chunk);
+          }
         } else {
-          headers["lcap-ttl"] = this.ttlValue;
+          chunk = file.slice(start, start + chunkSize);
+          chunks.push(chunk);
+        }
+        start += chunkSize;
+      }
+      const fileName = new Date().getTime() + "_" + file.name;
+      await this.postChunk(chunks, chunks.length, fileName);
+      this.post(file, totalChunks, totalChunks, file.size, fileName, true);
+    },
+    async postChunk(chunks, totalChunks, fileName) {
+      console.log("chunks", chunks);
+      // 分开两个循环，方便维护
+      let chunkNumber = 1;
+      for (const chunk of chunks) {
+        try {
+          await this.post(
+            chunk,
+            chunkNumber++,
+            totalChunks,
+            chunk.size,
+            fileName
+          );
+          // 异步函数执行成功，继续下一轮循环
+        } catch (error) {
+          console.error("异步函数执行失败:", error);
+          return Promise.reject();
         }
       }
-      if (window.appInfo && window.appInfo.domainName)
-        headers.DomainName = window.appInfo.domainName;
-      const url = this.$formatMicroFrontUrl
-        ? this.$formatMicroFrontUrl(this.url)
-        : this.url;
-      const formData = {
-        ...this.data,
-        lcapIsCompress: this.lcapIsCompress,
-        viaOriginURL: this.viaOriginURL,
-      };
-      const requestData = {
-        url,
-        headers,
-        withCredentials: this.withCredentials,
-        file,
-        data: formData,
-        name: this.name,
-      };
-      const xhr = ajax({
-        ...requestData,
-        onProgress: (e) => {
-          const item = this.currentValue[index];
-          item.percent = e.percent;
-
-          this.$emit(
-            "progress",
-            {
-              e,
-              file,
-              item,
-              xhr,
-            },
-            this
-          );
-        },
-        onSuccess: (res) => {
-          const item = this.currentValue[index];
-          item.status = "success";
-          if (res[this.urlField]) {
-            const url = res[this.urlField];
-            item.url = url;
-            if (Array.isArray(url)) {
-              item.url = url.join(",");
-            }
-          }
-          item.response = res;
-          item.showProgress = false;
-          if (item.url) {
-            item.name = this.handleFileName(item.url);
-          }
-          // 一次上传多个文件，返回数据是数组，需要处理
-          if (res[this.urlField]) {
-            const url = res[this.urlField];
-            if (Array.isArray(url)) {
-              this.currentValue.splice(this.currentValue.length - 1, 1);
-              url.forEach((urlTemp, urlIndex) => {
-                const urlItem = {
-                  status: "success",
-                  name: urlTemp
-                    ? this.handleFileName(urlTemp)
-                    : file[urlIndex].name,
-                  size: file[urlIndex].size,
-                  showProgress: false,
-                  url: urlTemp,
-                };
-                this.currentValue.push(urlItem);
-              });
-            }
-          }
-
-          const value = this.toValue(this.currentValue);
-          this.$emit("input", value);
-          this.$emit("update:value", value);
-
-          this.$emit(
-            "success",
-            {
-              res,
-              file,
-              item,
-              xhr,
-            },
-            this
-          );
-        },
-        onError: (e, res) => {
-          const item = this.currentValue[index];
-          item.status = "error";
-
-          const value = this.toValue(this.currentValue);
-          this.$emit("input", value);
-          this.$emit("update:value", value);
-          const errorMessage = `文件${item.name}上传接口调用失败`;
-          this.errorMessage.push(errorMessage);
-
-          this.$emit(
-            "error",
-            {
-              e,
-              res,
-              file,
-              item,
-              xhr,
-            },
-            this
-          );
-        },
-      });
+      return Promise.resolve();
     },
-    remove(index) {
-      const item = this.currentValue[index];
-      if (!item) return;
-
-      if (
-        this.$emitPrevent(
-          "before-remove",
-          {
-            oldValue: this.currentValue,
-            item,
-            index,
+    post(chunk, chunkNumber, totalChunks, totalSize, fileName, isMerge) {
+      return new Promise((resolve, reject) => {
+        const {
+          data,
+          getCookie,
+          headers,
+          authorization,
+          access,
+          withCredentials,
+          name,
+        } = this;
+        const headersReq = Object.assign(
+          {},
+          headers,
+          authorization && {
+            Authorization: getCookie("authorization") || null,
           },
-          this
-        )
-      )
-        return;
-
-      this.currentValue.splice(index, 1);
-
-      this.$emit(
-        "remove",
-        {
-          value: this.currentValue,
-          item,
-          index,
-        },
-        this
-      );
-    },
-    clear() {
-      if (
-        this.$emitPrevent("before-clear", { oldValue: this.currentValue }, this)
-      )
-        return;
-
-      this.currentValue.splice(0, this.currentValue.length);
-
-      this.$emit("clear", { value: this.currentValue }, this);
-    },
-    onDrop(e) {
-      this.dragover = false;
-      if (this.readonly || this.disabled) return;
-
-      this.upload(e.dataTransfer.files);
-    },
-    onPaste(e) {
-      if (this.readonly || this.disabled) return;
-      if (this.pastable) this.upload(e.clipboardData.files);
-    },
-    /**
-     * 验证文件：包括文件大小，用户自定义验证函数调用
-     */
-    async checkFiles(files) {
-      const validFiles = [];
-      const tasks = files.map(async (file) => {
-        if (!this.checkSize(file)) {
-          const errorMessage = `文件${file.name} ${file.size}超出大小${this.maxSize}！`;
-          this.$emit("size-exceed", {
-            maxSize: this.maxSize,
-            size: file.size,
-            message: errorMessage,
-            name: file.name,
-            file,
-          });
-          this.errorMessage.push(errorMessage);
-          return null;
-        }
-        if (this.accept) {
-          const extension = (
-            file.name.indexOf(".") > -1 ? `.${file.name.split(".").pop()}` : ""
-          ).toLowerCase();
-          const type = file.type.toLowerCase();
-          const baseType = type.replace(/\/.*$/, "").toLowerCase();
-          const accept = this.accept
-            .split(",")
-            .map((type) => type.trim())
-            .filter((type) => type)
-            .some((acceptedType) => {
-              acceptedType = acceptedType.toLowerCase();
-              if (/^\..+$/.test(acceptedType)) {
-                return extension.toLowerCase() === acceptedType;
-              }
-              if (/\/\*$/.test(acceptedType)) {
-                return baseType === acceptedType.replace(/\/\*$/, "");
-              }
-              if (/^[^\/]+\/[^\/]+$/.test(acceptedType)) {
-                return type === acceptedType;
-              }
-              return false;
-            });
-          if (!accept) {
-            this.errorMessage.push(
-              "文件类型不匹配，请上传" + this.accept + "的文件类型"
+          access && {
+            "lcap-access": access,
+          },
+          window.appInfo &&
+            window.appInfo.domainName && {
+              DomainName: window.appInfo.domainName,
+            },
+          isMerge && { operation: "merge" }
+        );
+        const formData = {
+          ...data,
+          totalSize,
+          fileName,
+          chunkSize: chunk.size,
+          currentChunkSize: chunk.size,
+          file: isMerge ? new Blob() : chunk,
+          chunkNumber,
+          totalChunks,
+        };
+        const requestData = {
+          url: "/split/upload",
+          withCredentials,
+          name,
+          data: formData,
+          headers: headersReq,
+        };
+        let percent = this.currentValue.percent;
+        const xhr = ajax({
+          ...requestData,
+          onProgress: (e) => {
+            this.currentValue = {
+              name: fileName,
+              status: "uploading",
+              percent: parseInt(percent + e.percent / (totalChunks + 1)),
+              showProgress: true,
+            };
+            this.$emit(
+              "progress",
+              {
+                e,
+                file: chunk,
+                item: this.currentValue,
+                xhr,
+              },
+              this
             );
-            return null;
-          }
-        }
-        if (
-          this.checkFile &&
-          (this.checkFile instanceof Promise ||
-            typeof this.checkFile === "function")
-        ) {
-          const message = await this.checkFile(file);
-          if (message) {
-            this.$emit("check-file", {
-              file,
-              message,
-              name: file.name,
-            });
-            this.errorMessage.push(message);
-            return null;
-          }
-        }
-        validFiles.push(file);
+          },
+          onSuccess: (res) => {
+            if (isMerge) {
+              this.currentValue = {
+                url: res.result,
+                name: fileName,
+                percent: 100,
+                showProgress: false,
+                status: "success",
+                response: res,
+              };
+              if (this.currentValue.url) {
+                this.currentValue.name = this.handleFileName(
+                  this.currentValue.url
+                );
+              }
+              const value = this.toValue(this.currentValue);
+              this.$emit("input", value);
+              this.$emit("update:value", value);
+              console.log("value-wybie", value);
+              this.$emit(
+                "success",
+                {
+                  res,
+                  file: chunk,
+                  item: this.currentValue,
+                  xhr,
+                },
+                this
+              );
+              if (
+                !this.draggable &&
+                !this.pastable &&
+                this.$children.some(
+                  (item) =>
+                    item && item.$attrs.flag === "large-file-uploader-button"
+                )
+              ) {
+                const buttonVM = this.$children.find(
+                  (item) =>
+                    item && item.$attrs.flag === "large-file-uploader-button"
+                );
+                buttonVM.$set(buttonVM, "loading", false);
+                buttonVM.$set(buttonVM, "disabled", false);
+              }
+            }
+            resolve();
+          },
+          onError: (e) => {
+            this.currentValue.status = "error";
+            this.currentValue.showProgress = false;
+            const value = this.toValue(this.currentValue);
+            this.$emit("input", value);
+            const errorMessage = JSON.parse(e).Message;
+            this.errorMessage.push(errorMessage);
+            this.$emit(
+              "error",
+              {
+                e,
+                file: chunk,
+                item: this.currentValue,
+                xhr,
+              },
+              this
+            );
+            if (
+              !this.draggable &&
+              !this.pastable &&
+              this.$children.some(
+                (item) =>
+                  item && item.$attrs.flag === "large-file-uploader-button"
+              )
+            ) {
+              const buttonVM = this.$children.find(
+                (item) =>
+                  item && item.$attrs.flag === "large-file-uploader-button"
+              );
+              buttonVM.$set(buttonVM, "loading", false);
+              buttonVM.$set(buttonVM, "disabled", false);
+            }
+            reject();
+          },
+        });
       });
-      await Promise.all(tasks);
-      return validFiles;
     },
     getCookie(cname) {
       const name = `${cname}=`;
@@ -549,9 +480,33 @@ export default {
       }
       return "";
     },
+    remove() {
+      if (
+        this.$emit(
+          "before-remove",
+          {
+            oldValue: this.currentValue,
+            item: this.currentValue,
+          },
+          this
+        )
+      ) {
+      }
+
+      this.currentValue = this.converter === "json" ? {} : "";
+      this.$emit(
+        "remove",
+        {
+          value: this.currentValue,
+          item: this.currentValue,
+        },
+        this
+      );
+    },
     // 展示时使用接口返回路径对应的文件名
     handleFileName(url) {
       const match = url.match(/\/([^/]+)$/);
+      console.log("match", match);
       return match ? match[1] : null;
     },
   },
@@ -610,17 +565,14 @@ export default {
   display: inline-block;
   vertical-align: middle;
 }
+
 .img {
   max-width: 100%;
   max-height: 100%;
 }
 
-.list {
-  /* min-width: 400px; */
-}
-
 .list .thumb::before {
-  icon-font: url("./assets/attachment.svg");
+  icon-font: url("../../assets/attachment.svg");
   float: left;
   margin-right: 8px;
   color: var(--uploader-item-icon-color);
@@ -694,11 +646,11 @@ export default {
 }
 
 .button[role="download"]::before {
-  icon-font: url("./assets/download.svg");
+  icon-font: url("../../assets/download.svg");
 }
 
 .button[role="remove"]::before {
-  icon-font: url("./assets/trashcan.svg");
+  icon-font: url("../../assets/trashcan.svg");
 }
 
 .draggable {
@@ -711,6 +663,10 @@ export default {
   border-radius: var(--uploader-draggable-border-radius);
   padding: var(--uploader-draggable-padding);
   transition: all var(--transition-duration-base);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .draggable:focus,
@@ -720,20 +676,17 @@ export default {
   border-color: var(--uploader-draggable-border-color-hover);
 }
 
-.draggable::before {
+.draggable > svg {
   font-size: 24px;
-  icon-font: url("./assets/upload.svg");
   color: var(--uploader-draggable-icon-color);
-}
-.draggable:focus::before,
-.draggable[dragover]::before {
-  color: var(--uploader-draggable-color-hover);
+  margin: 10px 0px;
 }
 
 .dragDescription {
   margin-bottom: 10px;
   color: var(--uploader-draggable-color);
 }
+
 .errwrap {
   max-height: var(--uploader-error-box-height);
   padding: 0 5px 5px 0;
@@ -748,17 +701,14 @@ export default {
   margin: 4px 0;
   font-size: 12px;
 }
+
 .errmessage::before {
-  /* icon-font: url("../i-icon.vue/assets/warning.svg"); */
-  font-size: 12px;
+  display: block;
+  height: 12px;
+  width: 12px;
   margin-left: 1px;
   margin-right: 4px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 48%,
-    rgba(255, 255, 255, 0) 48%
-  );
+  background: url("../../assets/warning.svg");
 }
 
 .description {
@@ -766,10 +716,12 @@ export default {
   margin: 4px 0;
   font-size: 12px;
 }
+
 .cardwrap .description,
 .cardwrap .errmessage {
   margin-left: var(--uploader-card-space);
 }
+
 .cardwrap .errwrap {
   max-width: var(--uploader-error-box-max-width);
 }
