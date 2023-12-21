@@ -1,0 +1,8 @@
+{
+    "viewInfo":{
+        "hidden": "boolean-隐藏-false",
+        "order": "String-排序-",
+        "basis": "String-宽度-25%",
+        "__description":"排列顺序需要的格式"
+    }
+}

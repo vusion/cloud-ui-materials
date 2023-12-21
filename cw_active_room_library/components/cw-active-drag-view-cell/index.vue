@@ -20,7 +20,7 @@ export default {
     props:{
       value:{
         type:String,
-        default:"请在这里编写代码"
+        default:"25%"
       },
       basis:{
         type:Number,
@@ -35,17 +35,22 @@ export default {
         return {
             selfBasis:""
         }
-       
+    },
+    watch:{
+        value:{
+            handler(v){
+                this.init()
+            },
+        }
     },
     mounted(){
         this.init()
     },
-
     methods:{
         init(){
-            const flexBasis = (Math.floor (100 / (this.basisLen *this.basis)*10))/10 + "%"
-            this.$refs.cell.style.flexBasis = flexBasis
-            this.selfBasis = flexBasis
+            // const flexBasis = (Math.floor (100 / (this.basisLen *this.basis)*10))/10 + "%"
+            this.$refs.cell.style.flexBasis = this.value
+            this.selfBasis = this.value
         },
         handleResizer(len,e){
           this.selfBasis = len

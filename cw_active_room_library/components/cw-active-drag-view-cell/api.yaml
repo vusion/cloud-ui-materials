@@ -5,9 +5,10 @@
   labels: [Runtime]
   attrs:
     - name: value
+      title: 单元宽度
       type: string
-      default: 请在这里编写代码
-      description: 需要传入的值
+      default: 25%
+      description: 请使用百分比
   slots:
     - concept: Slot
       name: default

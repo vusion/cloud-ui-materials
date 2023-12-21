@@ -34,7 +34,7 @@ export default {
       value:{
         handler(v){
           console.log(v)
-           if(!inIDE){
+           if(!this.inIDE){
             this.initData()
             this.init()
            }
@@ -107,7 +107,7 @@ export default {
           return ({
             order:item,
             basis:this.lenList[index],
-            hidden:false,
+            hidden:this.value[index].hidden
           })
         })
         
@@ -145,6 +145,7 @@ export default {
               node.dataset.order = index
               if(this.lenList){
                  node.style.flexBasis = this.lenList[index]
+                 node.style.display = this.value[index]&&this.value[index].hidden?"none":"flex"
               }
             });
             const reorderedChildNodes = orderList.map(index => childNodes[index]);
@@ -169,5 +170,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   min-height: 800px;
+  align-content: flex-start;
 }
 </style>
