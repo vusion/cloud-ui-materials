@@ -1,0 +1,39 @@
+- name: virtual-node-tree-select
+  title: 虚拟节点树形选择器
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: array
+      default: ''
+      description: 需要传入的值
+      sync: true
+      model: true
+    - name: data
+      type: array
+      default: ''
+      description: 'options选项，形如[ {id: **, name: **, children: [...]},... ]'
+    - name: placeholder
+      type: string
+      default: 请选择
+      description: 'placeholder'
+    - name: emptyText
+      type: string
+      default: 暂无数据
+      description: '数据为空时显示的文本'
+    - name: checkedButtonText
+      type: string
+      default: 已选
+      description: '已选按钮文字'
+    - name: searchPlaceholder
+      type: string
+      default: 搜索关键字
+      description: '搜索输入框的 placeholder'
+  events:
+    - name: change
+      title: 值改变时
+      params:
+        - name: $event
+          type: array
+          description: 参数1
