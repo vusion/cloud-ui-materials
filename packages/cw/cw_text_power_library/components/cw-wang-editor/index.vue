@@ -57,7 +57,7 @@
               currentValue: '',
               editor: null,
               toolbarConfig: {
-                  excludeKeys: ['fullScreen', 'codeBlock'],
+                  excludeKeys: ['fullScreen', 'codeBlock', 'insertImage'],
               },
               editorConfig: {
                   readOnly: this.readOnly,
@@ -69,13 +69,26 @@
                           server: this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
                           fieldName: 'file',
                           maxFileSize: 50 * 1024 * 1024, // 50M
-                          // 自定义增加 http  header
+                          // 自定义增加 http header
                           headers,
                           // 自定义插入图片
                           customInsert(res, insertFn) {
                               const url = res.result;
+                              if(url.endsWith('svg')) {
+                                return false;
+                              }
                               insertFn(url);
                           },
+                          meta: {
+                            viaOriginURL: true,
+                          },
+                          allowedFileTypes: [
+                              "image/png",
+                              "image/jpeg",
+                              "image/jpg",
+                              "image/webp",
+                              "image/gif",
+                          ],
                       },
                       uploadVideo: {
                           server: this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
@@ -155,10 +168,11 @@
               if (editor.isEmpty() && (!this.currentValue && this.currentValue !== 0))
                   return;
               const value = editor.isEmpty() ? '' : editor.getHtml();
-              this.currentValue = myxss.process(value);
-              this.$emit('change', { value: this.currentValue, editor });
-              this.$emit('update:value', this.currentValue);
-              this.$emit('input', this.currentValue);
+              const currentValue = myxss.process(value);
+              console.log('currentValue', currentValue)
+              this.$emit('change', { value: currentValue, editor });
+              this.$emit('update:value', currentValue);
+              this.$emit('input', currentValue);
           },
           onFocus(editor) {
               this.$emit('focus', { value: this.currentValue, editor });
