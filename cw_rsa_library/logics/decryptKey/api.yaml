@@ -1,0 +1,5 @@
+- name: decryptKey
+  description: 解密
+  type: both
+  belong: logic
+  labels: [Runtime]

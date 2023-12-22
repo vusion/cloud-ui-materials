@@ -1,0 +1,5 @@
+- name: encryptKey
+  description: 加密
+  type: pc
+  belong: logic
+  labels: [Runtime]
