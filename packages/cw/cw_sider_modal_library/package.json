@@ -1,12 +1,12 @@
 {
-  "name": "popo_sdk",
-  "title": "泡泡依赖库",
+  "name": "cw_sider_modal_library",
+  "title": "侧边栏弹窗依赖库",
   "description": "",
   "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
-  "homepage": "http://ceph.lcap.hadev.163yun.com/lowcode-static/popo_sdk@0.1.1/index.html",
+  "homepage": "",
   "license": "MIT",
   "keywords": [
     "lcap",
@@ -28,27 +28,27 @@
   "vusion": {
     "ui": "cloud-ui.vusion"
   },
-  "dependencies": {
-    "@popo-bridge/web": "^0.2.18"
-  },
+  "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "core-js": "^3.6.5",
-    "vue-loader": "15.9.8",
-    "vue-cli-plugin-vusion": "0.14.2-beta",
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "core-js": "^3.6.5",
+    "vue": "^2.6.12",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "vue": "^2.6.12"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "lcapVersion": "0.3.0",
   "template": {
     "inited": true
+  },
+  "dependencies": {
+    "svg-inline-loader": "^0.8.2"
   }
 }

@@ -1,5 +1,6 @@
 {
   "name": "lcap-markdown-doc-search",
+  "title":"文档搜索器",
   "description": "",
   "version": "1.0.0",
   "main": "./index.js",
