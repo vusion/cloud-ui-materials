@@ -2,7 +2,7 @@
   "name": "popo_sdk",
   "title": "泡泡依赖库",
   "description": "",
-  "version": "0.1.11",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
