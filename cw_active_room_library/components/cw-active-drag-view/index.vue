@@ -107,7 +107,9 @@ export default {
           return ({
             order:item,
             basis:this.lenList[index],
-            hidden:this.value[index].hidden
+            hidden:this.value[index].hidden,
+            name:this.value[index].name,
+            desc:this.value[index].desc,
           })
         })
         
