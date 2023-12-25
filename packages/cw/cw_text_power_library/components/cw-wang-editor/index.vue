@@ -94,7 +94,6 @@ export default {
     editorConfig() {
       const authorization = this.getCookie("authorization");
       const headers = authorization ? { Authorization: authorization } : {};
-      console.log(" this.acceptVideoEditorList", this.acceptVideoEditorList);
       return {
         readOnly: this.readOnly,
         scroll: this.scroll,
@@ -111,7 +110,6 @@ export default {
             // 自定义插入图片
             onBeforeUpload: (file) => {
               const type = Object.values(file)[0].type.split("/")[1];
-              console.log("type", type);
               if (
                 !this.acceptList.includes("." + type) ||
                 !imageTypes.includes(type)
@@ -119,10 +117,6 @@ export default {
                 this.$emit("upload-fail", {
                   value: `不支持上传${type}类型的图片文件`,
                 });
-                console.log(
-                  "`不支持上传${type}类型的图片文件`",
-                  `不支持上传${type}类型的图片文件`
-                );
                 return false;
               }
               return file;
@@ -145,7 +139,6 @@ export default {
             headers,
             onBeforeUpload: (file) => {
               const type = Object.values(file)[0].type.split("/")[1];
-              console.log("type", type);
               if (
                 !this.acceptVideoList.includes("." + type) ||
                 !videoTypes.includes(type)
@@ -153,10 +146,6 @@ export default {
                 this.$emit("upload-fail", {
                   value: `不支持上传${type}类型的视频文件`,
                 });
-                console.log(
-                  "`不支持上传${type}类型的图片文件`",
-                  `不支持上传${type}类型的图片文件`
-                );
                 return false;
               }
             },
@@ -223,7 +212,6 @@ export default {
         return;
       const value = editor.isEmpty() ? "" : editor.getHtml();
       const currentValue = myxss.process(value);
-      console.log("currentValue", currentValue);
       this.$emit("change", { value: currentValue, editor });
       this.$emit("update:value", currentValue);
       this.$emit("input", currentValue);
