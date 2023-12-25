@@ -113,7 +113,7 @@ export default {
               const type = Object.values(file)[0].type.split("/")[1];
               console.log("type", type);
               if (
-                !this.acceptVideoList.includes("." + type) ||
+                !this.acceptList.includes("." + type) ||
                 !imageTypes.includes(type)
               ) {
                 this.$emit("upload-fail", {
