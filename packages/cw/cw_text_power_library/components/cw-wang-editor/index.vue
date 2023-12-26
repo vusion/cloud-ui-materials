@@ -123,16 +123,16 @@ export default {
             },
             customInsert: (res, insertFn) => {
               const url = res.result;
-              const type = url.split(".").pop();
-              if (
-                !this.acceptList.includes("." + type) ||
-                !imageTypes.includes(type)
-              ) {
-                this.$emit("upload-fail", {
-                  value: `不支持上传${type}类型的图片文件`,
-                });
-                return false;
-              }
+              // const type = url.split(".").pop();
+              // if (
+              //   !this.acceptList.includes("." + type) ||
+              //   !imageTypes.includes(type)
+              // ) {
+              //   this.$emit("upload-fail", {
+              //     value: `不支持上传${type}类型的图片文件`,
+              //   });
+              //   return false;
+              // }
               insertFn(url);
             },
             meta: {
@@ -162,16 +162,16 @@ export default {
             // 自定义插入视频
             customInsert(res, insertFn) {
               const url = res.result;
-              const type = url.split(".").pop();
-              if (
-                !this.acceptVideoList.includes("." + type) ||
-                !videoTypes.includes(type)
-              ) {
-                this.$emit("upload-fail", {
-                  value: `不支持上传${type}类型的图片文件`,
-                });
-                return false;
-              }
+              // const type = url.split(".").pop();
+              // if (
+              //   !this.acceptVideoList.includes("." + type) ||
+              //   !videoTypes.includes(type)
+              // ) {
+              //   this.$emit("upload-fail", {
+              //     value: `不支持上传${type}类型的图片文件`,
+              //   });
+              //   return false;
+              // }
               insertFn(url);
             },
             meta: {
