@@ -100,11 +100,11 @@ export default {
       default: () => {
         return new Array(10).fill({
           url:
-            "https://img2.baidu.com/it/u=3006610358,19267819&fm=253&fmt=auto&app=138&f=JPEG",
+            "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",
           link: "https://news.163.com/",
         }).concat(new Array(10).fill({
           url:
-            "https://img2.baidu.com/it/u=3006610358,19267819&fm=253&fmt=auto&app=138&f=JPEG",
+            "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",
         }));
       },
     },
@@ -173,7 +173,7 @@ export default {
 </script>
 
 <style>
-@import "swiper/swiper-bundle.css";
+/* @import "swiper/swiper-bundle.css"; */
 .gallery-container {
   display: flex;
   align-items: center;

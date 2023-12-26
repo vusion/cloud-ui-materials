@@ -109,19 +109,19 @@ export default {
   props: {
     imgWidth: {
       type: Number,
-      default: 200,
+      default: '100%',
     },
     imgHeight: {
       type: Number,
-      default: 200,
+      default: '100%',
     },
     dataSource: {
       type: Array,
       default: () => {
         return new Array(20).fill({
           url:
-            "https://img2.baidu.com/it/u=3006610358,19267819&fm=253&fmt=auto&app=138&f=JPEG",
-          text: "我的老婆",
+            "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",
+          text: "CodeWave 智能开发平台",
         });
       },
     },
