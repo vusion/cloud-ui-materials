@@ -9,7 +9,7 @@
       type: string
       default: ""
       sync: true
-      model: false
+      model: true
       description: 需要传入的文本内容
     - name: readOnly
       default: false

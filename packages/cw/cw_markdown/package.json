@@ -1,8 +1,8 @@
 {
-  "name": "markdown",
-  "title": "markdown",
+  "name": "cw_markdown",
+  "title": "cw_markdown",
   "description": "",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
