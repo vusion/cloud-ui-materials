@@ -1,0 +1,17 @@
+- name: demo-translate
+  title: 多语言依赖库demo
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值
+  i18n:
+    zh-CN:
+      demoTranslate_dialog: 'demodemodemo提示'
+    en-US:
+      demoTranslate_dialog: 'demodemodemoDialog'
+    ja:
+      demoTranslate_dialog: '例子弹窗'
