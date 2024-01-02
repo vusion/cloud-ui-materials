@@ -2,7 +2,7 @@
   "name": "lcap_markdown_doc_render_view",
   "title": "文档渲染组件",
   "description": "",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
