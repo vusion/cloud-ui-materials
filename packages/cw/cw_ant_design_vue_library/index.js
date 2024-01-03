@@ -8,3 +8,8 @@ export {
 	CwAutoComplete,
 // COMPONENT EXPORTS
 };
+
+import 'ant-design-vue/dist/antd.css';
+
+
+

@@ -10,6 +10,7 @@
       @search="handleSearch"
       v-model="currentValue"
       allowClear
+      :getPopupContainer="getPopupContainer"
     >
       <template slot="dataSource">
         <template v-if="valueField">
@@ -72,6 +73,9 @@ export default {
     }
   },
   methods: {
+    getPopupContainer() {
+      return document.querySelector(".cw_ant_design_vue_library")
+    },
     get,
     onSelect(value) {
       this.$emit('update:value', value)
