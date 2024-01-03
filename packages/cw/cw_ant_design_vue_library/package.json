@@ -49,6 +49,9 @@
     "inited": true
   },
   "dependencies": {
-    "ant-design-vue": "1.7.8"
+    "ant-design-vue": "1.7.8",
+    "lcap-css-loader": "1.0.0",
+    "lcap-template-loader": "^1.0.0",
+    "vue-cropper": "^0.6.4"
   }
 }

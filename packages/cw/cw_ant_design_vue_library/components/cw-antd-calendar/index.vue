@@ -1,6 +1,6 @@
 <template>
   <div  class="cw-ant-calendar" style="--calendar-primary-background: #1890ff;--calendar-value-border-radius:2px">
-    <a-calendar v-model="currentValue" ref="calendar" :header-render="headerRender" :locale="locale"  valueFormat="YYYY-MM-DD"  :fullscreen="false" @panelChange="handlePanelChange" @select="handleSelect">
+    <a-calendar v-model="currentValue" ref="calendar" :header-render="headerRender" :locale="locale"  valueFormat="YYYY-MM-DD"  :fullscreen="false" @panelChange="handlePanelChange" @select="handleSelect" :getPopupContainer="getPopupContainer">
       <ul slot="dateCellRender" slot-scope="value" class="events">
         <span v-for="item in getListData(value)" :key="item.content" class="cicle"></span>
       </ul>
@@ -54,6 +54,9 @@ export default {
     await this.load()
   },
   methods: {
+    getPopupContainer() {
+      return document.querySelector(".cw-antd-library")
+    },
     getListData(value) {
       let arr=[]
       const listData = this.currentDataSource.data.filter(item => {
