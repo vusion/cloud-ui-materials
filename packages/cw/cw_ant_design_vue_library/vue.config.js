@@ -15,10 +15,17 @@ module.exports = {
     loaderOptions: {
       less: {
         lessOptions: {
-          javascriptEnabled: true
-        }
-      }
-    }
+          modifyVars: {
+            // 在这里设置你的主题变量
+            'primary-color': '#1DA57A',
+            'link-color': '#1DA57A',
+            'border-radius-base': '2px',
+            // ...其他变量
+          },
+          javascriptEnabled: true,
+        },
+      },
+    },
   },
   configureWebpack: {
     module: {
@@ -35,6 +42,6 @@ module.exports = {
           use: ["lcap-template-loader"],
         },
       ],
-    }
+    },
   },
 };
