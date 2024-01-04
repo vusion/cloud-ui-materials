@@ -1,6 +1,6 @@
 {
-  "name": "cw_ant_design_vue_library",
-  "title": "antd_vue_library",
+  "name": "lcap_popo_location",
+  "title": "popo定位",
   "description": "",
   "version": "1.0.0",
   "main": "./index.js",
@@ -31,15 +31,15 @@
   "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
-    "vue": "^2.6.10",
+    "vue-loader": "15.9.8",
     "vue-cli-plugin-vusion": "0.14.2-beta",
-    "vue-loader": "15.9.8"
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "vue": "^2.6.12"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
@@ -49,9 +49,6 @@
     "inited": true
   },
   "dependencies": {
-    "ant-design-vue": "1.7.8",
-    "lcap-css-loader": "1.0.0",
-    "lcap-template-loader": "^1.0.0",
-    "vue-cropper": "^0.6.4"
+    "@popo-bridge/web": "^0.2.0"
   }
 }

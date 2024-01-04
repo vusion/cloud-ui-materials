@@ -1,0 +1,11 @@
+{
+  "lcap-markdown-doc-render": {
+    "attributes": [
+      "text",
+      "scrollContainer",
+      "outline-position-top",
+      "outline-position-right"
+    ],
+    "description": "渲染Markdown文档的组件"
+  }
+}
