@@ -55,7 +55,7 @@ export default {
   data() {
     const vm = this;
     return {
-      currentValue: "",
+      currentValue: vm.value,
       editor: null,
       toolbarConfig: {
         excludeKeys: ["fullScreen", "codeBlock", "insertImage"],
@@ -187,12 +187,12 @@ export default {
     readOnly(val) {
       val ? this.editor.disable() : this.editor.enable();
     },
-    value: {
-      handler(v) {
-        this.currentValue = myxss.process(v);
-      },
-      immediate: true,
-    },
+    // value: {
+    //   handler(v) {
+    //     this.currentValue = myxss.process(v);
+    //   },
+    //   immediate: true,
+    // },
   },
   beforeDestroy() {
     const { editor } = this;
@@ -232,8 +232,8 @@ export default {
         return;
       const value = editor.isEmpty() ? "" : editor.getHtml();
       const currentValue = myxss.process(value);
-      this.$emit("change", { value: currentValue, editor });
       this.$emit("update:value", currentValue);
+      this.$emit("change", { value: currentValue, editor });
       this.$emit("input", currentValue);
     },
     onFocus(editor) {
