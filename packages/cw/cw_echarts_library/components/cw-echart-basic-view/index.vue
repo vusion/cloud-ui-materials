@@ -1,16 +1,19 @@
 <template>
-  <div :class="$style.root" border ref="room"> 
-    <echart-basic
-      v-if="!loading"
-      :size="size"
-      :sourceData="sourceData"
-      :options="options"
-      @startLoading="startLoading"
-      ref="echart"
-    ></echart-basic>
-    <div v-else :style="size">
-      <img :src="require('../../assets/barEmpty.png')" :class="$style.emptyImage">
+  <div :class="$style.root" ref="room"> 
+    <div :class="$style.container" border :style="size">
+      <echart-basic
+        v-if="!loading"
+        :sourceData="sourceData"
+        :options="options"
+        @startLoading="startLoading"
+        ref="echart"
+        @clickItem="$emit('clickItem', $event)"
+      ></echart-basic>
+      <div v-else>
+        <img :src="require('../../assets/barEmpty.png')" :class="$style.emptyImage">
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -30,7 +33,6 @@ export default {
     options: {type: Object, default: () => ({})},
     width: {type: String, default: '380px'},
     height: {type: String, default: '300px'},
-
   },
   data() {
     return {
@@ -49,15 +51,23 @@ export default {
       }
     },
   },
+  mounted(){
+    this.resizeObserver = new ResizeObserver(()=>{
+      this.$refs.echart.resize();
+    });
+    this.resizeObserver.observe(this.$el);
+  },
+  beforeDestroy(){
+    if (this.resizeObserver){
+      this.resizeObserver.disconnect();
+    }
+  },
   watch: {
     changedObj: {
       handler() {
         this.init();
       }
     }
-  },
-  mounted() {
-    this.width = this.$refs.room.clientWidth + "px"
   },
   methods: {
     reload() {
@@ -103,7 +113,7 @@ export default {
   display: inline-block;
 }
 
-.root[border] {
+.container[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;
 }

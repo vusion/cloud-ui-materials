@@ -1,16 +1,19 @@
 <template>
-  <div :class="$style.root" border ref="room">
-    <echart-bar
-      v-if="!loading"
-      :axisData="axisData"
-      :size="size"
-      :sourceData="sourceData"
-      :customStyle="customStyle"
-      @startLoading="startLoading"
-      ref="echart"
-    ></echart-bar>
-    <div v-else :style="size">
-      <img :src="require('../../assets/barEmpty.png')" :class="$style.emptyImage">
+  <div :class="$style.root" ref="room">
+    <div :class="$style.container" border :style="size">
+      <echart-bar
+        v-if="!loading"
+        :axisData="axisData"
+        :sourceData="sourceData"
+        :customStyle="customStyle"
+        :formatter="formatter"
+        @startLoading="startLoading"
+        ref="echart"
+        @clickItem="$emit('clickItem', $event)"
+      ></echart-bar>
+      <div v-else :style="size">
+        <img :src="require('../../assets/barEmpty.png')" :class="$style.emptyImage">
+      </div>
     </div>
   </div>
 </template>
@@ -55,6 +58,7 @@ export default {
     xAxisLabelRotate: {type: String, default: '0'},
     xAxisType: {type: String, default: 'xBase'},
     initialLoad: {type: Boolean, default: true},
+    formatter: String,
   },
   data() {
     return {
@@ -79,8 +83,8 @@ export default {
   },
   mounted() {
     // 监听style样式变化
+    // 监听style样式变化
     this.customStyle = this.parseCustomStyle(this.$el);
-    console.log(this.customStyle);
     const observer = new MutationObserver(function (mutations) {
       mutations.map(function (mutation) {
         if (mutation.type === 'attributes') {
@@ -88,12 +92,20 @@ export default {
         }
       }.bind(this));
     }.bind(this));
-    this.width = this.$refs.room.clientWidth + "px"
-    // window.addEventListener('resize', () => {
-    //   this.width = this.$refs.room.clientWidth - 30 + "px"
-    // });
-
-    observer.observe(this.$el, {attributes: true});
+    observer.observe(this.$el, { attributes: true });
+    this.mutationObserver = observer;
+    this.resizeObserver = new ResizeObserver(()=>{
+      this.$refs.echart.resize();
+    });
+    this.resizeObserver.observe(this.$el);
+  },
+  beforeDestroy(){
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect();
+    }
+    if (this.resizeObserver){
+      this.resizeObserver.disconnect();
+    }
   },
   computed: {
     size() {
@@ -212,7 +224,7 @@ export default {
   display: inline-block;
 }
 
-.root[border] {
+.container[border] {
   border: 1px solid var(--border-color-base);
   /* padding: 15px; */
 }

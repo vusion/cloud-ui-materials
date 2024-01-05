@@ -4,192 +4,216 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: data-source
-      title: 数据源
-      type: Array<Item> | Function | object | DataSource
-      designer-value: "[{}, {}, {}]"
-      description: 表格的数据源，数据集对象或者返回数据集的逻辑
-      group: 数据源
-    - name: data-schema
-      title: 数据类型
-      type: schema
-      description: 表格每一行的数据类型
-      group: 数据源
-      compType: dataTypeSelect
-    - name: undefinedToZero
-      title: 空值处理规则
-      type: string
-      default: empty
-      options:
-        - value: empty
-          title: 空距
-        - value: zero
-          title: 零
-      description: 设置将未定义的值如undefined，null转换为0或空距
-      group: 数据源
-    - name: initialLoad
-      title: 初始加载
-      type: boolean
-      default: true
-      description: 是否在初始时立即加载
-      group: 数据源
-    - name: xAxis
-      title: 维度
-      type: string
-      default: ''
-      description: 设置维度(统计类别)
-      group: 图表数据
-    - name: yAxis
-      title: 度量
-      type: string
-      default: ''
-      description: 设置度量（统计值）
-      group: 图表数据
-    - name: title
-      title: 标题
-      type: string
-      default: 标题
-      description: 设置主标题
-      group: 图表属性
-    - name: theme
-      title: 配色方案
-      type: string
-      default: theme1
-      description: 设置图表配色方案
-      options:
-        - value: theme1
-          title: 科技
-        - value: theme2
-          title: 清新
-        - value: theme3
-          title: 淡雅
-        - value: theme4
-          title: 经典
-      group: 图表属性
-    - name: showLabelName
-      title: 显示维度标签
-      type: boolean
-      default: true
-      description: 设置是否显示维度标签
-      group: 图表属性
-    - name: showLabelValue
-      title: 显示数值标签
-      type: boolean
-      default: true
-      description: 设置是否显示数值标签
-      group: 图表属性
-    - name: showLabelPercent
-      title: 显示占比标签
-      type: boolean
-      default: true
-      description: 设置是否显示占比标签
-      group: 图表属性
-    - name: allowShowHint
-      title: 显示提示
-      type: boolean
-      default: true
-      description: 设置是否显示提示
-      group: 图表属性
-    - name: allowShowLegend
-      title: 显示图例
-      type: boolean
-      default: true
-      description: 设置是否显示图例
-      group: 图表属性
-    - name: legendPosition
-      title: 图例位置
-      type: string
-      default: bottom
-      options:
-        - value: top
-          title: 上
-        - value: bottom
-          title: 下
-        - value: left
-          title: 左
-        - value: right
-          title: 右
-      description: 设置图例位置
-      group: 图表属性
-    - name: legendScroll
-      title: 图例类型
-      type: string
-      default: normal
-      options:
-        - value: normal
-          title: 普通
-        - value: scroll
-          title: 滚动
-      description: 设置图例是否滚动
-      group: 图表属性
-    - name: pieType
-      title: 饼类型
-      type: string
-      default: pie
-      options:
-        - value: pie
-          title: 饼型
-        - value: circle
-          title: 环型
-        - value: semiCircle
-          title: 半环形
-    - name: titleFontStyle
-      title: 标题文字字体风格
-      type: string
-      default: normal
-      description: 设置普通文字字号
-      options:
-        - value: normal
-          title: 正常
-        - value: italic
-          title: 斜体
-      group: 标题
-    - name: allowDownload
-      title: 允许下载
-      type: boolean
-      default: true
-      description: 允许用户设置保存图片
-      group: 图表功能
+      - name: data-source
+        title: 数据源
+        type: Array<Item> | Function | object | DataSource
+        designer-value: '[{}, {}, {}]'
+        description: 表格的数据源，数据集对象或者返回数据集的逻辑
+        group: 数据源
+      - name: data-schema
+        title: 数据类型
+        type: schema
+        description: 表格每一行的数据类型
+        group: 数据源
+        compType: dataTypeSelect
+      - name: undefinedToZero
+        title: 空值处理规则
+        type: string
+        default: empty
+        options:
+            - value: empty
+              title: 空距
+            - value: zero
+              title: 零
+        description: 设置将未定义的值如undefined，null转换为0或空距
+        group: 数据源
+      - name: initialLoad
+        title: 初始加载
+        type: boolean
+        default: true
+        description: 是否在初始时立即加载
+        group: 数据源
+      - name: xAxis
+        title: 维度
+        type: string
+        default: ''
+        description: 设置维度(统计类别)
+        group: 图表数据
+      - name: yAxis
+        title: 度量
+        type: string
+        default: ''
+        description: 设置度量（统计值）
+        group: 图表数据
+      - name: title
+        title: 标题
+        type: string
+        default: 标题
+        description: 设置主标题
+        group: 图表属性
+      - name: theme
+        title: 配色方案
+        type: string
+        default: theme1
+        description: 设置图表配色方案
+        options:
+            - value: theme1
+              title: 科技
+            - value: theme2
+              title: 清新
+            - value: theme3
+              title: 淡雅
+            - value: theme4
+              title: 经典
+        group: 图表属性
+      - name: showLabelName
+        title: 显示维度标签
+        type: boolean
+        default: true
+        description: 设置是否显示维度标签
+        group: 图表属性
+      - name: showLabelValue
+        title: 显示数值标签
+        type: boolean
+        default: true
+        description: 设置是否显示数值标签
+        group: 图表属性
+      - name: showLabelPercent
+        title: 显示占比标签
+        type: boolean
+        default: true
+        description: 设置是否显示占比标签
+        group: 图表属性
+      - name: allowShowHint
+        title: 显示提示
+        type: boolean
+        default: true
+        description: 设置是否显示提示
+        group: 图表属性
+      - name: allowShowLegend
+        title: 显示图例
+        type: boolean
+        default: true
+        description: 设置是否显示图例
+        group: 图表属性
+      - name: legendPosition
+        title: 图例位置
+        type: string
+        default: bottom
+        options:
+            - value: top
+              title: 上
+            - value: bottom
+              title: 下
+            - value: left
+              title: 左
+            - value: right
+              title: 右
+        description: 设置图例位置
+        group: 图表属性
+      - name: legendScroll
+        title: 图例类型
+        type: string
+        default: normal
+        options:
+            - value: normal
+              title: 普通
+            - value: scroll
+              title: 滚动
+        description: 设置图例是否滚动
+        group: 图表属性
+      - name: pieType
+        title: 饼类型
+        type: string
+        default: pie
+        options:
+            - value: pie
+              title: 饼型
+            - value: circle
+              title: 环型
+            - value: semiCircle
+              title: 半环形
+      - name: titleFontStyle
+        title: 标题文字字体风格
+        type: string
+        default: normal
+        description: 设置普通文字字号
+        options:
+            - value: normal
+              title: 正常
+            - value: italic
+              title: 斜体
+        group: 标题
+      - name: allowDownload
+        title: 允许下载
+        type: boolean
+        default: true
+        description: 允许用户设置保存图片
+        group: 图表功能
+      - name: width
+        title: 宽度
+        type: string
+        default: 340px
+        description: 设置图宽度
+        group: 图表基础
+      - name: height
+        title: 高度
+        type: string
+        default: 300px
+        description: 设置图高度
+        group: 图表基础
+      - name: formatter
+        title: 标签内容格式器
+        type: string
+        description: 标签内容格式器, 支持用 \n 换行，如果以`{`开头请注意使用双引号包裹。
+        group: 图表基础
+  events:
+      - name: clickItem
+        title: 点击节点
+        description: 点击节点时触发
+        params:
+            - name: event
+              type: string
+              description: 参数
   methods:
-    - name: reload
-      title: reload
-      description: 刷新数据
-      params: []
+      - name: reload
+        title: reload
+        description: 刷新数据
+        params: []
   themes:
-    - name: --echart-title-font-size
-      title: 标题文字大小
-      default: 14
-      type: input
-      description: 设置标题标签文字大小
-      group: 标题
-    - name: --title-font-color
-      title: 标题文字颜色
-      default: '#000'
-      type: color
-      description: 设置标题文字颜色
-      group: 标题
-    - name: --label-font-size
-      title: 数据标签文字大小
-      default: 12
-      type: input
-      description: 设置数据签文字大小
-      group: 数据标签
-    - name: --label-font-color
-      title: 数据标签文字颜色
-      default: '#000'
-      type: color
-      description: 设置数据标签文字颜色
-      group: 数据标签
-    - name: --pie-sectors-color
-      title: 扇区颜色
-      type: input
-      default: ''
-      description: "各个饼图扇区颜色，请输入对应数据类目的颜色数，用空格分隔，不填自动分配颜色"
-      group: 扇区颜色
-    - name: --pie-sectors-border-color
-      title: 扇区边框颜色
-      type: color
-      default: 'none'
-      description: 饼图扇区边框颜色
-      group: 扇区颜色
-
+      - name: --echart-title-font-size
+        title: 标题文字大小
+        default: 14
+        type: input
+        description: 设置标题标签文字大小
+        group: 标题
+      - name: --title-font-color
+        title: 标题文字颜色
+        default: '#000'
+        type: color
+        description: 设置标题文字颜色
+        group: 标题
+      - name: --label-font-size
+        title: 数据标签文字大小
+        default: 12
+        type: input
+        description: 设置数据签文字大小
+        group: 数据标签
+      - name: --label-font-color
+        title: 数据标签文字颜色
+        default: '#000'
+        type: color
+        description: 设置数据标签文字颜色
+        group: 数据标签
+      - name: --pie-sectors-color
+        title: 扇区颜色
+        type: input
+        default: ''
+        description: '各个饼图扇区颜色，请输入对应数据类目的颜色数，用空格分隔，不填自动分配颜色'
+        group: 扇区颜色
+      - name: --pie-sectors-border-color
+        title: 扇区边框颜色
+        type: color
+        default: 'none'
+        description: 饼图扇区边框颜色
+        group: 扇区颜色
