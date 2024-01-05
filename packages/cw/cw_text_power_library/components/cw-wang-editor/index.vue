@@ -49,8 +49,8 @@ export default {
     placeholder: String,
     editorStyle: { type: String, default: "" },
     uploadImgServer: { type: String, default: "" },
-    accept: { type: String, default: "" },
-    acceptVideo: { type: String, default: "" },
+    accept: { type: String, default: "*" },
+    acceptVideo: { type: String, default: "*" },
   },
   data() {
     const vm = this;
