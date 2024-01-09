@@ -31,4 +31,5 @@ export default {
     tbody: ['style'],
     thead: ['style'],
     tfoot: ['style'],
+    code: [],
 };

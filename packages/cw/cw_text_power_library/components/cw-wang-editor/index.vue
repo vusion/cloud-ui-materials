@@ -55,7 +55,7 @@ export default {
   data() {
     const vm = this;
     return {
-      currentValue: vm.value,
+      currentValue: myxss.process(vm.value),
       editor: null,
       toolbarConfig: {
         excludeKeys: ["fullScreen", "codeBlock", "insertImage"],
