@@ -6,5 +6,5 @@
 ### 基本用法
 
 ``` html
-<cust-svg-inject-view value="../../2.svg"></cust-svg-inject-view>
+<cust-svg-inject-view value="https://lcap-static-saas.nos-eastchina1.126.net/user/szcyy/1704364832877_6.svg"></cust-svg-inject-view>
 ```

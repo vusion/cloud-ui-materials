@@ -30,6 +30,7 @@ export default {
         const el = document.createElement("img")
         el.style.width = "100%"
         el.style.height = "100%"
+        el.crossOrigin = 'anonymous';
         el.src = this.value
         el.onload=()=>{
           inject(el)
