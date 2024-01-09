@@ -49,13 +49,13 @@ export default {
     placeholder: String,
     editorStyle: { type: String, default: "" },
     uploadImgServer: { type: String, default: "" },
-    accept: { type: String, default: "" },
-    acceptVideo: { type: String, default: "" },
+    accept: { type: String, default: "*" },
+    acceptVideo: { type: String, default: "*" },
   },
   data() {
     const vm = this;
     return {
-      currentValue: vm.value,
+      currentValue: myxss.process(vm.value),
       editor: null,
       toolbarConfig: {
         excludeKeys: ["fullScreen", "codeBlock", "insertImage"],
