@@ -5,6 +5,7 @@
         <span v-for="item in getListData(value)" :key="item.content" class="cicle"></span>
       </ul>
     </a-calendar>
+    <a-button type="primary">清空</a-button>
   </div>
 </template>
 
@@ -15,7 +16,9 @@ import moment from "moment"
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 import Calendar from "ant-design-vue/es/calendar";
+import Button from "ant-design-vue/es/button";
 Vue.use(Calendar);
+Vue.use(Button)
 import "ant-design-vue/es/calendar/style/css";
 import supportDatasource from "@/mixins/support.datasource";
 import get from "lodash/get";

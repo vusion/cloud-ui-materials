@@ -14,24 +14,23 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        lessOptions: {
-          modifyVars: {
-            // 在这里设置你的主题变量
-            'primary-color': '#1DA57A',
-            'link-color': '#1DA57A',
-            'border-radius-base': '2px',
-            // ...其他变量
-          },
-          javascriptEnabled: true,
+        modifyVars: {
+          hack: `true; @import "${path.resolve(__dirname, 'styles/theme.less')}";`
         },
-      },
-    },
+        javascriptEnabled: true
+      }
+    }
   },
   configureWebpack: {
     module: {
       rules: [
         {
           test: /\.css$/,
+          exclude: /node_modules\/vue-cli-plugin-vusion/,
+          use: ["lcap-css-loader"],
+        },
+        {
+          test: /\.less$/,
           exclude: /node_modules\/vue-cli-plugin-vusion/,
           use: ["lcap-css-loader"],
         },
