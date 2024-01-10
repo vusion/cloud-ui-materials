@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <div ref="myChart" :style="formattedSize" :class="$style.canvasWrap"></div>
+    <div ref="myChart" :class="$style.canvasWrap"></div>
   </div>
 </template>
 
@@ -11,9 +11,9 @@ export default {
   name: "echartLine",
   props: {
     sourceData: [Array, Object],
-    size: [Object],
     axisData: [Object],
     customStyle: [Object],
+    formatter: String,
   },
   data() {
     return {
@@ -26,22 +26,22 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData, customStyle} = this;
-      return {size, axisData, sourceData, customStyle};
+      let {axisData, sourceData, customStyle, formatter} = this;
+      return {axisData, sourceData, customStyle, formatter};
     },
-    formattedSize() {
-      // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
-      const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
-      const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
-      const propsWidth = this.size.width && this.size.width.replace("px", "");
-      const propsHeight = this.size.height && this.size.height.replace("px", "");
-      const width = styleWidth || propsWidth || 340;
-      const height = styleHeight || propsHeight || 300;
-      return {
-        width: `${width}px`,
-        height: `${height}px`,
-      }
-    }
+    // formattedSize() {
+    //   // 外层挂了一个width，所以这里canvas画布实际尺寸要缩小，同时兼容老的以props传入的宽度
+    //   const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
+    //   const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
+    //   const propsWidth = this.size.width && this.size.width.replace("px", "");
+    //   const propsHeight = this.size.height && this.size.height.replace("px", "");
+    //   const width = styleWidth || propsWidth || 340;
+    //   const height = styleHeight || propsHeight || 300;
+    //   return {
+    //     width: `${width}px`,
+    //     height: `${height}px`,
+    //   }
+    // }
   },
   watch: {
     changedObj: {
@@ -52,30 +52,40 @@ export default {
     },
   },
   beforeDestroy() {
-    let thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-    thisChart.dispose();
-    thisChart = null;
+    if (this.chartInstance) {
+      this.chartInstance.dispose();
+      this.chartInstance = null;
+    }
   },
   methods: {
     reload() {
-      this.$refs.myChart.removeAttribute('_echarts_instance_');
-      const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-      thisChart.dispose();
-      this.createMyChart();
+      if (this.chartInstance) {
+        this.processLineData(this.sourceData);
+        this.chartInstance.setOption(this.lineOption);
+        this.$nextTick(() => {
+          this.chartInstance.resize();
+        });
+      }
     },
     createMyChart() {
       const myChart = this.$refs.myChart;
-      // console.log('source-data', this.sourceData);
       this.processLineData(this.sourceData);
       this.initChart(myChart, this.lineOption);
     },
     initChart(chart, config) {
       if (chart) {
-        this.$refs.myChart.removeAttribute('_echarts_instance_');
-        const thisChart = echarts.init(chart, this.axisData.theme);
-        thisChart.setOption(config);
+        // this.$refs.myChart.removeAttribute('_echarts_instance_');
+        if(this.chartInstance) {
+          this.chartInstance.dispose();
+          this.chartInstance = null;
+        }
+        this.chartInstance = echarts.init(chart, this.axisData.theme);
+        this.chartInstance.setOption(config);
+        this.chartInstance.on('click',(echartClickEvent)=>{
+          this.$emit('clickItem',echartClickEvent);
+        });
         this.$nextTick(() => {
-          thisChart.resize();
+          this.chartInstance.resize();
         });
       }
     },
@@ -164,6 +174,7 @@ export default {
             position: this.axisData.labelPosition,
             color: this.customStyle['--label-font-color'],
             fontSize: this.customStyle['--label-font-size'],
+            formatter: this.formatter,
           },
           symbol: this.axisData.lineStyleSymbol,
           symbolSize: this.customStyle['--line-symbol-size'],
@@ -344,12 +355,19 @@ export default {
         series: seriesData,
       }
     },
+    resize(){
+      if(this.chartInstance){
+        this.chartInstance.resize();
+      }
+    }
   },
 };
 </script>
 
 <style module>
 .root {
+  width: 100%;
+  height: 100%;
 }
 
 .canvasWrap {

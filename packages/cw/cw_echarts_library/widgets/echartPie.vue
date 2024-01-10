@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <div ref="myChart" :style="formattedSize" :class="$style.canvasWrap"></div>
+    <div ref="myChart" :class="$style.canvasWrap"></div>
   </div>
 </template>
 
@@ -33,9 +33,9 @@ export default {
   name: "echartPie",
   props: {
     sourceData: [Array, Object],
-    size: [Object],
     axisData: [Object],
     customStyle: [Object],
+    formatter: String,
   },
   data() {
     return {
@@ -48,21 +48,21 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData, customStyle} = this;
-      return {size, axisData, sourceData, customStyle};
+      let {axisData, sourceData, customStyle, formatter} = this;
+      return {axisData, sourceData, customStyle, formatter};
     },
-    formattedSize() {
-      const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
-      const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
-      const propsWidth = this.size.width && this.size.width.replace("px", "");
-      const propsHeight = this.size.height && this.size.height.replace("px", "");
-      const width = styleWidth || propsWidth || 340;
-      const height = styleHeight || propsHeight || 300;
-      return {
-        width: `${width}px`,
-        height: `${height}px`,
-      }
-    }
+    // formattedSize() {
+    //   const styleWidth = this.customStyle.width && Number(this.customStyle.width.replace("px", "")) - 30;
+    //   const styleHeight = this.customStyle.height && Number(this.customStyle.height.replace("px", ""));
+    //   const propsWidth = this.size.width && this.size.width.replace("px", "");
+    //   const propsHeight = this.size.height && this.size.height.replace("px", "");
+    //   const width = styleWidth || propsWidth || 340;
+    //   const height = styleHeight || propsHeight || 300;
+    //   return {
+    //     width: `${width}px`,
+    //     height: `${height}px`,
+    //   }
+    // }
   },
   watch: {
     changedObj: {
@@ -73,16 +73,20 @@ export default {
     }
   },
   beforeDestroy() {
-    let thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-    thisChart.dispose();
-    thisChart = null;
+    if (this.chartInstance) {
+      this.chartInstance.dispose();
+      this.chartInstance = null;
+    }
   },
   methods: {
     reload() {
-      this.$refs.myChart.removeAttribute('_echarts_instance_');
-      const thisChart = echarts.init(this.$refs.myChart, this.axisData.theme);
-      thisChart.dispose();
-      this.createMyChart();
+      if (this.chartInstance) {
+        this.processPieData(this.sourceData);
+        this.chartInstance.setOption(this.pieOption);
+        this.$nextTick(() => {
+          this.chartInstance.resize();
+        });
+      }
     },
     createMyChart() {
       const myChart = this.$refs.myChart;
@@ -91,11 +95,18 @@ export default {
     },
     initChart(chart, config) {
       if (chart) {
-        this.$refs.myChart.removeAttribute('_echarts_instance_');
-        const thisChart = echarts.init(chart, this.axisData.theme);
-        thisChart.setOption(config);
+        // this.$refs.myChart.removeAttribute('_echarts_instance_');
+        if(this.chartInstance) {
+          this.chartInstance.dispose();
+          this.chartInstance = null;
+        }
+        this.chartInstance = echarts.init(chart, this.axisData.theme);
+        this.chartInstance.setOption(config);
+        this.chartInstance.on('click',(echartClickEvent)=>{
+          this.$emit('clickItem',echartClickEvent);
+        });
         this.$nextTick(() => {
-          thisChart.resize();
+          this.chartInstance.resize();
         });
       }
     },
@@ -156,6 +167,9 @@ export default {
       return pieData;
     },
     generateLabelData() {
+      if( this.formatter ) {
+        return this.formatter;
+      }
       let labelData = '';
       labelData = this.axisData.showLabelName ? labelData + '{b}\t' : labelData + '';
       labelData = this.axisData.showLabelValue ? labelData + '{c}\n' : labelData + '';
@@ -250,12 +264,19 @@ export default {
           }
         ],
       };
-    }
+    },
+    resize(){
+      if(this.chartInstance){
+        this.chartInstance.resize();
+      }
+    },
   },
 }
 </script>
 <style module>
 .root {
+  width: 100%;
+  height: 100%;
 }
 
 .canvasWrap {

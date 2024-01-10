@@ -4,29 +4,42 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: options
-      type: object | string
-      default: ''
-      description: option配置项
-    - name: data-source
-      title: 数据源
-      type: Array<Item> | Function | object | DataSource
-      designer-value: "[{}, {}, {}]"
-      description: 表格的数据源，数据集对象或者返回数据集的逻辑
-    - name: width
-      title: 宽度
-      type: string
-      default: 380px
-      description: 设置图宽度
-      group: 图表基础
-    - name: height
-      title: 高度
-      type: string
-      default: 300px
-      description: 设置图高度
-      group: 图表基础
+      - name: options
+        type: object | string
+        default: ''
+        description: option配置项
+      - name: data-source
+        title: 数据源
+        type: Array<Item> | Function | object | DataSource
+        designer-value: '[{}, {}, {}]'
+        description: 表格的数据源，数据集对象或者返回数据集的逻辑
+      - name: width
+        title: 宽度
+        type: string
+        default: 380px
+        description: 设置图宽度
+        group: 图表基础
+      - name: height
+        title: 高度
+        type: string
+        default: 300px
+        description: 设置图高度
+        group: 图表基础
+      - name: formatter
+        title: 标签内容格式器
+        type: string
+        description: 标签内容格式器, 支持用 \n 换行，如果以`{`开头请注意使用双引号包裹。
+        group: 图表基础
+  events:
+      - name: clickItem
+        title: 点击节点
+        description: 点击节点时触发
+        params:
+            - name: event
+              type: string
+              description: 参数
   methods:
-    - name: reload
-      title: reload
-      description: 刷新数据
-      params: []
+      - name: reload
+        title: reload
+        description: 刷新数据
+        params: []

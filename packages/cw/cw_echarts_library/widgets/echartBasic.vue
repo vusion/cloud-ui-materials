@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <div ref="myChart" :style="formattedSize" :class="$style.canvasWrap"></div>
+    <div ref="myChart" :class="$style.canvasWrap"></div>
   </div>
 </template>
 
@@ -10,14 +10,13 @@ import * as echarts from 'echarts/core'
 export default {
   name: "echartBasic",
   props: {
-    sourceData: [Array, Object],
-    size: [Object],
+    sourceData: [Array, Object], // 这个属性实际上不起作用
     axisData: [Object],
     options: [Object],
   },
   data() {
     return {
-      barData: {},
+      barData: {}, 
       barOption: {},
     }
   },
@@ -26,17 +25,9 @@ export default {
   },
   computed: {
     changedObj() {
-      let {size, axisData, sourceData} = this;
-      return {size, axisData, sourceData};
+      let { axisData, sourceData, options} = this;
+      return { axisData, sourceData, options};
     },
-    formattedSize() {
-      let width = this.size.width.replace("px", "") || 380;
-      let height = this.size.height.replace("px", "") || 300;
-      return {
-        width: `${width}px`,
-        height: `${height}px`,
-      }
-    }
   },
   watch: {
     changedObj: {
@@ -47,16 +38,19 @@ export default {
     },
   },
   beforeDestroy() {
-    let thisChart = echarts.init(this.$refs.myChart);
-    thisChart.dispose();
-    thisChart = null;
+    if (this.chartInstance) {
+      this.chartInstance.dispose();
+      this.chartInstance = null;
+    }
   },
   methods: {
     reload() {
-      this.$refs.myChart.removeAttribute('_echarts_instance_');
-      const thisChart = echarts.init(this.$refs.myChart);
-      thisChart.dispose();
-      this.createMyChart();
+      if (this.chartInstance) {
+        this.chartInstance.setOption(this.options);
+        this.$nextTick(() => {
+          this.chartInstance.resize();
+        });
+      }
     },
     createMyChart() {
       const myChart = this.$refs.myChart;
@@ -64,11 +58,17 @@ export default {
     },
     initChart(chart, config) {
       if (chart) {
-        this.$refs.myChart.removeAttribute('_echarts_instance_');
-        const thisChart = echarts.init(chart);
-        thisChart.setOption(config);
+        if(this.chartInstance) {
+          this.chartInstance.dispose();
+          this.chartInstance = null;
+        }
+        this.chartInstance = echarts.init(chart);
+        this.chartInstance.setOption(config);
+        this.chartInstance.on('click',(echartClickEvent)=>{
+          this.$emit('clickItem',echartClickEvent);
+        });
         this.$nextTick(() => {
-          thisChart.resize();
+          this.chartInstance.resize();
         });
       }
     },
@@ -79,6 +79,8 @@ export default {
 
 <style module>
 .root {
+  width: 100%;
+  height: 100%;
 }
 
 .canvasWrap {

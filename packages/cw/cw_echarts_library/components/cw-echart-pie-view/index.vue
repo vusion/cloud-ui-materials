@@ -1,16 +1,19 @@
 <template>
-  <div :class="$style.root" border ref="room" >
-    <echart-pie
-      v-if="!loading"
-      :axisData="axisData"
-      :size="size"
-      :customStyle="customStyle"
-      :sourceData="sourceData"
-      @startLoading="startLoading"
-      ref="echart"
-    ></echart-pie>
-    <div v-else :style="size">
-      <img :src="require('../../assets/pieEmpty.png')" :class="$style.emptyImage">
+  <div :class="$style.root" ref="room" >
+    <div :class="$style.container" border :style="size">
+        <echart-pie
+          v-if="!loading"
+          :axisData="axisData"
+          :customStyle="customStyle"
+          :sourceData="sourceData"
+          :formatter="formatter"
+          @startLoading="startLoading"
+          ref="echart"
+          @clickItem="$emit('clickItem', $event)"
+      ></echart-pie>
+      <div v-else>
+        <img :src="require('../../assets/pieEmpty.png')" :class="$style.emptyImage">
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +51,7 @@ export default {
     legendScroll: {type: String, default: 'normal'},
     initialLoad: {type: Boolean, default: true},
     undefinedToZero: {type: String, default: 'empty'},
+    formatter: String,
   },
   data() {
     return {
@@ -81,7 +85,19 @@ export default {
       }.bind(this));
     }.bind(this));
     observer.observe(this.$el, { attributes: true });
-    this.width = this.$refs.room.clientWidth + "px";
+    this.mutationObserver = observer;
+    this.resizeObserver = new ResizeObserver(()=>{
+      this.$refs.echart.resize();
+    });
+    this.resizeObserver.observe(this.$el);
+  },
+  beforeDestroy(){
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect();
+    }
+    if (this.resizeObserver){
+      this.resizeObserver.disconnect();
+    }
   },
   computed: {
     size() {
@@ -120,7 +136,7 @@ export default {
       handler() {
         this.init();
       }
-    }
+    },
   },
   methods: {
     parseCustomStyle(element) {
@@ -135,7 +151,7 @@ export default {
       return cssObj;
     },
     reload() {
-      this.sourceData = 'fakeData';
+      this.sourceData = 'fakeData'; //? 接受字符串吗
       this.$nextTick(async () => {
         this.sourceData = await this.handleDataSource(this.dataSource);
         this.loading = false;
@@ -192,7 +208,7 @@ export default {
   display: inline-block;
 }
 
-.root[border] {
+.container[border] {
   border: 1px solid var(--border-color-base);
   /* padding: 15px; */
 }
