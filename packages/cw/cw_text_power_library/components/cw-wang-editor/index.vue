@@ -13,7 +13,7 @@
       <editor
         ref="editor"
         :style="rootStyle"
-        :value="currentValue"
+        v-model="currentValue"
         :default-config="editorConfig"
         :mode="mode"
         @onCreated="onCreated"
@@ -24,7 +24,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { MField } from "../../widgets/m-field";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
@@ -49,7 +48,7 @@ export default {
     placeholder: String,
     editorStyle: { type: String, default: "" },
     uploadImgServer: { type: String, default: "" },
-    accept: { type: String, default: "*" },
+    accept: { type: String, default: ".png,.jpg,.jpeg,.webp" },
     acceptVideo: { type: String, default: "*" },
   },
   data() {
@@ -123,16 +122,6 @@ export default {
             },
             customInsert: (res, insertFn) => {
               const url = res.result;
-              // const type = url.split(".").pop();
-              // if (
-              //   !this.acceptList.includes("." + type) ||
-              //   !imageTypes.includes(type)
-              // ) {
-              //   this.$emit("upload-fail", {
-              //     value: `不支持上传${type}类型的图片文件`,
-              //   });
-              //   return false;
-              // }
               insertFn(url);
             },
             meta: {
@@ -162,16 +151,6 @@ export default {
             // 自定义插入视频
             customInsert(res, insertFn) {
               const url = res.result;
-              // const type = url.split(".").pop();
-              // if (
-              //   !this.acceptVideoList.includes("." + type) ||
-              //   !videoTypes.includes(type)
-              // ) {
-              //   this.$emit("upload-fail", {
-              //     value: `不支持上传${type}类型的图片文件`,
-              //   });
-              //   return false;
-              // }
               insertFn(url);
             },
             meta: {
@@ -187,12 +166,14 @@ export default {
     readOnly(val) {
       val ? this.editor.disable() : this.editor.enable();
     },
-    // value: {
-    //   handler(v) {
-    //     this.currentValue = myxss.process(v);
-    //   },
-    //   immediate: true,
-    // },
+    value(value) {
+      if (value !== this.currentValue) {
+        this.currentValue = myxss.process(value);
+      }
+    },
+    currentValue(value) {
+      this.$emit("update:value", value);
+    },
   },
   beforeDestroy() {
     const { editor } = this;
@@ -232,7 +213,6 @@ export default {
         return;
       const value = editor.isEmpty() ? "" : editor.getHtml();
       const currentValue = myxss.process(value);
-      this.$emit("update:value", currentValue);
       this.$emit("change", { value: currentValue, editor });
       this.$emit("input", currentValue);
     },

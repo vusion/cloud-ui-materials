@@ -32,4 +32,5 @@ export default {
     thead: ['style'],
     tfoot: ['style'],
     code: [],
+    blockquote: [],
 };

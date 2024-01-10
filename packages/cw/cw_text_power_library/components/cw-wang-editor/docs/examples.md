@@ -15,6 +15,11 @@ export default {
       value: "",
     };
   },
+  mounted() {
+    setTimeout(() => {
+      this.value = "123";
+    }, 2000);
+  },
   methods: {
     handleReadOnly() {
       this.readOnly = !this.readOnly;
