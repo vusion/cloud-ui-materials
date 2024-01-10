@@ -1,0 +1,51 @@
+{
+  "name": "cw_desensitization",
+  "title": "文字脱敏",
+  "description": "",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme",
+    "usage": "lcap usage",
+    "deploy": "lcap deploy dist-theme",
+    "prepublishOnly": "lcap publish",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "ui": "cloud-ui.vusion"
+  },
+  "lcapVersion": "0.3.0",
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "core-js": "^3.6.5",
+    "vue-loader": "15.9.8",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
+  },
+  "peerDependencies": {
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  }
+}
