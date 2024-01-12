@@ -1,0 +1,5 @@
+- name: redirectToUrl
+  description: 判断当前设备类型，跳转到对应url
+  type: both
+  belong: logic
+  labels: [Runtime]
