@@ -253,7 +253,7 @@ export default {
             var delta = opt.e.deltaY;
             var pointer = canvas.getPointer(opt.e);
             var zoom = canvas.getZoom();
-            zoom = zoom + delta/200;
+            zoom = zoom + delta/2000;
             if (zoom > 4) zoom = 4;
             if (zoom < 0.5) zoom = 0.5;
             canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
