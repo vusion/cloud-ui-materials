@@ -1,10 +1,10 @@
 import Gallery from './components/gallery';
 import CoverFlow from './components/cover-flow';
-import Swiper from './components/swiper';
+import BasicSwiper from './components/basic-swiper';
 // COMPONENT IMPORTS
 export {
 	Gallery,
 	CoverFlow,
-	Swiper,
+	BasicSwiper,
 // COMPONENT EXPORTS
 };

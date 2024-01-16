@@ -36,7 +36,7 @@
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 
 export default {
-  name: "swiper",
+  name: "basic-swiper",
   props: {
     spaceBetween: {
       type: Number,
@@ -56,12 +56,12 @@ export default {
     },
     delay: {
       type: Number,
-      default: 2500,
+      default: 1000,
     },
     dataSource: {
       type: Array,
       default: () => {
-        return new Array(10).fill({
+        return new Array(7).fill({
           url: "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",
           link: "https://news.163.com/",
         });
@@ -80,6 +80,8 @@ export default {
         autoplay: {
           delay: this.delay,
         },
+        loop: true,
+        virtual: true,
       },
     };
   },
@@ -114,6 +116,7 @@ export default {
 .swiper-container {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .swiper-container .swiper-container {
   margin: unset;

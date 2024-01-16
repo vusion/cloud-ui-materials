@@ -1,4 +1,4 @@
-- name: swiper
+- name: basic-swiper
   title: 基础轮播图
   type: pc
   belong: component
@@ -26,5 +26,5 @@
       description: autoplay延迟时间
     - name: dataSource
       type: array
-      default: ''
+      default: []
       description: '用于展示swiper的数据源，形如Array<{link: string, url: string}>'
