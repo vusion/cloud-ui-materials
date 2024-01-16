@@ -2,7 +2,7 @@
   "name": "library_tutorial",
   "title": "依赖库开发示例",
   "description": "",
-  "version": "0.1.9",
+  "version": "1.0.1",
   "main": "./index.js",
   "author": "",
   "repository": "",

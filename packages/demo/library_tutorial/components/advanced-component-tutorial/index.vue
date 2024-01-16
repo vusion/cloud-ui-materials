@@ -109,6 +109,9 @@ export default {
     onSelect() {
       console.log(...arguments);
     },
+    advancedLogicTutorial(index) {
+      console.log('参数', index)
+    },
   },
 };
 </script>

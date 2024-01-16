@@ -10,6 +10,14 @@
       default: "请为树形选择器选择值" # 默认值，需要配合vue组件中的props默认值使用
       description: 用于展示占位符 # 可选：ide中tooltips里面展示的提示内容
       group: 展示属性 # 用于参数分组，相同组的参数会展示在同一个card中
+    - name: value
+      title: 值
+      type: Array<Item>
+      default: []
+      description: 组件的值
+      group: 主要属性
+      sync: true
+      model: true
     - name: options
       title: 数据源
       type: Array<Item> | Function | DataSource
@@ -65,6 +73,14 @@
       params:
         - name: event
           type: string
+          description: 参数
+  methods:
+    - name: advancedLogicTutorial
+      title: advancedLogicTutorial
+      description: 描述
+      params: 
+        - name: index
+          type: number
           description: 参数
   # methods:
   #   - name: stop
