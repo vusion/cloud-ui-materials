@@ -8,7 +8,7 @@
       type: string
       default: 请在这里编写代码
       description: 需要传入的值
-  i18n:
+  i18nMap:
     zh-CN:
       demoTranslate_dialog: 'demodemodemo提示'
     en-US:
