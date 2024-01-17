@@ -2,7 +2,7 @@
   "name": "cw_swiper_library",
   "title": "轮播图依赖库",
   "description": "",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "main": "./index.js",
   "author": "",
   "repository": "",

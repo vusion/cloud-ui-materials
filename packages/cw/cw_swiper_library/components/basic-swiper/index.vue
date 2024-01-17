@@ -20,14 +20,9 @@
         :key="index"
         :style="{ width: `${imgWidth}px !important` }"
       >
-        <img
-          alt="图片获取失败"
-          :class="item.link ? 'img' : 'link-less-img'"
-          :src="item.url"
-          :width="imgWidth"
-          :height="imgHeight"
-          @click="onSwiperItemClick(item.link)"
-        />
+        <template v-slot="current">
+          <slot :item="current.item"></slot>
+        </template>
       </swiper-slide>
     </swiper>
   </div>
@@ -116,7 +111,6 @@ export default {
 .swiper-container {
   display: flex;
   align-items: center;
-  width: 100%;
 }
 .swiper-container .swiper-container {
   margin: unset;

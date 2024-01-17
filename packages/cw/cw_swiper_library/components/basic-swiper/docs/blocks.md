@@ -7,5 +7,9 @@
   :imgHeight="196"
   :slidesPerView="5"
   :delay="2500"
-></basic-swiper>
+>
+  <template #default="current">
+    <u-linear-layout gap="small"></u-linear-layout>
+  </template>
+</basic-swiper>
 ```

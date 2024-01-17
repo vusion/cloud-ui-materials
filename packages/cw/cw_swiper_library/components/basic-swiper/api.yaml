@@ -28,3 +28,19 @@
       type: array
       default: []
       description: '用于展示swiper的数据源，形如Array<{link: string, url: string}>'
+  slots:
+    - concept: Slot
+      name: default
+      description: 自定义选项的结构和样式
+      slotProps:
+        concept: Param
+        name: current
+        typeAnnotation:
+          concept: TypeAnnotation
+          typeKind: generic
+          typeNamespace: nasl.ui
+          typeName: Current
+          typeArguments:
+            - concept: TypeAnnotation
+              typeKind: typeParam
+              typeName: T
