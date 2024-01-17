@@ -1,8 +1,9 @@
 <template>
   <div>
+    dataSource - {{ data }}
     <a-transfer
       class="tree-transfer"
-      :data-source="dataSource"
+      :data-source="data"
       :target-keys="targetKeys"
       :render="(item) => item.title"
       :show-select-all="false"
@@ -39,6 +40,7 @@
 import { MField } from "../../widgets/m-field";
 import supportDatasource from "@/mixins/support.datasource";
 import Transfer from "ant-design-vue/es/transfer";
+import Tree from "ant-design-vue/es/tree";
 const treeData = [
   { key: "0-0", title: "0-0" },
   {
@@ -80,11 +82,12 @@ export default {
   mixins: [supportDatasource, MField],
   components: {
     ATransfer: Transfer,
+    ATree: Tree,
   },
   data() {
     return {
       targetKeys: [],
-      dataSource: transferDataSource,
+      data: transferDataSource,
     };
   },
   computed: {
