@@ -70,7 +70,9 @@ export default {
                 mock: mock ,
             }
             console.log('allMockData',allMockData)
-            window.assetsDomain = `${urls[urls.length-1]}/`
+            // window.assetsDomain = `${urls[urls.length-1]}/`
+            window.assetsDomain = `${urls[urls.length - 2]}/`
+            window.userAssetsDomain = `${urls[urls.length - 1]}/`
             window.allMockData = allMockData
             await loadScripts([clientJS]);
         },
