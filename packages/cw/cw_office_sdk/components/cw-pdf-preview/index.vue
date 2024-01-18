@@ -70,6 +70,7 @@ export default {
           throw new Error("无效链接")
         }
         const parent = this.$refs["pdf-preview"]
+        parent.innerHTML = ''
         pdfjsLib.getDocument(pdfUrl).promise.then(function (pdfDoc) {
           for (let i = 1; i < pdfDoc.numPages + 1; i++){
               pdfDoc.getPage(i).then(function(page) {
