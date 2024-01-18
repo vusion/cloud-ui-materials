@@ -22,7 +22,7 @@ export default {
   props: {
     src: {
       type: String,
-      default: 'http://music.163.com/song/media/outer/url?id=317151.mp3',
+      default: '',
     },
     duration: '', // 音频持续时间
     currentTime: '', // 音频当前播放时间
@@ -46,15 +46,19 @@ export default {
     },
     onLoadedmetadata(event) {
       this.duration = this.formatTime(this.$refs.audio.duration)
-      this.$emit('loadedmetadata', event)
+      this.$emit('loadedmetadata',{duration: this.duration, ...event})
     },
     // 暂停播放
     pause() {
       this.$refs.audio.pause()
+      this.$emit('stop')
+    },
+    stop() {
+      this.$refs.audio.pause()
       this.$nextTick(() => {
         this.clearTimer()
         this.isPlaying = false
-        this.$emit('pause')
+        this.$emit('stop')
       })
     },
     clearTimer() {
