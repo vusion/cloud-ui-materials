@@ -1,10 +1,10 @@
 <template>
   <div>
-    dataSource - {{ data }}
+    dataSource - {{ dataSource }}
     <a-transfer
       class="tree-transfer"
       :locale="locale"
-      :data-source="data"
+      :data-source="dataSource"
       :target-keys="targetKeys"
       :render="(item) => item.title"
       :show-select-all="true"
@@ -12,7 +12,6 @@
       :operations="operations"
       :titles="titles"
       :disabled="disabled"
-      :filterOption="filterOption"
       :listStyle="listStyle"
       @change="onChange"
       @selectChange="selectChange"
@@ -95,12 +94,6 @@ export default {
     ATree: Tree,
   },
   props: {
-    data: {
-      type: Array,
-      default() {
-        return transferDataSource;
-      },
-    },
     targetKeys: {
       type: Array,
       default() {
@@ -157,32 +150,20 @@ export default {
         direction,
         moveKeys
       );
-      this.$emit("onChange", { targetKeys, direction, moveKeys });
       this.targetKeys = targetKeys;
     },
     scroll(direction, event) {
       this.$emit("scroll", { direction, event });
-      console.log("search => direction, event", direction, event);
     },
     search(direction, value) {
       this.$emit("search", { direction, value });
-      console.log("search => direction, event", direction, value);
     },
     selectChange(sourceSelectedKeys, targetSelectedKeys) {
       this.$emit("selectChange", { sourceSelectedKeys, targetSelectedKeys });
-      console.log(
-        "selectChange => sourceSelectedKeys, targetSelectedKeys",
-        sourceSelectedKeys,
-        targetSelectedKeys
-      );
     },
     onChecked(_, e, checkedKeys, itemSelect) {
       const { eventKey } = e.node;
       itemSelect(eventKey, !isChecked(checkedKeys, eventKey));
-    },
-    filterOption(inputValue, option) {
-      console.log("filterOption => inputValue, option", inputValue, option);
-      return true;
     },
   },
 };
