@@ -144,12 +144,7 @@ export default {
   },
   methods: {
     onChange(targetKeys, direction, moveKeys) {
-      console.log(
-        "search => targetKeys, direction, moveKey",
-        targetKeys,
-        direction,
-        moveKeys
-      );
+      this.$emit("onChange", { targetKeys, direction, moveKeys });
       this.targetKeys = targetKeys;
     },
     scroll(direction, event) {
