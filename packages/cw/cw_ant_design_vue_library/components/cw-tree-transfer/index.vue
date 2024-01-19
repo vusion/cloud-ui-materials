@@ -3,11 +3,21 @@
     dataSource - {{ data }}
     <a-transfer
       class="tree-transfer"
+      :locale="locale"
       :data-source="data"
       :target-keys="targetKeys"
       :render="(item) => item.title"
-      :show-select-all="false"
+      :show-select-all="true"
+      :show-search="true"
+      :operations="operations"
+      :titles="titles"
+      :disabled="disabled"
+      :filterOption="filterOption"
+      :listStyle="listStyle"
       @change="onChange"
+      @selectChange="selectChange"
+      @search="search"
+      @scroll="scroll"
     >
       <template
         slot="children"
@@ -84,11 +94,55 @@ export default {
     ATransfer: Transfer,
     ATree: Tree,
   },
+  props: {
+    data: {
+      type: Array,
+      default() {
+        return transferDataSource;
+      },
+    },
+    targetKeys: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    operations: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    titles: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    locale: {
+      type: Object,
+      default() {
+        return {
+          itemUnit: "项",
+          itemsUnit: "项",
+          notFoundContent: "当前列表为空",
+          searchPlaceholder: "请输入搜索内容",
+        };
+      },
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    listStyle: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
   data() {
-    return {
-      targetKeys: [],
-      data: transferDataSource,
-    };
+    return {};
   },
   computed: {
     treeData() {
@@ -96,13 +150,39 @@ export default {
     },
   },
   methods: {
-    onChange(targetKeys) {
-      console.log("Target Keys:", targetKeys);
+    onChange(targetKeys, direction, moveKeys) {
+      console.log(
+        "search => targetKeys, direction, moveKey",
+        targetKeys,
+        direction,
+        moveKeys
+      );
+      this.$emit("onChange", { targetKeys, direction, moveKeys });
       this.targetKeys = targetKeys;
+    },
+    scroll(direction, event) {
+      this.$emit("scroll", { direction, event });
+      console.log("search => direction, event", direction, event);
+    },
+    search(direction, value) {
+      this.$emit("search", { direction, value });
+      console.log("search => direction, event", direction, value);
+    },
+    selectChange(sourceSelectedKeys, targetSelectedKeys) {
+      this.$emit("selectChange", { sourceSelectedKeys, targetSelectedKeys });
+      console.log(
+        "selectChange => sourceSelectedKeys, targetSelectedKeys",
+        sourceSelectedKeys,
+        targetSelectedKeys
+      );
     },
     onChecked(_, e, checkedKeys, itemSelect) {
       const { eventKey } = e.node;
       itemSelect(eventKey, !isChecked(checkedKeys, eventKey));
+    },
+    filterOption(inputValue, option) {
+      console.log("filterOption => inputValue, option", inputValue, option);
+      return true;
     },
   },
 };

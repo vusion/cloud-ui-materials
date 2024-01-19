@@ -4,7 +4,62 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: value
-      type: string
+    - name: data
+      type: array
       default: 请在这里编写代码
       description: 需要传入的值
+    - name: targetKeys
+      type: array
+      default: []
+      description: 选中值
+    - name: operations
+      type: array
+      default: []
+      description: 操作按钮文案，形如["左转右", "右转左"]
+    - name: titles
+      type: array
+      default: []
+      description: 穿梭款标题文案，形如["标题左", "标题右"]
+    - name: locale
+      type: object
+      default: {}
+      description: '国际化配置，形如 {itemUnit: "项", itemsUnit: "项", notFoundContent: "当前列表为空", searchPlaceholder: "请输入搜索内容"}'
+    - name: disabled
+      type: boolean
+      default: false
+      description: 穿梭框整体禁用
+    - name: listStyle
+      type: object
+      default: {}
+      description: '穿梭框样式，形如{ "font-size": "30px", ...}'
+  events:
+    - name: onChange
+      description: 变化时	
+      title: 变化时	
+      params:
+        - name: value
+          type: string
+          description: 改变的值
+    - name: scroll
+      description: 滚动时		
+      title: 滚动时		
+      params:
+        - name: value
+          type: string
+          description: 改变的值
+    - name: search
+      description: 搜索时		
+      title: 搜索时		
+      params:
+        - name: value
+          type: string
+          description: 改变的值
+    - name: selectChange
+      description: 选择时		
+      title: 选择时		
+      params:
+        - name: value
+          type: string
+          description: 改变的值
+          
+          
