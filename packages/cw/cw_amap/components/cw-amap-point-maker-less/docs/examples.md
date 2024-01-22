@@ -6,7 +6,9 @@
         <u-button @click="updatePosition">click</u-button>
         <div>{{ points }}</div>
         <cw-amap-point-maker-less :dataSource="points" @click="handleItemClick">
-            <template #item="current">sdfds</template>
+            <template #item="current">
+                <u-button>sdfds</u-button>
+            </template>
         </cw-amap-point-maker-less>
     </div>
 </template>
@@ -31,13 +33,7 @@ export default {
         };
     },
     watch: {
-        points() {
-            // console.log(
-            //     '%c [ points ]-32',
-            //     'font-size:13px; background:pink; color:#bf2c9f;',
-            //     this.points
-            // );
-        },
+        points() {},
     },
     methods: {
         updatePosition() {

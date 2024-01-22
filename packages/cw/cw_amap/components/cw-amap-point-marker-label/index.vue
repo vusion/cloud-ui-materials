@@ -51,19 +51,35 @@ import { createMapMarkerStore } from '../../utils/createMapMarkerStore';
 import supportDatasource from '../../mixins/support.datasource';
 import infoWindow from '../../mixins/infowindow';
 import mapPNG from '../../assets/map.png';
+import { mockData } from './mockData';
 
 export default {
-    name: 'cw-amap-point-maker-less',
+    name: 'cw-amap-point-marker-label',
     mixins: [supportDatasource, infoWindow()],
     props: {
         center: {
             type: Array,
             default: () => [120.190941, 30.18635],
         },
-
+        needMoveAnimate: {
+            type: Boolean,
+            default: () => true,
+        },
+        moveDuration: {
+            type: Number,
+            default: () => 100,
+        },
         customPointOptions: {
             type: [Function, Object],
             default: () => ({}),
+        },
+        collision: {
+            type: Boolean,
+            default: () => true,
+        },
+        allowCollision: {
+            type: Boolean,
+            default: () => true,
         },
     },
 
@@ -90,7 +106,6 @@ export default {
             this.clearSelectedItem();
             if (this.pointStore) {
                 this.pointStore.update(this.currentDataSource.data);
-                this.mapInstance.setFitView();
             }
         },
         center() {
@@ -107,6 +122,12 @@ export default {
                         center: this.center,
                         zoom: 13,
                         resizeEnable: true,
+                        // zoom: 9,
+                        // viewMode: '3D',
+                        // center: [116.12, 40.11],
+                        // mapStyle: 'amap://styles/whitesmoke',
+                        // showLabel: false,
+                        // showIndoorMap: false,
                     });
                     await new Promise((res) => {
                         this.mapInstance.on('complete', res);
@@ -115,30 +136,35 @@ export default {
                         AMap,
                         mapInstance: this.mapInstance,
                     });
-
+                    this.labelLayerInstance = new AMap.LabelsLayer({
+                        zIndex: 1000,
+                        collision: this.collision,
+                        allowCollision: this.allowCollision,
+                    });
+                    this.mapInstance.add(this.labelLayerInstance);
                     this.pointStore = createMapMarkerStore({
                         onMarkClick: (e) => {
                             const extData = e.target.getExtData();
                             this.$emit('click', {
                                 ...e,
-                                extData: e.target.getExtData(),
+                                extData,
                             });
                             this.moveMarker(extData.position, extData);
                         },
                         getMarkerInstance: (p) => this.getMarkerInstance(p),
                         fieldMaps: {
                             id: this.idField,
-                            type: this.typeField,
+                            textContent: this.textContentField,
                             position: this.positionField,
                         },
                         customPointOptions: this.customPointOptions,
                         moveDuration: this.needMoveAnimate
                             ? this.moveDuration
                             : 0,
+                        batchInsert: (arr) => this.labelLayerInstance.add(arr),
                     });
                     if (this.currentDataSource.data) {
                         this.pointStore.init(this.currentDataSource.data);
-                        this.mapInstance.setFitView();
                     }
                 },
                 (e) => {
@@ -149,27 +175,17 @@ export default {
 
         getMarkerInstance(point) {
             const AMap = this.AMap;
-            const { type, ...others } = point;
-            if (type === 'text') {
-                return new AMap.Text({
-                    ...others,
-                    map: this.mapInstance,
-                });
-            }
-            if (type === 'circle') {
-                const radius = others.radius || 10;
-                return new AMap.Marker({
-                    ...others,
-                    center: others.center || others.position,
-                    content: `<div class="${this.$style.circleMarker}" style="width: ${radius}px; height: ${radius}px"></div>`,
-                    map: this.mapInstance,
-                    offset: [-radius / 2, -radius / 2],
-                });
-            }
-            return new AMap.Marker({
+            const { id, ...others } = point;
+            const marker = new AMap.LabelMarker({
                 ...others,
-                map: this.mapInstance,
+                name: id,
             });
+            return marker;
+        },
+
+        clearSelectedItem() {
+            this.selectedPoint = null;
+            this.selectedPointDiv = null;
         },
 
         getInner() {
@@ -178,6 +194,10 @@ export default {
                 AMap: this.AMap,
                 pointStore: this.pointStore,
             };
+        },
+
+        getMockData() {
+            return mockData.slice(0, 300);
         },
     },
 };

@@ -12,7 +12,15 @@ export default {
         },
         positionField: {
             type: String,
-            default: () => 'positionField',
+            default: () => 'position',
+        },
+        textContentField: {
+            type: String,
+            default: () => 'textContent',
+        },
+        styleField: {
+            type: String,
+            default: () => 'style',
         },
     },
     data() {

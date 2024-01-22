@@ -26,7 +26,7 @@ const getAMapInstanceImpl = async () => {
         const amap = await AMapLoader.load({
             key: appKey, //申请好的 Web 端开发者 Key，首次调用 load 时必填
             version: '2.0', //指定要加载的 JS API 的版本，缺省时默认为 1.4.15
-            plugins: ['AMap.Scale', 'AMap.MoveAnimation'], //需要使用的的插件列表，如比例尺'AMap.Scale'，支持添加多个如：['AMap.Scale','...','...']
+            plugins: ['AMap.Scale', 'AMap.MoveAnimation', 'AMap.MarkerCluster'], //需要使用的的插件列表，如比例尺'AMap.Scale'，支持添加多个如：['AMap.Scale','...','...']
             AMapUI: {
                 //是否加载 AMapUI，缺省不加载
                 version: '1.1', //AMapUI 版本

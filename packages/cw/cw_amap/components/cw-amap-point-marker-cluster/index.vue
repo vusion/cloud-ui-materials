@@ -47,29 +47,35 @@
 
 <script>
 import { getAMapInstance } from '../../utils/getAMapInstance';
-import { createMapMarkerStore } from '../../utils/createMapMarkerStore';
 import supportDatasource from '../../mixins/support.datasource';
-import infoWindow from '../../mixins/infowindow';
+import infowindow from '../../mixins/infowindow';
 import mapPNG from '../../assets/map.png';
+import get from 'lodash.get';
+import merge from 'lodash.merge';
+
+import { mockData } from '../cw-amap-point-marker-label/mockData';
 
 export default {
-    name: 'cw-amap-point-maker-less',
-    mixins: [supportDatasource, infoWindow()],
+    name: 'cw-amap-point-marker-cluster',
+    mixins: [supportDatasource, infowindow({ listenZoom: false })],
     props: {
         center: {
             type: Array,
             default: () => [120.190941, 30.18635],
         },
-
         customPointOptions: {
-            type: [Function, Object],
-            default: () => ({}),
+            type: Array,
+        },
+        gridSize: {
+            type: Number,
+            default: () => 60,
         },
     },
 
     data() {
         return {
             loadingError: null,
+            selectedPoint: null,
             mapPNG,
         };
     },
@@ -88,10 +94,12 @@ export default {
     watch: {
         'currentDataSource.data'() {
             this.clearSelectedItem();
-            if (this.pointStore) {
-                this.pointStore.update(this.currentDataSource.data);
-                this.mapInstance.setFitView();
-            }
+            if (this.clusterInstance)
+                this.clusterInstance.setData(this.fieldMap());
+        },
+        gridSize() {
+            if (this.clusterInstance)
+                this.clusterInstance.setGridSize(this.gridSize);
         },
         center() {
             if (this.mapInstance) this.mapInstance.setCenter(this.center);
@@ -107,7 +115,14 @@ export default {
                         center: this.center,
                         zoom: 13,
                         resizeEnable: true,
+                        // zoom: 9,
+                        // viewMode: '3D',
+                        // center: [116.12, 40.11],
+                        // mapStyle: 'amap://styles/whitesmoke',
+                        // showLabel: false,
+                        // showIndoorMap: false,
                     });
+
                     await new Promise((res) => {
                         this.mapInstance.on('complete', res);
                     });
@@ -115,31 +130,27 @@ export default {
                         AMap,
                         mapInstance: this.mapInstance,
                     });
-
-                    this.pointStore = createMapMarkerStore({
-                        onMarkClick: (e) => {
-                            const extData = e.target.getExtData();
-                            this.$emit('click', {
-                                ...e,
-                                extData: e.target.getExtData(),
+                    this.clusterInstance = new AMap.MarkerCluster(
+                        this.mapInstance,
+                        this.fieldMap(),
+                        {
+                            gridSize: this.gridSize,
+                            renderClusterMarker: this.renderMarker.bind(this),
+                            renderMarker: this.renderMarker.bind(this),
+                        }
+                    );
+                    this.clusterInstance.on('click', (e) => {
+                        const clusterData = e.clusterData;
+                        const marker = e.marker;
+                        if (clusterData.length > 1) {
+                            this.moveMarker(marker.getPosition(), {
+                                clusterData,
                             });
-                            this.moveMarker(extData.position, extData);
-                        },
-                        getMarkerInstance: (p) => this.getMarkerInstance(p),
-                        fieldMaps: {
-                            id: this.idField,
-                            type: this.typeField,
-                            position: this.positionField,
-                        },
-                        customPointOptions: this.customPointOptions,
-                        moveDuration: this.needMoveAnimate
-                            ? this.moveDuration
-                            : 0,
+                        } else {
+                            const extData = marker.getExtData();
+                            this.moveMarker(marker.getPosition(), extData);
+                        }
                     });
-                    if (this.currentDataSource.data) {
-                        this.pointStore.init(this.currentDataSource.data);
-                        this.mapInstance.setFitView();
-                    }
                 },
                 (e) => {
                     this.loadingError = e.message;
@@ -147,37 +158,76 @@ export default {
             );
         },
 
-        getMarkerInstance(point) {
-            const AMap = this.AMap;
-            const { type, ...others } = point;
-            if (type === 'text') {
-                return new AMap.Text({
-                    ...others,
-                    map: this.mapInstance,
-                });
-            }
-            if (type === 'circle') {
-                const radius = others.radius || 10;
-                return new AMap.Marker({
-                    ...others,
-                    center: others.center || others.position,
-                    content: `<div class="${this.$style.circleMarker}" style="width: ${radius}px; height: ${radius}px"></div>`,
-                    map: this.mapInstance,
-                    offset: [-radius / 2, -radius / 2],
-                });
-            }
-            return new AMap.Marker({
-                ...others,
-                map: this.mapInstance,
+        fieldMap() {
+            const temp = (this.currentDataSource.data || []).map((point) => {
+                const fieldMapResult = Object.entries({
+                    lnglat: this.positionField,
+                    weight: this.weightField,
+                    textContent: this.textContentField,
+                }).reduce(
+                    (acc, [key, value]) => ({
+                        ...acc,
+                        [key]: get(point, value),
+                    }),
+                    {}
+                );
+                return { ...point, ...fieldMapResult };
             });
+            return temp;
         },
 
         getInner() {
             return {
                 mapInstance: this.mapInstance,
                 AMap: this.AMap,
-                pointStore: this.pointStore,
             };
+        },
+
+        getMockData() {
+            return mockData;
+        },
+
+        renderMarker(context) {
+            const AMap = this.AMap;
+            const { marker, count = 1, clusterData, data } = context;
+            const div = document.createElement('div');
+            const textContent =
+                count > 1 ? `合计:${count}` : data[0].textContent;
+            let customOptions = this.customPointOptions;
+            if (typeof customOptions === 'function') {
+                let ans = {
+                    result: customOptions,
+                    point: marker,
+                    count,
+                    clusterData,
+                    data,
+                };
+                customOptions(ans); // 由于ide定义的逻辑都是异步函数，但customPointOptions一定要是同步方法，故这里使用另外的方法获取返回值
+                customOptions = ans.result;
+            }
+            const options = merge(
+                {
+                    textContent,
+                    style: {
+                        backgroundColor: 'rgba(29,78,216,0.4)',
+                        borderRadius: '99999px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        fontSize: '12px',
+                        width: count > 1 ? '60px' : '30px',
+                        height: count > 1 ? '60px' : '30px',
+                    },
+                    size: count > 1 ? 60 : 30,
+                },
+                customOptions
+            );
+            Object.assign(div.style, options.style);
+            div.innerText = options.textContent;
+            const size = options.size || 0;
+
+            marker.setContent(div);
+            marker.setOffset(new AMap.Pixel(-size / 2, -size / 2));
         },
     },
 };
@@ -187,8 +237,8 @@ export default {
 .root {
     width: 100%;
     height: 500px;
-    min-width: 100px;
     position: relative;
+    min-width: 100px;
 }
 
 .container {

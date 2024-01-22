@@ -18,6 +18,21 @@ module.exports = {
                 name: 'cw-amap-point-maker-less',
                 path: './components/cw-amap-point-maker-less/api.yaml',
             },
+            {
+                group: '组件',
+                name: 'cw-amap-point-marker-label',
+                path: './components/cw-amap-point-marker-label/api.yaml',
+            },
+            {
+                group: '组件',
+                name: 'cw-amap-point-marker-more',
+                path: './components/cw-amap-point-marker-more/api.yaml',
+            },
+            {
+                group: '组件',
+                name: 'cw-amap-point-marker-cluster',
+                path: './components/cw-amap-point-marker-cluster/api.yaml',
+            },
         ],
     },
 };

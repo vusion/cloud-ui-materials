@@ -47,22 +47,23 @@
 
 <script>
 import { getAMapInstance } from '../../utils/getAMapInstance';
-import { createMapMarkerStore } from '../../utils/createMapMarkerStore';
 import supportDatasource from '../../mixins/support.datasource';
 import infoWindow from '../../mixins/infowindow';
 import mapPNG from '../../assets/map.png';
+import get from 'lodash.get';
+
+import { mockData } from '../cw-amap-point-marker-label/mockData';
 
 export default {
-    name: 'cw-amap-point-maker-less',
+    name: 'cw-amap-point-marker-more',
     mixins: [supportDatasource, infoWindow()],
     props: {
         center: {
             type: Array,
             default: () => [120.190941, 30.18635],
         },
-
         customPointOptions: {
-            type: [Function, Object],
+            type: [Object, Array],
             default: () => ({}),
         },
     },
@@ -87,11 +88,12 @@ export default {
 
     watch: {
         'currentDataSource.data'() {
-            this.clearSelectedItem();
-            if (this.pointStore) {
-                this.pointStore.update(this.currentDataSource.data);
-                this.mapInstance.setFitView();
-            }
+            if (this.massMarkInstance)
+                this.massMarkInstance.setData(this.fieldMap());
+        },
+        customPointOptions() {
+            if (this.massMarkInstance)
+                this.massMarkInstance.setStyle(this.customPointOptions);
         },
         center() {
             if (this.mapInstance) this.mapInstance.setCenter(this.center);
@@ -107,6 +109,12 @@ export default {
                         center: this.center,
                         zoom: 13,
                         resizeEnable: true,
+                        // zoom: 9,
+                        // viewMode: '3D',
+                        // center: [116.12, 40.11],
+                        // mapStyle: 'amap://styles/whitesmoke',
+                        // showLabel: false,
+                        // showIndoorMap: false,
                     });
                     await new Promise((res) => {
                         this.mapInstance.on('complete', res);
@@ -115,31 +123,23 @@ export default {
                         AMap,
                         mapInstance: this.mapInstance,
                     });
-
-                    this.pointStore = createMapMarkerStore({
-                        onMarkClick: (e) => {
-                            const extData = e.target.getExtData();
-                            this.$emit('click', {
-                                ...e,
-                                extData: e.target.getExtData(),
-                            });
-                            this.moveMarker(extData.position, extData);
-                        },
-                        getMarkerInstance: (p) => this.getMarkerInstance(p),
-                        fieldMaps: {
-                            id: this.idField,
-                            type: this.typeField,
-                            position: this.positionField,
-                        },
-                        customPointOptions: this.customPointOptions,
-                        moveDuration: this.needMoveAnimate
-                            ? this.moveDuration
-                            : 0,
+                    this.massMarkInstance = new AMap.MassMarks(
+                        this.fieldMap(),
+                        {
+                            style: this.customPointOptions,
+                            zIndex: 111,
+                            opacity: 0.8,
+                        }
+                    );
+                    this.massMarkInstance.on('click', (e) => {
+                        const extData = e.data;
+                        this.$emit('click', {
+                            ...e,
+                            extData,
+                        });
+                        this.moveMarker(extData.position, extData);
                     });
-                    if (this.currentDataSource.data) {
-                        this.pointStore.init(this.currentDataSource.data);
-                        this.mapInstance.setFitView();
-                    }
+                    this.massMarkInstance.setMap(this.mapInstance);
                 },
                 (e) => {
                     this.loadingError = e.message;
@@ -147,37 +147,34 @@ export default {
             );
         },
 
-        getMarkerInstance(point) {
-            const AMap = this.AMap;
-            const { type, ...others } = point;
-            if (type === 'text') {
-                return new AMap.Text({
-                    ...others,
-                    map: this.mapInstance,
-                });
-            }
-            if (type === 'circle') {
-                const radius = others.radius || 10;
-                return new AMap.Marker({
-                    ...others,
-                    center: others.center || others.position,
-                    content: `<div class="${this.$style.circleMarker}" style="width: ${radius}px; height: ${radius}px"></div>`,
-                    map: this.mapInstance,
-                    offset: [-radius / 2, -radius / 2],
-                });
-            }
-            return new AMap.Marker({
-                ...others,
-                map: this.mapInstance,
+        fieldMap() {
+            const temp = (this.currentDataSource.data || []).map((point) => {
+                const fieldMapResult = Object.entries({
+                    name: this.idField,
+                    lnglat: this.positionField,
+                    style: this.styleField,
+                }).reduce(
+                    (acc, [key, value]) => ({
+                        ...acc,
+                        [key]: get(point, value),
+                    }),
+                    {}
+                );
+                return { ...point, ...fieldMapResult };
             });
+
+            return temp;
         },
 
         getInner() {
             return {
                 mapInstance: this.mapInstance,
                 AMap: this.AMap,
-                pointStore: this.pointStore,
             };
+        },
+
+        getMockData() {
+            return mockData;
         },
     },
 };
@@ -187,8 +184,8 @@ export default {
 .root {
     width: 100%;
     height: 500px;
-    min-width: 100px;
     position: relative;
+    min-width: 100px;
 }
 
 .container {
