@@ -1,7 +1,6 @@
 <template>
   <div class="drawing2d-main" v-bind="[$attrs, $props]">
-    <div class="drawing2d-header">
-      <!-- <u-color-picker></u-color-picker> -->
+    <div class="drawing2d-header" v-if="mode==='dev'">
       <el-button @click="handleSubmit" type="primary" style="width:84px">保存</el-button>
       <el-button @click="handleToImg" type="primary" style="width:84px">生成图片</el-button>
     </div>
@@ -470,14 +469,14 @@ export default {
         })
       },
       handleToImg(){
-        const url = canvas.toDataURL({
-          format: 'png',
-        })
-        let el =  document.createElement("a")
-        el.href = url
-        el.download =true
-        el.click()
-        el = null
+        // const url = canvas.toDataURL({
+        //   format: 'png',
+        // })
+        // let el =  document.createElement("a")
+        // el.href = url
+        // el.download =true
+        // el.click()
+        // el = null
        return canvas.toDataURL({
           format: 'png',
         })
