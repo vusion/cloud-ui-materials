@@ -5,7 +5,7 @@
       :locale="locale"
       :data-source="transferDataSource"
       :target-keys="targetKeys"
-      :render="(item) => item.title"
+      :render="(item) => item[textField]"
       :show-select-all="showSelectAll"
       :show-search="showSearch"
       :operations="operations"
@@ -48,32 +48,6 @@
 import { MField } from "../../widgets/m-field";
 import Transfer from "ant-design-vue/es/transfer";
 import Tree from "ant-design-vue/es/tree";
-const treeData = [
-  { key: "0-0", title: "0-0" },
-  {
-    key: "0-1",
-    title: "0-1",
-    children: [
-      { key: "0-1-0", title: "0-1-0" },
-      { key: "0-1-1", title: "0-1-1" },
-    ],
-  },
-  { key: "0-2", title: "0-3" },
-];
-
-function isChecked(selectedKeys, eventKey) {
-  return selectedKeys.indexOf(eventKey) !== -1;
-}
-
-function handleTreeData(data, targetKeys = []) {
-  data.forEach((item) => {
-    item["disabled"] = targetKeys.includes(item.key);
-    if (item.children) {
-      handleTreeData(item.children, targetKeys);
-    }
-  });
-  return data;
-}
 
 export default {
   name: "cw-tree-transfer",
@@ -83,7 +57,7 @@ export default {
     ATree: Tree,
   },
   props: {
-    dataSource: {
+    source: {
       type: Array,
       default() {
         return [];
@@ -92,8 +66,20 @@ export default {
     targetKeys: {
       type: Array,
       default() {
-        return [];
+        return;
       },
+    },
+    textField: {
+      type: String,
+      default: "text",
+    },
+    valueField: {
+      type: String,
+      default: "value",
+    },
+    childrenField: {
+      type: String,
+      default: "children",
     },
     operations: {
       type: Array,
@@ -142,21 +128,35 @@ export default {
   },
   computed: {
     treeData() {
-      return handleTreeData(this.dataSource || [], this.targetKeys);
+      return this.handleTreeData(this.source || [], this.targetKeys);
     },
     transferDataSource() {
+      const vm = this;
       const transferDataSource = [];
       function flatten(list = []) {
         list.forEach((item) => {
           transferDataSource.push(item);
-          flatten(item.children);
+          flatten(item[vm.childrenField]);
         });
       }
-      flatten(JSON.parse(JSON.stringify(this.dataSource)));
+      flatten(JSON.parse(JSON.stringify(this.source)));
       return transferDataSource;
     },
   },
   methods: {
+    isChecked(selectedKeys, eventKey) {
+      return selectedKeys.indexOf(eventKey) !== -1;
+    },
+    handleTreeData(data, targetKeys = []) {
+      data.forEach((item) => {
+        item["disabled"] = targetKeys.includes(item[this.textField]);
+        item.value = item[this.valueField];
+        if (item.children) {
+          this.handleTreeData(item.children, targetKeys);
+        }
+      });
+      return data;
+    },
     onChange(targetKeys, direction, moveKeys) {
       console.log("targetKeys", targetKeys);
       this.$emit("onChange", { targetKeys, direction, moveKeys });
@@ -173,7 +173,7 @@ export default {
     },
     onChecked(_, e, checkedKeys, itemSelect) {
       const { eventKey } = e.node;
-      itemSelect(eventKey, !isChecked(checkedKeys, eventKey));
+      itemSelect(eventKey, !this.isChecked(checkedKeys, eventKey));
     },
   },
 };

@@ -4,7 +4,10 @@
 <template>
   <cw-tree-transfer
     :targetKeys.sync="targetKeys"
-    :dataSource.sync="dataSource"
+    :source.sync="dataSource"
+    textField="key"
+    valueField="value"
+    childrenField="children"
   ></cw-tree-transfer>
 </template>
 <script>

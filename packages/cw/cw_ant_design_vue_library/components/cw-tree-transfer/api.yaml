@@ -4,29 +4,51 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: data-source
-      title: 数据源
-      type: Array<Item> | Function | object | DataSource
-      description: 展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。
+    - name: source
+      title: 原始数据
+      type: Array<{ text, value, children }>
+      sync: true
+      description: 原数据列表
       group: 数据属性
       brifeDoc: ""
-      docDescription: 支持动态绑定集合类型变量（List<T>）或输出参数为集合类型的逻辑
-      tooltipLink: ""
-    - name: data-schema
-      title: 数据类型
-      type: schema
-      description: 数据源返回的数据结构的类型，自动识别类型进行展示说明
-      compType: dataTypeSelect
-      group: 数据属性
-      brifeDoc: ""
-      docDescription: 该属性为只读状态，当数据源动态绑定集合List<T>后，会自动识别T的类型并进行展示。
+      docDescription: 支持动态绑定集合类型变量（List<T>）或输出参数为集合类型的逻辑。
       tooltipLink: ""
     - name: targetKeys
-      type: array
-      default: []
+      title: 目标数据
+      type: Array<{ value }>
       sync: true
-      model: true
-      description: 选中值
+      description: 目标数据列表
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 支持动态绑定集合类型变量（List\<T>）或输出参数为集合类型的逻辑。
+      tooltipLink: ""
+    - name: text-field
+      title: 文本字段
+      type: string
+      default: text
+      description: 选项文本的字段名
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 集合的元素类型中，用于显示文本的属性名称，支持自定义变更。
+      tooltipLink: ""
+    - name: value-field
+      title: 值字段
+      type: string
+      default: value
+      description: 选项值的字段名
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 集合的元素类型中，用于指定数据唯一值的字段，支持自定义变更
+      tooltipLink: ""
+    - name: children-field
+      title: 子节点字段
+      type: string
+      default: children
+      description: 子节点字段的字段名
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 集合的元素类型中，用于指定数据子节点值的字段，支持自定义变更
+      tooltipLink: ""
     - name: showSearch
       type: boolean
       default: false
