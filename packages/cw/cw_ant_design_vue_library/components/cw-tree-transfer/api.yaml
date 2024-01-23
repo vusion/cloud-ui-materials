@@ -4,14 +4,37 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: data
-      type: array
-      default: 请在这里编写代码
-      description: 需要传入的值
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      description: 展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 支持动态绑定集合类型变量（List<T>）或输出参数为集合类型的逻辑
+      tooltipLink: ""
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 数据源返回的数据结构的类型，自动识别类型进行展示说明
+      compType: dataTypeSelect
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 该属性为只读状态，当数据源动态绑定集合List<T>后，会自动识别T的类型并进行展示。
+      tooltipLink: ""
     - name: targetKeys
       type: array
       default: []
+      sync: true
+      model: true
       description: 选中值
+    - name: showSearch
+      type: boolean
+      default: false
+      description: 是否展示搜索
+    - name: showSelectAll
+      type: boolean
+      default: true
+      description: 是否选择全选
     - name: operations
       type: array
       default: []

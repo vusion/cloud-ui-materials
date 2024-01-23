@@ -1,14 +1,13 @@
 <template>
   <div>
-    dataSource - {{ dataSource }}
     <a-transfer
       class="tree-transfer"
       :locale="locale"
-      :data-source="dataSource"
+      :data-source="transferDataSource"
       :target-keys="targetKeys"
       :render="(item) => item.title"
-      :show-select-all="true"
-      :show-search="true"
+      :show-select-all="showSelectAll"
+      :show-search="showSearch"
       :operations="operations"
       :titles="titles"
       :disabled="disabled"
@@ -47,7 +46,6 @@
 </template>
 <script>
 import { MField } from "../../widgets/m-field";
-import supportDatasource from "@/mixins/support.datasource";
 import Transfer from "ant-design-vue/es/transfer";
 import Tree from "ant-design-vue/es/tree";
 const treeData = [
@@ -62,15 +60,6 @@ const treeData = [
   },
   { key: "0-2", title: "0-3" },
 ];
-
-const transferDataSource = [];
-function flatten(list = []) {
-  list.forEach((item) => {
-    transferDataSource.push(item);
-    flatten(item.children);
-  });
-}
-flatten(JSON.parse(JSON.stringify(treeData)));
 
 function isChecked(selectedKeys, eventKey) {
   return selectedKeys.indexOf(eventKey) !== -1;
@@ -88,12 +77,18 @@ function handleTreeData(data, targetKeys = []) {
 
 export default {
   name: "cw-tree-transfer",
-  mixins: [supportDatasource, MField],
+  mixins: [MField],
   components: {
     ATransfer: Transfer,
     ATree: Tree,
   },
   props: {
+    dataSource: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     targetKeys: {
       type: Array,
       default() {
@@ -123,6 +118,14 @@ export default {
         };
       },
     },
+    showSearch: {
+      type: Boolean,
+      default: false,
+    },
+    showSelectAll: {
+      type: Boolean,
+      default: true,
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -139,13 +142,25 @@ export default {
   },
   computed: {
     treeData() {
-      return handleTreeData(treeData, this.targetKeys);
+      return handleTreeData(this.dataSource || [], this.targetKeys);
+    },
+    transferDataSource() {
+      const transferDataSource = [];
+      function flatten(list = []) {
+        list.forEach((item) => {
+          transferDataSource.push(item);
+          flatten(item.children);
+        });
+      }
+      flatten(JSON.parse(JSON.stringify(this.dataSource)));
+      return transferDataSource;
     },
   },
   methods: {
     onChange(targetKeys, direction, moveKeys) {
+      console.log("targetKeys", targetKeys);
       this.$emit("onChange", { targetKeys, direction, moveKeys });
-      this.targetKeys = targetKeys;
+      this.$emit("update:targetKeys", targetKeys);
     },
     scroll(direction, event) {
       this.$emit("scroll", { direction, event });
