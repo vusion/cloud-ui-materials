@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import WaterMark from "wybie-watermark";
+import WaterMark from "../../lib/index";
 let waterMark;
 export default {
   name: "watermark",
