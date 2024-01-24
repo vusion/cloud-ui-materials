@@ -1,0 +1,10 @@
+- name: cw-xlsx-preview
+  title: xlsx预览
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+      - name: value
+        title: 链接地址
+        type: string
+        description: 预览的文件，可以是blob｜url｜arraybuffer
