@@ -83,19 +83,9 @@ export default {
           //  localStorage.setItem("lenList",JSON.stringify(this.lenList))
         }
         
-        console.log(this.lenList);
+          console.log(this.lenList);
         // debugger
           this.isEdit = !this.isEdit
-          // await this.$nextTick()
-          // console.log(this.lenList);
-        //   this.$slots.default.forEach((element,index) => {
-        //   // console.log(this.lenList);
-        //   const order =  element.elm.getAttribute("data-order")
-        //   // console.log(element.elm.__vue__.selfBasis);
-        //   console.log(element.elm);
-        //   element.elm.style.flexBasis = this.lenList[order]
-        //   // this.lenList[order] = element.elm.__vue__.selfBasis
-        //  })
       },
       handleSaveData(){
         const parentEl = document.querySelector(".drag-room")

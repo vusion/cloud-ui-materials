@@ -17,10 +17,12 @@
     - name: bgColor
       title: 二维码背景的颜色
       type: string
+      sync: true
       description: 二维码背景的颜色
     - name: codeColor
       title: 二维码码的颜色
       type: string
+      sync: true
       description: 二维码码的颜色
   events:
     - name: load

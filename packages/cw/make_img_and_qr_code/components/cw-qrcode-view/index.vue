@@ -44,7 +44,17 @@ export default {
       if (this.src.length > 0) {
         this.run()
       }
-    }
+    },
+    bgColor(){
+       if (this.value.length > 0) {
+        this.run()
+      }
+    },
+    codeColor(){
+       if (this.value.length > 0) {
+        this.run()
+      }
+    },
   },
   methods: {
     async loadImg() {

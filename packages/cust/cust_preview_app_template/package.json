@@ -2,7 +2,7 @@
   "name": "cust_preview_app_template",
   "title": "应用模板预览组件",
   "description": "",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
