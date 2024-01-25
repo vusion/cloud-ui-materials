@@ -8,14 +8,14 @@
     </div>
     <div :class="$style.pdfView">
       <div v-for="(page, pIndex) in pages" :key="pIndex" :class="$style.pdfViewItem">
-        <pdf-page :page="page" :scale="pagesScale[pIndex]" :ref="`page${pIndex}`" @onMeasure="onMeasure" />
-        <div :class="$style.itemView" :style="{ transform: `scale(${pagesScale[pIndex]})` }">
+        <pdf-page :page="page" :ref="`page${pIndex}`" />
+        <div :class="$style.itemView">
           <div v-for="(object, oIndex) in allObjects[pIndex]" :key="oIndex">
             <div v-if="object.type === 'image'">
               <image-item @onUpdate="updateObject(object.id, $event)" @onDelete="deleteObject(object.id)"
                 :file="object.file" :payload="object.payload" :x="object.x" :y="object.y" :width="object.width"
                 :height="object.height" :originWidth="object.originWidth" :originHeight="object.originHeight"
-                :pageScale="pagesScale[pIndex]" />
+                 />
             </div>
           </div>
         </div>
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import "pdfjs-dist/web/pdf_viewer.css";
 import PdfPage from './pdf-page'
 import ImageItem from './image-item'
 import {
@@ -33,9 +32,10 @@ import {
   readAsPDF,
   readAsDataURL
 } from "./util/asyncReader";
+import { save } from './util/PDF';
 const PDFJS = require("pdfjs-dist");
 PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker");
-import demoImage from '../../assets/sealImag.png'
+// import demoImage from '../../assets/sealImag.png'
 export default {
   name: "cw-pdf-editor",
   components: {
@@ -47,10 +47,6 @@ export default {
       type: String,
       default: "请在这里编写代码"
     },
-    sealImageUrl: {
-      type: String,
-      default: demoImage
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -58,30 +54,27 @@ export default {
   },
   data() {
     return {
-      wheelZoomCount: 0,
-      narrowEnlargeShow: false,
-      scale: 1,
       pdfFile: null,
-      pdfName: "",
       numPages: null,
       pdfDocument: null,
       pages: [],
-      pagesScale: [],
       allObjects: [],
-      currentFont: "宋体",
-      focusId: null,
       selectedPageIndex: -1,
       saving: false,
       addingDrawing: false
     }
   },
-  mounted() {
-    console.log('mounted')
-  },
   methods: {
-    onMeasure(e, i) {
-      this.pagesScale[i] = e.scale;
-      this.$forceUpdate();
+    async savePDF(newPdfName = new Date().getTime()) {
+      if (!this.pdfFile || this.saving || !this.pages.length) return;
+      this.saving = true;
+      try {
+        await save(this.pdfFile, this.allObjects, newPdfName);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.saving = false;
+      }
     },
     deleteObject(objectId) {
       this.allObjects = this.allObjects.map((objects, pIndex) =>
@@ -131,7 +124,6 @@ export default {
       this.selectedPageIndex = -1;
       try {
         await this.addPDF(file);
-        this.narrowEnlargeShow = true;
         this.selectedPageIndex = 0;
       } catch (e) {
         console.log(e);
@@ -182,8 +174,8 @@ export default {
           }
         }
         // 展示印章示例
-        const res = await fetch(this.sealImageUrl);
-        await this.addImage(await res.blob(), 0, (y + 1) * 100, 0.4, true);
+        // const res = await fetch(this.sealImageUrl);
+        // await this.addImage(await res.blob(), 0, (y + 1) * 100, 0.4, true);
       }
       this.selectedPageIndex = 0;
     },
@@ -229,11 +221,9 @@ export default {
     },
     resetDefaultState() {
       this.pdfFile = null;
-      this.pdfName = "";
       this.numPages = null;
       this.pdfDocument = null;
       this.pages = [];
-      this.pagesScale = [];
       this.allObjects = [];
     },
     async addPDF(file) {
@@ -241,13 +231,6 @@ export default {
         this.resetDefaultState();
 
         this.pdfFile = file;
-        if (this.initFileName) {
-          this.pdfName = this.initFileName
-        } else if (file.name) {
-          this.pdfName = file.name;
-        } else {
-          this.pdfName = new Date().getTime();
-        }
 
         this.pdfDocument = await readAsPDF(file);
         if (this.pdfDocument) {
@@ -256,7 +239,6 @@ export default {
             .fill()
             .map((_, i) => this.pdfDocument.getPage(i + 1));
           this.allObjects = this.pages.map(() => []);
-          this.pagesScale = Array(this.numPages).fill(1);
         }
       } catch (e) {
         console.log("Failed to add pdf.");

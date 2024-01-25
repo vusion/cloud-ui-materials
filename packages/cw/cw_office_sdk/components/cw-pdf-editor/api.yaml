@@ -1,5 +1,5 @@
 - name: cw-pdf-editor
-  title: PDF签章编辑器
+  title: PDF编辑器
   type: both
   belong: component
   labels: [Runtime]

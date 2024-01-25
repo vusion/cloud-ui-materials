@@ -55,7 +55,6 @@ export default {
     "originHeight",
     "x",
     "y",
-    "pageScale",
     "fixSize"
   ],
   data() {
@@ -128,8 +127,8 @@ export default {
       }
       if (!coordinate) return console.log("ERROR");
 
-      const _dx = (coordinate.detail.x - this.startX) / this.pageScale;
-      const _dy = (coordinate.detail.y - this.startY) / this.pageScale;
+      const _dx = (coordinate.detail.x - this.startX);
+      const _dy = (coordinate.detail.y - this.startY);
       if (this.operation === "move") {
         this.dx = _dx;
         this.dy = _dy;

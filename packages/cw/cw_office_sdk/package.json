@@ -51,6 +51,8 @@
   "dependencies": {
     "@babel/traverse": "^7.22.6",
     "docx-preview": "^0.1.18",
+    "downloadjs": "^1.4.7",
+    "pdf-lib": "^1.17.1",
     "pdfjs": "^2.5.0",
     "vue-pdf": "^4.3.0"
   }

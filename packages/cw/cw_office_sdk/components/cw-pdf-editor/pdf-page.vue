@@ -8,26 +8,15 @@ export default {
   props:{
     page:{
       type:Promise
-    },
-    scale:{
-      type: Number,
-      default: 1
     }
   },
   data() {
     return {
-      dynamicScale: this.scale,
       clientWidth: null,
     };
   },
   mounted() {
     this.render();
-  },
-  watch: {
-    scale(newScale) {
-      this.dynamicScale = newScale; // 监听scale属性的变化，并更新动态缩放
-      this.render();
-    },
   },
   methods: {
     getCanvasMeasurement() {
@@ -36,17 +25,12 @@ export default {
         canvasHeight: this.$refs.canvas.height,
       };
     },
-    measure() {
-      this.$emit("onMeasure", {
-        scale: this.dynamicScale,
-      });
-    },
     async render() {
       const _page = await this.page;
       let canvas = this.$refs.canvas;
       const context = canvas.getContext("2d");
       const viewport = _page.getViewport({
-        scale: this.dynamicScale,
+        scale: 1,
         rotation: 0,
       });
       canvas.width = viewport.width;
@@ -55,8 +39,6 @@ export default {
         canvasContext: context,
         viewport,
       }).promise;
-      this.measure();
-      window.addEventListener("resize", this.measure);
     },
   },
 };

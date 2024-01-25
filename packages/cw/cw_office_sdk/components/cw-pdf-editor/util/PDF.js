@@ -1,11 +1,9 @@
 import { readAsArrayBuffer } from './asyncReader.js';
-import { fetchFont, getAsset } from './prepareAssets';
 import { noop } from './helper.js';
 import * as PDFLib from 'pdf-lib'
 import * as download from 'downloadjs'
 
-export async function save(pdfFile, objects, name, isUpload=false,callback) {
-  const makeTextPDF = await getAsset('makeTextPDF');
+export async function save(pdfFile, objects, name) {
   let pdfDoc;
   try {
     pdfDoc = await PDFLib.PDFDocument.load(await readAsArrayBuffer(pdfFile));
@@ -15,7 +13,6 @@ export async function save(pdfFile, objects, name, isUpload=false,callback) {
   }
   const pagesProcesses = pdfDoc.getPages().map(async (page, pageIndex) => {
     const pageObjects = objects[pageIndex];
-    // 'y' starts from bottom in PDFLib, use this to calculate y
     const pageHeight = page.getHeight();
     const embedProcesses = pageObjects.map(async (object) => {
       if (object.type === 'image') {
@@ -40,52 +37,6 @@ export async function save(pdfFile, objects, name, isUpload=false,callback) {
           console.log('Failed to embed image.', e);
           return noop;
         }
-      } else if (object.type === 'text') {
-        let { x, y, lines, lineHeight, size, fontFamily, width } = object;
-        const height = size * lineHeight * lines.length;
-        const font = await fetchFont(fontFamily);
-        const [textPage] = await pdfDoc.embedPdf(
-          await makeTextPDF({
-            lines,
-            fontSize: size,
-            lineHeight,
-            width,
-            height,
-            font: font.buffer || fontFamily, // built-in font family
-            dy: font.correction(size, lineHeight),
-          }),
-        );
-        return () =>
-          page.drawPage(textPage, {
-            width,
-            height,
-            x,
-            y: pageHeight - y - height,
-          });
-      } else if (object.type === 'drawing') {
-        let { x, y, path, scale } = object;
-        const {
-          pushGraphicsState,
-          setLineCap,
-          popGraphicsState,
-          setLineJoin,
-          LineCapStyle,
-          LineJoinStyle,
-        } = PDFLib;
-        return () => {
-          page.pushOperators(
-            pushGraphicsState(),
-            setLineCap(LineCapStyle.Round),
-            setLineJoin(LineJoinStyle.Round),
-          );
-          page.drawSvgPath(path, {
-            borderWidth: 5,
-            scale,
-            x,
-            y: pageHeight - y,
-          });
-          page.pushOperators(popGraphicsState());
-        };
       }
     });
     // embed objects in order
@@ -95,11 +46,6 @@ export async function save(pdfFile, objects, name, isUpload=false,callback) {
   await Promise.all(pagesProcesses);
   try {
     const pdfBytes = await pdfDoc.save();
-    if (isUpload) {
-     // 上传
-      callback(pdfBytes);
-      return
-    }
     download(pdfBytes, name, 'application/pdf');
   } catch (e) {
     console.log('Failed to save PDF.');
