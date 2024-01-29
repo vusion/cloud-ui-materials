@@ -66,7 +66,7 @@ export default {
     targetKeys: {
       type: Array,
       default() {
-        return;
+        return [];
       },
     },
     textField: {
@@ -156,7 +156,7 @@ export default {
         }
       });
       return data;
-    },
+    }, 
     onChange(targetKeys, direction, moveKeys) {
       console.log("targetKeys", targetKeys);
       this.$emit("onChange", { targetKeys, direction, moveKeys });
