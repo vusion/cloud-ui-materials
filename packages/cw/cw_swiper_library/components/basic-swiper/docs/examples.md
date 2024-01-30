@@ -1,15 +1,22 @@
 ### 基本用法
 
-```html
-<basic-swiper
-  :spaceBetween="0"
-  :imgWidth="240"
-  :imgHeight="196"
-  :slidesPerView="5"
-  :delay="2500"
->
-  <template #default="current">
-    <u-linear-layout gap="small"></u-linear-layout>
-  </template>
-</basic-swiper>
+```vue
+<template>
+  <basic-swiper
+    :spaceBetween="0"
+    :imgWidth="240"
+    :imgHeight="196"
+    :slidesPerView="5"
+    :delay="2500"
+  >
+    <template #default="current"> current -- {{ current }} </template>
+  </basic-swiper>
+</template>
+<script>
+export default {
+  data() {
+    return {};
+  },
+};
+</script>
 ```

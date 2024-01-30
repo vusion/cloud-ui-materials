@@ -18,11 +18,11 @@
       <swiper-slide
         v-for="(item, index) in dataSource"
         :key="index"
-        :style="{ width: `${imgWidth}px !important` }"
+        :style="{ width: `${imgWidth}px !important`, height: 100 }"
       >
-        <template v-slot="current">
-          <slot :item="current.item"></slot>
-        </template>
+        <div s-empty="true" vusion-slot-name="item">
+          <slot name="item" :item="item"></slot>
+        </div>
       </swiper-slide>
     </swiper>
   </div>
@@ -145,5 +145,29 @@ export default {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+}
+.swiper-container div[s-empty]:empty {
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  text-align: left;
+  background: #fff;
+  line-height: 1.4;
+  padding: 10px 18px 10px 10px;
+  text-align: center;
+  width: 30%;
+  height: 30%;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.swiper-container div[s-empty]:empty::before {
+  content: "+";
+  font-size: 20px;
+  line-height: 12px;
+  display: inline-block;
+  margin-bottom: 2px;
 }
 </style>
