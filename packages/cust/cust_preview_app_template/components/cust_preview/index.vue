@@ -4,7 +4,7 @@
        请发布后预览
     </div>
     <div v-if="!isIDE">
-      <iframe id="app" scrolling="no" src=""></iframe>
+      <iframe id="app" scrolling="no" src="" style="border:0"></iframe>
     </div>
   </div>
 </template>
