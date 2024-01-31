@@ -2,7 +2,7 @@
   "name": "cw_office_sdk",
   "title": "文档SDK",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -50,9 +50,10 @@
   "lcapVersion": "0.3.0",
   "dependencies": {
     "@babel/traverse": "^7.22.6",
-    "docx-preview": "^0.1.18",
     "downloadjs": "^1.4.7",
     "pdf-lib": "^1.17.1",
+    "@js-preview/excel": "^1.6.0",
+    "docx-preview": "0.1.20",
     "pdfjs": "^2.5.0",
     "vue-pdf": "^4.3.0"
   }

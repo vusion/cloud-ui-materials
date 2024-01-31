@@ -16,6 +16,14 @@ export default {
       src: {
         type:String,
         // default:"https://img1.baidu.com/it/u=1919509102,1927615551&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1687366800&t=18a6b2674b479851b37c3c4bcd8db378"
+      },
+      bgColor:{
+        type:String,
+        default:""
+      },
+      codeColor:{
+         type:String,
+        default:""
       }
   },
   data() {
@@ -36,7 +44,17 @@ export default {
       if (this.src.length > 0) {
         this.run()
       }
-    }
+    },
+    bgColor(){
+       if (this.value.length > 0) {
+        this.run()
+      }
+    },
+    codeColor(){
+       if (this.value.length > 0) {
+        this.run()
+      }
+    },
   },
   methods: {
     async loadImg() {
@@ -54,6 +72,10 @@ export default {
       await QRCode.toCanvas(canvas, this.value, {
         margin: 1, errorCorrectionLevel: 'H',
         width: 199,
+        color: {
+          dark:this.codeColor,
+          light:this.bgColor
+        }
       })
       var context = canvas.getContext('2d');
       if (this.src) {

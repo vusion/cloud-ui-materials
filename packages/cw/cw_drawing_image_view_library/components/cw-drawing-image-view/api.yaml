@@ -26,3 +26,7 @@
       title: 生产图片
       description: 生成图片
       params: []
+    - name: handleSubmit
+      title: 提交数据
+      description: 提交数据
+      params: []

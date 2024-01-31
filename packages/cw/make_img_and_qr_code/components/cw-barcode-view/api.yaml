@@ -4,33 +4,52 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: value
-      title: 内容
-      type: string
-      default: 123456
-      description: 生成条形码内容
-    - name: lineColor
-      title: 颜色
-      type: string
-      default: "#000"
-      description: 条形码颜色
-    - name: height
-      title: 高度
-      type: string
-      default: 40
-      description: 条形码高度
-    - name: displayValue
-      title: 是否显示内容
-      type: boolean
-      default: true
-      description: 是否显示条形码内容
-    - name: format
-      title: 条形码类型
-      type: string
-      default: code128
-      description: 条形码类型
+      - name: value
+        title: 内容
+        type: string
+        default: 123456
+        description: 生成条形码内容
+      - name: lineColor
+        title: 颜色
+        type: string
+        default: '#000'
+        description: 条形码颜色
+      - name: height
+        title: 高度
+        type: string
+        default: 40
+        description: 条形码高度
+      - name: displayValue
+        title: 是否显示内容
+        type: boolean
+        default: true
+        description: 是否显示条形码内容
+      - name: format
+        title: 条形码类型
+        type: string
+        default: code128
+        description: 条形码类型
+      - name: fontOptions
+        title: 字体样式
+        type: string
+        description: 字体样式
+        options:
+            - value: bold
+              title: 加粗
+            - value: ''
+              title: 正常
+      - name: renderType
+        title: 渲染类型
+        type: string
+        default: canvas
+        description: 渲染类型
+        options:
+            - value: canvas
+              title: canvas
+            - value: svg
+              title: svg
   events:
-    - name: load
-      title: 加载事件
-      description: 加载事件
-      params: []
+      - name: load
+        title: 加载事件
+        description: 加载事件
+        params: []

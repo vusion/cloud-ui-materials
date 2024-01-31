@@ -1,7 +1,6 @@
 <template>
   <div class="drawing2d-main" v-bind="[$attrs, $props]">
-    <div class="drawing2d-header">
-      <!-- <u-color-picker></u-color-picker> -->
+    <div class="drawing2d-header" v-if="mode==='dev'">
       <el-button @click="handleSubmit" type="primary" style="width:84px">保存</el-button>
       <el-button @click="handleToImg" type="primary" style="width:84px">生成图片</el-button>
     </div>
@@ -49,7 +48,7 @@
                 <div class="drawing2d-input-room-cell" style="margin-top:10px">
                   <span>背景</span>
                   <div class="drawing2d-bg-room" :class="bgImg?'active':''">
-                    <img class="drawing2d-bg-img" :src="bgImg" alt="">
+                    <img class="drawing2d-bg-img" :src="bgImg" alt="" v-if="bgImg">
                     <img @click="handleBgClose" class="drawing2d-bg-close" src="../../assets/close.png" alt="">
                   </div>
                   <el-button style="width:102px;position:relative;" >
@@ -57,10 +56,6 @@
                       <input accept="image/*,application/pdf" @change="handleUploadImg" class="drawing2d-upload" palceholder="请输入" type="file" ></input>
                   </el-button>
                 </div>
-                 <!-- <div class="drawing2d-input-room-cell">
-                  <span>网格线</span>
-                  <a-switch style="margin-left:auto"></a-switch>
-                </div> -->
               </div>
             </div>
 
@@ -255,7 +250,7 @@ export default {
             var zoom = canvas.getZoom();
             zoom = zoom + delta/2000;
             if (zoom > 4) zoom = 4;
-            if (zoom < 0.5) zoom = 0.5;
+            if (zoom < 0.1) zoom = 0.1;
             canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
             opt.e.preventDefault();
             opt.e.stopPropagation();
@@ -437,17 +432,21 @@ export default {
           // this.bgImg = base64Data
           // return
         }else{
-      this.bgImg = URL.createObjectURL(a)
+         this.bgImg = URL.createObjectURL(a)
          base64Data =  await this.getImgToBase64(this.bgImg)
         }
-  
+
         fabric.Image.fromURL(base64Data,(img)=>{
           img.scaleToWidth(canvas.width);
           img.scaleToHeight(canvas.height);
           canvas.setBackgroundImage(img,canvas.renderAll.bind(canvas),{
             opacity: 0.5,
-            scaleX: canvas.width / img.width,
-            scaleY: canvas.width / img.width,
+            originX: 'center',
+            originY: 'center',
+            left: canvas.width/2,
+            top: canvas.height/2,
+            // scaleX: canvas.width / img.width,
+            // scaleY: canvas.width / img.width,
           })
         })
       },
@@ -470,14 +469,14 @@ export default {
         })
       },
       handleToImg(){
-        const url = canvas.toDataURL({
-          format: 'png',
-        })
-        let el =  document.createElement("a")
-        el.href = url
-        el.download =true
-        el.click()
-        el = null
+        // const url = canvas.toDataURL({
+        //   format: 'png',
+        // })
+        // let el =  document.createElement("a")
+        // el.href = url
+        // el.download =true
+        // el.click()
+        // el = null
        return canvas.toDataURL({
           format: 'png',
         })
@@ -723,6 +722,7 @@ h3{
 
 .drawing2d-bg-room .drawing2d-bg-img{
   width: 100%;
+  height: 100%;
 }
 
 .drawing2d-bg-room.active:hover .drawing2d-bg-close{

@@ -1,0 +1,15 @@
+- name: cw-active-drag-view-cell
+  title: 可拖拽单元
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 单元宽度
+      type: string
+      default: 25%
+      description: 请使用百分比
+  slots:
+    - concept: Slot
+      name: default
+      description: 插入默认的元素
