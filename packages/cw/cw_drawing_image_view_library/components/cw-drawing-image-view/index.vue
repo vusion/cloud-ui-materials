@@ -173,7 +173,7 @@ export default {
     },
     computed:{
       getcanvasJson(){
-        return JSON.stringify(canvas.toJSON())
+        return JSON.stringify(canvas.toJSON(['_id']))
       },
       selectedObj(){
         return  this.selectedList.length === 1 ? this.selectedList[0] : {}
@@ -489,9 +489,10 @@ export default {
       },
       handleSubmit(){
         if(this.mode==="dev"){
-          localStorage.setItem("canvasData",JSON.stringify(canvas.toJSON()))
+          localStorage.setItem("canvasData",JSON.stringify(canvas.toJSON(['_id'])))
         }else{
-          this.$emit("onSave",JSON.stringify(canvas.toJSON()))
+         
+          this.$emit("onSave",JSON.stringify(canvas.toJSON(['_id'])))
         }
       },
       handleBindData(){
@@ -528,9 +529,6 @@ export default {
         canvas.renderAll()
       },
       handleSetColor(data){
-        // this.selectedObj.set("stroke",data.borderColor)
-        // this.selectedObj.set("fill",data.bgColor)
-        // this.selectedObj.set("backgroundColor",data.bgColor)
         const objects =  this.selectedObj.getObjects()
         objects.forEach(item=>{
           if(item.type == "rect" ){
