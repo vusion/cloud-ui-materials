@@ -1,4 +1,4 @@
-const $libraryName = 'adapter_sdk'
+const $libraryName = 'cw_adapter_sdk'
 
 const UtilsLogics = {}
 import init from './init'

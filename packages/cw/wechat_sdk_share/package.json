@@ -1,8 +1,8 @@
 {
-  "name": "cw_active_room_library",
-  "title": "自由移动布局",
-  "description": "可以在编辑台中将切换布局的顺序及每一栏的宽度",
-  "version": "1.0.0",
+  "name": "wechat_sdk_share",
+  "title": "微信sdk",
+  "description": "",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -49,8 +49,6 @@
     "inited": true
   },
   "dependencies": {
-    "less": "^4.2.0",
-    "less-loader": "^11.1.3",
-    "vuedraggable": "^2.24.3"
+    "weixin-js-sdk": "^1.6.5"
   }
 }

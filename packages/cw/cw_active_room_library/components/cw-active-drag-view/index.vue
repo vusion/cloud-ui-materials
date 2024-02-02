@@ -73,18 +73,7 @@ export default {
              const order =  element.getAttribute("data-order")
              this.lenList[order] = element.style.flexBasis
            })
-          //  this.$slots.default.forEach((element,index) => {
-          //   console.log(element,"elm");
-          //    console.log(element.elm.style.flexBasis,"data");
-          //    const order =  element.elm.getAttribute("data-order")
-          //    this.lenList[order] = element.elm.style.flexBasis
-          //  })
-          //  localStorage.setItem("resultList",JSON.stringify(this.indexList))
-          //  localStorage.setItem("lenList",JSON.stringify(this.lenList))
         }
-        
-          console.log(this.lenList);
-        // debugger
           this.isEdit = !this.isEdit
       },
       handleSaveData(){
@@ -125,12 +114,6 @@ export default {
           this.$slots.default.filter(item=>item.data).forEach((element,index) => {
               element.elm.classList.add("drag-room-cell"+index)
           });
-          // localStorage.getItem("resultList")?this.indexList = JSON.parse(localStorage.getItem("resultList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
-          // localStorage.getItem("lenList")?this.lenList = JSON.parse(localStorage.getItem("lenList")):this.indexList = new Array( this.$slots.default.length).fill(0).map((item,index)=>index)
-          // console.log(this.indexList);
-          // console.log(this.value);
-       
-          
           const reorderChildNodes=(parentNode, orderList) => {
             const childNodes = Array.from(parentNode.children);
             childNodes.forEach((node, index) => {

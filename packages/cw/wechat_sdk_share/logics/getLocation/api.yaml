@@ -1,0 +1,5 @@
+- name: getLocation
+  description: 获取地理位置接口
+  type: h5
+  belong: logic
+  labels: [Runtime]
