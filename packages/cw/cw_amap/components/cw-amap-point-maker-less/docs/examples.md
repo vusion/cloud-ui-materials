@@ -7,7 +7,7 @@
         <div>{{ points }}</div>
         <cw-amap-point-maker-less :dataSource="points" @click="handleItemClick">
             <template #item="current">
-                <u-button>sdfds</u-button>
+                <u-text>{{ current.item.textContent }}</u-text>
             </template>
         </cw-amap-point-maker-less>
     </div>
@@ -21,12 +21,14 @@ export default {
                 {
                     id: 0,
                     position: [120.181156, 30.182047],
+                    textContent: '123',
                 },
                 {
                     id: 1,
                     position: [120.215317, 30.189466],
                     radius: 30,
                     type: 'circle',
+                    textContent: 'hello world',
                     // text: 'hello world',
                 },
             ],

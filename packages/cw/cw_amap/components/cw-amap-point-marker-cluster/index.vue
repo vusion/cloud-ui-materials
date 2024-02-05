@@ -2,23 +2,27 @@
     <div :class="$style.root">
         <div
             v-if="!inDesigner && !loadingError"
-            style="width: 100%; height: 100%">
+            style="width: 100%; height: 100%"
+        >
             <div :class="$style.container" ref="amap"></div>
             <div
                 v-if="hasInfoWindow && selectedPoint && $scopedSlots.item"
                 ref="infoWindow"
-                :class="$style.infoWindow">
+                :class="$style.infoWindow"
+            >
                 <div :class="$style.infoWindowContent">
                     <slot name="item" :item="selectedPoint"></slot>
                     <a
                         :class="$style.infoWindowClose"
-                        @click="clearSelectedItem">
+                        @click="clearSelectedItem"
+                    >
                         x
                     </a>
                 </div>
                 <div
                     ref="infoWindowArrow"
-                    :class="$style.infoWindowArrow"></div>
+                    :class="$style.infoWindowArrow"
+                ></div>
             </div>
         </div>
         <div v-if="loadingError" :class="$style.containertip">
@@ -27,7 +31,8 @@
         <img
             v-if="inDesigner"
             :src="mapPNG"
-            style="width: 100%; height: 100%; object-fit: cover" />
+            style="width: 100%; height: 100%; object-fit: cover"
+        />
         <div
             v-if="inDesigner && hasInfoWindow"
             style="
@@ -37,7 +42,8 @@
                 top: 0;
                 right: 0;
                 z-index: 10;
-            ">
+            "
+        >
             <div s-empty="true" vusion-slot-name="item">
                 <slot name="item"></slot>
             </div>
@@ -64,7 +70,7 @@ export default {
             default: () => [120.190941, 30.18635],
         },
         customPointOptions: {
-            type: Array,
+            type: [Array, Function],
         },
         gridSize: {
             type: Number,
@@ -146,9 +152,13 @@ export default {
                             this.moveMarker(marker.getPosition(), {
                                 clusterData,
                             });
+                            this.$emit('click', {
+                                clusterData,
+                            });
                         } else {
                             const extData = marker.getExtData();
                             this.moveMarker(marker.getPosition(), extData);
+                            this.$emit('click', extData);
                         }
                     });
                 },
@@ -200,7 +210,7 @@ export default {
                     point: marker,
                     count,
                     clusterData,
-                    data,
+                    data: data && data[0],
                 };
                 customOptions(ans); // 由于ide定义的逻辑都是异步函数，但customPointOptions一定要是同步方法，故这里使用另外的方法获取返回值
                 customOptions = ans.result;
@@ -218,16 +228,19 @@ export default {
                         width: count > 1 ? '60px' : '30px',
                         height: count > 1 ? '60px' : '30px',
                     },
-                    size: count > 1 ? 60 : 30,
+                    size: count > 1 ? [60, 60] : [30, 30],
                 },
                 customOptions
             );
             Object.assign(div.style, options.style);
             div.innerText = options.textContent;
-            const size = options.size || 0;
+            const size = options.size || [0, 0];
+            if (count === 1) {
+                marker.setExtData(data[0]);
+            }
 
             marker.setContent(div);
-            marker.setOffset(new AMap.Pixel(-size / 2, -size / 2));
+            marker.setOffset(new AMap.Pixel(-size[0] / 2, -size[1] / 2));
         },
     },
 };

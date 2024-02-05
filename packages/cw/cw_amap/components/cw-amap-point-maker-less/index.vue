@@ -2,23 +2,27 @@
     <div :class="$style.root">
         <div
             v-if="!inDesigner && !loadingError"
-            style="width: 100%; height: 100%">
+            style="width: 100%; height: 100%"
+        >
             <div :class="$style.container" ref="amap"></div>
             <div
                 v-if="hasInfoWindow && selectedPoint && $scopedSlots.item"
                 ref="infoWindow"
-                :class="$style.infoWindow">
+                :class="$style.infoWindow"
+            >
                 <div :class="$style.infoWindowContent">
                     <slot name="item" :item="selectedPoint"></slot>
                     <a
                         :class="$style.infoWindowClose"
-                        @click="clearSelectedItem">
+                        @click="clearSelectedItem"
+                    >
                         x
                     </a>
                 </div>
                 <div
                     ref="infoWindowArrow"
-                    :class="$style.infoWindowArrow"></div>
+                    :class="$style.infoWindowArrow"
+                ></div>
             </div>
         </div>
         <div v-if="loadingError" :class="$style.containertip">
@@ -27,7 +31,8 @@
         <img
             v-if="inDesigner"
             :src="mapPNG"
-            style="width: 100%; height: 100%; object-fit: cover" />
+            style="width: 100%; height: 100%; object-fit: cover"
+        />
         <div
             v-if="inDesigner && hasInfoWindow"
             style="
@@ -37,9 +42,10 @@
                 top: 0;
                 right: 0;
                 z-index: 10;
-            ">
+            "
+        >
             <div s-empty="true" vusion-slot-name="item">
-                <slot name="item"></slot>
+                <slot name="item" :item="selectedItem"></slot>
             </div>
         </div>
     </div>
@@ -130,6 +136,7 @@ export default {
                             id: this.idField,
                             type: this.typeField,
                             position: this.positionField,
+                            textContent: this.textContentField,
                         },
                         customPointOptions: this.customPointOptions,
                         moveDuration: this.needMoveAnimate
@@ -149,7 +156,7 @@ export default {
 
         getMarkerInstance(point) {
             const AMap = this.AMap;
-            const { type, ...others } = point;
+            const { type, text, ...others } = point; // 去除text字段
             if (type === 'text') {
                 return new AMap.Text({
                     ...others,
