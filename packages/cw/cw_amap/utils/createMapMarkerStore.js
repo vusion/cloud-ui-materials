@@ -161,7 +161,9 @@ export const createMapMarkerStore = ({
             fieldMapResult.labelContent
                 ? {
                       label: {
-                          content: fieldMapResult.labelContent,
+                          content:
+                              fieldMapResult.labelContent ||
+                              fieldMapResult.textContent,
                       },
                   }
                 : {}

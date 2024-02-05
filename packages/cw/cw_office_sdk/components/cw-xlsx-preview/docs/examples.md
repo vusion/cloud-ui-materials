@@ -17,20 +17,24 @@ export default {
     },
     methods: {
         async handleClick() {
-            // this.file =
-            //     'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.xlsx';
-            const [fileHandle] = await window.showOpenFilePicker({
-                types: [
-                    {
-                        accept: {
-                            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                                ['.xlsx'],
-                        },
-                    },
-                ],
-            });
-            const file = await fileHandle.getFile();
-            this.file = file;
+            if (!this.file) {
+                this.file =
+                    'https://501351981.github.io/vue-office/examples/dist/static/test-files/test.xlsx';
+            } else {
+                this.file = undefined;
+            }
+            // const [fileHandle] = await window.showOpenFilePicker({
+            //     types: [
+            //         {
+            //             accept: {
+            //                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            //                     ['.xlsx'],
+            //             },
+            //         },
+            //     ],
+            // });
+            // const file = await fileHandle.getFile();
+            // this.file = file;
         },
     },
 };

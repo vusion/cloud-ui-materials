@@ -30,6 +30,7 @@ export default {
     beforeDestroy() {
         if (this.xlsxPreviewer) {
             this.xlsxPreviewer.destroy();
+            this.xlsxPreviewer = null;
         }
     },
     mounted() {
@@ -39,6 +40,7 @@ export default {
         init() {
             if (this.xlsxPreviewer) {
                 this.xlsxPreviewer.destroy();
+                this.xlsxPreviewer = null;
             }
             if (!this.value) return;
             if (this.value instanceof Blob || typeof this.value === 'string') {
