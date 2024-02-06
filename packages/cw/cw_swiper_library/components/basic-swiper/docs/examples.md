@@ -9,7 +9,7 @@
     :slidesPerView="5"
     :delay="2500"
   >
-    <template #default="current"> current -- {{ current }} </template>
+    <template #item="current"> current -- {{ current }} </template>
   </basic-swiper>
 </template>
 <script>

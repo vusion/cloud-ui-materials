@@ -1,27 +1,24 @@
 <template>
   <div
     class="swiper-container"
+    v-if="dataSource && dataSource.length"
     @mouseover="onSwiperWrapperMouseEnter"
     @mouseleave="onSwiperWrapperMouseLeave"
   >
     <swiper
       ref="swiper"
       :options="swiperOption"
-      :style="{
-        width: `${
-          imgWidth * slidesPerView + spaceBetween * (slidesPerView - 1)
-        }px !important`,
-      }"
+      direction="vertical"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
       <swiper-slide
         v-for="(item, index) in dataSource"
         :key="index"
-        :style="{ width: `${imgWidth}px !important`, height: 100 }"
+        @click="onSwiperItemClick(item)"
       >
         <div s-empty="true" vusion-slot-name="item">
-          <slot name="item" :item="item"></slot>
+          <slot name="item" v-bind="item" :item="item"></slot>
         </div>
       </swiper-slide>
     </swiper>
@@ -37,21 +34,17 @@ export default {
       type: Number,
       default: 30,
     },
-    imgWidth: {
-      type: Number,
-      default: 240,
-    },
-    imgHeight: {
-      type: Number,
-      default: 196,
-    },
     slidesPerView: {
       type: Number | String,
-      default: 5,
+      default: 1,
     },
     delay: {
       type: Number,
       default: 1000,
+    },
+    direction: {
+      type: String,
+      default: "horizontal",
     },
     dataSource: {
       type: Array,
@@ -61,6 +54,20 @@ export default {
           link: "https://news.163.com/",
         });
       },
+    },
+
+    dataSchema: { type: String, default: "entity" },
+    duration: {
+      type: Number,
+      default: 300,
+    },
+    height: {
+      type: Number,
+      default: 300,
+    },
+    effect: {
+      type: String,
+      default: "ease-in-out",
     },
   },
   components: {
@@ -75,14 +82,44 @@ export default {
         autoplay: {
           delay: this.delay,
         },
+        height: this.height,
         loop: true,
-        virtual: true,
+        direction: this.direction,
       },
     };
   },
   computed: {
     swiper() {
       return this.$refs.swiper.swiperInstance;
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$forceUpdate();
+    });
+    const style = document.createElement("style");
+
+    // 设置 CSS 块的内容
+    style.innerHTML = `
+    .swiper-wrapper {
+        transition-timing-function: ${this.effect} !important;
+    }
+    `;
+
+    // 将 style 标签插入到 head 元素中
+    document.head.appendChild(style);
+
+    this.$on("hook:beforeDestroy", () => {
+      document.head.removeChild(style);
+    });
+  },
+  watch: {
+    dataSource: {
+      handler() {
+        this.$forceUpdate();
+      },
+      deep: true,
+      immediate: true,
     },
   },
   methods: {
@@ -95,56 +132,42 @@ export default {
     onSwiper(e) {
       console.log("onSwiper", e);
     },
-    onSlideChange(e) {
-      console.log("onSlideChange", e);
+    onSlideChange() {
+      this.swiper.setTransition(this.duration);
+      this.$nextTick(() => {
+        this.$forceUpdate();
+      });
     },
-    onSwiperItemClick(link) {
-      if (link) {
-        window.open(link);
-      }
+    onSwiperItemClick(item) {
+      this.$emit("onSwiperItemClick", item);
     },
   },
 };
 </script>
 
 <style>
-.swiper-container {
-  display: flex;
-  align-items: center;
-}
-.swiper-container .swiper-container {
-  margin: unset;
-}
-.swiper-container .img {
-  cursor: pointer;
-  border: 1px solid #e7e7e7;
-  background: #fff;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-.swiper-container .link-less-img {
-  border: 1px solid #e7e7e7;
-  background: #fff;
-  overflow: hidden;
-  box-sizing: border-box;
+.swiper {
+  width: 100%;
+  height: 100%;
 }
 
-.swiper-container .swiper-slide {
+.swiper-slide {
+  text-align: center;
   font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: fit-content;
+  height: fit-content !important;
 }
-.swiper-container .swiper-slide > div {
-  height: calc((100% - 60px) / 2) !important;
+
+.swiper-slide img {
+  display: block;
   width: 100%;
-  background-color: blanchedalmond;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
+  height: 100%;
+  object-fit: cover;
 }
 .swiper-container div[s-empty]:empty {
   position: relative;

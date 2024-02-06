@@ -8,19 +8,14 @@
     :imgHeight="196"
     :slidesPerView="5"
     :delay="2500"
-    :dataSource="dataSource"
   >
+    <template #item="current"></template>
   </basic-swiper>
 </template>
 <script>
 export default {
   data() {
-    return {
-      dataSource: new Array(7).fill({
-        url: "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",
-        link: "https://news.163.com/",
-      }),
-    };
+    return {};
   },
 };
 </script>
