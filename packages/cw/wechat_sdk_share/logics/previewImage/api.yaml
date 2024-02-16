@@ -1,0 +1,5 @@
+- name: previewImage
+  description: 预览图片接口
+  type: h5
+  belong: logic
+  labels: [Runtime]
