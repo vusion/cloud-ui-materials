@@ -1,13 +1,9 @@
 <template>
   <v-scaler :max-scale="maxScale" :min-scale="minScale"
     :aspect-ratio="aspectRatio"
-    vusion-slot-name="default"
     ref="pinchBlock"
     :class="$style.pinchBlock" :disabledZoom="$env.VUE_APP_DESIGNER">
     <slot></slot>
-    <div v-if="!$slots.default" style="color:#ccccccd0;padding: 5px;">
-      请将需要缩放的容器拖入这块区域
-    </div>
   </v-scaler>
 </template>
 
