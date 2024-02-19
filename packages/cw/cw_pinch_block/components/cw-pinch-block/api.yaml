@@ -1,0 +1,18 @@
+- name: cw-pinch-block
+  title: 缩放容器
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: minScale
+      type: number
+      default: 最小缩放比例
+      description: 需要传入的值
+    - name: maxScale
+      type: number
+      default: 最大缩放比例
+      description: 需要传入的值
+    - name: doubleClickToZoom
+      type: boolean
+      default: true
+      description: 双击放大
