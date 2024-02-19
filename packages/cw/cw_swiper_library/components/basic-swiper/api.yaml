@@ -72,6 +72,16 @@
         - value: step-end
           title: step-end  
       description: 选择轮播图动画效果
+    - name: prevStyle
+      default: ""
+      title: 导航左按钮样式
+      type: string
+      description: 导航左按钮样式
+    - name: nextStyle
+      default: ""
+      title: 导航右按钮样式
+      type: string
+      description: nextStyle
   events:
     - name: onSwiperItemClick
       description: 点击轮播图item	
@@ -103,3 +113,9 @@
             - concept: TypeAnnotation
               typeKind: typeParam
               typeName: T
+    - concept: Slot
+      name: prev
+      description: 轮播图左导航
+    - concept: Slot
+      name: next
+      description: 轮播图右导航

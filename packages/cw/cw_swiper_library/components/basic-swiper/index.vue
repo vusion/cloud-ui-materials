@@ -5,6 +5,15 @@
     @mouseover="onSwiperWrapperMouseEnter"
     @mouseleave="onSwiperWrapperMouseLeave"
   >
+    <div
+      class="swiper-button-prev cover-flow-button-prev"
+      slot="button-prev"
+      :style="prevStyle"
+    >
+      <div s-empty="true" vusion-slot-name="prev">
+        <slot name="prev"></slot>
+      </div>
+    </div>
     <swiper
       ref="swiper"
       :options="swiperOption"
@@ -22,6 +31,15 @@
         </div>
       </swiper-slide>
     </swiper>
+    <div
+      class="swiper-button-next cover-flow-button-next"
+      slot="button-next"
+      :nextStyle="nextStyle"
+    >
+      <div s-empty="true" vusion-slot-name="next">
+        <slot name="next"></slot>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -68,6 +86,14 @@ export default {
     effect: {
       type: String,
       default: "ease-in-out",
+    },
+    prevStyle: {
+      type: String,
+      default: "",
+    },
+    nextStyle: {
+      type: String,
+      default: "",
     },
   },
   components: {
