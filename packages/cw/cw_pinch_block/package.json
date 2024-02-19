@@ -2,7 +2,7 @@
   "name": "cw_pinch_block",
   "title": "缩放容器",
   "description": "",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",

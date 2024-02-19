@@ -1,5 +1,6 @@
 <template>
   <div
+    vusion-slot-name="default"
     :class="$style.zoomer" 
     v-click-outside="onMouseUp"
     @mousewheel="onMouseWheel"
@@ -14,6 +15,9 @@
   >
     <div :class="$style.zoomerContent" :style="wrapperStyle">
       <slot></slot>
+      <div v-if="!$slots.default" style="color:#ccccccd0;padding: 5px;">
+        请将需要缩放的容器拖入这块区域
+      </div>
     </div>
   </div>
 </template>
@@ -299,7 +303,9 @@ export default {
       this.onInteractionEnd()
     },
     onMouseMove (ev) {
-      this.onPointerMove(ev.clientX, ev.clientY)
+      if (this.isPointerDown) {
+        this.onPointerMove(ev.clientX, ev.clientY)
+      }
       // console.log('onMouseMove client, offset', ev.clientX, ev.clientY)
     },
     // Touch Events ------------------------------------------------------------
