@@ -1,21 +1,34 @@
 <template>
   <div :class="$style.root">
-    <div :class="$style.select" @click="select()" vusion-slot-name="default" :vusion-empty-background="$env.VUE_APP_DESIGNER && !$slots.default ? 'add-any' : false
-      ">
-      <input :class="$style.file" ref="file" type="file" accept="application/pdf" :disabled="disabled" @click.stop
-        @change="onUploadPDF" />
-      <slot></slot>
+    <div :class="$style.toolbarContainer">
+      <div @click="select()" vusion-slot-name="pdf">
+        <input name="pdf" :class="$style.file" ref="file" type="file" accept="application/pdf" @click.stop
+          @change="onUploadPDF" style="overflow: hidden;" />
+        <slot name="pdf"></slot>
+        <div v-if="!$slots.pdf">
+          <u-button>上传PDF文件</u-button>
+        </div>
+      </div>
+      <div @click="selectImage()" vusion-slot-name="image" style="margin-left: 10px;">
+        <input :class="$style.file" ref="image" type="file" name="image" accept="image/png, image/jpeg" @click.stop
+          @change="onUploadImage" style="overflow: hidden;" />
+        <slot name="image"></slot>
+        <div v-if="!$slots.image">
+          <u-button>上传图片</u-button>
+        </div>
+      </div>
     </div>
-    <div :class="$style.pdfView">
+    <div :class="$style.pdfView" v-if="pages.length">
       <div v-for="(page, pIndex) in pages" :key="pIndex" :class="$style.pdfViewItem">
-        <pdf-page :page="page" :ref="`page${pIndex}`" />
+        <pdf-page :page="page" :ref="`page${pIndex}`" @selectPage="selectPage(pIndex)"
+          :class="[$style.pdfContainer, pIndex === selectedPageIndex ? $style.shadowOutline : '']" />
         <div :class="$style.itemView">
           <div v-for="(object, oIndex) in allObjects[pIndex]" :key="oIndex">
             <div v-if="object.type === 'image'">
               <image-item @onUpdate="updateObject(object.id, $event)" @onDelete="deleteObject(object.id)"
                 :file="object.file" :payload="object.payload" :x="object.x" :y="object.y" :width="object.width"
                 :height="object.height" :originWidth="object.originWidth" :originHeight="object.originHeight"
-                 />
+                :fixSize="selectedPageIndex !== pIndex" />
             </div>
           </div>
         </div>
@@ -35,22 +48,11 @@ import {
 import { save } from './util/PDF';
 const PDFJS = require("pdfjs-dist");
 PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker");
-// import demoImage from '../../assets/sealImag.png'
 export default {
   name: "cw-pdf-editor",
   components: {
     'pdf-page': PdfPage,
     'image-item': ImageItem
-  },
-  props: {
-    value: {
-      type: String,
-      default: "请在这里编写代码"
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    }
   },
   data() {
     return {
@@ -61,11 +63,13 @@ export default {
       allObjects: [],
       selectedPageIndex: -1,
       saving: false,
-      addingDrawing: false
+      addingDrawing: false,
+      pagesStyle: []
     }
   },
   methods: {
     async savePDF(newPdfName = new Date().getTime()) {
+      console.log(this.allObjects)
       if (!this.pdfFile || this.saving || !this.pages.length) return;
       this.saving = true;
       try {
@@ -99,23 +103,29 @@ export default {
           : objects
       );
     },
+    updateStyle(index, { viewport }) {
+      this.pagesStyle[index] = {
+        width: viewport.width + 'px',
+        height: viewport.height + 'px'
+      }
+      this.$forceUpdate()
+    },
 
     select() {
-      if (this.disabled) return;
-
       this.$refs.file.value = "";
       this.$refs.file.click();
+    },
+    selectImage() {
+      if (this.selectedPageIndex === -1) return;
+
+      this.$refs.image.value = "";
+      this.$refs.image.click();
     },
     genID() {
       let id = 0;
       return function genId() {
         return id++;
       };
-    },
-    selectImage() {
-      if (this.disabled) return;
-      this.$refs.image.value = "";
-      this.$refs.image.click();
     },
     async onUploadPDF(e) {
       const files = e.target.files || (e.dataTransfer && e.dataTransfer.files);
@@ -128,32 +138,7 @@ export default {
       } catch (e) {
         console.log(e);
       }
-      this.initTextField();
       await this.initImages();
-    },
-    initTextField() {
-      if (this.selectedPageIndex < 0 || !this.initTextFields || this.initTextFields.length === 0) {
-        return;
-      }
-      for (let i = 0; i < this.pages.length; i++) {
-        this.selectedPageIndex = i;
-        for (let j = 0; j < this.initTextFields.length; j++) {
-          let text = this.initTextFields[j];
-          this.addTextField(text, 0, j * 60, this.selectedPageIndex);
-        }
-      }
-      this.selectedPageIndex = 0;
-      let checker = setInterval(() => {
-        if (this.$refs.textItem.length === this.initTextFields.length * this.pages.length) {
-          document.getElementById('pdfBody').dispatchEvent(new MouseEvent('mousedown', {
-            bubbles: true,
-            cancelable: true,
-            view: window
-          }));
-          clearInterval(checker)
-        }
-      }, 100);
-
     },
     async initImages() {
       if (this.selectedPageIndex < 0) {
@@ -165,11 +150,6 @@ export default {
         if (this.initImageUrls && this.initImageUrls.length !== 0) {
           // 需要初始化图片
           for (let j = 0; j < this.initImageUrls.length; j++) {
-            if (this.initTextFields.length === 0) {
-              y = j * 100
-            } else {
-              y = (j - 1 + this.initTextFields.length) * 100
-            }
             await this.addImage(this.initImageUrls[j], 0, y, 1);
           }
         }
@@ -219,11 +199,15 @@ export default {
         console.log(`Fail to add image.`, e);
       }
     },
+    selectPage(index) {
+      this.selectedPageIndex = index;
+    },
     resetDefaultState() {
       this.pdfFile = null;
       this.numPages = null;
       this.pdfDocument = null;
       this.pages = [];
+      this.pagesStyle = [];
       this.allObjects = [];
     },
     async addPDF(file) {
@@ -238,6 +222,10 @@ export default {
           this.pages = Array(this.numPages)
             .fill()
             .map((_, i) => this.pdfDocument.getPage(i + 1));
+          this.pagesStyle = Array(this.numPages).fill().map(() => ({
+            width: '100%',
+            height: '100%'
+          }))
           this.allObjects = this.pages.map(() => []);
         }
       } catch (e) {
@@ -258,7 +246,7 @@ export default {
 .select {
   display: inline-block;
   position: relative;
-  overflow: hidden\0;
+  overflow: hidden;
 }
 
 .file {
@@ -290,17 +278,31 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: #f5f5f5;
-  border: 1px solid #e8e8e8;
+  background-color: var(--brand-primary-lightest);
+  border: 1px solid var(--border-color-light);
   border-radius: 4px;
   box-sizing: border-box;
   padding: 10px;
 }
+
+.toolbarContainer {}
 
 .pdfViewItem {
   display: inline-block;
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.shadowOutline {
+  box-shadow: 0 0 0 3px var(--brand-primary);
+}
+.toolbarContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.pdfContainer {
+  display: inline-block;
+  margin: 10px 0;
 }
 </style>

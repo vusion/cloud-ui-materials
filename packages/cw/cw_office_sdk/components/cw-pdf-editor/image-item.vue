@@ -32,18 +32,16 @@
     </div>
     <div :class="[
       $style.absoluteStyle,
-      $style.selector,
       $style.cursorGrabbing,
       $style.delete
-    ]" :style="{ top: '0%', left: '50%' }" @click="onDelete">
-      <!-- <img src="../assets/svg/delete.svg" alt="delete object" /> -->
+    ]" :style="{ top: '0%', left: '50%' }" @click="onDelete" v-if="!fixSize">
+      <img src="./assets/close.png" alt="delete object" />
     </div>
     <canvas ref="imgCanvas" :class="$style.imgCanvasView" />
   </div>
 </template>
 
 <script>
-// import itemEventsMixin from "./events-mixin.vue";
 export default {
   name: "image-item",
   props: [
@@ -183,7 +181,9 @@ export default {
     },
     handlePanStart(event) {
       let coordinate;
-      console.log('handlePanStart')
+      if (this.fixSize) {
+        return
+      }
       if (event.type === "mousedown") {
         coordinate = this.handleMousedown(event);
       }
@@ -305,8 +305,8 @@ export default {
   height: 12px;
   margin-left: -6px;
   margin-top: -6px;
-  background-color: #32b5fe;
-  border: 1px solid #32b5fe;
+  background-color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
 }
 
 .delete {
@@ -315,10 +315,14 @@ export default {
   height: 18px;
   margin-left: -9px;
   margin-top: -9px;
-  background-color: #ffffff;
+  background-color: var(--color-white);
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 .imgCanvasView {
-  border: 1px dashed #32b5fe;
+  border: 1px dashed var(--brand-primary);
   width: 100%;
   height: 100%;
 }

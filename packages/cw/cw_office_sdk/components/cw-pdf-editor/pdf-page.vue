@@ -1,5 +1,13 @@
 <template>
-  <canvas ref="canvas" />
+  <div 
+    @mousedown="selectPage(pIndex)"
+    @touchstart="selectPage(pIndex)"
+    :style="{
+      width: this.canvasWidth,
+      height: this.canvasHeight
+    }">
+    <canvas ref="canvas" />
+  </div>
 </template>
 
 <script>
@@ -12,13 +20,19 @@ export default {
   },
   data() {
     return {
+      canvasWidth: '100%',
+      canvasHeight: '100%',
       clientWidth: null,
     };
   },
   mounted() {
     this.render();
   },
+  
   methods: {
+    selectPage() {
+      this.$emit('selectPage')
+    },
     getCanvasMeasurement() {
       return {
         canvasWidth: this.$refs.canvas.width,
@@ -35,6 +49,8 @@ export default {
       });
       canvas.width = viewport.width;
       canvas.height = viewport.height;
+      this.canvasWidth = viewport.width + 'px';
+      this.canvasHeight = viewport.height + 'px';
       await _page.render({
         canvasContext: context,
         viewport,

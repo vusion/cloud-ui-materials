@@ -1,10 +1,16 @@
 - name: cw-pdf-editor
-  title: PDF编辑器
+  title: pdf编辑器
   type: both
   belong: component
   labels: [Runtime]
-  attrs:
-    - name: value
-      type: string
-      default: 请在这里编写代码
-      description: 需要传入的值
+  methods:
+    - name: savePDF
+      description: 保存文件
+      params: []
+  slots:
+    - name: pdf
+      concept: Slot
+      description: 插入上传PDF文件按钮
+    - name: image
+      concept: Slot
+      description: 插入上传图片文件按钮

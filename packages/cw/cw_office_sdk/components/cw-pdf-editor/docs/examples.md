@@ -5,8 +5,15 @@
 <div>
   <u-button @click='savePdf'>保存pdf</u-button>
   <cw-pdf-editor ref='editor'>
-  <u-button flag="uploader-pdf" color="primary" icon="upload">选择PDF</u-button>
-</cw-pdf-editor>
+    <!-- <template #pdf>
+      <u-button flag="uploader-pdf" color="primary" for='pdf'>选择PDF</u-button>
+    </template>
+    
+    <template #image>
+      <u-button flag="uploader-pdf" color="primary" for='pdf'>image</u-button>
+    </template> -->
+    
+  </cw-pdf-editor>
 </div>
 </template>
 <script>
