@@ -2,7 +2,7 @@
 
 ``` vue
 <template>
-<div>
+<div style="height:300px">
   <u-button @click='savePdf'>保存pdf</u-button>
   <cw-pdf-editor ref='editor'>
     <!-- <template #pdf>

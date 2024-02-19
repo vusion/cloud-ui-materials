@@ -239,8 +239,10 @@ export default {
 
 <style module>
 .root {
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  height: 100%;
 }
 
 .select {
@@ -270,7 +272,7 @@ export default {
 }
 
 .pdfView {
-  display: flex;
+  flex: 1;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -285,7 +287,6 @@ export default {
   padding: 10px;
 }
 
-.toolbarContainer {}
 
 .pdfViewItem {
   display: inline-block;
@@ -299,7 +300,6 @@ export default {
 }
 .toolbarContainer {
   display: flex;
-  justify-content: space-between;
 }
 .pdfContainer {
   display: inline-block;
