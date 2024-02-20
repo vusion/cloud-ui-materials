@@ -8,6 +8,9 @@
       description: 保存文件
       params: []
   slots:
+    - name: default
+      concept: Slot
+      description:  插入文本或 HTML。
     - name: pdf
       concept: Slot
       description: 插入上传PDF文件按钮

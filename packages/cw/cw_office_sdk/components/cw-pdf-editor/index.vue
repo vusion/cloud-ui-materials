@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.toolbarContainer">
-      <div @click="select()" vusion-slot-name="pdf">
+      <div @click="select()" vusion-slot-name="pdf" :class="$style.firstToolbar">
         <input name="pdf" :class="$style.file" ref="file" type="file" accept="application/pdf" @click.stop
           @change="onUploadPDF" style="overflow: hidden;" />
         <slot name="pdf"></slot>
@@ -9,7 +9,7 @@
           <u-button>上传PDF文件</u-button>
         </div>
       </div>
-      <div @click="selectImage()" vusion-slot-name="image" style="margin-left: 10px;">
+      <div @click="selectImage()" vusion-slot-name="image" :class="$style.toolbar">
         <input :class="$style.file" ref="image" type="file" name="image" accept="image/png, image/jpeg" @click.stop
           @change="onUploadImage" style="overflow: hidden;" />
         <slot name="image"></slot>
@@ -17,6 +17,7 @@
           <u-button>上传图片</u-button>
         </div>
       </div>
+      <div :class="$style.toolbar"><slot></slot></div>
     </div>
     <div :class="$style.pdfView" v-if="pages.length">
       <div v-for="(page, pIndex) in pages" :key="pIndex" :class="$style.pdfViewItem">
@@ -300,7 +301,11 @@ export default {
 }
 .toolbarContainer {
   display: flex;
+  .toolbar {
+    margin-left: 10px;
+  }
 }
+
 .pdfContainer {
   display: inline-block;
   margin: 10px 0;
