@@ -20,7 +20,6 @@
     "build": "npm run build:theme",
     "usage": "lcap usage",
     "deploy": "lcap deploy dist-theme",
-    "prepublishOnly": "lcap publish",
     "release": "lcap publish"
   },
   "vuePlugins": {},

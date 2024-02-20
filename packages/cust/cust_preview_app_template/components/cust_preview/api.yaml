@@ -4,7 +4,7 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: value
+    - name: tableName
+      title: 表名
       type: string
-      default: 请在这里编写代码
-      description: 需要传入的值
+      description: 表名

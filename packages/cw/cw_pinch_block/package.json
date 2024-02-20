@@ -1,6 +1,6 @@
 {
-  "name": "adapter_sdk",
-  "title": "适配移动端",
+  "name": "cw_pinch_block",
+  "title": "缩放容器",
   "description": "",
   "version": "1.0.0",
   "main": "./index.js",
@@ -28,24 +28,27 @@
   "vusion": {
     "ui": "cloud-ui.vusion"
   },
+  "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "core-js": "^3.6.5",
-    "vue-loader": "15.9.8",
-    "vue-cli-plugin-vusion": "0.14.2-beta",
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "core-js": "^3.6.5",
+    "vue": "^2.6.12",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "vue": "^2.6.12"
   },
-  "lcapVersion": "0.3.0",
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
   "template": {
     "inited": true
+  },
+  "dependencies": {
+    "vue-click-outside": "^1.1.0"
   }
 }

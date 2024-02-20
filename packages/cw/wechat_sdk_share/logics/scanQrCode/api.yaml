@@ -1,0 +1,5 @@
+- name: scanQrCode
+  description: 调起微信扫一扫接口
+  type: h5
+  belong: logic
+  labels: [Runtime]

@@ -4,7 +4,7 @@
        请发布后预览
     </div>
     <div v-if="!isIDE">
-      <iframe id="app" scrolling="no" src=""></iframe>
+      <iframe id="app" scrolling="no" src="" style="border:0"></iframe>
     </div>
   </div>
 </template>
@@ -13,6 +13,12 @@
 import  { loadScripts,  } from './loadEntry';
 export default {
     name: 'cust-preview',
+    props:{
+      tableName:{
+        type:String,
+        default:''
+      }
+    },
     data(){
         return {
         }
@@ -61,7 +67,7 @@ export default {
             });
             let data= await res.json()
 
-            let realResponse = JSON.parse(data.template.preview)
+            let realResponse = JSON.parse(data[this.tableName].preview);
             let realData = realResponse.data
             let {mockRoles,mock,urls} = realData
              let clientJS  = urls.find(v=>v.includes('mockClient'))

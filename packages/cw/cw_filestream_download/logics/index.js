@@ -1,13 +1,13 @@
-const $libraryName = 'adapter_sdk'
+const $libraryName = 'cw_filestream_download'
 
 const UtilsLogics = {}
-import init from './init'
+import filestreamDownloadFromUrl from './filestreamDownloadFromUrl'
 // LOGIC IMPORTS
 
 UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library = Vue.prototype.$library || {}
     Vue.prototype.$library[`${$libraryName}`] = {}
-    Vue.prototype.$library[`${$libraryName}`].init=init
+    Vue.prototype.$library[`${$libraryName}`].filestreamDownloadFromUrl=filestreamDownloadFromUrl
     // LOGIC USE
 }
 
