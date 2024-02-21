@@ -21,6 +21,78 @@
                   <p>矩形</p>
                 </div>
               </div>
+               <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:4},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/7.png" alt="">
+                  <p>三角形</p>
+                </div>
+              </div>
+              <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:5},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/11.png" alt="">
+                  <p>梯形</p>
+                </div>
+              </div>
+              <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:6},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/6.png" alt="">
+                  <p>圆形</p>
+                </div>
+              </div>
+              <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:7},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/12.png" alt="">
+                  <p>平行四边</p>
+                </div>
+              </div>
+               <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:8},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/16.png" alt="">
+                  <p>直三角</p>
+                </div>
+              </div>
+              <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:9},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/10.png" alt="">
+                  <p>四边形</p>
+                </div>
+              </div>
+               <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:10},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/9.png" alt="">
+                  <p>T字形</p>
+                </div>
+              </div>
+              <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:11},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/8.png" alt="">
+                  <p>L字形</p>
+                </div>
+              </div>
+              <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:12},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/13.png" alt="">
+                  <p>飞镖形</p>
+                </div>
+              </div>
+              <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:15},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/14.png" alt="">
+                  <p>半圆弧形</p>
+                </div>
+              </div>
+               <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:14},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/15.png" alt="">
+                  <p>虚线</p>
+                </div>
+              </div>
+               <div class="drawing2d-aside-cell" draggable="true" @dragstart="handleDrag({type:13},$event)">
+                <div style=" pointer-events: none;">
+                  <img src="../../assets/17.png" alt="">
+                  <p>实线</p>
+                </div>
+              </div>
              </div>
           </div>
           <div style="margin-top:8px">
@@ -59,7 +131,7 @@
               </div>
             </div>
 
-            <div class="drawing2d-right-body-cell" v-if="selectedObj.type==='rect'">
+            <div class="drawing2d-right-body-cell" v-if="['rect','polygon','triangle','circle','path','polyline'].includes(selectedObj.type)">
               <h3>图形</h3>
               <div class="drawing2d-input-room">
                 <!-- <div class="drawing2d-input-room-cell">
@@ -75,7 +147,7 @@
                    <el-color-picker :value="selectedObj.stroke" @change="handleBorderColorChange" ></el-color-picker>
                    <el-input style="margin-left:8px" readOnly palceholder="请输入" :value="selectedObj.stroke"  @change="handleBorderColorChange"></el-input>
                 </div>
-                 <div class="drawing2d-input-room-cell">
+                 <div class="drawing2d-input-room-cell" v-if="selectedObj.type!=='polyline'">
                   <span>背景颜色</span>
                    <el-color-picker :value="selectedObj.fill" @change="handleRectBgColorChange" ></el-color-picker>
                   <el-input style="margin-left:8px" readOnly :value="selectedObj.fill" @change="handleRectBgColorChange"  palceholder="请输入" ></el-input>
@@ -357,7 +429,247 @@ export default {
                 img._id = _id
               })
             }
+            /* 三角形 */
+            if(data.type === 4){
+              const rect2 = new fabric.Triangle({ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                width: 40, 
+                height: 40,
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+
+            /* 圆形 */
+            if(data.type === 6){
+              const rect2 = new fabric.Circle({ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                radius:20,
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+            /* 梯形 */
+            if(data.type === 5){
+              const points = [
+                { x: 0, y: 0 },
+                { x: 40, y: 0 },
+                { x: 60, y: 40 },
+                { x: -20, y: 40 }
+              ]
+              const rect2 = new fabric.Polygon(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+            /* 平行四边形 */
+            if(data.type === 7){
+              const points = [
+                {x: 0, y: 0},
+                {x: 40, y: 0},
+                {x: 60, y: 40},
+                {x: 20, y: 40}
+              ]
+              const rect2 = new fabric.Polygon(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+
+            /* 平行四边形 */
+            if(data.type === 9){
+              const points = [
+                {x: 0, y: 0},
+                {x: 30, y: 15},
+                {x: 40, y: 40},
+                {x: 0, y: 40}
+              ]
+              const rect2 = new fabric.Polygon(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+            /* 直三角 */
+            if(data.type === 8){
+              const points = [
+                {x: 0, y: 0},
+                {x: 0, y: 40},
+                {x: 30, y: 40}
+              ]
+              const rect2 = new fabric.Polygon(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+            /* T字形 */
+            if(data.type === 10){
+              const points = [
+                {x: 0, y: 0},
+                {x: 40, y: 0},
+                {x: 40, y: 15},
+                {x: 27, y: 15},
+                {x: 27, y: 40},
+                {x: 13, y: 40},
+                {x: 13, y: 15},
+                {x: 0, y: 15}
+              ]
+              const rect2 = new fabric.Polygon(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+            /* L字形 */
+            if(data.type === 11){
+              const points = [
+                {x: 0, y: 0},
+                {x: 20, y: 0},
+                {x: 20, y: 20},
+                {x: 40, y: 20},
+                {x: 40, y: 40},
+                {x: 0, y: 40},
+              ]
+              const rect2 = new fabric.Polygon(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+             /* 飞镖形 */
+            if(data.type === 12){
+              const points = [
+                {x: 0, y: 0},
+                {x: 10, y: 10},
+                {x: 10, y: 20},
+                {x: 20, y: 20},
+                {x: 30, y: 30},
+                {x: 0, y: 30},
+              ]
+              const rect2 = new fabric.Polygon(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+             /* 实线 */
+            if(data.type === 13){
+              const points = [
+                {x: 0, y: 0},
+                {x: 100, y: 0},
+              ]
+              const rect2 = new fabric.Polyline(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                stroke: '#A4C5FF',
+                height: 40,
+                padding:6,
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+              /* 虚线 */
+            if(data.type === 14){
+              const points = [
+                {x: 0, y: 0},
+                {x: 100, y: 0},
+              ]
+              const rect2 = new fabric.Polyline(points,{ 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                stroke: '#A4C5FF',
+                height: 40,
+                padding:6,
+                strokeDashArray:[2,2],
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                _id
+              }); 
+              canvas.add(rect2);
+            }
+              /* 拱形 */
+            if(data.type === 15){
+              const path = new fabric.Path('M0 0 A40 40 0 0 1 0 80 L0 60 A20 20 0 0 0 0 20 L0 0', { 
+                left:pointerVpt.x,
+                top:pointerVpt.y,
+                fill: '#A4C5FF', 
+                lockUniScaling:false,
+                cornerSize: 6,
+                statefullCache: true,
+                originX: 'center',
+                originY: 'center',
+                angle:-90,
+                _id
+              });
+              canvas.add(path);
+              // const rect2 = new fabric.Rect({ 
+              //  left:pointerVpt.x,
+              //   top:pointerVpt.y,
+              //   fill: '#A4C5FF', 
+              //   width: 40, 
+              //   height: 80,
+              //   // lockUniScaling:false,
+              //   clipPath: path,
+              //   cornerSize: 6,
+              //   // statefullCache: true,
+              //   _id
+              // }); 
+              // canvas.add(rect2);
+            }
           })
+          
      },
       handleDelete(){
         canvas.getActiveObjects().forEach(item=>{

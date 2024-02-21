@@ -2,7 +2,7 @@
   "name": "cw_drawing_view_library",
   "title": "平面绘制依赖库",
   "description": "可导入一个背景，在上面实现小部件的拖拽",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
