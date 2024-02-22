@@ -1,0 +1,121 @@
+- name: basic-swiper
+  title: 基础轮播图
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      description: 展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。
+      designer-value: '[{}, {}, {}]'
+      group: 数据属性
+      brifeDoc: ''
+      docDescription: 支持动态绑定集合类型变量（List\<T>）或输出参数为集合类型的逻辑
+      tooltipLink: ''
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 数据源返回的数据结构的类型，自动识别类型进行展示说明
+      group: 数据属性
+      compType: dataTypeSelect
+      brifeDoc: ''
+      docDescription: 该属性为只读状态，当数据源动态绑定集合List\<T>后，会自动识别T的类型并进行展示
+      tooltipLink: ''
+    - name: spaceBetween
+      type: number
+      default: 0
+      description: 图片间距
+    - name: slidesPerView
+      type: number
+      default: 5
+      description: 画布展示图片数量
+    - name: delay
+      type: number
+      default: 2500
+      description: autoplay延迟时间
+    - name: duration
+      type: number
+      default: 300
+      description: 动画持续时间
+    - name: direction
+      title: 方向
+      type: string
+      default: horizontal
+      options:
+        - value: horizontal
+          title: 水平
+        - value: vertical
+          title: 垂直   
+      description: 选择横纵向轮播图
+    - name: height
+      type: number
+      default: 300
+      description: 高度
+    - name: effect
+      title: 动画效果
+      type: string
+      default: ease-in-out
+      options:
+        - value: ease
+          title: ease
+        - value: ease-in
+          title: ease-in 
+        - value: ease-out
+          title: ease-out  
+        - value: ease-in-out
+          title: ease-in-out  
+        - value: linear
+          title: linear    
+        - value: step-start
+          title: step-start    
+        - value: step-end
+          title: step-end  
+      description: 选择轮播图动画效果
+    - name: prevStyle
+      default: ""
+      title: 导航左按钮样式
+      type: string
+      description: 导航左按钮样式
+    - name: nextStyle
+      default: ""
+      title: 导航右按钮样式
+      type: string
+      description: nextStyle
+  events:
+    - name: onSwiperItemClick
+      description: 点击轮播图item	
+      title: 点击轮播图item	
+      params:
+        - name: item
+          type: string
+          description: 改变的值
+  slots:
+    - concept: Slot
+      name: item
+      description: 自定义选项的结构和样式
+      props:
+        - name: item
+          type: object
+          description: 项目
+        - name: index
+          type: number
+          description: 索引
+      slotProps:
+        concept: Param
+        name: current
+        typeAnnotation:
+          concept: TypeAnnotation
+          typeKind: generic
+          typeNamespace: nasl.ui
+          typeName: Current
+          typeArguments:
+            - concept: TypeAnnotation
+              typeKind: typeParam
+              typeName: T
+    - concept: Slot
+      name: prev
+      description: 轮播图左导航
+    - concept: Slot
+      name: next
+      description: 轮播图右导航
