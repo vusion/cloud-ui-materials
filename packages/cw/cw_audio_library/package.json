@@ -51,6 +51,7 @@
   "dependencies": {
     "@any-touch/core": "^2.2.0",
     "@any-touch/pan": "^2.2.0",
+    "js-audio-recorder": "^1.0.7",
     "lodash": "^4.17.21"
   }
 }
