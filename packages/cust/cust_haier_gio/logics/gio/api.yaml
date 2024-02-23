@@ -1,0 +1,5 @@
+- name: gio
+  description: 海尔埋点对象
+  type: both
+  belong: logic
+  labels: [Runtime]
