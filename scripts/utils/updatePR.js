@@ -10,7 +10,7 @@ module.exports.updatePullRequest = async (content) => {
     };
     console.log('pull number', pullRequestNumber);
 
-    const response = await fetch('https://api.github.com/repos/vusion/cloud-ui/pull/${pullRequestNumber}', {
+    const response = await fetch('https://api.github.com/repos/vusion/cloud-ui-materials/pull/${pullRequestNumber}', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
