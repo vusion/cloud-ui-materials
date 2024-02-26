@@ -35,5 +35,3 @@ const updatePullRequest = async (content = 'why') => {
 };
 
 module.exports.updatePullRequest = updatePullRequest;
-
-updatePullRequest();
