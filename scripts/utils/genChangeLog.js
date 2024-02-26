@@ -1,8 +1,6 @@
-const repoCommitURL =
-    'https://github.com/ncqwer/github_action_playground/commit/';
+const repoCommitURL = 'https://github.com/vusion/cloud-ui-materials/commit/';
 const homepageURL = 'https://github.com/';
-const taskURL =
-    'https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=';
+const taskURL = 'https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=';
 
 module.exports.genChangeLog = ({ feat, fix, breakingChange }) => {
     let ans = '';
