@@ -1,33 +1,69 @@
 import CustCommunityIconImage from './index.vue';
+import CustCommunityIconImageWithMask from './image-with-mask.vue';
 
-const REG = /^local:\/\/(\S+)~(.+)$/;
+const REG = /^(local(?:Img)?):\/\/(\S+)~(.+)$/;
 export default {
     name: 'cust-community-icon-image',
-    inheritAttrs: false,
 
     props: {
         src: {
             type: String,
-            default: 'local://wenjianjia~linear-gradient(317deg, #89B1FF 3%, #8FD7FF 100%)',
+            default:
+                'localImg:////test-lcpapp-static.nos-eastchina1.126.net/assets/cloud-ui/1.jpg~linear-gradient(90deg, #5B96CC -2%, rgba(91, 150, 204, 0) 120%)',
+        },
+        targetStyle: {
+            type: Object,
+            default: () => ({}),
         },
     },
     render(createElement) {
-        const src = this.src || 'local://wenjianjia~linear-gradient(317deg, #89B1FF 3%, #8FD7FF 100%)';
+        const src =
+            this.src ||
+            'local://wenjianjia~linear-gradient(317deg, #89B1FF 3%, #8FD7FF 100%)';
         const isLocalIconResult = REG.exec(src);
+        // console.log('🚀 ~ file: wrap.js:24 ~ render ~ src:', src);
         if (isLocalIconResult) {
-            return createElement(CustCommunityIconImage, {
-                props: Object.assign({}, this.$attrs, { backgroundImg: isLocalIconResult[2], icon: isLocalIconResult[1] }),
-                attrs: {
-                    'vusion-node-tag': this.$attrs['vusion-node-tag'],
-                    'vusion-node-path': this.$attrs['vusion-node-path'],
-                },
-                on: this.$listeners,
-                slots: this.$slots,
-                scopedSlots: this.$scopedSlots,
-            });
+            const protocol = isLocalIconResult[1];
+            if (protocol === 'local')
+                return createElement(CustCommunityIconImage, {
+                    props: Object.assign({}, this.$attrs, {
+                        icon: isLocalIconResult[2],
+                        backgroundImg: isLocalIconResult[3],
+                    }),
+                    attrs: {
+                        'vusion-node-tag': this.$attrs['vusion-node-tag'],
+                        'vusion-node-path': this.$attrs['vusion-node-path'],
+                    },
+                    on: this.$listeners,
+                    slots: this.$slots,
+                    scopedSlots: this.$scopedSlots,
+                    style: this.targetStyle.icon,
+                });
+            if (protocol === 'localImg') {
+                return createElement(CustCommunityIconImageWithMask, {
+                    props: Object.assign({ fill: 'hsj' }, this.$attrs, {
+                        img: `${isLocalIconResult[2]}`,
+                        mask: isLocalIconResult[3],
+                    }),
+                    attrs: {
+                        'vusion-node-tag': this.$attrs['vusion-node-tag'],
+                        'vusion-node-path': this.$attrs['vusion-node-path'],
+                    },
+                    on: this.$listeners,
+                    slots: this.$slots,
+                    scopedSlots: this.$scopedSlots,
+                    style: this.targetStyle.imgWithMask,
+                });
+            }
         }
         return createElement('u-image', {
-            props: Object.assign({}, this.$attrs, { src: this.src }),
+            props: Object.assign({}, this.$attrs, {
+                src: this.src,
+                fit: 'fill',
+            }),
+            style: {
+                width: '100%',
+            },
             attrs: {
                 'vusion-node-tag': this.$attrs['vusion-node-tag'],
                 'vusion-node-path': this.$attrs['vusion-node-path'],
@@ -35,6 +71,7 @@ export default {
             on: this.$listeners,
             slots: this.$slots,
             scopedSlots: this.$scopedSlots,
+            style: this.targetStyle.img,
         });
     },
 };
