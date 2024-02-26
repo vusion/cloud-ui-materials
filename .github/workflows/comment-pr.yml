@@ -1,0 +1,64 @@
+name: Generate Commit on Comment with Pull Request
+
+on:
+    issue_comment:
+        types: [created]
+
+permissions:
+    pull-requests: write
+    contents: write
+    issues: write
+
+jobs:
+    generate-commit:
+        if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/generate-commit')
+        runs-on: ubuntu-latest
+
+        steps:
+            # - name: Get branch name
+            #   id: branch_name
+            #   run: |
+            #     branch_name=$(curl -s -H "Authorization: token ${{ github.token }}" ${{github.event.issue.pull_request.url}} | jq -r '.head.ref')
+            #     echo $branch_name
+            - name: Checkout
+              uses: actions/checkout/@v3
+              with:
+                  fetch-depth: 0
+            - name: Add comment with workflow run link
+              run: |
+                  COMMENT_BODY="The workflow run can be found at $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+                  curl -d '{"body":"'"$COMMENT_BODY"'"}' -H "Content-Type: application/json" -H "Authorization: Bearer ${{github.token}}" -X POST "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/${{ github.event.issue.number }}/comments"
+              env:
+                  GITHUB_SERVER_URL: ${{ github.server_url }}
+                  GITHUB_REPOSITORY: ${{ github.repository }}
+                  GITHUB_RUN_ID: ${{ github.run_id }}
+
+            - name: Git Identity
+              run: |
+                  git config --global user.name 'github-actions[bot]'
+                  git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+                  git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
+                  branch_name=$(curl -s -H "Authorization: token ${{ github.token }}" ${{github.event.issue.pull_request.url}} | jq -r '.head.ref')
+                  git checkout -b $branch_name origin/$branch_name
+              env:
+                  GITHUB_TOKEN: ${{ github.token}}
+
+            - name: Setup Nodejs
+              uses: actions/setup-node@v3
+              with:
+                  cache: 'yarn'
+                  node-version: 16
+
+            - name: Install yarn
+              run: npm install -g yarn@v1
+
+            - name: Install Dep
+              run: |
+                  yarn install --frozen-lockfile
+
+            - name: Update Pull Request
+              run: |
+                  yarn changelog:comment
+              env:
+                  GITHUB_TOKEN: ${{ github.token}}
+                  PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
