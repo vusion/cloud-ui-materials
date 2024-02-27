@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <div :class="$style.recordRoot" ref="canvasParent">
     <canvas ref="audioCanvas"></canvas>
-    <u-button @click="startRecord">开始录音</u-button>
-
   </div>
-  
 </template>
 
 <script>
 import Recorder from 'js-audio-recorder';
-
+import { convertToMp3 } from './utils'
+import axios from "axios"
 export default {
   name: "cw-audio-record",
   props: {
@@ -25,14 +23,55 @@ export default {
       type: Number,
       default: 1
     },
+    maxFileSize: {
+      type: Number,
+      default: 10
+    },
+    uploadUrl: {
+      type: String,
+      default: '/gateway/lowcode/api/v1/app/upload'
+    },
+    waveColor: {
+      type: String,
+      default: 'rgb(0, 0, 0)'
+    },
+    waveBgColor: {
+      type: String,
+      default: 'rgb(200, 200, 200)'
+    },
+    urlField: { type: String, default: 'url' },
   },
   data() {
     return {
       isRecording: false, // 是否正在录音
       duration: 0, // 录音时长
+      fileSize: 0, // 文件大小
     };
   },
   methods: {
+    deleteRecord() {
+      if (this.recorder) {
+        this.recorder.destroy().then(() => {
+          console.log('删除录音');
+          recorder = null;
+          this.drawRecordId && cancelAnimationFrame(this.drawRecordId);
+        });
+      }
+    },
+    playRecord() {
+      this.recorder && this.recorder.play();
+      this.drawRecordId && this.cancelAnimationFrame(drawRecordId);
+      this.drawRecordId = null;
+      console.log('播放录音');
+    },
+    pausePlayRecord() {
+      this.recorder && this.recorder.pausePlay();
+      console.log('暂停播放录音');
+    },
+    resumeRecord() {
+      this.recorder && this.recorder.resumePlay();
+      console.log('继续播放录音');
+    },
     startRecord() {
       const config = {
         sampleRate: this.sampleRateOptions,
@@ -43,56 +82,134 @@ export default {
         this.recorder = new Recorder(config);
 
         this.recorder.start().then(() => {
-          console.log('开始录音');
+          this.isRecording = true;
         }, (error) => {
           console.log(`异常了,${error.name}:${error.message}`);
         });
 
+        this.recorder.onprogress = (params) => {
+          this.duration = params.duration.toFixed(2);
+          this.fileSize = params.fileSize;
+          if (this.fileSize >= this.maxFileSize * 1024 * 1024) {
+            this.stopRecord();
+            console.log('录音文件超过最大限制');
+          }
+        };
+
         this.drawRecord();
       }
+    },
+    async uploadRecord(type = 'wav') {
+      if (this.recorder && !this.isRecording && this.uploadUrl) {
+        const authorization = this.getCookie('authorization');
+        const formData = new FormData();
+        const blob = this.getAudioData(type);
+        const file = new File([blob], `recordFile_${new Date().getTime()}.${type}`, { type });
+        formData.append('file', file);
+        const headers = authorization ? { Authorization: authorization, 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` } : {};
+        const r = await axios.post(this.uploadUrl ? this.uploadUrl : '/gateway/lowcode/api/v1/app/upload', formData, headers);
+        if (r.data.code === 200) {
+          this.$emit("onUploadSuccess", r.data.result)
+        } else {
+          this.$emit("onUploadError", r.data.message)
+        }
+      }
+    },
+    getAudioData(type) {
+      const map = {
+        'wav': this.recorder.getWAVBlob(),
+        'pcm': this.recorder.getPCMBlob(),
+        'mp3': convertToMp3(this.recorder.getWAV(), this.recorder)
+      };
+      return map[type];
     },
     pauseRecord() {
       if (this.recorder) {
         this.recorder.pause();
-        console.log('暂停录音');
+        this.isRecording = false;
         this.drawRecordId && cancelAnimationFrame(this.drawRecordId);
         this.drawRecordId = null;
       }
     },
     resumeRecord() {
       this.recorder && this.recorder.resume();
-      console.log('恢复录音');
+      this.isRecording = true;
       this.drawRecord();
     },
     stopRecord() {
+      this.recorder && this.recorder.stop();
+      this.isRecording = false;
+      this.drawRecordId && cancelAnimationFrame(this.drawRecordId);
+      this.drawRecordId = null;
+    },
+    downloadRecord(type = 'wav') {
+      if (this.isRecording) {
+        return;
+      }
+      const map = {
+        'wav': this.downloadWAV(),
+        'pcm': this.downloadPCM(),
+        'mp3': this.downloadMP3()
+      };
+
+      if (map[type]) {
+        map[type]();
+      } else {
+        console.log('不支持的下载类型');
+      }
+    },
+    downloadWAV() {
+      if (this.isRecording) {
+        return;
+      }
+      this.recorder && this.recorder.downloadWAV();
+    },
+    downloadPCM() {
+      if (this.isRecording) {
+        return;
+      }
+      this.recorder && this.recorder.downloadPCM();
+    },
+    getCookie(cname) {
+      const name = `${cname}=`;
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        const c = ca[i].trim();
+        if (c.indexOf(name) === 0)
+          return c.substring(name.length, c.length);
+      }
+      return '';
+    },
+    downloadMP3() {
+      if (this.isRecording) {
+        return;
+      }
       if (this.recorder) {
-        this.recorder.stop().then((blob) => {
-          console.log('停止录音');
-          console.log('录音时长：' + this.recorder.duration + 'ms');
-          this.duration = this.recorder.duration;
-          this.recorder = null;
-          this.drawRecordId && cancelAnimationFrame(this.drawRecordId);
-          this.drawRecordId = null;
-        });
+        const mp3Blob = convertToMp3(this.recorder.getWAV(), this.recorder);
+        this.recorder.download(mp3Blob, 'recorder', 'mp3');
       }
     },
     drawRecord() {
-      const oCanvas = this.$refs.imgCanvas;
+      const parentElement = this.$refs.canvasParent;
+      const oCanvas = this.$refs.audioCanvas;
+      oCanvas.width = parentElement.clientWidth;
+      oCanvas.height = parentElement.clientHeight;
+      const ctx = oCanvas.getContext('2d');
       // 获取音频数据
-      let dataArr = this.recorder.getRecordAnalyseData();
-      let bufferLength = dataArr.length;
+      let dataArray = this.recorder.getRecordAnalyseData();
+      let bufferLength = dataArray.length;
       const sliceWidth = oCanvas.width * 1.0 / bufferLength;
       let x = 0;
       // 用requestAnimationFrame稳定60fps绘制
       this.drawRecordId = requestAnimationFrame(this.drawRecord);
 
       // 填充背景色
-      ctx.fillStyle = 'rgb(200, 200, 200)';
+      ctx.fillStyle = this.waveBgColor;
       ctx.fillRect(0, 0, oCanvas.width, oCanvas.height);
 
       // 设定波形绘制颜色
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgb(0, 0, 0)';
+      ctx.strokeStyle = this.waveColor;
 
       ctx.beginPath();
       for (var i = 0; i < bufferLength; i++) {
@@ -113,8 +230,18 @@ export default {
       ctx.lineTo(oCanvas.width, oCanvas.height / 2);
       ctx.stroke();
     }
-  }
+  },
 }
 </script>
 
-<style></style>
+<style module>
+.recordRoot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+</style>
