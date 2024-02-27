@@ -69,3 +69,8 @@
         - name: volume
           type: decimal
           description: 音量大小范围（0 - 1）
+  slots:
+    - concept: Slot
+      name: default
+      title: 默认插槽
+      description: 自定义音频播放器插槽

@@ -1,0 +1,79 @@
+- name: cw-audio-record
+  title: 音频录制组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: waveBgColor
+      title: 声波背景颜色
+      type: color
+      default: 'rgb(200, 200, 200)'
+      description: 设定声波背景颜色
+    - name: waveColor
+      title: 声波波形颜色
+      type: color
+      default: 'rgb(0, 0, 0)'
+      description: 设定波形绘制颜色
+    - name: maxFileSize
+      title: 最大文件大小（MB）
+      type: number
+      compType: inputNumber
+      default: 10
+      description: 上传文件的最大大小
+    - name: uploadUrl
+      title: 上传音频地址
+      type: string
+      compType: interfaceSelect
+      default: '/gateway/lowcode/api/v1/app/upload'
+      description: 上传的地址
+    - name: isShowWave
+      title: 是否显示声波
+      type: boolean
+      default: true
+      description: 是否显示声波
+  methods:
+    - name: startRecord
+      title: 开始录制
+      description: 开始录制音频
+    - name: stopRecord
+      title: 停止录制
+      description: 停止录制音频
+    - name: pauseRecord
+      title: 暂停录制
+      description: 暂停录制音频
+    - name: resumeRecord
+      title: 恢复录制
+      description: 恢复录制音频
+    - name: uploadRecord
+      title: 上传录制
+      description: 上传录制的音频
+      params:
+        - name: type
+          type: string
+          description: 上传的文件格式（wav，mp3，pcm）
+    - name: downloadRecord
+      title: 下载录制
+      description: 下载录制的音频
+      params:
+        - name: type
+          type: string
+          description: 下载的文件格式（wav，mp3，pcm）
+  events:
+      - name: onUploadSuccess
+        description: 上传音频成功时
+        title: 上传成功时
+        params:
+          - name: value
+            type: string
+            description: 改变的值
+      - name: onUploadError
+        description: 上传失败时
+        title: 上传失败时
+        params:
+          - name: value
+            type: string
+            description: 错误原因
+  slots:
+    - concept: Slot
+      name: default
+      description: 插入音频录制控制组件

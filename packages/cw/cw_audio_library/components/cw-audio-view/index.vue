@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div vusion-slot-name="default">
+    <div v-if="!showControls">
+      <slot></slot>
+    </div>
     <audio
       ref="audio"
       class="audio-player__audio"
