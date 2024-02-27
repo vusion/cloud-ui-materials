@@ -1,6 +1,14 @@
 <template>
-  <div :class="$style.recordRoot" ref="canvasParent">
-    <canvas ref="audioCanvas"></canvas>
+  <div :class="$style.rootRecord">
+    <div :class="$style.canvasParent" ref="canvasParent" v-if="isShowWave">
+      <canvas ref="audioCanvas"></canvas>
+    </div>
+    <div :class="$style.customToolbar" vusion-slot-name="default">
+      <slot></slot>
+      <div v-if="!$slots.default && $env.VUE_APP_DESIGNER" style="color:#ccccccd0;padding: 5px;">
+        请拖入需要的工具按钮
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,6 +19,10 @@ import axios from "axios"
 export default {
   name: "cw-audio-record",
   props: {
+    isShowWave: {
+      type: Boolean,
+      default: true
+    },
     sampleRateOptions: {
       type: Number,
       default: 16000
@@ -38,17 +50,42 @@ export default {
     waveBgColor: {
       type: String,
       default: 'rgb(200, 200, 200)'
-    },
-    urlField: { type: String, default: 'url' },
+    }
   },
   data() {
     return {
+      canvasCtx: null,
+      drawRecordId: null,
       isRecording: false, // 是否正在录音
       duration: 0, // 录音时长
       fileSize: 0, // 文件大小
     };
   },
+  mounted() {
+    this.isShowWave && this.initCanvas();
+  },
   methods: {
+    initCanvas() {
+      cancelAnimationFrame(this.drawRecordId);
+      this.configCanvas();
+    },
+    configCanvas() {
+      const {
+        waveBgColor,
+        waveColor
+      } = this;
+      const parentElement = this.$refs.canvasParent;
+      const canvas = this.$refs.audioCanvas;
+      canvas.width = parentElement.clientWidth;
+      canvas.height = parentElement.clientHeight;
+      this.canvasCtx = canvas.getContext("2d");
+      this.canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+      this.canvasCtx.fillStyle = waveBgColor;
+      this.canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      this.canvasCtx.lineWidth = 2;
+      this.canvasCtx.strokeStyle = waveColor;
+      this.canvasCtx.beginPath();
+    },
     async deleteRecord() {
       if (this.recorder) {
         await this.recorder.destroy();
@@ -178,12 +215,8 @@ export default {
       }
     },
     drawRecord() {
-      const parentElement = this.$refs.canvasParent;
       const oCanvas = this.$refs.audioCanvas;
-      oCanvas.width = parentElement.clientWidth;
-      oCanvas.height = parentElement.clientHeight;
-      const ctx = oCanvas.getContext('2d');
-      // 获取音频数据
+      this.configCanvas();
       let dataArray = this.recorder.getRecordAnalyseData();
       let bufferLength = dataArray.length;
       const sliceWidth = oCanvas.width * 1.0 / bufferLength;
@@ -191,45 +224,48 @@ export default {
       // 用requestAnimationFrame稳定60fps绘制
       this.drawRecordId = requestAnimationFrame(this.drawRecord);
 
-      // 填充背景色
-      ctx.fillStyle = this.waveBgColor;
-      ctx.fillRect(0, 0, oCanvas.width, oCanvas.height);
-
-      // 设定波形绘制颜色
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = this.waveColor;
-
-      ctx.beginPath();
       for (var i = 0; i < bufferLength; i++) {
         var v = dataArray[i] / 128.0;
         var y = v * oCanvas.height / 2;
 
         if (i === 0) {
           // 第一个点
-          ctx.moveTo(x, y);
+          this.canvasCtx.moveTo(x, y);
         } else {
           // 剩余的点
-          ctx.lineTo(x, y);
+          this.canvasCtx.lineTo(x, y);
         }
         // 依次平移，绘制所有点
         x += sliceWidth;
       }
 
-      ctx.lineTo(oCanvas.width, oCanvas.height / 2);
-      ctx.stroke();
+      this.canvasCtx.lineTo(oCanvas.width, oCanvas.height / 2);
+      this.canvasCtx.stroke();
     }
   },
 }
 </script>
 
 <style module>
-.recordRoot {
+.rootRecord {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.canvasParent {
   position: relative;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
+
+.customToolbar {
+  min-width: 100%;
+}
+
 </style>

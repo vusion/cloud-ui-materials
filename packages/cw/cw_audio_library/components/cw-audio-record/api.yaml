@@ -15,7 +15,7 @@
       default: 'rgb(0, 0, 0)'
       description: 设定波形绘制颜色
     - name: maxFileSize
-      title: 最大文件大小
+      title: 最大文件大小（MB）
       type: number
       compType: inputNumber
       default: 10
@@ -24,8 +24,13 @@
       title: 上传音频地址
       type: string
       compType: interfaceSelect
-      default:
+      default: '/gateway/lowcode/api/v1/app/upload'
       description: 上传的地址
+    - name: isShowWave
+      title: 是否显示声波
+      type: boolean
+      default: true
+      description: 是否显示声波
   methods:
     - name: startRecord
       title: 开始录制
@@ -68,3 +73,7 @@
           - name: value
             type: string
             description: 错误原因
+  slots:
+    - concept: Slot
+      name: default
+      description: 插入音频录制控制组件
