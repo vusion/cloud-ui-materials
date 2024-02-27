@@ -49,55 +49,43 @@ export default {
     };
   },
   methods: {
-    deleteRecord() {
+    async deleteRecord() {
       if (this.recorder) {
-        this.recorder.destroy().then(() => {
-          console.log('删除录音');
-          recorder = null;
-          this.drawRecordId && cancelAnimationFrame(this.drawRecordId);
-        });
+        await this.recorder.destroy();
+        this.recorder = null;
+        this.drawRecordId && cancelAnimationFrame(this.drawRecordId);
       }
-    },
-    playRecord() {
-      this.recorder && this.recorder.play();
-      this.drawRecordId && this.cancelAnimationFrame(drawRecordId);
-      this.drawRecordId = null;
-      console.log('播放录音');
-    },
-    pausePlayRecord() {
-      this.recorder && this.recorder.pausePlay();
-      console.log('暂停播放录音');
     },
     resumeRecord() {
       this.recorder && this.recorder.resumePlay();
       console.log('继续播放录音');
     },
-    startRecord() {
+    async startRecord() {
       const config = {
         sampleRate: this.sampleRateOptions,
         sampleBit: this.sampleBitOptions,
         channelCount: this.channelOptions
       };
-      if (!this.recorder) {
-        this.recorder = new Recorder(config);
-
-        this.recorder.start().then(() => {
-          this.isRecording = true;
-        }, (error) => {
-          console.log(`异常了,${error.name}:${error.message}`);
-        });
-
-        this.recorder.onprogress = (params) => {
-          this.duration = params.duration.toFixed(2);
-          this.fileSize = params.fileSize;
-          if (this.fileSize >= this.maxFileSize * 1024 * 1024) {
-            this.stopRecord();
-            console.log('录音文件超过最大限制');
-          }
-        };
-
-        this.drawRecord();
+      if (this.recorder) {
+        await this.deleteRecord()
       }
+      this.recorder = new Recorder(config);
+      this.recorder.start().then(() => {
+        this.isRecording = true;
+      }, (error) => {
+        console.log(`异常了,${error.name}:${error.message}`);
+      });
+
+      this.recorder.onprogress = (params) => {
+        this.duration = params.duration.toFixed(2);
+        this.fileSize = params.fileSize;
+        if (this.fileSize >= this.maxFileSize * 1024 * 1024) {
+          this.stopRecord();
+          console.log('录音文件超过最大限制');
+        }
+      };
+
+      this.drawRecord();
     },
     async uploadRecord(type = 'wav') {
       if (this.recorder && !this.isRecording && this.uploadUrl) {

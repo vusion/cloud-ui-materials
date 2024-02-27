@@ -36,6 +36,9 @@
     - name: pauseRecord
       title: 暂停录制
       description: 暂停录制音频
+    - name: resumeRecord
+      title: 恢复录制
+      description: 恢复录制音频
     - name: uploadRecord
       title: 上传录制
       description: 上传录制的音频
@@ -50,18 +53,6 @@
         - name: type
           type: string
           description: 下载的文件格式（wav，mp3，pcm）
-    - name: deleteRecord
-      title: 删除录制
-      description: 删除录制的音频
-    - name: playRecord
-      title: 播放录制
-      description: 播放录制的音频
-    - name: pausePlayRecord
-      title: 暂停播放
-      description: 暂停播放录制的音频
-    - name: resumePlayRecord
-      title: 继续播放
-      description: 继续播放录制的音频
   events:
       - name: onUploadSuccess
         description: 上传音频成功时
