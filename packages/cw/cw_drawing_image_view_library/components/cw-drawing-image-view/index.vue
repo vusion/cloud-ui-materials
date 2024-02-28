@@ -296,6 +296,25 @@ export default {
           if(e.keyCode===18){
             canvas.defaultCursor = "grab"
           }
+          const objs = canvas.getActiveObjects()
+           if(objs.length){
+                if(e.keyCode === 40){
+                  objs.forEach(item=>{item.top = item.top + 1})
+                  e.preventDefault();
+                }else if(e.keyCode === 38){
+                  objs.forEach(item=>{item.top = item.top - 1})
+                  e.preventDefault();
+                }else if(e.keyCode === 37){
+                  objs.forEach(item=>{item.left = item.left -1})
+                  e.preventDefault();
+                }else if(e.keyCode === 39){
+                  objs.forEach(item=>{item.left = item.left +1})
+                  e.preventDefault();
+                }
+                canvas.requestRenderAll()
+            }else{
+              
+            }
         });
         document.addEventListener("keyup", (e) => {
           if(e.keyCode===18){
@@ -334,8 +353,12 @@ export default {
               this.selectedList =  e.selected
           })
           canvas.on('selection:updated', (e) => {
-            console.log(e);
+            if(e.selected.length===1&& e.selected[0].group){
+              // console.log( e.selected[0],222);
+              this.selectedList =  e.selected[0].group._objects
+            }else{
               this.selectedList =  e.selected
+            } 
           })
             canvas.on('selection:cleared', (e) => {
               console.log(e);
