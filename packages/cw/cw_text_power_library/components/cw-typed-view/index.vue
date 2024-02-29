@@ -1,6 +1,6 @@
 <template>
-  <div style="display:flex">
-      <div ref="my-type" v-if="!inIDE" >
+  <div class="typed-view" >
+      <div class="typed-view-room" ref="my-type" v-if="!inIDE" >
       </div>
       <div v-else>
         {{value}}
@@ -58,5 +58,10 @@ export default {
 </script>
 
 <style>
-
+.typed-view-room{
+   display: inline;
+   word-wrap: break-word;
+   white-space: normal;
+   width: 100%;
+}
 </style>
