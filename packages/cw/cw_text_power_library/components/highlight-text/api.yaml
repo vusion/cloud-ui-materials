@@ -1,0 +1,26 @@
+- name: highlight-text
+  title: 高亮文本
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: content
+      type: string
+      default: ''
+      description: 需要展示的内容
+    - name: text
+      type: string
+      default: ''
+      description: 高亮关键字
+    - name: link
+      type: string
+      default: ''
+      description: 点击标识数据
+  events:
+    - name: click
+      title: 选择后
+      description: 选择某一项时触发
+      params:
+          - name: $event
+            type: object
+            description: 自定义事件对象
