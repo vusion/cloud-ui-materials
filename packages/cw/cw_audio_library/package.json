@@ -2,7 +2,7 @@
   "name": "cw_audio_library",
   "title": "音频依赖库",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -51,6 +51,10 @@
   "dependencies": {
     "@any-touch/core": "^2.2.0",
     "@any-touch/pan": "^2.2.0",
+    "@breezystack/lamejs": "^1.2.7",
+    "axios": "^1.6.7",
+    "js-audio-recorder": "^1.0.7",
+    "lamejs": "^1.2.1",
     "lodash": "^4.17.21"
   }
 }

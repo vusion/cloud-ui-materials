@@ -1,0 +1,13 @@
+{
+	"name": "cloud-ui-materials",
+	"private": "true",
+	"scripts": {
+		"changelog": "node scripts/changelog.js",
+		"changelog:ci": "node scripts/changelog.js from-ci",
+		"changelog:comment": "node scripts/changelog.js from-comment"
+	},
+	"dependencies": {
+		"lodash.mergewith": "^4.6.2",
+		"node-fetch": "2"
+	}
+}

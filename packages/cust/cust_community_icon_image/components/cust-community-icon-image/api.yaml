@@ -12,4 +12,11 @@
         group: 主要属性
         brifeDoc: ''
         tooltipLink: ''
+      - name: targetStyle
+        title: 样式属性
+        type: object
+        description: ''
+        group: 主要属性
+        brifeDoc: ''
+        tooltipLink: ''
   slots: false

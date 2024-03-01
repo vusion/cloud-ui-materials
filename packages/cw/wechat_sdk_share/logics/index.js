@@ -11,6 +11,9 @@ import translateVoice from './translateVoice'
 import pauseVoice from './pauseVoice'
 import scanQrCode from './scanQrCode'
 import updateAppMessageShareData from './updateAppMessageShareData'
+import getNetworkType from './getNetworkType'
+import closeWindow from './closeWindow'
+import previewImage from './previewImage'
 // LOGIC IMPORTS
 
 UtilsLogics.install = function (Vue, option = {}) {
@@ -25,6 +28,9 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].pauseVoice=pauseVoice
     Vue.prototype.$library[`${$libraryName}`].scanQrCode=scanQrCode
     Vue.prototype.$library[`${$libraryName}`].updateAppMessageShareData=updateAppMessageShareData
+    Vue.prototype.$library[`${$libraryName}`].getNetworkType=getNetworkType
+    Vue.prototype.$library[`${$libraryName}`].closeWindow=closeWindow
+    Vue.prototype.$library[`${$libraryName}`].previewImage=previewImage
     // LOGIC USE
 }
 
@@ -41,7 +47,7 @@ async function initData() {
             nonceStr: data.nonceStr,
             signature: data.signature,
             timestamp: data.timestamp,
-            jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData','getLocation','startRecord','stopRecord','onVoiceRecordEnd','playVoice','pauseVoice','stopVoice','onVoicePlayEnd','uploadVoice','downloadVoice','translateVoice','scanQRCode']
+            jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData','getLocation','startRecord','stopRecord','onVoiceRecordEnd','playVoice','pauseVoice','stopVoice','onVoicePlayEnd','uploadVoice','downloadVoice','translateVoice','scanQRCode','getNetworkType','closeWindow','previewImage']
         })
 
     } catch (error) { 
@@ -49,5 +55,8 @@ async function initData() {
     }
 }
 
+
+  
+  
 initData()
 export default UtilsLogics
