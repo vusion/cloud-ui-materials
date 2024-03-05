@@ -864,15 +864,28 @@ export default {
         canvas.renderAll()
       },
       handleSetColor(data){
-        const objects =  this.selectedObj.getObjects()
-        objects.forEach(item=>{
-          if(item.type == "rect" ){
-              item.set("fill",data.bgColor)
-          }else{
+        if(this.selectedList.length===1){
+           if(this.selectedList[0].type === 'group'){
+           const objects =  this.selectedObj.getObjects()
+            objects.forEach(item=>{
+              setColor(item,data)
+            })
+           }else{
+             setColor(this.selectedList[0],data)
+           }
+        }else{
+          this.selectedList.forEach(item=>{
+            setColor(item,data)
+          })
+        }
+        
+        function setColor(item,data){
+        if(item.type == "textbox" ){
               item.set("fill",data.textColor)
+          }else{
+             item.set("fill",data.bgColor)
           }
-        })
-        console.log(objects);
+        }
         canvas.renderAll()
       },
       getCanvasPointer(ev){
