@@ -270,4 +270,20 @@ export default {
 .border {
   border: 1px solid #ccc;
 }
+.w-e-text-container img {
+    min-height: unset !important;
+    min-width: unset !important;
+    display: block;
+    height: 50px;
+    width: 50px;
+}
+</style>
+<style>
+.w-e-text-container img {
+    min-height: unset !important;
+    min-width: unset !important;
+    display: block;
+    height: 20px;
+    width: 20px;
+}
 </style>
