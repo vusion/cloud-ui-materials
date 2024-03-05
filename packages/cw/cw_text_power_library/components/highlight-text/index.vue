@@ -108,7 +108,6 @@ export default {
   padding: 8px;
 }
 .highlight-container:hover {
-  background-color: rgb(238, 238, 238);
   cursor: pointer;
 }
 .highlight-content {
