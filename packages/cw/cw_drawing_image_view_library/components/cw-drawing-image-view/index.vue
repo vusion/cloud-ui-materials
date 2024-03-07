@@ -281,11 +281,11 @@ export default {
         }else{
            value = this.value? JSON.parse(this.value):null
         }
-        if(value){
+        // if(value){
           canvas.loadFromJSON(value,()=>{
             canvas.renderAll()
           })
-        }
+        // }
        
       },
          getNewId(){
