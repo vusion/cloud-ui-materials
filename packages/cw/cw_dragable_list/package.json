@@ -2,7 +2,7 @@
   "name": "cw_dragable_list",
   "title": "可拖拽组件列表",
   "description": "",
-  "version": "0.1.8",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
