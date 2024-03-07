@@ -9,6 +9,8 @@ yarn-error.log*
 # package-lock.json
 */**/yarn.lock
 */yarn.lock
+*/.env.local
+*/**/.env.local
 
 # Cache
 .DS_Store
