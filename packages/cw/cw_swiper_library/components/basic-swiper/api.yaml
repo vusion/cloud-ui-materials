@@ -113,9 +113,3 @@
             - concept: TypeAnnotation
               typeKind: typeParam
               typeName: T
-    - concept: Slot
-      name: prev
-      description: 轮播图左导航
-    - concept: Slot
-      name: next
-      description: 轮播图右导航

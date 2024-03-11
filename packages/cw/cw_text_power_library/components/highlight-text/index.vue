@@ -62,7 +62,7 @@ export default {
       }
       console.log("allTextNodes", allTextNodes);
       // 清除上个高亮
-      // CSS.highlights.clear();
+      CSS.highlights.clear();
 
       // 为空判断
       const str = this.text;
