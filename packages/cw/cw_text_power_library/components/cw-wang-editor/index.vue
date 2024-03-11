@@ -271,3 +271,12 @@ export default {
   border: 1px solid #ccc;
 }
 </style>
+<style>
+.w-e-text-container img {
+    min-height: unset !important;
+    min-width: unset !important;
+    display: block;
+    height: fit-content;
+    width: fit-content;
+}
+</style>
