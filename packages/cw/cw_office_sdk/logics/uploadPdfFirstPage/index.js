@@ -40,7 +40,7 @@ function getCookie(cname) {
 }
 function uploadCanvasAsFile(page, uploadUrl) {
   return renderCanvas(page).then((_) => {
-    const canvas = document.querySelector("canvas");
+    const canvas = document.querySelector(".pdf-canvas-renderer");
     return new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
         const authorization = getCookie("authorization");
