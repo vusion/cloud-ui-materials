@@ -22,6 +22,9 @@ export default async (
       res = await uploadCanvasAsFile(firstPage, uploadUrl);
     } catch (e) {
       console.log("upload error");
+    } finally {
+      const canvasNode = document.querySelector(".pdf-canvas-renderer");
+      canvasNode && document.body.removeChild(canvasNode);
     }
   }
   return res;
@@ -72,6 +75,7 @@ async function readAsPDF(file) {
 function renderCanvas(page) {
   const canvas = document.createElement("canvas");
   canvas.style.display = "none";
+  canvas.classList.add("pdf-canvas-renderer");
   document.body.appendChild(canvas);
   const context = canvas.getContext("2d");
   const viewport = page.getViewport({ scale: 1 });
