@@ -1,0 +1,81 @@
+- name: cw-element-table
+  title: 列表
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      description: 展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。
+      designer-value: '[{}, {}, {}]'
+      group: 数据属性
+      brifeDoc: ''
+      docDescription: 支持动态绑定集合类型变量（List\<T>）或输出参数为集合类型的逻辑
+      tooltipLink: ''
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 数据源返回的数据结构的类型，自动识别类型进行展示说明
+      group: 数据属性
+      compType: dataTypeSelect
+      brifeDoc: ''
+      docDescription: 该属性为只读状态，当数据源动态绑定集合List\<T>后，会自动识别T的类型并进行展示
+      tooltipLink: ''
+    - name: columns
+      title: 列数据
+      type: Array<Item> | Function | object | DataSource
+      description: 展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。
+      designer-value: '[{}, {}, {}]'
+      group: 数据属性
+      brifeDoc: ''
+      docDescription: 支持动态绑定集合类型变量（List\<T>）或输出参数为集合类型的逻辑
+      tooltipLink: ''
+  slots:
+    - concept: Slot
+      name: item
+      description: 自定义选项的结构和样式
+      slotProps:
+        concept: Param
+        name: current
+        typeAnnotation:
+          concept: TypeAnnotation
+          typeKind: generic
+          typeNamespace: nasl.ui
+          typeName: Current
+          typeArguments:
+            - concept: TypeAnnotation
+              typeKind: typeParam
+              typeName: T
+    - concept: Slot
+      name: default
+      title: 默认
+      description: 在表格中插入`<u-table-view-column>`子组件
+      empty-background: drag-entity-here
+      support:
+        - name: u-table-view-column
+          title: 表格列
+          snippet: '<u-table-view-column>
+              <template #cell="current"></template>
+              <template #title><u-text text="表格列"></u-text></template>
+              <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template>
+            </u-table-view-column>'
+        - name: u-table-view-column-dynamic
+          title: 表格动态列
+          snippet: '<u-table-view-column-dynamic><template #cell="current"></template><template
+            #title="current"><u-text
+            text="表格动态列"></u-text></template></u-table-view-column-dynamic>'
+        - name: u-table-view-column-group
+          title: 表格列分组
+          snippet: '<u-table-view-column-group>
+              <template #title><u-text text="表格列分组"></u-text></template>
+              <u-table-view-column>
+                <template #cell="current"></template>
+                <template #title><u-text text="表格列"></u-text></template>
+                <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template>
+              </u-table-view-column>
+            </u-table-view-column-group>'
+      supportGenericComponents:
+        - u-table-view-column
+        - u-table-view-column-dynamic
+        - u-table-view-column-group

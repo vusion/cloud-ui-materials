@@ -2,7 +2,7 @@
   "name": "cw_element_ui_vue_library",
   "title": "饿了么组件库",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -31,11 +31,15 @@
   "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "core-js": "^3.6.5",
-    "vue-loader": "15.9.8",
-    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "base64-inline-loader": "^2.0.1",
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.12"
+    "core-js": "^3.6.5",
+    "icon-font-loader": "^4.0.0",
+    "lcap-css-loader": "^1.0.0",
+    "lcap-template-loader": "^1.0.0",
+    "vue": "^2.6.12",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
@@ -47,5 +51,9 @@
   },
   "template": {
     "inited": true
+  },
+  "dependencies": {
+    "element-ui": "^2.15.14",
+    "url-loader": "^4.1.1"
   }
 }
