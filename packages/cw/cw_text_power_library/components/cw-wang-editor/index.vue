@@ -282,4 +282,7 @@ export default {
 .w-e-image-container {
   max-width: 100%;
 }
+.w-e-textarea-video-container {
+  max-width: 100%;
+}
 </style>
