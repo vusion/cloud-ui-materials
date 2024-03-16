@@ -1,9 +1,10 @@
 <template>
   <div :class="$style.printView" ref="printBlock"  v-show="$env.VUE_APP_DESIGNER || isShowPrint" :style="{
     width: isRate ? '100%' : this.pagerDimension['width'],
+    padding: yBorder + 'pt ' + xBorder + 'pt'
   }">
     <div vusion-slot-name="header"  v-if="$env.VUE_APP_DESIGNER || showHeader" s-empty="true" :class="[$style.printHeader, {
-      [$style.splitBorder]: $env.VUE_APP_DESIGNER
+      [$style.splitBorder]: $env.VUE_APP_DESIGNER 
     }]" ref="printHeader">
       <slot name="header"></slot>
     </div>
@@ -11,7 +12,7 @@
       <slot name="content"></slot>
     </div>
     <div vusion-slot-name="footer" v-if="$env.VUE_APP_DESIGNER || showFooter" ref="printFooter" s-empty="true" :class="[$style.printFooter, {
-      [$style.footerBorder]: $env.VUE_APP_DESIGNER
+      [$style.footerBorder]: $env.VUE_APP_DESIGNER 
     }]">
       <slot name="footer"></slot>
     </div>
@@ -61,7 +62,7 @@ export default {
     },
     showFooter: {
       type: Boolean,
-      default: true
+      default: false
     },
     pageDirection: {
       type: String,
@@ -87,10 +88,7 @@ export default {
       type: Boolean,
       default: true
     },
-    pagerType: {
-      type: String,
-      default: 'number'
-    },
+
     isShowPrint: {
       type: Boolean,
       default: true
@@ -102,6 +100,14 @@ export default {
     pageHeight: {
       type: Number,
       default: 150
+    },
+    xBorder: {
+      type: Number,
+      default: 0
+    },
+    yBorder: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
@@ -110,12 +116,12 @@ export default {
         const { width, height } = PAGER_SIZE[this.paperSize]
         return {
           width: this.pageDirection === 'v' ? width : height,
-          height: this.pageDirection === 'v' ? height : width
+          height: this.pageDirection === 'v' ? height : width,
         }
       }
       return {
         width: this.pageDirection === 'v' ? this.pageWidth + 'mm' : this.pageHeight + 'mm',
-        height: this.pageDirection === 'v' ? this.pageHeight + 'mm' : this.pageWidth + 'mm'
+        height: this.pageDirection === 'v' ? this.pageHeight + 'mm' : this.pageWidth + 'mm',
       }
     },
     pageFormat: function () {
@@ -133,27 +139,29 @@ export default {
     }
   },
   methods: {
-    print(pagerInHeader, pagerSizeInHeader, pagerSizeInFooter, pagerInFooter, itemClass) {
+    print(pagerInHeader, pagerSizeInHeader, pagerSizeInFooter, pagerInFooter, itemElement) {
       const params = {
         direction: this.pageDirection,
         format: this.pageFormat,
         pagerWidth: this.mmStringToPt(this.pagerDimension['width']),
         pagerHeight: this.mmStringToPt(this.pagerDimension['height']),
-        baseY: 2
+        baseY: this.yBorder,
+        baseX: this.xBorder,
       }
-      if (pagerInHeader && this.showHeader && this.$vnode.context.$refs[pagerInHeader]) {
-        this.$vnode.context.$refs[pagerInHeader].$el.classList.add('print-header-page');
+      const pageContext = this.$vnode.context;
+      if (pagerInHeader && this.showHeader && pageContext.$refs[pagerInHeader]) {
+        pageContext.$refs[pagerInHeader].$el.classList.add('print-header-page');
       }
-      if (pagerInFooter && this.showFooter && this.$vnode.context.$refs[pagerInFooter] ) {
-        this.$vnode.context.$refs[pagerInFooter].$el.classList.add('print-footer-page');
-      }
-
-      if (pagerSizeInHeader && this.showHeader && this.$vnode.context.$refs[pagerSizeInHeader]) {
-        this.$vnode.context.$refs[pagerSizeInHeader].$el.classList.add('print-header-page-size');
+      if (pagerInFooter && this.showFooter && pageContext.$refs[pagerInFooter] ) {
+        pageContext.$refs[pagerInFooter].$el.classList.add('print-footer-page');
       }
 
-      if (pagerSizeInFooter && this.showFooter && this.$vnode.context.$refs[pagerSizeInFooter]) {
-        this.$vnode.context.$refs[pagerSizeInFooter].$el.classList.add('print-footer-page-size');
+      if (pagerSizeInHeader && this.showHeader && pageContext.$refs[pagerSizeInHeader]) {
+        pageContext.$refs[pagerSizeInHeader].$el.classList.add('print-header-page-size');
+      }
+
+      if (pagerSizeInFooter && this.showFooter && pageContext.$refs[pagerSizeInFooter]) {
+        pageContext.$refs[pagerSizeInFooter].$el.classList.add('print-footer-page-size');
       }
       if (this.showFooter) {
         params.footer = this.$refs.printFooter;
@@ -166,13 +174,14 @@ export default {
         params.pagerInFooter = pagerInFooter;
       }
 
-      if (itemClass) {
-        params.itemClass = itemClass;
-      }
-
-      if (!this.isRate) {
-        params.contentWidth = pxToPt(this.$refs.printContent.clientWidth),
-        params.contentHeight = pxToPt(this.$refs.printContent.clientHeight)
+      if (itemElement) {
+        const compName = itemElement.split(';');
+        compName.forEach(item => {
+          const refName = Object.keys(pageContext.$refs).filter(_ => _.startsWith(item));
+          refName.forEach(_ => {
+            pageContext.$refs[_].$el.classList.add('print-view-split');
+          })
+        })
       }
       const printObj = new HTML2PRINT(this.$refs.printContent, params);
       printObj.print();
@@ -202,6 +211,8 @@ export default {
 }
 .printRoom {
   flex: 1 1 auto;
+  box-sizing: border-box;
+  position: relative;
 }
 .printFooter,
 .printHeader {

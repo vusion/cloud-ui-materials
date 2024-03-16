@@ -1,6 +1,5 @@
 import jsPDF from "jspdf"
 import html2canvas from 'html2canvas'
-import DomToImage from "dom-to-image";
 import printJS from "print-js"
 
 /**
@@ -16,7 +15,6 @@ import printJS from "print-js"
  * @param {HTMLElement} param.footer - 页脚dom元素
  * @param {string} [param.format='a4'] - pdf格式
  * @param {string} [param.pagerInHeader] - 导出的pdf文件名
- * @param {string} [param.itemClass='u-for-com-frag'] 类名 - 内部的dom添加元素标识的名字,设置了itemName代表此元素内容小于一页并且不希望被拆分，子元素也不需要遍历，即手动指定深度终点，优化性能
  * @returns {Promise} 
  */
 
@@ -40,10 +38,13 @@ export default class Html2Pdf {
     this.header = param.header;
     this.footer = param.footer;
 
+    this.contentWidth = param.pagerWidth - 2 * this.baseX;
+    this.contentHeight = param.pagerHeight - 2 * this.baseY;
+
     this.direction = param.direction || "v"; // 默认竖向,l横向
     this.pagerWidth = param.pagerWidth;
     this.pagerHeight = param.pagerHeight;
-    this.itemClass = param.itemClass;
+    this.itemClass = 'print-view-split';
 
     // 页眉页脚高度
     this.pdfFooterHeight = 0;
@@ -117,20 +118,20 @@ export default class Html2Pdf {
     this.rate = rate;
 
     // 距离PDF 页眉和页脚的间距， 留白留空
-    let baseY = this.baseY * this.rate
+    let baseY = this.baseY;
      // 距离PDF左边的距离，/ 2 表示居中 ,,预留空间给左边,  右边，也就是左右页边距
-     let baseX = (this.pagerWidth - this.contentWidth) / 2;
+     let baseX = this.baseX;
 
     // 页脚元素 经过转换后在PDF页面的高度
     if (this.footer) {
-      pdfFooterHeight = (await this.toCanvas(this.footer, this.pagerWidth))
+      pdfFooterHeight = (await this.toCanvas(this.footer, this.contentWidth))
         .height;
       this.pdfFooterHeight = pdfFooterHeight;
     }
 
     // 页眉元素 经过转换后在PDF的高度
     if (this.header) {
-      pdfHeaderHeight = (await this.toCanvas(this.header, this.pagerWidth))
+      pdfHeaderHeight = (await this.toCanvas(this.header, this.contentWidth))
         .height;
       this.pdfHeaderHeight = pdfHeaderHeight;
     }
@@ -173,18 +174,10 @@ export default class Html2Pdf {
         width,
         height
       );
-
-      // 将 内容 与 页眉之间留空留白的部分进行遮白处理
-      this.addBlank(0, pdfHeaderH, this.pagerWidth, baseY, pdf);
-
-      // 将 内容 与 页脚之间留空留白的部分进行遮白处理
-      this.addBlank(
-        0,
-        this.pagerHeight - baseY - pdfFooterH,
-        this.pagerWidth,
-        baseY,
-        pdf
-      );
+      // 将 顶部 与 页眉之间留空留白的部分进行遮白处理
+      this.addBlank(0, 0, this.pagerWidth, baseY, pdf);
+      // 将 页脚 与 底部之间留空留白的部分进行遮白处理
+      this.addBlank(0, this.pagerHeight - baseY, this.pagerWidth, baseY, pdf);
 
       // 对于除最后一页外，对 内容 的多余部分进行遮白处理
       if (i < newPages.length - 1) {
@@ -193,7 +186,7 @@ export default class Html2Pdf {
         // 对多余的内容部分进行遮白
         this.addBlank(
           0,
-          baseY + imageHeight + pdfHeaderH,
+          imageHeight + pdfHeaderH + 2 * baseY,
           this.pagerWidth,
           this.pagerHeight - imageHeight,
           pdf
@@ -201,7 +194,7 @@ export default class Html2Pdf {
       }
 
       // 添加页眉
-      await this.addHeader(i + 1, this.header, pdf, this.pagerWidth);
+      await this.addHeader(i + 1, this.header, pdf, this.contentWidth);
 
       // 添加页脚
       await this.addFooter(
@@ -209,7 +202,7 @@ export default class Html2Pdf {
         i + 1,
         this.footer,
         pdf,
-        this.pagerWidth
+        this.contentWidth
       );
 
       // 若不是最后一页，则分页
@@ -252,7 +245,7 @@ export default class Html2Pdf {
       // 深度终点
       const isItem = one.classList && one.classList.contains(this.itemClass)
       // 对需要处理分页的元素，计算是否跨界，若跨界，则直接将顶部位置作为分页位置，进行分页，且子元素不需要再进行判断
-      const { offsetHeight } = one;
+      const { offsetHeight = 0 } = one;
       // 计算出最终高度
       const offsetTop = this.getElementTop(one);
 
@@ -261,16 +254,24 @@ export default class Html2Pdf {
       const top = this.rate * offsetTop;
       const rateOffsetHeight = this.rate * offsetHeight;
 
-      if (isItem) {
-        // dom高度转换成生成pdf的实际高度
-        // 代码不考虑dom定位、边距、边框等因素，需在slot里自行考虑，如将box-sizing设置为border-box
-        this.updateTablePos(rateOffsetHeight, top);
-        // one.classList.add("pdf-table-split-tr")
-      } else {
-        this.updateNormalElPos(top, rateOffsetHeight);
-        // 遍历子节点
-        this.traversingNodes(one.childNodes);
+      if (top && rateOffsetHeight) {
+        if (isItem) {
+          // dom高度转换成生成pdf的实际高度
+          // 代码不考虑dom定位、边距、边框等因素，需在slot里自行考虑，如将box-sizing设置为border-box
+          this.updateTablePos(rateOffsetHeight, top);
+          // one.classList.add("pdf-table-split-tr")
+        } else {
+          this.updateNormalElPos(top, rateOffsetHeight);
+          // 遍历子节点
+          this.traversingNodes(one.childNodes);
+        }
+        // this.updatePos();
       }
+    }
+  }
+  updatePos() {
+    while (this.pages[this.pages.length - 1] + this.originalPageHeight < this.height) {
+      this.pages.push(this.pages[this.pages.length - 1] + this.originalPageHeight);
     }
   }
 
@@ -281,11 +282,11 @@ export default class Html2Pdf {
   updateTablePos(eHeight, top) {
     // 如果高度已经超过当前页，则证明可以分页了
     const nowPageTop = this.pages[this.pages.length - 1];
-    if (top - nowPageTop > this.originalPageHeight) {
+    if (top - nowPageTop >= this.originalPageHeight) {
       this.pages.push(
         nowPageTop + this.originalPageHeight
       )
-    } else if (top + eHeight - nowPageTop - 1 > this.originalPageHeight && top !== nowPageTop) {
+    } else if (top + eHeight - nowPageTop  > this.originalPageHeight && top !== nowPageTop) {
       this.pages.push(top)
     }
   }
@@ -314,7 +315,8 @@ export default class Html2Pdf {
       const topDistance = rect.top;
 
       return topDistance;
-    }
+    } 
+    return 0
   }
 
   /**
@@ -344,7 +346,7 @@ export default class Html2Pdf {
     }
 
     const { height, data } = this.__header;
-    pdf.addImage(data, "JPEG", 0, 0, contentWidth, height);
+    pdf.addImage(data, "JPEG", this.baseX, this.baseY, contentWidth, height);
   }
 
   /**
@@ -382,8 +384,8 @@ export default class Html2Pdf {
     pdf.addImage(
       data,
       "JPEG",
-      0,
-      this.pagerHeight - height,
+      this.baseX,
+      this.pagerHeight - height - this.baseY,
       contentWidth,
       height
     );

@@ -66,6 +66,16 @@
       default: false
       title: 是否显示页尾区域
       description: 设置页脚区域高度，单位mm
+    - name: yBorder
+      type: number
+      default: 0
+      title: 垂直页边距
+      description: 设置垂直页边距，单位mm
+    - name: xBorder
+      type: number
+      default: 0
+      title: 水平页边距
+      description: 设置水平页边距，单位mm
   slots:
     - concept: Slot
       name: content
@@ -100,7 +110,7 @@
             type: string
             description: 页脚页码
             required: false
-          - name: itemClass
+          - name: itemElement
             type: string
             description: 避免分页的元素名
             required: false
