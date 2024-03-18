@@ -2,7 +2,7 @@
   "name": "cw_text_power_library",
   "title": "文本功能依赖库",
   "description": "",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
