@@ -186,9 +186,9 @@ export default class Html2Pdf {
         // 对多余的内容部分进行遮白
         this.addBlank(
           0,
-          imageHeight + pdfHeaderH + 2 * baseY,
+          imageHeight + pdfHeaderH +  baseY,
           this.pagerWidth,
-          this.pagerHeight - imageHeight,
+          this.pagerHeight - imageHeight - baseY,
           pdf
         );
       }
@@ -261,9 +261,9 @@ export default class Html2Pdf {
           this.updateTablePos(rateOffsetHeight, top);
           // one.classList.add("pdf-table-split-tr")
         } else {
-          this.updateNormalElPos(top, rateOffsetHeight);
           // 遍历子节点
           this.traversingNodes(one.childNodes);
+          this.updateNormalElPos(top, rateOffsetHeight);
         }
         // this.updatePos();
       }
