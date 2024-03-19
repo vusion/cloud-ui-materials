@@ -21,7 +21,7 @@
 
 <script>
 import HTML2PRINT from './html2print.js';
-import { mmToPt, pxToPt } from './utils.js';
+import { mmToPt } from './utils.js';
 const DEFAULT_DPI = 96;
 const PAGER_SIZE = {
   a4: {
@@ -58,7 +58,7 @@ export default {
     },
     showHeader: {
       type: Boolean,
-      default: true
+      default: false
     },
     showFooter: {
       type: Boolean,
@@ -72,22 +72,6 @@ export default {
       type: Boolean,
       default: false
     },
-    headerHeight: {
-      type: Number,
-      default: 0
-    },
-    footerHeight: {
-      type: Number,
-      default: 0
-    },
-    showHeaderPage: {
-      type: Boolean,
-      default: true
-    },
-    showFooterPage: {
-      type: Boolean,
-      default: true
-    },
 
     isShowPrint: {
       type: Boolean,
@@ -95,11 +79,11 @@ export default {
     },
     pageWidth: {
       type: Number,
-      default: 300
+      default: 210
     },
     pageHeight: {
       type: Number,
-      default: 150
+      default: 297
     },
     xBorder: {
       type: Number,
@@ -130,16 +114,19 @@ export default {
       }
       
       return [this.mmStringToPt(this.pagerDimension.width), this.mmStringToPt(this.pagerDimension.height)]
-    },
-    headerHeightPt: function () {
-      return this.mmStringToPt(this.headerHeight + 'mm');
-    },
-    footerHeightPt: function () {
-      return this.mmStringToPt(this.footerHeight + 'mm');
     }
   },
   methods: {
-    print(pagerInHeader, pagerSizeInHeader, pagerSizeInFooter, pagerInFooter, itemElement) {
+    print(...args) {
+      const params = this.generatePrintParams(...args);
+
+      const printObj = new HTML2PRINT(this.$refs.printContent, params);
+      printObj.print();
+    },
+    mmStringToPt(mm) {
+      return mmToPt(+mm.replace(/[^\d]/g, ''), DEFAULT_DPI);
+    },
+    generatePrintParams(pagerInHeader, pagerSizeInHeader, pagerSizeInFooter, pagerInFooter, itemElement) {
       const params = {
         direction: this.pageDirection,
         format: this.pageFormat,
@@ -183,11 +170,7 @@ export default {
           })
         })
       }
-      const printObj = new HTML2PRINT(this.$refs.printContent, params);
-      printObj.print();
-    },
-    mmStringToPt(mm) {
-      return mmToPt(+mm.replace(/[^\d]/g, ''), DEFAULT_DPI);
+      return params;
     }
   }
 }

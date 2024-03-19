@@ -6,15 +6,12 @@ import printJS from "print-js"
  * 生成print文件
  * @param {Object} param
  * @param {HTMLElement} param.element - 需要转换的dom根节点
- * @param {number} [param.contentWidth=550] - 一页pdf的内容宽度，0-595
- * @param {number} [param.contentHeight=800] - 一页pdf的内容高度，0-842
  * @param {string} [param.direction='v'] - 纸张方向，h横向，v竖向
  * @param {number} param.baseX - pdf页内容距页面左边的高度，默认居中显示，为(pager宽度 - contentWidth) / 2)
  * @param {number} param.baseY - pdf页内容距页面上边的高度，默认 15px
  * @param {HTMLElement} param.header - 页眉dom元素
  * @param {HTMLElement} param.footer - 页脚dom元素
  * @param {string} [param.format='a4'] - pdf格式
- * @param {string} [param.pagerInHeader] - 导出的pdf文件名
  * @returns {Promise} 
  */
 
@@ -265,13 +262,7 @@ export default class Html2Pdf {
           this.traversingNodes(one.childNodes);
           this.updateNormalElPos(top, rateOffsetHeight);
         }
-        // this.updatePos();
       }
-    }
-  }
-  updatePos() {
-    while (this.pages[this.pages.length - 1] + this.originalPageHeight < this.height) {
-      this.pages.push(this.pages[this.pages.length - 1] + this.originalPageHeight);
     }
   }
 
@@ -306,8 +297,6 @@ export default class Html2Pdf {
   }
   /**
    * 获取元素距离网页顶部的距离
-   * @param {HTMLElement} element - 需要计算的元素
-   * @returns
    */
   getElementTop(element) {
     if (element.getBoundingClientRect) {
@@ -321,9 +310,6 @@ export default class Html2Pdf {
 
   /**
    * 添加页眉
-   * @param {HTMLElement} header -页眉元素
-   * @param {Object} pdf - pdf实例
-   * @param {Number} contentWidth -在pdf中占据的宽度（默认占满)
    * @returns
    */
   async addHeader(pageNo, header, pdf, contentWidth) {
@@ -351,12 +337,6 @@ export default class Html2Pdf {
 
   /**
    * 添加页脚
-   * @param {Number} pageSize -总页数
-   * @param {Number} pageNo -当前第几页
-   * @param {HTMLElement} footer -页脚元素
-   * @param {Object} pdf - pdf实例
-   * @param {Number} contentWidth - 在pdf中占据的宽度（默认占满)
-   * @returns
    */
   async addFooter(pageSize, pageNo, footer, pdf, contentWidth) {
     if (!footer || !(footer instanceof HTMLElement)) {
@@ -398,16 +378,9 @@ export default class Html2Pdf {
 
   /**
    * 添加空白遮挡
-   * @param {Number} x - x 与页面左边缘的坐标（以 PDF 文档开始时声明的单位）
-   * @param {Number} y - y 与页面上边缘的坐标（以 PDF 文档开始时声明的单位）
-   * @param {Number} width - 填充宽度
-   * @param {Number} height -填充高度
-   * @param {Object} pdf - pdf实例
-   * @returns
    */
   addBlank(x, y, width, height, pdf) {
     pdf.setFillColor(255, 255, 255);
-    // rect(x, y, w, h, style) ->'F'填充方式，默认是描边方式
     pdf.rect(x, y, Math.ceil(width), Math.ceil(height), "F");
   }
 }
