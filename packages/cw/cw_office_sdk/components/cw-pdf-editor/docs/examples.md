@@ -4,7 +4,7 @@
 <template>
 <div style="height:300px">
   <cw-pdf-editor ref='editor'>
-    <u-button>保存pdf</u-button>
+    <u-button @click='savePdf'>保存pdf</u-button>
   </cw-pdf-editor>
 </div>
 </template>

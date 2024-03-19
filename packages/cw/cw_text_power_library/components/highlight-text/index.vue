@@ -62,7 +62,7 @@ export default {
       }
       console.log("allTextNodes", allTextNodes);
       // 清除上个高亮
-      // CSS.highlights.clear();
+      CSS.highlights.clear();
 
       // 为空判断
       const str = this.text;
@@ -108,7 +108,6 @@ export default {
   padding: 8px;
 }
 .highlight-container:hover {
-  background-color: rgb(238, 238, 238);
   cursor: pointer;
 }
 .highlight-content {

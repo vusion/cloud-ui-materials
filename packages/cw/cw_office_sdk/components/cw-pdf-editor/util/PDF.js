@@ -1,12 +1,12 @@
 import { readAsArrayBuffer } from './asyncReader.js';
 import { noop } from './helper.js';
-import * as PDFLib from 'pdf-lib'
+import { PDFDocument } from '@pdfme/pdf-lib'
 import * as download from 'downloadjs'
 
 export async function save(pdfFile, objects, name) {
   let pdfDoc;
   try {
-    pdfDoc = await PDFLib.PDFDocument.load(await readAsArrayBuffer(pdfFile));
+    pdfDoc = await PDFDocument.load(await readAsArrayBuffer(pdfFile));
   } catch (e) {
     console.log('Failed to load PDF.');
     throw e;

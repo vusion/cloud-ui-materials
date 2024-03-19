@@ -2,7 +2,7 @@
   "name": "cw_notification_sdk",
   "title": "全局提示",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
+    "base64-inline-loader": "^2.0.1",
     "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
     "vue": "^2.6.10",

@@ -1,6 +1,7 @@
 <template>
   <div class="drawing2d-main" v-bind="[$attrs, $props]">
     <div class="drawing2d-header" v-if="mode==='dev'">
+       <el-button @click="handleTest" type="primary" style="width:84px">测试</el-button>
       <el-button @click="handleSubmit" type="primary" style="width:84px">保存</el-button>
       <el-button @click="handleToImg" type="primary" style="width:84px">生成图片</el-button>
     </div>
@@ -253,12 +254,16 @@ export default {
     },
     watch:{
       value(val){
-        console.log(val);
         this.initCanvas()
       }
     },
     
     methods:{
+      handleTest(){
+        canvas.loadFromJSON({},()=>{
+            canvas.renderAll()
+          })
+      },
        loadScript(url) {
         return new Promise((resolve,reject) => {
               let script = document.createElement('script');
@@ -275,17 +280,15 @@ export default {
       
         },
       initCanvas(){
-        let value = null
+        let value = null 
         if(this.mode==="dev"){
            value = localStorage.getItem("canvasData")
         }else{
-           value = this.value? JSON.parse(this.value):null
+           value = this.value? JSON.parse(this.value):{}
         }
-        if(value){
           canvas.loadFromJSON(value,()=>{
             canvas.renderAll()
           })
-        }
        
       },
          getNewId(){
@@ -826,7 +829,6 @@ export default {
         if(this.mode==="dev"){
           localStorage.setItem("canvasData",JSON.stringify(canvas.toJSON(['_id'])))
         }else{
-         
           this.$emit("onSave",JSON.stringify(canvas.toJSON(['_id'])))
         }
       },
@@ -864,15 +866,28 @@ export default {
         canvas.renderAll()
       },
       handleSetColor(data){
-        const objects =  this.selectedObj.getObjects()
-        objects.forEach(item=>{
-          if(item.type == "rect" ){
-              item.set("fill",data.bgColor)
-          }else{
+        if(this.selectedList.length===1){
+           if(this.selectedList[0].type === 'group'){
+           const objects =  this.selectedObj.getObjects()
+            objects.forEach(item=>{
+              setColor(item,data)
+            })
+           }else{
+             setColor(this.selectedList[0],data)
+           }
+        }else{
+          this.selectedList.forEach(item=>{
+            setColor(item,data)
+          })
+        }
+        
+        function setColor(item,data){
+        if(item.type == "textbox" ){
               item.set("fill",data.textColor)
+          }else{
+             item.set("fill",data.bgColor)
           }
-        })
-        console.log(objects);
+        }
         canvas.renderAll()
       },
       getCanvasPointer(ev){

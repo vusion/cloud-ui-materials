@@ -1,0 +1,324 @@
+[
+    {
+        "name": "WECHAT_APPID",
+        "description": "Oauth2认证使用的wechat对应的appid",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WECHAT_REDIRECT_URI",
+        "description": "Oauth2认证使用的wechat对应的redirect_uri",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WECHAT_SCOPE",
+        "description": "Oauth2认证使用的wechat对应的scope",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WECHAT_LANG",
+        "description": "Oauth2认证使用的wechat对应的lang",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WECHAT_STYLE",
+        "description": "Oauth2认证使用的wechat对应的style",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WEWORK_LOGIN_TYPE",
+        "description": "Oauth2认证使用的wework对应的login_type",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WEWORK_APPID",
+        "description": "Oauth2认证使用的wework对应的appid",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WEWORK_REDIRECT_URI",
+        "description": "Oauth2认证使用的wework对应的redirect_uri",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WEWORK_LANG",
+        "description": "Oauth2认证使用的wework对应的lang",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WEWORK_PANEL_SIZE",
+        "description": "Oauth2认证使用的wework对应的panel_size",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "WEWORK_AGENTID",
+        "description": "Oauth2认证使用的wework对应的agentid",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "FEISHU_APP_ID",
+        "description": "Oauth2认证使用的feishu对应的app_id",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "FEISHU_REDIRECT_URI",
+        "description": "Oauth2认证使用的feishu对应的redirect_uri",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "FEISHU_SCOPE",
+        "description": "Oauth2认证使用的feishu对应的scope",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_REDIRECT_URI",
+        "description": "Oauth2认证使用的dingtalk对应的redirect_uri",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_CLIENT_ID",
+        "description": "Oauth2认证使用的dingtalk对应的client_id",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_SCOPE",
+        "description": "Oauth2认证使用的dingtalk对应的scope",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_STATE",
+        "description": "Oauth2认证使用的dingtalk对应的state",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_PROMPT",
+        "description": "Oauth2认证使用的dingtalk对应的prompt",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_ORG_TYPE",
+        "description": "Oauth2认证使用的dingtalk对应的org_type",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_CORPID",
+        "description": "Oauth2认证使用的dingtalk对应的corpId",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_EXCLUSIVELOGIN",
+        "description": "Oauth2认证使用的dingtalk对应的exclusiveLogin",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "DINGTALK_EXCLUSIVECORPID",
+        "description": "Oauth2认证使用的dingtalk对应的exclusiveCorpId",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    }
+]
