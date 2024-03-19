@@ -1,15 +1,18 @@
 <template>
-  <div>
-    <!-- <div class="test"></div> -->
-    <div class="image-container">
-      <img
-        v-if="normalSrc"
-        :style="imageStyle"
-        :data-src="src"
-        :alt="alt"
-        class="small-image responsive-lazy-load"
-      />
-    </div>
+  <!-- <div class="test"></div> -->
+  <div
+    class="image-container"
+    @click="$emit('click')"
+    @mouseenter="$emit('mouseenter')"
+    @mouseout="$emit('mouseout')"
+  >
+    <img
+      v-if="normalSrc"
+      class="small-image responsive-lazy-load"
+      :style="imageStyle"
+      :data-src="src"
+      :alt="alt"
+    />
   </div>
 </template>
 
@@ -19,8 +22,7 @@ export default {
   props: {
     normalSrc: {
       type: String,
-      default:
-        "https://lcap-deploy-test.nos-eastchina1.126.net/S3%2Faaabbb%2F30_20240228140656754_20240318150940283.jpg",
+      default: "",
     },
     thumbnailWidth: {
       type: Number,
@@ -84,29 +86,26 @@ export default {
         "Fallback for browsers that don't support Intersection Observer"
       );
     }
-    window.addEventListener("load", () => {
-      const container = document.querySelector(".image-container");
-      const smallImage = container.querySelector(".small-image");
+    const container = document.querySelector(".image-container");
+    const smallImage = container.querySelector(".small-image");
 
-      // 创建大图片
-      const largeImage = new Image();
-      largeImage.src = this.normalSrc; // 大图片的路径
-      largeImage.classList.add("large-image");
-      largeImage.onload = function () {
-        // 当大图片加载完成后，添加到容器中
-        container.appendChild(largeImage);
-      };
-      console.log("执行了", largeImage);
+    // 创建大图片
+    const largeImage = new Image();
+    largeImage.src = this.normalSrc; // 大图片的路径
+    largeImage.classList.add("large-image");
+    largeImage.onload = function () {
+      // 当大图片加载完成后，添加到容器中
+      container.appendChild(largeImage);
+    };
 
-      // 监听大图片的加载，完成后更新透明度
-      largeImage.addEventListener("load", function () {
-        setTimeout(() => {
-          // 确保过渡效果平滑
-          smallImage.style.opacity = "0";
-          largeImage.style.opacity = "1";
-          largeImage.style.filter = "blur(0px)";
-        }, 100); // 延迟确保CSS过渡应用
-      });
+    // 监听大图片的加载，完成后更新透明度
+    largeImage.addEventListener("load", function () {
+      setTimeout(() => {
+        // 确保过渡效果平滑
+        smallImage.style.opacity = "0";
+        largeImage.style.opacity = "1";
+        largeImage.style.filter = "blur(0px)";
+      }, 100); // 延迟确保CSS过渡应用
     });
   },
 };
