@@ -1,7 +1,7 @@
 const { execCommand } = require('./execCommand');
 
 const branchReg =
-    /^task(?:\(([a-zA-Z\-\_\d]+)\))?\-([a-zA-Z\_\d]+)\-([a-zA-Z\_\d]+)\-/i;
+    /^task(?:\(([a-zA-Z\-\_\d]+)\))?\-([a-zA-Z\_\d]+)\-([a-zA-Z\_\d]+)\-?/i;
 
 module.exports.getBranchInfo = async () => {
     const branchName = await execCommand('git branch --show-current');
