@@ -24,6 +24,10 @@ export default {
       type: String,
       default: "",
     },
+    bucket: {
+      type: String,
+      default: "nos",
+    },
     thumbnailWidth: {
       type: Number,
       default: 200,
@@ -51,7 +55,11 @@ export default {
   },
   computed: {
     src() {
-      return `${this.normalSrc}?imageView&thumbnail=${this.thumbnailWidth}x${this.thumbnailHeight}`;
+      const bucketMap = {
+        nos: `${this.normalSrc}?imageView&thumbnail=${this.thumbnailWidth}x${this.thumbnailHeight}`,
+        obs: `${this.normalSrc}?x-image-process=image/resize,w_${this.thumbnailWidth},h_${this.thumbnailHeight}`,
+      };
+      return bucketMap[this.bucket];
     },
     imageStyle() {
       return {
