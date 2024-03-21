@@ -8,14 +8,17 @@
       type: string
       default: ''
       description: 需要展示的内容
+      title: 需要展示的内容
     - name: text
       type: string
       default: ''
       description: 高亮关键字
+      title: 高亮关键字
     - name: link
       type: string
       default: ''
       description: 点击标识数据
+      title: 点击标识数据
   events:
     - name: click
       title: 选择后
