@@ -120,13 +120,11 @@ export default {
 .image-container {
   position: relative;
   width: 100%;
-  height: 100%;
 }
 
 .small-image {
   /* 使图片填充容器 */
   width: 100%;
-  height: 100%;
   /* 初始模糊效果 */
   transition: opacity 1s ease-out;
 }
@@ -137,7 +135,6 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   opacity: 0; /* 初始时不可见 */
   filter: blur(3px);
   transition: opacity 1s ease-out; /* 渐变效果时间 */
