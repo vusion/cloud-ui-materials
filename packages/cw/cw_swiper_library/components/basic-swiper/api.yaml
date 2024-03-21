@@ -25,6 +25,7 @@
     - name: spaceBetween
       type: number
       default: 0
+      title: spaceBetween
       description: 图片间距
     - name: slidesPerView
       type: number
@@ -33,10 +34,12 @@
     - name: delay
       type: number
       default: 2500
+      title: autoplay延迟时间
       description: autoplay延迟时间
     - name: duration
       type: number
       default: 300
+      title: 动画持续时间
       description: 动画持续时间
     - name: direction
       title: 方向
