@@ -100,6 +100,18 @@ export default {
     swiper() {
       return this.$refs.swiper.swiperInstance;
     },
+    designModeUpdates() {
+      return {
+        slidesPerView: this.slidesPerView,
+        effect: this.effect,
+        duration: this.duration,
+        height: this.height,
+        delay: this.delay,
+        spaceBetween: this.spaceBetween,
+        prevStyle: this.prevStyle,
+        nextStyle: this.nextStyle,
+      };
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -128,6 +140,14 @@ export default {
       },
       deep: true,
       immediate: true,
+    },
+    designModeUpdates: {
+      handler() {
+        if (this.$env && this.$env.VUE_APP_DESIGNER) {
+          this.$forceUpdate();
+        }
+      },
+      deep: true,
     },
   },
   methods: {
