@@ -133,15 +133,6 @@ export default {
       return this.$refs.gallery.swiperInstance;
     },
     dataSourceDeep() {
-      console.log(
-        "dataSourceDeep",
-        new Array(parseInt(this.dataSource.length / 2))
-          .fill(undefined)
-          .map((item, index) => [
-            this.dataSource[index * 2],
-            this.dataSource[index * 2 + 1],
-          ])
-      );
       return new Array(parseInt(this.dataSource.length / 2))
         .fill(undefined)
         .map((item, index) => [
