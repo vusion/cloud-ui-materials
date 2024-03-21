@@ -61,19 +61,19 @@
       default: ease-in-out
       options:
         - value: ease
-          title: ease
+          title: 平滑
         - value: ease-in
-          title: ease-in 
+          title: 平滑进入
         - value: ease-out
-          title: ease-out  
+          title: 平滑移出
         - value: ease-in-out
-          title: ease-in-out  
+          title: 平滑进出
         - value: linear
-          title: linear    
+          title: 线性  
         - value: step-start
-          title: step-start    
+          title: 步幅启动
         - value: step-end
-          title: step-end  
+          title: 步幅移出
       description: 选择轮播图动画效果
     - name: prevStyle
       default: ""
