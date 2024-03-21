@@ -8,9 +8,11 @@
       type: string
       default: ""
       description: 需要传入的值
+      title: 需要传入的值
     - name: mode
       type: string
       description: markdown模式
+      title: markdown模式
       default: editor
       options:
         - value: editor
