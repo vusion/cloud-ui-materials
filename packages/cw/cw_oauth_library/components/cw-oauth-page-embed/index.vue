@@ -29,7 +29,8 @@ export default {
         };
     },
     created() {
-        getOauth2Url('wework').then((v) => {
+        getOauth2Url('feishu').then((v) => {
+            console.log('🚀 ~ file: index.vue:33 ~ getOauth2Url ~ v:', v);
             this.iframeSrc = v;
         });
         // const a = getOauthCodeAndState();

@@ -18,7 +18,8 @@ const getSchema = async ({ title }) => {
         (acc, [type, paramNames]) => {
             const TYPE = type.toUpperCase();
             return acc.concat(
-                paramNames.map((name) => {
+                paramNames.map((_name) => {
+                    const [name] = _name.split(':');
                     const NAME = name.toUpperCase();
                     const FULL_NAME = `${TYPE}_${NAME}`;
                     return { type, name, fullName: FULL_NAME };

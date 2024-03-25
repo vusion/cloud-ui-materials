@@ -2,7 +2,7 @@
   "name": "cw_oauth_library",
   "title": "Oauth2认证",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.1.13",
   "main": "./index.js",
   "author": "",
   "repository": "",
