@@ -94,7 +94,7 @@ export default {
         "Fallback for browsers that don't support Intersection Observer"
       );
     }
-    const container = document.querySelector(".image-container");
+    const container = this.$el.querySelector(".image-container");
     const smallImage = container.querySelector(".small-image");
 
     // 创建大图片
