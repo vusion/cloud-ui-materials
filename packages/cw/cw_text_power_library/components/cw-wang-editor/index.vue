@@ -49,7 +49,10 @@ export default {
     editorStyle: { type: String, default: "" },
     uploadImgServer: { type: String, default: "" },
     accept: { type: String, default: ".png,.jpg,.jpeg,.webp" },
-    acceptVideo: { type: String, default: "*" },
+    acceptVideo: {
+      type: String,
+      default: ".mp4,.avi,.mov,.wmv,.mkv,.flv,.mpeg,.rmvb,.3gp,.webm",
+    },
   },
   data() {
     const vm = this;
@@ -93,12 +96,10 @@ export default {
     editorConfig() {
       const authorization = this.getCookie("authorization");
       const headers = authorization ? { Authorization: authorization } : {};
-      return {
-        readOnly: this.readOnly,
-        scroll: this.scroll,
-        placeholder: this.placeholder,
-        autoFocus: false,
-        MENU_CONF: {
+      const MENU_CONF = {};
+      Object.assign(
+        MENU_CONF,
+        this.accept && {
           uploadImage: {
             server:
               this.uploadImgServer || "/gateway/lowcode/api/v1/app/upload",
@@ -129,6 +130,8 @@ export default {
             },
             allowedFileTypes: this.acceptEditorList,
           },
+        },
+        this.acceptVideo && {
           uploadVideo: {
             server:
               this.uploadImgServer || "/gateway/lowcode/api/v1/app/upload",
@@ -158,7 +161,14 @@ export default {
             },
             allowedFileTypes: this.acceptVideoEditorList,
           },
-        },
+        }
+      );
+      return {
+        readOnly: this.readOnly,
+        scroll: this.scroll,
+        placeholder: this.placeholder,
+        autoFocus: false,
+        MENU_CONF,
       };
     },
   },
