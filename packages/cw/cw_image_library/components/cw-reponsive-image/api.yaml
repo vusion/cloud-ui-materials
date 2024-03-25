@@ -9,6 +9,20 @@
       default: 请在这里编写代码
       description: 原始图片链接
       title: 原始图片链接
+    - name: bucket
+      title: 桶类型
+      type: string
+      options:
+        - value: nos
+          name: nos
+        - value: obs
+          name: obs
+      default: nos
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 顶部对齐、居中对齐、底部对齐
+      tooltipLink: ""
     - name: thumbnailWidth
       type: number
       default: 200
