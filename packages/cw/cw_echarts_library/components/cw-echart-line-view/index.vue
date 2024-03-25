@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root" ref="room">
-    <div :class="$style.container" border :style="size">
+    <div :class="$style.container" border >
       <echart-line
         v-if="!loading"
         :axisData="axisData"
@@ -34,8 +34,6 @@ export default {
   props: {
     dataSource: [Function, Array, Object],
     theme: {type: String, default: 'theme1'},
-    width: {type: String, default: '340px'},
-    height: {type: String, default: '300px'},
     xAxis: {type: String, default: ''},
     yAxis: {type: String, default: ''},
     xAxisTitle: {type: String, default: 'X轴标题'},
@@ -111,12 +109,6 @@ export default {
     }
   },
   computed: {
-    size() {
-      return {
-        width: this.width,
-        height: this.height,
-      }
-    },
     axisData() {
       return {
         xAxis: this.xAxis,
@@ -213,6 +205,10 @@ export default {
 <style module>
 .root {
   display: inline-block;
+  > div {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .container[border] {

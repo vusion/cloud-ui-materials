@@ -13,18 +13,6 @@
         type: Array<Item> | Function | object | DataSource
         designer-value: '[{}, {}, {}]'
         description: 表格的数据源，数据集对象或者返回数据集的逻辑
-      - name: width
-        title: 宽度
-        type: string
-        default: 380px
-        description: 设置图宽度
-        group: 图表基础
-      - name: height
-        title: 高度
-        type: string
-        default: 300px
-        description: 设置图高度
-        group: 图表基础
       - name: formatter
         title: 标签内容格式器
         type: string

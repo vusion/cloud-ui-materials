@@ -251,18 +251,6 @@
         default: true
         description: 允许用户设置保存图片
         group: 图表功能
-      - name: width
-        title: 宽度
-        type: string
-        default: 380px
-        description: 设置图宽度
-        group: 图表基础
-      - name: height
-        title: 高度
-        type: string
-        default: 300px
-        description: 设置图高度
-        group: 图表基础
       - name: formatter
         title: 标签内容格式器
         type: string
