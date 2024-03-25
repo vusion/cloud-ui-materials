@@ -1,3 +1,11 @@
+## 0.1.13
+
+Associated Task: [#281942](https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=2819422165221888)
+
+### 🐛Bug Fixes
+
+- [0dd7142](https://github.com/vusion/cloud-ui-materials/commit/0dd714255ddd7a290d90b063d5e70fc554cebc80) Thanks [ncqwer](https://github.com/ncqwer) ! - 更改配置信息的读取项由ide配置转向运行时配置。
+
 ## 0.1.4
 
 Associated Task: [#281165](https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=2811653205430528)

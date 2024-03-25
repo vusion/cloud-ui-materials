@@ -13,12 +13,24 @@ export default () => {
             },
             {}
         );
-        return Object.assign(
+        const queryObject = Object.assign(
             tmp,
             !tmp.code &&
                 tmp.authCode && {
                     code: tmp.authCode,
                 }
+        );
+        const [state, redirect_uri] = decodeURIComponent(
+            queryObject.state
+        ).split('#');
+        return Object.assign(
+            queryObject,
+            {
+                state,
+            },
+            redirect_uri && {
+                redirect_uri,
+            }
         );
     } else {
         window.parent.location.href = window.location.href;

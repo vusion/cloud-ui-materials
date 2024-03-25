@@ -9,10 +9,18 @@ export const getConfig = (function () {
     const schema = Object.entries(ConfigSchema).reduce(
         (acc, [type, paramNames]) => {
             const TYPE = type.toUpperCase();
-            acc[type] = paramNames.map((name) => {
+            acc[type] = paramNames.map((_name) => {
+                const [name, entityNameRaw] = _name.split(':');
                 const NAME = name.toUpperCase();
                 const FULL_NAME = `${TYPE}_${NAME}`;
-                return { name, fullName: FULL_NAME };
+                const entityName = (entityNameRaw || name)
+                    .split('_')
+                    .map((str, idx) => {
+                        if (idx === 0) return str;
+                        return `${str[0].toUpperCase()}${str.slice(1)}`;
+                    })
+                    .join('');
+                return { name, fullName: FULL_NAME, entityName };
             });
             return acc;
         },
@@ -25,21 +33,21 @@ export const getConfig = (function () {
         if (IS_DEV) {
             return fetcherInDev(schema);
         }
-        const legacyMode = true;
+        const legacyMode = false;
         if (legacyMode) return fetcherInLegacy(schema);
 
         // todo: implement logic for dynamic configuration
-        return (type) => schema[type];
+        return fetcherInProd(schema);
     }
 
-    function fetchWitType(type, force = false) {
+    function fetchWitType(type, data, force = false) {
         if (fetcherPromiseForType[type]) {
             if (fetcherPromiseForType[type].batchFlag)
                 return fetcherPromiseForType[type];
             if (!force) return fetcherPromiseForType[type];
         }
         const fetcher = getFetcher();
-        const promise = fetcher(type);
+        const promise = fetcher(type, data);
         promise.batchFlag = true;
         Promise.resolve(() => {
             promise.batchFlag = false;
@@ -65,7 +73,7 @@ const fetcherInDev = (schema) =>
 
 // 在低版本中，使用依赖库的配置参数
 const fetcherInLegacy = (schema) =>
-    async function (type) {
+    async function (type, data) {
         const kvs = await Promise.all(
             schema[type].map(async ({ name, fullName }) => {
                 return [
@@ -83,4 +91,35 @@ const fetcherInLegacy = (schema) =>
                 });
             return acc;
         }, {});
+    };
+
+// 当前版本，支持在直接传递config
+const fetcherInProd = (schema) =>
+    async function (type, data) {
+        const redirect_uriRaw = await fetch(
+            `/api/system/getCustomConfig/${'REDIRECT_URI'}?group=extensions.${LIBRARY_NAME}.custom`
+        ).then((r) => r.text());
+        const redirect_uri = redirect_uriRaw || '/page_config/callback';
+        let config;
+        if (data) {
+            config = data;
+        } else {
+            config = await fetch(`/rest/getConfig?state=${type}`)
+                .then((res) => res.json())
+                .then((v) => v.data);
+        }
+        return schema[type].reduce(
+            (acc, { name, entityName }) => {
+                Object.assign(
+                    acc,
+                    config[entityName] && {
+                        [name]: config[entityName],
+                    }
+                );
+                return acc;
+            },
+            {
+                redirect_uri,
+            }
+        );
     };

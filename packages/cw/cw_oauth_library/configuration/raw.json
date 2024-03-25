@@ -1,6 +1,6 @@
 {
     "wechat": [
-        "appid",
+        "appid:app_id",
         "redirect_uri",
         "scope",
         "lang",
@@ -8,11 +8,11 @@
     ],
     "wework": [
         "login_type",
-        "appid",
+        "appid:app_id",
         "redirect_uri",
         "lang",
         "panel_size",
-        "agentid"
+        "agentid:agentId"
     ],
     "feishu": [
         "app_id",
@@ -21,12 +21,12 @@
     ],
     "dingtalk": [
         "redirect_uri",
-        "client_id",
+        "client_id:app_id",
         "scope",
         "state",
         "prompt",
         "org_type",
-        "corpId",
+        "corpId:agentId",
         "exclusiveLogin",
         "exclusiveCorpId"
     ]
