@@ -45,6 +45,7 @@
       docDescription: 支持对上传的文件类型进行限制，格式为“.后缀名”，如“.jpeg”表示仅支持上传jpeg格式的文件。多个文件类型时需使用英文逗号隔开，如“.jpeg,.png,.gif”表示仅支持上传jpeg、png、gif格式的文件。若为空值，则支持上传所有类型的文件
     - name: acceptVideo
       title: 支持上传视频的文件类型
+      default: 'mp4,avi,mov,wmv,mkv,flv,mpeg,rmvb,3gp,webm'
       type: string
       description: 若要限制上传文件类型，请输入类型名称，格式为“.后缀名”，多个文件类型时使用英文逗号隔开。例如“.jpeg,.png,.gif”
       brifeDoc: ""

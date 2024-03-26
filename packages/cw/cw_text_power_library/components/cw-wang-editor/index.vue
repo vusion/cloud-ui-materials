@@ -49,7 +49,10 @@ export default {
     editorStyle: { type: String, default: "" },
     uploadImgServer: { type: String, default: "" },
     accept: { type: String, default: ".png,.jpg,.jpeg,.webp" },
-    acceptVideo: { type: String, default: "*" },
+    acceptVideo: {
+      type: String,
+      default: ".mp4,.avi,.mov,.wmv,.mkv,.flv,.mpeg,.rmvb,.3gp,.webm",
+    },
   },
   data() {
     const vm = this;
@@ -93,45 +96,49 @@ export default {
     editorConfig() {
       const authorization = this.getCookie("authorization");
       const headers = authorization ? { Authorization: authorization } : {};
-      return {
-        readOnly: this.readOnly,
-        scroll: this.scroll,
-        placeholder: this.placeholder,
-        autoFocus: false,
-        MENU_CONF: {
-          uploadImage: {
-            server:
-              this.uploadImgServer || "/gateway/lowcode/api/v1/app/upload",
-            fieldName: "file",
-            maxFileSize: 50 * 1024 * 1024, // 50M
-            // 自定义增加 http header
-            headers,
-            // 自定义插入图片
-            onBeforeUpload: (file) => {
-              const type = Object.values(file)[0].type.split("/")[1];
-              if (
-                !this.acceptList.includes("." + type) ||
-                !imageTypes.includes(type)
-              ) {
-                this.$emit("upload-fail", {
-                  value: `不支持上传${type}类型的图片文件`,
-                });
-                return false;
+      const MENU_CONF = {};
+      Object.assign(
+        MENU_CONF,
+        {
+          uploadImage: this.accept
+            ? {
+                server:
+                  this.uploadImgServer || "/gateway/lowcode/api/v1/app/upload",
+                fieldName: "file",
+                maxFileSize: 50 * 1024 * 1024, // 50M
+                // 自定义增加 http header
+                headers,
+                // 自定义插入图片
+                onBeforeUpload: (file) => {
+                  const type = Object.values(file)[0].type.split("/")[1];
+                  if (
+                    !this.acceptList.includes("." + type) ||
+                    !imageTypes.includes(type)
+                  ) {
+                    this.$emit("upload-fail", {
+                      value: `不支持上传${type}类型的图片文件`,
+                    });
+                    return false;
+                  }
+                  return file;
+                },
+                customInsert: (res, insertFn) => {
+                  const url = res.result;
+                  insertFn(url);
+                },
+                meta: {
+                  viaOriginURL: true,
+                },
+                allowedFileTypes: this.acceptEditorList,
+                disable: true,
               }
-              return file;
-            },
-            customInsert: (res, insertFn) => {
-              const url = res.result;
-              insertFn(url);
-            },
-            meta: {
-              viaOriginURL: true,
-            },
-            allowedFileTypes: this.acceptEditorList,
-          },
+            : null,
+        },
+        {
           uploadVideo: {
-            server:
-              this.uploadImgServer || "/gateway/lowcode/api/v1/app/upload",
+            server: this.acceptVideo
+              ? this.uploadImgServer || "/gateway/lowcode/api/v1/app/upload"
+              : null,
             fieldName: "file",
             maxFileSize: 1000 * 1024 * 1024, // 1000M
             // 自定义增加 http  header
@@ -158,7 +165,15 @@ export default {
             },
             allowedFileTypes: this.acceptVideoEditorList,
           },
-        },
+        }
+      );
+      console.log("MENU_CONF", MENU_CONF);
+      return {
+        readOnly: this.readOnly,
+        scroll: this.scroll,
+        placeholder: this.placeholder,
+        autoFocus: false,
+        MENU_CONF,
       };
     },
   },
@@ -218,6 +233,20 @@ export default {
     },
     onFocus(editor) {
       this.$emit("focus", { value: this.currentValue, editor });
+      if (!this.accept) {
+        this.$nextTick(() => {
+          this.$el
+            .querySelector('[data-menu-key="group-image"]')
+            .parentNode.classList.add("no-accept-disabled");
+        });
+      }
+      if (!this.acceptVideo) {
+        this.$nextTick(() => {
+          this.$el
+            .querySelector('[data-menu-key="group-video"]')
+            .parentNode.classList.add("no-accept-disabled");
+        });
+      }
     },
     onBlur(editor) {
       this.$emit("blur", { value: this.currentValue, editor });
@@ -284,5 +313,13 @@ export default {
 }
 .w-e-textarea-video-container {
   max-width: 100%;
+}
+.no-accept-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.no-accept-disabled svg {
+  fill: var(--w-e-toolbar-disabled-color) !important;
 }
 </style>
