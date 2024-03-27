@@ -2,7 +2,7 @@
   "name": "cw_signature_view",
   "title": "签名板展示组件",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "author": "",
   "repository": "",

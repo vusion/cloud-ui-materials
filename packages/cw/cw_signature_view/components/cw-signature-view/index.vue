@@ -1,6 +1,6 @@
 <template>
-  <div :class="$style.root">
-    <canvas id="canvas" :width="width" :height="height"></canvas>
+  <div :class="$style.root" ref="canvasRoot">
+    <canvas ref="canvas"></canvas>
   </div>
 </template>
 
@@ -19,8 +19,6 @@ export default {
     };
   },
   props: {
-    width: { type: [Number, String], default: 600 },
-    height: { type: [Number, String], default: 300 },
     bgColor: { type: String, default: '#F8F9FA' },
     penColor: { type: String, default: 'black' },
     penWidth: { type: Number, default: 2 },
@@ -28,11 +26,18 @@ export default {
     reSignName: { type: Boolean, default: false },
   },
   mounted() {
-    this.signature = new SmoothSignature(document.getElementById("canvas"), {
+    const width = this.$refs.canvasRoot.clientWidth;
+    const height = this.$refs.canvasRoot.clientHeight;
+
+    this.$refs.canvas.width = width;
+    this.$refs.canvas.height = height;
+    this.signature = new SmoothSignature(this.$refs.canvas, {
       bgColor: this.bgColor,
       openSmooth: this.openSmooth,
       penColor: this.penColor,
       minWidth: this.penWidth,
+      width,
+      height,
     });
   },
   methods: {
