@@ -45,11 +45,11 @@ export default {
       }
   },
   mounted() {
-    this.getData(this.value)
+    this.getData(this.value.trim())
   },
   methods: {
     async getData(url) {
-      if (url.startsWith("http")) {
+      if (typeof url === 'string') {
         let buf = await fetch(url).then(r => r.arrayBuffer());
         this.docxRender(buf);
       }
