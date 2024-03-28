@@ -50,11 +50,9 @@
   "dependencies": {
     "@babel/traverse": "^7.22.6",
     "@js-preview/excel": "^1.6.0",
-    "@pdfme/pdf-lib": "^1.18.3",
     "axios": "^1.6.7",
     "docx-preview": "0.1.20",
     "downloadjs": "^1.4.7",
-    "pdfjs": "^2.5.0",
-    "vue-pdf": "^4.3.0"
+    "pdfjs-dist": "^2.5.0"
   }
 }

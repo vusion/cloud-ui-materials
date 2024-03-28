@@ -1,6 +1,6 @@
 import { readAsArrayBuffer } from './asyncReader.js';
 import { noop } from './helper.js';
-import { PDFDocument } from '@pdfme/pdf-lib'
+import { PDFDocument } from './pdf-lib.min.js';
 import * as download from 'downloadjs'
 
 export async function save(pdfFile, objects, name) {

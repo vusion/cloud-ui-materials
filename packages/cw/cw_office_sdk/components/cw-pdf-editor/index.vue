@@ -43,12 +43,10 @@ import PdfPage from './pdf-page'
 import ImageItem from './image-item'
 import {
   readAsImage,
-  readAsPDF,
   readAsDataURL
 } from "./util/asyncReader";
+import readAsPDF from '@/utils/readAsPDF';
 import { save } from './util/PDF';
-const PDFJS = require("pdfjs-dist");
-PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker");
 export default {
   name: "cw-pdf-editor",
   components: {

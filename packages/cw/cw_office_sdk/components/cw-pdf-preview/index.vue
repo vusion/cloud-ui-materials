@@ -4,6 +4,8 @@
 </template>
 
 <script>  
+import readAsPDF from "@/utils/readAsPDF";
+
 export default {
     name:"cw-pdf-preview",
     props:{
@@ -27,7 +29,6 @@ export default {
     }
   },
   async  mounted() {
-    await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js')
     this.init()
   },
   methods: {
@@ -48,21 +49,6 @@ export default {
           }
         })
       },
-    loadScript(url) {
-     return new Promise((resolve,reject) => {
-          let script = document.createElement('script');
-          script.src = url;
-          document.body.appendChild(script);
-          script.onload = () => {
-            resolve(true)
-            console.log('jspdf加载完成');
-          }
-          script.onerror = () => {
-            reject(false)
-          }
-      })
-   
-    },
     init() {
       try {
         const pdfUrl = this.value;
@@ -71,9 +57,9 @@ export default {
         }
         const parent = this.$refs["pdf-preview"]
         parent.innerHTML = ''
-        pdfjsLib.getDocument(pdfUrl).promise.then(function (pdfDoc) {
-          for (let i = 1; i < pdfDoc.numPages + 1; i++){
-              pdfDoc.getPage(i).then(function(page) {
+        readAsPDF(pdfUrl).then((pdf) => {
+          for (let i = 1; i < pdf.numPages + 1; i++){
+            pdf.getPage(i).then((page) => {
               const viewport = page.getViewport({ scale: 2 });
               const canvas = document.createElement('canvas');
               parent.append(canvas);
@@ -85,7 +71,7 @@ export default {
                 viewport: viewport
               });
             });
-          } 
+          }
         })
       } catch (error) {
         console.log(error);
