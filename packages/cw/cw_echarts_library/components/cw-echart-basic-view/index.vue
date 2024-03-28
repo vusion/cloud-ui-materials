@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root" ref="room"> 
-    <div :class="$style.container" border>
+    <div :class="$style.container" :style="size">
       <echart-basic
         v-if="!loading"
         :sourceData="sourceData"
