@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root" ref="room"> 
-    <div :class="$style.container" border :style="size">
+    <div :class="$style.container" border>
       <echart-basic
         v-if="!loading"
         :sourceData="sourceData"
@@ -31,8 +31,6 @@ export default {
   props: {
     dataSource: [Function, Array, Object],
     options: {type: Object, default: () => ({})},
-    width: {type: String, default: '380px'},
-    height: {type: String, default: '300px'},
   },
   data() {
     return {
@@ -42,14 +40,6 @@ export default {
   },
   created() {
     this.init();
-  },
-  computed: {
-    size() {
-      return {
-        width: this.width,
-        height: this.height,
-      }
-    },
   },
   mounted(){
     this.resizeObserver = new ResizeObserver(()=>{
@@ -116,6 +106,8 @@ export default {
 .container[border] {
   border: 1px solid var(--border-color-base);
   padding: 15px;
+  width: 100%;
+  height: 100%;
 }
 
 .emptyImage {
