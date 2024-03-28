@@ -322,4 +322,7 @@ export default {
 .no-accept-disabled svg {
   fill: var(--w-e-toolbar-disabled-color) !important;
 }
+.w-e-text-container [data-slate-editor] {
+  word-break: break-word;
+}
 </style>
