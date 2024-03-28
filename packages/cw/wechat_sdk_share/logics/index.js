@@ -14,6 +14,7 @@ import updateAppMessageShareData from './updateAppMessageShareData'
 import getNetworkType from './getNetworkType'
 import closeWindow from './closeWindow'
 import previewImage from './previewImage'
+import sendTemplateMessage from './sendTemplateMessage'
 // LOGIC IMPORTS
 
 UtilsLogics.install = function (Vue, option = {}) {
@@ -31,6 +32,7 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].getNetworkType=getNetworkType
     Vue.prototype.$library[`${$libraryName}`].closeWindow=closeWindow
     Vue.prototype.$library[`${$libraryName}`].previewImage=previewImage
+    Vue.prototype.$library[`${$libraryName}`].sendTemplateMessage=sendTemplateMessage
     // LOGIC USE
 }
 
