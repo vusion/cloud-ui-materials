@@ -104,7 +104,6 @@ export default {
 }
 
 .container[border] {
-  border: 1px solid var(--border-color-base);
   padding: 15px;
   width: 100%;
   height: 100%;
