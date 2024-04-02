@@ -1,0 +1,5 @@
+- name: config
+  description: 应用鉴权
+  type: both
+  belong: logic
+  labels: [Runtime]
