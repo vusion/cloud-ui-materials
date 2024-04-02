@@ -5,11 +5,7 @@
     <div>
         <u-button @click="updatePosition">click</u-button>
         <div>{{ points }}</div>
-        <cw-amap-point-maker-less :dataSource="points" @click="handleItemClick">
-            <template #item="current">
-                <u-text>{{ current.item.textContent }}</u-text>
-            </template>
-        </cw-amap-point-maker-less>
+        <cw-amap-point-maker-less></cw-amap-point-maker-less>
     </div>
 </template>
 

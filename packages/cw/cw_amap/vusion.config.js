@@ -33,6 +33,11 @@ module.exports = {
                 name: 'cw-amap-point-marker-cluster',
                 path: './components/cw-amap-point-marker-cluster/api.yaml',
             },
+            {
+                group: '组件',
+                name: 'cw-amap-point-marker-3-d',
+                path: './components/cw-amap-point-marker-3-d/api.yaml',
+            },
         ],
     },
 };
