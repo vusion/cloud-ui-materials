@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
     chainWebpack: (config) => {
         config.module
@@ -9,5 +11,12 @@ module.exports = {
                     limit: 200000,
                 })
             );
+        if (process.env.NODE_ENV === 'development') {
+            config.plugin('injectDevEnv').use(webpack.DefinePlugin, [
+                {
+                    'process.vusionDevEnv': JSON.stringify(process.env),
+                },
+            ]);
+        }
     },
 };

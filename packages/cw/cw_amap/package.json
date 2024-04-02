@@ -2,7 +2,7 @@
   "name": "cw_amap",
   "title": "高德地图组件",
   "description": "",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
