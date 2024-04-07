@@ -6,7 +6,7 @@ const breakchangeReg = /^BREAKING CHANGE\s*[\:\：]\s*(\S.*)/g;
 
 module.exports.collectCommitInfo = async (defaultLibraryName) => {
     const commitsRaw = await execCommand(
-        `git log --format===='%n%H;%h;%an;%ae%n%B' main..HEAD`
+        `git log --format===='%n%H;%h;%an;%ae%n%B' origin/main..HEAD`
     );
     const tmpResult = {};
     const revertCommitMap = {};
