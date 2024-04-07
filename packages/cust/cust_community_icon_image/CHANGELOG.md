@@ -1,3 +1,11 @@
+## 1.0.6
+
+Associated Task: [#175](https://ddmkhcgpt.netease-official.lcap.163yun.com/dashboard/addWorkOrder?workOrderId=175)
+
+### 🐛Bug Fixes
+
+- [706d63c](https://github.com/vusion/cloud-ui-materials/commit/706d63ce80c454e6a5668a23a004253c06cf36dc) Thanks [ncqwer](https://github.com/ncqwer) ! - 支持中文地址
+
 ## 1.0.3
 
 Associated Task: [#281455](https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=2814552607417856)
