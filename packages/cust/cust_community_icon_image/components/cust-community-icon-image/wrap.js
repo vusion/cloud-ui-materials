@@ -20,15 +20,15 @@ export default {
         const src =
             this.src ||
             'local://wenjianjia~linear-gradient(317deg, #89B1FF 3%, #8FD7FF 100%)';
-        const isLocalIconResult = REG.exec(src);
-        // console.log('🚀 ~ file: wrap.js:24 ~ render ~ src:', src);
+        const isLocalIconResult = REG.exec(encodeURI(src));
+
         if (isLocalIconResult) {
             const protocol = isLocalIconResult[1];
             if (protocol === 'local')
                 return createElement(CustCommunityIconImage, {
                     props: Object.assign({}, this.$attrs, {
                         icon: isLocalIconResult[2],
-                        backgroundImg: isLocalIconResult[3],
+                        backgroundImg: decodeURI(isLocalIconResult[3]),
                     }),
                     attrs: {
                         'vusion-node-tag': this.$attrs['vusion-node-tag'],
@@ -41,9 +41,9 @@ export default {
                 });
             if (protocol === 'localImg') {
                 return createElement(CustCommunityIconImageWithMask, {
-                    props: Object.assign({ fill: 'hsj' }, this.$attrs, {
+                    props: Object.assign({}, this.$attrs, {
                         img: `${isLocalIconResult[2]}`,
-                        mask: isLocalIconResult[3],
+                        mask: decodeURI(isLocalIconResult[3]),
                     }),
                     attrs: {
                         'vusion-node-tag': this.$attrs['vusion-node-tag'],

@@ -5,6 +5,7 @@ const path = require('path');
 const LIBRARY_INFO = {
     ...getAllSubdirectories('./packages/cw'),
     ...getAllSubdirectories('./packages/lcap'),
+    ...getAllSubdirectories('./packages/cust'),
 };
 
 const isPackageExist = async (libraryName) => {
