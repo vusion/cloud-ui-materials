@@ -14,3 +14,4 @@
   <u-button flag="large-file-uploader-button" color="primary" icon="upload">上传</u-button>
 </large-file-split-uploader>
 ```
+
