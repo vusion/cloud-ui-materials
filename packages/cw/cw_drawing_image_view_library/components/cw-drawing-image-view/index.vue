@@ -6,7 +6,7 @@
       <el-button @click="handleToImg" type="primary" style="width:84px">生成图片</el-button>
     </div>
     <div class="drawing2d-body">
-        <div class="drawing2d-aside">
+        <div class="drawing2d-aside" v-if="!readOnly">
           <div>
              <h1>基础图形</h1>
              <div class="drawing2d-aside-room">
@@ -111,7 +111,7 @@
         <div class="drawing2d-canvas-body">
           <canvas id="canvas"></canvas>
         </div>
-        <div class="drawing2d-right">
+        <div class="drawing2d-right"  v-if="!readOnly">
           <div class="drawing2d-right-title">
             {{typeMap[selectedObj.type]||"画布"}}
           </div>
@@ -128,7 +128,9 @@
                     {{ bgImg ? '重新选择' : '选择图片'}} 
                       <input accept="image/*,application/pdf" @change="handleUploadImg" class="drawing2d-upload" palceholder="请输入" type="file" ></input>
                   </el-button>
+                 
                 </div>
+                  <el-button @click="handleRotateBg">旋转背景</el-button>
               </div>
             </div>
 
@@ -204,6 +206,9 @@ import Input  from 'element-ui/lib/input'
 import 'element-ui/lib/theme-chalk/color-picker.css'
 import 'element-ui/lib/theme-chalk/button.css'
 import 'element-ui/lib/theme-chalk/input.css'
+const PDFJS = require("pdfjs-dist/build/pdf");
+PDFJS.GlobalWorkerOptions.workerSrc = require("pdfjs-dist/build/pdf.worker.entry");
+
 Vue.prototype.$ELEMENT = { size: 'small' }
 
 Vue.use(ColorPicker)
@@ -224,6 +229,10 @@ export default {
       mode:{
         type:String,
         default:"prod"
+      },
+      readOnly:{
+        type:Boolean,
+        default:false
       }
     },
     data(){
@@ -238,7 +247,7 @@ export default {
       }
     },
     async created(){
-        await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js')
+        // await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.8.162/pdf.min.js')
     },
      mounted(){
       this.init();
@@ -286,10 +295,15 @@ export default {
         }else{
            value = this.value? JSON.parse(this.value):{}
         }
-          canvas.loadFromJSON(value,()=>{
-            canvas.renderAll()
-          })
-       
+        canvas.loadFromJSON(value,()=>{
+          canvas.renderAll()
+        })
+         if(this.readOnly) {
+          canvas.forEachObject(function (obj) {
+            obj.set('selectable', false);
+          });
+          canvas.renderAll();
+         }
       },
          getNewId(){
           return Math.random().toString(36).substr(2)
@@ -332,7 +346,8 @@ export default {
             // selectionColor: '#4CAF5040',
             // freeDrawingBrush: new fabric.PencilBrush({ decimate: 8 }),
           });
-          const bd  =  document.querySelector(".drawing2d-canvas-body")
+          // canvas.interactive = false;
+          const bd = document.querySelector(".drawing2d-canvas-body")
           canvas.allowTouchScrolling = true
           canvas.setWidth( bd.clientWidth -32)
           canvas.setHeight( bd.clientHeight -32)
@@ -342,7 +357,7 @@ export default {
             var delta = opt.e.deltaY;
             var pointer = canvas.getPointer(opt.e);
             var zoom = canvas.getZoom();
-            zoom = zoom + delta/2000;
+            zoom = zoom + delta / 2000;
             if (zoom > 4) zoom = 4;
             if (zoom < 0.1) zoom = 0.1;
             canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
@@ -354,6 +369,8 @@ export default {
           canvas.on('selection:created', (e) => {
               canvas.getActiveObject().cornerSize = 6
               this.selectedList =  e.selected
+              console.log(this.selectedList);
+              this.$emit("onObjectSelect",this.selectedList)
           })
           canvas.on('selection:updated', (e) => {
             if(e.selected.length===1&& e.selected[0].group){
@@ -362,6 +379,8 @@ export default {
             }else{
               this.selectedList =  e.selected
             } 
+            console.log(this.selectedList);
+             this.$emit("onObjectSelect",this.selectedList)
           })
             canvas.on('selection:cleared', (e) => {
               console.log(e);
@@ -399,7 +418,6 @@ export default {
           /* 拖拽事件 */
           var that = this
           canvas.on('drop',function(opt){
-          
             let offset = {
               left: canvas.getSelectionElement().getBoundingClientRect().left,
               top: canvas.getSelectionElement().getBoundingClientRect().top
@@ -726,6 +744,7 @@ export default {
       handleGroup(){
         if(canvas.getActiveObject().type === "activeSelection"){
          const a = canvas.getActiveObject().toGroup()
+         a._id = this.getNewId()
          a.cornerSize = 6
          this.selectedList = [a]
         }
@@ -745,7 +764,7 @@ export default {
         console.log(a);
         let base64Data = null
         if( a.type == "application/pdf") {
-          const pdf = await pdfjsLib.getDocument(URL.createObjectURL(a)).promise
+          const pdf = await PDFJS.getDocument(URL.createObjectURL(a)).promise
           const page = await pdf.getPage(1)
           const viewport = page.getViewport({ scale: 1 })
           const canvas = document.createElement('canvas')
@@ -758,6 +777,7 @@ export default {
           }
           await page.render(renderContext).promise
           base64Data =  canvas.toDataURL("image/png",1)
+          this.bgImg = base64Data
           // fabric.Image.fromURL(base64Data,(img)=>{
           //   img.scaleToWidth(canvas.width);
           //   img.scaleToHeight(canvas.height);
@@ -788,20 +808,57 @@ export default {
           })
         })
       },
-     async getImgToBase64(url){
+      async handleRotateBg(){
+      if(!this.bgImg){
+        return
+      }
+        this.bgImg =  await this.getImgToBase64(this.bgImg,90)
+
+       const  base64Data = this.bgImg
+        fabric.Image.fromURL(base64Data,(img)=>{
+          img.scaleToWidth(canvas.width);
+          img.scaleToHeight(canvas.height);
+          canvas.setBackgroundImage(img,canvas.renderAll.bind(canvas),{
+            opacity: 0.5,
+            originX: 'center',
+            originY: 'center',
+            left: canvas.width/2,
+            top: canvas.height/2,
+            // scaleX: canvas.width / img.width,
+            // scaleY: canvas.width / img.width,
+          })
+        })
+      },
+      async getImgToBase64(url,rotate=0){
        return new Promise((resolve,reject)=>{
-          const _img = new Image();
-          _img.src = url
-          _img.onload = function () {
-            const canvas = document.createElement('canvas')
-            canvas.width = _img.width;
-            canvas.height = _img.height;
-            var context = canvas.getContext('2d');
-            context.drawImage(_img, 0, 0, canvas.width, canvas.height); 
+          const img = new Image();
+          img.src = url
+          img.onload = function () {
+           let canvas = document.createElement('canvas')
+            let context = canvas.getContext('2d')
+            if (rotate > 45 && rotate <= 135) { // 90 宽高颠倒
+              canvas.width = img.height
+              canvas.height = img.width
+            } else if (rotate > 225 && rotate <= 315) { // 270 宽高颠倒
+              canvas.width = img.height
+              canvas.height = img.width
+            } else {
+              canvas.width = img.width
+              canvas.height = img.height
+            }
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            context.translate(canvas.width / 2, canvas.height / 2)
+            context.rotate(rotate * Math.PI / 180)
+            context.translate(-canvas.width / 2, -canvas.height / 2)
+            context.drawImage(img, canvas.width / 2 - img.width / 2, canvas.height / 2 - img.height / 2, img.width, img.height)
+            context.translate(canvas.width / 2, canvas.height / 2)
+            context.rotate(-rotate * Math.PI / 180)
+            context.translate(-canvas.width / 2, -canvas.height / 2)
+            context.restore()
             var base64Data = canvas.toDataURL("image/png",1)
             resolve(base64Data)
           }
-          _img.onerror = function () {
+          img.onerror = function () {
               reject(new Error('Could not load image at ' + url));
           }
         })
@@ -834,7 +891,7 @@ export default {
       },
       handleBindData(){
         this.$emit("onBindData",this.selectedObj)
-          console.log(this.selectedObj);
+        console.log(this.selectedObj._id);
           // this.handleSetColor({
           //     textColor:"red",
           //     bgColor:"blue"
@@ -844,16 +901,14 @@ export default {
         canvas.getActiveObjects().forEach(item=>{
           canvas.bringToFront(item)
         })
-        console.log(this.selectedObj);
+        // console.log(this.selectedObj);
       },
       handleTextChange(e){
         this.selectedObj.text = e
         canvas.renderAll()
       },
       handleTextColorChange(e){
-        console.log(e,12);
         this.selectedObj.set("fill",e)
-        console.log(this.selectedObj);
         canvas.renderAll()
       },
       handleBorderColorChange(e){
@@ -861,7 +916,6 @@ export default {
         canvas.renderAll()
       },
       handleRectBgColorChange(e){
-        console.log(e)
         this.selectedObj.set("fill",e)
         canvas.renderAll()
       },

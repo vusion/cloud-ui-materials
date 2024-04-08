@@ -12,6 +12,9 @@
       type: Array
       title: 自定义小部件
       description: 自定义小部件数组格式,{img:"",type:3,title:""}
+    - name: readOnly
+      type: Boolean
+      title: 只读
   events:
     - name: onSave
       title: 保存后
@@ -20,6 +23,10 @@
     - name: onBindData
       title: 绑定数据
       description: 绑定数据
+      params: []
+    - name: onObjectSelect
+      title: 选中对象
+      description: 选中对象返回数据列表
       params: []
   methods:
     - name: handleToImg
