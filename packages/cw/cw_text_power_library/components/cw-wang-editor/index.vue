@@ -36,6 +36,18 @@ import Vue from 'vue';
 import xss from 'xss';
 import { imageTypes, videoTypes } from './constant';
 import { processHTML } from './processHTML.js';
+import { parser } from './slateToDocx';
+import { saveAs } from 'file-saver';
+import {
+    Packer,
+    Paragraph,
+    TextRun,
+    Document,
+    LevelFormat,
+    convertInchesToTwip,
+    AlignmentType,
+} from 'docx';
+import JSZip from 'jszip';
 const myxss = new xss.FilterXSS({ whiteList: whiteListOption });
 Vue.use(Viewer);
 
@@ -205,6 +217,75 @@ export default {
         editor.destroy();
     },
     methods: {
+        async exportToBlob(result = {}) {
+            const children = this.editor.children;
+            const tmp = children.map((n) => parser(n, this.editor));
+            const doc = new Document({
+                sections: [
+                    {
+                        properties: {},
+                        children: tmp,
+                    },
+                ],
+                // todo: If you want custom, see https://docx.js.org/#/usage/numbering?id=configuration
+                // numbering: {
+                //     config: [
+                //         {
+                //             reference: 'weditor-order-numbering',
+                //             levels: Array.from({ length: 9 }, (_, i) => ({
+                //                 level: i,
+                //                 format: LevelFormat.DECIMAL,
+                //                 text: `%${i + 1}.`,
+                //                 alignment: AlignmentType.NUM_TAB,
+                //                 style: {
+                //                     paragraph: {
+                //                         indent: {
+                //                             start: !i ? 0 : `${i * 20}pt`,
+                //                         },
+                //                     },
+                //                 },
+                //             })),
+                //         },
+                //         {
+                //             reference: 'weditor-unorder-bullet',
+                //             levels: Array.from({ length: 9 }, (_, i) => ({
+                //                 level: i,
+                //                 format: LevelFormat.BULLET,
+                //                 // text: `%${i + 1}.`,
+                //                 alignment: AlignmentType.NUM_TAB,
+                //                 style: {
+                //                     paragraph: {
+                //                         indent: {
+                //                             start: !i ? 0 : `${i * 20}pt`,
+                //                         },
+                //                     },
+                //                 },
+                //             })),
+                //         },
+                //     ],
+                // },
+            });
+            const blob = await Packer.toBlob(doc);
+            result.value = blob;
+            return blob;
+        },
+        async exportToDocx(filename) {
+            const blob = await this.exportToBlob();
+            await saveAs(blob, filename || 'example.docx');
+        },
+        async exportToDocxXml(result = {}) {
+            const blob = await this.exportToBlob();
+            const zip = await JSZip.loadAsync(blob);
+            const str = await zip.file('word/document.xml').async('string');
+            let domparser = new DOMParser();
+            const xml = domparser.parseFromString(str, 'text/xml');
+            const serializer = new XMLSerializer();
+            const xmlstr = Array.from(xml.children[0].children[0].children)
+                .map(serializer.serializeToString.bind(serializer))
+                .join('');
+            result.value = xmlstr;
+            return xmlstr;
+        },
         async customUplodeForPasteImage(dataURL) {
             // return dataURL;
             const authorization = this.getCookie('authorization');
@@ -242,13 +323,22 @@ export default {
             return url;
         },
         customPaste(editor, event) {
+            // return true;
+            const fragment = event.clipboardData.getData(
+                'application/x-slate-fragment'
+            );
+            if (fragment) return true;
             const html = event.clipboardData.getData('text/html'); // 获取粘贴的 html
             if (html) {
+                // editor.dangerouslyInsertHtml(html);
+                // Promise.resolve().then(() => {
+                //     editor.dangerouslyInsertHtml(html);
+                // });
                 processHTML(html, async (x) => {
                     return this.customUplodeForPasteImage(x);
                 }).then((domBody) => {
                     const str = new XMLSerializer().serializeToString(domBody);
-                    editor.dangerouslyInsertHtml(str);
+                    editor.setHtml(str);
                 });
                 event.preventDefault();
                 return false;
