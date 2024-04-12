@@ -1,0 +1,14 @@
+- name: cust-community-transition
+  title: 社区transition容器
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+      - name: name
+        type: string
+        default: name
+        description: name
+  slots:
+      - concept: Slot
+        name: default
+        description: 内容
