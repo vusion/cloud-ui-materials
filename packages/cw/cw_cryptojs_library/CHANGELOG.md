@@ -1,3 +1,11 @@
+## 1.0.4
+
+Associated Task: [#259](https://ddmkhcgpt.netease-official.lcap.163yun.com/dashboard/addWorkOrder?workOrderId=259)
+
+### ✨Features
+
+- [ed6baf6](https://github.com/vusion/cloud-ui-materials/commit/ed6baf68263cbdc30686ddc26c9330d8b1804cec) Thanks [ncqwer](https://github.com/ncqwer) ! - 新增摘要算法md52hex
+
 ## 1.0.3
 
 Associated Task: [#282086](https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=2820863925175808)
