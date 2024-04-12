@@ -113,11 +113,26 @@ export default {
         this.initAMap();
     },
 
+    destroyed() {
+        if (this.scatterLayerStore) {
+            this.scatterLayerStore.destroy();
+            this.scatterLayerStore = null;
+        }
+        if (this.geoDataSource) {
+            this.geoDataSource.destroy();
+            this.geoDataSource = null;
+        }
+        if (this.mapInstance) {
+            this.mapInstance.clearMap();
+            this.mapInstance.destroy();
+            this.mapInstance = null;
+        }
+    },
+
     watch: {
         'currentDataSource.data'() {
-            if (!window.Loca) return;
+            if (!window.Loca || !this.scatterLayerStore) return;
             this.clearSelectedItem();
-            // this.scatterLayerStore.init(this.currentDataSource.data);
             this.updateGeoDataSource(this.currentDataSource.data);
             this.scatterLayerStore.updateGeo(this.geoDataSource);
             this.$nextTick(() => {
@@ -125,7 +140,8 @@ export default {
             });
         },
         center() {
-            if (this.mapInstance) this.mapInstance.setCenter(this.center);
+            if (this.mapInstance && this.center.length === 2)
+                this.mapInstance.setCenter(this.center);
         },
     },
 
@@ -133,13 +149,21 @@ export default {
         initAMap() {
             getAMapInstance().then(
                 async () => {
-                    const map = new AMap.Map(this.$refs.amap, {
-                        zoom: 16.82,
-                        center: this.center,
-                        pitch: 60,
-                        rotation: 205,
-                        viewMode: '3D',
-                    });
+                    const map = new AMap.Map(
+                        this.$refs.amap,
+                        Object.assign(
+                            {
+                                zoom: 16.82,
+                                pitch: 60,
+                                rotation: 205,
+                                viewMode: '3D',
+                            },
+                            Array.isArray(this.center) &&
+                                this.center.length === 2 && {
+                                    center: this.center,
+                                }
+                        )
+                    );
 
                     map.addControl(
                         new AMap.ControlBar({
@@ -186,33 +210,8 @@ export default {
                     loca.animate.start();
 
                     if (this.currentDataSource.data) {
-                        // this.scatterLayerStore.init(this.currentDataSource.data);
                         this.updateGeoDataSource(this.currentDataSource.data);
                         this.scatterLayerStore.updateGeo(this.geoDataSource);
-                        // triangleZMarker.setSource(this.geoDataSource);
-                        // triangleZMarker.setStyle({
-                        //     content: (i, feat) => {
-                        //         return (
-                        //             '<div style="width: 120px; height: 120px; background: url(https://a.amap.com/Loca/static/loca-v2/demos/images/triangle_' +
-                        //             feat.properties.type +
-                        //             '.png);"></div>'
-                        //         );
-                        //     },
-                        //     unit: 'meter',
-                        //     rotation: 0,
-                        //     alwaysFront: true,
-                        //     size: [60, 60],
-                        //     altitude: 15,
-                        // });
-                        // triangleZMarker.addAnimate({
-                        //     key: 'altitude',
-                        //     value: [0, 1],
-                        //     random: true,
-                        //     transform: 1000,
-                        //     delay: 2000,
-                        //     yoyo: true,
-                        //     repeat: 999999,
-                        // });
                     }
                 },
                 (e) => {

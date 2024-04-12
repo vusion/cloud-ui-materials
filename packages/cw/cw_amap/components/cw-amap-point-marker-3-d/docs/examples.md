@@ -4,7 +4,12 @@
 <template>
     <div>
         <u-button @click="updatePosition">click</u-button>
-        <cw-amap-point-marker-3-d :dataSource="realPoints">
+        <cw-amap-point-marker-3-d
+            :dataSource="realPoints"
+            :center="center"
+            :value.sync="id"
+            idField="name"
+        >
             <template #item="current">{{ current.item.name }}</template>
         </cw-amap-point-marker-3-d>
     </div>
@@ -145,6 +150,7 @@ export default {
             id: null,
             realPoints: tmp.slice(0),
             totals: tmp,
+            center: [],
         };
     },
     watch: {
