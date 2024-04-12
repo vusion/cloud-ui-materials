@@ -7,6 +7,7 @@ import encryptDataWithSalt from './encryptDataWithSalt'
 import decryptDataWithSalt from './decryptDataWithSalt'
 import base64Withsjcl from './base64Withsjcl'
 import decryptByDes from './decryptByDes'
+import md52Hex from './md52Hex'
 // LOGIC IMPORTS
 UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library = Vue.prototype.$library || {}
@@ -17,6 +18,7 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].decryptDataWithSalt=decryptDataWithSalt
     Vue.prototype.$library[`${$libraryName}`].base64Withsjcl=base64Withsjcl
     Vue.prototype.$library[`${$libraryName}`].decryptByDes=decryptByDes
+    Vue.prototype.$library[`${$libraryName}`].md52Hex=md52Hex
     // LOGIC USE
     window.__$libraryEncryptSha256 = encryptSha256
 }

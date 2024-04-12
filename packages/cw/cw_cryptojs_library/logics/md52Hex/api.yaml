@@ -1,0 +1,5 @@
+- name: md52Hex
+  description: md52hex
+  type: both
+  belong: logic
+  labels: [Runtime]
