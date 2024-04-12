@@ -1,5 +1,6 @@
 import get from 'lodash.get';
 import { computePosition, offset, shift, flip, arrow } from '@floating-ui/dom';
+import debounce from 'lodash.debounce';
 
 export default ({ listenMove = true, listenZoom = true } = {}) => ({
     props: {
@@ -19,6 +20,16 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
             type: [String, Number],
             default: () => null,
         },
+        placement: {
+            type: String,
+            default: 'top',
+            validator: (value) =>
+                /^(top|bottom|left|right)(-start|-end)?$/.test(value),
+        },
+        debounceTime: {
+            type: Number,
+            default: () => 10,
+        },
     },
     watch: {
         value() {
@@ -36,26 +47,32 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
     created() {
         this.$on('maploaded', ({ AMap, mapInstance }) => {
             this.infoWindowMarker = new AMap.Marker({
-                position: this.center,
+                position: this.mapInstance.getCenter(),
                 content: `<div style="width: 2px; height: 2px; background:transparent"></div>`,
                 map: this.mapInstance,
                 offset: [-1, -1],
             });
+            const debounceFn = debounce(
+                this.updateInfoWindowPos.bind(this),
+                this.debounceTime === undefined ? 10 : this.debounceTime
+            );
+            this.updateInfoWindowPosDebounce = debounceFn;
             this.infoWindowMarker.on('moveend', () => {
-                window.requestAnimationFrame(() => {
-                    this.updateInfoWindowPos();
-                });
+                // this.updateInfoWindowPos();
+                debounceFn();
+                // window.requestAnimationFrame(() => {
+                // });
             });
             mapInstance.on('mapmove', () => {
-                if (listenMove) this.updateInfoWindowPos();
+                if (listenMove) debounceFn();
                 else this.clearSelectedItem();
             });
             mapInstance.on('zoomchange', () => {
-                if (listenZoom) this.updateInfoWindowPos();
+                if (listenZoom) debounceFn();
                 else this.clearSelectedItem();
             });
             mapInstance.on('rotatechange', () => {
-                if (listenZoom) this.updateInfoWindowPos();
+                if (listenZoom) debounceFn();
                 else this.clearSelectedItem();
             });
             mapInstance.on('pitchchange', () => {
@@ -72,9 +89,6 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
     },
     methods: {
         watchValue() {
-            console.log(
-                '🚀 ~ file: infowindow.js:68 ~ watchValue ~ watchValue:'
-            );
             if (
                 this.selectedPoint &&
                 get(this.selectedPoint, this.idField) === this.value
@@ -118,8 +132,12 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
                 this.mapInstance.setCenter(position);
             }
         },
-        updateInfoWindowPos() {
-            if (!this.infoWindowMarker || !this.infoWindowMarker.dom) {
+        updateInfoWindowPos(needRetry = true) {
+            // window.requestIdleCallback(() => {
+            if (
+                !this.infoWindowMarker ||
+                (!this.infoWindowMarker.dom && !this.value)
+            ) {
                 return;
             }
 
@@ -128,18 +146,31 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
             const left = parseFloat(
                 style.getPropertyValue('left').slice(0, -2)
             );
+            const mapOffsetWidth = this.$el.offsetWidth;
+            const mapOffsetHeight = this.$el.offsetHeight;
             const display = style.getPropertyValue('display');
-            if (top <= 0 || left <= 0 || display === 'none') {
-                // this.clearSelectedItem();
+            if (
+                top <= 0 ||
+                left <= 0 ||
+                display === 'none' ||
+                top >= mapOffsetHeight ||
+                left >= mapOffsetWidth
+            ) {
                 this.hiddenInfoWindow = true;
+                if (this.updateInfoWindowPosDebounce && needRetry) {
+                    setTimeout(() => {
+                        this.updateInfoWindowPosDebounce(false);
+                    }, 1000);
+                }
                 return;
             }
             this.hiddenInfoWindow = false;
 
             if (!this.$refs.infoWindow || !this.$refs.infoWindowArrow) return;
             computePosition(this.infoWindowMarker.dom, this.$refs.infoWindow, {
-                placement: 'top',
+                placement: this.placement || 'top',
                 middleware: [
+                    //todo: 基于缩放等级，动态调整offset
                     offset(60),
                     shift(),
                     flip(),
@@ -158,6 +189,7 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
                 // });
                 // arrowDiv.setAttribute('placement', placement);
             });
+            // });
         },
 
         clearSelectedItem() {

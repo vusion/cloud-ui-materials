@@ -2,7 +2,7 @@
   "name": "cw_amap",
   "title": "高德地图组件",
   "description": "",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -52,6 +52,7 @@
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@floating-ui/dom": "^1.5.4",
+    "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.2"
   }

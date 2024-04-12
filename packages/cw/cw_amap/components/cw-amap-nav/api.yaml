@@ -1,4 +1,4 @@
-- name: cw_amap_nav
+- name: cw-amap-nav
   title: 地图导航
   type: both
   belong: component

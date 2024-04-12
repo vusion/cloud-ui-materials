@@ -75,6 +75,11 @@
         title: 纹理属性
         type: object
         description: 纹理属性
+      - name: debounceTime
+        title: 点信息插槽更新时间
+        type: number
+        default: 10
+        description: 点信息插槽
       - name: value
         title: 值
         type: string
@@ -82,6 +87,36 @@
         model: true
         description: 选中点的id
         group: 数据属性
+      - name: placement
+        title: 弹出方向
+        type: string
+        options:
+            - value: top
+              name: 上
+            - value: bottom
+              name: 下
+            - value: left
+              name: 左
+            - value: right
+              name: 右
+            - value: top-start
+              name: 上左
+            - value: top-end
+              name: 上右
+            - value: bottom-start
+              name: 下左
+            - value: bottom-end
+              name: 下右
+            - value: left-start
+              name: 左上
+            - value: left-end
+              name: 左下
+            - value: right-start
+              name: 右上
+            - value: right-end
+              name: 右下
+        default: bottom
+        description: 弹出方向。
 
   slots:
       - concept: Slot
