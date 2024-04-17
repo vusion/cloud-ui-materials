@@ -1,18 +1,19 @@
 <template>
-  <!-- <div class="test"></div> -->
-  <div
-    class="image-container"
-    @click="$emit('click')"
-    @mouseenter="$emit('mouseenter')"
-    @mouseout="$emit('mouseout')"
-  >
-    <img
-      v-if="normalSrc"
-      class="small-image responsive-lazy-load"
-      :style="imageStyle"
-      :data-src="src"
-      :alt="alt"
-    />
+  <div>
+    <div
+      class="image-container"
+      @click="$emit('click')"
+      @mouseenter="$emit('mouseenter')"
+      @mouseout="$emit('mouseout')"
+    >
+      <img
+        v-if="normalSrc"
+        class="small-image responsive-lazy-load"
+        :style="imageStyle"
+        :data-src="src"
+        :alt="alt"
+      />
+    </div>
   </div>
 </template>
 
@@ -63,7 +64,7 @@ export default {
     },
     imageStyle() {
       return {
-        "object-fit": this.fit,
+        // "object-fit": this.fit,
         "object-position": `${this.verticalCenter} ${this.horizontalCenter}`,
       };
     },
