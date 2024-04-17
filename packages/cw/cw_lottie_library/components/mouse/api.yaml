@@ -1,0 +1,26 @@
+- name: mouse
+  title: 鼠标特效
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: color1
+      type: string
+      default: "#9884f7"
+      description: 色团渐变左上角背景色
+    - name: color2
+      type: string
+      default: "8cd9ff"
+      description: 色团渐变右下角背景色
+    - name: filter
+      type: number
+      default: 100
+      description: 色团模糊度
+    - name: transition
+      type: number
+      default: 5
+      description: 色团跟随移动速度
+  slots:
+    - concept: Slot
+      name: default
+      description: 自定义选项的结构和样式
