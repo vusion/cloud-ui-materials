@@ -1,0 +1,42 @@
+- name: cust-row-grouping-grid
+  title: 汇总表格
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      designer-value: "[{}, {}, {}]"
+      description: 展示数据的输入源，可设置为数据集对象或者返回数据集的逻辑
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 表格展示的数据。数据源可以绑定变量或者逻辑。变量或逻辑的返回值可以是数组，也可以是对象。对象格式为{list:[], total:10}
+      tooltipLink: ""
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 数据源返回的数据结构的类型，自动识别类型进行展示说明
+      group: 数据属性
+      compType: dataTypeSelect
+      brifeDoc: ''
+      docDescription: 该属性为只读状态，当数据源动态绑定集合List<T>后，会自动识别T的类型并进行展示
+      tooltipLink: ''
+    - name: options
+      title: 表格配置
+      type: Array<Item>
+      display: property-select
+      default: type
+      description: 拓展组件的配置项
+      group: 数据属性
+      brifeDoc: ''
+      docDescription: 
+      tooltipLink: ''
+    - name: height
+      title: 表格高度
+      type: String
+      description: 给表格指定高度，开启虚拟滚动(大数据量下建议开启)
+  slots:
+    - name: title
+      title: 标题插槽
+      description: 插入表格标题

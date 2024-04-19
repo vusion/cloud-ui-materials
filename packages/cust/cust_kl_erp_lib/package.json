@@ -1,0 +1,67 @@
+{
+  "name": "cust_kl_erp_lib",
+  "title": "昆仑erp依赖库",
+  "description": "",
+  "version": "0.1.0",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "module": false,
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme",
+    "usage": "lcap usage",
+    "deploy": "lcap deploy dist-theme",
+    "prepublishOnly": "lcap publish",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "ui": "cloud-ui.vusion"
+  },
+  "lcapVersion": "0.3.0",
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
+  },
+  "peerDependencies": {
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@faker-js/faker": "^8.4.1",
+    "@iconify/vue2": "^2.1.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "flatpickr": "^4.6.13",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "loadash": "^1.0.0",
+    "moment": "^2.30.1",
+    "tabulator-tables": "^6.2.0",
+    "xlsx": "^0.18.5"
+  }
+}
