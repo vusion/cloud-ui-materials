@@ -54,8 +54,6 @@ export const downLoadExcelStyle = (list, options, setFileContents) => {
           }
         });
       }
-
-      debugger
       rows.push(rowData);
     });
 
