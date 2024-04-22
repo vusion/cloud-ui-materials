@@ -2,7 +2,7 @@
   "name": "cw_swiper_library",
   "title": "轮播图依赖库",
   "description": "",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -23,7 +23,7 @@
     "prepublishOnly": "npm run build && lcap usage",
     "release": "lcap publish"
   },
-  "vuePlugins": {}, 
+  "vuePlugins": {},
   "babel": {},
   "vusion": {
     "ui": "cloud-ui.vusion"
@@ -33,6 +33,8 @@
     "@vue/cli-service": "^4.4.1",
     "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
+    "less": "^3.13.1",
+    "less-loader": "^7.3.0",
     "url-loader": "^4.1.1",
     "vue": "^2.6.10",
     "vue-cli-plugin-vusion": "0.14.2-beta",
