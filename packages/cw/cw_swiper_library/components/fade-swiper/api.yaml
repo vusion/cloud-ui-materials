@@ -63,13 +63,17 @@
           title: 步幅移出
       description: 选择轮播图动画效果
   events:
-    - name: onSwiperItemClick
-      description: 点击轮播图item	
-      title: 点击轮播图item	
+    - name: onSwiperChange
+      description: 轮播图变化时
+      title: 轮播图变化	
       params:
-        - name: item
-          type: string
-          description: 改变的值
+        - name: index
+          type: number
+          description: 当前激活的index
+  methods:
+    - name: slideNext
+      description: 切换至下一个
+      params: []
   slots:
     - concept: Slot
       name: item

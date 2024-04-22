@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="zoom-container"
-    v-if="dataSource && dataSource.length"
-    @mouseover="onSwiperWrapperMouseEnter"
-    @mouseleave="onSwiperWrapperMouseLeave"
-  >
+  <div class="fade-container" v-if="dataSource && dataSource.length">
     <swiper
       ref="swiper"
       :options="swiperOption"
@@ -16,19 +11,49 @@
         :key="index"
         @click="onSwiperItemClick(item)"
       >
-        <img
+        <div s-empty="true" vusion-slot-name="item">
+          <slot name="item" v-bind="item" :item="item"></slot>
+        </div>
+        <!-- <img
           alt="图片获取失败"
           :class="item.link ? 'img' : 'linkless-img'"
           :src="item.url"
           :width="imgWidth"
           :height="imgHeight"
-        />
+        /> -->
       </swiper-slide>
     </swiper>
+    <div class="swiper-pagination">
+      <div
+        v-for="(item, index) in dataSource"
+        :key="`pagination-${index}`"
+        @click="paginationClick(index)"
+      >
+        <svg
+          width="120"
+          height="2"
+          xmlns="http://www.w3.org/2000/svg"
+          style="margin-right: 8px"
+        >
+          <!-- 背景条 -->
+          <rect
+            v-if="activeIndex === index"
+            x="0"
+            y="0"
+            width="120"
+            height="2"
+            fill="#002BEC"
+          />
+          <rect x="0" y="0" width="120" height="2" fill="#565B7333" />
+        </svg>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+
+import "swiper/swiper-bundle.min.css";
 
 export default {
   name: "fade-swiper",
@@ -44,28 +69,21 @@ export default {
     dataSource: {
       type: Array,
       default: () => {
-        return [{url: 'https://img0.baidu.com/it/u=509115914,1050232329&fm=253&fmt=auto&app=138&f=JPEG?w=753&h=500'}, {
-          url: "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",}]
-        // new Array(7).fill({
-        //   url: "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",
-        //   link: "https://news.163.com/",
-        // });
+        return new Array(7).fill({
+          url: "https://projectmanage.netease-official.lcap.163yun.com/upload/app/POPO20231226140339_20231226140352462.png",
+          link: "https://news.163.com/",
+        });
       },
     },
-
     dataSchema: { type: String, default: "entity" },
-    duration: {
-      type: Number,
-      default: 300,
-    },
-    imgWidth: {
-      type: Number,
-      default: 240,
-    },
-    imgHeight: {
-      type: Number,
-      default: 196,
-    },
+    // imgWidth: {
+    //   type: Number,
+    //   default: 240,
+    // },
+    // imgHeight: {
+    //   type: Number,
+    //   default: 196,
+    // },
     height: {
       type: Number,
       default: 300,
@@ -77,75 +95,64 @@ export default {
   },
   data() {
     return {
-      swiperOption: {
-        notNextTick: true,
-        spaceBetween: this.spaceBetween,
-        autoplay: {
-          delay: this.delay,
-          stopOnLastSlide: false,
-        },
-        height: this.height,
-        loop: true,
-        effect: "fade",
-        pagination: {
-          clickable: true,
-        },
-      },
+      activeIndex: 0,
     };
   },
+  mounted() {},
   computed: {
+    swiperOption() {
+      return {
+        notNextTick: true,
+        spaceBetween: this.spaceBetween,
+        height: this.height,
+        effect: "fade",
+        pagination: false,
+      };
+    },
     swiper() {
       return this.$refs.swiper.swiperInstance;
     },
-    designModeUpdates() {
-      return {
-        effect: this.effect,
-        duration: this.duration,
-        height: this.height,
-        delay: this.delay,
-        spaceBetween: this.spaceBetween,
-        prevStyle: this.prevStyle,
-        nextStyle: this.nextStyle,
-      };
-    },
-  },
-  mounted() {},
-  watch: {
-    designModeUpdates: {
-      handler() {
-        if (this.$env && this.$env.VUE_APP_DESIGNER) {
-          this.$forceUpdate();
-        }
-      },
-      deep: true,
-    },
   },
   methods: {
-    onSwiperWrapperMouseEnter() {
-      this.swiper.autoplay.stop();
-    },
-    onSwiperWrapperMouseLeave() {
-      this.swiper.autoplay.start();
-    },
     onSwiper(e) {
-      console.log("onSwiper", e);
+      // console.log("onSwiper", e);
     },
-    onSlideChange(e) {
-      console.log("e", e);
-      this.swiper.setTransition(this.duration);
-      // this.$nextTick(() => {
-      //   this.$forceUpdate();
-      // });
+    onSlideChange() {
+      this.activeIndex = this.swiper.activeIndex;
+      this.$emit("onSwiperChange", this.activeIndex);
     },
     onSwiperItemClick(item) {
-      this.$emit("onSwiperItemClick", item);
+      this.slideNext();
+    },
+    paginationClick(index) {
+      this.swiper.slideTo(index);
+    },
+    slideNext() {
+      if (!this.swiper.slideNext()) {
+        this.swiper.slideTo(0);
+      }
     },
   },
 };
 </script>
 
 <style lang="less">
-.zoom-container {
+.fade-container {
+  position: relative;
+  padding-bottom: 46px;
+  .swiper-pagination {
+    left: 50%;
+    transform: translateX(-50%);
+    height: 20px;
+    width: max-content;
+    bottom: 0;
+    & > div {
+      height: 100%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+  }
   .swiper {
     width: 100%;
     height: 100%;
