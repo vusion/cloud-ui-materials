@@ -2,7 +2,7 @@
   "name": "cw_lottie_library",
   "title": "特效组件库",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -50,5 +50,7 @@
   "template": {
     "inited": true
   },
-  "dependencies": {}
+  "dependencies": {
+    "vue-lottie": "^0.2.1"
+  }
 }

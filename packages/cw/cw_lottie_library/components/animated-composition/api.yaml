@@ -1,0 +1,11 @@
+- name: animated-composition
+  title: 动画合成
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: animationData
+      title: 动画参数
+      type: object
+      default: ''
+      description: '动画参数，一般由设计师提供'
