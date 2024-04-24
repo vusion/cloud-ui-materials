@@ -123,7 +123,7 @@ export default {
     },
     toggleWide() {
       this.groupState = true;
-      this.$nextTick(() => this.layout = this.layout === 'fitDataFill' ? 'fitColumns' : 'fitDataFill');
+      this.$nextTick(() => this.layout = this.layout === 'fitDataStretch' ? 'fitColumns' : 'fitDataStretch');
     },
   },
 }

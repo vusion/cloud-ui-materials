@@ -36,7 +36,17 @@ export const downLoadExcelStyle = (list, options, setFileContents) => {
 
     list.forEach((row, i) => {
       let rowData = [];
-      if (row.type === "group") {
+      if (row.type === 'calc') {
+        row.columns.forEach(function (col, j) {
+          const {value, component} = col
+          const field = component.getField()
+          if (value && (options.calcColumns || []).includes(field)) {
+            rowData.push(value)
+          } else {
+            rowData.push("");
+          }
+        });
+      } else if (row.type === "group") {
         const groupRow = _.get(row, 'columns.0.value', []);
         groupRow.forEach((group, j) => {
           rowData.push(group);

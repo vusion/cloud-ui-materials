@@ -64,6 +64,16 @@ class MovableHeaderModule extends Module {
       }
     });
 
+    colEl.addEventListener("mouseup", (e) => {
+      console.log('mouseup', e.which)
+      if(e.which === 1){
+        if(this.checkTimeout){
+          clearTimeout(this.checkTimeout);
+        }
+        this.endMove(e);
+      }
+    });
+
     column.modules.moveHeader = config;
   }
 
@@ -162,7 +172,7 @@ class MovableHeaderModule extends Module {
     if (e.which === 1 || this.touchMove) {
       this._unbindMouseMove();
 
-      this.hoverElement.parentNode.removeChild(this.hoverElement);
+      this.hoverElement.parentNode && this.hoverElement.parentNode.removeChild(this.hoverElement);
 
       this.table.element.classList.remove("tabulator-block-select");
 
@@ -178,7 +188,7 @@ class MovableHeaderModule extends Module {
     }
   }
   disconnectFromElement() {
-    this.connectionElements.forEach((element) => {
+    (this.connectionElements || []).forEach((element) => {
       element.classList.remove("tabulator-movingrow-receiving");
       element.removeEventListener("mouseup", element.tabulatorElementDropEvent);
       delete element.tabulatorElementDropEvent;

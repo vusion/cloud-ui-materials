@@ -96,7 +96,7 @@ export default {
       handler: function (val) {
         if (this.tabulatorInstance && this.tabulatorInstance.initialized) {
           this.tabulatorInstance.setGroupStartOpen(val);
-          this.tabulatorInstance.setGroupBy(['orderId']);
+          this.tabulatorInstance.setGroupBy(false);
           this.$nextTick(() => {
             this.tabulatorInstance.setGroupBy(this.groupBy.slice());
             this.updateCalcStyle(this.checkedCalcColumns)
@@ -141,7 +141,7 @@ export default {
       })
     },
     downloadExcel() {
-      this.tabulatorInstance.download('xlsxStyle', 'data.xlsx', { sheetName: "My Data" })
+      this.tabulatorInstance.download('xlsxStyle', 'data.xlsx', { sheetName: "My Data", calcColumns: this.checkedCalcColumns.slice() })
     },
     getPath(group) {
       let path = group.getKey();
