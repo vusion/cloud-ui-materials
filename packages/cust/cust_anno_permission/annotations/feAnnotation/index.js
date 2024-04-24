@@ -33,7 +33,6 @@ export default function (el, binding, vnode, oldVnode) {
     // api +  实体和ViewEle 的映射关系
     fetchData()
         .then(data => {
-            console.log('Data:', data);
             // data.entityAll.map(entity => {
             //     let entityName = Object.keys(entity)[0]
             //     console.log('entityName: ', entityName);
@@ -46,7 +45,6 @@ export default function (el, binding, vnode, oldVnode) {
             let annotationAllData = JSON.parse(binding.value.replace(/'/g, '"'));
             let visible = true
             annotationAllData && annotationAllData.dataRefList && annotationAllData.dataRefList.map(ref => {
-                console.log('ref: ', ref);
                 // propName
                 // "name"
                 // typeName
@@ -90,7 +88,6 @@ export default function (el, binding, vnode, oldVnode) {
             else {
                 el && (el.style.display = visible ? '' : 'none');
             }
-            console.log('前端注解 执行: ', annotationAllData, binding, vnode, oldVnode);
         })
         .catch(error => {
             console.error('Error:', error);

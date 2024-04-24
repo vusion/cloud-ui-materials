@@ -18,6 +18,20 @@
         typeNamespace: nasl.core
       setter:
         concept: SwitchSetter
+    - name: hidden
+      title: 隐藏前端权限注解
+      defaultValue:
+        concept: DefaultValue
+        expression:
+          concept: BooleanLiteral
+          value: true
+      typeAnnotation:
+        concept: TypeAnnotation
+        typeKind: primitive
+        typeName: Boolean
+        typeNamespace: nasl.core
+      setter:
+        concept: SwitchSetter
     # - name: feInput
     #   title: 需要传入的值
     #   defaultValue:
