@@ -116,8 +116,8 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.$el.style.setProperty("--duration", `${this.duration}ms`);
-      this.$el.style.setProperty("--effect", `${this.effect}`);
-      this.$el.style.setProperty("--scale", `${this.scale}`);
+      this.$el.style.setProperty("--effect", this.effect);
+      this.$el.style.setProperty("--scale", this.scale);
     });
   },
   watch: {
@@ -172,7 +172,7 @@ export default {
   }
   .swiper-slide.swiper-slide-next {
     transform: scale(1);
-    transition: var(----duration);
+    transition: var(--duration);
   }
 
   .swiper-slide {
@@ -180,7 +180,7 @@ export default {
     transform: scale(var(--scale));
     font-size: 18px;
     background: #fff;
-    transition: var(----duration);
+    transition: var(--duration);
 
     /* Center slide text vertically */
     display: flex;
