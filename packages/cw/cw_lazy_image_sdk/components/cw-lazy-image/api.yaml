@@ -1,0 +1,62 @@
+- name: cw-lazy-image
+  title: 图片组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: image
+      description: 图片
+      compType: linkInput
+    - name: fit
+      title: 填充方式
+      type: string
+      options:
+        - value: contain
+          title: 适应
+        - value: scale-down
+          title: 适应（图片小于父元素时以原尺寸展示）
+        - value: none
+          title: 原尺寸
+        - value: fill
+          title: 拉伸
+        - value: cover
+          title: 填充
+      default: contain
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 设置图片的显示方式，适应、适应（图片小于父元素时以原尺寸展示、原尺寸、拉伸、填充）
+      tooltipLink: ""
+    - name: horizontalCenter
+      title: 水平对齐方式
+      type: string
+      options:
+        - value: left
+          name: 左对齐
+        - value: center
+          name: 居中对齐
+        - value: right
+          name: 右对齐
+      default: center
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 左对齐、右对齐、居中对齐
+      tooltipLink: ""
+    - name: verticalCenter
+      title: 垂直对齐方式
+      type: string
+      options:
+        - value: top
+          name: 顶部对齐
+        - value: center
+          name: 居中对齐
+        - value: bottom
+          name: 底部对齐
+      default: center
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 顶部对齐、居中对齐、底部对齐
+      tooltipLink: ""
