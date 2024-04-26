@@ -5,7 +5,7 @@
   }">
     <div>
       <div :class="$style.tableHeader">
-        <div :class="$style.title" vusion-slot-name="default" s-empty="true">
+        <div :class="$style.title" vusion-slot-name="default" s-empty="true" v-if="$env.VUE_APP_DESIGNER">
           <slot></slot>
         </div>
         <div ref="dropZone" style="flex: 1;" :class="$style.dropZone">
@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     tableData() {
-      return lodash.get(this, 'currentDataSource.data', [])
+      return lodash.get(this, 'currentDataSource.data', []).slice()
     },
   },
   watch: {

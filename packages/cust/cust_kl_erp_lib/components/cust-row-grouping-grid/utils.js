@@ -11,6 +11,7 @@ function dateFilterFunction(headerValue, rowValue, rowData, filterParams){
    return date.isSame(value, 'day');
 }
 
+
 function getHeaderFilter(typeName) {
   switch (typeName) {
     case "Date":
@@ -53,7 +54,7 @@ const getExtraParams = (column) => {
         },
         bottomCalc: "sum",
         ...column.thousandths ? {
-          formatter: "money",
+          formatter: "thousand",
         } : {}
       };
     default:
@@ -65,12 +66,21 @@ const getExtraParams = (column) => {
 };
 
 function getMutator(column) {
-  return function(value) {
-    if ([ "Date", "DateTime"].includes(column.typeName)) {
-      return moment(value).format("YYYY-MM-DD HH:mm:ss");
-    }
-    return value;
+  if ([ "Date", "DateTime"].includes(column.typeName)) {
+    return (value) => moment(value).format("YYYY-MM-DD HH:mm:ss");
   }
+
+  if ([ "Double", "Long", "Decimal"].includes(column.typeName)) {
+    return (value, data, type, params, component) => {
+      try {
+        return  Number(value).toFixed(params.precision);
+      } catch (e) {
+        return value;
+      }
+    }
+  }
+  
+  return (value) => value;
 }
 
 export function formatColumns(columns, inDesigner) {
@@ -81,8 +91,14 @@ export function formatColumns(columns, inDesigner) {
       headerSort: false,
       tooltip: !inDesigner,
       visible: true,
-      mutator: getMutator(column),
-      ...getExtraParams(column),
+      mutatorParams: {
+        precision: column.decimalPlaces,
+        typeName: column.typeName,
+      },
+      ...inDesigner ? {} : {
+        mutator: getMutator(column),
+        ...getExtraParams(column),
+      }
     };
   });
 }

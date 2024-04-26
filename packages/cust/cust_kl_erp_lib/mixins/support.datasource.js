@@ -26,19 +26,12 @@ export default {
     },
   },
   created() {
-    this.handleData();
     if (!this.$env.VUE_APP_DESIGNER && this.options) {
       this.columns = formatColumns(this.options, this.$env.VUE_APP_DESIGNER);
     } else if (this.$env.VUE_APP_DESIGNER && this.options) {
       this.getColumnsByString(this.options);
-      this.currentDataSource.data = new Array(3).fill(1).map((item) => {
-        const map = {}
-        this.columns.forEach(item => {
-          map[item.field] = `{{ ${item.field} }}`
-        })
-        return map
-      })
     }
+    this.handleData();
     if (this.currentDataSource && this.currentDataSource.load) {
       this.load();
     }
@@ -46,6 +39,15 @@ export default {
   methods: {
     handleData() {
       this.currentDataSource = this.normalizeDataSource(this.dataSource);
+    },
+    generateMockData() {
+      return new Array(3).fill(1).map(() => {
+        const map = {};
+        this.columns.forEach((item) => {
+          map[item.field] = `{{ ${item.field} }}`;
+        });
+        return map;
+      })
     },
     getColumnsByString(val) {
       try {
@@ -67,6 +69,7 @@ export default {
 
         if (lodash.isArray(results) && results.length > 0) {
           this.columns = formatColumns(results,  this.$env.VUE_APP_DESIGNER);
+          this.dataSource = this.generateMockData();
         }
       } catch (e) {}
     },

@@ -14,6 +14,16 @@ Tabulator.extendModule('download', 'downloaders', {
   xlsxStyle: downLoadExcelStyle
 });
 
+Tabulator.extendModule("format", "formatters", {
+  thousand: function (cell, formatterParams) {
+    try {
+      return cell.getValue().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } catch (e) {
+      return cell.getValue();
+    }
+  },
+});
+
 export default {
   name: "tabulator-component",
   props: {
@@ -64,9 +74,11 @@ export default {
       }
     },
     tableData: {
-      handler() {
+      handler(val) {
         if (this.tabulatorInstance) {
-          this.tabulatorInstance.setData(this.tableData);
+          if (this.tabulatorInstance.getData().length !== val.length) {
+            this.tabulatorInstance.setData(this.tableData);
+          }
         }
       },
       deep: true
@@ -74,9 +86,6 @@ export default {
     columns: {
       handler: function (val) {
         this.updateOptions();
-        // this.tabulatorInstance.updateDefinition({
-        //   columns: val
-        // });
       },
       deep: true
     },
@@ -131,6 +140,7 @@ export default {
   },
   methods: {
     updateCalcStyle(val) {
+      console.log('updateCalcStyle', val)
       const footerElement = this.$refs.table.querySelector('.tabulator-footer');
       if (!footerElement) return;
       footerElement.style.display = val.length ? 'block' : 'none';
@@ -179,7 +189,8 @@ export default {
           if (data.length) {
             self.checkedCalcColumns.forEach(item => {
               const columnDefine = table.getColumn(item).getDefinition();
-              const sum = lodash.sum(data.map(_ => Number(_[item]))).toFixed(lodash.get(columnDefine, 'bottomCalcParams.precision', 0));
+              const sum = lodash.sum(data.map(_ => Number(lodash.get(_, item)))).toFixed(lodash.get(columnDefine, 'bottomCalcParams.precision', 0));
+              console.log('sum', sum, item, columnDefine)
               const element = rowSingleElement.querySelector(`[tabulator-field="${item}"]`);
               if (element) {
                 element.innerHTML = sum;
@@ -244,7 +255,8 @@ export default {
           groupHeader: this.getGroupHeader(),
           groupHeaderDownload: this.getGroupHeaderDownload(),
           layout: this.layout,
-          height: this.height
+          height: this.height,
+          reactiveData: false
         })
 
       this.tabulatorInstance.on('movableHeaderElementDrop', (e, element, column) => {

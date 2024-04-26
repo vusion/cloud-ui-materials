@@ -1,5 +1,5 @@
 ### 基本用法
 
 ``` html
-<cust-row-grouping-grid>汇总表格</cust-row-grouping-grid>
+<cust-row-grouping-grid><u-text>汇总表格</u-text></cust-row-grouping-grid>
 ```
