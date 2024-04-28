@@ -1,3 +1,11 @@
+## 1.0.6
+
+Associated Task: [#283651](https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=2836511638497280)
+
+### 🐛Bug Fixes
+
+- [d066847](https://github.com/vusion/cloud-ui-materials/commit/d066847b0fd6924758e443758f5ed54848f0c448) Thanks [wangxue08](https://github.com/wangxue08) ! - 去除图表边框
+
 ## 1.0.5
 
 Associated Task: [#283415](https://projectmanage.netease-official.lcap.163yun.com/dashboard/TaskDetail?id=2834156332085760)
