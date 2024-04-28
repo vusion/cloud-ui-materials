@@ -1,7 +1,6 @@
 <template>
   <div
     class="zoom-container"
-    v-if="dataSource && dataSource.length"
     @mouseover="onSwiperWrapperMouseEnter"
     @mouseleave="onSwiperWrapperMouseLeave"
   >
@@ -173,6 +172,7 @@ export default {
   .swiper-slide.swiper-slide-next {
     transform: scale(1);
     transition: var(--duration);
+    box-shadow: 0px 7.7px 38.52px 0px rgba(20, 26, 51, 0.08);
   }
 
   .swiper-slide {

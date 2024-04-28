@@ -9,3 +9,21 @@
       type: object
       default: ''
       description: '动画参数，一般由设计师提供'
+    - name: autoplay
+      title: 是否自动播放
+      type: boolean
+      default: true
+      description: '是否自动播放'
+  events:
+    - name: handleAnimationComplete
+      description: 动画播放结束
+      title: 动画播放结束	
+    - name: lottiePlay
+      description: 手动开始动画
+      title: 手动开始动画	
+    - name: lottieStop
+      description: 手动结束动画
+      title: 手动结束动画	
+    - name: lottiePause
+      description: 手动暂停动画
+      title: 手动暂停动画

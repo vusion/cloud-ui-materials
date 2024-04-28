@@ -9,21 +9,6 @@
       type: array
       default: ''
       description: '用于展示gallery的数据源，形如Array<{link: string, url: string}>'
-    - name: imgWidth
-      type: number
-      default: 240
-      description: 图片宽度
-      title: 图片宽度
-    - name: imgHeight
-      type: number
-      default: 196
-      description: 图片高度
-      title: 图片高度
-    - name: spaceBetween
-      type: number
-      default: 0
-      title: spaceBetween
-      description: 图片间距
     - name: delay
       type: number
       default: 3000
@@ -38,36 +23,12 @@
       type: number
       default: 300
       description: 高度
-    - name: scale
-      type: number
-      default: 0.8
-      description: 缩小比例
-    - name: effect
-      title: 动画效果
-      type: string
-      default: ease-in-out
-      options:
-        - value: ease
-          title: 平滑
-        - value: ease-in
-          title: 平滑进入
-        - value: ease-out
-          title: 平滑移出
-        - value: ease-in-out
-          title: 平滑进出
-        - value: linear
-          title: 线性  
-        - value: step-start
-          title: 步幅启动
-        - value: step-end
-          title: 步幅移出
-      description: 选择轮播图动画效果
   events:
     - name: onSwiperChange
       description: 轮播图变化时
       title: 轮播图变化	
       params:
-        - name: index
+        - name: $event
           type: number
           description: 当前激活的index
   methods:

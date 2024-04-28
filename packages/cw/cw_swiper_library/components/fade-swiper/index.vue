@@ -6,21 +6,16 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide
-        v-for="(item, index) in dataSource"
-        :key="index"
-        @click="onSwiperItemClick(item)"
-      >
-        <div s-empty="true" vusion-slot-name="item">
-          <slot name="item" v-bind="item" :item="item"></slot>
+      <swiper-slide v-for="(item, index) in dataSource" :key="index">
+        <div
+          s-empty="true"
+          vusion-slot-name="item"
+          :index="index"
+          :key="index"
+          @click="onSwiperItemClick(item)"
+        >
+          <slot name="item" v-bind="item" :index="index" :item="item"></slot>
         </div>
-        <!-- <img
-          alt="图片获取失败"
-          :class="item.link ? 'img' : 'linkless-img'"
-          :src="item.url"
-          :width="imgWidth"
-          :height="imgHeight"
-        /> -->
       </swiper-slide>
     </swiper>
     <div class="swiper-pagination">
@@ -58,10 +53,6 @@ import "swiper/swiper-bundle.min.css";
 export default {
   name: "fade-swiper",
   props: {
-    spaceBetween: {
-      type: Number,
-      default: 30,
-    },
     delay: {
       type: Number,
       default: 1000,
@@ -76,14 +67,6 @@ export default {
       },
     },
     dataSchema: { type: String, default: "entity" },
-    // imgWidth: {
-    //   type: Number,
-    //   default: 240,
-    // },
-    // imgHeight: {
-    //   type: Number,
-    //   default: 196,
-    // },
     height: {
       type: Number,
       default: 300,
@@ -98,12 +81,19 @@ export default {
       activeIndex: 0,
     };
   },
-  mounted() {},
+  mounted() {
+    this.$nextTick(() => {
+      this.$nextTick(() => {
+        this.$el.style.setProperty(
+          "--design-mode",
+          this.inDesigner ? "block" : "none"
+        );
+      });
+    });
+  },
   computed: {
     swiperOption() {
       return {
-        notNextTick: true,
-        spaceBetween: this.spaceBetween,
         height: this.height,
         effect: "fade",
         pagination: false,
@@ -112,6 +102,9 @@ export default {
     swiper() {
       return this.$refs.swiper.swiperInstance;
     },
+    inDesigner() {
+      return this.$env.VUE_APP_DESIGNER;
+    },
   },
   methods: {
     onSwiper(e) {
@@ -119,6 +112,7 @@ export default {
     },
     onSlideChange() {
       this.activeIndex = this.swiper.activeIndex;
+      console.log("执行了", this.activeIndex);
       this.$emit("onSwiperChange", this.activeIndex);
     },
     onSwiperItemClick(item) {
@@ -137,6 +131,9 @@ export default {
 </script>
 
 <style lang="less">
+:root {
+  --design-mode: block;
+}
 .fade-container {
   position: relative;
   padding-bottom: 46px;
@@ -153,6 +150,13 @@ export default {
       align-items: center;
     }
   }
+  .swiper-container {
+    border-radius: 14px;
+    opacity: 1;
+    background: #ffffff;
+    box-sizing: border-box;
+    box-shadow: 0px 8px 40px 0px rgba(20, 26, 51, 0.12);
+  }
   .swiper {
     width: 100%;
     height: 100%;
@@ -162,20 +166,13 @@ export default {
     text-align: center;
     font-size: 18px;
     background: #fff;
-
-    /* Center slide text vertically */
     display: flex;
     justify-content: center;
     align-items: center;
     height: fit-content !important;
+    width: fit-content !important;
   }
 
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
   div[s-empty]:empty {
     position: relative;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -191,6 +188,7 @@ export default {
     display: inline-flex;
     justify-content: center;
     cursor: pointer;
+    display: var(--design-mode);
   }
 
   div[s-empty]:empty::before {
@@ -199,6 +197,7 @@ export default {
     line-height: 12px;
     display: inline-block;
     margin-bottom: 2px;
+    display: var(--design-mode);
   }
 }
 </style>

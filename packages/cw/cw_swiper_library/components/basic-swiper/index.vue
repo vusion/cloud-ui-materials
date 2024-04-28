@@ -18,7 +18,7 @@
         @click="onSwiperItemClick(item)"
       >
         <div s-empty="true" vusion-slot-name="item">
-          <slot name="item" v-bind="item" :item="item"></slot>
+          <slot name="item" v-bind="item" ： :item="item"></slot>
         </div>
       </swiper-slide>
     </swiper>

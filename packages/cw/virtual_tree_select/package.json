@@ -13,6 +13,7 @@
     "material",
     "component"
   ],
+  "lcapVersion": "0.3.0",
   "scripts": {
     "dev": "vue-cli-service doc --port 9090",
     "build:theme": "vue-cli-service library-build --dest dist-theme",

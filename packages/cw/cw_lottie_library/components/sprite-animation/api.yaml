@@ -1,0 +1,33 @@
+- name: sprite-animation
+  title: 雪碧图动画
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: imageWidth
+      type: number
+      default: 100
+      description: 视窗宽度
+    - name: frameHeight
+      type: number
+      default: 100
+      description: 视窗高度
+    - name: imageUrl
+      type: string
+      description: 图片链接
+    - name: totalFrames
+      type: number
+      default: 30
+      description: 总帧数
+    - name: animationSpeed
+      type: number
+      default: 20
+      description: 动画速度
+  methods:
+    - name: startAnimation
+      description: 开始动画
+      params: []
+    - name: resetAnimationState
+      description: 结束动画
+      params: []
+
