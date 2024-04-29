@@ -1,5 +1,5 @@
 <template>
-  <div class="fade-container" v-if="dataSource && dataSource.length">
+  <div class="fade-container">
     <swiper
       ref="swiper"
       :options="swiperOption"
