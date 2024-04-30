@@ -42,6 +42,7 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
             infoWindowMarker: null,
             hiddenInfoWindow: false,
             viewMode: '3D',
+            scale: 1,
         };
     },
     created() {
@@ -68,6 +69,11 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
                 else this.clearSelectedItem();
             });
             mapInstance.on('zoomchange', () => {
+                    'font-size:13px; background:pink; color:#bf2c9f;',
+                    this.mapInstance.getZoom()
+                );
+                const zoomLevel = this.mapInstance.getZoom();
+                this.scale = Math.pow(2, zoomLevel - 16.82);
                 if (listenZoom) debounceFn();
                 else this.clearSelectedItem();
             });
@@ -171,7 +177,7 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
                 placement: this.placement || 'top',
                 middleware: [
                     //todo: 基于缩放等级，动态调整offset
-                    offset(60),
+                    offset(65),
                     shift(),
                     flip(),
                     // arrow({ element: this.$refs.infoWindowArrow }),
