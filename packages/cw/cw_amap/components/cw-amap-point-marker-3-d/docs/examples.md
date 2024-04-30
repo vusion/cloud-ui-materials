@@ -9,6 +9,7 @@
             :center="center"
             :value.sync="id"
             idField="name"
+            textContentField="name"
         >
             <template #item="current">{{ current.item.name }}</template>
         </cw-amap-point-marker-3-d>
@@ -150,7 +151,7 @@ export default {
             id: null,
             realPoints: tmp.slice(0),
             totals: tmp,
-            center: [],
+            center: [116.59008979797363, 39.90058428630659],
         };
     },
     watch: {

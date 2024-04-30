@@ -46,6 +46,16 @@
         brifeDoc: ''
         docDescription: 集合的元素类型中，用于标识子级字段的的属性，支持自定义变更
         tooltipLink: ''
+      - name: textContentField
+        title: 文本字段
+        type: string
+        display: property-select
+        default: textContent
+        description: 集合的元素类型中，用于标记点文本的属性。
+        group: 数据属性
+        brifeDoc: ''
+        docDescription: 集合的元素类型中，用于标识文本的的属性，支持自定义变更
+        tooltipLink: ''
       - name: center
         title: 地图中心点
         type: Array<number>

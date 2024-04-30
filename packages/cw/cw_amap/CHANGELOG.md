@@ -1,3 +1,11 @@
+## 1.0.8
+
+Associated Task: [#unknow](https://ddmkhcgpt.netease-official.lcap.163yun.com/dashboard/addWorkOrder?workOrderId=unknow)
+
+### ✨Features
+
+- [ba3ecdd](https://github.com/vusion/cloud-ui-materials/commit/ba3ecddfaf4e1791581e37068e7dfc111e178e03) Thanks [ncqwer](https://github.com/ncqwer) ! - 3d标记点支持textContent
+
 ## 1.0.7
 
 Associated Task: [#232](https://ddmkhcgpt.netease-official.lcap.163yun.com/dashboard/addWorkOrder?workOrderId=232)

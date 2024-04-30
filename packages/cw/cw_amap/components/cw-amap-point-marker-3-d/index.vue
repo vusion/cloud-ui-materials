@@ -65,8 +65,10 @@ import { createMapMarkerStore } from '../../utils/createMapMarkerStore';
 import supportDatasource from '../../mixins/support.datasource';
 import infoWindow from '../../mixins/infowindow';
 import mapPNG from '../../assets/map.png';
+import debounce from 'lodash.debounce';
 
-import { makeScatterLayerStore } from './makeZmarkerLayer';
+import { makeLayerStore } from './makeLayer';
+import get from 'lodash.get';
 
 export default {
     name: 'cw-amap-point-maker-3-d',
@@ -107,6 +109,13 @@ export default {
             return this.$env.VUE_APP_DESIGNER;
         },
     },
+    created() {
+        this.watchScaleFn = debounce(
+            this.watchScale.bind(this),
+            this.debounceTime === undefined ? 10 : this.debounceTime
+            // 1000
+        );
+    },
 
     mounted() {
         if (this.inDesigner) return;
@@ -142,6 +151,9 @@ export default {
         center() {
             if (this.mapInstance && this.center.length === 2)
                 this.mapInstance.setCenter(this.center);
+        },
+        scale() {
+            this.watchScaleFn();
         },
     },
 
@@ -193,7 +205,7 @@ export default {
                         map,
                     });
 
-                    this.scatterLayerStore = makeScatterLayerStore(
+                    this.scatterLayerStore = makeLayerStore(
                         this.textureMap,
                         loca
                     );
@@ -225,6 +237,15 @@ export default {
                 this.geoDataSource.destroy();
             }
             const tmp = data.map((point) => {
+                Object.entries({
+                    id: this.idField,
+                    type: this.typeField,
+                    position: this.positionField,
+                    textContent: this.textContentField,
+                }).reduce((acc, [key, value]) => {
+                    acc[key] = get(point, value);
+                    return acc;
+                }, point);
                 return {
                     type: 'Feature',
                     geometry: {
@@ -254,6 +275,12 @@ export default {
                 this.mapInstance.setPitch(0);
             } else {
                 this.mapInstance.setPitch(90);
+            }
+        },
+
+        watchScale() {
+            if (this.scatterLayerStore) {
+                this.scatterLayerStore.scale(this.scale);
             }
         },
     },
