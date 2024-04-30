@@ -1,0 +1,5 @@
+- name: sendText
+  description: 发送文本消息
+  type: both
+  belong: logic
+  labels: [Runtime]
