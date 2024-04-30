@@ -2,7 +2,7 @@
   "name": "cw_text_power_library",
   "title": "文本功能依赖库",
   "description": "",
-  "version": "1.1.6",
+  "version": "1.1.8",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -39,10 +39,14 @@
   "dependencies": {
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^1.0.2",
+    "docx": "^8.5.0",
     "dompurify": "^3.0.6",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
     "typed.js": "^2.1.0",
     "v-viewer": "^1.6.4",
-    "xss": "^1.0.14"
+    "xss": "^1.0.14",
+    "vue-template-compiler": "2.7.15"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",

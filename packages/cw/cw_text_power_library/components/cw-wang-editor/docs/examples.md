@@ -4,9 +4,12 @@
 <template>
     <div>
         {{ value }}
-        <cw-wang-editor :value.sync="value" ref="editor"></cw-wang-editor>
+        <cw-wang-editor
+            :value="value"
+            @update:value="handleChange"
+            ref="editor"></cw-wang-editor>
         <u-button
-            @click="handleClick"
+            @click="handleClick1"
             :style="{
                 backgroundImage: `url(${base64})`,
                 backgroundSize: 'cover',
@@ -27,9 +30,14 @@ export default {
     mounted() {
         setTimeout(() => {
             this.value = '123';
+            this.value =
+                '<blockquote><br>asdfsafsf</blockquote><table style="width: 100%;"><tbody><tr><th colspan="1" rowspan="1" width="auto" style="text-align: left;">12313</th><th colSpan="1" rowSpan="1" width="auto">12313</th><th colspan="1" rowspan="1" width="auto" style="text-align: right;">12312</th><th colspan="1" rowspan="1" width="auto" style="text-align: center;">12313123</th><th colSpan="1" rowSpan="1" width="auto"></th><th colSpan="1" rowSpan="1" width="auto"></th><th colSpan="1" rowSpan="1" width="auto"></th></tr><tr><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td></tr><tr><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td></tr><tr><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td><td colSpan="1" rowSpan="1" width="auto"></td></tr></tbody></table><ul><li>asdfsaf</li><li>asdfasf</li><ul><li>alsdfj</li><ul><li>jaskldfj</li></ul><ol><li>asdfasf</li><li>sagsa</li><li>aa</li><ol><li>ajskdfl</li><ol><li>asdfsf</li></ol></ol></ol><li>asdfasf</li><li></li><li>asdfsaf</li></ul><li>asdfsaf</li></ul><h1></h1><h1>header1</h1><hr/><h2>header2</h2><h3>header3</h3><h4>header4</h4><h5>header5</h5><p><span style="font-size: 32px;">asdf</span><span style="background-color: rgb(54, 88, 226); font-size: 32px;">asfsafaa</span><span style="background-color: rgb(54, 88, 226); font-size: 16px;">sdfasd</span><span style="font-size: 16px;">fasf</span></p><p style="text-align: right;">as<span style="color: rgb(231, 95, 51);">d</span><span style="color: rgb(231, 95, 51);"><em>fa</em></span><span style="color: rgb(231, 95, 51);"><u><em>sfas</em></u></span><span style="color: rgb(231, 95, 51);"><u>dfsaf</u></span><span style="color: rgb(231, 95, 51);"><sup><u>12313</u></sup></span><span style="color: rgb(231, 95, 51);"><sub><u>12313</u></sub></span></p><p style="text-align: center;"><span style="color: rgb(231, 95, 51); font-family: &quot;Times New Roman&quot;;">as</span><span style="color: rgb(231, 95, 51); font-family: &quot;Times New Roman&quot;;"><strong>df</strong></span><span style="font-family: &quot;Times New Roman&quot;;"><strong>adsfa</strong></span><span style="font-family: &quot;Times New Roman&quot;;"><s><strong>sdfas</strong></s></span><span style="font-family: &quot;Times New Roman&quot;;"><s>f</s></span></p><p style="text-align: justify;"><s>adsfaddasdfasfadsfadsfasfsadfasdfasdfasdfsafasfasdfasdfasdfsadfasdfasfasdfdsafsdafasdfadsfasdf </s><a href="https://www.baidu.com" target="_blank">link <span style="color: rgb(212, 177, 6); background-color: rgb(9, 109, 217);"><s>to baidu</s></span></a><span style="color: rgb(212, 177, 6); background-color: rgb(9, 109, 217);"><s> </s></span></p><p style="text-align: justify;"><br></p>';
         }, 2000);
     },
     methods: {
+        handleChange() {
+            console.log(this.$refs.editor.editor.children);
+        },
         handleReadOnly() {
             this.readOnly = !this.readOnly;
         },
@@ -59,18 +67,8 @@ export default {
             ]);
         },
         async handleClick1() {
-            const src = this.$refs.editor.getMockData();
-            navigator.clipboard.write([
-                new ClipboardItem({
-                    'text/html': new Blob([src], {
-                        type: 'text/html',
-                    }),
-                    'text/plain': new Blob([src], {
-                        type: 'text/plain',
-                    }),
-                }),
-            ]);
             this.$refs.editor.exportToDocx();
+            console.log(this.$refs.editor.editor.getHtml());
         },
     },
 };
