@@ -5,7 +5,10 @@
     <div>
         <u-button @click="updatePosition">click</u-button>
         <div>{{ points }}</div>
-        <cw-amap-point-maker-less></cw-amap-point-maker-less>
+        <cw-amap-point-maker-less
+            :dataSource="points"
+            :center="[120.181156, 30.182047]"
+        ></cw-amap-point-maker-less>
     </div>
 </template>
 

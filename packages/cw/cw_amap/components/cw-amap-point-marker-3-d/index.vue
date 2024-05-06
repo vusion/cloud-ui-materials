@@ -72,7 +72,7 @@ import get from 'lodash.get';
 
 export default {
     name: 'cw-amap-point-maker-3-d',
-    mixins: [supportDatasource, infoWindow()],
+    mixins: [supportDatasource, infoWindow({ is3d: true })],
     props: {
         center: {
             type: Array,

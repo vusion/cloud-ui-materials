@@ -8,7 +8,8 @@
             :dataSource="points"
             @click="handleItemClick"
             :customPointOptions="customPointOptions"
-            ref="a">
+            ref="a"
+        >
             <template #item="current">sdfds</template>
         </cw-amap-point-marker-more>
     </div>
@@ -22,13 +23,15 @@ export default {
             reverse: false,
             customPointOptions: [
                 {
-                    url: 'https://a.amap.com/jsapi_demos/static/images/mass0.png', //图标地址
+                    url:
+                        'https://a.amap.com/jsapi_demos/static/images/mass0.png', //图标地址
                     anchor: [6, 6], //图标显示位置偏移量，基准点为图标左上角
                     size: [11, 11], //图标的尺寸
                     zIndex: 3, //每种样式图标的叠加顺序，数字越大越靠前
                 },
                 {
-                    url: 'https://a.amap.com/jsapi_demos/static/images/mass1.png',
+                    url:
+                        'https://a.amap.com/jsapi_demos/static/images/mass1.png',
                     anchor: [4, 4],
                     size: [7, 7],
                     zIndex: 2,
@@ -40,11 +43,6 @@ export default {
         updatePosition() {
             this.points = async () => {
                 let mockData = this.$refs.a.getMockData();
-                console.log(
-                    '%c [ mockData ]-24',
-                    'font-size:13px; background:pink; color:#bf2c9f;',
-                    mockData
-                );
                 if (this.reverse) {
                     this.reverse = false;
                     mockData = mockData.reverse();
@@ -58,13 +56,7 @@ export default {
                 }));
             };
         },
-        handleItemClick(...args) {
-            console.log(
-                '%c [ args ]-32',
-                'font-size:13px; background:pink; color:#bf2c9f;',
-                args
-            );
-        },
+        handleItemClick(...args) {},
     },
 };
 </script>

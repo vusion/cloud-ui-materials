@@ -6,9 +6,11 @@
         <u-button @click="updatePosition">click</u-button>
         <cw-amap-point-marker-label
             :dataSource="points"
+            :center="['116.441504', '40.031386']"
             @click="handleItemClick"
             :customPointOptions="customPointOptions"
-            ref="a">
+            ref="a"
+        >
             <template #item="current">sdfds</template>
         </cw-amap-point-marker-label>
     </div>
@@ -23,7 +25,8 @@ export default {
             customPointOptions: {
                 icon: {
                     type: 'image',
-                    image: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
+                    image:
+                        'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
                     size: [6, 9],
                     anchor: 'bottom-center',
                 },
@@ -54,28 +57,9 @@ export default {
                     position,
                     textContent: idx + '',
                 }));
-                return [
-                    {
-                        id: 0,
-                        position: [120.215317, 30.189466],
-                        textContent: '',
-                    },
-                    {
-                        id: 1,
-                        position: [120.261322, 30.198813],
-                        radius: 30,
-                        type: 'circle',
-                    },
-                ];
             };
         },
-        handleItemClick(...args) {
-            console.log(
-                '%c [ args ]-32',
-                'font-size:13px; background:pink; color:#bf2c9f;',
-                args
-            );
-        },
+        handleItemClick(...args) {},
     },
 };
 </script>

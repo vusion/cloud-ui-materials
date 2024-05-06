@@ -2,7 +2,11 @@ import get from 'lodash.get';
 import { computePosition, offset, shift, flip, arrow } from '@floating-ui/dom';
 import debounce from 'lodash.debounce';
 
-export default ({ listenMove = true, listenZoom = true } = {}) => ({
+export default ({
+    listenMove = true,
+    listenZoom = true,
+    is3d = false,
+} = {}) => ({
     props: {
         needMoveAnimate: {
             type: Boolean,
@@ -69,9 +73,6 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
                 else this.clearSelectedItem();
             });
             mapInstance.on('zoomchange', () => {
-                    'font-size:13px; background:pink; color:#bf2c9f;',
-                    this.mapInstance.getZoom()
-                );
                 const zoomLevel = this.mapInstance.getZoom();
                 this.scale = Math.pow(2, zoomLevel - 16.82);
                 if (listenZoom) debounceFn();
@@ -176,8 +177,7 @@ export default ({ listenMove = true, listenZoom = true } = {}) => ({
             computePosition(this.infoWindowMarker.dom, this.$refs.infoWindow, {
                 placement: this.placement || 'top',
                 middleware: [
-                    //todo: 基于缩放等级，动态调整offset
-                    offset(65),
+                    offset(is3d ? 65 : 25),
                     shift(),
                     flip(),
                     // arrow({ element: this.$refs.infoWindowArrow }),

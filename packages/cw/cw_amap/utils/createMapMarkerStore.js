@@ -83,7 +83,7 @@ export const createMapMarkerStore = ({
                         });
                     }
                     if (oldTextContent !== option.extData.textContent) {
-                        marker.setText(option.text);
+                        if (marker.setText) marker.setText(option.text);
                     }
                     if (oldLabelContent !== option.extData.labelContent) {
                         marker.setLabel(option.label);

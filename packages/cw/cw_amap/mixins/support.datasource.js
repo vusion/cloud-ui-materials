@@ -62,7 +62,7 @@ export default {
             }
 
             function createLoad(rawLoad) {
-                return async function (params = {}) {
+                return async function(params = {}) {
                     const res = await rawLoad(params);
 
                     if (Array.isArray(res)) {
