@@ -4,14 +4,131 @@
   belong: component
   labels: [Runtime]
   attrs:
+    - name: data-source
+      title: 数据源
+      type: Array<Item> | Function | object | DataSource
+      description: 展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。
+      designer-value: "[{}, {}, {}]"
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 支持动态绑定集合类型变量（List\<T>）或输出参数为集合类型的逻辑
+      tooltipLink: ""
+    - name: data-schema
+      title: 数据类型
+      type: schema
+      description: 数据源返回的数据结构的类型，自动识别类型进行展示说明
+      group: 数据属性
+      compType: dataTypeSelect
+      brifeDoc: ""
+      docDescription: 该属性为只读状态，当数据源动态绑定集合List\<T>后，会自动识别T的类型并进行展示
+      tooltipLink: ""
     - name: value
       type: array
       default: ''
       description: 需要传入的值
-    - name: data
-      type: array
-      default: ''
-      description: 'options选项，形如[ {id: **, name: **},... ]'
+      title: 需要传入的值
+      sync: true
+      model: true
+    - name: titleField
+      description: 节点标题字段
+      title: 节点标题字段
+      display: property-select
+      type: string
+      default: name
+    - name: keyField
+      description: 节点唯一标识字段
+      title: 节点唯一标识字段
+      display: property-select
+      type: string
+      default: id
+    - name: children-field
+      title: 子级值字段
+      type: string
+      display: property-select
+      default: children
+      description: 集合的元素类型中，用于标识子节点的属性，默认为children
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 集合的元素类型中，用于标识子级字段的的属性，支持自定义变更
+      tooltipLink: ""
+    - name: parent-field
+      title: 父级值字段
+      display: property-select
+      type: string
+      default: ""
+      description: 集合的元素类型中，用于标识父节点的属性
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 集合的元素类型中，用于标识父级字段的属性，支持自定义变更
+      tooltipLink: ""
+    - name: checkable
+      description: 是否可多选
+      title: 是否可多选
+      type: boolean
+      default: true
+    - name: selectable
+      description: 是否可单选
+      title: 是否可单选
+      type: boolean
+      default: false
+    - name: dropHeight
+      description: 下拉内容高度
+      title: 下拉内容高度
+      type: number
+      default: 300
+    - name: dropPlaceholder
+      description: 展示输入框 placeholder
+      title: 占位内容
+      type: string
+      default: '请选择'
+    - name: dropDisabled
+      description: 是否禁用
+      title: 是否禁用
+      type: boolean
+      default: false
+    - name: clearable
+      description: 允许清空
+      title: 允许清空
+      type: boolean
+      default: false
+    - name: placement
+      title: 弹出框位置
+      description: 下拉弹出框位置，注意！！不支持自动识别方向
+      type: 'string'
+      default: 'bottom-start'
+      options: 
+          - value: bottom-start
+            title: bottom-start
+          - value: bottom-end
+            title: bottom-end
+          - value: bottom
+            title: bottom
+          - value: top-start
+            title: top-start
+          - value: top-end
+            title: top-end
+          - value: top
+            title: top
+    - name: transfer
+      title: 节点位置
+      description: 将下拉 DOM 转移到 body 中
+      type: boolean
+      default: false
+    - name: dropdownClassName
+      title: 类名
+      description: 在下拉框容器上额外添加的 class 
+      type: 'string'
+      default: 'virtual-tree-select-dropdown-container'
+    - name: dropdownMinWidth
+      title: 容器最小宽度
+      description: 下拉框容器最小宽度，未指定则默认为展示输入框宽度。适合 transfer 为 false 时使用
+      type: number
+      default: 300
+    - name: dropdownWidthFixed
+      title: 容器固定宽度
+      description: 固定下拉框容器宽度，当内容超出最小宽度不会伸长，而是出现横向滚动条
+      type: boolean
+      default: true
   events:
     - name: change
       title: 值改变时
@@ -19,3 +136,16 @@
         - name: $event
           type: array
           description: 参数1
+    - name: dropdownVisibleChange
+      title: 下拉框出现或消失时触发
+      params:
+        - name: $event
+          type: array
+          description: 参数1
+    - name: clear
+      title: 点击清空按钮时触发
+      params:
+        - name: $event
+          type: array
+          description: 参数1
+          
