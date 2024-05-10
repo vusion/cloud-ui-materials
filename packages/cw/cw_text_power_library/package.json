@@ -2,7 +2,7 @@
   "name": "cw_text_power_library",
   "title": "文本功能依赖库",
   "description": "",
-  "version": "1.1.8",
+  "version": "1.1.14",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -43,14 +43,18 @@
     "dompurify": "^3.0.6",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
+    "lodash.get": "^4.4.2",
     "typed.js": "^2.1.0",
     "v-viewer": "^1.6.4",
-    "xss": "^1.0.14",
-    "vue-template-compiler": "2.7.15"
+    "vue-template-compiler": "^2.7.16",
+    "xss": "^1.0.14"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
     "vue": "^2.6.10"
+  },
+  "resolutions": {
+    "globby": "9.2.0"
   },
   "vetur": {
     "tags": "./vetur/tags.json",

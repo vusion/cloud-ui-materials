@@ -21,6 +21,11 @@
         title: 启用滚动
         type: boolean
         description: 启用滚动
+      - name: showDocxButton
+        default: false
+        title: 显示docx按钮
+        type: boolean
+        description: 显示docx按钮
       - name: placeholder
         default: ''
         title: 输入占位符

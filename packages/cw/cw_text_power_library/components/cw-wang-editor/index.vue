@@ -10,7 +10,9 @@
             :mode="mode"
             v-show="!readOnly"></toolbar>
         <!-- v-viewer下所有图片能够进行放大操作 -->
-        <div v-viewer="{ movable: false, zIndex: 8000 }">
+        <div
+            v-viewer="{ movable: false, zIndex: 8000 }"
+            style="position: relative">
             <editor
                 ref="editor"
                 :style="rootStyle"
@@ -22,12 +24,31 @@
                 @onFocus="onFocus"
                 @onBlur="onBlur"
                 @customPaste="customPaste"></editor>
+            <u-button
+                size="mini"
+                @click="docxParse()"
+                :style="{
+                    position: 'absolute',
+                    bottom: '4px',
+                    right: '4px',
+                    color: '#337ae5',
+                    display: showDocxButton ? 'block' : 'none',
+                }">
+                上传并解析docx
+            </u-button>
         </div>
+        <input
+            type="file"
+            :value="null"
+            accept=".docx"
+            style="display: none"
+            ref="docxInput" />
     </div>
 </template>
 <script>
 import { MField } from '../../widgets/m-field';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+import { SlateTransforms } from '@wangeditor/editor';
 import '@wangeditor/editor/dist/css/style.css';
 import 'viewerjs/dist/viewer.css';
 import whiteListOption from '../../utils/whiteListTag';
@@ -37,6 +58,7 @@ import xss from 'xss';
 import { imageTypes, videoTypes } from './constant';
 import { processHTML } from './processHTML.js';
 import { parser } from './slateToDocx';
+import { parser as docxParser } from './docxToSlate';
 import { saveAs } from 'file-saver';
 import {
     Packer,
@@ -66,6 +88,10 @@ export default {
         acceptVideo: {
             type: String,
             default: '.mp4,.avi,.mov,.wmv,.mkv,.flv,.mpeg,.rmvb,.3gp,.webm',
+        },
+        showDocxButton: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -149,6 +175,13 @@ export default {
                               },
                               allowedFileTypes: this.acceptEditorList,
                               disable: true,
+                              customUpload(file, insertFn) {
+                                  const fileReader = new FileReader();
+                                  fileReader.onload = (e) => {
+                                      insertFn(e.target.result);
+                                  };
+                                  fileReader.readAsDataURL(file);
+                              },
                           }
                         : null,
                 },
@@ -187,7 +220,6 @@ export default {
                     },
                 }
             );
-            console.log('MENU_CONF', MENU_CONF);
             return {
                 readOnly: this.readOnly,
                 scroll: this.scroll,
@@ -217,6 +249,39 @@ export default {
         editor.destroy();
     },
     methods: {
+        async docxParse(file) {
+            if (!file) {
+                file = await new Promise((res) => {
+                    const fileInput = this.$refs.docxInput;
+                    const fn = (e) => {
+                        fileInput.removeEventListener('input', fn);
+                        fileInput.removeEventListener('cancel', cancelFn);
+                        res(e.target.files[0]);
+                        e.target.value = null;
+                    };
+                    const cancelFn = () => {
+                        res(null);
+                        fileInput.removeEventListener('input', fn);
+                        fileInput.removeEventListener('cancel', cancelFn);
+                    };
+                    fileInput.addEventListener('cancel', cancelFn);
+                    fileInput.addEventListener('input', fn);
+                    fileInput.click();
+                });
+            }
+            // return;
+            if (!file) return;
+
+            const nodes = await docxParser(
+                file,
+                this.customUplodeForPasteImage.bind(this)
+            );
+            const editor = this.editor;
+            SlateTransforms.insertNodes(editor, nodes, {
+                at: [editor.children.length],
+            });
+            return nodes;
+        },
         async exportToBlob(result = {}) {
             const children = this.editor.children;
             const tmp = children.map((n) => parser(n, this.editor));
@@ -287,28 +352,36 @@ export default {
             return xmlstr;
         },
         async customUplodeForPasteImage(dataURL) {
-            // return dataURL;
-            const authorization = this.getCookie('authorization');
-            const headers = authorization
-                ? { Authorization: authorization }
-                : {};
-            // dataURL => blob
-            const [typeStr, baseStr] = dataURL.split(';');
-            const type = typeStr.split(':')[1];
-            const base64 = baseStr.split(',')[1];
-            const byteCharacters = atob(base64);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            let blob = dataURL;
+            if (typeof dataURL === 'string') {
+                // dataURL => blob
+                const [typeStr, baseStr] = dataURL.split(';');
+                const type = typeStr.split(':')[1];
+                const base64 = baseStr.split(',')[1];
+                const byteCharacters = atob(base64);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                blob = new Blob([byteArray], { type });
             }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type });
+            // return new Promise((res) => {
+            //     const reader = new FileReader();
+            //     reader.onload = (e) => res(e.target.result);
+            //     reader.readAsDataURL(blob);
+            // });
 
             // todo: size check and mime type check
 
             // upload
             const formData = new FormData();
             formData.append('file', blob);
+
+            const authorization = this.getCookie('authorization');
+            const headers = authorization
+                ? { Authorization: authorization }
+                : {};
 
             const url = await fetch(
                 this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
@@ -319,7 +392,8 @@ export default {
                 }
             )
                 .then((res) => res.json())
-                .then((v) => v.result);
+                .then((v) => v.result)
+                .catch((v) => ''); //图片上传出现问题返回为空
             return url;
         },
         customPaste(editor, event) {
@@ -338,7 +412,7 @@ export default {
                     return this.customUplodeForPasteImage(x);
                 }).then((domBody) => {
                     const str = new XMLSerializer().serializeToString(domBody);
-                    editor.setHtml(str);
+                    editor.dangerouslyInsertHtml(str);
                 });
                 event.preventDefault();
                 return false;
