@@ -20,7 +20,6 @@ export default {
     },
     computed: {
         maskStyle() {
-            console.log(this.$attrs);
             if (!this.mask) return null;
             return {
                 'background-image': this.mask,
