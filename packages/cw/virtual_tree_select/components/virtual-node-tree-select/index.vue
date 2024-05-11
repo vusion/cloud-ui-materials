@@ -3,7 +3,6 @@
     <CTreeDrop
       ref="tree"
       :value="value"
-      :data="data"
       :titleField="titleField"
       :keyField="keyField"
       :checkable="checkable"
@@ -27,7 +26,6 @@
 <script>
 // 大家可以根据需要是否引入VTreeNode, VTreeSearch, VTreeDrop
 import { CTreeDrop } from "@wsfe/ctree";
-import data from "./data.js";
 
 function dfs(node, targetId, idField, childrenField, ancestorIds = []) {
   const id = node[idField];
@@ -64,6 +62,7 @@ export default {
     },
     initialLoad: { type: Boolean, default: true },
     isLeafField: { type: String, default: "isLeaf" },
+    parentField: { type: String, default: "" },
     titleField: {
       type: String,
       default: "name",
@@ -132,7 +131,8 @@ export default {
   watch: {
     "currentDataSource.data"(value) {
       if (value) {
-        this.$refs.tree.setData(value);
+        console.log("value", value);
+        this.setData(value);
         if (this.value) {
           let idx = 0;
           while (idx < value.length) {
@@ -160,6 +160,7 @@ export default {
       this.currentDataSource = this.normalizeDataSource(
         this.dataSource || this.data
       );
+      console.log("this.currentDataSource", this.currentDataSource);
       if (
         this.currentDataSource &&
         this.currentDataSource.load &&
@@ -197,6 +198,7 @@ export default {
       function createLoad(rawLoad) {
         return async function (params = {}) {
           const result = await rawLoad(params);
+          console.log("result", result);
           if (result) {
             if (self.parentField) {
               // 兼容 { list, total }类型
@@ -263,7 +265,8 @@ export default {
       this.loading = true;
       this.currentDataSource
         .load(params)
-        .then(() => {
+        .then((res) => {
+          console.log("res", res);
           this.loading = false;
           this.$emit("load", undefined, this);
         })

@@ -2,7 +2,7 @@
   "name": "virtual_tree",
   "title": "虚拟树",
   "description": "",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "main": "./index.js",
   "author": "",
   "repository": "",

@@ -23,7 +23,7 @@
       docDescription: 该属性为只读状态，当数据源动态绑定集合List\<T>后，会自动识别T的类型并进行展示
       tooltipLink: ""
     - name: value
-      type: array
+      type: any
       default: ''
       description: 需要传入的值
       title: 需要传入的值
