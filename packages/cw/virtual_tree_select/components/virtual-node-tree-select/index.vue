@@ -19,7 +19,6 @@
 <script>
 // 大家可以根据需要是否引入VTreeNode, VTreeSearch, VTreeDrop
 import { CTreeDrop } from "@wsfe/ctree";
-import data from "./data.js";
 export default {
   name: "virtual-node-tree-select",
   components: { CTreeDrop },
