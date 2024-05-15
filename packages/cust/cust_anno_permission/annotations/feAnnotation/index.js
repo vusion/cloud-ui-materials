@@ -68,6 +68,7 @@ export default function (el, binding, vnode, oldVnode) {
                 //     let entityName = Object.keys(entity)[0]
                 //     return entityName === enKey
                 // })
+                if(!list)return
                 let enProps = list[enKey]
                 if (enProps) {
                     // let enProps = entityItem[enKey]
