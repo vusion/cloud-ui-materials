@@ -312,21 +312,35 @@ export default {
       },
       true
     );
+
     const r1 = graph
       .createNode({
         shape: "custom-rect",
         label: "文字",
         attrs: {
           body: {
-            //   rx: 20,
-            //   ry: 26,
           },
         },
       })
       .addTools({
         name: "node-editor",
       });
-    stencil.load([r1], "group1");
+     const r2 = graph
+      .createNode({
+        shape: "custom-rect",
+        label: "文字",
+        attrs: {
+          body: {
+            stroke:"transparent",
+            fill:"transparent"
+          },
+        },
+        ports:{}
+      })
+      .addTools({
+        name: "node-editor",
+      });
+    stencil.load([r1,r2], "group1");
   },
   methods: {
     init() {
