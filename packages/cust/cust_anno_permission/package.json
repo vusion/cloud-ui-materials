@@ -2,7 +2,7 @@
   "name": "lcap-fe-annotation-data-permission",
   "title": "前端数据权限注解依赖库",
   "description": "",
-  "version": "0.0.10",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
