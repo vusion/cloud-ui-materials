@@ -76,8 +76,7 @@ export default function (el, binding, vnode, oldVnode) {
                         // 此处假定逻辑返回的数据结构为多叉树 组件只能绑定叶子节点： 否则要比较 a.b.c a.b 的关系
                         let enProp = enProps.find(p => p.propertyName === ref.propName)
                         if (enProp) {
-                            visible = enProp.columnRuleType !== 'none'
-
+                            visible = visible && enProp.columnRuleType !== 'none'
                         }
                     }
                 }
