@@ -2,6 +2,6 @@
 
 ```html
 <cw-reponsive-image
-  normal-src="https://lcap-deploy-test.nos-eastchina1.126.net/S3%2Faaabbb%2F30_20240228140656754_20240318150940283.jpg"
+  normal-src="https://static-vusion.163yun.com/assets/cloud-ui/1.jp"
 ></cw-reponsive-image>
 ```

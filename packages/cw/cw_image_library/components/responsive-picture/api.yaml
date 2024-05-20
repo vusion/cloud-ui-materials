@@ -1,0 +1,68 @@
+- name: responsive-picture
+  title: 设备响应式图片
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: smallPhoneSrc
+      type: string
+      default: ""
+      description: 小屏幕（如小手机）对应的图片 URL
+      title: 小手机图片链接
+    - name: phoneSrc
+      type: string
+      default: ""
+      description: 小屏幕（如手机）对应的图片 URL
+      title: 手机图片链接
+    - name: tabletSrc
+      type: string
+      default: ""
+      description: 中屏幕（如平板电脑）对应的图片 URL
+      title: 平板图片链接
+    - name: laptopSrc
+      type: string
+      default: ""
+      description: 大屏幕（如笔记本电脑）对应的图片 URL
+      title: 笔记本图片链接
+    - name: desktopSrc
+      type: string
+      default: ""
+      description: 超大屏幕（如台式电脑）对应的图片 URL
+      title: 台式电脑图片链接
+    - name: twoKSrc
+      type: string
+      default: ""
+      description: 2K 屏幕对应的图片 URL
+      title: 2K图片链接
+    - name: fourKSrc
+      type: string
+      default: ""
+      description: 4K 屏幕对应的图片 URL
+      title: 4K图片链接
+    - name: defaultSrc
+      type: string
+      required: true
+      default: ""
+      description: 默认图片 URL
+      title: 默认图片链接
+    - name: fallbackSrc
+      type: string
+      default: ""
+      description: 兜底图片 URL
+      title: 兜底图片链接
+    - name: alt
+      type: string
+      default: ""
+      description: 图片加载失败时的替代文本
+      title: 替代文本
+  events:
+    - name: click
+      title: 点击
+      description: 在图片元素上按下并释放任意鼠标按钮时触发。
+    - name: mouseover
+      title: 鼠标移入
+      description: 鼠标移入图片元素时触发。
+    - name: mouseleave
+      title: 鼠标移出
+      description: 鼠标移出图片元素时触发。
+
