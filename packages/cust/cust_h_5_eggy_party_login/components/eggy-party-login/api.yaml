@@ -1,0 +1,30 @@
+- name: eggy-party-login
+  title: 蛋仔派对h5登录
+  type: h5
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: serviceAgreement
+      type: string
+      title: 服务协议
+      default: https://protocol.unisdk.netease.com/release/latest_v5.html
+      group: 基础配置信息
+    - name: privacyAgreement
+      type: string
+      title: 隐私协议
+      default: https://unisdk.update.netease.com/html/latest_v90.html
+      group: 基础配置信息
+    - name: childrenPolicy
+      type: string
+      title: 儿童信息保护及监护人须知
+      default: https://protocol.unisdk.netease.com/release/latest_v106.html
+      group: 基础配置信息
+    - name: URSConfig
+      type: string
+      title: URS配置数据
+      default: {}
+      group: 基础配置信息
+  events:
+    - name: success
+      title: 登录成功后
+      description: 登录成功后触发

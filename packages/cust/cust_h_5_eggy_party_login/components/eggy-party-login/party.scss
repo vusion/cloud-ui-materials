@@ -1,0 +1,257 @@
+$black: #212121;
+$black2: #333;
+$grey: #f0f0f0;
+$grey1: #f5f5f5;
+$yellow: #FFD139;
+$blue: #3569FD;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#cnt-box-parent {
+  margin: auto;
+}
+
+.m-cnt {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.m-header {
+  padding: 20px 0;
+}
+
+/*tab 宽度适应*/
+.g-bd {
+  width: 100%;
+}
+
+.u-tab {
+  width: calc(100% - 20px);
+}
+
+.m-header .line {
+  top: 50%;
+  height: 10px;
+  border-right-color: rgba($black, 0.2);
+  transform: translate(0, -50%);
+}
+
+.m-header .u-head1, .m-header .u-head2 {
+  position: relative;
+  width: 50%;
+  height: 38px;
+  color: rgba($black2, .5);
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 38px;
+  border-bottom: none !important;
+
+  &.active {
+    color: $black;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      border-radius: 50px;
+      background-color: $yellow;
+    }
+  }
+}
+
+/*输入框*/
+.m-cnt .inputbox {
+  display: flex;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 7.5px;
+  border-color: $grey;
+  background-color: $grey1;
+
+  &.active {
+    border-color: $black;
+  }
+}
+
+.m-cnt .u-input {
+  flex: 1;
+  position: relative;
+
+  &:not(:first-child) {
+    &:before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      width: 1px;
+      height: 18px;
+      top: 50%;
+      background-color: rgba($black, .2);
+      transform: translate(0, -50%);
+    }
+  }
+
+  input,
+  .pcint {
+    width: calc(100% - 10px) !important;
+  }
+}
+
+.ferrorhead {
+  max-width: calc(100% - 20px);
+}
+
+.m-cnt .u-input input {
+  height: 40px;
+  line-height: initial !important;
+  padding-left: 10px;
+  font-size: 12px;
+  background-color: transparent;
+
+  &::-webkit-input-placeholder {
+    height: initial !important;
+    line-height: initial !important;
+    color: rgba($black, .4);
+    font-size: 12px;
+    font-weight: medium;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: 0 0 0 1000px $grey1 inset;
+  }
+}
+
+.m-cnt .u-clear {
+  display: none;
+}
+
+/*输入框 logo*/
+.u-logo {
+  display: flex;
+  align-items: center;
+  transform: scale(.8);
+}
+
+/*输入框 logo*/
+.u-logo>div:only-child {
+  margin-top: 0;
+}
+
+/*注册*/
+.m-cnt .m-unlogin .u-regbtn {
+  font-size: 13px;
+
+  &.bgcolor {
+    color: $blue;
+  }
+}
+
+/*登录按钮*/
+.u-loginbtn {
+  color: $black;
+  font-size: 15px;
+  font-weight: bold;
+  background: $yellow;
+  border-radius: 50px;
+
+  &:hover {
+    transition: .2s;
+    color: $black;
+    background-color: darken($yellow, 10);
+  }
+}
+
+/*选中条款框*/
+.fur-agree .u-dl-agree,
+.fur-agree-4 .u-zc-agree,
+.fur-agree-4 .u-dl-agree {
+  position: relative;
+  margin-top: 3px;
+  border-radius: 50%;
+  background-size: 70% !important;
+  z-index: 1;
+}
+
+/*条款*/
+.m-mail-clause,
+.fur-agree {
+  color: $black;
+  font-size: 13px;
+
+  a {
+    color: $blue;
+  }
+}
+
+.m-mail-clause,
+.fur-agree-4 {
+  margin-top: 10px;
+
+  & + * {
+    margin-top: 22px;
+  }
+
+  .fur-agree {
+    padding-bottom: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+
+.loginbox {
+  margin-bottom: 25px;
+}
+
+// 手机切换登录方式
+.u-tab .tab0, .u-tab .tab1 {
+  height: auto;
+  color: $blue;
+  font-size: 13px;
+  line-height: 1;
+  background: none !important;
+}
+
+// 获取验证码框
+.m-pccnt {
+  .m-pcbox {
+    display: flex;
+
+    * {
+      margin: 0;
+    }
+
+    .inputbox {
+      flex: 1;
+      border-radius: 7.5px 0 0 7.5px;
+    }
+
+    .pcbtn a {
+      width: auto;
+      padding: 0 10px;
+      height: 42px;
+      line-height: 42px;
+      color: $black;
+      font-size: 12px;
+      background-color: $yellow !important;
+      border-radius: 0 7.5px 7.5px 0;
+
+      &:hover {
+        transition: .2s;
+        color: $black;
+        background-color: darken($yellow, 10) !important;
+      }
+    }
+  }
+}
+
+// 手机登录：遇到问题，忘记密码
+.m-unlogin {
+  display: none;
+}
