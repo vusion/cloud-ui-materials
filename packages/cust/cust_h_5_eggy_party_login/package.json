@@ -2,7 +2,7 @@
   "name": "cust_h_5_eggy_party_login",
   "title": "蛋仔派对登录",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -35,7 +35,9 @@
     "vue-loader": "15.9.8",
     "vue-cli-plugin-vusion": "0.14.2-beta",
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "less": "^3.13.1",
+    "less-loader": "^7.3.0"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
@@ -47,5 +49,10 @@
   },
   "template": {
     "inited": true
+  },
+  "dependencies": {
+    "file-loader": "^6.2.0",
+    "sass": "^1.62.0",
+    "sass-loader": "^10.4.1"
   }
 }

@@ -8,7 +8,7 @@
 import login from "./login.js";
 
 export default {
-  name: "lcap-h5-eggy-party-login",
+  name: "eggy-party-login",
   props: {
     serviceAgreement: {
       type: String,

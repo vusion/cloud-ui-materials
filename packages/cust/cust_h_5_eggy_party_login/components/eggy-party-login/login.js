@@ -1,7 +1,7 @@
 import party from '!!file-loader?name=[name].[contenthash:8].css!sass-loader!./party.scss';
 
 const protocol = 'https:';
-const name = 'lcap-h5-eggy-party-login';
+const name = 'lcap-h5-wpjs-login';
 
 const cdnScripts = [
     'https://dl.reg.163.com/webzj/ngx/message.js',
@@ -80,9 +80,9 @@ const login = async (options = {}) => {
         cookieDomain: '163.com',
         regCookieDomain: '163.com',
         includeBox: 'party-container',
-        product: 'eggy',
-        promark: 'lLvQkNY',
-        host: 'party.163.com',
+        product: 'h65',
+        promark: 'jPgfhSv',
+        host: 'dev.aceraceoverdrive.huyu.lcap.163yun.com',
         cssDomain: getCssDomain(),
         cssFiles: getCssFiles(),
         page: 'login',
