@@ -1,0 +1,5 @@
+- name: getAccountInfo
+  description: 获得用户信息
+  type: both
+  belong: logic
+  labels: [Runtime]
