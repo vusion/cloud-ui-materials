@@ -4,8 +4,24 @@
   belong: component
   labels: [Runtime]
   attrs:
-    - name: value
-      title: 链接地址
-      type: string
-      default: 请在这里编写代码
-      description: 需要传入的值
+      - name: value
+        title: 链接地址
+        type: string
+        default: 请在这里编写代码
+        description: 需要传入的值
+      - name: ignoreWidth
+        title: 禁用页面的渲染宽度
+        type: boolean
+        default: false
+        description: 禁用页面的渲染宽度
+        model: false
+        bindHide: true
+        sync: false
+      - name: ignoreHeight
+        title: 禁用页面的渲染高度
+        type: boolean
+        default: false
+        description: 禁用页面的渲染高度
+        model: false
+        bindHide: true
+        sync: false
