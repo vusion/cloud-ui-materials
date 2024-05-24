@@ -1,0 +1,76 @@
+- name: cw-antd-tree-transfer
+  title: 树形穿梭框
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+      - name: data-source
+        title: 数据源
+        type: Array<Item> | Function | object | DataSource
+        description: 展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。
+        designer-value: '[{}, {}, {}]'
+        group: 数据属性
+        brifeDoc: ''
+        docDescription: 支持动态绑定集合类型变量（List\<T>）或输出参数为集合类型的逻辑
+        tooltipLink: ''
+      - name: data-schema
+        title: 数据类型
+        type: schema
+        description: 数据源返回的数据结构的类型，自动识别类型进行展示说明
+        group: 数据属性
+        compType: dataTypeSelect
+        brifeDoc: ''
+        docDescription: 该属性为只读状态，当数据源动态绑定集合List\<T>后，会自动识别T的类型并进行展示
+        tooltipLink: ''
+      - name: title-field
+        title: 选项文本
+        type: string
+        display: property-select
+        default: title
+        description: 集合的元素类型中，用于显示文本的属性名称
+        group: 数据属性
+      - name: value-field
+        title: 值字段
+        type: string
+        display: property-select
+        default: key
+        description: 集合的元素类型中，用于标识选中值的属性
+        group: 数据属性
+        brifeDoc: ''
+        docDescription: 集合的元素类型中，用于标识选中值的属性，支持自定义变更
+        tooltipLink: ''
+      - name: children-field
+        title: 子级值字段
+        type: string
+        display: property-select
+        default: children
+        description: 集合的元素类型中，用于标识子节点的属性，默认为children
+        group: 数据属性
+        brifeDoc: ''
+        docDescription: 集合的元素类型中，用于标识子级字段的的属性，支持自定义变更
+        tooltipLink: ''
+      - name: parent-field
+        title: 父级值字段
+        display: property-select
+        type: string
+        default: ''
+        description: 集合的元素类型中，用于标识父节点的属性
+        group: 数据属性
+        brifeDoc: ''
+        docDescription: 集合的元素类型中，用于标识父级字段的属性，支持自定义变更
+        tooltipLink: ''
+      - name: value
+        title: 选中值
+        type: array
+        sync: true
+        model: true
+        description: 选择后，所选中的值
+        group: 数据属性
+        brifeDoc: ''
+        docDescription: 当前选择的值
+        tooltipLink: ''
+      - name: treeViewInFilter
+        title: 是否在筛选状态下保持树形试图
+        type: boolean
+        default: false
+        description: 是否在筛选状态下保持树形试图
