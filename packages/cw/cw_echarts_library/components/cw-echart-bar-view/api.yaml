@@ -36,12 +36,14 @@
       - name: xAxis
         title: 维度
         type: string
+        display: property-select
         default: ''
         description: 设置维度(统计类别)
         group: 图表数据
       - name: yAxis
         title: 度量
         type: string
+        display: property-select
         default: ''
         description: 设置度量（统计值）
         group: 图表数据
