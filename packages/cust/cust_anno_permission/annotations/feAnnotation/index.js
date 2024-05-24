@@ -3,9 +3,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 function fetchData() {
     return new Promise(async (resolve, reject) => {
         if (!window.annotationAllData) {
-            console.log('正在请求');
             sleep(500).then(res => {
-                console.log('等待结束');
                 resolve(fetchData())
             })
         }else if (window.annotationAllData) {
