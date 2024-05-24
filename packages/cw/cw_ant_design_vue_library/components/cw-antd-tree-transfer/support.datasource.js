@@ -6,7 +6,7 @@ export default {
             type: String,
             default: () => 'key',
         },
-        parentIdField: {
+        parentField: {
             type: String,
             default: () => 'parentId',
         },

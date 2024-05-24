@@ -11,7 +11,8 @@
                     ? (leftSearch = search)
                     : (rightSearch = search)
         "
-        @change="onChange">
+        @change="onChange"
+        :locale="locale">
         <template
             #children="{
                 props: { direction, selectedKeys },
@@ -82,6 +83,18 @@ export default {
             type: Boolean,
             default: () => true,
         },
+        textPlaceholder: {
+            type: String,
+            default: () => '待选列表',
+        },
+        emptyPlaceholder: {
+            type: String,
+            default: () => '列表为空',
+        },
+        searchPlaceholder: {
+            type: String,
+            default: () => '请输入搜索内容',
+        },
     },
     data() {
         return {
@@ -92,7 +105,7 @@ export default {
     },
     watch: {
         value() {
-            this.targetKeys = this.value;
+            this.targetKeys = this.value || [];
         },
     },
     computed: {
@@ -160,6 +173,7 @@ export default {
                 temp = JSON.parse(JSON.stringify(data)).map((node) => {
                     node.key = this.$at(node, this.valueField);
                     node.title = this.$at(node, this.titleField);
+                    return node;
                 });
             } else {
                 temp = [];
@@ -175,10 +189,19 @@ export default {
         },
 
         treeReplaceFields() {
+            // antv 不支持a.b的映射？
             return {
                 children: this.childrenField,
-                title: this.titleField,
-                key: this.valueField,
+                // title: this.titleField,
+                // key: this.valueField,
+            };
+        },
+        locale() {
+            return {
+                itemsUnit: this.textPlaceholder,
+                itemUnit: this.textPlaceholder,
+                notFoundContent: this.emptyPlaceholder,
+                searchPlaceholder: this.searchPlaceholder,
             };
         },
     },
@@ -262,11 +285,6 @@ export default {
 };
 </script>
 <style>
-.cw-antv-tree-transfer {
-    --primary-color: red;
-    --line-highlight-color: blue;
-}
-
 /* .cw-antv-tree-transfer
     .ant-tree
     li
@@ -281,13 +299,31 @@ export default {
     background: transparent;
 } */
 
+/* 这里应该存在更好的覆盖css的方式，目前只是暂行方案 */
+
 .cw-antv-tree-transfer .ant-tree-checkbox-checked .ant-tree-checkbox-inner,
 .cw-antv-tree-transfer .ant-btn-primary,
 .cw-antv-tree-transfer .ant-btn-primary:hover,
 .cw-antv-tree-transfer .ant-btn-primary:focus,
-.cw-antv-tree-transfer .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+.cw-antv-tree-transfer .ant-checkbox-checked .ant-checkbox-inner,
+.cw-antv-tree-transfer .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+    background-color: var(--primary-color, #1890ff);
+    border-color: var(--primary-color, #1890ff);
+}
+
+.cw-antv-tree-transfer
+    .ant-tree-checkbox-wrapper:hover
+    .ant-tree-checkbox-inner,
+.cw-antv-tree-transfer .ant-tree-checkbox:hover .ant-tree-checkbox-inner,
+.cw-antv-tree-transfer
+    .ant-tree-checkbox-input:focus
+    + .ant-tree-checkbox-inner,
+.cw-antv-tree-transfer .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.cw-antv-tree-transfer .ant-checkbox:hover .ant-checkbox-inner,
+.cw-antv-tree-transfer .ant-checkbox-input:focus + .ant-checkbox-inner,
+.cw-antv-tree-transfer .ant-tree-checkbox-checked::after,
+.cw-antv-tree-transfer .ant-checkbox-checked::after {
+    border-color: var(--primary-color, #1890ff);
 }
 
 .cw-antv-tree-transfer

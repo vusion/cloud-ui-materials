@@ -5,7 +5,10 @@
     <cw-antd-tree-transfer
         :dataSource="dataSource"
         :value.sync="value"
-        titleField="title1"></cw-antd-tree-transfer>
+        titleField="entity1.name"
+        valueField="entity1.id"
+        parentField="entity1.parentid"
+        style="--primary-color: red"></cw-antd-tree-transfer>
 </template>
 <script>
 const treeData = [
@@ -21,6 +24,52 @@ const treeData = [
         ],
     },
     { key: '0-2', title1: '0-3' },
+];
+
+const treeData1 = [
+    {
+        entity1: {
+            id: 2875322149381888,
+            createdTime: '2024-05-22T06:26:09.000Z',
+            updatedTime: '2024-05-22T06:26:09.000Z',
+            name: '水果',
+        },
+    },
+    {
+        entity1: {
+            id: 2875322626672384,
+            createdTime: '2024-05-22T06:27:08.000Z',
+            updatedTime: '2024-05-22T06:27:08.000Z',
+            parentid: 2875322149381888,
+            name: '苹果',
+        },
+    },
+    {
+        entity1: {
+            id: 2875322712164096,
+            createdTime: '2024-05-22T06:27:18.000Z',
+            updatedTime: '2024-05-22T06:27:18.000Z',
+            parentid: 2875322149381888,
+            name: '香蕉',
+        },
+    },
+    {
+        entity1: {
+            id: 2875322878011136,
+            createdTime: '2024-05-22T06:27:38.000Z',
+            updatedTime: '2024-05-22T06:27:38.000Z',
+            name: '海鲜',
+        },
+    },
+    {
+        entity1: {
+            id: 2875322972186368,
+            createdTime: '2024-05-22T06:27:50.000Z',
+            updatedTime: '2024-05-22T06:27:50.000Z',
+            parentid: 2875322878011136,
+            name: '鱼类',
+        },
+    },
 ];
 
 const transferDataSource = [];
@@ -48,8 +97,8 @@ function handleTreeData(data, targetKeys = []) {
 export default {
     data() {
         return {
-            dataSource: treeData,
-            value: ['0-0'],
+            dataSource: treeData1,
+            value: [],
         };
     },
 };
