@@ -1,7 +1,7 @@
 <template>
   <div @click="$emit('click', link)">
     <div class="highlight-container">
-      <div class="highlight-content">{{ content }}</div>
+      <div class="highlight-content" ref="content" :style="highlightContentStyle">{{ content }}</div>
     </div>
   </div>
 </template>
@@ -22,6 +22,14 @@ export default {
       default: "",
       type: String,
     },
+    highlightColor: {
+      default: "#337eff",
+      type: String,
+    },
+    contentColor: {
+      default: "rgb(83, 87, 106)",
+      type: String,
+    },
   },
   mounted() {
     const style = document.createElement("style");
@@ -29,7 +37,7 @@ export default {
     // 设置 CSS 块的内容
     style.innerHTML = `
     ::highlight(search-results-${this._uid}) {
-      color: #337eff;
+      color: ${this.highlightColor};
       text-decoration: underline;
     }
   `;
@@ -45,9 +53,16 @@ export default {
   updated() {
     this.setHighlight();
   },
+  computed: {
+    highlightContentStyle() {
+      return {
+        color: this.contentColor,
+      };
+    },
+  },
   methods: {
     setHighlight() {
-      const article = this.$el;
+      const article = this.$refs.content;
 
       // 创建 createTreeWalker 迭代器，用于遍历文本节点，保存到一个数组
       const treeWalker = document.createTreeWalker(
@@ -60,9 +75,9 @@ export default {
         allTextNodes.push(currentNode);
         currentNode = treeWalker.nextNode();
       }
-      console.log("allTextNodes", allTextNodes);
-      // 清除上个高亮
-      CSS.highlights.clear();
+
+      // 清除当前组件的高亮
+      CSS.highlights.delete(`search-results-${this._uid}`);
 
       // 为空判断
       const str = this.text;
@@ -70,26 +85,28 @@ export default {
         return;
       }
 
-      // 查找所有文本节点是否包含搜索词
+      // 查找所有文本节点是否包含搜索词中的字符
       const ranges = allTextNodes
         .map((el) => {
           return { el, text: el.textContent.toLowerCase() };
         })
         .map(({ text, el }) => {
           const indices = [];
-          let startPos = 0;
-          while (startPos < text.length) {
-            const index = text.indexOf(str, startPos);
-            if (index === -1) break;
-            indices.push(index);
-            startPos = index + str.length;
+          for (let char of str.toLowerCase()) {
+            let startPos = 0;
+            while (startPos < text.length) {
+              const index = text.indexOf(char, startPos);
+              if (index === -1) break;
+              indices.push(index);
+              startPos = index + 1;
+            }
           }
 
           // 根据搜索词的位置创建选区
           return indices.map((index) => {
             const range = new Range();
             range.setStart(el, index);
-            range.setEnd(el, index + str.length);
+            range.setEnd(el, index + 1);
             return range;
           });
         });
@@ -111,7 +128,6 @@ export default {
   cursor: pointer;
 }
 .highlight-content {
-  color: rgb(83, 87, 106);
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;

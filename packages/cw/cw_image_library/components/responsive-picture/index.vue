@@ -45,7 +45,7 @@
       <!-- 4K screens -->
       <source v-if="fourKSrc" :srcset="fourKSrc" media="(min-width: 2561px)" />
       <!-- Default image -->
-      <img :src="defaultSrc || fallbackSrc" :alt="alt" />
+      <img :style="imageStyle" :src="defaultSrc || fallbackSrc" :alt="alt" />
     </picture>
   </div>
 </template>
@@ -94,6 +94,18 @@ export default {
       type: String,
       default: "",
     },
+    verticalCenter: {
+      type: String,
+      default: "center",
+    },
+    horizontalCenter: {
+      type: String,
+      default: "center",
+    },
+    fit: {
+      type: String,
+      default: "contain",
+    },
   },
   data() {
     return {
@@ -115,6 +127,14 @@ export default {
     // Observe the picture container element
     observer.observe(this.$refs.pictureContainer);
   },
+  computed: {
+    imageStyle() {
+      return {
+        "object-fit": this.fit,
+        "object-position": `${this.verticalCenter} ${this.horizontalCenter}`,
+      };
+    },
+  },
   methods: {
     handleClick(event) {
       this.$emit("click", event);
@@ -130,5 +150,8 @@ export default {
 </script>
 
 <style scoped>
+img {
+  width: 100%;
+}
 /* Add any styles you need here */
 </style>

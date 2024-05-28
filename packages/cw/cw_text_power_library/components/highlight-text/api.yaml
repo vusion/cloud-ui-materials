@@ -19,6 +19,16 @@
       default: ''
       description: 点击标识数据
       title: 点击标识数据
+    - name: highlightColor
+      type: string
+      default: #337eff
+      description: 高亮颜色
+      title: 高亮颜色
+    - name: contentColor
+      type: string
+      default: rgb(83, 87, 106)
+      description: 文本颜色
+      title: 文本颜色
   events:
     - name: click
       title: 选择后

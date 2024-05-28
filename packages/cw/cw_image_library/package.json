@@ -2,7 +2,7 @@
   "name": "cw_image_library",
   "title": "图片能力依赖库",
   "description": "",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
