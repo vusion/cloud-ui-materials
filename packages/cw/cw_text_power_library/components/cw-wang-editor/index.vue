@@ -167,7 +167,7 @@ export default {
                                   return file;
                               },
                               customInsert: (res, insertFn) => {
-                                  const url = res.result;
+                                  const url = res.filePath;
                                   insertFn(url);
                               },
                               meta: {
@@ -175,13 +175,13 @@ export default {
                               },
                               allowedFileTypes: this.acceptEditorList,
                               disable: true,
-                              customUpload(file, insertFn) {
-                                  const fileReader = new FileReader();
-                                  fileReader.onload = (e) => {
-                                      insertFn(e.target.result);
-                                  };
-                                  fileReader.readAsDataURL(file);
-                              },
+                            //   customUpload(file, insertFn) {
+                            //       const fileReader = new FileReader();
+                            //       fileReader.onload = (e) => {
+                            //           insertFn(e.target.result);
+                            //       };
+                            //       fileReader.readAsDataURL(file);
+                            //   },
                           }
                         : null,
                 },
