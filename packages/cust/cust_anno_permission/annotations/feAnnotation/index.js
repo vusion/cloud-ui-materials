@@ -20,6 +20,7 @@ function fetchData() {
         }
     });
 }
+
 /**
  * @param {string} el <false> 这是一个描述
  * @param {string} binding <false> 这是一个描述
