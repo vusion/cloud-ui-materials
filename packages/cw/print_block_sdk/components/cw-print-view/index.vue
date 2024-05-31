@@ -1,6 +1,5 @@
 <template>
   <div class="print-view" v-show="$env.VUE_APP_DESIGNER || isShowPrint">
-    123123239991010
     <div class="print-room" vusion-slot-name="default" ref="print-room">
       <slot></slot>
       <div v-if="!$slots.default" style="color: #ccccccd0; padding: 3px">
@@ -25,10 +24,10 @@ export default {
   },
   methods: {
     async print() {
-      // const historyEl = document.querySelector(".print-block-room");
-      // if (historyEl) {
-      //   historyEl.remove();
-      // }
+      const historyEl = document.querySelector(".print-block-room");
+      if (historyEl) {
+          historyEl.remove();
+      }
 
       // 确认打印前所有元素已经完全加载和显示
       const el = this.$refs["print-room"].cloneNode(true);
