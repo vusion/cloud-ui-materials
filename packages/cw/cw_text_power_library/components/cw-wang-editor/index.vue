@@ -210,7 +210,7 @@ export default {
                         },
                         // 自定义插入视频
                         customInsert(res, insertFn) {
-                            const url = res.result;
+                            const url = res.filePath;
                             insertFn(url);
                         },
                         meta: {
