@@ -31,7 +31,7 @@ export default {
 
       // 确认打印前所有元素已经完全加载和显示
       const el = this.$refs["print-room"].cloneNode(true);
-      el.classList.add("print-block-room");728
+      el.classList.add("print-block-room");
       document.body.appendChild(el);
       console.log("el", el);
       let promises = [];
