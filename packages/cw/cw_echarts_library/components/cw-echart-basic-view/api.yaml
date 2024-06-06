@@ -31,3 +31,7 @@
         title: reload
         description: 刷新数据
         params: []
+      - name: getDataURL
+        title: getDataURL
+        description: 获取图表图片
+        params: []

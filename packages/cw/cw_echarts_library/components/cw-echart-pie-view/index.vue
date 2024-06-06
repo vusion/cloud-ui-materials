@@ -27,12 +27,14 @@ import * as echarts from 'echarts';
 import { fakeData } from '@/utils/fakeData';
 import '../../utils/theme.js';
 import Vue from 'vue';
+import getDataURL from '../../mixins/getDataUrl';
 
 Vue.prototype.$echarts = echarts;
 let firstFlag = true;
 export default {
     name: 'cw-echart-pie-view',
     components: { echartPie },
+    mixins: [getDataURL],
     props: {
         dataSource: [Function, Array, Object],
         theme: { type: String, default: 'theme1' },
@@ -92,7 +94,7 @@ export default {
         observer.observe(this.$el, { attributes: true });
         this.mutationObserver = observer;
         this.resizeObserver = new ResizeObserver(() => {
-            this.$refs.echart.resize();
+            this.$refs.echart && this.$refs.echart.resize();
         });
         this.resizeObserver.observe(this.$el);
     },

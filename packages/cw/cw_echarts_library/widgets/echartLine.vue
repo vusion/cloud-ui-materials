@@ -63,7 +63,7 @@ export default {
         this.processLineData(this.sourceData);
         this.chartInstance.setOption(this.lineOption);
         this.$nextTick(() => {
-          this.chartInstance.resize();
+          this.chartInstance && this.chartInstance.resize();
         });
       }
     },
@@ -85,7 +85,7 @@ export default {
           this.$emit('clickItem',echartClickEvent);
         });
         this.$nextTick(() => {
-          this.chartInstance.resize();
+          this.chartInstance && this.chartInstance.resize();
         });
       }
     },

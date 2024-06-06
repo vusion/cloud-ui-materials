@@ -166,6 +166,10 @@
               type: string
               description: 参数
   methods:
+      - name: getDataURL
+        title: getDataURL
+        description: 获取图表图片
+        params: []
       - name: reload
         title: reload
         description: 刷新数据

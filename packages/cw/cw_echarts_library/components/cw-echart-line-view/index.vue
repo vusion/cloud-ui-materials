@@ -25,6 +25,7 @@
 import echartLine from '@/widgets/echartLine';
 import * as echarts from 'echarts';
 import { fakeData } from '@/utils/fakeData';
+import getDataURL from '../../mixins/getDataUrl';
 import '../../utils/theme.js';
 import Vue from 'vue';
 
@@ -33,6 +34,7 @@ let firstFlag = true;
 export default {
     name: 'cw-echart-line-view',
     components: { echartLine },
+    mixins: [getDataURL],
     props: {
         dataSource: [Function, Array, Object],
         theme: { type: String, default: 'theme1' },
@@ -102,7 +104,7 @@ export default {
         observer.observe(this.$el, { attributes: true });
         this.mutationObserver = observer;
         this.resizeObserver = new ResizeObserver(() => {
-            this.$refs.echart.resize();
+            this.$refs.echart && this.$refs.echart.resize();
         });
         this.resizeObserver.observe(this.$el);
     },

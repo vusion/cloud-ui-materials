@@ -23,6 +23,7 @@
 import echartBasic from '@/widgets/echartBasic';
 import * as echarts from 'echarts';
 import { fakeData } from '@/utils/fakeData';
+import getDataURL from '../../mixins/getDataUrl';
 import '@/utils/theme.js';
 import Vue from 'vue';
 Vue.prototype.$echarts = echarts;
@@ -30,6 +31,7 @@ Vue.prototype.$echarts = echarts;
 export default {
     name: 'cw-echart-basic-view',
     components: { echartBasic },
+    mixins: [getDataURL],
     props: {
         dataSource: [Function, Array, Object],
         options: { type: Object, default: () => ({}) },
@@ -45,7 +47,7 @@ export default {
     },
     mounted() {
         this.resizeObserver = new ResizeObserver(() => {
-            this.$refs.echart.resize();
+            this.$refs.echart && this.$refs.echart.resize();
         });
         this.resizeObserver.observe(this.$el);
     },
@@ -101,7 +103,7 @@ export default {
         },
         startLoading() {
             this.loading = true;
-        },
+        }
     },
 };
 </script>
