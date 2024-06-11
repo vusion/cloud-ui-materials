@@ -11,7 +11,7 @@
 export default {
   methods: {
     async handleClick() {
-      console.log(await this.$refs["my-view"].toPNG());
+      console.log(await this.$refs["my-view"].toPNG({width:100,height:100,padding:20}));
     },
   },
 };

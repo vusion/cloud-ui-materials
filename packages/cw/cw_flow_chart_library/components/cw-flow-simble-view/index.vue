@@ -405,11 +405,11 @@ export default {
       return JSON.stringify(this.graph.toJSON());
     },
     async toPNG(opts) {
-     const res =  await new Promise((resolve)=>{
+      const res =  await new Promise((resolve)=>{
           this.graph.toPNG((e) => {
             resolve(e);
-          })
-      },opts)
+          },opts)
+      })
       return res
     },
     exportPNG(){
