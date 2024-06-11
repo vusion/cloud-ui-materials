@@ -166,7 +166,7 @@ export default {
             return cssObj;
         },
         reload() {
-            this.sourceData = 'fakeData';
+            this.sourceData = null
             this.$nextTick(async () => {
                 this.sourceData = await this.handleDataSource(this.dataSource);
                 this.loading = false;
