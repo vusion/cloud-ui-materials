@@ -156,7 +156,7 @@ export default {
             return cssObj;
         },
         reload() {
-            this.sourceData = 'fakeData'; //? 接受字符串吗
+            this.sourceData = null;
             this.$nextTick(async () => {
                 this.sourceData = await this.handleDataSource(this.dataSource);
                 this.loading = false;
