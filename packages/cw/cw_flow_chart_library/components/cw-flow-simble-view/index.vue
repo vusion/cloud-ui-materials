@@ -312,21 +312,35 @@ export default {
       },
       true
     );
+
     const r1 = graph
       .createNode({
         shape: "custom-rect",
         label: "文字",
         attrs: {
           body: {
-            //   rx: 20,
-            //   ry: 26,
           },
         },
       })
       .addTools({
         name: "node-editor",
       });
-    stencil.load([r1], "group1");
+     const r2 = graph
+      .createNode({
+        shape: "custom-rect",
+        label: "文字",
+        attrs: {
+          body: {
+            stroke:"transparent",
+            fill:"transparent"
+          },
+        },
+        ports:{}
+      })
+      .addTools({
+        name: "node-editor",
+      });
+    stencil.load([r1,r2], "group1");
   },
   methods: {
     init() {
@@ -391,15 +405,15 @@ export default {
       return JSON.stringify(this.graph.toJSON());
     },
     async toPNG(opts) {
-     const res =  await new Promise((resolve)=>{
+      const res =  await new Promise((resolve)=>{
           this.graph.toPNG((e) => {
             resolve(e);
-          })
-      },opts)
+          },opts)
+      })
       return res
     },
-    exportPNG(){
-       this.graph.exportPNG()
+    exportPNG(opts,filename){
+       this.graph.exportPNG(filename,opts)
     }
   },
 };

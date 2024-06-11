@@ -10,5 +10,8 @@
 		"dom-to-image": "^2.6.0",
 		"lodash.mergewith": "^4.6.2",
 		"node-fetch": "2"
+	},
+	"devDependencies": {
+		"husky": "^9.0.11"
 	}
 }
