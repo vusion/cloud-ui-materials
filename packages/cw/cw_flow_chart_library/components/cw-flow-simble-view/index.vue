@@ -412,8 +412,8 @@ export default {
       })
       return res
     },
-    exportPNG(){
-       this.graph.exportPNG()
+    exportPNG(opts,filename){
+       this.graph.exportPNG(filename,opts)
     }
   },
 };
