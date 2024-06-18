@@ -1,0 +1,25 @@
+- name: cw-nfc-view
+  title: nfc组件
+  type: h5
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值
+  events:
+    - name: onreading
+      title: 扫描成功后
+      description: 扫描成功后
+      params: []
+    - name: onreadingerror
+      title: 扫描失败后
+      description: 扫描失败后
+      params: []
+  methods:
+    - name: init
+      description: 初始化
+      params: []
+
+  

@@ -1,8 +1,8 @@
 {
-  "name": "cw_swiper_library",
-  "title": "轮播图依赖库",
+  "name": "cw_nfc_library",
+  "title": "NFC依赖库",
   "description": "",
-  "version": "1.1.1",
+  "version": "1.0.0",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -17,13 +17,13 @@
     "dev": "vue-cli-service doc --port 9090",
     "build:theme": "vue-cli-service library-build --dest dist-theme",
     "build:doc": "vue-cli-service doc-build",
-    "build": "npm run build:theme && npm run build:doc",
+    "build": "npm run build:theme",
     "usage": "lcap usage",
-    "deploy": "lcap deploy && lcap deploy dist-theme",
-    "prepublishOnly": "npm run build && lcap usage",
+    "deploy": "lcap deploy dist-theme",
+    "prepublishOnly": "lcap publish",
     "release": "lcap publish"
   },
-  "vuePlugins": {}, 
+  "vuePlugins": {},
   "babel": {},
   "vusion": {
     "ui": "cloud-ui.vusion"
@@ -31,16 +31,15 @@
   "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
-    "url-loader": "^4.1.1",
-    "vue": "^2.6.10",
+    "vue-loader": "15.9.8",
     "vue-cli-plugin-vusion": "0.14.2-beta",
-    "vue-loader": "15.9.8"
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "vue": "^2.6.12"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
@@ -48,9 +47,5 @@
   },
   "template": {
     "inited": true
-  },
-  "dependencies": {
-    "swiper": "5.4.5",
-    "vue-awesome-swiper": "4.1.1"
   }
 }

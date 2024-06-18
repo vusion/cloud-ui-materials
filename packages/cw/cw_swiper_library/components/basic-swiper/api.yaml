@@ -1,6 +1,6 @@
 - name: basic-swiper
   title: 基础轮播图
-  type: pc
+  type: both
   belong: component
   labels: [Runtime]
   attrs:

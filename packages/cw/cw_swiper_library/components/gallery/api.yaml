@@ -1,6 +1,6 @@
 - name: gallery
   title: 画廊
-  type: pc
+  type: both
   belong: component
   labels: [Runtime]
   attrs:
