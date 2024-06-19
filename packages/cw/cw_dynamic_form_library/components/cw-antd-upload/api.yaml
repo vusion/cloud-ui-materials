@@ -1,0 +1,10 @@
+- name: cw-antd-upload
+  title: 文件上传
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值

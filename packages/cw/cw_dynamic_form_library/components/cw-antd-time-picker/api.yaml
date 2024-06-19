@@ -1,0 +1,10 @@
+- name: cw-antd-time-picker
+  title: 时间选择框
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值

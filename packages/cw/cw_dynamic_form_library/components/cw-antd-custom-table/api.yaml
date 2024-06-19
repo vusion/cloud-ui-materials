@@ -1,0 +1,21 @@
+- name: cw-antd-custom-table
+  title: 动态列表格
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 数据
+      type: string
+      description: 动态列表哥数据
+    - name: titleMap
+      title: 标题列描述
+      type: string
+      description: 动态列表标题内容
+  events:
+    - name: clickItem
+      title: 行详情点击
+      params:
+        - name: value
+          type: string
+          description: 改变的值

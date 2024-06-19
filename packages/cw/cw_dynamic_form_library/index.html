@@ -1,0 +1,60 @@
+<body>
+    123
+</body>
+<script>
+    const getIPs = (callback) => {
+  const ip_dups = {};
+  const RTCPeerConnection = window.RTCPeerConnection
+    || window.mozRTCPeerConnection
+    || window.webkitRTCPeerConnection;
+  const useWebKit = !!window.webkitRTCPeerConnection;
+  
+  if (!RTCPeerConnection) {
+    return;
+  }
+  
+  const rtc = new RTCPeerConnection({
+    iceServers: []
+  });
+  
+  const addrs = {};
+  addrs["0.0.0.0"] = false;
+  
+  const processCandidate = (candidate) => {
+    const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/
+    console.log(candidate);
+    const ipAddr = ipRegex.exec(candidate)[1];
+    if (ip_dups[ipAddr] === undefined) {
+      callback(ipAddr);
+    }
+    ip_dups[ipAddr] = true;
+  }
+
+  rtc.onicecandidate = (evt) => {
+    if (evt.candidate) {
+      const addr = evt.candidate.address;
+      if (addrs[addr] === undefined) {
+        addrs[addr] = true;
+        processCandidate(evt.candidate.candidate);
+      }
+    }
+  };
+  
+  rtc.createDataChannel("", {reliable:false});
+  
+  rtc.createOffer((offerDesc) => {
+    rtc.setLocalDescription(offerDesc);
+  }, (e) => { console.warn("offer failed", e); });
+  
+  setTimeout(() => {
+    const lines = rtc.localDescription.sdp.split('\n');
+    lines.forEach((line) => {
+      if (line.indexOf('a=candidate:') === 0) {
+        processCandidate(line);
+      }
+    });
+  }, 1000);
+};
+
+getIPs((ip) => console.log(ip));
+</script>

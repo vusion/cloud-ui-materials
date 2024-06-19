@@ -1,0 +1,11 @@
+- name: cw-antd-checkbox-with-input
+  title: 多选组输入框
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 值
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值

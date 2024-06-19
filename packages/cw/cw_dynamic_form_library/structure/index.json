@@ -1,0 +1,15 @@
+{
+    "FormInfo":{
+        "__description":"表单信息数据结构",
+        "name":"String-表单名称-",
+        "url":"String-提交路径-",
+        "span":"Long-表单列数-",
+        "layout":"String-表单布局-",
+        "labelWidth":"Long-标签宽度-",
+        "labelAlign":"String-标签对齐方式-",
+        "isBtn":"Boolean-是否展示按钮-",
+        "customStyle":"String-自定义样式-",
+        "pageComponentList":"String-动态表单schamal-",
+        "structure":"String-字段结构-"
+    }
+}

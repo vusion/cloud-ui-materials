@@ -1,0 +1,41 @@
+- name: cw-antd-custom-view
+  title: 设计器
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 动态内容
+      type: string
+      description: 需要传入的值
+    - name: customComponentList
+      title: 自定义表单信息
+      type: string
+      description: 自定义表单信息
+  methods:
+    - name: handleFormSubmit
+      title: 提交 
+    - name: handleShowFormSetting
+      title: 表单设置
+  events:
+    - name: submit
+      title: 提交
+      description: 提交时
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+        - name: $event1
+          type: object
+          description: 选择项的值
+    - name: onChange
+      title: 改变后
+      description: 改变后
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+  slots: 
+    - name: default
+      title: 默认插槽
+      description: 默认插槽

@@ -1,0 +1,62 @@
+{
+  "name": "cw_dynamic_form_library",
+  "title": "动态表单",
+  "description": "运行时的表单设计组件",
+  "version": "1.2.62",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme",
+    "usage": "lcap usage",
+    "deploy": "lcap deploy dist-theme",
+    "prepublishOnly": "lcap publish",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "ui": "cloud-ui.vusion"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.12",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
+  },
+  "peerDependencies": {
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
+  },
+  "lcapVersion": "0.3.0",
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  },
+  "dependencies": {
+    "ant-design-vue": "1.7.8",
+    "html2canvas": "^1.4.1",
+    "less": "^4.2.0",
+    "less-loader": "6",
+    "photoswipe": "^5.4.3",
+    "vue-cropper": "^0.6.3",
+    "vue-draggable-resizable": "^3.0.0",
+    "vue-svg-loader": "^0.16.0",
+    "vuedraggable": "^2.24.3"
+  }
+}

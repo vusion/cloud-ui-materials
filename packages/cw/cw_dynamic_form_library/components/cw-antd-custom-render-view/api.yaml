@@ -1,0 +1,24 @@
+- name: cw-antd-custom-render-view
+  title: 渲染器
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 动态内容
+      type: string
+      description: 需要传入的值
+    - name: initValue
+      title: 初始化数据
+      type: Object
+      description: 需要传入的值
+    - name: disabled
+      title: 是否禁用
+      type: boolean
+      description: 是否禁用
+  methods:
+    - name: validatorResult
+      title: 验证结果
+      description: 收集验证结果
+      params: []
+    

@@ -1,0 +1,14 @@
+{
+    "FormInfo":{
+        "__description":"表单信息数据结构",
+        "name":"String-表单名称-动态表单1",
+        "url":"String-提交路径-/api/xxx",
+        "span":"Long-表单列数-3",
+        "layout":"String-表单布局-horizontal",
+        "labelWidth":"Long-标签宽度-100",
+        "labelAlign":"String-标签对齐方式-right",
+        "isBtn":"Boolean-是否展示按钮-false",
+        "customStyle":"String-自定义样式- ",
+        "pageComponentList":"String-动态表单schamal- "
+    }
+}
