@@ -14,7 +14,7 @@
           :key="index"
           @click="onSwiperItemClick(item)"
         >
-          <slot name="item" v-bind="item" :index="index" :item="item"></slot>
+          <slot name="item" v-bind="{...item, index}" :index="index" :item="{...item, index}"></slot>
         </div>
       </swiper-slide>
     </swiper>
@@ -32,10 +32,9 @@
         >
           <!-- 背景条 -->
           <rect
-            v-if="activeIndex === index"
             x="0"
             y="0"
-            width="120"
+            :width="process[index]"
             height="2"
             fill="#002BEC"
           />
@@ -72,6 +71,11 @@ export default {
       default: 300,
     },
   },
+  provide() {
+    return {
+      parent: this,
+    };
+  },
   components: {
     Swiper,
     SwiperSlide,
@@ -79,6 +83,7 @@ export default {
   data() {
     return {
       activeIndex: 0,
+      process: [],
     };
   },
   mounted() {
@@ -119,6 +124,7 @@ export default {
       this.slideNext();
     },
     paginationClick(index) {
+      this.process = [];
       this.swiper.slideTo(index);
     },
     slideNext() {

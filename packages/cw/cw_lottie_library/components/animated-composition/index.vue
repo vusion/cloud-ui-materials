@@ -18,6 +18,7 @@ export default {
   components: {
     Lottie,
   },
+  inject: ["parent"],
   props: {
     animationData: {
       type: Object,
@@ -33,9 +34,16 @@ export default {
   data() {
     return {
       interSected: false,
+      animationProgress: 0,
     };
   },
   mounted() {
+    console.log("parent", this.parent, this);
+    if (this.parent) {
+      setInterval(() => {
+        this.getAnimationProgress();
+      }, 50);
+    }
     this.$nextTick(() => {
       this.$nextTick(() => {
         const observer = new IntersectionObserver(
@@ -115,6 +123,14 @@ export default {
     },
     handleAnimationComplete() {
       this.$emit("handleAnimationComplete");
+    },
+    getAnimationProgress() {
+      if (this.$refs.lottie && this.$refs.lottie.anim) {
+        this.animationProgress =
+          this.$refs.lottie.anim.currentFrame /
+          this.$refs.lottie.anim.totalFrames;
+          this.$set(this.parent.process, this.animationData.index, this.animationProgress > 0.99 ? 0 : this.animationProgress * 120);
+      }
     },
     hasAncestorWithOpacityZero(element) {
       if (!element) {

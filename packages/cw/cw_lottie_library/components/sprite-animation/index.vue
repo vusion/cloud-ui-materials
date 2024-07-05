@@ -1,6 +1,8 @@
 <template>
   <div
     class="sprite-animation"
+    @mouseenter="startAnimation"
+    @mouseleave="resetAnimationState"
     :style="{
       backgroundImage: 'url(' + imageUrl + ')',
       height: frameHeight + 'px',
