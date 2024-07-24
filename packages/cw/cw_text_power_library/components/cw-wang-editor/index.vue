@@ -392,7 +392,7 @@ export default {
                 }
             )
                 .then((res) => res.json())
-                .then((v) => v.result)
+                .then((v) => v.filePath)
                 .catch((v) => ''); //图片上传出现问题返回为空
             return url;
         },
