@@ -9,3 +9,18 @@
       type: string
       default: 请在这里编写代码
       description: 需要传入的值
+    - name: panZoom
+      title: 是否开启缩放
+      type: boolean
+      default: false
+      description: 是否开启缩放
+    - name: maxScale
+      title: 最大缩放比例
+      type: number
+      default: 3
+      description: 最大缩放比例
+    - name: minScale
+      title: 最小缩放比例
+      type: number
+      default: 1
+      description: 最小缩放比例
