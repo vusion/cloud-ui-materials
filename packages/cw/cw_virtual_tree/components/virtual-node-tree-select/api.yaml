@@ -81,6 +81,16 @@
       brifeDoc: ''
       docDescription: 集合的元素类型中，用于展开的属性，支持自定义变更
       tooltipLink: ''
+    - name: is-leaf-field
+      title: 叶子字段
+      display: property-select
+      type: boolean
+      default: ''
+      description: 集合的元素类型中，用于判断是否是叶子节点的属性
+      group: 数据属性
+      brifeDoc: ''
+      docDescription: 集合的元素类型中，用于判断是否是叶子节点的属性
+      tooltipLink: ''
     - name: checkable
       description: 是否可多选
       title: 是否可多选

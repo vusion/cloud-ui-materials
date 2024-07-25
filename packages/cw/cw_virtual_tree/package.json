@@ -2,7 +2,7 @@
   "name": "cw_virtual_tree",
   "title": "虚拟树",
   "description": "",
-  "version": "1.1.0",
+  "version": "2.0.3",
   "main": "./index.js",
   "author": "",
   "repository": "",

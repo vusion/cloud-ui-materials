@@ -1,5 +1,6 @@
 <template>
   <div>
+    123
     <CTreeDrop
       ref="tree"
       title-field="__title"
@@ -14,7 +15,6 @@
       :dropdown-min-width="dropdownMinWidth"
       :dropdown-width-fixed="dropdownWidthFixed"
       :dropdown-class-name="dropdownClassName"
-      :expandedKeys="currentExpandedKeys"
       :load="load"
       :value="value"
       :render="renderNode"
@@ -22,10 +22,9 @@
       @dropdown-visible-change="dropdownVisibleChange"
       @clear="clear"
       :beforeDropMethod="handleBeforeDrop"
-      @input="$emit('update:value', $event)" 
+      @input="$emit('update:value', $event)"
       @node-dragstart="handleNodeDragStart"
       @node-drop="handleNodeDrop"
-      @search="search"
     />
   </div>
 </template>
@@ -127,12 +126,15 @@ export default {
     load() {
       const isStaticData = typeof this.dataSource !== "function";
       return (node, resolve, reject) => {
-        console.log("datasource", node);
         if (isStaticData) {
           return resolve(this.processData(this.dataSource));
         }
+
         Promise.resolve()
-          .then(() => this.dataSource(node))
+          .then(() => {
+            this.$root.wybieNode = node && node.__id;
+            return this.dataSource(node);
+          })
           .then(
             (res) => {
               let data;
@@ -162,6 +164,7 @@ export default {
   },
   methods: {
     search(node) {
+      console.log('renderNode')
       this.$emit(
         "search",
         {
@@ -268,7 +271,7 @@ export default {
         treeNode[TITLEFIELD] = this.$at(treeNode, this.titleField);
         treeNode[KEYFIELD] = this.$at(treeNode, this.keyField);
         treeNode.isLeaf = this.$at(treeNode, this.isLeafField);
-        treeNode.expand = this.$at(treeNode, this.expandField);
+        // treeNode.expand = this.$at(treeNode, this.expandField);
         if (this.isAppDesigner) {
           treeNode.isLeaf = true;
         }
@@ -282,6 +285,7 @@ export default {
     },
     renderNode(h, node) {
       const hasNodeui = !!this.$scopedSlots.item;
+      console.log('renderNode', hasNodeui)
       return h(
         "div",
         {
@@ -383,6 +387,7 @@ export default {
       return treeInstance.getNode(key);
     },
     insertAtRoot(node) {
+      console.log('insertAtRoot')
       const treeInstance = this.$refs.tree;
       const treeData = treeInstance.getTreeData();
       if (treeData.length === 0) {
@@ -400,10 +405,12 @@ export default {
       }
     },
     handleCheckedChange(value) {
+      console.log('handleCheckedChange', value)
       this.$emit("change", value);
       this.$emit("update:value", value);
     },
     dropdownVisibleChange(value) {
+      console.log('dropdownVisibleChange')
       this.$emit("dropdownVisibleChange", value);
     },
     clear(value) {
