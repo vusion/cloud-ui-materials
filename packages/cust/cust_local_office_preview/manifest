@@ -1,0 +1,14 @@
+Plugin-Version: 1.0.0
+Library-Type: Frontend
+Metadata-File: nasl.extension.json
+Tag: Vue
+packages/extension/cust_local_office_preview@1.0.0/dist-theme/index.cjs: dist-theme/index.cjs
+packages/extension/cust_local_office_preview@1.0.0/dist-theme/index.cjs.map: dist-theme/index.cjs.map
+packages/extension/cust_local_office_preview@1.0.0/dist-theme/index.css: dist-theme/index.css
+packages/extension/cust_local_office_preview@1.0.0/dist-theme/index.js: dist-theme/index.js
+packages/extension/cust_local_office_preview@1.0.0/dist-theme/index.js.map: dist-theme/index.js.map
+packages/extension/cust_local_office_preview@1.0.0/dist-theme/index.mjs: dist-theme/index.mjs
+packages/extension/cust_local_office_preview@1.0.0/dist-theme/index.mjs.map: dist-theme/index.mjs.map
+packages/extension/cust_local_office_preview@1.0.0/nasl.extension.d.ts: nasl.extension.d.ts
+packages/extension/cust_local_office_preview@1.0.0/manifest: manifest
+packages/extension/cust_local_office_preview@1.0.0/zip.tgz: zip.tgz
