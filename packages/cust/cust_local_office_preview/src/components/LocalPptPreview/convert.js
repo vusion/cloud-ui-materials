@@ -5,7 +5,7 @@ export async function convertToPdfAndGetResult(url, type = 1, onUpdate) {
   const authorization = cookies.get('authorization');
   const headers = authorization ? { Authorization: authorization } : {};
   try {
-    const { data: keyData } = await axios.post('/expand/transfer/to_pdf', {
+    const { data: keyData } = await axios.post('/expand/transfer/to_transfer', {
       fileUrl: url,
       type
     }, { headers });

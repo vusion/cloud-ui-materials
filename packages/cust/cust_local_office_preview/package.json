@@ -1,7 +1,7 @@
 {
   "name": "cust_local_office_preview",
   "private": "true",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "lcapIdeVersion": "3.8",
   "title": "文档本地预览（配合后端依赖库使用）",
   "description": "文档本地预览（配合后端依赖库使用）",
