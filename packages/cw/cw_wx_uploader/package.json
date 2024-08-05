@@ -1,8 +1,8 @@
 {
-  "name": "print_block_sdk",
-  "title": "打印模块SDK",
+  "name": "cw_wx_uploader",
+  "title": "微信上传",
   "description": "",
-  "version": "1.3.2",
+  "version": "0.1.4",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -28,29 +28,30 @@
   "vusion": {
     "ui": "cloud-ui.vusion"
   },
+  "lcapVersion": "0.3.0",
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
-    "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
-    "vue": "^2.6.10",
+    "vue-loader": "15.9.8",
     "vue-cli-plugin-vusion": "0.14.2-beta",
-    "vue-loader": "15.9.8"
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
   },
   "peerDependencies": {
     "cloud-ui.vusion": "^0.11.20",
-    "vue": "^2.6.10"
+    "vue": "^2.6.12"
   },
   "vetur": {
     "tags": "./vetur/tags.json",
     "attributes": "./vetur/attributes.json"
   },
-  "lcapVersion": "0.3.0",
   "template": {
     "inited": true
   },
   "dependencies": {
-    "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.1",
-    "print-js": "^1.6.0"
-    }
+    "axios": "^1.7.3",
+    "crypto": "^1.0.1",
+    "express": "^4.19.2",
+    "weixin-js-sdk": "^1.6.5"
+  }
 }
