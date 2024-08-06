@@ -151,9 +151,11 @@ export default {
       deep: true,
     },
     taskView: {
-      handler() {
+      handler(newValue) {
+        this.defaultDateView= newValue
         this.ganttChangeDateView(this.taskView);
       },
+      immediate:true
     },
   },
   methods: {
