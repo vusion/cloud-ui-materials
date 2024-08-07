@@ -29,7 +29,7 @@
       "@components/*": ["./src/components/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "ide/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "ide/**/*.ts", "src/components/byte-markdown-preview/tocPlugin.js"],
   "references": [
   ]
 }

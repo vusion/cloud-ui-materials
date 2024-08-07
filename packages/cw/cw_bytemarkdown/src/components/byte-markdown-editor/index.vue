@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <Editor class="editos" :locale="zhHans" :value="value" :plugins="plugins" @change="onChange"
-      :uploadImages="uploadImage" />
-  </div>
+  <Editor class="editos" :locale="zhHans" :value="value" :plugins="plugins" @change="onChange"
+  :uploadImages="uploadImage" />
 </template>
 
 <script>
@@ -117,6 +115,9 @@ export default {
   pointer-events: none;
 }
 
+.bytemd {
+  height: 100%;
+}
 .markdown-body {
   pre {
     position: relative;

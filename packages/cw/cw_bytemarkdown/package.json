@@ -1,7 +1,7 @@
 {
   "name": "cw_bytemarkdown",
   "private": "true",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "lcapIdeVersion": "3.8",
   "title": "markdown依赖库",
   "description": "markdown依赖库",
@@ -38,9 +38,13 @@
     "@bytemd/plugin-medium-zoom": "^1.21.0",
     "@bytemd/plugin-mermaid": "^1.21.0",
     "@bytemd/vue": "^1.21.0",
+    "@jsdevtools/rehype-toc": "^3.0.2",
     "axios": "^1.7.3",
     "bytemd": "^1.21.0",
+    "hast-util-from-html-isomorphic": "^2.0.0",
     "js-cookie": "^3.0.5",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
     "toc-helper": "^2.1.1"
   },
   "devDependencies": {
