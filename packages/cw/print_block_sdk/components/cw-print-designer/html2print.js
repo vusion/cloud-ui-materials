@@ -42,6 +42,7 @@ export default class Html2Pdf {
     this.pagerWidth = param.pagerWidth;
     this.pagerHeight = param.pagerHeight;
     this.itemClass = 'print-view-split';
+    this.isGridLayout = param.isGridLayout || false;
 
     // 页眉页脚高度
     this.pdfFooterHeight = 0;
@@ -239,8 +240,13 @@ export default class Html2Pdf {
   traversingNodes(nodes) {
     for (const element of nodes) {
       const one = element;
+      let isItem = false;
       // 深度终点
-      const isItem = one.classList && one.classList.contains(this.itemClass)
+      if (this.isGridLayout) {
+        isItem = one.classList && (one.classList.contains(this.itemClass) || one.classList.contains("u-table-view_row__GNEcUtLJ") || one.classList.contains("u-grid-layout_row__szv-q3YH"))
+      } else {
+        isItem = one.classList && one.classList.contains(this.itemClass);
+      }
       // 对需要处理分页的元素，计算是否跨界，若跨界，则直接将顶部位置作为分页位置，进行分页，且子元素不需要再进行判断
       const { offsetHeight = 0 } = one;
       // 计算出最终高度
@@ -260,7 +266,7 @@ export default class Html2Pdf {
         } else {
           // 遍历子节点
           this.traversingNodes(one.childNodes);
-          this.updateNormalElPos(top, rateOffsetHeight);
+          !this.isGridLayout && this.updateNormalElPos(top, rateOffsetHeight);
         }
       }
     }
@@ -280,6 +286,7 @@ export default class Html2Pdf {
     } else if (top + eHeight - nowPageTop  > this.originalPageHeight && top !== nowPageTop) {
       this.pages.push(top)
     }
+    console.log(this.pages)
   }
   /**
    *  普通元素更新位置

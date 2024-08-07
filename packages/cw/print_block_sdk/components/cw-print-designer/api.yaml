@@ -112,5 +112,9 @@
             required: false
           - name: itemElement
             type: string
-            description: 避免分页的元素名
+            description: 分页的元素名
+            required: false
+          - name: isGridLayout
+            type: boolean
+            description: 是否是网格或者table布局
             required: false

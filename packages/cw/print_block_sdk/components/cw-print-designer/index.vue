@@ -126,7 +126,7 @@ export default {
     mmStringToPt(mm) {
       return mmToPt(+mm.replace(/[^\d]/g, ''), DEFAULT_DPI);
     },
-    generatePrintParams(pagerInHeader, pagerSizeInHeader, pagerSizeInFooter, pagerInFooter, itemElement) {
+    generatePrintParams(pagerInHeader, pagerSizeInHeader, pagerSizeInFooter, pagerInFooter, itemElement, isGridLayout) {
       const params = {
         direction: this.pageDirection,
         format: this.pageFormat,
@@ -134,6 +134,7 @@ export default {
         pagerHeight: this.mmStringToPt(this.pagerDimension['height']),
         baseY: this.yBorder,
         baseX: this.xBorder,
+        isGridLayout
       }
       const pageContext = this.$vnode.context;
       if (pagerInHeader && this.showHeader && pageContext.$refs[pagerInHeader]) {
