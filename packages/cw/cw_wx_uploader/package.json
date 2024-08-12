@@ -2,7 +2,7 @@
   "name": "cw_wx_uploader",
   "title": "微信上传",
   "description": "",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "main": "./index.js",
   "author": "",
   "repository": "",

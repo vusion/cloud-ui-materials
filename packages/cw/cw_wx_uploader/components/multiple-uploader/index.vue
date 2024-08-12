@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import wx from 'weixin-js-sdk';
+import wx from "weixin-js-sdk";
 
 export default {
   props: {
@@ -40,50 +40,57 @@ export default {
     this.initWeChatSDK();
   },
   methods: {
-    initWeChatSDK() {
+    async initWeChatSDK() {
+      const url = location.origin;
+      const data = await fetch(
+        `${url}/api/system/wechat/getConfig?url=${encodeURIComponent(
+          location.href
+        )}`,
+        {
+          method: "get",
+        }
+      ).then((response) => response.json());
       wx.config({
-        debug: true, // 开启调试模式
-        appId: this.appId,
-        timestamp: this.timestamp,
-        nonceStr: this.nonceStr,
-        signature: this.signature,
-        jsApiList: ['chooseImage', 'uploadImage'], // 需要使用的JS接口列表
-      });
-
-      wx.ready(() => {
-        console.log('WeChat JS-SDK is ready');
-      });
-
-      wx.error((error) => {
-        console.error('WeChat JS-SDK initialization error', error);
+        debug: false,
+        appId: data.appId,
+        nonceStr: data.nonceStr,
+        signature: data.signature,
+        timestamp: data.timestamp,
+        jsApiList: ["chooseImage", "uploadImage"],
       });
     },
     chooseImages() {
-      wx.chooseImage({
-        count: 9, // 默认9，修改为您需要的最大图片数
-        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        success: (res) => {
-          const localIds = res.localIds;
-          this.images = localIds;
+      wx.ready(() => {
+        wx.chooseImage({
+          count: 9, // 默认9，修改为您需要的最大图片数
+          sizeType: ["original", "compressed"], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ["album", "camera"], // 可以指定来源是相册还是相机，默认二者都有
+          success: (res) => {
+            const localIds = res.localIds;
+            this.images = localIds;
+            this.$emit("image-chosen", localIds);
 
-          localIds.forEach((localId) => {
-            wx.uploadImage({
-              localId: localId,
-              isShowProgressTips: 1, // 默认为1，显示进度提示
-              success: (uploadRes) => {
-                const serverId = uploadRes.serverId; // 上传后的文件ID
-                console.log('上传成功，serverId:', serverId);
-              },
-              fail: (uploadErr) => {
-                console.error('上传失败', uploadErr);
-              },
+            localIds.forEach((localId) => {
+              wx.uploadImage({
+                localId: localId,
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: (uploadRes) => {
+                  const serverId = uploadRes.serverId; // 上传后的文件ID
+                  this.$emit("upload-success", serverId);
+                },
+                fail: (uploadErr) => {
+                  this.$emit("upload-fail", uploadErr);
+                  console.error("上传失败", uploadErr);
+                },
+              });
             });
-          });
-        },
-        fail: (err) => {
-          console.error('选择图片失败', err);
-        },
+          },
+          fail: (err) => {
+            this.$emit("choose-image-fail", err);
+            this.$toast.show("选择图片失败" + JSON.stringify(err));
+            console.error("选择图片失败", err);
+          },
+        });
       });
     },
   },

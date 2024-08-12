@@ -9,21 +9,6 @@
       type: string
       default: ""
       description: 传入微信JS-SDK所需的AppID
-    - name: timestamp
-      title: 时间戳
-      type: number
-      default: 0
-      description: 传入微信JS-SDK所需的时间戳
-    - name: nonceStr
-      title: 随机字符串
-      type: string
-      default: ""
-      description: 传入微信JS-SDK所需的随机字符串
-    - name: signature
-      title: 签名
-      type: string
-      default: ""
-      description: 传入微信JS-SDK所需的签名
   events:
     - name: upload-success
       title: 上传成功时
