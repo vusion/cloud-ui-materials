@@ -300,7 +300,9 @@ export default {
       }
       const fileName = new Date().getTime() + "_" + file.name;
       await this.postChunk(chunks, chunks.length, fileName);
-      this.post(file, totalChunks, totalChunks, file.size, fileName, true);
+      if (file.size > 5 * 1024 * 1024) {
+        this.post(file, totalChunks, totalChunks, file.size, fileName, true);
+      }
     },
     async postChunk(chunks, totalChunks, fileName) {
       console.log("chunks", chunks);
@@ -388,7 +390,7 @@ export default {
             );
           },
           onSuccess: (res) => {
-            if (isMerge) {
+            if (isMerge || totalSize <= 5 * 1024 * 1024) {
               this.currentValue = {
                 url: res.result,
                 name: fileName,
