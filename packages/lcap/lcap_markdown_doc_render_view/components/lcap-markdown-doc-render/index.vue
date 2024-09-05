@@ -1,7 +1,7 @@
 <template>
   <div class="markdown-root">
     <div :class="{ 'content': true, 'pinned': pinned }" ref="content">
-      <div class="theme-default-content" v-html="html" @click="onTapMarkdown"></div>
+      <v-runtime-template :template="html" @copied="handleLinkCopied" class="theme-default-content"></v-runtime-template>
     </div>
 
     <div class="anchor-wrap" :style="anchorStyle">
@@ -20,7 +20,6 @@
         <div slot="text" slot-scope="{ node }" :class="[curTocItem.value === node.slug ? 'active' : '', 'tocItem']"
           @click="handleTocSelected(node)">
           <a>{{ node.title }}</a>
-          <!-- <a :href="`#${node.slug}`">{{ node.title }}</a> -->
         </div>
       </u-tree-view>
     </div>
@@ -35,13 +34,16 @@ import emojiPlugin from 'markdown-it-emoji'
 import debounce from 'lodash.debounce'
 
 // import mediumZoom from 'medium-zoom'
+import CopyLink from './lib/copyLink.vue';
+import VRuntimeTemplate from 'v-runtime-template'
 import Zooming from 'zooming'
-
+import copyPlugin, { copyToClipboard } from './lib/copyLinkPlugin'
 import slugify from './utils/slugify'
 import parseHeaders from './utils/parseHeaders'
 import extractHeaders from './utils/extractHeaders'
 
 import highlight from './lib/highlight';
+import { get } from 'lodash';
 const highlightLinesPlugin = require('./lib/highlightLines')
 const preWrapperPlugin = require('./lib/preWrapper')
 const lineNumbersPlugin = require('./lib/lineNumbers')
@@ -80,8 +82,13 @@ md.use(emojiPlugin)
 
 md.use(tocPlugin, {
   slugify,
-  includeLevel: [2, 3],
+  includeLevel: [2, 3, 4, 5],
   format: parseHeaders
+})
+md.use(copyPlugin, {
+  slugify,
+  includeLevel: [2, 3],
+  copyToClipboard
 })
 
 let scrollListener = undefined;
@@ -109,6 +116,8 @@ export default {
     }
   },
   components: {
+    VRuntimeTemplate,
+    CopyLink
     //    'tree-view': TreeView,
   },
   data: () => ({
@@ -172,6 +181,10 @@ export default {
 
   },
   methods: {
+    handleLinkCopied(slug) {
+      this.$emit('linkcopied', slug)
+      console.log('link copied:', slug)
+    },
     renderMarkdown(text) {
       window.scrollTo(0, 0)
 
@@ -216,6 +229,21 @@ export default {
 
       if (process.env.NODE_ENV !== 'production') {
         console.log('tocData', this.tocData);
+      }
+      
+      setTimeout(() => {
+        const title = get(this.$route, 'query.title', '')
+
+        if (title) {
+          const headerItem = headers.find(h => h.title === decodeURIComponent(title));
+          headerItem && this.handleTocSelected(headerItem)
+        }
+      })
+    },
+    scrollToTitle(title) {
+      if (title) {
+        const headerItem = this.headers.find(h => h.title === decodeURIComponent(title));
+        headerItem && this.handleTocSelected(headerItem)
       }
     },
     getTocData(headers, rootLevel = 2, maxLevel = 5) {
@@ -345,6 +373,10 @@ export default {
 
       if (!['A'].includes(tagName)) return;
 
+      if (e.target.classList.contains('copy-link')) {
+        const slug = e.target.getAttribute('data-slug');
+        copyToClipboard(slug);
+      }
 
       const _href = e.target.getAttribute("_href") // link
       const slug = e.target.getAttribute("slug") // hash
@@ -594,5 +626,15 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 
 .foldIcon .iconItem.unfold {
   background-image: url(./assets/unfold.png);
+}
+
+.markdown-root .content h2,
+.markdown-root .content h3,
+.markdown-root .content h4,
+.markdown-root .content h5 {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
 }
 </style>
