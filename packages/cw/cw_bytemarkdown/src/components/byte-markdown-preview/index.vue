@@ -55,10 +55,13 @@ export default {
       default: test
     },
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.initToc();
-    });
+  watch: {
+    text: {
+      handler() {
+        setTimeout(() => this.initToc(), 1000)
+      },
+      immediate: true
+    }
   },
   data() {
     return {
@@ -101,7 +104,7 @@ export default {
         // 从后往前找，找到最后一个 top <= 0的（即不在可视区内）
         // 当前位置的索引即为需要高亮目录的索引，不再往后找了
         for (let i = this.headings.length - 1; i >= 0; i--) {
-          if (this.headings[i].getBoundingClientRect().top <= top) {
+          if (Math.floor(this.headings[i].getBoundingClientRect().top) <= top + 5) {
             tocLinks[i].classList.add('toc-link-active');
             activeLink = i;
             break;
@@ -113,6 +116,7 @@ export default {
         }
       }, {
         root: this.$el.querySelector(`.${this.$style.root}`),
+        rootMargin: '5px',
       });
 
       this.headings.forEach((el) => {
