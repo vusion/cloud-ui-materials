@@ -1,7 +1,9 @@
 <template>
   <div class="markdown-root">
     <div :class="{ 'content': true, 'pinned': pinned }" ref="content">
-      <v-runtime-template :template="html" @copied="handleLinkCopied" class="theme-default-content"></v-runtime-template>
+      <!-- <div class="theme-default-content" v-html="html" @click="onTapMarkdown"></div> -->
+      <v-runtime-template :template="html" @copied="handleLinkCopied"
+        class="theme-default-content"></v-runtime-template>
     </div>
 
     <div class="anchor-wrap" :style="anchorStyle">
@@ -167,16 +169,13 @@ export default {
     const selector = '.theme-default-content img'
 
     this.zoomInstance.listen(selector);
-
-    // if (!this.mediumZoomInstance) {
-    //     this.mediumZoomInstance = mediumZoom(selector)
-    // } else {
-    //     this.mediumZoomInstance.detach()
-    //     this.mediumZoomInstance.attach(selector)
-    // }
   },
   beforeDestroy() {
     this.scrollWraper.removeEventListener('scroll', scrollListener)
+    const content = this.$el.querySelector('.theme-default-content');
+    if (content) {
+      content.removeEventListener('click', this.onTapMarkdown);
+    }
   },
   activated() {
 
@@ -199,6 +198,15 @@ export default {
 
       // 获取所有a标签
       const links = doc.getElementsByTagName("a");
+      const styleTags = htmlString.match(/<style[^>]*>([^<]*)<\/style>/g);
+      if (styleTags) {
+        styleTags.forEach((styleTag) => {
+          const styleContent = styleTag.match(/<style[^>]*>([^<]*)<\/style>/)[1];
+          const styleElement = document.createElement('style');
+          styleElement.innerHTML = styleContent;
+          document.head.appendChild(styleElement);
+        });
+      }
 
       // 遍历所有a标签，替换href属性为点击事件
       for (let i = 0; i < links.length; i++) {
@@ -225,17 +233,20 @@ export default {
       this.$nextTick(() => {
         this.$refs.treeView.toggleAll(true);
         this.initialTocListener();
+        const content = this.$el.querySelector('.theme-default-content');
+        if (content) {
+          content.addEventListener('click', this.onTapMarkdown);
+        }
       })
 
       if (process.env.NODE_ENV !== 'production') {
         console.log('tocData', this.tocData);
       }
-      
       setTimeout(() => {
         const title = get(this.$route, 'query.title', '')
 
         if (title) {
-          const headerItem = headers.find(h =>  h.slug === decodeURIComponent(title) || h.title === decodeURIComponent(title));
+          const headerItem = headers.find(h => h.slug === decodeURIComponent(title) || h.title === decodeURIComponent(title));
           headerItem && this.handleTocSelected(headerItem)
         }
       })
