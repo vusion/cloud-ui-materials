@@ -21,7 +21,7 @@ export default {
       }
       const el = document.createElement('textarea');
       const query = this.$route.query;
-      query.title = this.slug;
+      query.title = this.slug.replace(/^#/, '');
 
 
       el.value = window.location.origin + window.location.pathname + '?' + (new URLSearchParams(query).toString());

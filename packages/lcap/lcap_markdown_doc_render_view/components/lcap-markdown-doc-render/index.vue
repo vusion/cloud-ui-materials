@@ -132,7 +132,8 @@ export default {
     toggle: true,
     pinned: true,
 
-    headersTop: {}
+    headersTop: {},
+    title: null
   }),
   computed: {
     anchorStyle() {
@@ -187,7 +188,6 @@ export default {
     },
     renderMarkdown(text) {
       window.scrollTo(0, 0)
-
       let htmlString = md.render(text)
       const headers = extractHeaders(text, ['h2', 'h3', 'h4', 'h5'], md)
       // 处理a签
@@ -235,14 +235,14 @@ export default {
         const title = get(this.$route, 'query.title', '')
 
         if (title) {
-          const headerItem = headers.find(h => h.title === decodeURIComponent(title));
+          const headerItem = headers.find(h =>  h.slug === decodeURIComponent(title) || h.title === decodeURIComponent(title));
           headerItem && this.handleTocSelected(headerItem)
         }
       })
     },
     scrollToTitle(title) {
       if (title) {
-        const headerItem = this.headers.find(h => h.title === decodeURIComponent(title));
+        const headerItem = this.headers.find(h => h.slug === decodeURIComponent(title) || h.title === decodeURIComponent(title));
         headerItem && this.handleTocSelected(headerItem)
       }
     },
