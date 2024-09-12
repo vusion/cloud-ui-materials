@@ -1,9 +1,10 @@
 <template>
   <div class="markdown-root">
     <div :class="{ 'content': true, 'pinned': pinned }" ref="content">
-      <!-- <div class="theme-default-content" v-html="html" @click="onTapMarkdown"></div> -->
-      <v-runtime-template :template="html" @copied="handleLinkCopied"
-        class="theme-default-content"></v-runtime-template>
+      <div class="theme-default-content" @click="handleClick">
+        <v-runtime-template :template="html" @copied="handleLinkCopied"
+          class="theme-default-content"></v-runtime-template>
+      </div>
     </div>
 
     <div class="anchor-wrap" :style="anchorStyle">
@@ -172,10 +173,10 @@ export default {
   },
   beforeDestroy() {
     this.scrollWraper.removeEventListener('scroll', scrollListener)
-    const content = this.$el.querySelector('.theme-default-content');
-    if (content) {
-      content.removeEventListener('click', this.onTapMarkdown);
-    }
+    // const content = this.$el.querySelector('.theme-default-content');
+    // if (content) {
+    //   content.addEventListener('click', this.onTapMarkdown);
+    // }
   },
   activated() {
 
@@ -233,10 +234,10 @@ export default {
       this.$nextTick(() => {
         this.$refs.treeView.toggleAll(true);
         this.initialTocListener();
-        const content = this.$el.querySelector('.theme-default-content');
-        if (content) {
-          content.addEventListener('click', this.onTapMarkdown);
-        }
+        // const content = this.$el.querySelector('.theme-default-content');
+        // if (content) {
+        //   content.addEventListener('click', this.onTapMarkdown);
+        // }
       })
 
       if (process.env.NODE_ENV !== 'production') {
@@ -378,25 +379,30 @@ export default {
       this.toggle = !this.toggle;
       this.$refs.treeView.toggleAll(this.toggle);
     },
-
-    onTapMarkdown(e) {
-      const { tagName } = e.target;
-
-      if (!['A'].includes(tagName)) return;
-
-      if (e.target.classList.contains('copy-link')) {
-        const slug = e.target.getAttribute('data-slug');
-        copyToClipboard(slug);
+    handleClick(event) {
+      // 使用 event.target.closest 查找最近的 a 标签
+      const linkElement = event.target.closest('a');
+      if (linkElement) {
+        this.onTapMarkdown(linkElement, event);
       }
+    },
 
-      const _href = e.target.getAttribute("_href") // link
-      const slug = e.target.getAttribute("slug") // hash
+    onTapMarkdown(linkElement, event) {
+      if (linkElement.classList.contains('copy-link')) {
+        event.preventDefault();
+        const slug = linkElement.getAttribute('data-slug');
+        copyToClipboard(slug);
+      } else {
+        const _href = linkElement.getAttribute("_href") // link
+        const slug = linkElement.getAttribute("slug") // hash
 
-      if (_href) {
-        console.log('link:', decodeURIComponent(_href));
-        this.$emit('link', decodeURIComponent(_href))
-      } else if (slug) {
-        this.handleTocSelected({ slug: decodeURIComponent(slug).toLowerCase() })
+        if (_href) {
+          console.log('link:', decodeURIComponent(_href));
+          this.$emit('link', decodeURIComponent(_href))
+        } else if (slug) {
+          event.preventDefault();
+          this.handleTocSelected({ slug: decodeURIComponent(slug).toLowerCase() })
+        }
       }
     },
     getElementTopDistance(element) {
