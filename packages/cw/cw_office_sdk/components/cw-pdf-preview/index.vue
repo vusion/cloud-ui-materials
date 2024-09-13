@@ -3,13 +3,20 @@
     [$style.container]: true,
     [$style.room]: $env.VUE_APP_DESIGNER
   }">
-    <vue-pdf-embed :source="value" />
+    <vue-pdf-embed :source="{
+      url: value,
+      cMapUrl: pdfOptions.cMapUrl,
+      cMapPacked: pdfOptions.cMapPacked
+    }" :options="pdfOptions"/>
   </div>
 </template>
 
 <script>
 import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed';
 import panzoom from 'panzoom';
+const pdfjsLib = require('pdfjs-dist');
+const pdfjsWorker = require('pdfjs-dist/build/pdf.worker.entry');
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default {
   name: "cw-pdf-preview",
@@ -29,9 +36,21 @@ export default {
       type: Number,
       default: 1,
     },
+    cMapUrl: {
+      type: String,
+      default: 'https://minio-api.codewave-dev.163yun.com/lowcode-static/cmaps/',
+    },
   },
   components: {
     VuePdfEmbed,
+  },
+  data() {
+    return {
+      pdfOptions: {
+        cMapUrl: this.cMapUrl, 
+        cMapPacked: true
+      }
+    };
   },
   mounted() {
     this.$nextTick(() => {
