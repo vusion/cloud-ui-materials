@@ -116,6 +116,8 @@
           title: 日
         - value: week
           title: 周
+        - value: quarter
+          title: 季度
         - value: month
           title: 月
         - value: year

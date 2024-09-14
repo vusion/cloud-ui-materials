@@ -22,6 +22,7 @@
         >
           <u-select-item value="year">年</u-select-item>
           <u-select-item value="month">月</u-select-item>
+          <u-select-item value="quarter">季度</u-select-item>
           <u-select-item value="week">周</u-select-item>
           <u-select-item value="day">日</u-select-item>
         </u-select>
@@ -343,6 +344,14 @@ export default {
           gantt.config.step = 1;
           gantt.config.date_scale = this.dayDateScale || "%m月%d日";
           gantt.templates.date_scale = null;
+          break;
+        case "quarter": // Add new case for quarter
+          gantt.config.scale_unit = "month";
+          gantt.config.step = 3; // Group by quarter (3 months)
+          gantt.templates.date_scale = function(date) {
+            const quarter = Math.floor(date.getMonth() / 3) + 1;
+            return date.getFullYear() + " 第" + quarter + "季度 "; // Display quarter and year
+          };
           break;
       }
       gantt.render();
