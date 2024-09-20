@@ -1,0 +1,16 @@
+[
+    {
+        "name": "APP_COLOR_KEY",
+        "description": "echarts调色板",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    }
+]
