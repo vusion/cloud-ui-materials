@@ -52,6 +52,7 @@ import {
 } from "./ganttConfig";
 import supportDataSource from "./mixins/support.datasource";
 import moment from "moment";
+import { cloneDeep, forEach, get, uniqBy } from "lodash";
 
 export default {
   name: "lcap-gantt",
@@ -63,6 +64,9 @@ export default {
       ganttEvent: {},
       customStyle: {},
       entityName: "",
+      projectPositionMap: {},
+      positionCounter: 2,
+      ganttFinalDataSources: [],
     };
   },
   props: {
@@ -95,6 +99,14 @@ export default {
     gridWidth: {
       type: Number,
       default: null,
+    },
+    groupField: {
+      type: String,
+      default: "projectId",
+    },
+    filterField: {
+      type: String,
+      default: "text",
     },
   },
   mixins: [supportDataSource],
@@ -160,6 +172,13 @@ export default {
     },
   },
   methods: {
+    getTopOffset(projectId) {
+      if (!this.projectPositionMap[projectId]) {
+        this.projectPositionMap[projectId] = this.positionCounter;
+        this.positionCounter += gantt.config.row_height + 2;
+      }
+      return this.projectPositionMap[projectId];
+    },
     clickEvent(id, e) {
       // e.preventDefault(); // 阻止默认行为
       // e.stopPropagation(); // 阻止事件冒泡
@@ -180,10 +199,8 @@ export default {
     },
     hasSubstr(parentId, type) {
       let task = gantt.getTask(parentId);
-      if (type == "title") {
-        if (task.text.toLowerCase().indexOf(this.searchTitle) !== -1)
-          return true;
-      }
+      if (task[type || 'text'].toLowerCase().indexOf(this.searchTitle) !== -1)
+        return true;
     },
     parseCustomStyle(element) {
       const cssList = element.style.cssText.split(";");
@@ -197,28 +214,21 @@ export default {
       return cssObj;
     },
     searchTask() {
+      let filterData = cloneDeep(this.ganttFinalDataSources);
       if (this.searchTitle) {
-        this.ganttEvent.onBeforeTaskDisplay = gantt.attachEvent(
-          "onBeforeTaskDisplay",
-          (id, task) => {
-            if (this.hasSubstr(id, "title")) {
-              return true;
-            }
-            return false;
-          }
-        );
-        gantt.refreshData();
-        gantt.render();
-      } else {
-        this.ganttEvent.onBeforeTaskDisplay = gantt.attachEvent(
-          "onBeforeTaskDisplay",
-          (id, task) => {
-            return true;
-          }
-        );
-        gantt.refreshData();
-        gantt.render();
-      }
+        filterData = this.ganttFinalDataSources
+        .filter(item => get(item, this.extractEntityField(this.filterField), "").toLowerCase().indexOf(this.searchTitle) !== -1)
+        .sort((a, b) => a[this.extractEntityField(this.groupField)] - b[this.extractEntityField(this.groupField)])
+      } 
+      filterData = this.groupedDataSources(filterData);
+      gantt.clearAll();
+      gantt.parse({
+        data: filterData
+      });
+      // 添加动态11样式
+      this.addDynamicStyles(uniqBy(filterData, "projectId")); 
+      gantt.refreshData();  
+      gantt.render();   
     },
     initGantt() {
       gantt.clearAll();
@@ -259,23 +269,58 @@ export default {
         JSON.parse(JSON.stringify(ganttDataSources))
       );
       ganttFinalDataSources = this.normalizeGanttData(ganttDataSources);
+
+      this.ganttFinalDataSources = cloneDeep(ganttFinalDataSources);
+      if (this.groupField) {
+        ganttFinalDataSources = this.groupedDataSources(ganttFinalDataSources);
+      }
       if (!ganttFinalDataSources[0]) return;
       gantt.parse({
         data: ganttFinalDataSources,
       });
+      // 添加动态样式
+      this.addDynamicStyles(uniqBy(ganttFinalDataSources, "projectId"));
+    },
+    addDynamicStyles(tasks) {
+      this.projectPositionMap = {};
+      this.positionCounter = 2;
+      let style = document.getElementById('dynamic-styles');
+      if (!style) {
+        style = document.createElement('style');
+        style.type = 'text/css';
+        style.id = 'dynamic-styles';
+        document.head.appendChild(style);
+      }
+
+      let newStyles = '';
+      // 重新生成每个 projectId 对应的 CSS 样式
+      tasks.forEach(task => {
+        const projectId = task.projectId;
+        const topOffset = this.getTopOffset(projectId);
+
+        const cssRule = `
+      .project-task-${projectId} {
+        top: ${topOffset}px !important;
+      }
+    `;
+        newStyles += cssRule;
+      });
+
+      // 更新 style 元素的内容
+      style.innerHTML = newStyles;
     },
     addMarker() {
       gantt.templates.legend = () => {
         let legendContent = "";
 
-        this.markers.forEach((marker) => {
+        forEach(this.markers, (marker) => {
           legendContent += `<div style='width: fit-content;background: ${marker.color};'>${marker.label}</div>`;
         });
         return legendContent;
       };
       gantt.templates.scale_cell_class = (item) => {
         let className = "";
-        this.markers.forEach((marker) => {
+        forEach(this.markers, (marker) => {
           if (item >= marker.start && item <= marker.end) {
             className = `bg-${marker.color}`; // 返回包含background-color样式的字符串
           }
@@ -316,6 +361,18 @@ export default {
           console.log("图上未显示今日标记线");
         }
       });
+    },
+    groupedDataSources(tasksData) {
+      let projectMap = {}
+      tasksData.forEach((task, index) => {
+        if (projectMap[task.projectId] === undefined) {
+          projectMap[task.projectId] = 0
+        } else {
+          projectMap[task.projectId]++
+        }
+        task.projectIndex = projectMap[task.projectId]
+      })
+      return tasksData
     },
     // 切换年月周日视图
     ganttChangeDateView(event) {
@@ -482,9 +539,6 @@ export default {
       if (oldKey === newKey) return;
       if (obj?.hasOwnProperty(oldKey)) {
         obj[newKey] = obj[oldKey];
-        if (!["start_date", "end_date"].includes(newKey)) {
-          delete obj[oldKey];
-        }
       }
     },
     extractEntityName(list) {
@@ -523,7 +577,7 @@ export default {
       const entityName = this.extractEntityName(this.ganttTableConfig);
       this.entityName = entityName;
       ganttFinalDataSources = this.flatList(ganttFinalDataSources, entityName);
-      ganttFinalDataSources.map((obj) => {
+      ganttFinalDataSources.forEach((obj) => {
         this.changeObjKey(
           obj,
           this.extractEntityField(this.startField),
@@ -554,6 +608,16 @@ export default {
           obj,
           this.extractEntityField(this.parentField),
           "parent"
+        );
+        this.changeObjKey(
+          obj,
+          this.extractEntityField(this.groupField),
+          "projectId"
+        );
+        this.changeObjKey(
+          obj,
+          this.extractEntityField(this.filterField),
+          "filter"
         );
         this.changeObjKey(obj, this.extractEntityField(this.textField), "text");
       });

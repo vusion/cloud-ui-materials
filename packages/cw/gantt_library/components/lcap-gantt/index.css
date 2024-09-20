@@ -43,28 +43,34 @@
 .bg-blue {
     background-color: blue;
 }
+
 .bg-pink {
     background-color: pink;
 }
+
 .bg-yellow {
     background-color: yellow;
 }
+
 .bg-green {
     background-color: green;
 }
+
 .bg-orange {
     background-color: orange;
 }
+
 .bg-purple {
     background-color: purple;
 }
+
 .ganttContainer {
     width: 100%;
     height: 94%;
     overflow-y: scroll;
 }
 
-.gantt_tree_icon > img{
+.gantt_tree_icon>img {
     width: 20px;
     vertical-align: middle;
 }
@@ -81,7 +87,7 @@
     display: none !important;
 }
 
-.gantt_task_line  .gantt_task_progress_wrapper .gantt_task_progress {
+.gantt_task_line .gantt_task_progress_wrapper .gantt_task_progress {
     opacity: var(--gantt-item-progress-transparent);
 }
 
@@ -111,11 +117,13 @@
     display: none;
 }
 
-.gantt_row, .gantt_row.odd {
+.gantt_row,
+.gantt_row.odd {
     background-color: var(--gantt-table-background-color);
 }
 
-.gantt_row:hover, .gantt_row.odd:hover {
+.gantt_row:hover,
+.gantt_row.odd:hover {
     background-color: var(--gantt-table-background-color-hover) !important;
 }
 
@@ -136,4 +144,46 @@
 .gantt_grid_data .gantt_row.odd.gantt_selected,
 .gantt_task_row.gantt_selected {
     background-color: var(--gantt-table-selected-color);
+}
+
+.custom-grid {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+}
+
+.grid-row {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.grid-cell {
+    flex: 1;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* 甘特图容器 */
+.ganttContainer {
+    width: 100%;
+    height: 600px;
+}
+
+/* 自定义任务样式 */
+.custom-task {
+    border: 1px solid #3b7dd8;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.custom-task-label {
+    color: #fff;
+    padding: 2px;
+    font-size: 12px;
+}
+
+.hidden_task {
+    display: none !important;
 }

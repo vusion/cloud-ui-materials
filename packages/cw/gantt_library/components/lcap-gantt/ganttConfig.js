@@ -131,6 +131,9 @@ export const basicConfig = (gridWidth) => {
       autofit: true,
       drag_links: false, // 连线
       readonly: true, // 只读
+      staticBackground: true,
+      rowHeight: 30,
+      barHeight: 20,
       layout: {
         //拖拽布局
         css: "gantt_container",
@@ -172,12 +175,26 @@ export const basicConfig = (gridWidth) => {
       resize_rows: true,
       fit_tasks: true,
       tooltip_hide_timeout: 0,
+      
+      order_branch: false,
     };
   }
   return basicConfigDefault;
 };
 export const basicTemplate = {
-  task_end_date: function(date) {
+  task_row_class: function (start, end, task) {
+    if (task.projectIndex === 0) {
+      return `project-task-${task.projectId}`;
+    }
+    return 'hidden_task';
+  },
+  grid_row_class: function (start, end, task) {
+    if (task.projectIndex === 0) {
+      return `project-task-${task.projectId}`;
+    }
+    return 'hidden_task';
+  },
+  task_end_date: function (date) {
     return gantt.templates.task_date(
       moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format(
         "YYYY-MM-DD"
@@ -185,7 +202,7 @@ export const basicTemplate = {
     );
   },
   //弹窗标题 日期范围
-  task_time: function(start, end, task) {
+  task_time: function (start, end, task) {
     return (
       "周期：" +
       moment(start).format("YYYY-MM-DD") +
@@ -194,17 +211,17 @@ export const basicTemplate = {
     );
   },
   //弹窗标题 计划名称
-  task_text: function(start, end, task) {
+  task_text: function (start, end, task) {
     return task.text;
   },
-  timeline_cell_class: function(task, date) {
+  timeline_cell_class: function (task, date) {
     if (!gantt.isWorkTime({ task: task, date: date })) {
       return "weekend";
     } else {
       return "weekday";
     }
   },
-  grid_date_format: function(date, column) {
+  grid_date_format: function (date, column) {
     if (column === "end_date") {
       return moment(new Date(date.valueOf() - 1000 * 60 * 60 * 24)).format(
         "YYYY-MM-DD"
@@ -212,5 +229,8 @@ export const basicTemplate = {
     } else if (column === "start_date") {
       return moment(date).format("YYYY-MM-DD");
     }
+  },
+  task_class: function (start, end, task) {
+    return `project-task-${task.projectId}`;
   },
 };

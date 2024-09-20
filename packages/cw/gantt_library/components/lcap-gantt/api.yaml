@@ -34,6 +34,12 @@
       default: ""
       description: 设置泳道图文本字段，用于显示泳道图上的文本
       group: 数据属性
+    - name: group-field
+      title: 聚合字段
+      type: string
+      default: ""
+      description: 设置泳道图聚合字段，聚合字段相同的数据会被聚合在一行
+      group: 数据属性
     - name: start-field
       title: 开始日期字段
       type: string
@@ -45,6 +51,12 @@
       type: string
       default: ""
       description: 设置泳道图结束日期字段，和持续时间字段二选一，同时设置以结束日期字段为准
+      group: 数据属性
+    - name: filter-field
+      title: 过滤字段
+      type: string
+      default: ""
+      description: 设置过滤字段，用于过滤数据
       group: 数据属性
     - name: duration-field
       title: 持续时间字段
