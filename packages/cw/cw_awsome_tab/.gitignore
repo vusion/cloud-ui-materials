@@ -1,0 +1,31 @@
+*.log*
+.cache
+.DS_Store
+.idea
+.vscode
+.eslintcache
+
+# npm
+node_modules
+
+# test
+**/test/coverage
+
+# dist file
+es
+lib
+dist
+dist-theme
+assets-package
+/site
+changelog.generated.md
+vetur
+
+*.tgz
+
+# lcap files
+.lcap
+source.zip
+manifest
+nasl.extension.*
+*@*.zip

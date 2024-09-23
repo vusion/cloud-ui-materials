@@ -1,117 +1,113 @@
 <template>
-  <div :class="$style.root" ref="room"> 
-    <div :class="$style.container" border>
-      <echart-basic
-        v-if="!loading"
-        :sourceData="sourceData"
-        :options="options"
-        @startLoading="startLoading"
-        ref="echart"
-        @clickItem="$emit('clickItem', $event)"
-      ></echart-basic>
-      <div v-else>
-        <img :src="require('../../assets/barEmpty.png')" :class="$style.emptyImage">
+  <div class="number-counter" :style="counterStyle">
+    <div class="label">{{ label }}</div>
+    <div class="numbers">
+      <div class="digit-box" v-for="(digit, index) in formattedNumber" :key="index">
+        <span class="digit">{{ digit }}</span>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import echartBasic from "@/widgets/echartBasic";
-import * as echarts from 'echarts';
-import {fakeData} from "@/utils/fakeData";
-import "@/utils/theme.js"
-import Vue from 'vue';
-Vue.prototype.$echarts = echarts
+import Flip from '@popmotion/flip';
 
 export default {
-  name: 'cw-echart-basic-view',
-  components: {echartBasic},
   props: {
-    dataSource: [Function, Array, Object],
-    options: {type: Object, default: () => ({})},
+    label: {
+      type: String,
+      default: "赛事数量"
+    },
+    number: {
+      type: Number,
+      default: 163079
+    },
+    backgroundImage: {
+      type: String,
+      default: ""
+    }
   },
   data() {
     return {
-      sourceData: undefined,
-      loading: false,
+      currentNumber: this.number,
+      flipInstance: null
     };
   },
-  created() {
-    this.init();
-  },
-  mounted(){
-    this.resizeObserver = new ResizeObserver(()=>{
-      this.$refs.echart.resize();
-    });
-    this.resizeObserver.observe(this.$el);
-  },
-  beforeDestroy(){
-    if (this.resizeObserver){
-      this.resizeObserver.disconnect();
+  computed: {
+    formattedNumber() {
+      return this.currentNumber
+        .toLocaleString('en-US', { useGrouping: true })
+        .split("");
+    },
+    counterStyle() {
+      return {
+        backgroundColor: this.backgroundImage ? 'transparent' : '#3399ff',
+        backgroundImage: this.backgroundImage ? `url(${this.backgroundImage})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        padding: '32px',
+        borderRadius: '10px',
+        display: 'flex',
+        alignItems: 'center',
+        height: '128px'
+      };
     }
   },
   watch: {
-    changedObj: {
-      handler() {
-        this.init();
-      }
+    number(newVal, oldVal) {
+      this.animateNumberChange(newVal);
     }
   },
   methods: {
-    reload() {
-      this.sourceData = 'fakeData';
-      this.$nextTick(async () => {
-        this.sourceData = await this.handleDataSource(this.dataSource);
-        this.loading = false;
-        this.$refs.echart && this.$refs.echart.reload();
-        console.log('source', this.sourceData);
+    animateNumberChange(newVal) {
+      if (this.flipInstance) {
+        this.flipInstance.read();
+      }
+      this.currentNumber = newVal;
+      this.$nextTick(() => {
+        if (this.flipInstance) {
+          this.flipInstance.flip();
+        }
       });
-    },
-    async init() {
-      // 本地启动和开发环境使用假数据，生产环境替换为真数据
-      const fnDataSource = (this.$env.VUE_APP_DESIGNER || !window.appInfo) ? fakeData : this.dataSource;
-      this.sourceData = await this.handleDataSource(fnDataSource);
-    },
-    async handleDataSource(dataSource) {
-      if (!dataSource) {
-        return [];
-      }
-      if (dataSource instanceof Promise || typeof dataSource === 'function') {
-        const result = await dataSource();
-        return this.getData(result);
-      }
-      return this.getData(dataSource);
-    },
-    getData(dataSource) {
-      if (typeof (dataSource) === 'string') {
-        dataSource = dataSource.replace(/'/g, '"');
-        return JSON.parse(dataSource);
-      }
-      return dataSource;
-    },
-    startLoading() {
-      this.loading = true;
-    },
+    }
+  },
+  mounted() {
+    this.flipInstance = Flip(this.$el.querySelector('.numbers'));
   }
 };
 </script>
 
-<style module>
-.root {
-  display: inline-block;
+<style scoped>
+.number-counter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.container[border] {
-  border: 1px solid var(--border-color-base);
-  padding: 15px;
-  width: 100%;
-  height: 100%;
+.label {
+  font-size: 24px;
+  color: white;
+  margin-right: 24px;
 }
 
-.emptyImage {
-  width: 100%;
-  height: 100%;
+.numbers {
+  display: flex;
+}
+
+.digit-box {
+  background-color: white;
+  margin: 0 8px;
+  width: 64px;
+  height: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.digit {
+  font-size: 64px;
+  font-weight: bold;
+  color: #3399ff;
 }
 </style>
