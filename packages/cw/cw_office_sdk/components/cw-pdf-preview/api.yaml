@@ -9,11 +9,11 @@
       type: string
       default: 请在这里编写代码
       description: 需要传入的值
-    - name: cmapUrl
+    - name: cMapUrl
       title: 字体地址
       type: string
       default: ''
-      description: cmapUrl
+      description: cMapUrl
     - name: panZoom
       title: 是否开启缩放
       type: boolean

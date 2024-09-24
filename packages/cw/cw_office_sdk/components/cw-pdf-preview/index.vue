@@ -5,8 +5,8 @@
   }">
     <vue-pdf-embed :source="{
       url: value,
-      cMapUrl: pdfOptions.cMapUrl,
-      cMapPacked: pdfOptions.cMapPacked
+      cMapUrl: cMapUrl,
+      cMapPacked: true
     }" :options="pdfOptions"/>
   </div>
 </template>
@@ -38,19 +38,11 @@ export default {
     },
     cMapUrl: {
       type: String,
-      default: 'https://minio-api.codewave-dev.163yun.com/lowcode-static/cmaps/',
+      default: '',
     },
   },
   components: {
     VuePdfEmbed,
-  },
-  data() {
-    return {
-      pdfOptions: {
-        cMapUrl: this.cMapUrl, 
-        cMapPacked: true
-      }
-    };
   },
   mounted() {
     this.$nextTick(() => {
