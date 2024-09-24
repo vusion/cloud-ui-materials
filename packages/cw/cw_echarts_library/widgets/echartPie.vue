@@ -82,7 +82,7 @@ export default {
     reload() {
       if (this.chartInstance) {
         this.processPieData(this.sourceData);
-        this.chartInstance.setOption(this.pieOption);
+        this.chartInstance.setOption(this.pieOption,{ notMerge: true});
         this.$nextTick(() => {
           this.chartInstance.resize();
         });

@@ -57,7 +57,7 @@ export default {
         },
         reload() {
             if (this.chartInstance) {
-                this.chartInstance.setOption({...this.options,color:this.color})
+                this.chartInstance.setOption({...this.options,color:this.color},{ notMerge: true})
                 this.$nextTick(() => {
                     this.chartInstance.resize();
                 });

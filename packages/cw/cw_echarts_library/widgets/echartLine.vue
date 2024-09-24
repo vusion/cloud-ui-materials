@@ -59,9 +59,10 @@ export default {
   },
   methods: {
     reload() {
+      console.log(222)
       if (this.chartInstance) {
         this.processLineData(this.sourceData);
-        this.chartInstance.setOption(this.lineOption);
+        this.chartInstance.setOption(this.lineOption,{ notMerge: true});
         this.$nextTick(() => {
           this.chartInstance.resize();
         });
@@ -284,7 +285,7 @@ export default {
       return template;
     },
     generateEchartOption(legendData, seriesData, xAxisData) {
-      return {
+      return  {
         grid: {
           left: '15%',
           show: this.customStyle['--grid-line-background-color'] || this.customStyle['--grid-line-border-color'],
@@ -357,6 +358,7 @@ export default {
     },
     resize(){
       if(this.chartInstance){
+        console.log(this.chartInstance)
         this.chartInstance.resize();
       }
     }
