@@ -177,7 +177,7 @@
       display: inline-block;
   }
   .count {
-      font-size: 36px;
+      /* font-size: 36px; */
       line-height: 1;
       width: 0.7em;
       height: 1em;
