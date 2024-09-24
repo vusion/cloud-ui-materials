@@ -40,7 +40,6 @@ export default {
   mounted() {
     this.init();
     const parent = this.$refs["pdf-preview"];
-    console.log(parent);
     const callback = (e) => {
       const el = e.target;
       const els = [...parent.querySelectorAll("canvas")];
@@ -128,10 +127,10 @@ export default {
         }
         const parent = this.$refs["pdf-preview"];
         parent.innerHTML = "";
-        readAsPDF(pdfUrl).then((pdf) => {
+        readAsPDF(pdfUrl).then(async(pdf) => {
           this.pdf = pdf;
           for (let i = 1; i < pdf.numPages + 1; i++) {
-            pdf.getPage(i).then((page) => {
+              const page = await  pdf.getPage(i)
               const viewport = page.getViewport({ scale: 1.2 });
               const canvas = document.createElement("canvas");
               parent.append(canvas);
@@ -142,7 +141,6 @@ export default {
                 canvasContext: context,
                 viewport: viewport,
               });
-            });
           }
         });
       } catch (error) {
