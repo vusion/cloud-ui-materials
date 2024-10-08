@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import printJS from "print-js"
 export default {
   name: "cw-print-view",
   props: {
@@ -22,64 +23,15 @@ export default {
       default: false,
     },
   },
-  methods: {
-    async print() {
-      const historyEl = document.querySelector(".print-block-room");
-      if (historyEl) {
-          historyEl.remove();
-      }
-
-      // 确认打印前所有元素已经完全加载和显示
-      const el = this.$refs["print-room"].cloneNode(true);
-      el.classList.add("print-block-room");
-      document.body.appendChild(el);
-      console.log("el", el);
-      let promises = [];
-      this.getCanvas(el, "", promises);
-      console.log("Promises:", promises);
-
-      try {
-        await Promise.all(promises);
-        console.log("All canvas data copied successfully");
-        window.print();
-      } catch (error) {
-        console.error("Error during canvas data copying:", error);
-      }
-    },
-    getCanvas(el, path = "", promises) {
-      const children = el.childNodes;
-      children.forEach((item, index) => {
-        if (item.childNodes.length > 0) {
-          this.getCanvas(item, (path += item.tagName), promises);
-        } else {
-          if (item.tagName === "CANVAS") {
-            const source = this.$refs["print-room"].querySelector(
-              `${path.toLowerCase()} ${item.tagName.toLowerCase()}:nth-child(${
-                index + 1
-              })`
-            );
-            promises.push(this.copyCanvasData(item, source));
-          }
-        }
-      });
-    },
-    copyCanvasData(target, source) {
-      return new Promise((resolve, reject) => {
-        const data = source.toDataURL("image/png");
-        const img = new Image();
-        img.src = data;
-        img.onload = () => {
-          const ctx = target.getContext("2d");
-          ctx.drawImage(img, 0, 0, source.width, source.height);
-          resolve(true);
-        };
-        img.onerror = () => {
-          reject(false);
-        };
-      });
-    },
-  },
-};
+    methods:{
+      async print() {
+        printJS({
+          printable: this.$refs["print-room"],
+          type: 'html'
+        })
+      },
+    }
+}
 </script>
 <style>
 .print-block-room {
