@@ -13,3 +13,7 @@
     - name: print
       description: 打印
       params: []
+  slots:
+    - name: default
+      title: 默认插槽
+      description: 默认插槽
