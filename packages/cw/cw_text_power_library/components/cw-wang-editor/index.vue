@@ -47,8 +47,8 @@
 </template>
 <script>
 import { MField } from '../../widgets/m-field';
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { SlateTransforms } from '@wangeditor/editor';
+import { Editor, Toolbar } from '@wangeditor-next/editor-for-vue2';
+import { SlateTransforms } from '@wangeditor-next/editor';
 import '@wangeditor/editor/dist/css/style.css';
 import 'viewerjs/dist/viewer.css';
 import whiteListOption from '../../utils/whiteListTag';
