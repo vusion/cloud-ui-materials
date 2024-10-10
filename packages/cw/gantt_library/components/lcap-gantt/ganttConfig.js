@@ -69,6 +69,8 @@ export const basicConfigDefault = {
   autofit: true,
   drag_links: false, // 连线
   readonly: true, // 只读
+  min_column_width: 50,
+  scale_width: 50,
   layout: {
     //拖拽布局
     css: "gantt_container",

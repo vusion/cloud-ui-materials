@@ -1,38 +1,19 @@
 <template>
   <div class="ganttRoot">
     <div v-if="isShowLegend" id="legend_container"></div>
-    <u-linear-layout
-      v-if="showFunctionBar"
-      type="flex"
-      justify="space-between"
-      class="functionBar"
-    >
+    <u-linear-layout v-if="showFunctionBar" type="flex" justify="space-between" class="functionBar">
       <div>
-        <u-input
-          placeholder="请输入任务名称"
-          v-model="searchTitle"
-          class="searchInput"
-          @change="searchTask"
-        ></u-input>
+        <u-input placeholder="请输入任务名称" v-model="searchTitle" class="searchInput" @change="searchTask"></u-input>
       </div>
       <div>
-        <u-select
-          v-model="defaultDateView"
-          @select="ganttChangeDateView($event)"
-        >
+        <u-select v-model="defaultDateView" @select="ganttChangeDateView($event)">
           <u-select-item value="year">年</u-select-item>
           <u-select-item value="month">月</u-select-item>
           <u-select-item value="quarter">季度</u-select-item>
           <u-select-item value="week">周</u-select-item>
           <u-select-item value="day">日</u-select-item>
         </u-select>
-        <u-button
-          class="showTodayButton"
-          icon=""
-          v-if="showToday"
-          @click="changeToday"
-          >今天</u-button
-        >
+        <u-button class="showTodayButton" icon="" v-if="showToday" @click="changeToday">今天</u-button>
       </div>
     </u-linear-layout>
     <div ref="gantt" class="ganttContainer" />
@@ -114,9 +95,9 @@ export default {
     // 监听style样式变化
     this.customStyle = this.parseCustomStyle(this.$el);
     const observer = new MutationObserver(
-      function(mutations) {
+      function (mutations) {
         mutations.map(
-          function(mutation) {
+          function (mutation) {
             if (mutation.type === "attributes") {
               this.customStyle = this.parseCustomStyle(this.$el);
             }
@@ -125,7 +106,7 @@ export default {
       }.bind(this)
     );
     observer.observe(this.$el, { attributes: true });
-    if(this.showTooltips) this.initBlurEvent();
+    if (this.showTooltips) this.initBlurEvent();
     gantt.attachEvent("onTaskClick", this.clickEvent);
     this.addMarker();
   },
@@ -165,10 +146,10 @@ export default {
     },
     taskView: {
       handler(newValue) {
-        this.defaultDateView= newValue
+        this.defaultDateView = newValue
         this.ganttChangeDateView(this.taskView);
       },
-      immediate:true
+      immediate: true
     },
   },
   methods: {
@@ -190,7 +171,7 @@ export default {
         gantt.close(id); // 关闭任务
       } else {
         gantt.open(id); // 展开任务
-        gantt.eachTask(function(child) {
+        gantt.eachTask(function (child) {
           if (child.parent === id) {
             gantt.open(child.id); // 展开子任务
           }
@@ -217,18 +198,18 @@ export default {
       let filterData = cloneDeep(this.ganttFinalDataSources);
       if (this.searchTitle) {
         filterData = this.ganttFinalDataSources
-        .filter(item => get(item, this.extractEntityField(this.filterField), "").toLowerCase().indexOf(this.searchTitle) !== -1)
-        .sort((a, b) => a[this.extractEntityField(this.groupField)] - b[this.extractEntityField(this.groupField)])
-      } 
+          .filter(item => get(item, this.extractEntityField(this.filterField), "").toLowerCase().indexOf(this.searchTitle) !== -1)
+          .sort((a, b) => a[this.extractEntityField(this.groupField)] - b[this.extractEntityField(this.groupField)])
+      }
       filterData = this.groupedDataSources(filterData);
       gantt.clearAll();
       gantt.parse({
         data: filterData
       });
       // 添加动态11样式
-      this.addDynamicStyles(uniqBy(filterData, "projectId")); 
-      gantt.refreshData();  
-      gantt.render();   
+      this.addDynamicStyles(uniqBy(filterData, "projectId"));
+      gantt.refreshData();
+      gantt.render();
     },
     initGantt() {
       gantt.clearAll();
@@ -387,25 +368,30 @@ export default {
         case "month":
           gantt.config.scale_unit = "month";
           gantt.config.step = 1;
-          gantt.config.date_scale = "%m月";
-          gantt.templates.date_scale = null;
+          gantt.templates.date_scale = function (date) {
+            return date.getFullYear() + "年" + (date.getMonth() + 1) + "月"; // Display year and month
+          };
           break;
         case "week":
           gantt.config.scale_unit = "week";
           gantt.config.step = 1;
-          gantt.config.date_scale = "第%w周";
-          gantt.templates.date_scale = null;
+
+          gantt.templates.date_scale = function (date) {
+            const weekNumber = gantt.date.getISOWeek(date);
+            return date.getFullYear() + "年 第" + weekNumber + "周"; // Display year and week number
+          };
           break;
         case "day":
           gantt.config.scale_unit = "day";
-          gantt.config.step = 1;
-          gantt.config.date_scale = this.dayDateScale || "%m月%d日";
-          gantt.templates.date_scale = null;
+          gantt.config.step = 2;
+          gantt.templates.date_scale = function (date) {
+            return date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + '日'; // Display year, month, and day
+          };
           break;
         case "quarter": // Add new case for quarter
           gantt.config.scale_unit = "month";
           gantt.config.step = 3; // Group by quarter (3 months)
-          gantt.templates.date_scale = function(date) {
+          gantt.templates.date_scale = function (date) {
             const quarter = Math.floor(date.getMonth() / 3) + 1;
             return date.getFullYear() + " 第" + quarter + "季度 "; // Display quarter and year
           };
@@ -425,33 +411,33 @@ export default {
 
       // gantt渲染
       this.ganttEvent.onGanttReady = gantt.attachEvent("onGanttReady", () => {
-        if(this.showTooltips) {
+        if (this.showTooltips) {
           gantt.templates.tooltip_text = (start, end, task) => {
-          let template = "";
-          if (!this.ganttTableConfig) return template;
-          for (let item of this.ganttTableConfig) {
-            const currentField = this.extractEntityField(item?.nameField);
-            if (
-              item.showTooltip &&
-              currentField === this.extractEntityField(this.textField)
-            ) {
-              template += `<b>${item.labelField}:</b> ${task.text}<br/>`;
-            } else if (
-              item.showTooltip &&
-              (currentField !== this.extractEntityField(this.startField) ||
-                currentField !== this.extractEntityField(this.endField))
-            ) {
-              template += `<b>${item.labelField}:</b> ${task[currentField]}<br/>`;
+            let template = "";
+            if (!this.ganttTableConfig) return template;
+            for (let item of this.ganttTableConfig) {
+              const currentField = this.extractEntityField(item?.nameField);
+              if (
+                item.showTooltip &&
+                currentField === this.extractEntityField(this.textField)
+              ) {
+                template += `<b>${item.labelField}:</b> ${task.text}<br/>`;
+              } else if (
+                item.showTooltip &&
+                (currentField !== this.extractEntityField(this.startField) ||
+                  currentField !== this.extractEntityField(this.endField))
+              ) {
+                template += `<b>${item.labelField}:</b> ${task[currentField]}<br/>`;
+              }
             }
-          }
-          template +=
-            "<b>开始时间:</b> " +
-            moment(start).format("YYYY-MM-DD") +
-            "<br/><b>结束时间:</b> " +
-            moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format(
-              "YYYY-MM-DD"
-            );
-          return template;
+            template +=
+              "<b>开始时间:</b> " +
+              moment(start).format("YYYY-MM-DD") +
+              "<br/><b>结束时间:</b> " +
+              moment(new Date(end).valueOf() - 1000 * 60 * 60 * 24).format(
+                "YYYY-MM-DD"
+              );
+            return template;
           }
         } else {
           gantt.templates.tooltip_text = () => { return "" };
@@ -481,7 +467,7 @@ export default {
           obj = {
             name: "start_date",
             align: "center",
-            template: function(task) {
+            template: function (task) {
               return moment(task.start_date).format("YYYY-MM-DD");
             },
           };
@@ -489,7 +475,7 @@ export default {
           obj = {
             name: "end_date",
             align: "center",
-            template: function(task) {
+            template: function (task) {
               return moment(task.start_date).format("YYYY-MM-DD");
             },
           };
@@ -639,7 +625,7 @@ export default {
       const ganttContainer = document.querySelector(".ganttContainer");
       ganttContainer.addEventListener(
         "mouseleave",
-        function(e) {
+        function (e) {
           const template = document.querySelector(".gantt_tooltip");
           if (template) {
             template.style.display = "none";
@@ -649,7 +635,7 @@ export default {
       );
       ganttContainer.addEventListener(
         "click",
-        function(e) {
+        function (e) {
           const template = document.querySelector(".gantt_tooltip");
           if (template) {
             setTimeout(() => {
@@ -661,7 +647,7 @@ export default {
       );
       ganttContainer.addEventListener(
         "mouseenter",
-        function(e) {
+        function (e) {
           const template = document.querySelector(".gantt_tooltip");
           if (template) {
             template.style.display = "block";
