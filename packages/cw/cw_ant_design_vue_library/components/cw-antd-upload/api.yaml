@@ -38,6 +38,7 @@
       title: 上传地址
       type: string
       description: 上传地址,默认平台地址可自定义
+      default: '/gateway/lowcode/api/v1/app/upload'
     - name: zoom
       title: 图片缩放比例
       type: string
@@ -56,6 +57,10 @@
         - value: camera
           title: 相机   
       description: 上传方式,默认为相机相册
+    - name: maxSize
+      title: 最大上传大小
+      type: string
+      description: 可上传的最大文件大小。默认为50MB；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位：`KB`、`MB`、`GB`
   events:
     - name: onSuccess
       description: 上传成功时
@@ -71,5 +76,17 @@
         - name: value
           type: string
           description: 错误原因
+    - name: size-exceed
+      description: 文件大小超出限制时
+      title: 文件大小超出限制时
+      params:
+        - name: value
+          type: string
+          description: 错误原因
+  slots:
+    - concept: Slot
+      name: default
+      title: 默认插槽
+      description: 
 
     
