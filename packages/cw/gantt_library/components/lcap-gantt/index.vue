@@ -374,7 +374,7 @@ export default {
           break;
         case "week":
           gantt.config.scale_unit = "week";
-          gantt.config.step = 1;
+          gantt.config.step = 3;
 
           gantt.templates.date_scale = function (date) {
             const weekNumber = gantt.date.getISOWeek(date);
@@ -383,9 +383,9 @@ export default {
           break;
         case "day":
           gantt.config.scale_unit = "day";
-          gantt.config.step = 2;
+          gantt.config.step = 3;
           gantt.templates.date_scale = function (date) {
-            return date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + '日'; // Display year, month, and day
+            return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(); // Display year, month, and day
           };
           break;
         case "quarter": // Add new case for quarter
@@ -398,6 +398,10 @@ export default {
           break;
       }
       gantt.render();
+      const today = new Date();
+      gantt.showDate(today);
+
+      this.showToday && this.createTodayLine();
     },
 
     // gantt交互事件注册
