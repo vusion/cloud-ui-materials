@@ -45,7 +45,7 @@ export default {
     VuePdfEmbed,
   },
   mounted() {
-    this.$nextTick(() => {
+    !this.$env.VUE_APP_DESIGNER && this.panZoom && this.$nextTick(() => {
       const element = document.querySelector('.vue-pdf-embed');
       panzoom(element, {
         maxZoom: this.maxScale,

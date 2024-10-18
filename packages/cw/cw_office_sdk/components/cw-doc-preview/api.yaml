@@ -9,6 +9,15 @@
         type: string
         default: 请在这里编写代码
         description: 需要传入的值
+      - name: panZoom
+        title: 是否开启缩放
+        type: boolean
+        default: false
+        description: 是否开启缩放
+      - name: emptyText
+        title: 加载中提示
+        type: string
+        default: '无效链接'
       - name: ignoreWidth
         title: 禁用页面的渲染宽度
         type: boolean

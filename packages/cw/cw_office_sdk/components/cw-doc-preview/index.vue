@@ -1,17 +1,24 @@
 <template>
-    <div
-        style="display: flex; width: 100%"
-        :class="[$style.docPreview, $env.VUE_APP_DESIGNER && $style.room]"
+    <div style="display: flex; width: 100%" :class="[$style.docPreview, $env.VUE_APP_DESIGNER && $style.room]"
         ref="doc-preview">
-        <div>无效链接</div>
+        <div>{{ emptyText }}</div>
     </div>
 </template>
 
 <script>
 import { renderAsync } from 'docx-preview';
+import panzoom from 'panzoom';
 export default {
     name: 'cw-doc-preview',
     props: {
+        emptyText: {
+            type: String,
+            default: '无效链接'
+        },
+        panZoom: {
+            type: Boolean,
+            default: false,
+        },
         value: {
             type: String,
             default: '请在这里编写代码',
@@ -57,6 +64,15 @@ export default {
     },
     mounted() {
         this.getData(this.value.trim());
+        !this.$env.VUE_APP_DESIGNER && this.panZoom && this.$nextTick(() => {
+            const element = document.querySelector(`.${this.$style.docPreview}`);
+            panzoom(element, {
+                maxZoom: this.maxScale,
+                minZoom: this.minScale,
+                bounds: true,
+                boundsPadding: 0.1
+            });
+        })
     },
     methods: {
         async getData(url) {
@@ -101,6 +117,7 @@ export default {
 .docPreview {
     overflow: auto;
 }
+
 .room {
     height: 300px;
     overflow: hidden;
