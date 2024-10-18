@@ -6,9 +6,19 @@
       <slot></slot>
     </div>
     <div class="cropper-view" v-if="isShow">
-      <vue-cropper :high="false" :centerBox="true" :outputSize="outputSize" :autoCropWidth="autoCropWidth"
-        :autoCropHeight="autoCropHeight" :fixedNumber="fixedNumber" outputType="jpeg" :fixedBox="fixedBox" :info="info"
-        :canMoveBox="canMoveBox" autoCrop ref="cropper" :img="image"></vue-cropper>
+      <vue-cropper
+      :high="false"
+      :centerBox="true"
+      :outputSize="outputSize"
+      :autoCropWidth="computedAutoCropWidth" 
+      :autoCropHeight="computedAutoCropHeight"
+      :fixedNumber="fixedNumber"
+      outputType="jpeg"
+      :fixedBox="fixedBox"
+      :info="info"
+      :canMoveBox="canMoveBox"
+      @realTime="onRealTime"
+       autoCrop ref="cropper" :img="image" ></vue-cropper>
       <div class="cropper-view-submit" @click="handleClick">确定</div>
       <div class="cropper-view-reset" @click="handleResetClick">重置</div>
       <div class="cropper-view-back" @click="handleCloseClick"><a-icon style="font-size: 20px;" type="left-circle"
@@ -25,6 +35,17 @@ const SIZE_UNITS = {
   GB: Math.pow(1024, 3),
   TB: Math.pow(1024, 4),
 };
+
+function pxToNumber(pxString) {
+  // 检查输入是否是字符串并以 'px' 结尾
+  if (typeof pxString === 'string' && pxString.endsWith('px')) {
+    // 去掉 'px' 后缀并转换为数字
+    return parseFloat(pxString.slice(0, -2));
+  }
+  // 如果输入不合法，则返回 NaN
+  return NaN;
+}
+
 import VueCropper from "vue-cropper"
 import Vue from "vue"
 import axios from "axios"
@@ -88,9 +109,13 @@ export default {
       filename: null
     }
   },
-  mounted() {
-
-
+  computed: {
+    computedAutoCropWidth() {
+      return Math.min(this.autoCropWidth, window.innerWidth);
+    },
+    computedAutoCropHeight() {
+      return Math.min(this.autoCropHeight, window.innerHeight);
+    },
   },
   methods: {
     async handleFileChange(e) {
@@ -100,14 +125,22 @@ export default {
       this.isShow = true
       await this.$nextTick()
       var viewportHeight = window.innerHeight;
+      document.querySelector('.cropper-view').style.width = window.innerWidth + 'px';
       document.querySelector('.cropper-view').style.height = viewportHeight + 'px';
     },
     handleCloseClick() {
       this.isShow = false
     },
     handleResetClick() {
-      this.$refs.cropper.clearCrop()
-      this.$refs.cropper.goAutoCrop()
+      this.$refs.cropper && this.$refs.cropper.clearCrop()
+      this.$refs.cropper && this.$refs.cropper.goAutoCrop()
+    },
+    onRealTime(options) {
+      if (options.w && options.w > window.innerWidth) {
+        this.$refs.cropper.autoCropWidth = window.innerWidth
+        this.$refs.cropper.cropW = window.innerWidth
+        setTimeout(() => this.handleResetClick(), 100)
+      }
     },
     checkSize(file) {
       // 可能出现传入为空字符串的情况
@@ -182,7 +215,7 @@ export default {
           const r = await axios.post(this.uploadUrl ? this.uploadUrl : '/gateway/lowcode/api/v1/app/upload', formData, headers)
           if (r.data.code === 200) {
             this.$emit('update:value', r.data.result)
-            this.$emit("onSuccess", r.data.result)
+            this.$emit("onSuccess", r.data.filePath)
           } else {
             this.$emit("onError", r.data.message)
           }
