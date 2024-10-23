@@ -129,8 +129,13 @@ export default {
         parent.innerHTML = "";
         readAsPDF(pdfUrl).then(async(pdf) => {
           this.pdf = pdf;
+          let promises = []
           for (let i = 1; i < pdf.numPages + 1; i++) {
-              const page = await  pdf.getPage(i)
+              promises.push(pdf.getPage(i))
+              // const page = await  pdf.getPage(i)
+          }
+          const pages = await Promise.all(promises)
+          pages.forEach(page =>{
               const viewport = page.getViewport({ scale: 1.2 });
               const canvas = document.createElement("canvas");
               parent.append(canvas);
@@ -141,7 +146,8 @@ export default {
                 canvasContext: context,
                 viewport: viewport,
               });
-          }
+          })
+          
         });
       } catch (error) {
         console.log(error);
