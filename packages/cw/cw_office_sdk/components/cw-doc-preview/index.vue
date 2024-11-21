@@ -1,131 +1,146 @@
 <template>
-    <div style="display: flex; width: 100%" :class="[$style.docPreview, $env.VUE_APP_DESIGNER && $style.room]"
-        ref="doc-preview">
+    <div ref="container" class="doc-preview-container">
+      <div class="doc-preview-content" ref="docPreviewContent">
         <div>{{ emptyText }}</div>
+      </div>
     </div>
-</template>
-
-<script>
-import { renderAsync } from 'docx-preview';
-import panzoom from 'panzoom';
-export default {
+  </template>
+  
+  <script>
+  import { renderAsync } from 'docx-preview';
+  import panzoom from 'panzoom';
+  
+  export default {
     name: 'cw-doc-preview',
     props: {
-        emptyText: {
-            type: String,
-            default: '无效链接'
-        },
-        panZoom: {
-            type: Boolean,
-            default: false,
-        },
-        value: {
-            type: String,
-            default: '请在这里编写代码',
-        },
-        ignoreHeight: {
-            type: Boolean,
-            default: false,
-        },
-        ignoreWidth: {
-            type: Boolean,
-            default: false,
-        },
+      emptyText: {
+        type: String,
+        default: '无效链接'
+      },
+      panZoom: {
+        type: Boolean,
+        default: false,
+      },
+      value: {
+        type: String,
+        default: '请在这里编写代码',
+      },
+      ignoreHeight: {
+        type: Boolean,
+        default: false,
+      },
+      ignoreWidth: {
+        type: Boolean,
+        default: false,
+      },
     },
     watch: {
-        value: {
-            handler: function (val, oldVal) {
-                console.log(val, oldVal);
-                this.getData(val);
-            },
-            // immediate: true
+      value: {
+        handler: function (val) {
+          this.getData(val);
         },
+      },
     },
     data() {
-        return {
-            // url:"http://static.shanhuxueyuan.com/test6.docx",
-            docxOptions: {
-                className: 'kaimo-docx', // string：默认和文档样式类的类名/前缀
-                inWrapper: true, // boolean：启用围绕文档内容的包装器渲染
-                ignoreWidth: this.ignoreWidth, // boolean：禁用页面的渲染宽度
-                ignoreHeight: this.ignoreHeight, // boolean：禁止渲染页面高度
-                ignoreFonts: false, // boolean：禁用字体渲染
-                breakPages: true, // boolean：在分页符上启用分页
-                ignoreLastRenderedPageBreak: true, // boolean：在 lastRenderedPageBreak 元素上禁用分页
-                experimental: false, // boolean：启用实验功能（制表符停止计算）
-                trimXmlDeclaration: true, // boolean：如果为true，解析前会从​​ xml 文档中移除 xml 声明
-                useBase64URL: false, // boolean：如果为true，图片、字体等会转为base 64 URL，否则使用URL.createObjectURL
-                useMathMLPolyfill: false, // boolean：包括用于 chrome、edge 等的 MathML polyfill。
-                showChanges: false, // boolean：启用文档更改的实验性渲染（插入/删除）
-                debug: false, // boolean：启用额外的日志记录
-            },
-            htmlData: '',
-        };
+      return {
+        docxOptions: {
+          className: 'kaimo-docx',
+          inWrapper: true,
+          ignoreWidth: this.ignoreWidth,
+          ignoreHeight: this.ignoreHeight,
+          ignoreFonts: false,
+          breakPages: true,
+          ignoreLastRenderedPageBreak: true,
+          experimental: false,
+          trimXmlDeclaration: true,
+          useBase64URL: false,
+          useMathMLPolyfill: false,
+          showChanges: false,
+          debug: false,
+        },
+        htmlData: '',
+      };
     },
     mounted() {
-        this.getData(this.value.trim());
-        !this.$env.VUE_APP_DESIGNER && this.panZoom && this.$nextTick(() => {
-            const element = document.querySelector(`.${this.$style.docPreview}`);
-            panzoom(element, {
-                maxZoom: this.maxScale,
-                minZoom: this.minScale,
-                bounds: true,
-                boundsPadding: 0.1
-            });
-        })
+      this.getData(this.value.trim());
+      this.updateScale();
+      window.addEventListener('resize', this.updateScale);
+  
+      if (!this.$env.VUE_APP_DESIGNER && this.panZoom) {
+        this.$nextTick(() => {
+          const element = this.$refs.container;
+          panzoom(element, {
+            maxZoom: this.maxScale,
+            minZoom: this.minScale,
+            bounds: true,
+            boundsPadding: 0.1,
+          });
+        });
+      }
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.updateScale);
     },
     methods: {
-        async getData(url) {
-            if (typeof url === 'string') {
-                let buf = await fetch(url).then((r) => r.arrayBuffer());
-                this.docxRender(buf);
-            }
-        },
-        docxRender(buffer) {
-            let bodyContainer = this.$refs['doc-preview'];
-
-            renderAsync(
-                buffer, // Blob | ArrayBuffer | Uint8Array, 可以是 JSZip.loadAsync 支持的任何类型
-                bodyContainer, // HTMLElement 渲染文档内容的元素,
-                null, // HTMLElement, 用于呈现文档样式、数字、字体的元素。如果为 null，则将使用 bodyContainer。
-                this.docxOptions // 配置
-            ).then((res) => {
-                console.log('res---->', res);
-            });
-        },
-        handlePreview() {
-            let file = document.getElementById('file').files[0];
-            console.log(file);
-            // 将file转为buffer
-            let fr = new FileReader();
-            fr.readAsArrayBuffer(file);
-            fr.addEventListener(
-                'loadend',
-                (e) => {
-                    console.log('loadend---->', e);
-                    let buffer = e.target.result;
-                    this.docxRender(buffer);
-                },
-                false
-            );
-        },
+      async getData(url) {
+        if (typeof url === 'string') {
+          let buf = await fetch(url).then((r) => r.arrayBuffer());
+          this.docxRender(buf);
+        }
+      },
+      docxRender(buffer) {
+        let bodyContainer = this.$refs['docPreviewContent'];
+  
+        renderAsync(
+          buffer,
+          bodyContainer,
+          null,
+          this.docxOptions
+        ).then((res) => {
+          console.log('res---->', res);
+          this.updateScale();
+        });
+      },
+      updateScale() {
+        const container = this.$refs.container;
+        const content = this.$refs.docPreviewContent;
+  
+        if (container && content) {
+          const containerWidth = container.clientWidth;
+          const containerHeight = container.clientHeight;
+          const contentWidth = content.scrollWidth;
+          const contentHeight = content.scrollHeight;
+  
+          const scaleX = containerWidth / contentWidth;
+          const scaleY = containerHeight / contentHeight;
+  
+          const scale = Math.min(scaleX, scaleY);
+  
+          content.style.transform = `scale(${scale})`;
+          content.style.transformOrigin = 'top left';
+        }
+      },
     },
-};
-</script>
-
-<style module>
-.docPreview {
-    overflow: auto;
-}
-
-.room {
-    height: 300px;
+  };
+  </script>
+  
+  <style scoped>
+  .doc-preview-container {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-}
-</style>
+    position: relative;
+  }
+  
+  .doc-preview-content {
+    transform-origin: top left;
+  }
+  </style>
 
 <style>
 .kaimo-docx-wrapper {
     padding: 0 !important;
+    display: block !important;
+    background-color: transparent !important;
 }
 </style>
