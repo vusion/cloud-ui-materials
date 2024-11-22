@@ -108,7 +108,8 @@
         concept: Param
         name: current
         typeAnnotation:
-          concept: TypeAnnotation
+          concept: 
+          
           typeKind: generic
           typeNamespace: nasl.ui
           typeName: Current

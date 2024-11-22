@@ -22,6 +22,8 @@ namespace extensions.cw_json.viewComponents {
     @Prop({
       title: 'json',
       description: 'json',
+      sync: true,
+      settable: true,
       setter: {
         concept: 'InputSetter'
       }

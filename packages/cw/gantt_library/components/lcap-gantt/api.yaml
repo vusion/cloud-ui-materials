@@ -1,6 +1,6 @@
 - name: lcap-gantt
   title: 甘特图
-  type: pc
+  type: both
   belong: component
   labels: [Runtime]
   attrs:

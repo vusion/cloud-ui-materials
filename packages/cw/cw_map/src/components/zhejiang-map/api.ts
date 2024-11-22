@@ -21,7 +21,7 @@ namespace extensions.cw_map.viewComponents {
   export class ZhejiangMapOptions extends ViewComponentOptions {
     @Prop({
       title: '区域数据',
-      description: '区域数据',
+      description: '区域数据',    
       setter: {
         concept: 'InputSetter',
       },
