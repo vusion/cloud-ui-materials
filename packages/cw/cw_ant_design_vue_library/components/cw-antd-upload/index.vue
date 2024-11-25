@@ -1,24 +1,15 @@
 <template>
   <div>
     <div class="file-room" vusion-slot-name="default" style="min-height:30px;">
-      <input ref="input" v-if="!$env.VUE_APP_DESIGNER" type="file" :accept="accept" :capture="capture" @change="handleFileChange" />
+      <input ref="input" v-if="!$env.VUE_APP_DESIGNER" type="file" :accept="accept" :capture="capture"
+        @change="handleFileChange" />
       <div v-if="$env.VUE_APP_DESIGNER && !$slots.default">+</div>
       <slot></slot>
     </div>
     <div class="cropper-view" v-if="isShow">
-      <vue-cropper
-      :high="false"
-      :centerBox="true"
-      :outputSize="outputSize"
-      :autoCropWidth="computedAutoCropWidth" 
-      :autoCropHeight="computedAutoCropHeight"
-      :fixedNumber="fixedNumber"
-      outputType="jpeg"
-      :fixedBox="fixedBox"
-      :info="info"
-      :canMoveBox="canMoveBox"
-      @realTime="onRealTime"
-       autoCrop ref="cropper" :img="image" ></vue-cropper>
+      <vue-cropper :high="false" :centerBox="true" :outputSize="outputSize" :autoCropWidth="computedAutoCropWidth"
+        :autoCropHeight="computedAutoCropHeight" :fixedNumber="fixedNumber" outputType="jpeg" :fixedBox="fixedBox"
+        :info="info" :canMoveBox="canMoveBox" @realTime="onRealTime" autoCrop ref="cropper" :img="image"></vue-cropper>
       <div class="cropper-view-submit" @click="handleClick">确定</div>
       <div class="cropper-view-reset" @click="handleResetClick">重置</div>
       <div class="cropper-view-back" @click="handleCloseClick"><a-icon style="font-size: 20px;" type="left-circle"
@@ -35,6 +26,15 @@ const SIZE_UNITS = {
   GB: Math.pow(1024, 3),
   TB: Math.pow(1024, 4),
 };
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result.split(',')[1]); // 获取 Base64 数据
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
 
 function pxToNumber(pxString) {
   // 检查输入是否是字符串并以 'px' 结尾
@@ -55,6 +55,10 @@ Vue.use(Icon)
 export default {
   name: "cw-antd-upload",
   props: {
+    base64Format: {
+      type: Boolean,
+      default: false
+    },
     outputSize: {
       type: String,
     },
@@ -208,16 +212,37 @@ export default {
           } else {
             result = data
           }
-          const formData = new FormData()
-          formData.append('file', new File([result], this.filename, { type: data.type }))
+          let payload = null
+          if (this.base64Format) {
+            result = await blobToBase64(result)
+            payload = {
+              fileName: this.filename,
+              base64String: result
+            }
+          } else {
+            const formData = new FormData()
+            formData.append('file', new File([result], this.filename, { type: data.type }))
+            payload = formData
+          }
+
           const authorization = this.getCookie('authorization');
           const headers = authorization ? { Authorization: authorization } : {};
-          const r = await axios.post(this.uploadUrl ? this.uploadUrl : '/gateway/lowcode/api/v1/app/upload', formData, headers)
-          if (r.data.code === 200) {
-            this.$emit('update:value', r.data.result)
-            this.$emit("onSuccess", r.data.filePath)
+          let r = await axios.post(this.uploadUrl ? this.uploadUrl : '/gateway/lowcode/api/v1/app/upload', payload, headers)
+          if (this.base64Format) {
+            r = r.data.Data
+            if (r.code === 200) {
+              this.$emit('update:value', r.result)
+              this.$emit("onSuccess", r.filePath)
+            } else {
+              this.$emit("onError", r.message)
+            }
           } else {
-            this.$emit("onError", r.data.message)
+            if (r.data.code === 200) {
+              this.$emit('update:value', r.data.result)
+              this.$emit("onSuccess", r.data.filePath)
+            } else {
+              this.$emit("onError", r.data.message)
+            }
           }
         } catch (error) {
         } finally {

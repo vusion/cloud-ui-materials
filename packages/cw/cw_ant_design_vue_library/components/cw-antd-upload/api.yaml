@@ -61,6 +61,10 @@
       title: 最大上传大小
       type: string
       description: 可上传的最大文件大小。默认为50MB；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位：`KB`、`MB`、`GB`
+    - name: base64Format
+      title: base64格式上传
+      type: boolean
+      description: 是否将图片转换为base64格式上传
   events:
     - name: onSuccess
       description: 上传成功时
