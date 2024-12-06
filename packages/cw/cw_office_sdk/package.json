@@ -53,7 +53,9 @@
     "axios": "^1.6.7",
     "docx-preview": "0.1.20",
     "downloadjs": "^1.4.7",
-    "jspdf": "^2.5.2",
-    "pdfjs-dist": "^2.5.0"
+    "panzoom": "^9.4.3",
+    "pdfjs-dist": "2.4.456",
+    "vue-pdf-embed": "1.2.1",
+    "vue-pinch-zoom": "^1.0.1"
   }
 }
