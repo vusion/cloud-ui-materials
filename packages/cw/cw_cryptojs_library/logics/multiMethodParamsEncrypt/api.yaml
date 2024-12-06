@@ -1,0 +1,5 @@
+- name: multiMethodParamsEncrypt
+  description: 支持多种加密方法
+  type: both
+  belong: logic
+  labels: [Runtime]

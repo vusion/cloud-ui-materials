@@ -15,6 +15,8 @@ import getNetworkType from './getNetworkType'
 import closeWindow from './closeWindow'
 import previewImage from './previewImage'
 import sendTemplateMessage from './sendTemplateMessage'
+import updateTimelineShareData from './updateTimelineShareData'
+import onMenuShareTimeline from './onMenuShareTimeline'
 // LOGIC IMPORTS
 
 UtilsLogics.install = function (Vue, option = {}) {
@@ -33,6 +35,8 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].closeWindow=closeWindow
     Vue.prototype.$library[`${$libraryName}`].previewImage=previewImage
     Vue.prototype.$library[`${$libraryName}`].sendTemplateMessage=sendTemplateMessage
+    Vue.prototype.$library[`${$libraryName}`].updateTimelineShareData=updateTimelineShareData
+    Vue.prototype.$library[`${$libraryName}`].onMenuShareTimeline=onMenuShareTimeline
     // LOGIC USE
 }
 

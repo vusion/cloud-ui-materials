@@ -10,6 +10,87 @@ export default {
     data() {
         return {
             data: {
+                  animation:true,
+               series: [
+    {
+      type: 'gauge',
+      progress: {
+        show: true,
+        width: 18
+      },
+      axisLine: {
+        lineStyle: {
+          width: 18
+        }
+      },
+      axisTick: {
+        show: false
+      },
+      splitLine: {
+        length: 15,
+        lineStyle: {
+          width: 2,
+          color: '#999'
+        }
+      },
+      axisLabel: {
+        distance: 25,
+        color: '#999',
+        fontSize: 20
+      },
+      anchor: {
+        show: true,
+        showAbove: true,
+        size: 25,
+        itemStyle: {
+          borderWidth: 10
+        }
+      },
+      title: {
+        show: false
+      },
+      pointer: {
+                // 显示指针
+                show: true,
+                // 指针长度
+                length: '80%',
+                // 指针宽度
+                width: 5,
+                // 动画配置
+                animation: {
+                    // 动画持续时间（秒）
+                    duration: 100000,
+                    // 动画延迟时间（秒）
+                    delay: 100000
+                }
+            },
+      detail: {
+        valueAnimation: true,
+        fontSize: 80,
+        offsetCenter: [0, '70%']
+      },
+      data: [
+        {
+          value: 70
+        }
+      ]
+    }
+  ]
+            }}}}
+            </script>
+```
+### 基本用法
+
+```vue
+<template>
+    <cw-echart-basic-view :options="data" width="380px" style="width:100%;"></cw-echart-basic-view>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            data: {
                 title: {
                     left: 'left',
                 },

@@ -7,6 +7,7 @@ module.exports = {
             { group: '组件', name: 'cw-pdf-editor',path: "./components/cw-pdf-editor/api.yaml"},
             { group: '组件', name: 'cw-xlsx-preview',path: "./components/cw-xlsx-preview/api.yaml"},,
             { group: '组件', name: 'cw-ppt-preview',path: "./components/cw-ppt-preview/api.yaml"},,
+            { group: '组件', name: 'cw-pdf-select-view',path: "./components/cw-pdf-select-view/api.yaml"},,
             // Conponents Route List
         ],
     },

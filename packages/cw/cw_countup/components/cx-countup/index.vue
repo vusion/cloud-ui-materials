@@ -97,7 +97,7 @@
                       suffix: this.suffix,
                       prefix: this.prefix,
                       plugin: new Odometer({ duration: 0.1, lastDigitDelay: 0 }),
-                      formattingFn: v=>`${(v || 0).toLocaleString()}`.padStart(`${( this.end || 0).toLocaleString()}`.length, '0,000'),
+                    //   formattingFn: v=>`${(v || 0).toLocaleString()}`.padStart(`${( this.end || 0).toLocaleString()}`.length, '0,000'),
                   },
               );
               if (!this.counter.error && this.autoStart) {
@@ -177,7 +177,7 @@
       display: inline-block;
   }
   .count {
-      font-size: 36px;
+      /* font-size: 36px; */
       line-height: 1;
       width: 0.7em;
       height: 1em;

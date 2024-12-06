@@ -2,7 +2,7 @@
   "name": "cw_cryptojs_library",
   "title": "前端加密依赖库",
   "description": "",
-  "version": "1.0.4",
+  "version": "1.0.12",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
-    "sjcl": "^1.0.8"
+    "sjcl": "^1.0.8",
+    "sm-crypto": "^0.3.13"
   }
 }

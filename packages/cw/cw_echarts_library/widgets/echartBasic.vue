@@ -18,10 +18,13 @@ export default {
         return {
             barData: {},
             barOption: {},
+            color:null
         };
     },
-    mounted() {
+    async mounted() {
+        await this.initData()
         this.createMyChart();
+       
     },
     computed: {
         changedObj() {
@@ -44,9 +47,18 @@ export default {
         }
     },
     methods: {
+        // async initData(){
+        //     const r =  await  fetch("/api/system/getCustomConfig/APP_COLOR_KEY?group=extensions.cw_echarts_library.custom",{
+        //     }).then(r=>r.text())
+        //     if(r&&r.length<200){
+        //         this.color = r.split(",") 
+        //     }else{
+        //         this.color = undefined
+        //     }
+        // },
         reload() {
             if (this.chartInstance) {
-                this.chartInstance.setOption(this.options);
+                this.chartInstance.setOption({...this.options},{ notMerge: true})
                 this.$nextTick(() => {
                     this.chartInstance.resize();
                 });
@@ -54,7 +66,7 @@ export default {
         },
         createMyChart() {
             const myChart = this.$refs.myChart;
-            this.initChart(myChart, this.options);
+            this.initChart(myChart, {...this.options});
         },
         initChart(chart, config) {
             if (chart) {

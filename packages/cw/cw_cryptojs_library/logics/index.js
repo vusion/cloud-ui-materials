@@ -8,6 +8,10 @@ import decryptDataWithSalt from './decryptDataWithSalt'
 import base64Withsjcl from './base64Withsjcl'
 import decryptByDes from './decryptByDes'
 import md52Hex from './md52Hex'
+import sm2Encrypt from './sm2Encrypt'
+import sm2Decrypt from './sm2Decrypt'
+import multiMethodEncrypt from './multiMethodEncrypt'
+import multiMethodParamsEncrypt from './multiMethodParamsEncrypt'
 // LOGIC IMPORTS
 UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library = Vue.prototype.$library || {}
@@ -19,8 +23,18 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].base64Withsjcl=base64Withsjcl
     Vue.prototype.$library[`${$libraryName}`].decryptByDes=decryptByDes
     Vue.prototype.$library[`${$libraryName}`].md52Hex=md52Hex
+    Vue.prototype.$library[`${$libraryName}`].sm2Encrypt=sm2Encrypt
+    Vue.prototype.$library[`${$libraryName}`].sm2Decrypt=sm2Decrypt
     // LOGIC USE
     window.__$libraryEncryptSha256 = encryptSha256
+    window.__$sm2Encrypt = sm2Encrypt
+    window.__$sm2Decrypt = sm2Decrypt
+    Vue.prototype.$library[`${$libraryName}`].multiMethodEncrypt=multiMethodEncrypt
+    Vue.prototype.$library[`${$libraryName}`].multiMethodParamsEncrypt=multiMethodParamsEncrypt
+    // LOGIC USE
+    window.__$libraryEncryptSha256 = encryptSha256
+    window.__$libraryMultiMethodEncrypt = multiMethodEncrypt
+
 }
 
 

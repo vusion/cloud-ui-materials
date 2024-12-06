@@ -62,7 +62,9 @@ export default {
     reload() {
       if (this.chartInstance) {
         this.processBarData(this.sourceData);
-        this.chartInstance.setOption(this.barOption);
+        this.chartInstance.setOption(this.barOption,{
+          notMerge: true
+        });
         this.$nextTick(() => {
           this.chartInstance.resize();
         });

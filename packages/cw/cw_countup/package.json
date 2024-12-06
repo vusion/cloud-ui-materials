@@ -2,7 +2,7 @@
   "name": "cw_countup",
   "title": "数字渐变",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -49,7 +49,7 @@
     "inited": true
   },
   "dependencies": {
-    "countup.js": "^2.8.0",
+    "countup.js": "2.8.0",
     "odometer_countup": "^1.0.4"
   }
 }

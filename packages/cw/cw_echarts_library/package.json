@@ -2,7 +2,7 @@
   "name": "cw_echarts_library",
   "title": "echarts依赖库",
   "description": "",
-  "version": "1.0.12",
+  "version": "1.0.16",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -49,6 +49,6 @@
     "inited": true
   },
   "dependencies": {
-    "echarts": "^5.3.2"
+    "echarts": "^5.5.1"
   }
 }
