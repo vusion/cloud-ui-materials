@@ -6,7 +6,7 @@
           <div class='item' :style="`background-image:url(${item.img})`" >
             <div class="p1">{{ item.title }}</div>
             <div class="p2">   {{ item.desc }}</div>
-            <div class="line">
+            <div class="line" :style="`background-image:url(${item.bg})`" >
               <img class="pic" :src="item.icon" alt="">
               <div class="desc">
                 <p v-for="it in item.p" :key="it">
@@ -39,6 +39,7 @@ export default {
       defaultData:{
         img:"http://dev.xgjce.dogfood.lcap.163yun.com/upload/%E9%AB%98%E5%9B%BD%E6%A0%87%E5%93%81%E8%B4%A8%E4%B8%A5%E6%8E%A7.png?fileName=%E9%AB%98%E5%9B%BD%E6%A0%87%E5%93%81%E8%B4%A8%E4%B8%A5%E6%8E%A7.png&fut=1733303788645&ai=3a7b633a-eb67-4789-bb7d-12d0e272e1ef&con=lcap_default_connection",
         icon:"http://dev.xgjce.dogfood.lcap.163yun.com/upload/占位icon.png?fileName=占位icon.png&fut=1733303897836&ai=3a7b633a-eb67-4789-bb7d-12d0e272e1ef&con=lcap_default_connection",
+        bg:"https://lcpapp-static.nos-eastchina1.126.net/user/yanxuan/1733728576589_1ec8d26b70d44250b46da05f86218789.png",
         title:"【严保障】",
         desc:"领先技术",
         p:[" 上签个国内设计师资源",'获得国内外多个创意大赛','满足多哟昂货定制']
@@ -97,6 +98,7 @@ export default {
   .my-room {
     width: 220px;
     height: 230px;
+    transform: scale(1.2);
   }
 
   .mySwiper2{
@@ -105,7 +107,7 @@ export default {
   }
 
   .mySwiper2 {
-    height: 300px;
+    height: 340px;
     transform: rotate(180deg);
   }
 
@@ -177,36 +179,39 @@ export default {
     }
   }
 
-  .mySwiper2 .active-line.line {
+  .my-room .active-line.line {
     animation: line 2s linear 2 alternate;
     animation-fill-mode: both;
   }
 
-  .mySwiper2 .line {
-    width: 120px;
-    height: 120px;
+  .my-room .line img {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 10px;
+    margin-top: 20px;
   }
 
-  .mySwiper2 .line {
+  .my-room .line {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     width: 220px;
-    height: 260px;
+    height: 274px;
     background-color: #fff;
     opacity: 0;
     top: 0;
     left: 0;
     position: absolute;
     z-index: 1000;
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 75%, rgba(255,165,0,1) 100%);
+    background-size: 100% 100%;
+    /* background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 75%, rgba(255,165,0,1) 100%); */
   }
 
 
-  .mySwiper2 .active-line.line img {
+  .my-room .active-line.line img {
     animation: imgScale .8s linear;
     animation-fill-mode: both;
     animation-delay: 1.5s;
@@ -214,7 +219,7 @@ export default {
     animation-direction: alternate;
   }
 
-  .mySwiper2 .line p {
+  .my-room .line p {
     font-size: 12px;
   }
 
@@ -245,13 +250,13 @@ export default {
     }
   }
 
-  .mySwiper2 .active-line .desc {
+  .my-room .active-line .desc {
     animation: desc .8s ease-in 2 alternate 1.5s;
     animation-fill-mode: both;
     opacity: 0;
   }
 
-  .mySwiper2 .desc p {
+  .my-room .desc p {
     margin: 0;
     padding: 0;
     text-align: center;
@@ -276,11 +281,11 @@ export default {
   }
 
 
-  .mySwiper2 .line-wrap {
+  .my-room  .line-wrap {
     display: relative;
   }
 
-  .mySwiper2 .swiper-creative .swiper-slide {
+  .my-room  .swiper-creative .swiper-slide {
     backface-visibility: visible;
     overflow: visible;
   }
