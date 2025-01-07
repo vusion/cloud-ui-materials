@@ -49,7 +49,7 @@
 import { MField } from '../../widgets/m-field';
 import { Editor, Toolbar } from '@wangeditor-next/editor-for-vue2';
 import { SlateTransforms } from '@wangeditor-next/editor';
-import '@wangeditor/editor/dist/css/style.css';
+import '@wangeditor-next/editor/dist/css/style.css';
 import 'viewerjs/dist/viewer.css';
 import whiteListOption from '../../utils/whiteListTag';
 import Viewer from 'v-viewer';
@@ -92,6 +92,10 @@ export default {
         showDocxButton: {
             type: Boolean,
             default: false,
+        },
+        urlField: {
+            type: String,
+            default: 'filePath',
         },
     },
     data() {
@@ -167,7 +171,7 @@ export default {
                                   return file;
                               },
                               customInsert: (res, insertFn) => {
-                                  const url = res.filePath;
+                                  const url = res[this.urlField];
                                   insertFn(url);
                               },
                               meta: {
