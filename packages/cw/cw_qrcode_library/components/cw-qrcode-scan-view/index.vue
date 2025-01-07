@@ -7,13 +7,15 @@
 
 <script>
 import { Html5Qrcode } from 'html5-qrcode';
-let html5QrCode = null;
+// let html5QrCode = null;
 export default {
     name: 'cw-qrcode-scan-view',
     props: {},
     data() {
         return {
             message: '',
+            html5QrCode: null,
+            loading: false,
         };
     },
     mounted() {
@@ -22,10 +24,17 @@ export default {
         }
         !this.$env.VUE_APP_DESIGNER && this.getCameras();
     },
+    beforeDestroy() {
+        this.html5QrCode.stop();
+        setTimeout(() => {
+            this.html5QrCode.clear();
+            this.html5QrCode = null;
+        }, 500);
+    },
     methods: {
         start() {
             // console.log(html5QrCode);
-            html5QrCode
+            this.html5QrCode
                 .start(
                     // environment后置摄像头 user前置摄像头
                     { facingMode: 'environment' },
@@ -38,8 +47,8 @@ export default {
                         //  alert(JSON.stringify(decodedResult) )
                         // do something when code is read
                         this.$emit('onScan', decodedText);
-                        html5QrCode.stop();
-                        html5QrCode.clear();
+                        this.html5QrCode.stop();
+                        this.html5QrCode.clear();
                         console.log('decodedText', decodedText);
                         console.log('decodedResult', decodedResult);
                         // this.$emit("goBack", decodedText)
@@ -63,15 +72,17 @@ export default {
                 });
         },
         getCameras() {
+            this.loading = true;
             Html5Qrcode.getCameras()
                 .then((devices) => {
                     if (devices && devices.length) {
-                        html5QrCode = new Html5Qrcode('reader');
+                        this.html5QrCode = new Html5Qrcode('reader');
                         this.start();
                     }
                 })
                 .catch((err) => {
                     this.message = err;
+                    this.loading = false;
                     // html5QrCode = new Html5Qrcode("reader")
                     // this.$toast('您需要授予相机访问权限')
                 });
