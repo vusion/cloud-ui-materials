@@ -1,5 +1,4 @@
 <template>
-  <div>
     <vue-cropper
       style="width: 100%; height: 100%; min-height: 100px; min-width: 100px"
       ref="cropper"
@@ -11,14 +10,11 @@
       :auto-crop="option.autoCrop"
       :fixed-box="option.fixedBox"
       :fixed="option.fixed"
+      :can-move="option.canMove"
       @realTime="realTime"
       @imgLoad="imgLoad"
       @error="loadError"
     ></vue-cropper>
-    <div class="btn-group">
-      <button @click="finish">完成</button>
-    </div>
-  </div>
 </template>
 <script>
 import { VueCropper } from 'vue-cropper';
@@ -37,10 +33,11 @@ export default {
       option: {
         img: 'https://picsum.photos/600/400',
         outputType: 'jpeg',
-        canScale: true,
+        canScale: false,
         autoCrop: true,
         fixedBox: false,
         fixed: true,
+        canMove:false
       },
       previews: {},
       res: {},
@@ -62,18 +59,16 @@ export default {
       // console.log(this.previews.img)
       // const [x, y] = transform.match(/translate3d\((-?\d+\.?\d*)px,\s*(-?\d+\.?\d*)px/i).slice(1);
       // this.res =  {x:Number(x),y:Number(y),width:parseInt(this.previews.img.width),height:parseInt(this.previews.img.height),w:this.previews.w,h:this.previews.h}
-      //   console.log(this.res)
+        console.log(this.previews)
       // this.$emit('finish', this.res);
-
-      // const scale = .getScale();
-      console.log(transform);
 
       // 解析 transform 中的 translate3d 值
       const [x, y] = transform.match(/translate3d\((-?\d+\.?\d*)px,\s*(-?\d+\.?\d*)px/i).slice(1);
-
-      // 计算真实的 x 坐标
-      const realX = Number(x) ;
-
+      // 获取最终的transform样式
+      const finalTransform = this.$refs.cropper.$el.querySelector('.cropper-crop-box').style.transform;
+      console.log('最终的transform:', finalTransform);
+      // const transform = document.querySelector('.cropper-container').style.transform 
+      const [realX, realY] = finalTransform.match(/translate3d\((-?\d+\.?\d*)px,\s*(-?\d+\.?\d*)px/i).slice(1);
       this.res = {
         x: x,
         y: y, // 同样计算真实的 y 坐标
@@ -81,6 +76,8 @@ export default {
         height: parseInt(this.previews.img.height),
         w: this.previews.w,
         h: this.previews.h,
+        realX: Number(realX),
+        realY: Number(realY)
       };
       console.log(this.res);
     },

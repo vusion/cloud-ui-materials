@@ -16,10 +16,10 @@ export const Example1 = {
   name: '基本用法',
   render: (args, { argTypes }) => ({
     props: Object.keys(argTypes),
-    template: '<div style="width: 400px; height:400px;"><crop-view v-bind="$props"></crop-view></div>',
+    template: '<div style="width: 300px; height:200px;"><crop-view v-bind="$props"></crop-view></div>',
   }),
   args: {
-    text: 'Hello world',
+    // text: 'Hello world',
   },
 
 };

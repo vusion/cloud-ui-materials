@@ -1,7 +1,7 @@
 {
   "name": "cust_crop_view",
   "private": "true",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "lcapIdeVersion": "3.8",
   "title": "选区依赖库",
   "description": "选区依赖库",
