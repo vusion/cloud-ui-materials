@@ -136,13 +136,6 @@ export default {
                 seriesIndex: 0,
                 dataIndex: this.currentIndex
             });
-
-            // 显示 tooltip
-            // this.chartInstance.dispatchAction({
-            //     type: 'showTip',
-            //     seriesIndex: 0,
-            //     dataIndex: this.currentIndex
-            // });
             // 更新索引
             this.currentIndex = (this.currentIndex + 1) % this.dataLen;
         },
@@ -152,17 +145,24 @@ export default {
             }
         },
         stopAutoplay(params) {
-            // 立即销毁当前激活的
-            // this.chartInstance.dispatchAction({
-            //     type: 'downplay',
-            //     seriesIndex: 0,
-            //     dataIndex: this.currentIndex
-            // });
-            this.updateCurName(params);
             if (this.intervalId) {
                 clearInterval(this.intervalId);
                 this.intervalId = null;
             }
+            // 立即销毁当前激活的
+            for (let i = 0; i < this.dataLen; i++) {
+                this.chartInstance.dispatchAction({
+                    type: 'downplay',
+                    seriesIndex: 0,
+                    dataIndex: i,
+                });
+            }
+            this.chartInstance.dispatchAction({
+                type: 'highlight',
+                seriesIndex: 0,
+                dataIndex: params.dataIndex,
+            });
+            this.updateCurName(params);
         },
         updateCurName(e) {
             const { dataIndex } = e;

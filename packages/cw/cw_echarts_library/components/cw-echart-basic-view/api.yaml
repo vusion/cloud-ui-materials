@@ -18,7 +18,7 @@
         type: string
         description: 标签内容格式器, 支持用 \n 换行，如果以`{`开头请注意使用双引号包裹。
         group: 图表基础
-      - name: auto-play
+      - name: autoplay
         title: 是否自动播放
         type: string
         description: 开启自动播放之后，会触发轮播高亮。
