@@ -25,9 +25,21 @@
       default: "#F8F9FA"
       description: 设置画布背景颜色
   methods:
+    - name: reloadSignature
+      title: 重新加载签名板
+      description: 重新加载签名板
     - name: getSignature
       title: 获取签名板生成图片
       description: 获取签名板生成图片
     - name: clearSignature
       title: 清除签名板生成图片
       description: 清除签名板生成图片
+    - name: rotateSignature
+      title: 旋转签名板生成图片
+      description: 旋转签名板生成图片
+      params:
+        - name: angle
+          title: 旋转角度
+          type: number
+          default: 90
+          description: 旋转角度
