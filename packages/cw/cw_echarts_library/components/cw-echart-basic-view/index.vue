@@ -108,6 +108,10 @@ export default {
         startLoading() {
             this.loading = true;
         },
+        // 供外部调用使用
+        stopAutoplay(dataIndex) {
+            this.$refs.echart.stopAutoplay({dataIndex});
+        }
     },
 };
 </script>

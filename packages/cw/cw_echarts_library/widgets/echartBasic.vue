@@ -167,7 +167,7 @@ export default {
         updateCurName(e) {
             const { dataIndex } = e;
             this.currentIndex = dataIndex;
-            this.$emit('highlight', dataIndex);
+            this.$emit('highlight', e);
         },
         resize() {
             if (this.chartInstance) {
