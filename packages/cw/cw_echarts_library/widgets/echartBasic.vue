@@ -13,18 +13,28 @@ export default {
         sourceData: [Array, Object], // 这个属性实际上不起作用
         axisData: [Object],
         options: [Object],
+        authPlay: {
+            type: Boolean,
+            default: false,
+        },
+        delayTime: {
+            type: Number,
+            default: 2000,
+        }
     },
     data() {
         return {
             barData: {},
             barOption: {},
-            color:null
+            color: null,
+            currentIndex: 0,
+            intervalId: null,
         };
     },
     async mounted() {
-        await this.initData()
+        // await this.initData()
         this.createMyChart();
-       
+
     },
     computed: {
         changedObj() {
@@ -58,7 +68,7 @@ export default {
         // },
         reload() {
             if (this.chartInstance) {
-                this.chartInstance.setOption({...this.options},{ notMerge: true})
+                this.chartInstance.setOption({ ...this.options }, { notMerge: true })
                 this.$nextTick(() => {
                     this.chartInstance.resize();
                 });
@@ -66,7 +76,7 @@ export default {
         },
         createMyChart() {
             const myChart = this.$refs.myChart;
-            this.initChart(myChart, {...this.options});
+            this.initChart(myChart, { ...this.options });
         },
         initChart(chart, config) {
             if (chart) {
@@ -79,10 +89,69 @@ export default {
                 this.chartInstance.on('click', (echartClickEvent) => {
                     this.$emit('clickItem', echartClickEvent);
                 });
+                this.listenHighLight();
+                // 开启自动播放功能
+                if (this.authPlay) {
+                    this.authPlay(this.chartInstance);
+                    this.startAutoPlay();
+                    this.triggrPlay(this.chartInstance);
+                } else {
+                    this.stopAutoPlay();
+                }
                 this.$nextTick(() => {
                     this.chartInstance.resize();
                 });
             }
+        },
+        triggrPlay(chartInstance) {
+            chartInstance.on('mouseover', function () {
+                stopAutoPlay();
+            });
+
+            chartInstance.on('mouseout', function () {
+                startAutoPlay();
+            });
+        },
+        authPlay(chartInstance) {
+            if (!chartInstance) return;
+            // 仅支持单series 场景
+            chartInstance.dispatchAction({
+                type: 'downplay',
+                seriesIndex: 0,
+                dataIndex: (currentIndex - 1 + dataLen) % dataLen
+            });
+
+            // 高亮当前项
+            chartInstance.dispatchAction({
+                type: 'highlight',
+                seriesIndex: 0,
+                dataIndex: currentIndex
+            });
+
+            // 显示 tooltip
+            chartInstance.dispatchAction({
+                type: 'showTip',
+                seriesIndex: 0,
+                dataIndex: currentIndex
+            });
+        },
+        startAutoPlay() {
+            if (!this.intervalId) {
+                this.intervalId = setInterval(this.authPlay, this.delayTime);
+            }
+        },
+        stopAutoPlay() {
+            if (this.intervalId) {
+                clearInterval(this.intervalId);
+                this.intervalId = null;
+            }
+        },
+        listenHighLight(chartInstance) {
+            chartInstance.on('highlight', this.updateCurIndex);
+        },
+        updateCurIndex({dataIndex}) {
+            this.currentIndex = dataIndex;
+            this.$emit('highlight', dataIndex);
         },
         resize() {
             if (this.chartInstance) {

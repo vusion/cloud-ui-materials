@@ -8,6 +8,8 @@
                 @startLoading="startLoading"
                 ref="echart"
                 @clickItem="$emit('clickItem', $event)"
+                @highlight="$emit('highlight', $event)"
+                v-bind="$attrs"
             ></echart-basic>
             <div v-else>
                 <img
