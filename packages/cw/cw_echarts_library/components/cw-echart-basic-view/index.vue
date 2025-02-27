@@ -5,6 +5,8 @@
                 v-if="!loading"
                 :sourceData="sourceData"
                 :options="options"
+                :autoplay="autoplay"
+                :delayTime="delayTime"
                 @startLoading="startLoading"
                 ref="echart"
                 @clickItem="$emit('clickItem', $event)"
@@ -35,6 +37,8 @@ export default {
     props: {
         dataSource: [Function, Array, Object],
         options: { type: Object, default: () => ({}) },
+        autoplay: { type: Boolean, default: false },
+        delayTime: { type: Number, default: 2000 },
     },
     data() {
         return {

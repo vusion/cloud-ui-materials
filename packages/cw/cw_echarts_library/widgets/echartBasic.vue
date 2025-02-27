@@ -13,7 +13,7 @@ export default {
         sourceData: [Array, Object], // 这个属性实际上不起作用
         axisData: [Object],
         options: [Object],
-        authPlay: {
+        autoplay: {
             type: Boolean,
             default: false,
         },
@@ -29,6 +29,7 @@ export default {
             color: null,
             currentIndex: 0,
             intervalId: null,
+            dataLen: 0,
         };
     },
     async mounted() {
@@ -49,6 +50,21 @@ export default {
             },
             deep: true,
         },
+        options: {
+            handler(value) {
+                // 仅支持单series 场景
+                try {
+                    if (Array.isArray(value.series)) {
+                        this.dataLen = value.series[0].data.length;
+                    } else {
+                        this.dataLen = value.series.data.length;
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            immediate: true,
+        }
     },
     beforeDestroy() {
         if (this.chartInstance) {
@@ -89,14 +105,13 @@ export default {
                 this.chartInstance.on('click', (echartClickEvent) => {
                     this.$emit('clickItem', echartClickEvent);
                 });
-                this.listenHighLight();
+                this.listenHighLight(this.chartInstance);
                 // 开启自动播放功能
-                if (this.authPlay) {
-                    this.authPlay(this.chartInstance);
-                    this.startAutoPlay();
+                if (this.autoplay) {
+                    this.autoplayHandler(this.chartInstance, config);
                     this.triggrPlay(this.chartInstance);
                 } else {
-                    this.stopAutoPlay();
+                    this.stopAutoplay();
                 }
                 this.$nextTick(() => {
                     this.chartInstance.resize();
@@ -104,43 +119,41 @@ export default {
             }
         },
         triggrPlay(chartInstance) {
-            chartInstance.on('mouseover', function () {
-                stopAutoPlay();
-            });
+            chartInstance.on('mouseover', this.stopAutoplay);
 
-            chartInstance.on('mouseout', function () {
-                startAutoPlay();
-            });
+            chartInstance.on('mouseout', this.startAutoplay);
+
+            this.startAutoplay();
         },
-        authPlay(chartInstance) {
-            if (!chartInstance) return;
-            // 仅支持单series 场景
-            chartInstance.dispatchAction({
+        autoplayHandler() {
+            if (!this.chartInstance) return;
+            if (this.dataLen <= 1) return;
+            this.chartInstance.dispatchAction({
                 type: 'downplay',
                 seriesIndex: 0,
-                dataIndex: (currentIndex - 1 + dataLen) % dataLen
+                dataIndex: (this.currentIndex - 1 + this.dataLen) % this.dataLen
             });
 
             // 高亮当前项
-            chartInstance.dispatchAction({
+            this.chartInstance.dispatchAction({
                 type: 'highlight',
                 seriesIndex: 0,
-                dataIndex: currentIndex
+                dataIndex: this.currentIndex
             });
 
             // 显示 tooltip
-            chartInstance.dispatchAction({
+            this.chartInstance.dispatchAction({
                 type: 'showTip',
                 seriesIndex: 0,
-                dataIndex: currentIndex
+                dataIndex: this.currentIndex
             });
         },
-        startAutoPlay() {
+        startAutoplay() {
             if (!this.intervalId) {
-                this.intervalId = setInterval(this.authPlay, this.delayTime);
+                this.intervalId = setInterval(this.autoplayHandler, this.delayTime);
             }
         },
-        stopAutoPlay() {
+        stopAutoplay() {
             if (this.intervalId) {
                 clearInterval(this.intervalId);
                 this.intervalId = null;
