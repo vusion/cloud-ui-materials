@@ -105,24 +105,20 @@ export default {
                 this.chartInstance.on('click', (echartClickEvent) => {
                     this.$emit('clickItem', echartClickEvent);
                 });
-                this.listenHighLight(this.chartInstance);
+
+                this.chartInstance.on('highlight', this.updateCurName);
                 // 开启自动播放功能
                 if (this.autoplay) {
-                    this.autoplayHandler(this.chartInstance, config);
-                    this.triggrPlay(this.chartInstance);
-                } else {
-                    this.stopAutoplay();
+                    this.triggrPlay();
                 }
                 this.$nextTick(() => {
                     this.chartInstance.resize();
                 });
             }
         },
-        triggrPlay(chartInstance) {
-            chartInstance.on('mouseover', this.stopAutoplay);
-
-            chartInstance.on('mouseout', this.startAutoplay);
-
+        triggrPlay() {
+            this.chartInstance.on('mouseover', this.stopAutoplay);
+            this.chartInstance.on('mouseout', this.startAutoplay);
             this.startAutoplay();
         },
         autoplayHandler() {
@@ -142,27 +138,34 @@ export default {
             });
 
             // 显示 tooltip
-            this.chartInstance.dispatchAction({
-                type: 'showTip',
-                seriesIndex: 0,
-                dataIndex: this.currentIndex
-            });
+            // this.chartInstance.dispatchAction({
+            //     type: 'showTip',
+            //     seriesIndex: 0,
+            //     dataIndex: this.currentIndex
+            // });
+            // 更新索引
+            this.currentIndex = (this.currentIndex + 1) % this.dataLen;
         },
         startAutoplay() {
             if (!this.intervalId) {
                 this.intervalId = setInterval(this.autoplayHandler, this.delayTime);
             }
         },
-        stopAutoplay() {
+        stopAutoplay(params) {
+            // 立即销毁当前激活的
+            // this.chartInstance.dispatchAction({
+            //     type: 'downplay',
+            //     seriesIndex: 0,
+            //     dataIndex: this.currentIndex
+            // });
+            this.updateCurName(params);
             if (this.intervalId) {
                 clearInterval(this.intervalId);
                 this.intervalId = null;
             }
         },
-        listenHighLight(chartInstance) {
-            chartInstance.on('highlight', this.updateCurIndex);
-        },
-        updateCurIndex({dataIndex}) {
+        updateCurName(e) {
+            const { dataIndex } = e;
             this.currentIndex = dataIndex;
             this.$emit('highlight', dataIndex);
         },
