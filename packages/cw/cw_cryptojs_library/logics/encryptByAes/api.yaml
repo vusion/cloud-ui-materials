@@ -1,0 +1,5 @@
+- name: encryptByAes
+  description: AES加密
+  type: both
+  belong: logic
+  labels: [Runtime]

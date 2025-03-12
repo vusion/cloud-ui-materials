@@ -1,0 +1,29 @@
+- name: cw-verifycode-view
+  title: 验证码
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 值
+      sync: true
+      model: true
+      type: string
+      description: 需要传入的值
+    - name: type
+      title: 类型
+      type: string
+      description: 需要传入的值
+      default: number
+      options:
+        - value: blend
+          title: 混合
+        - value: number
+          title: 数字
+        - value: letter
+          title: 字母
+  methods:
+    - name: validate
+      title: 验证
+    - name: refresh
+      title: 刷新

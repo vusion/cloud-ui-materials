@@ -1,8 +1,8 @@
 {
-  "name": "cw_cryptojs_library",
-  "title": "前端加密依赖库",
+  "name": "cw_verifycode_library",
+  "title": "验证码",
   "description": "",
-  "version": "1.0.13",
+  "version": "0.1.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -19,9 +19,7 @@
     "build:doc": "vue-cli-service doc-build",
     "build": "npm run build:theme",
     "usage": "lcap usage",
-    "deploy": "lcap deploy dist-theme",
-    "prepublishOnly": "lcap publish",
-    "release": "lcap publish"
+    "deploy": "lcap deploy dist-theme"
   },
   "vuePlugins": {},
   "babel": {},
@@ -49,8 +47,6 @@
     "inited": true
   },
   "dependencies": {
-    "crypto-js": "^4.2.0",
-    "sjcl": "^1.0.8",
-    "sm-crypto": "^0.3.13"
+    "vue2-verify": "^1.1.5"
   }
 }
