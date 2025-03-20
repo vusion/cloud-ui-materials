@@ -2,7 +2,7 @@
   "name": "cw_video_library",
   "title": "视频播放",
   "description": "",
-  "version": "1.0.1",
+  "version": "1.2.5",
   "main": "./index.js",
   "author": "",
   "repository": "",

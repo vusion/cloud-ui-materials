@@ -175,6 +175,20 @@
       brifeDoc: ""
       docDescription: 置灰显示，且禁止任何交互（焦点、点击、选择、输入等）
       tooltipLink: ""
+    - name: viaOriginURL
+      title: 源地址访问
+      type: boolean
+      default: false
+      description: ""
+    - name: multiple
+      title: 多文件上传
+      type: boolean
+      default: false
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 开启后可上传多个文件，默认关闭，多文件可设置数量上限
+      tooltipLink: ""
   slots:
     - concept: Slot
       name: default

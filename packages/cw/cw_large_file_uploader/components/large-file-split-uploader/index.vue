@@ -4,21 +4,22 @@
       v-if="draggable && (!readonly || $env.VUE_APP_DESIGNER)"
       :class="$style.draggable"
       :dragover="dragover"
-      @click="select()"
       :tabindex="readonly || disabled ? '' : 0"
+      @click="select()"
       @drop.prevent="onDrop"
       @paste="onPaste"
       @dragover.prevent="dragover = true"
       @dragleave.prevent="dragover = false"
     >
       <input
-        :class="$style.file"
         ref="file"
         type="file"
         :name="name"
+        :class="$style.file"
         :accept="accept"
         :readonly="readonly"
         :disabled="disabled"
+        :multiple="multiple"
         @click.stop
         @change="onChange"
       />
@@ -60,6 +61,7 @@
         :accept="accept"
         :readonly="readonly"
         :disabled="disabled"
+        :multiple="multiple"
         @click.stop
         @change="onChange"
       />
@@ -86,22 +88,30 @@
       v-if="
         !$env.VUE_APP_DESIGNER &&
         currentValue &&
-        (currentValue.url || currentValue.showProgress)
+        (currentValue.url ||
+          currentValue.showProgress ||
+          (currentValue.length && currentValue[0].url) ||
+          (currentValue.length && currentValue[0].showProgress))
       "
       :class="$style.list"
     >
-      <div :class="$style.item">
+      <div
+        v-for="(item, index) in currentValue.length
+          ? currentValue
+          : [currentValue]"
+        :class="$style.item"
+      >
         <a
-          v-if="!currentValue.showProgress"
+          v-if="!item.showProgress"
           :class="$style.link"
-          :href="currentValue.url"
+          :href="item.url"
           download
-          >{{ currentValue.name }}</a
+          >{{ item.name }}</a
         >
         <linear-progress
-          v-if="currentValue.showProgress"
+          v-if="item.showProgress"
           :class="$style.progress"
-          :percent="currentValue.percent"
+          :percent="item.percent"
         ></linear-progress>
         <svg
           t="1701087344377"
@@ -114,7 +124,7 @@
           height="14"
           v-else-if="!readonly && !disabled"
           :class="$style.remove"
-          @click="remove"
+          @click="remove(index)"
         >
           <path
             d="M478.016 352.704v445.952H545.92V352.704H478.08zM318.912 798.72V352.64h68.032v445.952H318.912zM638.528 352.704v445.952h67.968V352.704H638.528z"
@@ -148,6 +158,7 @@ export default {
     accept: String,
     headers: { type: Object, default: () => ({}) },
     withCredentials: { type: Boolean, default: false },
+    multiple: { type: Boolean, default: false },
     data: Object,
     urlField: { type: String, default: "url" },
     draggable: { type: Boolean, default: false },
@@ -165,6 +176,14 @@ export default {
     showErrorMessage: { type: Boolean, default: true },
     authorization: { type: Boolean, default: true },
     access: { type: String, default: null },
+    viaOriginURL: {
+      type: Boolean,
+      default: false,
+    },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -182,7 +201,9 @@ export default {
       handler(currentValue, oldValue) {
         const value = this.toValue(currentValue);
         this.$emit("input", value);
+        console.log("input", value);
         this.$emit("update:value", value);
+        console.log("update:value", value);
         this.$emit(
           "change",
           {
@@ -191,6 +212,10 @@ export default {
           },
           this
         );
+        console.log("change", {
+          value,
+          oldValue: this.toValue(oldValue),
+        });
       },
     },
   },
@@ -205,18 +230,29 @@ export default {
       if (this.pastable) this.upload(e.clipboardData.files[0]);
     },
     fromValue(value) {
-      if (this.$env.VUE_APP_DESIGNER) return {};
-      if (this.converter === "json") {
-        return JSON.parse(value || "{}");
-      } else {
-        if (!value) {
+      if (this.$env.VUE_APP_DESIGNER) {
+        if (this.multiple) {
+          return [{}];
+        } else {
           return {};
         }
-        return { url: value, name: this.handleFileName(value) };
+      }
+      if (this.converter === "json") {
+        if (this.multiple) {
+          return JSON.parse(value || "[{}]");
+        } else {
+          return JSON.parse(value || "{}");
+        }
+      } else {
+        if (!value) {
+          return this.multiple ? [{}] : {};
+        }
+        return this.multiple
+          ? [{ url: value, name: this.handleFileName(value) }]
+          : { url: value, name: this.handleFileName(value) };
       }
     },
     toValue(value) {
-      console.log("toValue", value);
       if (this.converter === "json") {
         return value ? JSON.stringify(value) : null;
       } else {
@@ -233,15 +269,14 @@ export default {
       this.$refs.file.click();
     },
     onChange(event) {
-      console.log("event", event.target);
       // 大文件必为单文件上传，默认取文件集合的第一个元素
-      const file = event.target.files[0];
+      const files = event.target.files;
       // 删除逻辑直接return
-      if (!file) return;
+      if (!files && files.length === 0) return;
       // 走上传逻辑
-      this.upload(file);
+      this.upload(files);
     },
-    upload(file) {
+    async upload(files) {
       if (
         !this.draggable &&
         !this.pastable &&
@@ -258,21 +293,46 @@ export default {
       this.errorMessage = [];
       this.$emit(
         "before-upload",
-        {
-          file,
-        },
+        this.multiple
+          ? files
+          : {
+              file: files[0],
+            },
         this
       );
-      this.currentValue = {
-        uid: file.uid ? file.uid : Date.now(),
-        status: "uploading",
-        name: file.name,
-        size: file.size,
-        percent: 0,
-        showProgress: true,
-      };
+      console.log(
+        "before-upload",
+        this.multiple
+          ? files
+          : {
+              file: files[0],
+            }
+      );
+      this.currentValue = this.multiple
+        ? [...files].map((file) => ({
+            uid: file.uid ? file.uid : Date.now(),
+            status: "uploading",
+            name: file.name,
+            size: file.size,
+            percent: 0,
+            showProgress: true,
+          }))
+        : {
+            uid: files[0].uid ? files[0].uid : Date.now(),
+            status: "uploading",
+            name: files[0].name,
+            size: files[0].size,
+            percent: 0,
+            showProgress: true,
+          };
 
-      this.uploadChunk(file);
+      if (this.multiple) {
+        for (const file of files) {
+          await this.uploadChunk(file);
+        }
+      } else {
+        this.uploadChunk(files[0]);
+      }
     },
     async uploadChunk(file) {
       // 分片上传
@@ -303,9 +363,9 @@ export default {
       if (file.size > 5 * 1024 * 1024) {
         this.post(file, totalChunks, totalChunks, file.size, fileName, true);
       }
+      return Promise.resolve();
     },
     async postChunk(chunks, totalChunks, fileName) {
-      console.log("chunks", chunks);
       // 分开两个循环，方便维护
       let chunkNumber = 1;
       for (const chunk of chunks) {
@@ -326,6 +386,7 @@ export default {
       return Promise.resolve();
     },
     post(chunk, chunkNumber, totalChunks, totalSize, fileName, isMerge) {
+      const vm = this;
       return new Promise((resolve, reject) => {
         const {
           data,
@@ -353,6 +414,7 @@ export default {
         );
         const formData = {
           ...data,
+          viaOriginURL: vm.viaOriginURL,
           totalSize,
           fileName,
           chunkSize: chunk.size,
@@ -368,56 +430,73 @@ export default {
           data: formData,
           headers: headersReq,
         };
-        let percent = this.currentValue.percent;
+
+        let target = this.multiple
+          ? this.currentValue.find((item) => fileName.endsWith(item.name))
+          : this.currentValue;
+        let percent = target.percent;
         const xhr = ajax({
           ...requestData,
           onProgress: (e) => {
-            this.currentValue = {
-              name: fileName,
-              status: "uploading",
-              percent: parseInt(percent + e.percent / (totalChunks + 1)),
-              showProgress: true,
-            };
+            target.name = fileName;
+            target.status = "uploading";
+            target.percent = parseInt(percent + e.percent / (totalChunks + 1));
+            target.showProgress = true;
+            if (this.multiple) {
+              this.currentValue = [...this.currentValue];
+            }
             this.$emit(
               "progress",
               {
                 e,
                 file: chunk,
-                item: this.currentValue,
+                item: target,
                 xhr,
               },
               this
             );
+            console.log("progress", {
+              e,
+              file: chunk,
+              item: target,
+              xhr,
+            });
           },
           onSuccess: (res) => {
             if (isMerge || totalSize <= 5 * 1024 * 1024) {
-              this.currentValue = {
-                url: res.result,
-                name: fileName,
-                percent: 100,
-                showProgress: false,
-                status: "success",
-                response: res,
-              };
-              if (this.currentValue.url) {
-                this.currentValue.name = this.handleFileName(
-                  this.currentValue.url
-                );
+              if (target.url) {
+                target.name = this.handleFileName(target.url);
               }
-              const value = this.toValue(this.currentValue);
+              target.url = res.result;
+              target.name = fileName;
+              target.status = "success";
+              target.percent = 100;
+              target.showProgress = false;
+              target.response = res;
+              if (this.multiple) {
+                this.currentValue = [...this.currentValue];
+              }
+              const value = this.toValue(target);
               this.$emit("input", value);
+              console.log("input", value);
               this.$emit("update:value", value);
-              console.log("value-wybie", value);
+              console.log("update:value", value);
               this.$emit(
                 "success",
                 {
                   res,
                   file: chunk,
-                  item: this.currentValue,
+                  item: target,
                   xhr,
                 },
                 this
               );
+              console.log("success", {
+                res,
+                file: chunk,
+                item: target,
+                xhr,
+              });
               if (
                 !this.draggable &&
                 !this.pastable &&
@@ -441,6 +520,7 @@ export default {
             this.currentValue.showProgress = false;
             const value = this.toValue(this.currentValue);
             this.$emit("input", value);
+            console.log("input", value);
             const errorMessage = JSON.parse(e).Message;
             this.errorMessage.push(errorMessage);
             this.$emit(
@@ -453,6 +533,12 @@ export default {
               },
               this
             );
+            console.log("error", {
+              e,
+              file: chunk,
+              item: this.currentValue,
+              xhr,
+            });
             if (
               !this.draggable &&
               !this.pastable &&
@@ -482,33 +568,47 @@ export default {
       }
       return "";
     },
-    remove() {
-      if (
-        this.$emit(
-          "before-remove",
-          {
-            oldValue: this.currentValue,
-            item: this.currentValue,
-          },
-          this
-        )
-      ) {
-      }
-
-      this.currentValue = this.converter === "json" ? {} : "";
+    remove(index) {
+      let value = this.multiple ? this.currentValue[index] : this.currentValue;
       this.$emit(
-        "remove",
+        "before-remove",
         {
-          value: this.currentValue,
-          item: this.currentValue,
+          oldValue: value,
+          item: value,
         },
         this
       );
+      console.log("before-remove", {
+        oldValue: value,
+        item: value,
+      });
+      if (this.multiple) {
+        this.currentValue.splice(index, 1);
+      } else {
+        this.currentValue = {};
+      }
+      let removeValue;
+      if (this.converter === "json") {
+        removeValue = this.currentValue;
+      } else {
+        removeValue = JSON.stringify(this.currentValue);
+      }
+      this.$emit(
+        "remove",
+        {
+          value: removeValue,
+          item: removeValue,
+        },
+        this
+      );
+      console.log("remove", {
+        value: removeValue,
+        item: removeValue,
+      });
     },
     // 展示时使用接口返回路径对应的文件名
     handleFileName(url) {
       const match = url.match(/\/([^/]+)$/);
-      console.log("match", match);
       return match ? match[1] : null;
     },
   },

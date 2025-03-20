@@ -32,6 +32,11 @@
       type: boolean
       description: 是否循环播放
       default: false
+    - name: showPlaybackRates
+      title: 是否开启倍速播放
+      type: boolean
+      description: 是否开启倍速播放
+      default: true
   events:
     - name: start
       title: 播放开始时
