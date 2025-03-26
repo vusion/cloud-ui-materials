@@ -2,7 +2,7 @@
   "name": "lcap_signature_view",
   "title": "签名板",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.7",
   "main": "./index.js",
   "author": "",
   "repository": "",

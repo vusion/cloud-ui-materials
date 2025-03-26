@@ -1,33 +1,61 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.wrapper">
-      <div :class="$style.empty" v-if="!signaturePNG" @click="openSignatureModal">
+      <div
+        :class="$style.empty"
+        v-if="!signaturePNG"
+        @click="openSignatureModal"
+      >
         <div>
-          {{ this.language === 'english' ? 'Please click here to sign' : '请在此处签名' }}
+          {{
+            buttonText ||
+            (this.language === "english"
+              ? "Please click here to sign"
+              : "请在此处签名")
+          }}
         </div>
       </div>
       <div v-else :class="$style.signatureWrapper">
-        <i-icon name="close" v-show="reSignName" :class="$style.closeIcon" @click="clearSignature"></i-icon>
-        <img :class="$style.signaturePNG" :src="this.signaturePNG" @click="handleReopenModal" />
+        <i-icon
+          name="close"
+          v-show="reSignName"
+          :class="$style.closeIcon"
+          @click="clearSignature"
+        ></i-icon>
+        <img
+          :class="$style.signaturePNG"
+          :src="this.signaturePNG"
+          @click="handleReopenModal"
+        />
       </div>
     </div>
-    <u-modal :visible.sync="showSignatureModal" :class="[$style.modal]" size="auto" :mode=false
-      @close="closeSignatureModal">
+    <u-modal
+      :visible.sync="showSignatureModal"
+      :class="[$style.modal]"
+      size="auto"
+      :mode="false"
+      @close="closeSignatureModal"
+    >
       <div slot="title">
-        {{ this.language === 'english' ? 'Please Sign Below' : '请在下方签名' }}
+        {{ this.language === "english" ? "Please Sign Below" : "请在下方签名" }}
       </div>
       <div slot="foot">
         <u-linear-layout justify="space-between">
           <u-text @click="clearSignature" :class="$style.clearText">
-            {{ this.language === 'english' ? 'Clear' : '清除' }}
+            {{ this.language === "english" ? "Clear" : "清除" }}
           </u-text>
-          <u-button color="primary" @click="handleOk" :disabled="disabled">
-            {{ this.language === 'english' ? 'Save' : '保存' }}
+          <u-button color="primary" :disabled="disabled" @click="handleOk">
+            {{ this.language === "english" ? "Save" : "保存" }}
           </u-button>
         </u-linear-layout>
       </div>
-      <canvas id="canvas" width="800" height="300" style="border: 2px solid #CCD3DE"
-        @mousedown="handleWriteDown"></canvas>
+      <canvas
+        id="canvas"
+        width="800"
+        height="300"
+        style="border: 2px solid #ccd3de"
+        @mouseup="checkIsEmpty"
+      ></canvas>
     </u-modal>
   </div>
 </template>
@@ -36,7 +64,7 @@
 import SmoothSignature from "smooth-signature";
 
 export default {
-  name: 'lcap-signature',
+  name: "lcap-signature",
   components: {},
   data() {
     return {
@@ -47,9 +75,10 @@ export default {
     };
   },
   props: {
-    language: { type: String, default: 'english' },
-    bgColor: { type: String, default: '#F8F9FA' },
-    penColor: { type: String, default: 'black' },
+    buttonText: { type: String, default: "请在此处签名" },
+    language: { type: String, default: "english" },
+    bgColor: { type: String, default: "#F8F9FA" },
+    penColor: { type: String, default: "black" },
     penWidth: { type: Number, default: 2 },
     openSmooth: { type: Boolean, default: true },
     reSignName: { type: Boolean, default: false },
@@ -67,22 +96,33 @@ export default {
       return this.signature.isEmpty();
     },
   },
+  watch: {
+    buttonText() {
+      if (this.$env && this.$env.VUE_APP_DESIGNER) {
+        console.log("执行了");
+        this.$forceUpdate();
+      }
+    },
+  },
   methods: {
     openSignatureModal() {
-      this.$emit('openSignatureModal');
+      this.$emit("openSignatureModal");
       this.showSignatureModal = true;
       setTimeout(() => {
-        this.signature = new SmoothSignature(document.getElementById("canvas"), {
-          bgColor: this.bgColor,
-          openSmooth: this.openSmooth,
-          color: this.penColor,
-          minWidth: this.penWidth,
-        });
+        this.signature = new SmoothSignature(
+          document.getElementById("canvas"),
+          {
+            bgColor: this.bgColor,
+            openSmooth: this.openSmooth,
+            color: this.penColor,
+            minWidth: this.penWidth,
+          }
+        );
       }, 200);
     },
     clear() {
       this.signature.clear();
-      this.$emit('clearSignature');
+      this.$emit("clearSignature");
     },
     getSignature() {
       return this.signature.getPNG();
@@ -90,20 +130,22 @@ export default {
     handleOk() {
       this.showSignatureModal = false;
       this.signaturePNG = this.getSignature();
-      this.$emit('saveSignature', this.signaturePNG);
+      this.$emit("saveSignature", this.signaturePNG);
     },
-    clearSignature() {
+    initSignature() {
       this.signature.clear();
       this.signaturePNG = null;
       this.disabled = true;
-      this.$emit('clearSignature');
     },
-    handleWriteDown() {
-      this.disabled = false;
+    clearSignature() {
+      this.initSignature();
+      this.$emit("clearSignature");
+    },
+    checkIsEmpty() {
+      this.disabled = this.signature.isEmpty();
     },
     closeSignatureModal() {
-      this.disabled = true;
-      this.clearSignature();
+      this.initSignature();
     },
     handleReopenModal() {
       this.clearSignature();
@@ -111,7 +153,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style module>
@@ -128,11 +169,11 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-  border: 1px solid #CCD3DE;
+  border: 1px solid #ccd3de;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background: #F8F9FA;
+  background: #f8f9fa;
   border-radius: 4px;
 }
 
@@ -148,12 +189,12 @@ export default {
 }
 
 .clearText {
-  font-family: 'PingFang SC';
+  font-family: "PingFang SC";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   cursor: pointer;
-  color: #2574FC;
+  color: #2574fc;
   padding: 3px 0 0 8px;
 }
 
