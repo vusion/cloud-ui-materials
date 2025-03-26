@@ -118,6 +118,10 @@ export default {
         };
       });
     },
+    // 签名板是否为空
+    isEmpty() {
+      return this.signature.isEmpty();
+    }
   },
 };
 
