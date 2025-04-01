@@ -15,6 +15,10 @@ export default defineConfig(({ command }) => {
       vue2({
         jsx: true,
         jsxInclude: /.(js|ts|jsx|tsx)$/,
+        esbuild: {
+          jsxFactory: 'h',
+          jsxFragment: 'Fragment'
+        },
         jsxOptions: {
           vModel: true,
           functional: false,
