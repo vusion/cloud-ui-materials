@@ -43,3 +43,10 @@
           type: number
           default: 90
           description: 旋转角度
+    - name: isEmpty
+      title: 签名板是否为空
+      description: 当前签名板是否为空
+      returns:
+        - name: isEmpty
+          type: boolean
+          description: 当前签名板是否为空
