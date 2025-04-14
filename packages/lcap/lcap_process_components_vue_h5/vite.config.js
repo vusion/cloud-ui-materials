@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 import { createVuePlugin as vue2 } from '@lcap/vite-plugin-vue2';
-import { lcapPlugin } from '@lcap/builder';
+import { createGenScopedName, lcapPlugin } from '@lcap/builder';
 
 // 设置测试运行的时区
 process.env.TZ = 'Asia/Shanghai';
@@ -14,11 +14,10 @@ export default defineConfig(({ command }) => {
     plugins: [
       vue2({
         jsx: true,
-        jsxInclude: /.(js|ts|jsx|tsx)$/,
-        esbuild: {
-          jsxFactory: 'h',
-          jsxFragment: 'Fragment'
-        },
+        jsxInclude: [
+          /.(jsx|tsx)$/,
+          /\.lcap\/.*(js|ts)$/,
+        ],
         jsxOptions: {
           vModel: true,
           functional: false,
@@ -33,15 +32,25 @@ export default defineConfig(({ command }) => {
       }),
     ],
     resolve: {
+      extensions: ['.js', '.ts', '.tsx', '.jsx', '.vue', '.mjs', '.cjs', '.json'],
       alias: {
         '@': path.resolve(__dirname, './src'),
         '@lcap-ui': path.resolve(__dirname, './.lcap/lcap-ui/package'),
+        'cloud-ui.vusion/src': path.resolve(__dirname, './.lcap/lcap-ui/package/cloudui'),
+        'swiper/swiper-bundle.esm.js': path.resolve(__dirname, './node_modules/swiper/swiper-bundle.esm.js'),
+        '@joskii/jflow-core': path.resolve(__dirname, './node_modules/@joskii/jflow-core/dist/jflow.es.min.js'),
+        '@joskii/jflow-vue2-plugin': path.resolve(__dirname, './node_modules/@joskii/jflow-vue2-plugin/dist/jflow-vue2-plugin.es.min.js'),
       },
     },
     define: {
       'process.env': {
         VUE_APP_DESIGNER: false,
         NODE_ENV: command === 'build' ? 'production' : 'development',
+      },
+    },
+    css: {
+      modules: {
+        generateScopedName: createGenScopedName(pkgInfo.name, './src'),
       },
     },
     build: {

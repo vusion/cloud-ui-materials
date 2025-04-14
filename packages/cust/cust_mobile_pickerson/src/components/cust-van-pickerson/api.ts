@@ -5,7 +5,7 @@ namespace extensions.cust_mobile_pickerson.viewComponents {
   @ExtensionComponent({
     type: 'h5',
     ideusage: {
-      idetype: 'element',
+      idetype: 'container',
     }
   })
   @Component({
@@ -373,22 +373,22 @@ namespace extensions.cust_mobile_pickerson.viewComponents {
     })
     slotOption: (current: nasl.ui.Current<T>) => Array<nasl.ui.ViewComponent>;
     @Slot({
-      title: 'undefined',
+      title: '组件插槽',
       description: '自定义标题',
     })
     slotTitle: () => Array<nasl.ui.ViewComponent>;
     @Slot({
-      title: 'undefined',
+      title: '组件插槽',
       description: '自定义',
     })
     slotPannelTitle: () => Array<nasl.ui.ViewComponent>;
     @Slot({
-      title: 'undefined',
+      title: '组件插槽',
       description: '自定义选择器顶部内容',
     })
     slotPickerTop: () => Array<nasl.ui.ViewComponent>;
     @Slot({
-      title: 'undefined',
+      title: '组件插槽',
       description: '自定义选择器底部内容',
     })
     slotPickerBottom: () => Array<nasl.ui.ViewComponent>;
