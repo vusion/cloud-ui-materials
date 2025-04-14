@@ -97,10 +97,13 @@ export default {
             if (this.pointStore) {
                 this.pointStore.update(this.currentDataSource.data);
                 this.mapInstance.setFitView();
+                this.$nextTick(() => {
+                    this.mapInstance.setZoomAndCenter(13, this.center);
+                });
             }
         },
         center() {
-            if (this.mapInstance) this.mapInstance.setCenter(this.center);
+            if (this.mapInstance) this.mapInstance.setZoomAndCenter(13, this.center);
         },
     },
 
