@@ -6,10 +6,11 @@
 
 <script>
 import * as monaco from 'monaco-editor'
+// // 配置 workers
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
 
-// 配置 workers
+
 self.MonacoEnvironment = {
   getWorker(_, label) {
     if (label === 'json') {
@@ -18,7 +19,6 @@ self.MonacoEnvironment = {
     return new editorWorker()
   }
 }
-
 // 添加 Monaco Editor 样式配置
 const monacoStyles = {
   '--vscode-editorCodeLens-lineHeight': '15px',
@@ -169,9 +169,9 @@ export default {
           if (!this.domNode) {
             let placeholder = ''
             try {
-              placeholder = JSON.parse(this.placeholder) || '请输入接口请求体或返回的JSON样例，最多支持500行<br>例如：<br>'
+              placeholder = JSON.parse(this.placeholder) || '请输入接口请求体或返回的JSON样例，最多支持500行<br>例如：<br>';
             } catch (e) {
-              placeholder = '请输入接口请求体或返回的JSON样例，最多支持500行<br>例如：<br>'
+              placeholder = '请输入接口请求体或返回的JSON样例，最多支持500行<br>例如：<br>';
             }
 
             this.domNode = document.createElement("div");
@@ -196,8 +196,9 @@ export default {
           }
         }
       }
-      this.editor.addOverlayWidget(this.placeholderWidget)
-      // this.updatePlaceholder()
+      if (this.value === '') {
+        this.editor.addOverlayWidget(this.placeholderWidget)
+      }
     },
   },
   watch: {
@@ -208,15 +209,13 @@ export default {
       }
     },
     hasError(newValue) {
-      newValue && this.$emit('error', this.errorMessage)
+      this.$emit('error', this.errorMessage)
     }
   }
 }
 </script>
 
 <style module>
-.root {}
-
 .editor {
   min-width: auto;
   height: auto;

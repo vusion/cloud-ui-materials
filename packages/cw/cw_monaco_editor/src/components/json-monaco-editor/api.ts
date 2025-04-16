@@ -54,5 +54,17 @@ namespace extensions.cw_monaco_editor.viewComponents {
       newValue: nasl.core.String,
       oldValue: nasl.core.String,
     }) => any;
+
+    @Event({
+      title: '错误',
+      description: '错误',
+    })
+    onError: (errorMessage: nasl.core.String) => any;
+
+    @Event({
+      title: '超出最大行数',
+      description: '超出最大行数',
+    })
+    onMaxLength: () => any;
   }
 }
