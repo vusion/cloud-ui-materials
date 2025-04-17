@@ -9,7 +9,6 @@
       :remove="handleRemove"
       @change="handleChange"
     >
-      <!-- <a-button :loading="uploading"> <a-icon type="upload" /> 点击上传 </a-button> -->
       <slot></slot>
     </a-upload>
   </div>
@@ -20,7 +19,8 @@ import nosUploader from './utils/nosUploader';
 import { getWavAudioDetail } from './utils/audioUtils';
 import { message } from 'ant-design-vue';
 import Antd from 'ant-design-vue/lib/index'; // 引入 CommonJS 版本
-import 'ant-design-vue/dist/antd.css';
+import 'ant-design-vue/es/upload/style/css.js';
+// import 'ant-design-vue/dist/antd.css';
 import Vue from 'vue';
 import axios from 'axios';
 Vue.use(Antd);
