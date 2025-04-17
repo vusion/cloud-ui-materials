@@ -42,8 +42,7 @@ export default defineConfig(({ command }) => {
     define: {
       'process.env': {
         VUE_APP_DESIGNER: false,
-        NODE_ENV: command === 'build' ? 'production' : 'development',
-        MONACO_EDITOR_NO_WORKERS: 'true',
+        NODE_ENV: command === 'build' ? 'production' : 'development'
       },
     },
     css: {
@@ -84,9 +83,6 @@ export default defineConfig(({ command }) => {
       },
       assetsInlineLimit: 100000000,
     },
-    // optimizeDeps: {
-    //   include: ['monaco-editor'],
-    // },
     test: {
       environment: 'jsdom',
     },

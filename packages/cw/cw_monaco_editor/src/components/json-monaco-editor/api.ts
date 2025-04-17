@@ -13,6 +13,12 @@ namespace extensions.cw_monaco_editor.viewComponents {
     description: 'json代码编辑器',
   })
   export class JsonMonacoEditor extends ViewComponent {
+    @Method({
+      title: '初始化编辑器',
+      description: '初始化编辑器',
+    })
+    loadMonacoEditor() :void {}
+
     constructor(options?: Partial<JsonMonacoEditorOptions>) {
       super();
     }
@@ -24,7 +30,9 @@ namespace extensions.cw_monaco_editor.viewComponents {
       description: '显示文本',
       setter: {
         concept: 'InputSetter'
-      }
+      },
+      sync: true,
+      settable: true,
     })
     value: nasl.core.String = '';
 
@@ -65,6 +73,6 @@ namespace extensions.cw_monaco_editor.viewComponents {
       title: '超出最大行数',
       description: '超出最大行数',
     })
-    onMaxLength: () => any;
+    onMaxLength: (event: any) => any;
   }
 }

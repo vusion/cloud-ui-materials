@@ -1,30 +1,17 @@
 <template>
-  <div :class="$style.root" ref="editorContainer">
+  <div ref="editorContainer" :class="[$style.root, {[$style.designer]: $env?.VUE_APP_DESIGNER}]" >
     <div ref="monacoContainer" :class="[$style.editor]" :error="hasError"></div>
   </div>
 </template>
 
 <script>
-import * as monaco from 'monaco-editor'
-// // 配置 workers
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
-
-
-self.MonacoEnvironment = {
-  getWorker(_, label) {
-    if (label === 'json') {
-      return new jsonWorker()
-    }
-    return new editorWorker()
-  }
-}
 // 添加 Monaco Editor 样式配置
 const monacoStyles = {
   '--vscode-editorCodeLens-lineHeight': '15px',
   '--vscode-editorCodeLens-fontSize': '10px',
   '--vscode-editorCodeLens-fontFeatureSettings': '"liga" off, "calt" off',
 }
+import { debounce } from 'lodash'
 
 export default {
   name: 'json-monaco-editor',
@@ -52,7 +39,14 @@ export default {
     }
   },
   mounted() {
-    this.initMonaco()
+    this.$nextTick(() => {
+      this.loadMonacoEditor();
+    })
+  },
+  computed: {
+    isInDesigner() {
+      return this?.$env ? this.$env.VUE_APP_DESIGNER : true;
+    }
   },
   beforeDestroy() {
     if (this.editor) {
@@ -60,19 +54,60 @@ export default {
     }
   },
   methods: {
-    initMonaco() {
+    loadMonacoEditor() {
+      // 检查是否已经加载
+      if (window.MonacoEditor || window.monaco) {
+        this.initEditor(window.MonacoEditor || window.monaco);
+        return;
+      }
+
+      // 动态加载Monaco编辑器脚本
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/monaco-editor@0.52.2/min/vs/loader.js';
+      script.onload = () => {
+        window.require.config({
+          paths: {
+            vs: 'https://unpkg.com/monaco-editor@0.52.2/min/vs'
+          }
+        });
+        
+        // 加载Monaco编辑器
+        window.require(['vs/editor/editor.main'], () => {
+          this.initEditor(window.monaco);
+        });
+      };
+      document.head.appendChild(script);
+    },
+    initEditor(monaco) {
       // 配置 JSON 语言校验
-      monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-        validate: true,
-        allowComments: false,
-        schemas: [],
-        enableSchemaRequest: true
-      })
+      try {
+          monaco?.languages?.json?.jsonDefaults.setDiagnosticsOptions({
+          validate: true,
+          allowComments: false,
+          schemas: [],
+          enableSchemaRequest: true
+        })
+      } catch (e) {
+        console.log('monaco-editor 初始化失败', e)
+        // console.error('monaco-editor 初始化失败', e)
+      }
+      
+
+      // monaco?.editor.getModels().forEach(model => model.dispose());
+
+      const containerElement = this.$refs.editorContainer;
+      const editorHeight = containerElement ? 
+      parseInt(getComputedStyle(containerElement).getPropertyValue('--cw-style-height')) || 340 : 
+      340;
+
+      const editorWidth = containerElement ? 
+      parseInt(getComputedStyle(containerElement).getPropertyValue('--cw-style-width')) || 500 : 
+      500;
 
       this.editor = monaco.editor.create(this.$refs.monacoContainer, {
         dimension: {
-          width: 500,
-          height: 340
+          width: editorWidth,
+          height: editorHeight
         },
         scrollBeyondLastLine: false,
         minimap: {
@@ -99,6 +134,8 @@ export default {
 
       this.editor.onDidChangeModelContent(() => {
         const value = this.editor.getValue()
+        const model = this.editor?.getModel();
+        const length = model?.getLineCount();
         this.editor.updateOptions({
           formatOnType: true,
           formatOnPaste: true,
@@ -106,8 +143,10 @@ export default {
         if (value !== '') {
           this.editor.removeOverlayWidget(this.placeholderWidget)
           this.validateJson(value)
-          if (!this.hasError && this.attrThreshold > 0) {
-            this.checkJsonLength(value)
+          if (this.attrThreshold > 0 && length > this.attrThreshold) {
+            debounce(() => {
+              this.checkJsonLength(value)
+            }, 500)()
           }
         } else {
           this.editor.addOverlayWidget(this.placeholderWidget)
@@ -120,7 +159,7 @@ export default {
         this.validateJson(value)
       })
 
-      this.createPlaceholderWidget()
+      this.createPlaceholderWidget(monaco)
     },
 
     checkJsonLength(content) {
@@ -128,7 +167,7 @@ export default {
       const length = model?.getLineCount();
 
       if (length > this.attrThreshold) {
-        const newContent = content.split('\n').slice(0, this.attrThreshold).join('\n');
+        const newContent = (content || '').split('\n').slice(0, this.attrThreshold).join('\n');
         this.editor.executeEdits('checkJsonLength', [
           {
             range: model.getFullModelRange(),
@@ -162,16 +201,16 @@ export default {
         this.errorMessage = '仅支持json格式'
       }
     },
-    createPlaceholderWidget() {
+    createPlaceholderWidget(monaco) {
       this.placeholderWidget = {
         getId: () => 'placeholder.widget',
         getDomNode: () => {
           if (!this.domNode) {
             let placeholder = ''
             try {
-              placeholder = JSON.parse(this.placeholder) || '请输入接口请求体或返回的JSON样例，最多支持500行<br>例如：<br>';
+              placeholder = JSON.parse(this.placeholder) || '';
             } catch (e) {
-              placeholder = '请输入接口请求体或返回的JSON样例，最多支持500行<br>例如：<br>';
+              placeholder = '';
             }
 
             this.domNode = document.createElement("div");
@@ -216,6 +255,9 @@ export default {
 </script>
 
 <style module>
+.root {
+  position: relative;
+}
 .editor {
   min-width: auto;
   height: auto;
@@ -248,5 +290,16 @@ export default {
   pointer-events: none;
   font-style: italic;
   z-index: 1;
+}
+.designer::before {
+  content: "发布预览后使用";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #999;
+  font-size: 16px;
+  z-index: 1;
+  pointer-events: none;
 }
 </style>
