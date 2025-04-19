@@ -1,0 +1,450 @@
+{
+  "name": "cw_json",
+  "title": "json",
+  "description": "json",
+  "specVersion": "1.0.0",
+  "type": "module",
+  "subType": "extension",
+  "version": "1.0.2",
+  "frontends": [
+    {
+      "concept": "FrontendLibrary",
+      "name": "pc",
+      "type": "pc",
+      "frameworkKind": "vue2",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwJsonPretty",
+          "kebabName": "cw-json-pretty",
+          "title": "json展示器",
+          "description": "json展示器",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "sync": true,
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "jsonData",
+              "title": "json",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": ""
+                },
+                "playground": []
+              },
+              "description": "json",
+              "settable": true
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "showLines",
+              "title": "是否显示行号",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否显示行号"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "showTypes",
+              "title": "是否显示行号",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否显示行号"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter"
+              },
+              "name": "deep",
+              "title": "控制显示的JSON深度",
+              "tsType": "nasl.core.Integer",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "playground": []
+              },
+              "description": "控制显示的JSON深度"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "expandable",
+              "title": "是否允许JSON展开/折叠",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否允许JSON展开/折叠"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter"
+              },
+              "name": "indentSpacing",
+              "title": "控制缩进的空格数",
+              "tsType": "nasl.core.Integer",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "NumericLiteral",
+                  "value": "2",
+                  "typeAnnotation": {
+                    "concept": "TypeAnnotation",
+                    "typeKind": "primitive",
+                    "typeName": "Integer",
+                    "typeNamespace": "nasl.core",
+                    "inferred": false,
+                    "ruleMap": {}
+                  }
+                },
+                "playground": []
+              },
+              "description": "控制缩进的空格数"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "光明",
+                    "value": "light"
+                  },
+                  {
+                    "title": "黑暗",
+                    "value": "dark"
+                  }
+                ]
+              },
+              "name": "theme",
+              "title": "选择主题",
+              "tsType": "'light' | 'dark'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "light"
+                },
+                "playground": []
+              },
+              "description": "选择主题"
+            }
+          ],
+          "readableProps": [],
+          "events": [],
+          "methods": [],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cw-json-pretty></cw-json-pretty></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        }
+      ],
+      "logics": []
+    },
+    {
+      "concept": "FrontendLibrary",
+      "name": "h5",
+      "type": "h5",
+      "frameworkKind": "vue2",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwJsonPretty",
+          "kebabName": "cw-json-pretty",
+          "title": "json展示器",
+          "description": "json展示器",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "sync": true,
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "jsonData",
+              "title": "json",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": ""
+                },
+                "playground": []
+              },
+              "description": "json",
+              "settable": true
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "showLines",
+              "title": "是否显示行号",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否显示行号"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "showTypes",
+              "title": "是否显示行号",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否显示行号"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter"
+              },
+              "name": "deep",
+              "title": "控制显示的JSON深度",
+              "tsType": "nasl.core.Integer",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "playground": []
+              },
+              "description": "控制显示的JSON深度"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "expandable",
+              "title": "是否允许JSON展开/折叠",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否允许JSON展开/折叠"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter"
+              },
+              "name": "indentSpacing",
+              "title": "控制缩进的空格数",
+              "tsType": "nasl.core.Integer",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "NumericLiteral",
+                  "value": "2",
+                  "typeAnnotation": {
+                    "concept": "TypeAnnotation",
+                    "typeKind": "primitive",
+                    "typeName": "Integer",
+                    "typeNamespace": "nasl.core",
+                    "inferred": false,
+                    "ruleMap": {}
+                  }
+                },
+                "playground": []
+              },
+              "description": "控制缩进的空格数"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "光明",
+                    "value": "light"
+                  },
+                  {
+                    "title": "黑暗",
+                    "value": "dark"
+                  }
+                ]
+              },
+              "name": "theme",
+              "title": "选择主题",
+              "tsType": "'light' | 'dark'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "light"
+                },
+                "playground": []
+              },
+              "description": "选择主题"
+            }
+          ],
+          "readableProps": [],
+          "events": [],
+          "methods": [],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cw-json-pretty></cw-json-pretty></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        }
+      ],
+      "logics": []
+    }
+  ],
+  "externalDependencyMap": {
+    "npm": [
+      {
+        "name": "vue",
+        "version": "^2.6.0"
+      }
+    ]
+  },
+  "summary": {
+    "name": "cw_json",
+    "title": "json",
+    "version": "1.0.2",
+    "description": "json",
+    "frontends": [
+      {
+        "type": "pc",
+        "frameworkKind": "vue2",
+        "viewComponents": [
+          {
+            "name": "CwJsonPretty",
+            "title": "json展示器"
+          }
+        ],
+        "logics": []
+      },
+      {
+        "type": "h5",
+        "frameworkKind": "vue2",
+        "viewComponents": [
+          {
+            "name": "CwJsonPretty",
+            "title": "json展示器"
+          }
+        ],
+        "logics": []
+      }
+    ]
+  },
+  "compilerInfoMap": {
+    "js": {
+      "prefix": "extension"
+    },
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"ide\":[]}"
+  },
+  "ideVersion": "3.8"
+}
