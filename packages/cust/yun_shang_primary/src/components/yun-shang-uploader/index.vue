@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root">
+  <div class="yunshang-uploader-cw-root">
     <a-upload
       :customRequest="handleCustomRequest"
       :before-upload="beforeUpload"
@@ -11,16 +11,15 @@
     >
       <slot></slot>
     </a-upload>
+    <slot name="error"></slot>
   </div>
 </template>
 
 <script>
 import nosUploader from './utils/nosUploader';
 import { getWavAudioDetail } from './utils/audioUtils';
-import { message } from 'ant-design-vue';
 import Antd from 'ant-design-vue/lib/index'; // 引入 CommonJS 版本
 import 'ant-design-vue/es/upload/style/css.js';
-// import 'ant-design-vue/dist/antd.css';
 import Vue from 'vue';
 import axios from 'axios';
 Vue.use(Antd);
@@ -28,6 +27,14 @@ Vue.use(Antd);
 export default {
   name: 'yun-shang-uploader',
   props: {
+    value: {
+      type: Array,
+      default: () => [],
+    },
+    allowedExtensions: {
+      type: Array,
+      default: () => ['wav'],
+    },
     acceptTypes: {
       type: Array,
       default: () => ['image', 'other'],
@@ -52,9 +59,14 @@ export default {
     return {
       uploading: false,
       isOnlineSG: false,
-      fileList: [],
+      fileList: this.value || [], // 初始传入的已上传文件
       curRecord: {},
     };
+  },
+  watch: {
+    value(newVal) {
+      this.fileList = newVal;
+    },
   },
   methods: {
     async getUploadToken(fileName) {
@@ -66,6 +78,12 @@ export default {
     },
 
     async beforeUpload(file) {
+      const ext = file.name.split('.').pop().toLowerCase();
+      if (!this.allowedExtensions.includes(ext)) {
+        this.curRecord = { error: `不支持的文件类型: .${ext}` };
+        this.$emit('error', this.curRecord);
+        return false;
+      }
       this.uploading = true;
       try {
         this.curRecord = await nosUploader.start(
@@ -90,8 +108,8 @@ export default {
           const { sampleRate, bitPerSample, numberOfChannels, duration } = await getWavAudioDetail({ url: this.curRecord.url });
           Object.assign(this.curRecord, { duration });
           if (sampleRate !== 8000 || bitPerSample !== 16 || numberOfChannels !== 1) {
-            message.error('录音文件采样率需为8000Hz、位深16bit、单声道');
             this.curRecord.error = '录音文件采样率需为8000Hz、位深16bit、单声道';
+            this.$emit('error', this.curRecord);
             return false;
           }
         }
@@ -108,11 +126,9 @@ export default {
       // 上传逻辑是迁移的，已完成上传，且回调太多，所以直接用 setTimeout 模拟自定义上传，触发成功或失败
       setTimeout(() => {
         if (this.curRecord.error) {
-          message.error('上传失败');
           options.onError(this.curRecord.error);
           this.$emit('error', this.curRecord);
         } else {
-          message.success('上传成功');
           options.onSuccess(this.curRecord);
           this.$emit('success', this.curRecord);
         }
@@ -129,7 +145,8 @@ export default {
 };
 </script>
 
-<style module>
-.root {
+<style>
+.yunshang-uploader-cw-root .ant-upload-list-item-error {
+  display: none;
 }
 </style>
