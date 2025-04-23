@@ -10,8 +10,10 @@
       @change="handleChange"
     >
       <slot></slot>
+      <div>
+        <slot name="error"></slot>
+      </div>
     </a-upload>
-    <slot name="error"></slot>
   </div>
 </template>
 
@@ -65,7 +67,8 @@ export default {
   },
   watch: {
     value(newVal) {
-      this.fileList = newVal;
+      console.log('value', this.value);
+      this.fileList = [...newVal];
     },
   },
   methods: {
@@ -94,6 +97,7 @@ export default {
             attachmentMaxSize: this.attachmentMaxSize,
             isOnlineSG: this.isOnlineSG,
           },
+          this,
           {
             FILE_NOT_SUPPORT: '不支持的文件格式',
             UPLOAD_FAILED: '上传失败',
@@ -126,8 +130,9 @@ export default {
       // 上传逻辑是迁移的，已完成上传，且回调太多，所以直接用 setTimeout 模拟自定义上传，触发成功或失败
       setTimeout(() => {
         if (this.curRecord.error) {
+          options.file.error = true;
           options.onError(this.curRecord.error);
-          this.$emit('error', this.curRecord);
+          // this.$emit('error', this.curRecord);
         } else {
           options.onSuccess(this.curRecord);
           this.$emit('success', this.curRecord);
@@ -139,7 +144,9 @@ export default {
       this.$emit('remove', file);
     },
     handleChange({ fileList }) {
-      this.fileList = fileList;
+      console.log(' this.fileList-pre', this.fileList, fileList);
+      this.fileList = fileList.filter((file) => file.url); // 仅显示成功文件
+      console.log(' this.fileList-next', this.fileList, fileList);
     },
   },
 };
