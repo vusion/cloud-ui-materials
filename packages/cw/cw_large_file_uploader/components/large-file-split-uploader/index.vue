@@ -191,6 +191,7 @@ export default {
       file: {},
       dragover: false,
       errorMessage: [],
+      uploadingCount: 0,
     };
   },
   watch: {
@@ -277,6 +278,7 @@ export default {
       this.upload(files);
     },
     async upload(files) {
+      this.uploadingCount = this.multiple ? files.length : 1;
       if (
         !this.draggable &&
         !this.pastable &&
@@ -363,7 +365,25 @@ export default {
       if (file.size > 5 * 1024 * 1024) {
         this.post(file, totalChunks, totalChunks, file.size, fileName, true);
       }
+      this.uploadingCount--;
+      this.tryResetButtonState();
       return Promise.resolve();
+    },
+    tryResetButtonState() {
+      if (
+        this.uploadingCount === 0 &&
+        !this.draggable &&
+        !this.pastable &&
+        this.$children.some(
+          (item) => item && item.$attrs.flag === "large-file-uploader-button"
+        )
+      ) {
+        const buttonVM = this.$children.find(
+          (item) => item && item.$attrs.flag === "large-file-uploader-button"
+        );
+        buttonVM.$set(buttonVM, "loading", false);
+        buttonVM.$set(buttonVM, "disabled", false);
+      }
     },
     async postChunk(chunks, totalChunks, fileName) {
       // 分开两个循环，方便维护
@@ -497,21 +517,6 @@ export default {
                 item: target,
                 xhr,
               });
-              if (
-                !this.draggable &&
-                !this.pastable &&
-                this.$children.some(
-                  (item) =>
-                    item && item.$attrs.flag === "large-file-uploader-button"
-                )
-              ) {
-                const buttonVM = this.$children.find(
-                  (item) =>
-                    item && item.$attrs.flag === "large-file-uploader-button"
-                );
-                buttonVM.$set(buttonVM, "loading", false);
-                buttonVM.$set(buttonVM, "disabled", false);
-              }
             }
             resolve();
           },
@@ -539,21 +544,6 @@ export default {
               item: this.currentValue,
               xhr,
             });
-            if (
-              !this.draggable &&
-              !this.pastable &&
-              this.$children.some(
-                (item) =>
-                  item && item.$attrs.flag === "large-file-uploader-button"
-              )
-            ) {
-              const buttonVM = this.$children.find(
-                (item) =>
-                  item && item.$attrs.flag === "large-file-uploader-button"
-              );
-              buttonVM.$set(buttonVM, "loading", false);
-              buttonVM.$set(buttonVM, "disabled", false);
-            }
             reject();
           },
         });
