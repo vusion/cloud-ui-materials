@@ -18,7 +18,7 @@
         :class="$style.file"
         :accept="accept"
         :readonly="readonly"
-        :disabled="disabled"
+        :disabled="uploadingCount || disabled"
         :multiple="multiple"
         @click.stop
         @change="onChange"
@@ -60,7 +60,7 @@
         :name="name"
         :accept="accept"
         :readonly="readonly"
-        :disabled="disabled"
+        :disabled="uploadingCount || disabled"
         :multiple="multiple"
         @click.stop
         @change="onChange"
@@ -264,7 +264,7 @@ export default {
       return item.thumb || item.url || item;
     },
     select() {
-      if (this.readonly || this.disabled) return;
+      if (this.disabled || this.uploadingCount > 0 || this.readonly) return;
 
       this.$refs.file.value = "";
       this.$refs.file.click();
