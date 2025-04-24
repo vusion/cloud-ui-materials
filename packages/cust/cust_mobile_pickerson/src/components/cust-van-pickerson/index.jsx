@@ -144,6 +144,8 @@ export default createComponent({
           this.$nextTick(() => {
             this.concatRemoteData(val);
           })
+        } else {
+          this.currentValue = val;
         }
       },
       immediate: true,
