@@ -14,10 +14,7 @@ export default defineConfig(({ command }) => {
     plugins: [
       vue2({
         jsx: true,
-        jsxInclude: [
-          /.(jsx|tsx)$/,
-          /\.lcap\/.*(js|ts)$/,
-        ],
+        jsxInclude: [/.(jsx|tsx)$/, /\.lcap\/.*(js|ts)$/],
         jsxOptions: {
           vModel: true,
           functional: false,
@@ -45,7 +42,7 @@ export default defineConfig(({ command }) => {
     define: {
       'process.env': {
         VUE_APP_DESIGNER: false,
-        NODE_ENV: command === 'build' ? 'production' : 'development',
+        NODE_ENV: command === 'build' ? 'production' : 'development'
       },
     },
     css: {
@@ -54,13 +51,37 @@ export default defineConfig(({ command }) => {
       },
     },
     build: {
+      chunkSizeWarningLimit: 10000000,
       cssCodeSplit: false,
       target: ['es2020', 'edge88', 'firefox78', 'chrome56', 'safari14'],
       lib: {
         entry: 'src/index',
         name: kb2Camcel(pkgInfo.name),
+        formats: ['umd'],
+        fileName: () => 'index.js',
       },
       sourcemap: true,
+      worker: {
+        format: 'iife', // 使用立即执行函数表达式格式
+        inline: true, // 内联workers到主bundle
+      },
+      rollupOptions: {
+        external: [],
+        output: {
+          inlineDynamicImports: true,
+          manualChunks: undefined,
+          assetFileNames: 'index[extname]',
+          chunkFileNames: 'index.js',
+          entryFileNames: 'index.js',
+        },
+      },
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+        },
+      },
+      assetsInlineLimit: 100000000,
     },
     test: {
       environment: 'jsdom',

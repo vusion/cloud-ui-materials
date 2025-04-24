@@ -19,7 +19,7 @@ export const Example1 = {
     template: '<json-monaco-editor v-bind="$props"></json-monaco-editor>',
   }),
   args: {
-    text: 'Hello world',
+    value: '{}',
     attrThreshold: 10,
     placeholder: '{"Requestld":"2daf22fc-9218-47f0-a5f4-ac6be4","Code":200,"Message":"succeed","Data":[{"id":2473278792300288,"customerName":"test","createdTime":"2022-11-01T05:46:51.000Z","isUpdate":false}]}',
   },
