@@ -14,7 +14,7 @@ import multiMethodEncrypt from './multiMethodEncrypt'
 import multiMethodParamsEncrypt from './multiMethodParamsEncrypt'
 import encryptByAes from './encryptByAes'
 import decryptByAes from './decryptByAes'
-import encryptContentBySha256 from './encryptContentBySha256'
+import encryptContentByARS from './encryptContentByARS'
 // LOGIC IMPORTS
 UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library = Vue.prototype.$library || {}
@@ -38,7 +38,7 @@ UtilsLogics.install = function (Vue, option = {}) {
     Vue.prototype.$library[`${$libraryName}`].multiMethodParamsEncrypt=multiMethodParamsEncrypt
     Vue.prototype.$library[`${$libraryName}`].encryptByAes=encryptByAes
     Vue.prototype.$library[`${$libraryName}`].decryptByAes=decryptByAes
-    Vue.prototype.$library[`${$libraryName}`].encryptContentBySha256=encryptContentBySha256
+    Vue.prototype.$library[`${$libraryName}`].encryptContentByARS=encryptContentByARS
 
     // LOGIC USE
     window.__$libraryEncryptSha256 = encryptSha256
