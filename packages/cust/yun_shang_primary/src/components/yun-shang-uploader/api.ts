@@ -22,6 +22,26 @@ namespace extensions.yun_shang_primary.viewComponents {
   export class YunShangUploaderOptions extends ViewComponentOptions {
     @Prop({
       group: '主要属性',
+      title: '值',
+      docDescription: '上传组件值',
+      setter: {
+        concept: 'InputSetter',
+      },
+    })
+    value: nasl.collection.List<any> = [];
+
+    @Prop({
+      group: '主要属性',
+      title: '可接受的文件类型',
+      docDescription: '数组，形如 [“wav”]',
+      setter: {
+        concept: 'InputSetter',
+      },
+    })
+    allowedExtensions: nasl.collection.List<any> = ['wav'];
+
+    @Prop({
+      group: '主要属性',
       title: '显示上传列表',
       docDescription: '开启后上传多个文件时，会显示文件列表，默认开启',
       setter: {
@@ -75,5 +95,11 @@ namespace extensions.yun_shang_primary.viewComponents {
       description: '内容',
     })
     slotDefault: () => Array<ViewComponent>;
+
+    @Slot({
+      title: '错误提示',
+      description: '错误提示',
+    })
+    slotError: () => Array<ViewComponent>;
   }
 }

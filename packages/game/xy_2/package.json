@@ -1,10 +1,10 @@
 {
-  "name": "lcap_process_components_vue_pc",
+  "name": "xy_2",
   "private": "true",
-  "version": "1.0.1",
-  "lcapIdeVersion": "3.13",
-  "title": "流程2.0Vue前端组件依赖库（PC端）",
-  "description": "流程2.0Vue前端组件依赖库（PC端）",
+  "version": "3.0.15",
+  "lcapIdeVersion": "3.8",
+  "title": "大话西游依赖库",
+  "description": "大话西游依赖库",
   "main": "dist-theme/index.js",
   "files": [
     "dist-theme"
@@ -20,6 +20,7 @@
     "dev": "npm run start",
     "start": "storybook dev -p 8008",
     "build": "vite build",
+    "watch": "lcap-scripts watch",
     "test": "vitest",
     "release": "lcap publish"
   },
@@ -29,14 +30,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@joskii/jflow-core": "^0.1.34",
-    "@joskii/jflow-vue2-plugin": "^0.1.1",
-    "@lcap/vue2-utils": "^1.0.0",
-    "@nasl/ast-mini": "3.9.0-beta",
-    "@popperjs/core": "^2.11.8"
+    "@ysf/fetch": "^0.2.7",
+    "ant-design-vue": "1.7",
+    "vue-loading-skeleton": "^1.1.9"
   },
   "devDependencies": {
-    "@lcap/builder": "^1.3.1",
+    "@lcap/builder": "^1.5.0-beta.19",
     "@lcap/storybook-vue-vite": "^7.6.17",
     "@lcap/vite-plugin-vue2": "^1.0.0",
     "@nasl/types": "^0.1.10",
