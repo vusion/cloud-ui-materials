@@ -1,8 +1,10 @@
 <template>
-<div :class="$style.root" v-html="text">
+<div ref="demo" :class="$style.root">
+  <button @click="click">click</button>
 </div>
 </template>
 <script>
+import { htmlPrint } from '../../logics/index';
 export default {
   name: 'demo',
   props: {
@@ -10,6 +12,15 @@ export default {
       type: String,
       default: 'Hello'
     }
+  },
+  created() {
+    console.log('create', $)
+  },
+  methods: {
+    click() {
+      const content = this.$refs.demo;      // 随机生成一个id，前缀为print
+      htmlPrint(content);
+    },
   }
 };
 </script>
@@ -27,3 +38,4 @@ export default {
   border-radius: 12px;
 }
 </style>
+../../logics/jquery.jqprint-0.3.js

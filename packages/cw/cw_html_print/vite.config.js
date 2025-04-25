@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import inject from '@rollup/plugin-inject';
 import path from 'path';
 import { createVuePlugin as vue2 } from '@lcap/vite-plugin-vue2';
 import { createGenScopedName, lcapPlugin } from '@lcap/builder';
@@ -30,6 +31,11 @@ export default defineConfig(({ command }) => {
         type: 'extension',
         framework: 'vue2',
       }),
+      inject({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'windows.jQuery': 'jquery',
+      })
     ],
     resolve: {
       extensions: ['.js', '.ts', '.tsx', '.jsx', '.vue', '.mjs', '.cjs', '.json'],

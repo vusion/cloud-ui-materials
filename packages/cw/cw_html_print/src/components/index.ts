@@ -1,7 +1,7 @@
-import Demo from './demo';
+// import Demo from './demo';
 // COMPONENT IMPORTS
 
 export {
-    Demo,
+    // Demo,
 // COMPONENT EXPORTS
 };
