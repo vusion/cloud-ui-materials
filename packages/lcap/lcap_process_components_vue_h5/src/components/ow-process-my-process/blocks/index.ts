@@ -465,7 +465,7 @@ vertical-align: baseline;"
                     widthStretch="true" 
                     text={(function match(_value) {
                       if (_value === true) {
-                        return nasl.util.Join(nasl.util.ListTransform(current.item.procInstCurrNodes, (item: ${structureNamespace}.CurrNode) => item.currNodeTitle), '，')
+                        return nasl.util.Join(nasl.util.ListTransform(current.item.procInstCurrNodes, (item) => item.currNodeTitle), '，')
                       } else if (_value === false) {
                         return '-'
                       } else {
@@ -1186,7 +1186,7 @@ vertical-align: baseline;"
                     widthStretch="true" 
                     text={(function match(_value) {
                       if (_value === true) {
-                        return nasl.util.Join(nasl.util.ListTransform(current.item.procInstCurrNodes, (item: ${structureNamespace}.CurrNode) => item.currNodeTitle), '，')
+                        return nasl.util.Join(nasl.util.ListTransform(current.item.procInstCurrNodes, (item) => item.currNodeTitle), '，')
                       } else if (_value === false) {
                         return '-'
                       } else {
@@ -1206,7 +1206,7 @@ vertical-align: baseline;"
                     widthStretch="true" text={
                       (function match(_value) {
                         if (_value === true) {
-                          return nasl.util.Join(nasl.util.ListDistinct(nasl.util.ListTransform(nasl.util.ListFlatten(nasl.util.ListTransform(nasl.util.ListFilter(current.item.procInstCurrNodes, (item: ${structureNamespace}.CurrNode) => nasl.util.HasValue(item.currNodeParticipants)), (item: ${structureNamespace}.CurrNode) => item.currNodeParticipants)), (item: ${structureNamespace}.ProcessUser) => (function match(_value) {
+                          return nasl.util.Join(nasl.util.ListDistinct(nasl.util.ListTransform(nasl.util.ListFlatten(nasl.util.ListTransform(nasl.util.ListFilter(current.item.procInstCurrNodes, (item) => nasl.util.HasValue(item.currNodeParticipants)), (item) => item.currNodeParticipants)), (item: ${structureNamespace}.ProcessUser) => (function match(_value) {
                             if (_value === true) {
                               return item.displayName
                             } else if (_value === false) {
@@ -1218,7 +1218,7 @@ vertical-align: baseline;"
                           return '-'
                         } else {
                         }
-                      })(nasl.util.HasValue(current.item.procInstCurrNodes, nasl.util.ListFilter(current.item.procInstCurrNodes, (item: ${structureNamespace}.CurrNode) => nasl.util.HasValue(item.currNodeParticipants))))
+                      })(nasl.util.HasValue(current.item.procInstCurrNodes, nasl.util.ListFilter(current.item.procInstCurrNodes, (item) => nasl.util.HasValue(item.currNodeParticipants))))
                     }></VanText>
                   </VanLinearLayout>
 
@@ -1707,7 +1707,7 @@ vertical-align: baseline;"
                     widthStretch="true" 
                     text={(function match(_value) {
                       if (_value === true) {
-                        return nasl.util.Join(nasl.util.ListTransform(current.item.procInstCurrNodes, (item: ${structureNamespace}.CurrNode) => item.currNodeTitle), '，')
+                        return nasl.util.Join(nasl.util.ListTransform(current.item.procInstCurrNodes, (item) => item.currNodeTitle), '，')
                       } else if (_value === false) {
                         return '-'
                       } else {
@@ -1727,7 +1727,7 @@ vertical-align: baseline;"
                     widthStretch="true" text={
                       (function match(_value) {
                         if (_value === true) {
-                          return nasl.util.Join(nasl.util.ListDistinct(nasl.util.ListTransform(nasl.util.ListFlatten(nasl.util.ListTransform(nasl.util.ListFilter(current.item.procInstCurrNodes, (item: ${structureNamespace}.CurrNode) => nasl.util.HasValue(item.currNodeParticipants)), (item: ${structureNamespace}.CurrNode) => item.currNodeParticipants)), (item: ${structureNamespace}.ProcessUser) => (function match(_value) {
+                          return nasl.util.Join(nasl.util.ListDistinct(nasl.util.ListTransform(nasl.util.ListFlatten(nasl.util.ListTransform(nasl.util.ListFilter(current.item.procInstCurrNodes, (item) => nasl.util.HasValue(item.currNodeParticipants)), (item) => item.currNodeParticipants)), (item: ${structureNamespace}.ProcessUser) => (function match(_value) {
                             if (_value === true) {
                               return item.displayName
                             } else if (_value === false) {
@@ -1739,7 +1739,7 @@ vertical-align: baseline;"
                           return '-'
                         } else {
                         }
-                      })(nasl.util.HasValue(current.item.procInstCurrNodes, nasl.util.ListFilter(current.item.procInstCurrNodes, (item: ${structureNamespace}.CurrNode) => nasl.util.HasValue(item.currNodeParticipants))))
+                      })(nasl.util.HasValue(current.item.procInstCurrNodes, nasl.util.ListFilter(current.item.procInstCurrNodes, (item) => nasl.util.HasValue(item.currNodeParticipants))))
                     }></VanText>
                   </VanLinearLayout>
 
