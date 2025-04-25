@@ -82,7 +82,7 @@ namespace extensions.yun_shang_primary.viewComponents {
       title: '上传错误时',
       description: '上传报错时触发',
     })
-    onError: (event: {}) => any;
+    onError: (event: { error: nasl.core.String }) => any;
 
     @Event({
       title: '删除时',

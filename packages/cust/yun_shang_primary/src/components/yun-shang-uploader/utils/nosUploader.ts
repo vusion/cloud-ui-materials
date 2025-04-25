@@ -1,4 +1,3 @@
-import { message } from 'ant-design-vue';
 import axios from 'axios';
 
 type fileType = 'image' | 'video' | 'other';
@@ -14,23 +13,23 @@ const replaceLocalesWithValue = (str, value) => {
 };
 
 const nosUploader = {
-  isValidFile(file, type, options, locales) {
+  isValidFile(file, type, options, locales, vm) {
     if (!(type && (!options?.acceptTypes || options?.acceptTypes?.includes(type)))) {
-      message.error(locales?.FILE_NOT_SUPPORT || '文件格式不支持');
+      vm.curRecord.error = locales?.FILE_NOT_SUPPORT || '文件格式不支持';
+      vm.$emit('error', vm.curRecord);
       return false;
     }
 
     const fileSize = file.size / 1024 / 1024;
     const isValidSize = type === 'image' ? fileSize < options.imageMaxSize : fileSize < options.attachmentMaxSize;
     if (!isValidSize) {
-      message.error(
-        `${
-          type === 'image'
-            ? replaceLocalesWithValue(locales?.IMAGE_MAX_SIZE_LIMIT_NUM, `${options.imageMaxSize}M`) || `图片大小不能超过${options.imageMaxSize}M`
-            : replaceLocalesWithValue(locales?.ATTACHMENT_MAX_SIZE_LIMIT_NUM, `${options.attachmentMaxSize}M`) ||
-              `单个附件大小不能超过${options.attachmentMaxSize}M`
-        }`
-      );
+      vm.curRecord.error = `${
+        type === 'image'
+          ? replaceLocalesWithValue(locales?.IMAGE_MAX_SIZE_LIMIT_NUM, `${options.imageMaxSize}M`) || `图片大小不能超过${options.imageMaxSize}M`
+          : replaceLocalesWithValue(locales?.ATTACHMENT_MAX_SIZE_LIMIT_NUM, `${options.attachmentMaxSize}M`) ||
+            `单个附件大小不能超过${options.attachmentMaxSize}M`
+      }`;
+      vm.$emit('error', vm.curRecord);
       return false;
     }
 
@@ -172,9 +171,10 @@ const nosUploader = {
       acceptTypes: null, // 默认不限制上传文件的类型
       imageMaxSize: 1, // 默认单个图片最大1M
       attachmentMaxSize: 10, // 默认单个附件最大10M
-      token: '', // 调接口用的csrfToken参数，必传
+      token: '', // 调接口用的csrfToken参数，必传:
       isOnlineSG: false, // 默认飞海外上传
     },
+    vm: any,
     locales?: Record<string, any>
   ) {
     if (!rawFile) {
@@ -186,13 +186,13 @@ const nosUploader = {
     const type = this.judegeType(file);
     const isDownload = type !== 'image';
 
-    if (this.isValidFile(file, type, options, locales)) {
+    if (this.isValidFile(file, type, options, locales, vm)) {
       return this.beforeUpload(file, options.token, options.isOnlineSG).then((res) => {
         return this.upload(res, options.isOnlineSG, file)
           .then((result: any) => {
             // const data = result?.data;
             // const realUrl = praNosUrl || data.url;
-            const realUrl = `${res.action}/${res.objectName}`
+            const realUrl = `${res.action}/${res.objectName}`;
             if (type === 'image' || type === 'video') {
               return new Promise((resolve) => {
                 this.getImageSize(type === 'video' ? `${realUrl}?vframe` : realUrl, (width, height) => {
