@@ -1,38 +1,72 @@
 <template>
-  <div class="shadow-uploader-wrapper" ref="shadowMount"></div>
+  <div class="yunshang-uploader-cw-root">
+    <a-upload
+      :customRequest="handleCustomRequest"
+      :before-upload="beforeUpload"
+      :show-upload-list="showFileList"
+      :accept="acceptMime"
+      :file-list="fileList"
+      :remove="handleRemove"
+      @change="handleChange"
+    >
+      <slot></slot>
+      <div>
+        <slot name="error"></slot>
+      </div>
+    </a-upload>
+  </div>
 </template>
 
 <script>
 import nosUploader from './utils/nosUploader';
 import { getWavAudioDetail } from './utils/audioUtils';
-import Antd from 'ant-design-vue/lib/index';
-import Vue from 'vue';
+import Upload from 'ant-design-vue/lib/upload';
+import 'ant-design-vue/lib/upload/style/index.css';
 import axios from 'axios';
 
-Vue.use(Antd);
-
-// ✅ 创建上传器的 Vue 子组件
-const InnerUploader = {
-  name: 'inner-uploader',
+export default {
+  name: 'yun-shang-uploader',
+  components: { AUpload: Upload },
   props: {
-    value: Array,
-    allowedExtensions: Array,
-    acceptTypes: Array,
-    imageMaxSize: Number,
-    attachmentMaxSize: Number,
-    acceptMime: String,
-    showFileList: Boolean,
+    value: {
+      type: Array,
+      default: () => [],
+    },
+    allowedExtensions: {
+      type: Array,
+      default: () => ['wav'],
+    },
+    acceptTypes: {
+      type: Array,
+      default: () => ['image', 'other'],
+    },
+    imageMaxSize: {
+      type: Number,
+      default: 2,
+    },
+    attachmentMaxSize: {
+      type: Number,
+      default: 10,
+    },
+    acceptMime: {
+      type: String,
+    },
+    showFileList: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
       uploading: false,
       isOnlineSG: false,
-      fileList: this.value || [],
+      fileList: this.value || [], // 初始传入的已上传文件
       curRecord: {},
     };
   },
   watch: {
     value(newVal) {
+      console.log('value', this.value);
       this.fileList = [...newVal];
     },
   },
@@ -41,6 +75,7 @@ const InnerUploader = {
       const res = await axios.get('/api/deepvox/console/nos/token', {
         params: { fileName },
       });
+      console.log('获取token', res);
       return res.data.token;
     },
 
@@ -70,7 +105,9 @@ const InnerUploader = {
           }
         );
 
-        if (ext === 'wav') {
+        // === WAV 校验开始 ===
+        const fileType = file.name.split('.').pop().toLowerCase();
+        if (fileType === 'wav') {
           const { sampleRate, bitPerSample, numberOfChannels, duration } = await getWavAudioDetail({ url: this.curRecord.url });
           Object.assign(this.curRecord, { duration });
           if (sampleRate !== 8000 || bitPerSample !== 16 || numberOfChannels !== 1) {
@@ -79,6 +116,7 @@ const InnerUploader = {
             return false;
           }
         }
+        // === WAV 校验结束 ===
       } catch (err) {
         this.curRecord = { error: err };
         console.error('[NosUpload]', err);
@@ -87,12 +125,13 @@ const InnerUploader = {
       }
       return false;
     },
-
     handleCustomRequest(options) {
+      // 上传逻辑是迁移的，已完成上传，且回调太多，所以直接用 setTimeout 模拟自定义上传，触发成功或失败
       setTimeout(() => {
         if (this.curRecord.error) {
           options.file.error = true;
           options.onError(this.curRecord.error);
+          // this.$emit('error', this.curRecord);
         } else {
           options.onSuccess(this.curRecord);
           this.$emit('success', this.curRecord);
@@ -100,104 +139,20 @@ const InnerUploader = {
         this.curRecord = {};
       }, 600);
     },
-
     handleRemove(file) {
       this.$emit('remove', file);
     },
-
     handleChange({ fileList }) {
-      this.fileList = fileList.filter((file) => file.url);
+      console.log(' this.fileList-pre', this.fileList, fileList);
+      this.fileList = fileList.filter((file) => file.url); // 仅显示成功文件
+      console.log(' this.fileList-next', this.fileList, fileList);
     },
-  },
-  render(h) {
-    return h(
-      'a-upload',
-      {
-        props: {
-          customRequest: this.handleCustomRequest,
-          beforeUpload: this.beforeUpload,
-          showUploadList: this.showFileList,
-          accept: this.acceptMime,
-          fileList: this.fileList,
-          remove: this.handleRemove,
-        },
-        on: {
-          change: this.handleChange,
-        },
-      },
-      [this.$scopedSlots.default?.(), h('div', [this.$scopedSlots.error?.()])]
-    );
-  },
-};
-
-export default {
-  name: 'yun-shang-uploader-shadow',
-  props: {
-    value: Array,
-    allowedExtensions: {
-      type: Array,
-      default: () => ['wav'],
-    },
-    acceptTypes: {
-      type: Array,
-      default: () => ['image', 'other'],
-    },
-    imageMaxSize: {
-      type: Number,
-      default: 2,
-    },
-    attachmentMaxSize: {
-      type: Number,
-      default: 10,
-    },
-    acceptMime: String,
-    showFileList: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  mounted() {
-    // 创建 shadow root
-    const host = this.$refs.shadowMount;
-    const shadowRoot = host.attachShadow({ mode: 'open' });
-
-    // 创建样式 link
-    const styleLink = document.createElement('link');
-    styleLink.rel = 'stylesheet';
-    styleLink.href = 'https://cdn.jsdelivr.net/npm/ant-design-vue@1.7.8/dist/antd.min.css';
-    shadowRoot.appendChild(styleLink);
-
-    // 创建挂载点
-    const mountEl = document.createElement('div');
-    shadowRoot.appendChild(mountEl);
-
-    // 创建一个 Vue 实例挂载上传器组件
-    new Vue({
-      render: (h) =>
-        h(InnerUploader, {
-          props: {
-            value: this.value,
-            allowedExtensions: this.allowedExtensions,
-            acceptTypes: this.acceptTypes,
-            imageMaxSize: this.imageMaxSize,
-            attachmentMaxSize: this.attachmentMaxSize,
-            acceptMime: this.acceptMime,
-            showFileList: this.showFileList,
-          },
-          on: {
-            success: (file) => this.$emit('success', file),
-            error: (err) => this.$emit('error', err),
-            remove: (file) => this.$emit('remove', file),
-          },
-          scopedSlots: this.$scopedSlots,
-        }),
-    }).$mount(mountEl);
   },
 };
 </script>
 
-<style scoped>
-.shadow-uploader-wrapper {
-  display: block;
+<style>
+.yunshang-uploader-cw-root .ant-upload-list-item-error {
+  display: none;
 }
 </style>
