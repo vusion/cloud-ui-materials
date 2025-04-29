@@ -59,7 +59,27 @@ namespace extensions.yun_shang_primary.viewComponents {
         placeholder: '请输入支持上传的文件类型',
       },
     })
-    acceptMime: nasl.core.String;
+    acceptMime: nasl.core.String = 'pc-file-jpg';
+
+    @Prop({
+      group: '主要属性',
+      title: '文件前缀图标',
+      description: '上传文件列表中，文件名前的图标地址，支持外部图片链接，建议尺寸14×14像素。',
+      setter: {
+        concept: 'IconSetter',
+      },
+    })
+    prefixIcon: nasl.core.String = 'pc-close';
+
+    @Prop({
+      group: '主要属性',
+      title: '文件删除图标',
+      description: '上传文件列表中，删除按钮的图标地址，支持外部图片链接，建议尺寸14×14像素。',
+      setter: {
+        concept: 'IconSetter',
+      },
+    })
+    removeIcon: nasl.core.String;
 
     @Event({
       title: '上传成功时',

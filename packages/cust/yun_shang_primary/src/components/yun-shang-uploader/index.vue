@@ -3,17 +3,32 @@
     <a-upload
       :customRequest="handleCustomRequest"
       :before-upload="beforeUpload"
-      :show-upload-list="showFileList"
+      :show-upload-list="false"
       :accept="acceptMime"
       :file-list="fileList"
       :remove="handleRemove"
       @change="handleChange"
     >
       <slot></slot>
-      <div>
-        <slot name="error"></slot>
-      </div>
+      <div><slot name="error"></slot></div>
     </a-upload>
+
+    <ul class="custom-file-list">
+      <li
+        v-for="file in fileList"
+        :key="file.uid"
+        class="custom-file-item"
+        @mouseenter="file.hover = true"
+        @mouseleave="file.hover = false"
+        :class="{ hovered: file.hover }"
+      >
+        <i-ico :name="prefixIcon" icotype="only" class="prefix-icon"> </i-ico>
+        <a class="file-name" :href="file.url" target="_blank" rel="noopener noreferrer" :download="file.name">
+          {{ file.name }}
+        </a>
+        <i-ico :name="removeIcon" icotype="only" class="remove-icon" @click="handleRemove(file)"> </i-ico>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -55,6 +70,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    prefixIcon: {
+      type: String,
+      default: '',
+    },
+    removeIcon: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -66,8 +89,7 @@ export default {
   },
   watch: {
     value(newVal) {
-      console.log('value', this.value);
-      this.fileList = [...newVal];
+      this.fileList = [...newVal].filter((file) => file); // 仅显示成功文件
     },
   },
   methods: {
@@ -75,7 +97,6 @@ export default {
       const res = await axios.get('/api/deepvox/console/nos/token', {
         params: { fileName },
       });
-      console.log('获取token', res);
       return res.data.token;
     },
 
@@ -143,16 +164,76 @@ export default {
       this.$emit('remove', file);
     },
     handleChange({ fileList }) {
-      console.log(' this.fileList-pre', this.fileList, fileList);
       this.fileList = fileList.filter((file) => file.url); // 仅显示成功文件
-      console.log(' this.fileList-next', this.fileList, fileList);
     },
   },
 };
 </script>
 
 <style>
+.yunshang-uploader-cw-root {
+  height: 100px;
+  width: 1000px;
+}
 .yunshang-uploader-cw-root .ant-upload-list-item-error {
   display: none;
+}
+.custom-file-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+}
+.custom-file-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+.custom-file-item:hover {
+  background-color: #f2f3f5;
+}
+.prefix-icon {
+  width: 14px;
+  height: 14px;
+  margin: 4px 8px 4px 4px;
+}
+
+.prefix-icon [class^='i-ico_iconwrap___'] svg {
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+}
+
+.remove-icon [class^='i-ico_iconwrap___'] svg {
+  width: 14px;
+  height: 14px;
+  font-size: 14px;
+}
+
+.file-name {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1;
+  color: rgba(51, 126, 255, 1); /* 让链接看起来像链接 */
+  text-decoration: underline;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.remove-icon {
+  width: 14px;
+  height: 14px;
+  margin: 4px 4px 4px 8px;
+  cursor: pointer;
+  display: none;
+}
+
+.custom-file-item:hover .remove-icon {
+  display: inline-block;
+}
+
+.yunshang-uploader-cw-root [class^='i-ico_iconwrap___'] {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 }
 </style>
