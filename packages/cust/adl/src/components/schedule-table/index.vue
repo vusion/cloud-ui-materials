@@ -4,14 +4,16 @@
       <table>
         <thead>
           <tr>
-            <th class="fixed index-header">序号</th>
             <th class="fixed name-header">姓名</th>
-            <th v-for="(day, index) in days" :key="index" class="date-header">{{ month }}月{{ day }}日</th>
+            <th v-for="(day, index) in days" :key="index" class="date-header" :style="getHolidayStyle(index)">
+              {{ day }}日<br />
+              （{{ getWeekday(index) }}）<br />
+              <span v-if="getHolidayLabel(index)" class="holiday-label">{{ getHolidayLabel(index) }}</span>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(person, rowIndex) in names" :key="rowIndex">
-            <td class="fixed index-cell">{{ rowIndex + 1 }}</td>
             <td class="fixed name-cell">{{ person }}</td>
             <td
               v-for="(day, colIndex) in days"
@@ -35,7 +37,7 @@
                 </select>
               </template>
               <template v-else>
-                <span :class="getCellTextClass(localValue[rowIndex][colIndex])">
+                <span :style="getCellStyle(localValue[rowIndex][colIndex])">
                   {{ localValue[rowIndex][colIndex] }}
                 </span>
               </template>
@@ -70,6 +72,14 @@ export default {
     options: {
       type: Array,
       default: () => [],
+    },
+    holidays: {
+      type: Object,
+      default: () => ({}),
+    },
+    holidayColor: {
+      type: String,
+      default: '', // 默认红色背景
     },
     nightShiftValue: { type: String, default: '夜班' },
     restAfterNightShiftValue: { type: String, default: '休息' },
@@ -106,6 +116,43 @@ export default {
     },
   },
   methods: {
+    getCellStyle(value) {
+      const option = this.options.find((opt) => opt.value === value);
+      if (!option) return {};
+      return {
+        color: option.color || '',
+        backgroundColor: option.background || '',
+        fontWeight: option.bold ? 'bold' : '',
+        width: '100%',
+        height: '100%',
+        borderRadius: '0',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      };
+    },
+    getDateKey(index) {
+      const day = this.days[index];
+      return `${this.year}-${String(this.month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    },
+    getWeekday(index) {
+      const date = new Date(this.year, this.month - 1, this.days[index]);
+      return ['日', '一', '二', '三', '四', '五', '六'][date.getDay()];
+    },
+    getHolidayLabel(index) {
+      const key = this.getDateKey(index);
+      return this.holidays[key] || '';
+    },
+    getHolidayStyle(index) {
+      const key = this.getDateKey(index);
+      if (this.holidays[key]) {
+        return {
+          backgroundColor: this.holidayColor,
+          color: '#fff',
+        };
+      }
+      return {};
+    },
     onEditorChange(row, col, newVal) {
       this.$set(this.localValue[row], col, newVal);
 
@@ -154,7 +201,8 @@ export default {
     },
     getCellTextClass(value) {
       const option = this.options.find((opt) => opt.value === value);
-      return option?.highlight ? `highlight-${option.highlight}` : '';
+      if (!option) return '';
+      return '';
     },
     getCellClass(row, col) {
       const classes = [];
@@ -290,22 +338,27 @@ export default {
   outline: none;
 }
 
+th {
+  font-size: 12px;
+}
+
 td span,
 .select-editor {
   display: inline-block;
   box-sizing: border-box;
   width: 100%;
-  padding: 4px 6px;
-  font-size: 14px;
   line-height: 1.4;
   border-radius: 4px;
   font-family: inherit;
-  height: 28px;
   vertical-align: middle;
+  padding: 0;
+  font-size: 12px;
+  height: 24px;
 }
 
 td span {
   border: 1px solid transparent;
+  font-size: 12px;
 }
 
 .select-editor {
@@ -327,12 +380,12 @@ table {
 th,
 td {
   border: 1px solid #ccc;
-  padding: 6px;
-  min-width: 80px;
-  height: 50px;
+  min-width: 60px;
+  height: 32px;
   text-align: center;
   user-select: none;
   box-sizing: border-box;
+  font-size: 12px;
 }
 .date-header {
   background-color: rgb(85, 184, 184);
@@ -346,9 +399,6 @@ td {
   left: 0;
   z-index: 2;
 }
-.fixed.name-header {
-  left: 60px;
-}
 .fixed.index-cell,
 .fixed.name-cell {
   background-color: rgb(239, 239, 239);
@@ -356,9 +406,6 @@ td {
   position: sticky;
   left: 0;
   z-index: 1;
-}
-.fixed.name-cell {
-  left: 60px;
 }
 .selected {
   background-color: rgb(162, 225, 186);
@@ -399,16 +446,12 @@ td {
 }
 .select-editor {
   width: 100%;
-  padding: 4px 6px;
-  font-size: 14px;
+  padding: 0;
+  font-size: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
   background-color: #fff;
   font-family: inherit;
-}
-.highlight-red {
-  color: red;
-  font-weight: bold;
 }
 </style>

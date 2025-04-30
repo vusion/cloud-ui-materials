@@ -46,8 +46,6 @@ namespace extensions.adl.viewComponents {
     })
     names: nasl.collection.List<nasl.core.String> = [];
 
-
-
     @Prop({
       title: '值',
       description: '排班表格形如二级嵌套数组',
@@ -84,6 +82,24 @@ namespace extensions.adl.viewComponents {
       },
     })
     restAfterNightShiftValue: nasl.core.String = '休息';
+
+    @Prop({
+      title: '节假日提示映射',
+      description: '用于指定哪些日期为节假日，并配置对应提示文案，格式为 { "2025-05-01": "劳动节" }',
+      setter: {
+        concept: 'InputSetter',
+      },
+    })
+    holidays: nasl.collection.Map<nasl.core.String, nasl.core.String> = {};
+
+    @Prop({
+      title: '节假日高亮颜色',
+      description: '节假日表头背景色，用于突出显示法定假日，支持任意合法 CSS 颜色值',
+      setter: {
+        concept: 'InputSetter',
+      },
+    })
+    holidayColor: nasl.core.String = '';
 
     @Event({
       title: '值变化时',
