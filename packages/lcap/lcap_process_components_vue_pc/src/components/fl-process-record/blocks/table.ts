@@ -54,9 +54,7 @@ function genTemplate(nameGroup: Record<string, string>) {
           ></UText>
         }
         slotExpander={
-          (current) => <UTableViewExpander
-              item={current.item}>
-          </UTableViewExpander>
+          (current) => <UTableViewExpander></UTableViewExpander>
         }>
       </UTableViewColumn>
 
@@ -84,9 +82,7 @@ function genTemplate(nameGroup: Record<string, string>) {
           ></UText>
         }
         slotExpander={
-          (current) => <UTableViewExpander
-              item={current.item}>
-          </UTableViewExpander>
+          (current) => <UTableViewExpander></UTableViewExpander>
         }>
       </UTableViewColumn>
 
@@ -107,9 +103,7 @@ function genTemplate(nameGroup: Record<string, string>) {
           ></UText>
         }
         slotExpander={
-          (current) => <UTableViewExpander
-              item={current.item}>
-          </UTableViewExpander>
+          (current) => <UTableViewExpander></UTableViewExpander>
         }>
       </UTableViewColumn>
 
@@ -163,9 +157,7 @@ function genTemplate(nameGroup: Record<string, string>) {
           </u-linear-layout>
         }
         slotExpander={
-          (current) => <UTableViewExpander
-              item={current.item}>
-          </UTableViewExpander>
+          (current) => <UTableViewExpander></UTableViewExpander>
         }>
       </UTableViewColumn>
 
@@ -186,9 +178,7 @@ function genTemplate(nameGroup: Record<string, string>) {
             ></UText>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
 

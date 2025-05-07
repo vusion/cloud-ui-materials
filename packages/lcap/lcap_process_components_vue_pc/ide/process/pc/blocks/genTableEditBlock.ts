@@ -249,9 +249,7 @@ function genTableEditColumnTemplate(entity: naslTypes.Entity, property: naslType
       </ULinearLayout>
     }
     slotExpander={
-      (current) => <UTableViewExpander
-          item={current.item}>
-      </UTableViewExpander>
+      (current) => <UTableViewExpander></UTableViewExpander>
     }
     ${genEditComponent(entity, property, nameGroup, selectNameGroupMap)}>
   </UTableViewColumn>`;
@@ -280,9 +278,7 @@ export function genEditTableTemplate(entity: naslTypes.Entity, nameGroup: NameGr
             <UText text="序号"></UText>
         }
         slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
         }>
       </UTableViewColumn>
       ${properties.map((property) => `${genTableEditColumnTemplate(entity, property, nameGroup, selectNameGroupMap)}`).join('\n')}
@@ -304,9 +300,7 @@ export function genEditTableTemplate(entity: naslTypes.Entity, nameGroup: NameGr
               </ULinearLayout>
           }
           slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
           }>
       </UTableViewColumn>
   </UTableView>`;
