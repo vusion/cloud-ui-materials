@@ -24,7 +24,7 @@
 import CwProcess from './progress';
 import FileList from './fileList';
 import CwUploader from './uploader/index';
-import { Button } from 'ant-design-vue';
+import { Button } from 'ant-design-vue/lib/button';
 
 export default {
   name: 'cw-progress',
