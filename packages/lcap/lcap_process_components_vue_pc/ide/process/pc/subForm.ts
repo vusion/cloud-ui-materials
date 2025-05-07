@@ -72,9 +72,7 @@ function genTableColumnTemplate(
         </UValidator>
     }
     slotExpander={
-        (current) => <UTableViewExpander
-            item={current.item}>
-        </UTableViewExpander>
+        (current) => <UTableViewExpander></UTableViewExpander>
     }>
   </UTableViewColumn>`;
 }
@@ -203,8 +201,7 @@ export function genSubFormStencilTemplate(
                   fixed={true}
                   slotTitle={ <UText text="序号"></UText> }
                   slotExpander={
-                      (current) => <UTableViewExpander item={current.item}>
-                      </UTableViewExpander>
+                      (current) => <UTableViewExpander></UTableViewExpander>
                   }>
                 </UTableViewColumn>
                 ${properties.map((property: any) => `${genTableColumnTemplate(entity, property, nameGroup, selectNameGroupMap)}`).join('\n')}
@@ -233,8 +230,7 @@ export function genSubFormStencilTemplate(
                       </ULinearLayout>
                   }
                   slotExpander={
-                      (current) => <UTableViewExpander item={current.item}>
-                      </UTableViewExpander>
+                      (current) => <UTableViewExpander></UTableViewExpander>
                   }>
                 </UTableViewColumn>
               </UTableView>

@@ -180,9 +180,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                   ></UText>
                 }
                 slotExpander={
-                  (current) => <UTableViewExpander
-                      item={current.item}>
-                  </UTableViewExpander>
+                  (current) => <UTableViewExpander></UTableViewExpander>
                 }>
               </UTableViewColumn>
               <UTableViewColumn
@@ -202,9 +200,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                   ></UText>
                 }
                 slotExpander={
-                  (current) => <UTableViewExpander
-                      item={current.item}>
-                  </UTableViewExpander>
+                  (current) => <UTableViewExpander></UTableViewExpander>
                 }>
               </UTableViewColumn>
               <UTableViewColumn
@@ -224,9 +220,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                   ></UText>
                 }
                 slotExpander={
-                  (current) => <UTableViewExpander
-                      item={current.item}>
-                  </UTableViewExpander>
+                  (current) => <UTableViewExpander></UTableViewExpander>
                 }>
               </UTableViewColumn>
               <UTableViewColumn
@@ -253,9 +247,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                   ></UText>
                 }
                 slotExpander={
-                  (current) => <UTableViewExpander
-                      item={current.item}>
-                  </UTableViewExpander>
+                  (current) => <UTableViewExpander></UTableViewExpander>
                 }>
               </UTableViewColumn>
               <UTableViewColumn
@@ -275,9 +267,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                   ></UText>
                 }
                 slotExpander={
-                  (current) => <UTableViewExpander
-                      item={current.item}>
-                  </UTableViewExpander>
+                  (current) => <UTableViewExpander></UTableViewExpander>
                 }>
               </UTableViewColumn>
               <UTableViewColumn
@@ -294,9 +284,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                     }></ULink>
                 }
                 slotExpander={
-                  (current) => <UTableViewExpander
-                      item={current.item}>
-                  </UTableViewExpander>
+                  (current) => <UTableViewExpander></UTableViewExpander>
                 }>
               </UTableViewColumn>
             </UTableView>
@@ -395,9 +383,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                 ></UText>
               }
               slotExpander={
-                (current) => <UTableViewExpander
-                    item={current.item}>
-                </UTableViewExpander>
+                (current) => <UTableViewExpander></UTableViewExpander>
               }>
             </UTableViewColumn>
             <UTableViewColumn
@@ -417,9 +403,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                 ></UText>
               }
               slotExpander={
-                (current) => <UTableViewExpander
-                    item={current.item}>
-                </UTableViewExpander>
+                (current) => <UTableViewExpander></UTableViewExpander>
               }>
             </UTableViewColumn>
             <UTableViewColumn
@@ -439,9 +423,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                 ></UText>
               }
               slotExpander={
-                (current) => <UTableViewExpander
-                    item={current.item}>
-                </UTableViewExpander>
+                (current) => <UTableViewExpander></UTableViewExpander>
               }>
             </UTableViewColumn>
             <UTableViewColumn
@@ -468,9 +450,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                 ></UText>
               }
               slotExpander={
-                (current) => <UTableViewExpander
-                    item={current.item}>
-                </UTableViewExpander>
+                (current) => <UTableViewExpander></UTableViewExpander>
               }>
             </UTableViewColumn>
             <UTableViewColumn
@@ -490,9 +470,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                 ></UText>
               }
               slotExpander={
-                (current) => <UTableViewExpander
-                    item={current.item}>
-                </UTableViewExpander>
+                (current) => <UTableViewExpander></UTableViewExpander>
               }>
             </UTableViewColumn>
             <UTableViewColumn
@@ -509,9 +487,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                   }></ULink>
               }
               slotExpander={
-                (current) => <UTableViewExpander
-                    item={current.item}>
-                </UTableViewExpander>
+                (current) => <UTableViewExpander></UTableViewExpander>
               }>
             </UTableViewColumn>
           </UTableView>
@@ -586,9 +562,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               ></UText>
             }
             slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
             }>
           </UTableViewColumn>
           <UTableViewColumn
@@ -608,9 +582,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               ></UText>
             }
             slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
             }>
           </UTableViewColumn>
           <UTableViewColumn
@@ -630,9 +602,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               ></UText>
             }
             slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
             }>
           </UTableViewColumn>
           <UTableViewColumn
@@ -661,9 +631,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               ></UText>
             }
             slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
             }>
           </UTableViewColumn>
           <UTableViewColumn
@@ -690,9 +658,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               ></UText>
             }
             slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
             }>
           </UTableViewColumn>
           <UTableViewColumn
@@ -712,9 +678,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               ></UText>
             }
             slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
             }>
           </UTableViewColumn>
           <UTableViewColumn
@@ -731,9 +695,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
                 }></ULink>
             }
             slotExpander={
-              (current) => <UTableViewExpander
-                  item={current.item}>
-              </UTableViewExpander>
+              (current) => <UTableViewExpander></UTableViewExpander>
             }>
           </UTableViewColumn>
         </UTableView>
@@ -846,9 +808,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
             ></UText>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
         <UTableViewColumn
@@ -868,9 +828,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
             ></UText>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
         <UTableViewColumn
@@ -890,9 +848,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
             ></UText>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
         <UTableViewColumn
@@ -919,9 +875,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
             ></UText>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
         <UTableViewColumn
@@ -948,9 +902,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
             ></UText>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
         <UTableViewColumn
@@ -970,9 +922,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
             ></UText>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
         <UTableViewColumn
@@ -989,9 +939,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               }></ULink>
           }
           slotExpander={
-            (current) => <UTableViewExpander
-                item={current.item}>
-            </UTableViewExpander>
+            (current) => <UTableViewExpander></UTableViewExpander>
           }>
         </UTableViewColumn>
       </UTableView>
