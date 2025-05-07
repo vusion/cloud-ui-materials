@@ -1,0 +1,100 @@
+/**
+ * @component ex-van-steps
+ */
+:root {
+  /**
+   * @type color
+   * @desc 整体背景色
+   * @excludeTags ["van-step"]
+   * @depStaticStyles ["background-color"]
+   */
+  --van-steps-background-color: #fff;
+
+  /**
+   * @type color
+   * @desc 非激活态字体颜色
+   * @prefix van-step
+   */
+  --van-step-text-color: #969799;
+
+  /**
+   * @type color
+   * @desc 激活态字体颜色
+   * @prefix van-step
+   */
+  --van-step-active-color: var(
+    --van-brand-success
+  );
+
+  /**
+   * @type input
+   * @desc 字体大小
+   * @prefix van-step
+   */
+  --van-step-font-size: var(--van-font-size-md);
+
+  /**
+   * @type color
+   * @desc 线段颜色
+   * @prefix van-step
+   */
+  --van-step-line-color: var(
+    --van-border-color
+  );
+
+  /**
+   * @type color
+   * @desc finish态线段颜色
+   * @prefix van-step
+   */
+  --van-step-finish-line-color: var(
+    --van-brand-success
+  );
+
+  /**
+   * @type color
+   * @desc finish态字体颜色
+   * @prefix van-step
+   */
+  --van-step-finish-text-color: var(
+    --van-component-text-color
+  );
+
+  /**
+   * @type input
+   * @desc 图大小色
+   * @prefix van-step
+   */
+  --van-step-icon-size: 12px;
+
+  /**
+   * @type input
+   * @desc 点大小
+   * @prefix van-step
+   */
+  --van-step-circle-size: 5px;
+
+  /**
+   * @type color
+   * @desc 点颜色
+   * @prefix van-step
+   */
+  --van-step-circle-color: #969799;
+
+  /**
+   * @type input
+   * @desc 横向字体大小
+   * @prefix van-step
+   */
+  --van-step-horizontal-title-font-size: var(
+    --van-font-size-sm
+  );
+
+  /**
+   * @type color
+   * @desc 禁用颜色
+   * @prefix van-step
+   */
+  --van-step-disabled-color: #c8c9cc;
+
+}
