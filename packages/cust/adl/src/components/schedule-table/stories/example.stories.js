@@ -19,6 +19,25 @@ export const Example1 = {
     template: '<schedule-table v-bind="$props"></schedule-table>',
   }),
   args: {
-    text: 'Hello world',
+    "year": 2025,
+    "month": 5,
+    "names": ["阿狸", "提莫", "盖伦"],
+    "nightShiftValue": "夜班",
+    "restAfterNightShiftValue": "休息",
+    "holidayColor": "#ff9800",
+    "holidays": {
+      "2025-05-01": "劳动节",
+      "2025-05-05": "法定节假日"
+    },
+    "options": [
+      { "label": "白班", "value": "白班", "color": "#000", "background": "#fff" },
+      { "label": "夜班", "value": "夜班", "color": "white", "background": "#f44336" },
+      { "label": "休息", "value": "休息", "color": "#388e3c", "background": "#e0f2f1" }
+    ],
+    "value": [
+      ["白班", "夜班", "休息", "", "", "", ""],
+      ["夜班", "休息", "", "", "", "", ""],
+      ["", "", "", "", "", "", ""]
+    ]
   },
 };
