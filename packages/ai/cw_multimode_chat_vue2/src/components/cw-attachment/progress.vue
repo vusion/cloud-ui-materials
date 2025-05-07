@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { Progress } from 'ant-design-vue';
+import { Progress } from 'ant-design-vue/lib/progress';
 export default {
   name: 'cw-progress',
   components: {

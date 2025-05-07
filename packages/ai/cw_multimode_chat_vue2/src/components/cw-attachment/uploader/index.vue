@@ -28,7 +28,9 @@
 </template>
 
 <script>
-import { Button, Upload, Icon } from 'ant-design-vue';
+import Button from 'ant-design-vue/lib/button';
+import Upload from 'ant-design-vue/lib/upload';
+import Icon from 'ant-design-vue/lib/icon';
 import UploadSvg from '../assets/upload.svg';
 import { getAcceptText, getSizeLimitText, getSizeForFile, isAcceptValid} from '../util.ts';
 import uploadMixin from './uploader.mixin.js';

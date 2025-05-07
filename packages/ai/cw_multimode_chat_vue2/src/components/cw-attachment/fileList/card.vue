@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { Icon } from 'ant-design-vue';
+import Icon from 'ant-design-vue/lib/icon';
 import {previewImage} from '../util.ts';
 const DEFAULT_ICON_COLOR = '#8c8c8c';
 const IMG_EXTS = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'svg'];
