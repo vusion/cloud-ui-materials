@@ -58,7 +58,10 @@
   </div>
 </template>
 <script>
-import { Button, Icon, Input, Tooltip } from 'ant-design-vue';
+import Button from 'ant-design-vue/lib/button';
+import Icon from 'ant-design-vue/lib/icon';
+import Input from 'ant-design-vue/lib/input';
+import Tooltip from 'ant-design-vue/lib/tooltip';
 import CWAttachment from '../cw-attachment';
 import FCollapseTransition from './transition';
 import PlaneSvg from './assets/plane.svg';

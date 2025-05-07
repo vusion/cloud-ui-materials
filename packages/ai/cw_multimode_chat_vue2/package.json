@@ -1,8 +1,8 @@
 {
   "name": "cw_multimode_chat_vue2",
   "private": "true",
-  "version": "1.0.0",
-  "lcapIdeVersion": "3.8",
+  "version": "1.0.1",
+  "lcapIdeVersion": "3.11",
   "title": "多模态对话式AI交互组件",
   "description": "支持多模态输入和展示，适配AI场景下的对话式交互",
   "main": "dist-theme/index.js",

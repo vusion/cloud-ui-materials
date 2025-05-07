@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { Avatar } from 'ant-design-vue';
+import Avatar from 'ant-design-vue/lib/avatar';
 import Loading from './loading';
 import CWFileCard from '../cw-attachment/fileList/card';
 import markdownit from 'markdown-it';
