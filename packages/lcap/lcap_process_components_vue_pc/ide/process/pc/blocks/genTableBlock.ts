@@ -24,9 +24,7 @@ function genTableColumnTemplate(property: naslTypes.EntityProperty, nameGroup: N
         </ULinearLayout>
     }
     slotExpander={
-        (current) => <UTableViewExpander
-            item={current.item}>
-        </UTableViewExpander>
+        (current) => <UTableViewExpander></UTableViewExpander>
     }>
   </UTableViewColumn>`;
 }
@@ -56,9 +54,7 @@ export function genTableTemplate(entity: naslTypes.Entity, nameGroup: NameGroup,
                     <UText text="序号"></UText>
                 }
                 slotExpander={
-                    (current) => <UTableViewExpander
-                        item={current.item}>
-                    </UTableViewExpander>
+                    (current) => <UTableViewExpander></UTableViewExpander>
                 }>
             </UTableViewColumn>
             ${properties.map((property) => `${genTableColumnTemplate(property, nameGroup)}`).join('\n')}
@@ -90,9 +86,7 @@ export function genTableTemplate(entity: naslTypes.Entity, nameGroup: NameGroup,
                     </ULinearLayout>
                 }
                 slotExpander={
-                    (current) => <UTableViewExpander
-                        item={current.item}>
-                    </UTableViewExpander>
+                    (current) => <UTableViewExpander></UTableViewExpander>
                 }>
             </UTableViewColumn>
     </UTableView>`;
