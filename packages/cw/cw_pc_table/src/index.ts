@@ -1,7 +1,7 @@
 import * as Components from './components';
 import * as logics from './logics';
 
-const LIBRARY_NAME = 'ex_pc_table';
+const LIBRARY_NAME = 'cw_pc_table';
 const UtilsLogics = {
   install: (Vue) => {
     Vue.prototype.$library = Vue.prototype.$library || {};
