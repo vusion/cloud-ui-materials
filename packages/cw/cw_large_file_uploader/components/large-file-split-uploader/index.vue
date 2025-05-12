@@ -1,31 +1,11 @@
 <template>
     <div :class="$style.root">
-        <div
-            v-if="draggable && (!readonly || $env.VUE_APP_DESIGNER)"
-            :class="$style.draggable"
-            :dragover="dragover"
-            @click="select()"
-            :tabindex="readonly || disabled ? '' : 0"
-            @drop.prevent="onDrop"
-            @paste="onPaste"
-            @dragover.prevent="dragover = true"
-            @dragleave.prevent="dragover = false">
-            <input
-                :class="$style.file"
-                ref="file"
-                type="file"
-                :name="name"
-                :accept="accept"
-                :readonly="readonly"
-                :disabled="disabled"
-                @click.stop
-                @change="onChange" />
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+        <div v-if="draggable && (!readonly || $env.VUE_APP_DESIGNER)" :class="$style.draggable" :dragover="dragover"
+            @click="select()" :tabindex="readonly || disabled ? '' : 0" @drop.prevent="onDrop" @paste="onPaste"
+            @dragover.prevent="dragover = true" @dragleave.prevent="dragover = false">
+            <input :class="$style.file" ref="file" type="file" :name="name" :accept="accept" :readonly="readonly"
+                :disabled="disabled" @click.stop @change="onChange" />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M18.5349 9.44679L18.3493 8.59993C17.7098 5.6824 15.108 3.49951 12 3.49951C8.89196 3.49951 6.29024 5.6824 5.65073 8.59993L5.4651 9.44679L4.63864 9.70869C2.81715 10.2859 1.5 11.9908 1.5 13.9995C1.5 16.4848 3.51472 18.4995 6 18.4995H8V19.9995H6C2.68629 19.9995 0 17.3132 0 13.9995C0 11.3183 1.75873 9.04778 4.18552 8.27876C4.97271 4.68751 8.17245 1.99951 12 1.99951C15.8276 1.99951 19.0273 4.68751 19.8145 8.27876C22.2413 9.04778 24 11.3183 24 13.9995C24 17.3132 21.3137 19.9995 18 19.9995H16V18.4995H18C20.4853 18.4995 22.5 16.4848 22.5 13.9995C22.5 11.9908 21.1829 10.2859 19.3614 9.70869L18.5349 9.44679Z"
                     fill="#CCCCCC" />
@@ -38,72 +18,35 @@
                 <span>{{ dragDescription }}</span>
             </div>
         </div>
-        <div
-            v-else
-            :class="$style.select"
-            @click="select()"
-            vusion-slot-name="default"
-            :vusion-empty-background="
-                $env.VUE_APP_DESIGNER && !$slots.default ? 'add-any' : false
-            ">
-            <input
-                :class="$style.file"
-                ref="file"
-                type="file"
-                :name="name"
-                :accept="accept"
-                :readonly="readonly"
-                :disabled="disabled"
-                @click.stop
-                @change="onChange" />
+        <div v-else :class="$style.select" @click="select()" vusion-slot-name="default" :vusion-empty-background="$env.VUE_APP_DESIGNER && !$slots.default ? 'add-any' : false
+        ">
+            <input :class="$style.file" ref="file" type="file" :name="name" :accept="accept" :readonly="readonly"
+                :disabled="disabled" @click.stop @change="onChange" />
             <slot></slot>
         </div>
         <template>
             <div v-if="description" :class="$style.description">
                 {{ description }}
             </div>
-            <div
-                v-if="showErrorMessage && errorMessage && errorMessage.length"
-                :class="$style.errwrap">
-                <div
-                    v-for="errItem in errorMessage"
-                    :key="errItem"
-                    :class="$style.errmessage">
+            <div v-if="showErrorMessage && errorMessage && errorMessage.length" :class="$style.errwrap">
+                <div v-for="errItem in errorMessage" :key="errItem" :class="$style.errmessage">
                     {{ errItem }}
                 </div>
             </div>
         </template>
-        <div
-            v-if="
-                !$env.VUE_APP_DESIGNER &&
-                currentValue &&
-                (currentValue.url || currentValue.showProgress)
-            "
-            :class="$style.list">
+        <div v-if="!$env.VUE_APP_DESIGNER &&
+        currentValue &&
+        (currentValue.url || currentValue.showProgress)
+        " :class="$style.list">
             <div :class="$style.item">
-                <a
-                    v-if="!currentValue.showProgress"
-                    :class="$style.link"
-                    :href="currentValue.url"
-                    download>
+                <a v-if="!currentValue.showProgress" :class="$style.link" :href="currentValue.url" download>
                     {{ currentValue.name }}
                 </a>
-                <linear-progress
-                    v-if="currentValue.showProgress"
-                    :class="$style.progress"
+                <linear-progress v-if="currentValue.showProgress" :class="$style.progress"
                     :percent="currentValue.percent"></linear-progress>
-                <svg
-                    t="1701087344377"
-                    class="icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="3935"
-                    width="14"
-                    height="14"
-                    v-else-if="!readonly && !disabled"
-                    :class="$style.remove"
-                    @click="remove">
+                <svg t="1701087344377" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="3935" width="14" height="14"
+                    v-else-if="!readonly && !disabled" :class="$style.remove" @click="remove">
                     <path
                         d="M478.016 352.704v445.952H545.92V352.704H478.08zM318.912 798.72V352.64h68.032v445.952H318.912zM638.528 352.704v445.952h67.968V352.704H638.528z"
                         p-id="3936"></path>
@@ -227,7 +170,23 @@ export default {
             // 走上传逻辑
             this.upload(file);
         },
+        $emitPrevent(name, $event, senderVM, ...args) {
+            let cancel = false;
+            this.$emit(
+                name,
+                Object.assign($event || {}, {
+                    preventDefault: () => (cancel = true),
+                }),
+                senderVM,
+                ...args,
+            );
+            return cancel;
+        },
         upload(file) {
+            if (this.$emitPrevent('before-upload', {
+                file,
+            }, this))
+                return null;
             if (
                 !this.draggable &&
                 !this.pastable &&
@@ -348,9 +307,9 @@ export default {
                         'lcap-access': access,
                     },
                     window.appInfo &&
-                        window.appInfo.domainName && {
-                            DomainName: window.appInfo.domainName,
-                        },
+                    window.appInfo.domainName && {
+                        DomainName: window.appInfo.domainName,
+                    },
                     isMerge && { operation: 'merge' }
                 );
                 const formData = {
@@ -431,14 +390,14 @@ export default {
                                     (item) =>
                                         item &&
                                         item.$attrs.flag ===
-                                            'large-file-uploader-button'
+                                        'large-file-uploader-button'
                                 )
                             ) {
                                 const buttonVM = this.$children.find(
                                     (item) =>
                                         item &&
                                         item.$attrs.flag ===
-                                            'large-file-uploader-button'
+                                        'large-file-uploader-button'
                                 );
                                 buttonVM.$set(buttonVM, 'loading', false);
                                 buttonVM.$set(buttonVM, 'disabled', false);
@@ -470,14 +429,14 @@ export default {
                                 (item) =>
                                     item &&
                                     item.$attrs.flag ===
-                                        'large-file-uploader-button'
+                                    'large-file-uploader-button'
                             )
                         ) {
                             const buttonVM = this.$children.find(
                                 (item) =>
                                     item &&
                                     item.$attrs.flag ===
-                                        'large-file-uploader-button'
+                                    'large-file-uploader-button'
                             );
                             buttonVM.$set(buttonVM, 'loading', false);
                             buttonVM.$set(buttonVM, 'disabled', false);
@@ -595,7 +554,7 @@ export default {
     color: var(--uploader-item-icon-color);
 }
 
-.item + .item {
+.item+.item {
     margin-top: var(--uploader-item-space);
 }
 
@@ -654,7 +613,7 @@ export default {
     color: rgba(255, 255, 255, 0.6);
 }
 
-.button + .button {
+.button+.button {
     margin-left: 8px;
 }
 
@@ -675,8 +634,7 @@ export default {
     cursor: var(--cursor-pointer);
     text-align: center;
     background: var(--uploader-draggable-background);
-    border: var(--uploader-draggable-border-width) dashed
-        var(--uploader-draggable-border-color);
+    border: var(--uploader-draggable-border-width) dashed var(--uploader-draggable-border-color);
     border-radius: var(--uploader-draggable-border-radius);
     padding: var(--uploader-draggable-padding);
     transition: all var(--transition-duration-base);
@@ -693,7 +651,7 @@ export default {
     border-color: var(--uploader-draggable-border-color-hover);
 }
 
-.draggable > svg {
+.draggable>svg {
     font-size: 24px;
     color: var(--uploader-draggable-icon-color);
     margin: 10px 0px;
