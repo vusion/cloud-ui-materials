@@ -2,7 +2,7 @@
   "name": "cw_large_file_uploader",
   "title": "大文件上传",
   "description": "",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -21,7 +21,8 @@
     "usage": "lcap usage",
     "deploy": "lcap deploy dist-theme",
     "prepublishOnly": "lcap publish",
-    "release": "lcap publish"
+    "release": "lcap publish",
+    "watch": "lcap-scripts watch"
   },
   "vuePlugins": {},
   "babel": {},
