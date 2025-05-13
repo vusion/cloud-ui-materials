@@ -27,6 +27,16 @@ namespace nasl.core {
   }
 }
 
+declare module '@popo-bridge/web' {
+  export const pp: {
+    openMessageSession: (options: {
+      id: string;
+      type: number;
+      defaultMessage?: string;
+    }) => Promise<void>;
+  };
+}
+
 declare namespace extensions {
   export interface ExtensionComponentOptions {
     type: 'pc' | 'h5' | 'both';

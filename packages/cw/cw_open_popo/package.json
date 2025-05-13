@@ -29,7 +29,9 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@popo-bridge/web": "latest"
+  },
   "devDependencies": {
     "@lcap/builder": "^1.4.2",
     "@nasl/types": "^0.1.10",
