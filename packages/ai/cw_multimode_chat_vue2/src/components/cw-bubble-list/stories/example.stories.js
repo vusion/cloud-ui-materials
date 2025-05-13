@@ -62,6 +62,9 @@ export const Example1 = {
           // current.item.content = current.item.content + ' Typing message hhh';
           current.item.entity1.loading = !current.item.entity1.loading;
         }
+        setInterval(() => {
+          current.item.entity1.content = current.item.entity1.content + ' Typing message hhh';
+        }, 1);
       },
       onTypingComplete(current) {
         console.log('typingcomplete', current);

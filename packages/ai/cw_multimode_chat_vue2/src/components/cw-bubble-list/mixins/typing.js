@@ -11,6 +11,7 @@ export default {
     return {
       prevContent: '',
       typingIndex: 1,
+      typingTimerRunning: false, // 新增：标记定时器是否在跑
     };
   },
   computed: {
@@ -31,18 +32,6 @@ export default {
     },
   },
   watch: {
-    typing: {
-      handler() {
-        this.handleTypeLength();
-      },
-      immediate: true,
-    },
-    typingIndex: {
-      handler() {
-        this.handleTypeLength();
-      },
-      immediate: true,
-    },
     content: {
       handler(val) {
         const prevContentValue = this.prevContent;
@@ -51,10 +40,20 @@ export default {
           this.setTypingIndex(this.content.length);
         } else if (isString(this.content) && isString(prevContentValue) && this.content.indexOf(prevContentValue) !== 0) {
           this.setTypingIndex(1);
+        } else if (isString(this.content) && this.content.length < this.typingIndex) {
+          // 内容变短时重置
+          this.setTypingIndex(1);
         }
-        this.handleTypeLength();
+         // 只在动画未完成时启动定时器
+         this.startTypingTimer();
       },
       immediate: true,
+    },
+    typing(val) {
+      this.startTypingTimer();
+    },
+    typingIndex(val) {
+      this.startTypingTimer();
     },
     isTyping(val) {
       if (!val) {
@@ -62,17 +61,32 @@ export default {
       }
     },
   },
+  beforeDestroy() {
+    clearTimeout(this.timeId);
+  },
   methods: {
-    handleTypeLength() {
-      if (this.mergedTypingEnabled && isString(this.content) && this.typingIndex < this.content.length) {
-        clearTimeout(this.timeId);
-        this.timeId = setTimeout(() => {
-          this.setTypingIndex(this.typingIndex + this.typingStep);
-        }, this.typingInterval);
+    startTypingTimer() {
+      // 如果已经有定时器在跑，或者动画已完成，不再重复启动
+      if (this.typingTimerRunning || !this.isTyping) return;
+      this.typingTimerRunning = true;
+      this.runTypingStep();
+    },
+    runTypingStep() {
+      if (!this.isTyping) {
+        this.typingTimerRunning = false;
+        return;
       }
+      this.timeId = setTimeout(() => {
+        this.setTypingIndex(this.typingIndex + this.typingStep);
+        this.runTypingStep();
+      }, this.typingInterval);
     },
     setTypingIndex(val) {
-      this.typingIndex = val;
+      this.typingIndex = Math.min(val, this.content.length);
+    },
+    setTypingIndex(val) {
+      // 防止 index 超过 content 长度
+      this.typingIndex = Math.min(val, this.content.length);
     },
   },
 };
