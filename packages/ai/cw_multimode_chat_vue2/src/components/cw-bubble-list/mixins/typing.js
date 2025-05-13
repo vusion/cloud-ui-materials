@@ -38,10 +38,7 @@ export default {
         this.prevContent = val;
         if (!this.mergedTypingEnabled && isString(this.content)) {
           this.setTypingIndex(this.content.length);
-        } else if (isString(this.content) && isString(prevContentValue) && this.content.indexOf(prevContentValue) !== 0) {
-          this.setTypingIndex(1);
-        } else if (isString(this.content) && this.content.length < this.typingIndex) {
-          // 内容变短时重置
+        } else if (isString(this.content) && isString(prevContentValue) && this.content.length < prevContentValue.length) {
           this.setTypingIndex(1);
         }
          // 只在动画未完成时启动定时器
