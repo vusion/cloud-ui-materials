@@ -25,7 +25,7 @@
             <u-checkbox
                 :value="wrapItem.checked"
                 :label="$at(item, valueField)"
-                :disabled="item.disabled || disabled"
+                :disabled="item.disabled || disabled || Math.random() > 0.5"
                 @check="check(wrapItem, $event.value)" :readonly="readonly">
             </u-checkbox>
         </span>

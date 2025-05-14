@@ -34,7 +34,7 @@ namespace extensions.cw_pc_table.viewComponents {
         "slot": "cell",
         "useRef": "argus?.[0]?.index === 0"
       },
-      "childAccept": "['u-table-view-column', 'u-table-view-column-dynamic', 'u-table-view-column-group'].includes(target.tag)",
+      "childAccept": "['ex-u-table-view-column', 'ex-u-table-view-column-dynamic', 'ex-u-table-view-column-group'].includes(target.tag)",
       "disableSlotAutoFill": [{
         "slot": "config-columns",
         "expression": "!this.getAttribute('configurable')?.value"
@@ -1122,17 +1122,17 @@ namespace extensions.cw_pc_table.viewComponents {
     }) => any;
     @Slot({
       title: '默认',
-      description: '在表格中插入`<u-table-view-column>`子组件',
+      description: '在表格中插入`<ex-u-table-view-column>`子组件',
       emptyBackground: 'drag-entity-here',
       snippets: [{
         title: '表格列',
-        code: '<u-table-view-column> <template #cell="current"></template> <template #title><u-text text="表格列"></u-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column>'
+        code: '<ex-u-table-view-column> <template #cell="current"></template> <template #title><u-text text="表格列"></u-text></template> <template #expander="current"><ex-u-table-view-expander :item="current.item" @toggle="current.toggle"></ex-u-table-view-expander></template> </ex-u-table-view-column>'
       }, {
         title: '表格动态列',
-        code: '<u-table-view-column-dynamic><template #cell="current"></template><template #title="current"><u-text text="表格动态列"></u-text></template></u-table-view-column-dynamic>'
+        code: '<ex-u-table-view-column-dynamic><template #cell="current"></template><template #title="current"><u-text text="表格动态列"></u-text></template></ex-u-table-view-column-dynamic>'
       }, {
         title: '表格列分组',
-        code: '<u-table-view-column-group> <template #title><u-text text="表格列分组"></u-text></template> <u-table-view-column> <template #cell="current"></template> <template #title><u-text text="表格列"></u-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column> </u-table-view-column-group>'
+        code: '<ex-u-table-view-column-group> <template #title><u-text text="表格列分组"></u-text></template> <ex-u-table-view-column> <template #cell="current"></template> <template #title><u-text text="表格列"></u-text></template> <template #expander="current"><ex-u-table-view-expander :item="current.item" @toggle="current.toggle"></ex-u-table-view-expander></template> </ex-u-table-view-column> </ex-u-table-view-column-group>'
       }]
     })
     slotDefault: () => Array<nasl.ui.UTableViewColumn<T, V, P, M> | nasl.ui.UTableViewColumnDynamic<T, V, P, M, unknown> | nasl.ui.UTableViewColumnGroup<T, V, P, M> | nasl.ui.ViewComponent>;
