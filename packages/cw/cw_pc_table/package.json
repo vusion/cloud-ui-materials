@@ -1,10 +1,10 @@
 {
-  "name": "cw_ex_h_5_steps",
+  "name": "cw_pc_table",
   "private": "true",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "lcapIdeVersion": "3.10",
-  "title": "h5 步骤条扩展",
-  "description": "h5 步骤条扩展",
+  "title": "表格扩展",
+  "description": "表格扩展",
   "main": "dist-theme/index.js",
   "files": [
     "dist-theme"
@@ -33,27 +33,29 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime": "7.x",
+    "@joskii/jflow-core": "^0.1.22",
+    "@joskii/jflow-vue2-plugin": "^0.1.1",
     "@popperjs/core": "^2.10.2",
-    "@vant/icons": "^1.7.1",
-    "@vant/popperjs": "^1.1.0",
-    "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
     "animate.css": "^4.1.1",
     "classnames": "^2.2.6",
-    "clipboard": "^2.0.11",
-    "dayjs": "^1.11.9",
-    "lodash": "^4.17.21",
+    "countup.js": "^1.9.3",
+    "dayjs": "^1.10.7",
+    "decimal.js": "^10.4.2",
+    "dompurify": "^2.0.15",
+    "lodash": "^4.17.5",
     "normalize.css": "^7.0.0",
     "online-svg-icon-vue2": "^1.2.3",
+    "regenerator-runtime": "^0.13.9",
     "resize-observer-polyfill": "^1.5.1",
-    "vconsole": "^3.9.3",
-    "vue-lazyload": "1.2.3",
-    "vue-month-picker": "^1.6.0",
+    "swiper": "^7.4.1",
+    "vue-cropper": "^0.5.8",
     "whatwg-fetch": "3.6.2",
-    "@lcap/vue2-utils": "1.0.0",
-    "@lcap/validator": "1.0.0"
-  },
-  "devDependencies": {
+    "xlsx-js-style": "^1.2.0",
+    "yargs": "^16.2.0",
+    "@lcap/vue2-utils": "^1",
+    "@lcap/validator": "^1"
+    },
+    "devDependencies": {
     "@lcap/builder": "^1.4.2",
     "@nasl/types": "^0.1.10",
     "@lcap/storybook-vue-vite": "^7.6.17",
@@ -90,9 +92,9 @@
   "lcap": {
     "lcap-ui": {
       "platform": "http://cstest.lcap.codewave-test.163yun.com",
-      "type": "h5",
+      "type": "pc",
       "version": "1.4.0",
-      "pkgName": "@lcap/mobile-ui",
+      "pkgName": "@lcap/pc-ui",
       "framework": "vue2"
     }
   }
