@@ -1,7 +1,7 @@
 {
   "name": "cw_cascader_lib",
   "private": "true",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "lcapIdeVersion": "3.13",
   "title": "级联选择器",
   "description": "级联选择器",
