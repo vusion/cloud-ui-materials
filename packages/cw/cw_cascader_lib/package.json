@@ -1,47 +1,38 @@
 {
-  "name": "cw_multimode_chat_vue2",
+  "name": "cw_cascader_lib",
   "private": "true",
-  "version": "1.1.0",
-  "lcapIdeVersion": "3.11",
-  "title": "多模态对话式AI交互组件",
-  "description": "支持多模态输入和展示，适配AI场景下的对话式交互",
+  "version": "1.0.1",
+  "lcapIdeVersion": "3.13",
+  "title": "级联选择器",
+  "description": "级联选择器",
   "main": "dist-theme/index.js",
+  "module": "dist-theme/index.mjs",
   "files": [
     "dist-theme"
   ],
-  "exports": {
-    ".": {
-      "default": "./dist-theme/index.js",
-      "import": "./dist-theme/index.mjs",
-      "require": "./dist-theme/index.cjs"
-    }
-  },
   "scripts": {
     "dev": "npm run start",
     "start": "storybook dev -p 8008",
     "build": "vite build",
     "watch": "lcap-scripts watch",
     "test": "vitest",
-    "release": "lcap publish"
+    "release": "lcap publish",
+    "lcap:install": "lcap install --once",
+    "prestart": "npm run lcap:install",
+    "prebuild": "npm run lcap:install"
   },
   "keywords": [
     "Vue"
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "ant-design-vue": "1.7.8",
-    "echarts": "^5.6.0",
-    "lodash": "^4.17.21",
-    "markdown-it": "^14.1.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@lcap/builder": "^1.4.0",
+    "@vue/composition-api": "^1.7.2",
+    "@lcap/builder": "^1.5.0",
+    "@nasl/types": "^0.1.11",
     "@lcap/storybook-vue-vite": "^7.6.17",
     "@lcap/vite-plugin-vue2": "^1.0.0",
-    "@nasl/types": "^0.1.10",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
@@ -61,7 +52,6 @@
     "storybook": "^7.6.17",
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
-    "vite-plugin-antdv-fix": "^1.0.3",
     "vitest": "^1.1.0",
     "vitest-canvas-mock": "^0.3.3",
     "vue": "2.6.12",
@@ -71,5 +61,14 @@
   },
   "peerDependencies": {
     "vue": "^2.6.0"
+  },
+  "lcap": {
+    "lcap-ui": {
+      "platform": "http://dogfood.lcap.163yun.com",
+      "type": "pc",
+      "version": "1.4.0",
+      "pkgName": "@lcap/element-ui",
+      "framework": "vue2"
+    }
   }
 }

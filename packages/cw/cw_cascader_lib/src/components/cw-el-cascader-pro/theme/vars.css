@@ -1,0 +1,161 @@
+/**
+ * @component cw-el-cascader-pro
+ */
+:root {
+  /**
+   * @desc 级联选择器弹出框边框
+   * @type input
+   */
+  --el-cascader-popup-border: 0.5px solid var(--el-component-border);
+
+  /**
+   * @desc 级联选择器弹出框边框圆角
+   * @type input
+   */
+  --el-cascader-popup-border-radius: var(--el-radius-medium);
+
+  /**
+   * @desc 级联选择器高亮颜色
+   * @type color
+   */
+  --el-cascader-highlight-color: var(--el-text-color-brand);
+
+  /**
+   * @desc 级联选择器深色文字颜色
+   * @type color
+   */
+  --el-cascader-dark-color: var(--el-text-color-primary);
+
+  /**
+   * @desc 级联选择器字体
+   * @type input
+   */
+  --el-cascader-font: var(--el-font-body-medium);
+
+  /**
+   * @desc 级联选择器小号字体
+   * @type input
+   */
+  --el-cascader-font-s: var(--el-font-body-small);
+
+  /**
+   * @desc 级联选择器大号字体
+   * @type input
+   */
+  --el-cascader-font-l: var(--el-font-body-large);
+
+  /**
+   * @desc 级联选择器小号宽度
+   * @type size
+   */
+  --el-cascader-width-s: 150px;
+
+  /**
+   * @desc 级联选择器面板正常高度
+   * @type size
+   */
+  --el-cascader-panel-height-normal: 200px;
+
+  /**
+   * @desc 级联选择器菜单分隔线颜色
+   * @type color
+   */
+  --el-cascader-menu-segment-color: var(--el-component-stroke);
+
+  /**
+   * @desc 级联选择器菜单内边距
+   * @type input
+   */
+  --el-cascader-menu-padding: var(--el-pop-padding-m);
+
+  /**
+   * @desc 级联选择器空状态颜色
+   * @type color
+   */
+  --el-cascader-color-empty: var(--el-text-color-disabled);
+
+  /**
+   * @desc 级联选择器选中项颜色
+   * @type color
+   */
+  --el-cascader-item-color-selected: var(--el-brand-color);
+
+  /**
+   * @desc 级联选择器悬停项颜色
+   * @type color
+   */
+  --el-cascader-item-color-hover: var(--el-bg-color-container-hover);
+
+  /**
+   * @desc 级联选择器禁用项颜色
+   * @type color
+   */
+  --el-cascader-item-color-disabled: var(--el-text-color-disabled);
+
+  /**
+   * @desc 级联选择器展开项背景颜色
+   * @type color
+   */
+  --el-cascader-item-background-color-expanded: var(--el-brand-color-light);
+
+  /**
+   * @desc 级联选择器小号项高度
+   * @type size
+   */
+  --el-cascader-item-height-s: var(--el-comp-size-xs);
+
+  /**
+   * @desc 级联选择器默认项高度
+   * @type size
+   */
+  --el-cascader-item-height-default: var(--el-comp-size-s);
+
+  /**
+   * @desc 级联选择器大号项高度
+   * @type size
+   */
+  --el-cascader-item-height-l: var(--el-comp-size-m);
+
+  /**
+   * @desc 级联选择器项顶部外边距
+   * @type input
+   */
+  --el-cascader-item-margin-top: var(--el-comp-margin-xxs);
+
+  /**
+   * @desc 级联选择器项边框圆角
+   * @type input
+   */
+  --el-cascader-item-border-radius: var(--el-radius-default);
+
+  /**
+   * @desc 级联选择器项带图标的内边距
+   * @type input
+   */
+  --el-cascader-item-padding-with-icon: 0 calc(var(--el-comp-paddingLR-s) + var(--el-cascader-icon-inner-width)) 0 var(--el-comp-paddingLR-s);
+
+  /**
+   * @desc 级联选择器项内边距
+   * @type input
+   */
+  --el-cascader-item-padding: 0 var(--el-comp-paddingLR-s);
+
+  /**
+   * @desc 级联选择器小号项内边距
+   * @type input
+   */
+  --el-cascader-item-padding-s: 0px var(--el-comp-paddingLR-s);
+
+  /**
+   * @desc 级联选择器大号项内边距
+   * @type input
+   */
+  --el-cascader-item-padding-l: 0 var(--el-comp-paddingLR-m);
+
+  /**
+   * @desc 级联选择器图标颜色
+   * @type color
+   */
+  --el-cascader-icon-color: var(--el-text-color-placeholder);
+
+}
