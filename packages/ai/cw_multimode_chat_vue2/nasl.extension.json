@@ -5,7 +5,7 @@
   "specVersion": "1.0.0",
   "type": "module",
   "subType": "extension",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "frontends": [
     {
       "concept": "FrontendLibrary",
@@ -2390,7 +2390,7 @@
   "summary": {
     "name": "cw_multimode_chat_vue2",
     "title": "多模态对话式AI交互组件",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "支持多模态输入和展示，适配AI场景下的对话式交互",
     "frontends": [
       {
@@ -2431,7 +2431,7 @@
     "js": {
       "prefix": "extension"
     },
-    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.json\":\"6485b1dfa6ebfe4c\",\"nasl.extension.d.ts\":\"d89c4581c8ca18fc\",\"dist-theme/index.css\":\"d9fad0363fe17d8e\",\"dist-theme/index.js\":\"ac68b95915fbb1e3\"}}"
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.d.ts\":\"d89c4581c8ca18fc\",\"nasl.extension.json\":\"c835e15986733c59\",\"dist-theme/index.css\":\"8229e05e571c80ad\",\"dist-theme/index.js\":\"28b8b853278904ad\"}}"
   },
-  "ideVersion": "3.8"
+  "ideVersion": "3.11"
 }
