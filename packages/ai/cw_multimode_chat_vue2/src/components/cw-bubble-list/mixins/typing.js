@@ -89,7 +89,14 @@ export default {
       immediate: true,
     },
     typing(val) {
-      this.startTypingTimer();
+      if (val) {
+        const tokens = this.splitMarkdownBlocks(this.content);
+        this.blockIndex = tokens.length > 0 ? tokens.length - 1 : 0;
+        this.startTypingTimer();
+      } else {
+        this.typingTimerRunning = false;
+        clearTimeout(this.timeId);
+      }
     },
     isTyping(val) {
       if (!val) {
