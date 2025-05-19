@@ -16,7 +16,26 @@ export const Example1 = {
   name: '基本用法',
   render: (args, { argTypes }) => ({
     props: Object.keys(argTypes),
-    template: '<audio-player v-bind="$props"></audio-player>',
+    template: `<audio-player 
+      @speedChange="speedChange"
+      @togglePlay='togglePlay'
+      @seek='toggleMute'
+      @volumeChange='timeUpdate'
+    v-bind="$props"></audio-player>`,
+    methods: {
+      speedChange(e) {
+        console.log('speedChange', e);
+      },
+      togglePlay(e) {
+        console.log('togglePlay', e);
+      },
+      toggleMute(e) {
+        console.log('toggleMute', e);
+      },
+      timeUpdate(e) {
+        console.log('timeUpdate', e);
+      }
+    },
   }),
   args: {
     src: 'https://cdn.pixabay.com/audio/2025/04/16/audio_b64de0d495.mp3'

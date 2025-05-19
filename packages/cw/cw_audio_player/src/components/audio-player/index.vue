@@ -66,7 +66,9 @@ export default {
       if (this.sound) {
         this.sound.rate(parseFloat(newRate));
       }
-      this.$emit('speedChange',newRate);
+      this.$emit('speedChange',{
+        speed: newRate
+      });
     },
   },
   mounted() {
@@ -107,7 +109,9 @@ export default {
       } else {
         this.sound.play();
       }
-      this.$emit('togglePlay', !this.isPlaying);
+      this.$emit('togglePlay', {
+        isPlay: !this.isPlaying
+      });
     },
     updateProgress() {
       if (this.sound && this.isPlaying) {
@@ -122,7 +126,7 @@ export default {
       this.sound.seek(time);
       this.currentTime = time;
       this.progress = (this.currentTime / this.duration) * 100;  // 立即更新进度条显示
-      this.$emit('seek',time);
+      this.$emit('seek',{ time });
     },
     toggleMute() {
       if (!this.sound) return;
@@ -136,7 +140,9 @@ export default {
         this.volume = this.previousVolume;
       }
 
-      this.$emit('volumeChange',this.volume);
+      this.$emit('volumeChange',{
+        volume: this.volume
+      });
 
       this.isMuted = !this.isMuted;
       this.sound.mute(this.isMuted);
@@ -146,7 +152,9 @@ export default {
       const value = event.target.value;
       this.volume = value / 100;
       this.sound.volume(this.volume);
-      this.$emit('volumeChange',this.volume);
+      this.$emit('volumeChange', {
+        volume: this.volume
+      });
     },
     formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);
