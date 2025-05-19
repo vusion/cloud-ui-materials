@@ -4,18 +4,10 @@
       <button :class="$style.playButton" @click="togglePlay">
         <i :class="[$style.icon, isPlaying ? $style.pause : $style.play]"></i>
       </button>
-      
+
       <div :class="$style.progress">
-        <input 
-          type="range" 
-          :class="$style.slider"
-          :value="progress"
-          :style="{ '--progress': `${progress}%` }"
-          @input="seek"
-          min="0"
-          max="100"
-          step="0.1"
-        >
+        <input type="range" :class="$style.slider" :value="progress" :style="{ '--progress': `${progress}%` }"
+          @input="seek" min="0" max="100" step="0.1">
       </div>
 
       <div :class="$style.time">
@@ -26,23 +18,15 @@
         <button :class="$style.volumeButton" @click="toggleMute">
           <i :class="[$style.icon, isMuted ? $style.mutedIcon : $style.volumeIcon]"></i>
         </button>
-        <input 
-          type="range" 
-          :class="$style.volumeSlider"
-          :value="volume * 100"
-          :style="{ '--volume': `${volume * 100}%` }"
-          @input="setVolume"
-          min="0"
-          max="100"
-        >
+        <input type="range" :class="$style.volumeSlider" :value="volume * 100"
+          :style="{ '--volume': `${volume * 100}%` }" @input="setVolume" min="0" max="100">
       </div>
 
       <div :class="$style.speed">
         <select v-model="playbackRate">
-          <option value="0.5">0.5x</option>
-          <option value="1.0">1.0x</option>
-          <option value="1.5">1.5x</option>
-          <option value="2.0">2.0x</option>
+          <option v-for="rate in speedList" :value="rate" :key="rate">
+            {{ rate }}x
+          </option>
         </select>
       </div>
     </div>
@@ -58,6 +42,10 @@ export default {
     src: {
       type: String,
       required: true
+    },
+    speedList: {
+      type: Array,
+      default: () => [0.5, 1.0, 1.5, 2.0]
     }
   },
   data() {
@@ -68,6 +56,7 @@ export default {
       duration: 0,
       currentTime: 0,
       progress: 0,
+      previousVolume: 1, // 保存静音前的音量
       volume: 1,
       playbackRate: 1.0
     };
@@ -77,7 +66,8 @@ export default {
       if (this.sound) {
         this.sound.rate(parseFloat(newRate));
       }
-    }
+      this.$emit('speedChange',newRate);
+    },
   },
   mounted() {
     this.initAudio();
@@ -117,6 +107,7 @@ export default {
       } else {
         this.sound.play();
       }
+      this.$emit('togglePlay', !this.isPlaying);
     },
     updateProgress() {
       if (this.sound && this.isPlaying) {
@@ -131,22 +122,37 @@ export default {
       this.sound.seek(time);
       this.currentTime = time;
       this.progress = (this.currentTime / this.duration) * 100;  // 立即更新进度条显示
+      this.$emit('seek',time);
     },
     toggleMute() {
       if (!this.sound) return;
+
+      if (!this.isMuted) {
+        // 静音时保存当前音量
+        this.previousVolume = this.volume;
+        this.volume = 0;
+      } else {
+        // 取消静音时恢复之前的音量
+        this.volume = this.previousVolume;
+      }
+
+      this.$emit('volumeChange',this.volume);
+
       this.isMuted = !this.isMuted;
       this.sound.mute(this.isMuted);
+      this.sound.volume(this.volume);
     },
     setVolume(event) {
       const value = event.target.value;
       this.volume = value / 100;
       this.sound.volume(this.volume);
+      this.$emit('volumeChange',this.volume);
     },
     formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = Math.floor(seconds % 60);
       return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
+    },
   }
 };
 </script>
@@ -154,7 +160,6 @@ export default {
 <style module>
 .audioPlayer {
   width: 100%;
-  max-width: 600px;
   padding: 15px;
   background: #fff;
   border-radius: 8px;
@@ -181,7 +186,8 @@ export default {
 .progress {
   flex: 1;
   height: 4px;
-  background: #e0e0e0; /* 未播放部分的颜色 */
+  background: #e0e0e0;
+  /* 未播放部分的颜色 */
   border-radius: 2px;
   position: relative;
   display: flex;
@@ -192,7 +198,8 @@ export default {
   width: 100%;
   height: 4px;
   -webkit-appearance: none;
-  background: linear-gradient(to right, #4a90e2 var(--progress), #e0e0e0 0); /* 已播放和未播放的颜色渐变 */
+  background: linear-gradient(to right, #4a90e2 var(--progress), #e0e0e0 0);
+  /* 已播放和未播放的颜色渐变 */
   cursor: pointer;
   position: absolute;
   margin: 0;
@@ -216,13 +223,13 @@ export default {
   margin-top: -4px;
 }
 
-.volumeControl {  
+.volumeControl {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.volumeIcon {  
+.volumeIcon {
   width: 24px;
   height: 24px;
   background-size: contain;
@@ -245,7 +252,7 @@ export default {
   text-align: center;
 }
 
-.volumeControl {  
+.volumeControl {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -275,7 +282,8 @@ export default {
   padding: 0;
 }
 
-.volumeIcon, .mutedIcon {
+.volumeIcon,
+.mutedIcon {
   width: 24px;
   height: 24px;
   background-size: contain;
