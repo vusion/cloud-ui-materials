@@ -28,7 +28,7 @@ function jsBridgeCreator() {
 /**
  * @NaslLogic
  * @type both
- * @title 打开POPO聊天会话
+ * @title OA h5 打开POPO聊天会话
  * @desc 打开与指定用户或群的POPO聊天会话窗口
  * @param id: nasl.core.String
  * @param defaultMessage?: nasl.core.String
