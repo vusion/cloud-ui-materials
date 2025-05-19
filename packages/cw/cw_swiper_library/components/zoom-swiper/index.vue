@@ -1,14 +1,12 @@
 <template>
   <div
-    class="swiper-container"
-    v-if="dataSource && dataSource.length"
+    class="zoom-container"
     @mouseover="onSwiperWrapperMouseEnter"
     @mouseleave="onSwiperWrapperMouseLeave"
   >
     <swiper
       ref="swiper"
       :options="swiperOption"
-      direction="vertical"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
@@ -17,9 +15,13 @@
         :key="index"
         @click="onSwiperItemClick(item)"
       >
-        <div s-empty="true" vusion-slot-name="item">
-          <slot name="item" v-bind="item" ： :item="item"></slot>
-        </div>
+        <img
+          alt="图片获取失败"
+          :class="item.link ? 'img' : 'linkless-img'"
+          :src="item.url"
+          :width="imgWidth"
+          :height="imgHeight"
+        />
       </swiper-slide>
     </swiper>
   </div>
@@ -34,17 +36,9 @@ export default {
       type: Number,
       default: 30,
     },
-    slidesPerView: {
-      type: Number | String,
-      default: 1,
-    },
     delay: {
       type: Number,
-      default: 1000,
-    },
-    direction: {
-      type: String,
-      default: "horizontal",
+      default: 3000,
     },
     dataSource: {
       type: Array,
@@ -61,6 +55,14 @@ export default {
       type: Number,
       default: 300,
     },
+    imgWidth: {
+      type: Number,
+      default: 240,
+    },
+    imgHeight: {
+      type: Number,
+      default: 196,
+    },
     height: {
       type: Number,
       default: 300,
@@ -69,13 +71,9 @@ export default {
       type: String,
       default: "ease-in-out",
     },
-    prevStyle: {
-      type: String,
-      default: "",
-    },
-    nextStyle: {
-      type: String,
-      default: "",
+    scale: {
+      type: Number,
+      default: 0.8,
     },
   },
   components: {
@@ -85,14 +83,16 @@ export default {
   data() {
     return {
       swiperOption: {
-        slidesPerView: this.slidesPerView,
+        notNextTick: true,
+        initialSlide: 1,
+        slidesPerView: 3,
         spaceBetween: this.spaceBetween,
         autoplay: {
           delay: this.delay,
+          stopOnLastSlide: false,
         },
         height: this.height,
         loop: true,
-        direction: this.direction,
       },
     };
   },
@@ -102,7 +102,6 @@ export default {
     },
     designModeUpdates() {
       return {
-        slidesPerView: this.slidesPerView,
         effect: this.effect,
         duration: this.duration,
         height: this.height,
@@ -115,22 +114,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.$forceUpdate();
-    });
-    const style = document.createElement("style");
-
-    // 设置 CSS 块的内容
-    style.innerHTML = `
-    .swiper-wrapper {
-        transition-timing-function: ${this.effect} !important;
-    }
-    `;
-
-    // 将 style 标签插入到 head 元素中
-    document.head.appendChild(style);
-
-    this.$on("hook:beforeDestroy", () => {
-      document.head.removeChild(style);
+      this.$el.style.setProperty("--duration", `${this.duration}ms`);
+      this.$el.style.setProperty("--effect", this.effect);
+      this.$el.style.setProperty("--scale", this.scale);
     });
   },
   watch: {
@@ -160,11 +146,12 @@ export default {
     onSwiper(e) {
       console.log("onSwiper", e);
     },
-    onSlideChange() {
+    onSlideChange(e) {
+      console.log("e", e);
       this.swiper.setTransition(this.duration);
-      this.$nextTick(() => {
-        this.$forceUpdate();
-      });
+      // this.$nextTick(() => {
+      //   this.$forceUpdate();
+      // });
     },
     onSwiperItemClick(item) {
       this.$emit("onSwiperItemClick", item);
@@ -173,52 +160,64 @@ export default {
 };
 </script>
 
-<style>
-.swiper {
-  width: 100%;
-  height: 100%;
-}
+<style lang="less">
+.zoom-container {
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  .swiper-wrapper {
+    transition-timing-function: var(--effect) !important;
+  }
+  .swiper-slide.swiper-slide-next {
+    transform: scale(1);
+    transition: var(--duration);
+    box-shadow: 0px 7.7px 38.52px 0px rgba(20, 26, 51, 0.08);
+  }
 
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
+  .swiper-slide {
+    text-align: center;
+    transform: scale(var(--scale));
+    font-size: 18px;
+    background: #fff;
+    transition: var(--duration);
 
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: fit-content !important;
-}
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content !important;
+  }
 
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.swiper-container div[s-empty]:empty {
-  position: relative;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  text-align: left;
-  background: #fff;
-  line-height: 1.4;
-  padding: 10px 18px 10px 10px;
-  text-align: center;
-  width: 30%;
-  height: 30%;
-  align-items: center;
-  display: inline-flex;
-  justify-content: center;
-  cursor: pointer;
-}
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  div[s-empty]:empty {
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    text-align: left;
+    background: #fff;
+    line-height: 1.4;
+    padding: 10px 18px 10px 10px;
+    text-align: center;
+    width: 30%;
+    height: 30%;
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    cursor: pointer;
+  }
 
-.swiper-container div[s-empty]:empty::before {
-  content: "+";
-  font-size: 20px;
-  line-height: 12px;
-  display: inline-block;
-  margin-bottom: 2px;
+  div[s-empty]:empty::before {
+    content: "+";
+    font-size: 20px;
+    line-height: 12px;
+    display: inline-block;
+    margin-bottom: 2px;
+  }
 }
 </style>
