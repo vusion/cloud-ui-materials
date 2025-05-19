@@ -1,8 +1,5 @@
-import 'virtual-lcap:lcap-ui.css';
 import Vue from 'vue';
 import * as Components from '@/index';
-import * as LcapUI from 'virtual-lcap:lcap-ui';
-Vue.use(LcapUI);
 
 Object.keys(Components).forEach((key) => {
   if (Components[key] && Components[key].name) {
