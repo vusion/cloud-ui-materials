@@ -20,12 +20,12 @@ namespace extensions.cw_pdf_preview.viewComponents {
 
   export class PdfPreviewOptions extends ViewComponentOptions {
      @Prop({
-      title: '内容',
-      description: '显示文本',
+      title: 'url',
+      description: '预览链接',
       setter: {
         concept: 'InputSetter'
       }
     })
-    text: nasl.core.String = '';
+    url: nasl.core.String = '';
   }
 }

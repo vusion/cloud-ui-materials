@@ -128,6 +128,14 @@ export default {
       this.progress = (this.currentTime / this.duration) * 100;  // 立即更新进度条显示
       this.$emit('seek',{ time });
     },
+    seekTo(time) {
+      if (this.sound) {
+        this.sound.seek(time);
+        this.currentTime = time;
+        this.progress = (this.currentTime / this.duration) * 100;
+        this.$emit('seek',{ time });
+      }
+    },
     toggleMute() {
       if (!this.sound) return;
 

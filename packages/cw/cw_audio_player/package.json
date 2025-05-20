@@ -1,7 +1,7 @@
 {
   "name": "cw_audio_player",
   "private": "true",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "lcapIdeVersion": "3.8",
   "title": "音频播放器",
   "description": "音频播放器",
