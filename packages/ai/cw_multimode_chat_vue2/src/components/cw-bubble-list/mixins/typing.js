@@ -32,24 +32,26 @@ export default {
       if (this.mergedTypingEnabled && isString(this.content)) {
         // 拼接已完成的md块和当前text块的部分内容
         let result = '';
-        let idx = 0;
         for (let i = 0; i < this.blockIndex; i++) {
           const block = this.mdTokens[i];
-          if (block.type === 'md' || block.type === 'html') {
-            result += block.value;
-          } else if (block.type === 'text') {
-            result += block.value;
+          if (block) {
+            if (block.type === 'md' || block.type === 'html') {
+              result += block.value;
+            } else if (block.type === 'text') {
+              result += block.value;
+            }
           }
-          idx += block.value.length;
         }
         // 当前未完成的text块
         if (this.blockIndex < this.mdTokens.length) {
           const block = this.mdTokens[this.blockIndex];
-          if (block.type === 'text') {
-            result += block.value.slice(0, this.innerTypingIndex);
-          } else if (block.type === 'md' || block.type === 'html') {
-            // md块直接整块输出
-            result += block.value;
+          if (block) {
+            if (block.type === 'text') {
+              result += block.value.slice(0, this.innerTypingIndex);
+            } else if (block.type === 'md' || block.type === 'html') {
+              // md块直接整块输出
+              result += block.value;
+            }
           }
         }
         return result;
@@ -81,19 +83,20 @@ export default {
           sameCount++;
         }
         this.mdTokens = newTokens;
-        if (sameCount === this.prevBlockIndex && this.innerTypingIndex !== 0) {
-          this.blockIndex = sameCount;
-        } else if (sameCount > 0) {
-          this.blockIndex = sameCount + 1;
-        } else {
-          this.blockIndex = 0;
-        }
+        this.blockIndex = sameCount;
         this.startTypingTimer();
       },
       immediate: true,
     },
     typing(val) {
-      this.startTypingTimer();
+      if (val) {
+        const tokens = this.splitMarkdownBlocks(this.content);
+        this.blockIndex = tokens.length > 0 ? tokens.length - 1 : 0;
+        this.startTypingTimer();
+      } else {
+        this.typingTimerRunning = false;
+        clearTimeout(this.timeId);
+      }
     },
     isTyping(val) {
       if (!val) {
@@ -150,8 +153,17 @@ export default {
       this.runTypingStep();
     },
     runTypingStep() {
-      if (this.blockIndex >= this.mdTokens.length) return;
+      if (this.blockIndex >= this.mdTokens.length) {
+        this.typingTimerRunning = false;
+        clearTimeout(this.timeId);
+        return;
+      }
       const block = this.mdTokens[this.blockIndex];
+      if (!block) {
+        this.typingTimerRunning = false;
+        clearTimeout(this.timeId);
+        return;
+      }
       if (block.type === 'md' || block.type === 'html') {
         // md块直接整块输出，跳到下一个块
         this.blockIndex++;
@@ -169,13 +181,18 @@ export default {
           this.innerTypingIndex = 0;
         }
       }
-      if (this.blockIndex < this.mdTokens.length || this.innerTypingIndex > 0) {
+      if (this.blockIndex < this.mdTokens.length && this.mergedTypingEnabled) {
         this.timeId = setTimeout(() => this.runTypingStep(), this.typingInterval);
       } else {
         this.typingTimerRunning = false;
       }
-      this.prevMdTokens = this.mdTokens.slice(0, this.blockIndex);
-      this.prevBlockIndex = this.blockIndex;
+      if ( this.innerTypingIndex > 0 ) {
+        this.prevMdTokens = this.mdTokens.slice(0, this.blockIndex);
+        this.prevBlockIndex = this.blockIndex - 1;
+      } else {
+        this.prevMdTokens = this.mdTokens.slice(0, this.blockIndex + 1);
+        this.prevBlockIndex = this.blockIndex;
+      }
     },
   },
 };
