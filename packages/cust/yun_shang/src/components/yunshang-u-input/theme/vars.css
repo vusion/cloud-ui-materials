@@ -1,0 +1,293 @@
+/**
+ * @component yunshang-u-input
+ */
+:root {
+  /**
+   * @type color
+   * @group 边框颜色
+   * @desc 输入框边框颜色,如 #223325
+   * @depStaticStyles ["border-color"]
+   */
+  --input-border-color: var(--border-color-base);
+
+  /**
+   * @type color
+   * @group 边框颜色
+   * @desc 输入框边框颜色（hover状态）,如 #223325
+   */
+  --input-border-color-hover: var(--brand-primary);
+
+  /**
+   * @type color
+   * @group 边框颜色
+   * @desc 输入框边框颜色（选中状态）,如 #223325
+   */
+  --input-border-color-focus: var(--brand-primary);
+
+  /**
+   * @type color
+   * @group 边框颜色
+   * @desc 输入框边框颜色（禁用状态）,如 #223325
+   */
+  --input-border-color-disabled: var(--input-border-color);
+
+  /**
+   * @type input
+   * @group 边框宽度
+   * @desc 输入框边框宽度,如 1px
+   * @depStaticStyles ["border-top-width","border-right-width","border-bottom-width","border-left-width"]
+   */
+  --input-border-width: var(--border-width-base);
+
+  /**
+   * @type input
+   * @group 圆角
+   * @desc 输入框圆角,如 1px
+   * @depStaticStyles ["border-top-left-radius","border-top-right-radius","border-bottom-left-radius","border-bottom-right-radius"]
+   */
+  --input-border-radius: var(--border-radius-base);
+
+  /**
+   * @type color
+   * @group 边框阴影
+   * @desc 输入框边框阴影颜色（选中状态）,如 #223325
+   */
+  --input-box-shadow-focus-color: var(--brand-primary-opacity-20);
+
+  /**
+   * @type input
+   * @group 边框宽度
+   * @desc 输入框边框阴影（选中状态）,如 2px 2px 2px 1px rgba(0, 0, 0, 0.2)
+   */
+  --input-box-shadow-focus: 0 0 0 2px var(--input-box-shadow-focus-color);
+
+  /**
+   * @type color
+   * @group 占位符文本
+   * @desc 输入框占位符文本颜色,如 #223325
+   */
+  --input-placeholder-color: var(--color-lighter);
+
+  /**
+   * @type input
+   * @group 宽度
+   * @desc Mini输入框宽度,如 1px
+   * @depAttrs {"width":["mini"]}
+   * @depStaticStyles ["width"]
+   */
+  --input-width-mini: var(--width-mini);
+
+  /**
+   * @type input
+   * @group 宽度
+   * @desc Small输入框宽度,如 1px
+   * @depAttrs {"width":["small"]}
+   * @depStaticStyles ["width"]
+   */
+  --input-width-small: var(--width-small);
+
+  /**
+   * @type input
+   * @group 宽度
+   * @desc 输入框宽度,如 1px
+   * @depAttrs {"width":["normal",null]}
+   * @depStaticStyles ["width"]
+   */
+  --input-width: var(--width-base);
+
+  /**
+   * @type input
+   * @group 宽度
+   * @desc Medium输入框宽度,如 1px
+   * @depAttrs {"width":["medium"]}
+   * @depStaticStyles ["width"]
+   */
+  --input-width-medium: var(--width-medium);
+
+  /**
+   * @type input
+   * @group 宽度
+   * @desc Large输入框宽度,如 1px
+   * @depAttrs {"width":["large"]}
+   * @depStaticStyles ["width"]
+   */
+  --input-width-large: var(--width-large);
+
+  /**
+   * @type input
+   * @group 宽度
+   * @desc Huge输入框宽度,如 1px
+   * @depAttrs {"width":["huge"]}
+   * @depStaticStyles ["width"]
+   */
+  --input-width-huge: var(--width-huge);
+
+  /**
+   * @type input
+   * @group 高度
+   * @desc Mini输入框高度,如 1px
+   * @depAttrs {"height":["mini"]}
+   * @depStaticStyles ["height"]
+   */
+  --input-height-mini: var(--height-mini);
+
+  /**
+   * @type input
+   * @group 高度
+   * @desc Small输入框高度,如 1px
+   * @depAttrs {"height":["small"]}
+   * @depStaticStyles ["height"]
+   */
+  --input-height-small: var(--height-small);
+
+  /**
+   * @type input
+   * @group 高度
+   * @desc 输入框高度,如 1px
+   * @depAttrs {"height":["normal",null]}
+   * @depStaticStyles ["height"]
+   */
+  --input-height: var(--height-base);
+
+  /**
+   * @type input
+   * @group 高度
+   * @desc Medium输入框高度,如 1px
+   * @depAttrs {"height":["medium"]}
+   * @depStaticStyles ["height"]
+   */
+  --input-height-medium: var(--height-medium);
+
+  /**
+   * @type input
+   * @group 高度
+   * @desc Large输入框高度,如 1px
+   * @depAttrs {"height":["large"]}
+   * @depStaticStyles ["height"]
+   */
+  --input-height-large: var(--height-large);
+
+  /**
+   * @type input
+   * @group 高度
+   * @desc Huge输入框高度,如 1px
+   * @depAttrs {"height":["huge"]}
+   * @depStaticStyles ["height"]
+   */
+  --input-height-huge: var(--height-huge);
+
+  /**
+   * @type input
+   * @group 内边距
+   * @desc Mini输入框水平方向内边距,如 1px
+   * @depAttrs {"width":["mini"]}
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --input-padding-x-mini: 6px;
+
+  /**
+   * @type input
+   * @group 内边距
+   * @desc Small输入框水平方向内边距,如 1px
+   * @depAttrs {"width":["small"]}
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --input-padding-x-small: 8px;
+
+  /**
+   * @type input
+   * @group 内边距
+   * @desc 输入框水平方向内边距,如 1px
+   * @depAttrs {"width":["normal",null]}
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --input-padding-x: 10px;
+
+  /**
+   * @type input
+   * @group 内边距
+   * @desc Medium输入框水平方向内边距,如 1px
+   * @depAttrs {"width":["medium"]}
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --input-padding-x-medium: 10px;
+
+  /**
+   * @type input
+   * @group 内边距
+   * @desc Large输入框水平方向内边距,如 1px
+   * @depAttrs {"width":["large"]}
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --input-padding-x-large: 10px;
+
+  /**
+   * @type input
+   * @group 内边距
+   * @desc Huge输入框水平方向内边距,如 1px
+   * @depAttrs {"width":["huge"]}
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --input-padding-x-huge: 10px;
+
+  /**
+   * @type input
+   * @group 内边距
+   * @desc Full输入框水平方向内边距,如 1px
+   * @depAttrs {"width":["full"]}
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --input-padding-x-full: 10px;
+
+  /**
+   * @type input
+   * @group 前缀/后缀
+   * @desc 输入框前缀左边距,如 1px
+   */
+  --input-prefix-padding-left: 36px;
+
+  /**
+   * @type input
+   * @group 前缀/后缀
+   * @desc 输入框前缀提示信息左边距,如 1px
+   */
+  --input-prefix-placeholder-left: 27px;
+
+  /**
+   * @type input
+   * @group 前缀/后缀
+   * @desc 输入框后缀右边距,如 1px
+   */
+  --input-suffix-padding-right: 30px;
+
+  /**
+   * @type color
+   * @group 背景色
+   * @desc 输入框背景色,如 #223325
+   * @depStaticStyles ["background-color"]
+   */
+  --input-background: var(--background-color-default);
+
+  /**
+   * @type color
+   * @group 背景色
+   * @desc 禁用输入框背景色,如 #223325
+   */
+  --input-background-disabled: var(--background-color-disabled-light);
+
+  /**
+   * @type color
+   * @group 文字颜色
+   * @desc 输入框文字颜色,如 #223325
+   * @depStaticStyles ["color"]
+   */
+  --input-color: var(--color-base);
+
+  /**
+   * @type color
+   * @group 文字颜色
+   * @desc 禁用输入框文字颜色,如 #223325
+   */
+  --input-color-disabled: var(--color-light);
+
+}

@@ -1,0 +1,108 @@
+{
+  "name": "yun_shang",
+  "private": "true",
+  "version": "1.2.9",
+  "lcapIdeVersion": "3.10",
+  "title": "云商呼入智能体",
+  "description": "云商呼入智能体",
+  "main": "dist-theme/index.js",
+  "files": [
+    "dist-theme"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist-theme/index.js",
+      "import": "./dist-theme/index.mjs",
+      "require": "./dist-theme/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "npm run start",
+    "start": "storybook dev -p 8008",
+    "build": "vite build",
+    "watch": "lcap-scripts watch",
+    "test": "vitest",
+    "release": "lcap publish",
+    "lcap:install": "lcap install --once",
+    "prestart": "npm run lcap:install",
+    "prebuild": "npm run lcap:install"
+  },
+  "keywords": [
+    "Vue"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@joskii/jflow-core": "^0.1.22",
+    "@joskii/jflow-vue2-plugin": "^0.1.1",
+    "@lcap/validator": "1.0.0",
+    "@lcap/vue2-utils": "1.0.0",
+    "@popperjs/core": "^2.10.2",
+    "@ysf/fetch": "^0.2.7",
+    "animate.css": "^4.1.1",
+    "ant-design-vue": "^1.7.8",
+    "axios": "^1.8.4",
+    "classnames": "^2.2.6",
+    "countup.js": "^1.9.3",
+    "dayjs": "^1.10.7",
+    "decimal.js": "^10.4.2",
+    "dompurify": "^2.0.15",
+    "lodash": "^4.17.5",
+    "normalize.css": "^7.0.0",
+    "online-svg-icon-vue2": "^1.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "regenerator-runtime": "^0.13.9",
+    "resize-observer-polyfill": "^1.5.1",
+    "swiper": "^7.4.1",
+    "vite-plugin-antdv-fix": "^1.0.3",
+    "vue-cropper": "^0.5.8",
+    "vue-smooth-dnd": "^0.8.1",
+    "vuedraggable": "^2.24.3",
+    "whatwg-fetch": "3.6.2",
+    "xlsx-js-style": "^1.2.0",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@lcap/builder": "^1.4.0",
+    "@lcap/storybook-vue-vite": "^7.6.17",
+    "@lcap/vite-plugin-vue2": "^1.0.0",
+    "@nasl/types": "^0.1.10",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/builder-vite": "^7.6.17",
+    "@storybook/test": "^7.6.17",
+    "@storybook/vue": "^7.6.17",
+    "@types/fs-extra": "^11.0.4",
+    "@types/lodash": "^4.14.202",
+    "@vue/test-utils": "^1.3.5",
+    "autoprefixer": "^10.4.16",
+    "jest-serializer-vue-tjw": "^3.20.0",
+    "jsdom": "^23.0.1",
+    "marked": "^12.0.1",
+    "rimraf": "^5.0.5",
+    "storybook": "^7.6.17",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0",
+    "vitest-canvas-mock": "^0.3.3",
+    "vue": "2.6.12",
+    "vue-i18n": "^8.15.5",
+    "vue-router": "3.3.4",
+    "vue-template-compiler": "2.6.12"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.0"
+  },
+  "lcap": {
+    "lcap-ui": {
+      "platform": "http://dogfood.lcap.163yun.com",
+      "type": "pc",
+      "version": "1.4.0",
+      "framework": "vue2"
+    }
+  }
+}

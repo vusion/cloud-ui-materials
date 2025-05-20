@@ -1,0 +1,107 @@
+/**
+ * @component yunshang-u-drawer
+ */
+:root {
+  /**
+   * @type input
+   * @desc small抽屉宽度,如 1px
+   * @depAttrs {"size":["small"],"placement":["left","right",null]}
+   */
+  --drawer-width-small: 240px;
+
+  /**
+   * @type input
+   * @desc normal抽屉宽度,如 1px
+   * @depAttrs {"size":["normal",null],"placement":["left","right",null]}
+   */
+  --drawer-width: 400px;
+
+  /**
+   * @type input
+   * @desc large抽屉宽度,如 1px
+   * @depAttrs {"size":["large"],"placement":["left","right",null]}
+   */
+  --drawer-width-large: 600px;
+
+  /**
+   * @type input
+   * @desc small抽屉高度,如 1px
+   * @depAttrs {"size":["small"],"placement":["top","bottom"]}
+   */
+  --drawer-height-small: 240px;
+
+  /**
+   * @type input
+   * @desc normal抽屉高度,如 1px
+   * @depAttrs {"size":["normal",null],"placement":["top","bottom"]}
+   */
+  --drawer-height: 400px;
+
+  /**
+   * @type input
+   * @desc large抽屉高度,如 1px
+   * @depAttrs {"size":["large"],"placement":["top","bottom"]}
+   */
+  --drawer-height-large: 600px;
+
+  /**
+   * @type color
+   * @desc 抽屉背景色
+   */
+  --drawer-background: white;
+
+  /**
+   * @type color
+   * @desc 遮罩背景色
+   */
+  --drawer-wrap-background: var(--el-color-background-3);
+
+  /**
+   * @type input
+   * @desc 关闭图标大小
+   */
+  --drawer-close-size: 12px;
+
+  /**
+   * @type color
+   * @desc 关闭图标颜色
+   */
+  --drawer-close-color: var(--gray-dark);
+
+  /**
+   * @type color
+   * @desc 关闭图标hover颜色
+   */
+  --drawer-close-color-hover: var(--gray-darker);
+
+  /**
+   * @type input
+   * @desc 抽屉头部内边距
+   */
+  --drawer-head-padding: 15px;
+
+  /**
+   * @type input
+   * @desc 抽屉内容区内边距
+   */
+  --drawer-body-padding: 15px;
+
+  /**
+   * @type input
+   * @desc 抽屉底部内边距
+   */
+  --drawer-foot-padding: 20px 24px;
+
+  /**
+   * @type color
+   * @desc 抽屉边框颜色
+   */
+  --drawer-border-color: var(--gray-lightest);
+
+  /**
+   * @type input
+   * @desc 抽屉边框圆角
+   */
+  --drawer-border-radius: none;
+
+}
