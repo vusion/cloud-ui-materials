@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import { Container, Draggable } from 'vue-smooth-dnd';
+// import { Container, Draggable } from 'vue-smooth-dnd';
+import { Container, Draggable } from 'vue-dndrop';
 import { sync } from '@lcap/vue2-utils';
 import UListComponentsItem from './item.vue';
 import SEmpty from '@lcap-ui/src/components/s-empty.vue';

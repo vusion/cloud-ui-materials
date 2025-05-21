@@ -1,7 +1,7 @@
 {
   "name": "cw_audio_player",
   "private": "true",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "lcapIdeVersion": "3.8",
   "title": "音频播放器",
   "description": "音频播放器",
@@ -30,6 +30,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "element-ui": "^2.15.14",
     "howler": "^2.2.4"
   },
   "devDependencies": {
