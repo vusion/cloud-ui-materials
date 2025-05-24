@@ -66,11 +66,7 @@ export default {
             return `${name}：${info.completeTime || '-'}`
         },
         getStatusTitle(type, info) {
-            // console.log('type, info',type, info)
-            if (type === 'CCTask') {
-                return '已抄送';
-            }
-            return info.completed ? '已处理' : '未处理';
+            return `${info.completed ? '已' : '未'}${type === 'CCTask' ? '抄送' : '处理'}`;
         },
         getDisplayName(user) {
             const { userName, displayName } = user || {};
@@ -128,11 +124,10 @@ export default {
 .status[status="处理中"] {
     background-color: #337EFF;
 }
-.status[status="已处理"],
-.status[status="已抄送"] {
+.status[status^="已"] {
     background-color: #26BD71;
 }
-.status[status="未处理"] {
+.status[status^="未"] {
     background-color: #CCCCCC;
 }
 .body {
