@@ -25,12 +25,14 @@
       </div>
 
       <div :class="$style.speed">
-        <!-- <select v-model="playbackRate">
-          <option :class="$style.optionItem" v-for="rate in speedList" :value="rate" :key="rate">
-            {{ rate }}x
-          </option>
-        </select> -->
-        <el-select :class="$style.selectWrapper" v-model="playbackRate" placeholder="请选择">
+        <el-select 
+          :popper-append-to-body="appendToBody" 
+          :class="$style.selectWrapper" 
+          class="selectWrapper"
+          v-model="playbackRate" 
+          placeholder="请选择"
+          popper-class="speed-wrapper"
+        >
           <el-option
             v-for="rate in speedList"
             :key="rate"
@@ -63,7 +65,11 @@ export default {
     },
     speedList: {
       type: Array,
-      default: () => [0.5, 1.0, 1.5, 2.0]
+      default: () => [0.5, 0.75, 1.0, 1.5, 2.0]
+    },
+    appendToBody: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -353,11 +359,12 @@ export default {
 }
 
 .selectWrapper {
-  width: 80px;
+  width: 60px;
 }
 
 .selectWrapper input {
   border: 0px;
+  padding-left: 0px;
 }
 
 .icon {
@@ -379,5 +386,12 @@ export default {
 <style>
 .el-select-dropdown__item.hover {
   background: #f5f5f5;
+}
+
+.selectWrapper span.el-input__suffix {
+  left: 30px;
+}
+.selectWrapper .el-input__inner {
+  padding-right: 20px;
 }
 </style>
