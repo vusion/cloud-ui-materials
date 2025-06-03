@@ -37,6 +37,15 @@ namespace extensions.cw_audio_player.viewComponents {
     })
     speedList: nasl.collection.List<nasl.core.Decimal> = [0.5, 1.0, 1.5, 2.0];
 
+    @Prop({
+      title: '下拉框是否插入body',
+      description: '倍速选择下拉框是否插入body',
+      setter: {
+        concept: 'SwitchSetter'
+      }
+    })
+    appendToBody: nasl.core.Boolean = true;
+
     /* 事件描述 */
     @Event({
       title: '点击播放按钮',

@@ -12,6 +12,7 @@ export default {
   argTypes: {},
 };
 
+
 export const Example1 = {
   name: '基本用法',
   render: (args, { argTypes }) => ({
@@ -22,3 +23,15 @@ export const Example1 = {
     url: 'https://lcap-static-saas.nos-eastchina1.126.net/user/wkn030211/1747382919340_71c322eeeded4c2a9f04ed8a3ffef0c5.pdf',
   },
 };
+
+export const Example2 = {
+  name: '含链接',
+  render: (args, { argTypes }) => ({
+    props: Object.keys(argTypes),
+    template: '<pdf-preview url="https://lcap-static-saas.nos-eastchina1.126.net/user/wkn030211/1747723403802_93c59deedf044185b0957f8c0118121d.pdf" v-bind="$props"></pdf-preview>',
+  }),
+  args: {
+    url: 'https://lcap-static-saas.nos-eastchina1.126.net/user/wkn030211/1747382919340_71c322eeeded4c2a9f04ed8a3ffef0c5.pdf',
+  },
+};
+

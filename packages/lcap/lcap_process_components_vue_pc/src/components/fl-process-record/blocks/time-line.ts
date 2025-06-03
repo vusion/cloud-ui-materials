@@ -174,7 +174,7 @@ export function genTemplate(nameGroup: Record<string, string>) {
                   } else if (current.item.nodeOperation === 'end' || current.item.nodeOperation === 'terminate') {
                     return '#666666'
                   } else {
-                    return '#333333'
+                    return '#666666'
                   }
                 })(current.item.nodeOperation)
               }
@@ -191,7 +191,7 @@ export function genTemplate(nameGroup: Record<string, string>) {
                   } else if (current.item.nodeOperation === 'end' || current.item.nodeOperation === 'terminate') {
                     return '#F5F5F5'
                   } else {
-                    return '#333333'
+                    return '#F5F5F5'
                   }
                 })(current.item.nodeOperation)
               }>
