@@ -12,7 +12,7 @@
                 fontSize: '14px',
                 textColor: '#333',
                 content: node.title || node.name,
-                width: 128,
+                definedWidth: 128,
                 ellipsis: true,
                 textAlign: 'left'
             }">

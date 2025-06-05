@@ -27,10 +27,10 @@ export default {
                 toDir: this.configs.toDir,
                 showLineSeg: false,
                 waypoints: this.configs.waypoints,
-                showContent: true,
+                showContent: this.configs.conditionFlow,
                 showAdd: false
             };
-            if (this.node.type === 'sequenceFlow' && this.node.title) {
+            if (this.configs.conditionFlow) {
                 Object.assign(config, {
                     branchInfo: {
                         branchName: this.node.title,
