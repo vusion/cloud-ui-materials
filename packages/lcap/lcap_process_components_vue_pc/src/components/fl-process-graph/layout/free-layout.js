@@ -26,7 +26,7 @@ class FreeLayout {
         this.flowStack = [];
         this.flowLinkStack = [];
         this.nodes = [];
-        const { elements, flows } = source;
+        const { elementList: elements, flowList: flows } = source;
         const nodeMap = {};
         // const nodes = [];
         const gateways = [];
