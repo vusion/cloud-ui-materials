@@ -934,6 +934,7 @@ ${nameGroup.url} = window.location.origin + ${nameGroup.url};\`);
               text="查看"
               onClick={
                 function click(){
+                  ${logicNamespace}.viewCCTask(current.item.taskId)
                   ${nameGroup.goToPage}(current.item.taskId)
                 }
               }></ULink>

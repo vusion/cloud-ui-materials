@@ -1646,6 +1646,7 @@ font-size: 3.73333vw;"
                 direction="horizontal" wrap={true} gap="normal" onClick={
                   function click(){
                     let url
+                    ${logicNamespace}.viewCCTask(current.item.taskId)
                     url = ${logicNamespace}.getTaskDestinationUrl(current.item.taskId, undefined)
                     nasl.js.block(\`'use JSBlock' \n// 拼接全量url
 url = window.location.origin + url;\`)

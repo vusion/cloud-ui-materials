@@ -265,7 +265,7 @@ class FlowLink extends BaseLink {
         ctx.font = `${this.fontSize} ${this.fontFamily}`;
         const startp = points[0];
         const endp = points[points.length - 1];
-        const _showContent = this.showContent && this.branchInfo;
+        const _showContent = this.showContent && (this.branchInfo.branchName || this.branchInfo.priority);
         const dir = this.toDir === undefined ? this._toDir : this.toDir;
         
         ctx.save();
