@@ -2,7 +2,7 @@
     <div :class="$style.wrapper" right>
         <div :class="$style.root" mini>
             <div :class="$style.header">
-                <div>
+                <div :class="$style.headerTitle">
                     {{ title }}
                 </div>
                 <div :class="$style.status" :status="status">
@@ -113,6 +113,14 @@ export default {
     column-gap: 12px;
 
 }
+
+.headerTitle {
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .status{
 
     color: #fff;
@@ -136,6 +144,7 @@ export default {
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+    max-width: 600px;
 }
 .info{
     font-size: 14px;
