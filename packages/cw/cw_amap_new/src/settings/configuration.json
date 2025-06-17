@@ -1,0 +1,30 @@
+[
+  {
+    "name": "APP_SECERT_KEY",
+    "description": "高德地图secretKey",
+    "values": [
+      {
+        "env": "dev",
+        "value": ""
+      },
+      {
+        "env": "online",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "name": "APP_KEY",
+    "description": "高德地图appKey",
+    "values": [
+      {
+        "env": "dev",
+        "value": ""
+      },
+      {
+        "env": "online",
+        "value": ""
+      }
+    ]
+  }
+]
