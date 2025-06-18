@@ -9,9 +9,9 @@
       :class="$style.root"
       v-if="currentVisible || animationVisible"
       :placement="placement"
-      @click="maskClosable && !hideMask && cancel()"
+      @click="maskClosable ? !hideMask && cancel() : targetCancel('mask')"
       tabindex="1"
-      @keydown.esc="cancel()"
+      @keydown.esc="targetCancel('esc') && cancel()"
       :hideMask="hideMask"
     >
       <transition
@@ -162,6 +162,15 @@ export default {
     },
   },
   methods: {
+    targetCancel(type) {
+      console.log('target', type);
+      if (type === 'esc') {
+        this.$emit('esc');
+      }
+      if (type === 'mask') {
+        this.$emit('mask');
+      }
+    },
     onTransitionAterEnter() {
       this.$emit('opened');
       const headEl = this.$refs.head;

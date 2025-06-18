@@ -164,6 +164,16 @@ namespace extensions.yun_shang.viewComponents {
       description: '关闭抽屉时触发',
     })
     onClose: (event: { ok: nasl.core.Boolean }) => any;
+    @Event({
+      title: '点击遮罩关闭时',
+      description: '点击遮罩关闭抽屉时触发',
+    })
+    onMask: (event: any) => any;
+    @Event({
+      title: '点击esc关闭时',
+      description: '点击esc关闭抽屉时触发',
+    })
+    onEsc: (event: any) => any;
     @Slot({
       title: '头部',
       description: '插入文本或 HTML。',
