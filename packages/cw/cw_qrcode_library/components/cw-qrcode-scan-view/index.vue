@@ -22,7 +22,17 @@ export default {
         if (this.$env.VUE_APP_DESIGNER) {
             this.message = '二维码扫码组件';
         }
-        !this.$env.VUE_APP_DESIGNER && this.getCameras();
+        if(this.html5QrCode){
+            this.html5QrCode.stop();
+            setTimeout(() => {
+                this.html5QrCode.clear();
+                this.html5QrCode = null;
+
+                !this.$env.VUE_APP_DESIGNER && this.getCameras();
+            }, 500);
+        } else {
+            !this.$env.VUE_APP_DESIGNER && this.getCameras();
+        }
     },
     beforeDestroy() {
         this.html5QrCode.stop();

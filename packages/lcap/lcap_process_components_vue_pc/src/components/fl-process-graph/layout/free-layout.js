@@ -29,6 +29,7 @@ class FreeLayout {
         const { elementList: elements, flowList: flows } = source;
         const nodeMap = {};
         // const nodes = [];
+        const gateways = [];
         let startNode;
         elements.forEach((processComponent) => {
             const { type, name } = processComponent;
@@ -43,6 +44,9 @@ class FreeLayout {
                 this.nodes.push(node);
                 if(type === "InitiateTask") {
                     startNode = processComponent;
+                }
+                if(type === 'ExclusiveGateway' || type === 'ParallelGateway') {
+                    gateways.push(name);
                 }
             }
         });
@@ -82,6 +86,7 @@ class FreeLayout {
                     fromDir: Waypoint_to_DIR(begin),
                     toDir: Waypoint_to_DIR(end),
                     waypoints: path.map(point => [point.x, point.y]),
+                    conditionFlow: gateways.includes(sourceRef),
                 });
             }
         });
