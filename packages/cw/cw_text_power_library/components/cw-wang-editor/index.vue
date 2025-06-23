@@ -97,6 +97,10 @@ export default {
             type: String,
             default: 'filePath',
         },
+        viaOriginURL: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         const vm = this;
@@ -175,7 +179,7 @@ export default {
                                   insertFn(url);
                               },
                               meta: {
-                                  viaOriginURL: true,
+                                  viaOriginURL: this.viaOriginURL?true:undefined,
                               },
                               allowedFileTypes: this.acceptEditorList,
                               disable: true,
@@ -218,7 +222,7 @@ export default {
                             insertFn(url);
                         },
                         meta: {
-                            viaOriginURL: true,
+                            viaOriginURL: this.viaOriginURL?true:undefined,
                         },
                         allowedFileTypes: this.acceptVideoEditorList,
                     },

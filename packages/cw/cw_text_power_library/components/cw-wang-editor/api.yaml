@@ -60,6 +60,11 @@
         type: string
         default: filePath
         description: 请求返回的 URL 字段名
+      - name: viaOriginURL
+        title: 源文件
+        type: boolean
+        default: true
+        description: 是否源文件访问
   events:
       - name: change
         title: 内容改变时
