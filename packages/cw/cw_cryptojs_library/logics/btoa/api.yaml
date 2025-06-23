@@ -1,0 +1,5 @@
+- name: btoa
+  description: base64编码
+  type: both
+  belong: logic
+  labels: [Runtime]

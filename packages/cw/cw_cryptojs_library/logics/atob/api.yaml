@@ -1,0 +1,5 @@
+- name: atob
+  description: base64解码
+  type: both
+  belong: logic
+  labels: [Runtime]
