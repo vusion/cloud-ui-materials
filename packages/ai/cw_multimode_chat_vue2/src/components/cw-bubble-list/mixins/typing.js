@@ -1,21 +1,25 @@
 function isString(str) {
-  return typeof str === 'string';
+  return typeof str === "string";
 }
 
 export default {
   props: {
-    typingConfig: { type: Object, default: () => ({ step: 2, interval: 50, suffix: null }) },
+    typingConfig: {
+      type: Object,
+      default: () => ({ step: 2, interval: 50, suffix: null }),
+    },
     typing: { type: Boolean, default: true },
   },
   data() {
     return {
-      prevContent: '',
+      prevContent: "",
       typingTimerRunning: false, // 新增：标记定时器是否在跑
       mdTokens: [],
       blockIndex: 0,
       innerTypingIndex: 0, // 新增：当前text块内的打字下标
       prevMdTokens: [],
       prevBlockIndex: 0,
+      prevInnerTypingIndex: 0,
     };
   },
   computed: {
@@ -31,13 +35,13 @@ export default {
     mergedTypingContent() {
       if (this.mergedTypingEnabled && isString(this.content)) {
         // 拼接已完成的md块和当前text块的部分内容
-        let result = '';
+        let result = "";
         for (let i = 0; i < this.blockIndex; i++) {
           const block = this.mdTokens[i];
           if (block) {
-            if (block.type === 'md' || block.type === 'html') {
+            if (block.type === "md" || block.type === "html") {
               result += block.value;
-            } else if (block.type === 'text') {
+            } else if (block.type === "text") {
               result += block.value;
             }
           }
@@ -46,9 +50,9 @@ export default {
         if (this.blockIndex < this.mdTokens.length) {
           const block = this.mdTokens[this.blockIndex];
           if (block) {
-            if (block.type === 'text') {
+            if (block.type === "text") {
               result += block.value.slice(0, this.innerTypingIndex);
-            } else if (block.type === 'md' || block.type === 'html') {
+            } else if (block.type === "md" || block.type === "html") {
               // md块直接整块输出
               result += block.value;
             }
@@ -57,13 +61,13 @@ export default {
         return result;
       }
       return this.content;
-      
     },
     isTyping() {
       // 只要还有未完成的text或md块就继续
       if (!this.mergedTypingEnabled || !isString(this.content)) return false;
       if (this.blockIndex < this.mdTokens.length) return true;
-      if (this.blockIndex === this.mdTokens.length && this.innerTypingIndex > 0) return true;
+      if (this.blockIndex === this.mdTokens.length && this.innerTypingIndex > 0)
+        return true;
       return false;
     },
   },
@@ -81,6 +85,31 @@ export default {
           this.prevMdTokens[sameCount].type === newTokens[sameCount].type
         ) {
           sameCount++;
+        }
+        // 关键：判断当前块是否是 text 且内容只是变长
+        if (
+          this.mdTokens &&
+          this.mdTokens[sameCount] &&
+          newTokens[sameCount] &&
+          this.mdTokens[sameCount].type === "text" &&
+          newTokens[sameCount].type === "text" &&
+          (newTokens[sameCount].value.startsWith(
+            this.mdTokens[sameCount].value
+          ) ||
+            this.mdTokens[sameCount].value.startsWith(
+              newTokens[sameCount].value
+            ))
+        ) {
+          // 只追加了内容，保持 innerTypingIndex 不变
+          // 但不能超过新内容长度
+          if (this.prevInnerTypingIndex > newTokens[sameCount].value.length) {
+            this.innerTypingIndex = newTokens[sameCount].value.length;
+          } else {
+            this.innerTypingIndex = this.prevInnerTypingIndex;
+          }
+        } else {
+          // 其他情况，归零
+          this.innerTypingIndex = 0;
         }
         this.mdTokens = newTokens;
         this.blockIndex = sameCount;
@@ -100,7 +129,7 @@ export default {
     },
     isTyping(val) {
       if (!val) {
-        this.$emit('typing-complete', val);
+        this.$emit("typing-complete", val);
       }
     },
   },
@@ -116,19 +145,19 @@ export default {
       let lastIndex = 0;
       let match;
       const parseHtml = (value) => {
-        const htmlRegex =  /<a\b[^>]*>[\s\S]*?<\/a>|<\/?[a-zA-Z][^>]*?>/g;
+        const htmlRegex = /<a\b[^>]*>[\s\S]*?<\/a>|<\/?[a-zA-Z][^>]*?>/g;
         let result = [];
         let htmlMatch;
-          let htmlLastIndex = 0;
-          while ((htmlMatch = htmlRegex.exec(value)) !== null) {
-            const textValue = value.slice(htmlLastIndex, htmlMatch.index);
-            if (textValue.length > 0) {
-              result.push({ type: 'text', value: textValue });
-            }
-            result.push({ type: 'html', value: htmlMatch[0] });
-            htmlLastIndex = htmlRegex.lastIndex;  
+        let htmlLastIndex = 0;
+        while ((htmlMatch = htmlRegex.exec(value)) !== null) {
+          const textValue = value.slice(htmlLastIndex, htmlMatch.index);
+          if (textValue.length > 0) {
+            result.push({ type: "text", value: textValue });
+          }
+          result.push({ type: "html", value: htmlMatch[0] });
+          htmlLastIndex = htmlRegex.lastIndex;
         }
-        result.push({ type: 'text', value: value.slice(htmlLastIndex) });
+        result.push({ type: "text", value: value.slice(htmlLastIndex) });
         return result;
       };
       while ((match = regex.exec(md)) !== null) {
@@ -137,7 +166,7 @@ export default {
           const htmlResult = parseHtml(value);
           result.push(...htmlResult);
         }
-        result.push({ type: 'md', value: match[0] });
+        result.push({ type: "md", value: match[0] });
         lastIndex = regex.lastIndex;
       }
       if (lastIndex < md.length) {
@@ -148,7 +177,11 @@ export default {
       return result;
     },
     startTypingTimer() {
-      if (this.typingTimerRunning || (this.blockIndex >= this.mdTokens.length && this.innerTypingIndex === 0)) return;
+      if (
+        this.typingTimerRunning ||
+        (this.blockIndex >= this.mdTokens.length && this.innerTypingIndex === 0)
+      )
+        return;
       this.typingTimerRunning = true;
       this.runTypingStep();
     },
@@ -164,11 +197,11 @@ export default {
         clearTimeout(this.timeId);
         return;
       }
-      if (block.type === 'md' || block.type === 'html') {
+      if (block.type === "md" || block.type === "html") {
         // md块直接整块输出，跳到下一个块
         this.blockIndex++;
         this.innerTypingIndex = 0;
-      } else if (block.type === 'text') {
+      } else if (block.type === "text") {
         // text块按步推进
         if (this.innerTypingIndex < block.value.length) {
           this.innerTypingIndex += this.typingStep;
@@ -176,17 +209,21 @@ export default {
             this.innerTypingIndex = block.value.length;
           }
         }
+        this.prevInnerTypingIndex = this.innerTypingIndex;
         if (this.innerTypingIndex >= block.value.length) {
           this.blockIndex++;
-          this.innerTypingIndex = 0;
+          // this.innerTypingIndex = 0;
         }
       }
       if (this.blockIndex < this.mdTokens.length && this.mergedTypingEnabled) {
-        this.timeId = setTimeout(() => this.runTypingStep(), this.typingInterval);
+        this.timeId = setTimeout(
+          () => this.runTypingStep(),
+          this.typingInterval
+        );
       } else {
         this.typingTimerRunning = false;
       }
-      if ( this.innerTypingIndex > 0 ) {
+      if (this.innerTypingIndex > 0) {
         this.prevMdTokens = this.mdTokens.slice(0, this.blockIndex);
         this.prevBlockIndex = this.blockIndex - 1;
       } else {
