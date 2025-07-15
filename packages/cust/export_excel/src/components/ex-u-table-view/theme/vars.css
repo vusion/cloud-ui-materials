@@ -1,0 +1,197 @@
+/**
+ * @component ex-u-table-view
+ */
+:root {
+  /**
+   * @type color
+   * @group 行
+   * @prefix table-view-row
+   * @desc 表格行背景色（hover状态）,如 #223325
+   * @excludeElTags ["th"]
+   */
+  --table-view-row-hover-background: #f9f9f9;
+
+  /**
+   * @type input
+   * @group 表头
+   * @prefix table
+   * @desc 表格表头字体加粗,如 normal
+   * @excludeElTags ["td","th"]
+   * @depAttrs {"boldHeader":[false]}
+   */
+  --table-head-font-weight: normal;
+
+  /**
+   * @type input
+   * @group 表头
+   * @prefix table-view
+   * @desc 表格表头字体大小,如 1px
+   * @excludeElTags ["td"]
+   */
+  --table-view-head-item-size: var(--font-size-base);
+
+  /**
+   * @type color
+   * @group 行
+   * @prefix table
+   * @desc 表格条纹展示行背景色,如 #223325
+   * @excludeElTags ["th"]
+   */
+  --table-row-background-striped: var(--background-color-lighter);
+
+  /**
+   * @type color
+   * @group 表头
+   * @prefix table-view
+   * @desc 表格表头文字颜色,如 #223325
+   * @excludeElTags ["td"]
+   */
+  --table-view-head-item-color: var(--gray-dark);
+
+  /**
+   * @type color
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格内容区边框颜色,如 #223325
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-border-color: var(--border-color-base);
+
+  /**
+   * @type color
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格内容区文字颜色,如 #223325
+   * @excludeElTags ["th"]
+   */
+  --table-view-td-color: var(--color-base);
+
+  /**
+   * @type input
+   * @group 表头
+   * @prefix table-view
+   * @desc 表格表头字体对齐方式,如 left
+   * @excludeElTags ["td"]
+   */
+  --table-view-th-text-align: left;
+
+  /**
+   * @type input
+   * @group 表头
+   * @prefix table-view
+   * @desc 表格表头行高,如 1px
+   * @excludeElTags ["td"]
+   */
+  --table-view-th-line-height: 20px;
+
+  /**
+   * @type input
+   * @group 表头
+   * @prefix table-view
+   * @desc 表格表头内间距,如 1px
+   * @excludeElTags ["td"]
+   */
+  --table-view-th-padding: 10px 6px 10px 10px;
+
+  /**
+   * @type color
+   * @group 表头
+   * @prefix table-view
+   * @desc 表格表头内背景色,如 #223325
+   * @excludeElTags ["td"]
+   */
+  --table-view-th-background-color: var(--table-view-head-background);
+
+  /**
+   * @type input
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格内容区行高,如 1px
+   * @excludeElTags ["th"]
+   */
+  --table-view-td-line-height: 20px;
+
+  /**
+   * @type input
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格内容区内边距,如 1px
+   * @excludeElTags ["th"]
+   */
+  --table-view-td-padding: 10px 6px 10px 10px;
+
+  /**
+   * @type color
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格列内容区背景色,如 #223325
+   * @excludeElTags ["th"]
+   */
+  --table-view-td-background-color: var(--table-view-background);
+
+  /**
+   * @type color
+   * @desc 表格拖拽放置示意线颜色,如 #223325
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-drop-ghost-border-color: var(--brand-primary);
+
+  /**
+   * @type color
+   * @desc 表格拖拽放置示意框背景颜色,如 #223325
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-drop-ghost-mask-background: rgba(77, 136, 255, 0.1);
+
+  /**
+   * @type color
+   * @desc 表格被拖拽行子树背景颜色,如 #223325
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-subrow-background-dragging: rgba(237, 237, 237, 0.5);
+
+  /**
+   * @type color
+   * @desc 表格被拖拽行背景颜色,如 #223325
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-row-background-dragging: #e5e5e5;
+
+  /**
+   * @type input
+   * @desc 拖拽鼠标样式
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-drag-cursor: move;
+
+  /**
+   * @type input
+   * @desc 拖拽鼠标样式（禁用状态）
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-drag-cursor-disabled: not-allowed;
+
+  /**
+   * @type input
+   * @desc 拖拽图标颜色（禁用状态）
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-drag-color-disabled: #ccc;
+
+  /**
+   * @type input
+   * @desc 表格固定列zIndex,如 1
+   * @excludeElTags ["td","th"]
+   */
+  --table-view-column-sticky-zindex: 99;
+
+  /**
+   * @type color
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格合计行背景色,如 #22325
+   * @excludeElTags ["th"]
+   */
+  --table-view-footer-calc-background: #f7f8fa;
+
+}

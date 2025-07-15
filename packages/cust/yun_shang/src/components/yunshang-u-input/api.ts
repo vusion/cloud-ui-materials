@@ -22,7 +22,7 @@ namespace extensions.yun_shang.viewComponents {
     title: '单行输入',
     icon: 'input',
     description: '基本的表单输入组件',
-    group: 'Form',
+    // group: 'Form',
   })
   export class YunshangUInput extends ViewComponent {
     @Prop({

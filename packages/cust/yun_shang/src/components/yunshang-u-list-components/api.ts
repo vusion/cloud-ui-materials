@@ -29,7 +29,7 @@ namespace extensions.yun_shang.viewComponents {
     title: '组件列表',
     icon: 'forcom',
     description: '组件列表',
-    group: 'Table',
+    // group: 'Table',
   })
   export class YunshangUListComponents<T> extends ViewComponent {
     @Prop({

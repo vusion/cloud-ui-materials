@@ -23,7 +23,7 @@ namespace extensions.yun_shang.viewComponents {
     title: '抽屉',
     icon: 'drawer',
     description: '抽屉',
-    group: 'Feedback',
+    // group: 'Feedback',
   })
   export class YunshangUDrawer extends ViewComponent {
     @Prop({

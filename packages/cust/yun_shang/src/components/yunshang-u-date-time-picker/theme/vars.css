@@ -1,0 +1,255 @@
+/**
+ * @component yunshang-u-date-time-picker
+ */
+:root {
+  /**
+   * @type color
+   * @desc 日期时间选择器输入框前缀图标颜色,如：#223325
+   * @prefix datetime-input
+   */
+  --datetime-input-pre-icon-color: var(--gray-light);
+
+  /**
+   * @type color
+   * @desc 日期时间选择器输入框后缀图标颜色,如：#223325
+   * @prefix datetime-input
+   */
+  --datetime-input-after-icon-color: var(--gray-light);
+
+  /**
+   * @type color
+   * @desc 日期时间选择器输入框边框颜色,如：#223325
+   * @prefix datetime-input
+   */
+  --datetime-input-border-color: var(--input-border-color);
+
+  /**
+   * @type input
+   * @desc 日期时间选择器输入框边框宽度,如：1px
+   * @prefix datetime-input
+   */
+  --datetime-input-border-width: var(--input-border-width);
+
+  /**
+   * @type color
+   * @desc 日期时间选择器输入框提示字体颜色,如：#223325
+   * @prefix datetime-input
+   */
+  --datetime-input-placeholder-color: var(--input-placeholder-color);
+
+  /**
+   * @type input
+   * @desc 日期时间选择器输入框圆角大小,如：1px
+   * @prefix datetime-input
+   */
+  --datetime-input-border-radius: var(--input-border-radius);
+
+  /**
+   * @type color
+   * @desc 日期时间选择器输入框字体颜色,如：#223325
+   * @prefix datetime-input
+   */
+  --datetime-input-color: var(--input-color);
+
+  /**
+   * @type color
+   * @desc 日期时间选择器输入框背景颜色,如：#223325
+   * @prefix datetime-input
+   */
+  --datetime-input-background: var(--input-background);
+
+  /**
+   * @type input
+   * @desc 日期时间选择器输入框宽度,如：1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix datetime-input
+   * @depStaticStyles ["width"]
+   */
+  --datetime-input-width: var(--input-width);
+
+  /**
+   * @type input
+   * @desc 日期时间范围选择器输入框宽度,如：1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix datetime-input
+   * @depStaticStyles ["width"]
+   */
+  --datetime-range-input-width: var(--input-width-large);
+
+  /**
+   * @type input
+   * @desc 日期时间选择器输入框高度,如：1px
+   * @depAttrs {"height":["normal",null]}
+   * @prefix datetime-input
+   * @depStaticStyles ["height"]
+   */
+  --datetime-input-height: var(--input-height);
+
+  /**
+   * @type input
+   * @desc 日期时间选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix datetime-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datetime-input-padding-x: var(--input-padding-x);
+
+  /**
+   * @type input
+   * @desc Mini日期时间选择器输入框宽度,如：1px
+   * @depAttrs {"width":["mini"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["width"]
+   */
+  --datetime-input-width-mini: var(--input-width-mini);
+
+  /**
+   * @type input
+   * @desc Mini日期时间选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["mini"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datetime-input-padding-x-mini: var(--input-padding-x-mini);
+
+  /**
+   * @type input
+   * @desc Mini日期时间选择器输入框高度,如：1px
+   * @depAttrs {"height":["mini"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["height"]
+   */
+  --datetime-input-height-mini: var(-input-height-mini);
+
+  /**
+   * @type input
+   * @desc Small日期时间选择器输入框宽度,如：1px
+   * @depAttrs {"width":["small"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["width"]
+   */
+  --datetime-input-width-small: var(--input-width-small);
+
+  /**
+   * @type input
+   * @desc Small日期时间选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["small"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datetime-input-padding-x-small: var(--input-padding-x-small);
+
+  /**
+   * @type input
+   * @desc Small日期时间选择器输入框高度,如：1px
+   * @depAttrs {"height":["small"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["height"]
+   */
+  --datetime-input-height-small: var(--input-height-small);
+
+  /**
+   * @type input
+   * @desc Medium日期时间选择器输入框宽度,如：1px
+   * @depAttrs {"width":["medium"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["width"]
+   */
+  --datetime-input-width-medium: var(--input-width-medium);
+
+  /**
+   * @type input
+   * @desc Medium日期时间选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["medium"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datetime-input-padding-x-medium: var(--input-padding-x-medium);
+
+  /**
+   * @type input
+   * @desc Medium日期时间选择器输入框高度,如：1px
+   * @depAttrs {"height":["medium"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["height"]
+   */
+  --datetime-input-height-medium: var(--input-height-medium);
+
+  /**
+   * @type input
+   * @desc Large日期时间选择器输入框宽度,如：1px
+   * @depAttrs {"width":["large"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["width"]
+   */
+  --datetime-input-width-large: var(--input-width-large);
+
+  /**
+   * @type input
+   * @desc Large日期时间选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["large"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datetime-input-padding-x-large: var(--input-padding-x-large);
+
+  /**
+   * @type input
+   * @desc Large日期时间选择器输入框高度,如：1px
+   * @depAttrs {"height":["large"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["height"]
+   */
+  --datetime-input-height-large: var(--input-height-large);
+
+  /**
+   * @type input
+   * @desc Huge日期时间选择器输入框宽度,如：1px
+   * @depAttrs {"width":["huge"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["width"]
+   */
+  --datetime-input-width-huge: var(--input-width-huge);
+
+  /**
+   * @type input
+   * @desc Huge日期时间选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["huge"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datetime-input-padding-x-huge: var(--input-padding-x-huge);
+
+  /**
+   * @type input
+   * @desc Huge日期时间选择器输入框高度,如：1px
+   * @depAttrs {"height":["huge"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["height"]
+   */
+  --datetime-input-height-huge: var(--input-height-huge);
+
+  /**
+   * @type input
+   * @desc Full日期时间选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["full"]}
+   * @prefix datetime-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datetime-input-padding-x-full: var(--input-padding-x-full);
+
+  /**
+   * @type color
+   * @desc 日期时间选择器选择框边框颜色,如：#223325
+   * @prefix datetime
+   */
+  --datetime-popper-border-color: var(--border-color-base);
+
+  /**
+   * @type input
+   * @desc 日期时间选择器选择框圆角,如：1px
+   * @prefix datetime
+   */
+  --datetime-popper-border-radius: var(--border-radius-base);
+
+}

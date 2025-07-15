@@ -1,0 +1,282 @@
+/**
+ * @component yunshang-u-date-picker
+ */
+:root {
+  /**
+   * @type color
+   * @desc 日期选择器前缀图标颜色,如：#223325
+   * @prefix datepicker-input
+   */
+  --datepicker-input-pre-icon-color: var(--gray-light);
+
+  /**
+   * @type color
+   * @desc 日期选择器后缀图标颜色,如：#223325
+   * @prefix datepicker-input
+   */
+  --datepicker-input-after-icon-color: var(--gray-light);
+
+  /**
+   * @type color
+   * @desc 日期选择器输入框边框颜色,如：#223325
+   * @prefix datepicker-input
+   * @depStaticStyles ["border-color"]
+   */
+  --datepicker-input-border-color: var(--input-border-color);
+
+  /**
+   * @type input
+   * @desc 日期选择器输入框边框宽度,如：1px
+   * @prefix datepicker-input
+   * @depStaticStyles ["border-top-width","border-right-width","border-bottom-width","border-left-width"]
+   */
+  --datepicker-input-border-width: var(--input-border-width);
+
+  /**
+   * @type color
+   * @desc 日期选择器输入框字体颜色,如：#223325
+   * @prefix datepicker-input
+   * @depStaticStyles ["color"]
+   */
+  --datepicker-input-color: var(--input-color);
+
+  /**
+   * @type color
+   * @desc 日期选择器输入框背景颜色,如：#223325
+   * @prefix datepicker-input
+   * @depStaticStyles ["background-color"]
+   */
+  --datepicker-input-background: var(--input-background);
+
+  /**
+   * @type input
+   * @desc 日期选择器输入框圆角,如：1px
+   * @prefix datepicker-input
+   * @depStaticStyles ["border-top-left-radius","border-top-right-radius","border-bottom-left-radius","border-bottom-right-radius"]
+   */
+  --datepicker-input-border-radius: var(--input-border-radius);
+
+  /**
+   * @type color
+   * @desc 日期选择器输入框背景颜色（禁用状态）,如：1px
+   * @prefix datepicker-input
+   */
+  --datepicker-input-background-disabled: var(--input-background-disabled);
+
+  /**
+   * @type input
+   * @desc 日期选择器输入框边框颜色（错误状态）,如：1px
+   * @prefix datepicker-input
+   */
+  --datepicker-input-border-color-error: var(--input-border-color-error);
+
+  /**
+   * @type input
+   * @desc 日期选择器输入框边框颜色（选中状态）,如：1px
+   * @prefix datepicker-input
+   */
+  --datepicker-input-border-color-focus: var(--input-border-color-focus);
+
+  /**
+   * @type input
+   */
+  --datepicker-input-box-shadow-focus: var(--input-box-shadow-focus);
+
+  /**
+   * @type color
+   * @desc 日期选择器输入框提示字体颜色,如：#223325
+   * @prefix datepicker-input
+   */
+  --datepicker-input-placeholder-color: var(--input-placeholder-color);
+
+  /**
+   * @type input
+   */
+  --datepicker-popper-box-shadow: var(--select-popper-box-shadow);
+
+  /**
+   * @type input
+   */
+  --datepicker-popper-border-radius: var(--border-radius-base);
+
+  /**
+   * @type input
+   * @desc 日期选择器输入框宽度,如：1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --datepicker-input-width: var(--input-width);
+
+  /**
+   * @type input
+   * @desc 日期选择器范围输入框宽度,如：1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --datepicker-range-input-width: var(--input-width-medium);
+
+  /**
+   * @type input
+   * @desc 日期选择器输入框高度,如：1px
+   * @depAttrs {"height":["normal",null]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --datepicker-input-height: var(--input-height);
+
+  /**
+   * @type input
+   * @desc 日期选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datepicker-input-padding-x: var(--input-padding-x);
+
+  /**
+   * @type input
+   * @desc Mini日期选择器输入框宽度,如：1px
+   * @depAttrs {"width":["mini"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --datepicker-input-width-mini: var(--input-width-mini);
+
+  /**
+   * @type input
+   * @desc Mini日期选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["mini"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datepicker-input-padding-x-mini: var(--input-padding-x-mini);
+
+  /**
+   * @type input
+   * @desc Mini日期选择器输入框高度,如：1px
+   * @depAttrs {"height":["mini"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --datepicker-input-height-mini: var(-input-height-mini);
+
+  /**
+   * @type input
+   * @desc Small日期选择器输入框宽度,如：1px
+   * @depAttrs {"width":["small"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --datepicker-input-width-small: var(--input-width-small);
+
+  /**
+   * @type input
+   * @desc Small日期选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["small"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datepicker-input-padding-x-small: var(--input-padding-x-small);
+
+  /**
+   * @type input
+   * @desc Small日期选择器输入框高度,如：1px
+   * @depAttrs {"height":["small"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --datepicker-input-height-small: var(--input-height-small);
+
+  /**
+   * @type input
+   * @desc Medium日期选择器输入框宽度,如：1px
+   * @depAttrs {"width":["medium"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --datepicker-input-width-medium: var(--input-width-medium);
+
+  /**
+   * @type input
+   * @desc Medium日期选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["medium"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datepicker-input-padding-x-medium: var(--input-padding-x-medium);
+
+  /**
+   * @type input
+   * @desc Medium日期选择器输入框高度,如：1px
+   * @depAttrs {"height":["medium"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --datepicker-input-height-medium: var(--input-height-medium);
+
+  /**
+   * @type input
+   * @desc Large日期选择器输入框宽度,如：1px
+   * @depAttrs {"width":["large"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --datepicker-input-width-large: var(--input-width-large);
+
+  /**
+   * @type input
+   * @desc Large日期选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["large"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datepicker-input-padding-x-large: var(--input-padding-x-large);
+
+  /**
+   * @type input
+   * @desc Large日期选择器输入框高度,如：1px
+   * @depAttrs {"height":["large"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --datepicker-input-height-large: var(--input-height-large);
+
+  /**
+   * @type input
+   * @desc Huge日期选择器输入框宽度,如：1px
+   * @depAttrs {"width":["huge"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --datepicker-input-width-huge: var(--input-width-huge);
+
+  /**
+   * @type input
+   * @desc Huge日期选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["huge"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datepicker-input-padding-x-huge: var(--input-padding-x-huge);
+
+  /**
+   * @type input
+   * @desc Huge日期选择器输入框高度,如：1px
+   * @depAttrs {"height":["huge"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --datepicker-input-height-huge: var(--input-height-huge);
+
+  /**
+   * @type input
+   * @desc Full日期选择器输入框水平内边距,如：1px
+   * @depAttrs {"width":["full"]}
+   * @prefix datepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --datepicker-input-padding-x-full: var(--input-padding-x-full);
+
+}
