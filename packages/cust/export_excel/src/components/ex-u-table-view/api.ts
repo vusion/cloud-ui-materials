@@ -1342,6 +1342,9 @@ namespace extensions.export_excel.viewComponents {
       title: '值字段',
       description: 'data 项中的字段',
       docDescription: '数据项中对应的字段名，如createdTime',
+      setter: {
+        concept: 'PropertySelectSetter',
+      },
     })
     field: (item: T) => any;
     @Prop({
