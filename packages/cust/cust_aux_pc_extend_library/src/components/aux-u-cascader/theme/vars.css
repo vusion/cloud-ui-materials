@@ -1,0 +1,47 @@
+/**
+ * @component aux-u-cascader
+ */
+:root {
+  /**
+   * @type color
+   * @desc 下拉选项文字颜色
+   */
+  --cascader-item-color: var(--menu-item-color);
+
+  /**
+   * @type color
+   * @desc 下拉选项背景颜色
+   */
+  --cascader-item-background: transparent;
+
+  /**
+   * @type color
+   * @desc 下拉选项展开图标颜色
+   */
+  --cascader-item-expander-color: #999999;
+
+  /**
+   * @type color
+   * @desc 下拉选项选中文字颜色
+   */
+  --cascader-item-color-selected: #FFFFFF;
+
+  /**
+   * @type color
+   * @desc 下拉选项选中背景颜色
+   */
+  --cascader-item-background-selected: #337EFF;
+
+  /**
+   * @type color
+   * @desc 下拉选项选中展开图标颜色
+   */
+  --cascader-item-expander-color-selected: #FFFFFF;
+
+  /**
+   * @type color
+   * @desc 下拉选项高亮文字颜色
+   */
+  --cascader-item-highlighter: red;
+
+}

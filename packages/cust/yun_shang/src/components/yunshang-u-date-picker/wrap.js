@@ -13,6 +13,13 @@ export default {
       default: false
     }
   },
+  methods: {
+    close() {
+      if (this.$refs.component && typeof this.$refs.component.close === 'function') {
+        this.$refs.component.close();
+      }
+    }
+  },
   render(createElement) {
     const component = this.range ? Range : Single;
     const dataAttrs = {};
@@ -30,7 +37,8 @@ export default {
       },
       on: this.$listeners,
       slots: this.$slots,
-      scopedSlots: this.$scopedSlots
+      scopedSlots: this.$scopedSlots,
+      ref: 'component'
     });
   }
 };

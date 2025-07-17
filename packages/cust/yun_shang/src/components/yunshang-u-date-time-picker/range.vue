@@ -770,6 +770,9 @@ export default {
     checkDate(value) {
       const reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
       return reg.test(value);
+    },
+    close() {
+      this.$refs.popper && this.$refs.popper.close();
     }
   }
 };

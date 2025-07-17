@@ -1,0 +1,51 @@
+/**
+ * @component aux-van-cascader
+ */
+:root {
+  /**
+   * @type input
+   * @desc 头部区域高度
+   */
+  --van-cascader-header-height: 48px;
+
+  /**
+   * @type input
+   * @desc 头部区域字体大小
+   */
+  --van-cascader-title-font-size: var(
+    --van-font-size-lg
+  );
+
+  /**
+   * @type input
+   * @desc 头部区域行高
+   */
+  --van-cascader-title-line-height: 20px;
+
+  /**
+   * @type input
+   * @desc 选中态图标大小
+   */
+  --van-cascader-selected-icon-size: 18px;
+
+  /**
+   * @type input
+   * @desc tabs区域高度
+   */
+  --van-cascader-tabs-height: 48px;
+
+  /**
+   * @type color
+   * @desc 选中态图标颜色
+   */
+  --van-cascader-active-color: var(
+    --van-brand-primary
+  );
+
+  /**
+   * @type input
+   * @desc 选项区域高度
+   */
+  --van-cascader-options-height: 384px;
+
+}

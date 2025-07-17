@@ -58,6 +58,11 @@ namespace extensions.yun_shang.viewComponents {
       title: '区间选择',
     })
     range: nasl.core.Boolean;
+    @Method({
+      title: 'undefined',
+      description: '关闭日期选择器',
+    })
+    close(): void {}
     constructor(options?: Partial<YunshangUDatePickerOptions>) {
       super();
     }

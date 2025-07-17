@@ -1,0 +1,208 @@
+.root {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  width: var(--cascader-width);
+}
+
+.root[opened]::after,
+.root[opened].useIcon > .icon {
+  -webkit-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  color: #666666;
+}
+
+.root::after {
+  content: '\e65d';
+  font-family: 'lcap-ui-icons';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.root[clearable]::after,
+.root[preview]::after,
+.root[preview].useIcon > .icon,
+.root[clearable].useIcon > .icon {
+  display: none;
+}
+
+.root.useIcon::after {
+  content: none;
+}
+
+.root.useIcon > .icon,
+.root::after {
+  position: absolute;
+  font-size: var(--select-arrow-size);
+  right: calc(var(--select-arrow-right-ratio) * var(--select-padding-x));
+  top: 0;
+  bottom: 0;
+  line-height: 1.2;
+  height: 1em;
+  margin: auto;
+  color: #999999;
+  transition: transform var(--transition-duration-base);
+  pointer-events: none;
+}
+
+.root.useIcon > .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  cursor: var(--cursor-pointer);
+  width: 100%;
+  height: 100%;
+}
+
+.input[color='error'] {
+  border-color: var(--input-border-color-error);
+}
+/* 覆盖原本u-input属性是readonly时，边框不变蓝 */
+.input[readonly]:not([disabled]):hover {
+  border-color: var(--input-border-color-hover);
+}
+.root:focus {
+  outline: var(--focus-outline);
+}
+.root:not([readonly]):not([disabled]) .input[focus],
+.input[readonly][opened] {
+  border-color: var(--input-border-color-focus);
+  -webkit-box-shadow: var(--input-box-shadow-focus);
+  box-shadow: var(--input-box-shadow-focus);
+}
+
+.input [class^='u-input_input__'] {
+  text-overflow: ellipsis;
+  width: 91%;
+}
+
+.popperShape {
+  max-height: 200px;
+}
+
+.clearable:before {
+  content: '\e66e';
+  font-family: 'lcap-ui-icons';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+.root:hover .clearable:before,
+.root:hover .clearable.useIcon {
+  color: #999999;
+}
+
+.clearable:before,
+.clearable.useIcon {
+  display: block;
+  position: absolute;
+  right: 8px;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  line-height: 1;
+  height: 1em;
+  margin: auto;
+  cursor: var(--cursor-pointer);
+  color: #cccccc;
+}
+
+.clearable.useIcon::before {
+  content: none;
+}
+
+.clearable.useIcon .icon {
+  font-size: inherit;
+}
+
+.root[width='mini'] {
+  width: var(--cascader-width-mini);
+}
+.root[height='mini'] {
+  height: var(--cascader-height-mini);
+}
+.root[height='mini'] .input {
+  /* placeholder文字居中 */
+  line-height: var(--cascader-height-mini);
+}
+
+.root[width='small'] {
+  width: var(--cascader-width-small);
+}
+.root[height='small'] {
+  height: var(--cascader-height-small);
+}
+.root[height='small'] .input {
+  line-height: var(--cascader-height-small);
+}
+
+.root[width='medium'] {
+  width: var(--cascader-width-medium);
+}
+.root[height='medium'] {
+  height: var(--cascader-height-medium);
+}
+.root[height='medium'] .input {
+  line-height: var(--cascader-height-medium);
+}
+
+.root[width='large'] {
+  width: var(--cascader-width-large);
+}
+.root[height='large'] {
+  height: var(--cascader-height-large);
+}
+.root[height='large'] .input {
+  line-height: var(--cascader-height-large);
+}
+
+.root[width='huge'] {
+  width: var(--cascader-width-huge);
+}
+.root[height='huge'] {
+  height: var(--cascader-height-huge);
+}
+.root[height='huge'] .input {
+  line-height: var(--cascader-height-huge);
+}
+
+.root[width='full'] {
+  width: 100%;
+}
+.root[height='full'] {
+  height: 100%;
+}
+
+.loading {
+  width: var(--cascader-scroll-width);
+  background: var(--menu-background);
+  min-height: 200px;
+  padding: 5px;
+}
+
+.filterHighlighter {
+  color: var(--cascader-item-highlighter);
+}
+
+.emptyText {
+  padding: 12px 24px;
+  background: white;
+}

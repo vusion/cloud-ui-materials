@@ -494,6 +494,9 @@ export default {
         // 为了不触发input的blur，否则会有两次blur
         this.preventBlur = false;
       }, 0);
+    },
+    close() {
+      this.$refs.popper && this.$refs.popper.close();
     }
   }
 };

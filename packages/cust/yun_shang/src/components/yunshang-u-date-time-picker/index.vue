@@ -631,6 +631,9 @@ export default {
       } else {
         return value ? value : null;
       }
+    },
+    close() {
+      this.$refs.popper && this.$refs.popper.close();
     }
   }
 };

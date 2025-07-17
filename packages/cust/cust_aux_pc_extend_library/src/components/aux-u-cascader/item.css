@@ -1,0 +1,117 @@
+
+.select_item[select] {
+    /* color: #409eff;
+    font-weight: 700; */
+    background: var(--cascader-item-background-selected);
+    color: var(--cascader-item-color-selected);
+}
+.select_item[select]::after {
+    color: var(--cascader-item-expander-color-selected);
+}
+
+.select_item {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 8px;
+
+    color: var(--cascader-item-color);
+    background: var(--cascader-item-background);
+}
+.select_item::after {
+    color: var(--cascader-item-expander-color);
+}
+
+.select_item[has-sub].useIcon::after {
+    content: none;
+}
+
+.select_item[has-sub].useIcon > span > .icon {
+  font-size: inherit;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: var(--menu-item-size);
+  height: var(--menu-item-size);
+  line-height: var(--menu-item-size);
+  text-align: center;
+}
+
+.umenuShape{
+    min-height: 200px;
+    border-width: 1px 1px 1px 0px;
+}
+
+.scrollShape{
+    max-width: 100%;
+    width: var(--cascader-scroll-width);
+    height: 200px;
+    vertical-align: top;
+}
+
+.searchShape{
+    max-width: 100%;
+    width: var(--cascader-width);
+    height: 200px;
+    vertical-align: top;
+}
+
+.scrollShape:first-child .umenuShape{
+    border-radius: 4px 0px 0px 4px;
+}
+.scrollShape:last-child .umenuShape{
+    border-radius: 0px 4px 4px 0px;
+}
+.scrollShape:only-child .umenuShape{
+    border-radius: 4px 4px 4px 4px;
+}
+
+.searchShape .umenuShape{
+    border-radius: 4px;
+}
+
+
+.spinner{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: calc(var(--select-arrow-right-ratio) * var(--select-padding-x));;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes linear-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spinner::after{
+    content: "\e650";
+    font-family: "lcap-ui-icons";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.spinner.useIcon::after {
+    content: none;
+}
+
+.spinner::after,
+.spinner.useIcon > .icon {
+  position: absolute;
+  display: inline-block;
+  right: calc(var(--select-arrow-right-ratio) * var(--select-padding-x) - 2px);
+  top: 5px;
+  color: black;
+  animation: linear-spin var(--spinner-animation-duration) linear 0s infinite;
+}
+
+.spinner.useIcon > .icon {
+    font-size: inherit;
+}
