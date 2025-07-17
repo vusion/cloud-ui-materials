@@ -4,11 +4,13 @@ import List from "@lcap-ui/src/list";
 import Iconv from "@lcap-ui/src/iconv";
 import Checkbox from "@lcap-ui/src/checkbox";
 import { EmptyCol } from "@lcap-ui/src/emptycol";
+import MEmitter from '@lcap-ui/cloudui/components/m-emitter.vue';
 
 // Utils
 import { createNamespace, _get } from "@lcap-ui/src/utils";
 const [createComponent, bem, t] = createNamespace('picker-list');
 export default createComponent({
+  mixins: [MEmitter],
   props: {
     data: Array,
     value: [String, Number, Array],
@@ -59,6 +61,13 @@ export default createComponent({
       this.currentValue = list;
     },
     onSelect(value, index, item) {
+      if (this.$emitPrevent('before-select', {
+        // vm: this,
+        oldValue: this.currentValue,
+        value,
+        index,
+        item,
+      }, this)) return;
       // 单选
       if (!this.multiple) {
         // eslint-disable-next-line eqeqeq

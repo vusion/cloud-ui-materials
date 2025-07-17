@@ -471,10 +471,15 @@ namespace extensions.cust_aux_m_extend_library.viewComponents {
     })
     onCancel: (event: nasl.ui.BaseEvent) => void;
     @Event({
+      title: '选择前',
+      description: '选择前触发。',
+    })
+    onBeforeSelect: (event: { oldValue: V, item: T; value: V; index: nasl.core.Integer }) => void;
+    @Event({
       title: '选项改变时触发',
       description: '回调参数：Picker 实例，选中值，选中值对应的索引',
     })
-    onChange: (event: { item: T; value: V; index: number }) => void;
+    onChange: (event: { item: T; value: V; index: nasl.core.Integer }) => void;
     @Event({
       title: '弹出前',
       description: '弹出前触发。',

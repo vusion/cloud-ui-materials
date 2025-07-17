@@ -4,11 +4,13 @@ import { preventDefault } from "@lcap-ui/src/utils/dom/event";
 import { BORDER_UNSET_TOP_BOTTOM } from "@lcap-ui/src/utils/constant";
 import { pickerProps, DEFAULT_ITEM_HEIGHT } from './shared';
 import { unitToPx } from "@lcap-ui/src/utils/format/unit";
+import MEmitter from '@lcap-ui/cloudui/components/m-emitter.vue';
 
 // Components
 import PickerColumn from './PickerColumn';
 const [createComponent, bem, t] = createNamespace('picker-pick');
 export default createComponent({
+  mixins: [MEmitter],
   props: {
     ...pickerProps,
     value: [Number, String],
@@ -96,9 +98,16 @@ export default createComponent({
     },
     onChange(idx) {
       const value = this.getColumnValue(0);
-      this.currentValue = value;
       const index = this.getColumnIndex(0);
       const item = this.columns?.[index] || {};
+      if (this.$emitPrevent('before-select', {
+        // vm: this,
+        oldValue: this.currentValue,
+        value,
+        index,
+        item,
+      }, this)) return;
+      this.currentValue = value;
       const eventParams = {
         // vm: this,
         value,

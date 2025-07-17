@@ -276,6 +276,9 @@ export default createComponent({
     onChange(eventParams) {
       this.$emit('change', eventParams);
     },
+    beforeSelect(eventParams) {
+      this.$emit('before-select', eventParams);
+    },
     onConfirm() {
       this.$refs?.picker?.stopMomentum?.();
       const [value, index] = this.$refs?.picker?.getValue();
@@ -387,7 +390,8 @@ export default createComponent({
       change: this.onChange,
       confirm: this.onConfirm,
       cancel: this.onCancel,
-      scrolltolower: this.onScrollToLower
+      scrolltolower: this.onScrollToLower,
+      beforeSelect: this.beforeSelect,
     };
     if (this.isPreview) {
       return <div class={bem('wrap')} vusion-click-enabled="true">
