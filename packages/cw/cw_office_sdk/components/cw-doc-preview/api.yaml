@@ -1,5 +1,5 @@
 - name: cw-doc-preview
-  title: doc预览
+  title: docx预览
   type: both
   belong: component
   labels: [Runtime]
