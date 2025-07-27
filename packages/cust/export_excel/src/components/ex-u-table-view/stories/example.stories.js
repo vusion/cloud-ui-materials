@@ -1,4 +1,5 @@
 import Component from '../index';
+import ExampleDemo1 from '../demos/ExamplesDemo1.vue';
 
 export default {
   id: 'ex-u-table-view-examples',
@@ -21,4 +22,14 @@ export const Example1 = {
   args: {
     text: 'Hello world',
   },
+};
+
+export const Example2 = {
+  name: '样例1',
+  render: () => ({
+    components: {
+      exampleDemo: ExampleDemo1,
+    },
+    template: '<example-demo />',
+  }),
 };

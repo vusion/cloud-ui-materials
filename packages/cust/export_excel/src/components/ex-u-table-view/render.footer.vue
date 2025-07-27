@@ -34,6 +34,7 @@ import UTableRender from './render.table.vue';
 import isNumber from 'lodash/isNumber';
 const CALC_TYPES = {
   SUM: 'sum',
+  COUNT: 'count',
   MAX: 'max',
   MIN: 'min',
   AVG: 'average'
@@ -44,6 +45,10 @@ const CALC_CONFIG = {
   [CALC_TYPES.SUM]: {
     label: 'footerCalc',
     operation: values => values.reduce((a, b) => a + b, 0)
+  },
+  [CALC_TYPES.COUNT]: {
+    label: 'footerCalcCount',
+    operation: values => values.length
   },
   [CALC_TYPES.MAX]: {
     label: 'footerCalcMax',
@@ -85,6 +90,10 @@ export default {
       type: String,
       default: CALC_TYPES.SUM
     },
+    deDuplicate: {
+      type: Boolean,
+      default: false
+    },
     calcFormater: Function
   },
   computed: {
@@ -110,7 +119,10 @@ export default {
             valueField = 'simple';
           }
           if (valueField) {
-            const values = currentData.map(item => isNumber(this.$at(item, valueField)) ? this.$at(item, valueField) : NaN);
+            let values = currentData.map(item => isNumber(this.$at(item, valueField)) ? this.$at(item, valueField) : NaN);
+            if (this.deDuplicate) {
+              values = [...new Set(values)];
+            }
             const precisions = [];
             let notNumber = true;
             values.forEach(value => {

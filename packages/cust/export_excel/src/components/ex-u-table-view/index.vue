@@ -80,6 +80,7 @@
         :currentDataSource="currentDataSource"
         :calcType="footerCalcType"
         :calcText="footerCalcText"
+        :deDuplicate="footerCalcDeDuplicate"
 
         :useStickyFixed="useStickyFixed"
         :fixedRightList="fixedRightList"
@@ -214,6 +215,7 @@
         :currentDataSource="currentDataSource"
         :calcType="footerCalcType"
         :calcText="footerCalcText"
+        :deDuplicate="footerCalcDeDuplicate"
 
         :useStickyFixed="useStickyFixed"
         :fixedRightList="fixedRightList"
@@ -612,6 +614,10 @@ export default {
       }
     },
     footerCalcShow: {
+      type: Boolean,
+      default: false
+    },
+    footerCalcDeDuplicate: {
       type: Boolean,
       default: false
     },

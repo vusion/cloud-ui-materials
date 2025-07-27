@@ -550,7 +550,7 @@ namespace extensions.export_excel.viewComponents {
       },
       onChange: [
         {
-          clear: ['footerCalcType', 'footerCalcText', 'footerCalcFormater'],
+          clear: ['footerCalcType', 'footerCalcText', 'footerCalcFormater', 'footerCalcDeDuplicate'],
           if: (_) => _ === false,
         },
       ],
@@ -574,6 +574,9 @@ namespace extensions.export_excel.viewComponents {
             title: '求和',
           },
           {
+            title: '计数',
+          },
+          {
             title: '最大值',
           },
           {
@@ -586,7 +589,17 @@ namespace extensions.export_excel.viewComponents {
       },
       if: (_) => _.footerCalcShow === true,
     })
-    footerCalcType: 'sum' | 'max' | 'min' | 'average' = 'sum';
+    footerCalcType: 'sum' | 'count' | 'max' | 'min' | 'average' = 'sum';
+    @Prop({
+      group: '主要属性',
+      title: '是否去重',
+      description: '是否去重。默认关闭',
+      setter: {
+        concept: 'SwitchSetter',
+      },
+      if: (_) => _.footerCalcShow === true,
+    })
+    footerCalcDeDuplicate: nasl.core.Boolean = false;
     @Prop({
       group: '主要属性',
       title: '表尾计算行格式设置',
