@@ -60,6 +60,7 @@ export function genUniqueQueryNameGroup(
   suffix: string = '',
 ) {
   const result: NameGroup = {};
+  componentName = componentName?.replace(/_/g, '');
   result.viewLogicLoad = view?.getLogicUniqueName?.(`load${defaultInView ? '' : capFirstLetter(componentName)}${suffix ? capFirstLetter(suffix) : ''}`);
   result.logic = scope?.getLogicUniqueName?.(
     `load${capFirstLetter(view.name)}${componentName ? capFirstLetter(componentName) : ''}${suffix ? capFirstLetter(suffix) : ''}`,
