@@ -1,0 +1,138 @@
+@forward 'element-plus/theme-chalk/src/mixins/config.scss' with (
+  $namespace: 'huadian'
+);
+
+$primary-color: #009d85ed; // 主题色
+$--colors: (
+  'primary': (
+    // 主题色
+    'base': $primary-color,
+  ),
+);
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: $--colors
+);
+
+// 项目自定义变量
+$border-color: #cdd7d5;
+$white-color: #ffffff;
+$gray-darker: #666;
+$bg-color: #f5f7f6;
+$title-color: #171717; // 标题正文
+$auxiliary-text-color: #808080; // 辅助文字
+$count-color: #f2634f;
+$orange-color: #eea02a;
+$icon-color: #c0c4cc;
+$icon-hover-color: #909399;
+
+$modal-close-color-hover: $gray-darker;
+
+// icon
+$designer-icon-select-desc-color-cus: #666;
+
+[mt-16],
+.mt-16 {
+  margin-top: 16px;
+}
+
+[mt-5],
+.mt-5 {
+  margin-top: 5px;
+}
+
+[position-relative],
+.position-relative {
+  position: relative;
+}
+
+/* 滚动条美化样式 */
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #bdbdbd;
+    border-radius: 999px;
+    min-height: 24px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a0a0a0;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@mixin dialogFooter {
+  .dialogFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0;
+
+    .dialogCancelButton {
+      // 默认
+      --huadian-button-text-color: #eea02a;
+      --huadian-button-border-color: #eea02a;
+      --huadian-button-bg-color: #ffffff;
+      // hover
+      --huadian-button-hover-text-color: #eea02a;
+      --huadian-button-hover-border-color: #eea02a;
+      --huadian-button-hover-bg-color: #fef5ea;
+      // 按下
+      --huadian-button-active-text-color: #e9872e;
+      --huadian-button-active-border-color: #e9872e;
+      --huadian-button-active-bg-color: #fef5ea;
+      // 禁用
+      --huadian-button-disabled-text-color: #a6a6a6;
+      --huadian-button-disabled-bg-color: #f4f4f4;
+      --huadian-button-disabled-border-color: #cdd7d5;
+    }
+    .dialogConfirmButton {
+      --huadian-color-primary: #eea02a; // 默认
+      --huadian-color-primary-light-3: #ffcd6d; // 悬停
+      --huadian-color-primary-dark-2: #e9872e; // 按下
+      --huadian-color-primary-light-5: #f4f4f4; // 禁用背景颜色
+      --huadian-button-disabled-text-color: #a6a6a6; // 禁用字体颜色
+    }
+  }
+}
+
+@mixin dialog {
+  :deep(.huadian-dialog) {
+    padding: unset;
+    overflow: hidden;
+  }
+  :deep(.huadian-dialog__header) {
+    background-color: $primary-color;
+    padding: 16px 24px;
+    position: relative;
+  }
+  :deep(.huadian-dialog__title) {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 100%;
+    color: $white-color;
+  }
+  :deep(.huadian-dialog__headerbtn) {
+    height: 100%;
+  }
+  :deep(.huadian-dialog__close) {
+    font-size: 20px;
+    color: $white-color;
+  }
+  :deep(.huadian-dialog__headerbtn:hover .huadian-dialog__close) {
+    color: $modal-close-color-hover;
+  }
+  :deep(.huadian-dialog__body) {
+    padding: 16px;
+    background-color: $bg-color;
+  }
+  :deep(.huadian-dialog__footer) {
+    padding-top: unset;
+    text-align: unset;
+  }
+}

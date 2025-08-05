@@ -1,0 +1,4 @@
+{
+  "ExIconSetter": "src/setters/ExIconSetter.vue",
+  "ExImageSetter": "src/setters/ExImageSetter.vue"
+}
