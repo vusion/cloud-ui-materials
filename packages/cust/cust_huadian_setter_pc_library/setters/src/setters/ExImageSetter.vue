@@ -106,7 +106,6 @@ const handleLibrarySelect = (item) => {
 };
 
 const handleUploadSelect = (item) => {
-  debugger
   selectItem.value = item;
 };
 

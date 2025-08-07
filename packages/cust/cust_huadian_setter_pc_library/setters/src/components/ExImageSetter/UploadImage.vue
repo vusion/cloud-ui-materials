@@ -120,7 +120,6 @@ async function getFiles() {
 }
 
 async function onOpen() {
-  debugger;
   externalUrl.value = '';
   preViewUrl.value = '';
   internalUrl.value = '';
