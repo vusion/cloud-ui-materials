@@ -12,6 +12,10 @@
       - name: select
         title: 选择后
         description: 点被选中后，可以调用逻辑（如，选择城北体育公园后，自动在详细地址输入框填充详细地址信息）
+        params:
+            - name: $event
+              type: object
+              description: 自定义事件对象
   methods:
       - name: poiPicked
         title: POI点
