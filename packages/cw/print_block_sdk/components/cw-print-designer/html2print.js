@@ -210,14 +210,21 @@ export default class Html2Pdf {
     }
 
     try {
-      const result = await this.printFile(pdf);
+      let result;
+      if (/android/i.test(navigator.userAgent)) {
+        // 安卓设备,
+        result = this.printNative(pdf);
+      } else {
+        result = await this.printFile(pdf);
+      }
+
+      // const result = this.printNative(pdf);
       return {
         positionData: this.positionData,
         pdfResult: result,
       };
     } catch (error) {
       console.error("生成pdf出错", error);
-      throw new Error(error);
     }
   }
 
@@ -229,8 +236,30 @@ export default class Html2Pdf {
       lastModified: Date.now(),
     });
     printJS(blobUrl);
-    return result
+    return result;
   }
+
+  /**
+   * 使用原生方法打印
+   */
+  printNative(pdf) {
+    const blob = pdf.output("blob");
+    const blobUrl = URL.createObjectURL(blob);
+
+    // 安卓端推荐直接打开新窗口（新标签页）让用户手动打印或保存
+    const win = window.open(blobUrl, '_blank');
+    if (!win) {
+      alert("请允许浏览器弹窗以查看 PDF");
+    }
+
+    const result = new File([data], this.fileName, {
+      type: "application/pdf",
+      lastModified: Date.now(),
+    });
+
+    return result;
+  }
+
   /**
    * 遍历正常的元素节点
    * @param {HTMLElement} nodes - 当前要遍历的节点数组
