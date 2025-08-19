@@ -2,7 +2,7 @@
   "name": "cw_notification_sdk",
   "title": "全局提示",
   "description": "",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./index.js",
   "author": "",
   "repository": "",
