@@ -29,10 +29,10 @@ namespace extensions.cw_antd_x_vue_2.viewComponents {
       name: nasl.core.String;
       percent: nasl.core.Decimal;
       size: nasl.core.Integer;
-      status: 'success' | 'fail' | 'progress' | 'waiting';
+      status: nasl.core.String;
       type: nasl.core.String;
       url: nasl.core.String;
-      originFileObj: File;
+      originFileObj: nasl.ui.File;
     }>;
   }
 
@@ -67,7 +67,7 @@ namespace extensions.cw_antd_x_vue_2.viewComponents {
       name: nasl.core.String;
       percent: nasl.core.Decimal;
       size: nasl.core.Integer;
-      status: 'success' | 'fail' | 'progress' | 'waiting';
+      status: nasl.core.String;
       type: nasl.core.String;
       url: nasl.core.String;
       originFileObj: nasl.ui.File;
@@ -364,10 +364,10 @@ namespace extensions.cw_antd_x_vue_2.viewComponents {
         name: nasl.core.String;
         percent: nasl.core.Decimal;
         size: nasl.core.Integer;
-        status: 'success' | 'fail' | 'progress' | 'waiting';
+        status: nasl.core.String;
         type: nasl.core.String;
         url: nasl.core.String;
-        originFileObj: File;
+        originFileObj: nasl.ui.File;
       }>
     }) => any;
 
@@ -381,10 +381,10 @@ namespace extensions.cw_antd_x_vue_2.viewComponents {
         name: nasl.core.String;
         percent: nasl.core.Decimal;
         size: nasl.core.Integer;
-        status: 'success' | 'fail' | 'progress' | 'waiting';
+        status: nasl.core.String;
         type: nasl.core.String;
         url: nasl.core.String;
-        originFileObj: File;
+        originFileObj: nasl.ui.File;
       }>
     }) => any;
 
