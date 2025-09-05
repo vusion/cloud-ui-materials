@@ -15,7 +15,7 @@
     props: {
       emptyText: {
         type: String,
-        default: '无效链接'
+        default: '文件加载中'
       },
       panZoom: {
         type: Boolean,

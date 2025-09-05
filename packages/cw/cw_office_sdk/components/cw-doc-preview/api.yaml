@@ -17,7 +17,7 @@
       - name: emptyText
         title: 加载中提示
         type: string
-        default: '无效链接'
+        default: '文件加载中'
       - name: ignoreWidth
         title: 禁用页面的渲染宽度
         type: boolean
