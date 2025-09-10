@@ -1,0 +1,77 @@
+- name: cw-video-view
+  title: 视频
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: src
+      title: 地址
+      type: string
+      description: 视频流地址
+    - name: poster
+      title: 封面地址
+      type: image
+      compType: linkInput
+      description: 视频默认封面地址
+    - name: breakProgress
+      title: 中断进度
+      type: string
+      description: 从中断的进度开始播放
+    - name: autoplay
+      title: 自动播放
+      type: boolean
+      description: 是否自动播放
+      default: false
+    - name: draggable
+      title: 可拖放
+      type: boolean
+      description: 是否可拖放
+      default: true
+    - name: loop
+      title: 循环播放
+      type: boolean
+      description: 是否循环播放
+      default: false
+    - name: showPlaybackRates
+      title: 是否开启倍速播放
+      type: boolean
+      description: 是否开启倍速播放
+      default: true
+  events:
+    - name: start
+      title: 播放开始时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: pause
+      title: 暂停播放时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: play
+      title: 继续播放时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: ended
+      title: 播放结束时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: videoProgress
+      title: 更新播放进度时
+      params:
+        - name: $event
+          type: string
+          description: 播放进度百分比
+  methods:
+    - name: play
+      description: 继续播放
+      params: []
+    - name: pause
+      description: 暂停播放
+      params: []
