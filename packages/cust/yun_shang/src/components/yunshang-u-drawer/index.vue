@@ -45,7 +45,7 @@
                     </template>
                   </slot>
                 </div>
-                <a :class="$style.close" @click="cancel()"></a>
+                <a :class="$style.close" style="width: 30px;" @click="cancel()"></a>
               </slot>
             </div>
             <div :class="$style.body" vusion-slot-name="body" :child-cut-disabled="true" :style="{ height: bodyHeight }">

@@ -1,26 +1,22 @@
 {
-  "name": "yun_shang_primary",
+  "name": "cust_cgn_model_render_library",
   "private": "true",
-  "version": "1.1.5",
+  "version": "1.0.0",
   "lcapIdeVersion": "3.8",
-  "title": "云商用通用组件",
-  "description": "云商用通用组件",
+  "title": "中广核模型渲染依赖库",
+  "description": "中广核模型渲染依赖库",
   "main": "dist-theme/index.js",
+  "module": "dist-theme/index.mjs",
   "files": [
     "dist-theme"
   ],
-  "exports": {
-    ".": {
-      "default": "./dist-theme/index.js",
-      "import": "./dist-theme/index.mjs",
-      "require": "./dist-theme/index.cjs"
-    }
-  },
   "scripts": {
     "dev": "npm run start",
     "start": "storybook dev -p 8008",
+    "create": "lcap-scripts create",
     "build": "vite build",
     "watch": "lcap-scripts watch",
+    "play": "lcap-scripts play",
     "test": "vitest",
     "release": "lcap publish"
   },
@@ -29,20 +25,12 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@ysf/fetch": "^0.2.7",
-    "ant-design-vue": "^1.7.8",
-    "axios": "^1.8.4",
-    "chokidar": "^4.0.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "vite-plugin-antdv-fix": "^1.0.3"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@lcap/builder": "^1.4.2",
+    "@lcap/builder": "^1.6.1",
+    "@nasl/types": "^0.1.14",
     "@lcap/storybook-vue-vite": "^7.6.17",
     "@lcap/vite-plugin-vue2": "^1.0.0",
-    "@nasl/types": "^0.1.10",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
@@ -57,6 +45,7 @@
     "autoprefixer": "^10.4.16",
     "jest-serializer-vue-tjw": "^3.20.0",
     "jsdom": "^23.0.1",
+    "lcap-ide-server-proxy": "^0.1.2-beta",
     "marked": "^12.0.1",
     "rimraf": "^5.0.5",
     "storybook": "^7.6.17",

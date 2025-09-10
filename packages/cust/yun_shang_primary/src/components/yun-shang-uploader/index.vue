@@ -34,7 +34,7 @@
 
 <script>
 import nosUploader from './utils/nosUploader';
-import { getWavAudioDetail } from './utils/audioUtils';
+import { getWavAudioDetail, getAudioDetail } from './utils/audioUtils';
 import Upload from 'ant-design-vue/lib/upload';
 import 'ant-design-vue/lib/upload/style/index.css';
 import axios from 'axios';
@@ -126,18 +126,23 @@ export default {
           }
         );
 
-        // === WAV 校验开始 ===
-        const fileType = file.name.split('.').pop().toLowerCase();
-        if (fileType === 'wav') {
-          const { sampleRate, bitPerSample, numberOfChannels, duration } = await getWavAudioDetail({ url: this.curRecord.url });
-          Object.assign(this.curRecord, { duration });
-          if (sampleRate !== 8000 || bitPerSample !== 16 || numberOfChannels !== 1) {
-            this.curRecord.error = '录音文件采样率需为8000Hz、位深16bit、单声道';
-            this.$emit('error', this.curRecord);
-            return false;
+        // 解析音频信息统一用 getAudioDetail
+        const { format } = await getAudioDetail({ url: this.curRecord.url });
+        if (format) {
+          const { sampleRate, bitsPerSample, numberOfChannels, duration } = format;
+          duration && Object.assign(this.curRecord, { duration });
+
+          const fileType = file.name.split('.').pop().toLowerCase();
+          // === WAV 校验开始 ===
+          if (fileType === 'wav') {
+            if (sampleRate !== 8000 || bitsPerSample !== 16 || numberOfChannels !== 1) {
+              this.curRecord.error = '录音文件采样率需为8000Hz、位深16bit、单声道';
+              this.$emit('error', this.curRecord);
+              return false;
+            }
           }
+          // === WAV 校验结束 ===
         }
-        // === WAV 校验结束 ===
       } catch (err) {
         this.curRecord = { error: err };
         console.error('[NosUpload]', err);
