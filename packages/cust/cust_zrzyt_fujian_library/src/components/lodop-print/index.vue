@@ -6,6 +6,7 @@
 
 <script>
 import { getLodop } from './LodopFuncs.js';
+import * as htmlToImage from 'html-to-image';
 
 const PRINT_MODES = ['preview', 'direct', 'select', 'maintain', 'design'];
 
@@ -43,12 +44,12 @@ export default {
     };
   },
   methods: {
-    print() {
+    async print() {
       if (!PRINT_MODES.includes(this.mode)) {
         console.warn(`未知的打印模式: ${this.mode}，使用默认预览模式`);
         this.mode = 'preview';
       }
-      if (!this.createLodopTask()) return;
+      if (!(await this.createLodopTask())) return;
 
       try {
         switch (this.mode) {
@@ -73,23 +74,25 @@ export default {
       }
     },
     // 创建当前组件默认插槽内容的打印任务
-    createLodopTask() {
+    async createLodopTask() {
       try {
         this.LODOP = getLodop();
         if (!this.LODOP || typeof this.LODOP.PRINT_INIT !== 'function') {
           return false;
         }
         this.LODOP.PRINT_INIT(`${this.title || '打印'}`);
-        const width = this.$refs.lodopPrintRef?.offsetWidth;
-        const height = this.$refs.lodopPrintRef?.offsetHeight;
-        // 获取包含样式的完整HTML内容
-        const htmlWithStyles = this.getHtmlWithStyles();
-        // 调试：输出HTML内容（可选）
-        if (process.env.NODE_ENV === 'development') {
-          console.log('打印HTML内容:', htmlWithStyles);
-        }
+        // // 获取包含样式的完整HTML内容
+        // const htmlWithStyles = this.getHtmlWithStyles();
+        // // 调试：输出HTML内容（可选）
+        // if (process.env.NODE_ENV === 'development') {
+        //   console.log('打印HTML内容:', htmlWithStyles);
+        // }
+        // this.LODOP.ADD_PRINT_HTM(this.intTop, this.intLeft, this.intWidth, this.intHeight, htmlWithStyles);
 
-        this.LODOP.ADD_PRINT_HTM(this.intTop, this.intLeft, this.intWidth, this.intHeight, htmlWithStyles);
+        this.LODOP.SET_PRINT_MODE("NOCLEAR_AFTER_PRINT",true);
+        const image = await htmlToImage.toPng(this.$refs.lodopPrintRef);
+        this.LODOP.ADD_PRINT_IMAGE(this.intTop, this.intLeft, this.intWidth, this.intHeight, '<img border="0" src="'+image+'" />');
+        LODOP.SET_PRINT_STYLEA(0,"Stretch",2); //按原图比例(不变形)缩放模式
         return true;
       } catch (error) {
         console.error('创建打印任务失败:', error);

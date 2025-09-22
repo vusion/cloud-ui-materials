@@ -1,7 +1,7 @@
 {
   "name": "cust_zrzyt_fujian_library",
   "private": "true",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "lcapIdeVersion": "3.8",
   "title": "福建自然资源厅依赖库",
   "description": "福建自然资源厅依赖库",
@@ -25,12 +25,14 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "html-to-image": "^1.11.13"
+  },
   "devDependencies": {
     "@lcap/builder": "^1.6.1",
-    "@nasl/types": "^0.1.14",
     "@lcap/storybook-vue-vite": "^7.6.17",
     "@lcap/vite-plugin-vue2": "^1.0.0",
+    "@nasl/types": "^0.1.14",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",

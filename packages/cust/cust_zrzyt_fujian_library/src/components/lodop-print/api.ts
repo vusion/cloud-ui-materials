@@ -33,7 +33,7 @@ namespace extensions.cust_zrzyt_fujian_library.viewComponents {
         concept: 'InputSetter',
       },
     })
-    title: nasl.core.String = '';
+    title: nasl.core.String = '打印';
 
     @Prop({
       title: '打印模式',
