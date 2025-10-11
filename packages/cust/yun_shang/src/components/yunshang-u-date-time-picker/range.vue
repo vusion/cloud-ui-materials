@@ -11,8 +11,8 @@
         :right-value="genDisplayFormatText(finalEndDateTime)"
         :clearable="clearable" :placeholder="placeholder"
         :placeholder-right="placeholderRight"
-        @left-click="toggleLeft(true)"
-        @right-click="toggleRight(true)"
+        @left-click="togglePopper(true)"
+        @right-click="togglePopper(true)"
         @update:value="onInput($event)" @focus="onFocus" @blur="onBlur"
         @blur:value="onBlurInputValue($event)"
         @clear="clearValue"
@@ -27,31 +27,67 @@
         @close="onPopperClose"
         @open="onPopperOpen">
         <div :class="$style.popperContent" @click.stop>
-            <div :class="$style.shortCuts" v-if="showShortCuts">
-              <slot name="extra"></slot>
+            <div :class="$style.threeColumnLayout">
+                <div :class="$style.shortCuts" v-if="showShortCuts">
+                    <slot name="extra"></slot>
+                </div>
+                <div :class="$style.calendarContainer">
+                    <div :class="$style.timeSelectionRow">
+                        <div :class="$style.timeSection">
+                            <div :class="$style.timeSectionTitle">开始时间</div>
+                            <div :class="$style.timeInputs">
+                                <u-input :placeholder="popperplaceholder" :class="$style.pickerinput" 
+                                    :value="startShowDate" clearable
+                                    ref="startDateInput"
+                                    @clear="startShowDate=undefined"
+                                    @blur:value="onRangeDateChange($event, 'start')">
+                                </u-input>
+                                <u-time-picker :class="$style.pickerinput" :readonly="readonly" 
+                                    :time="startShowTime"
+                                    width="50" :min-time="startMinTime" :max-time="startMaxTime"
+                                    :simple-foot="true" pre-icon=""
+                                    :min-unit="minUnit"
+                                    :disabled="!startShowDate"
+                                    @change="outRangeDateTime(startShowDate, $event.time, 'start')"
+                                    popper-width="134px">
+                                </u-time-picker>
+                            </div>
+                        </div>
+                        <div :class="$style.timeSection">
+                            <div :class="$style.timeSectionTitle">结束时间</div>
+                            <div :class="$style.timeInputs">
+                                <u-input :placeholder="popperplaceholder" :class="$style.pickerinput" 
+                                    :value="endShowDate" clearable
+                                    ref="endDateInput"
+                                    @clear="endShowDate=undefined"
+                                    @blur:value="onRangeDateChange($event, 'end')">
+                                </u-input>
+                                <u-time-picker :class="$style.pickerinput" :readonly="readonly" 
+                                    :time="endShowTime"
+                                    width="50" :min-time="endMinTime" :max-time="endMaxTime"
+                                    :simple-foot="true" pre-icon=""
+                                    :min-unit="minUnit"
+                                    :disabled="!endShowDate"
+                                    @change="outRangeDateTime(endShowDate, $event.time, 'end')"
+                                    popper-width="134px">
+                                </u-time-picker>
+                            </div>
+                        </div>
+                    </div>
+                    <div :class="$style.calendarPanel">
+                        <u-calendar-range
+                            :readonly="readonly" 
+                            :year-diff="yearDiff" 
+                            :year-add="yearAdd"
+                            :min-date="minDate" 
+                            :max-date="maxDate" 
+                            :start-date="startCalendarDate"
+                            :end-date="endCalendarDate"
+                            @select="handleCalendarRangeSelect($event)">
+                        </u-calendar-range>
+                    </div>
+                </div>
             </div>
-            <div :class="$style.popperRight">
-              <div :class="$style.popperhead">
-                <u-input :placeholder="popperplaceholder" :class="$style.pickerinput" :value="showDate" clearable
-                    ref="dateInput"
-                    @clear="showDate=undefined"
-                    @blur:value="onDateChange($event)">
-                </u-input>
-                <u-time-picker :class="$style.pickerinput" :readonly="readonly" :time="showTime"
-                    width="50" :min-time="minTime" :max-time="maxTime"
-                    :simple-foot="true" pre-icon=""
-                    :min-unit="minUnit"
-                    :disabled="!showDate"
-                    :key="editTarget"
-                    @change="outRangeDateTime(showDate, $event.time)"
-                    popper-width="134px">
-                </u-time-picker>
-            </div>
-            <u-calendar :readonly="readonly" :year-diff="yearDiff" :year-add="yearAdd"
-                :min-date="minCalendarDate" :max-date="maxCalendarDate" :date="showDate"
-                :border="false"
-                @select="outRangeDateTime($event.date, showTime)">
-            </u-calendar>
             <div :class="$style.footer" v-if="showFooterButton || showRightNowButton">
                 <u-linear-layout justify="space-between">
                     <u-linear-layout :class="$style.ctimewrap">
@@ -59,10 +95,9 @@
                     </u-linear-layout>
                     <u-linear-layout :class="$style.btnwrap" v-if="showFooterButton">
                         <u-button @click="onCancel">{{ cancelTitle || $tt('cancel') }}</u-button>
-                        <u-button @click="onConfirm" color="primary" :readonly="readonly" :disabled="disabled">{{ okTitle || $tt('submit') }}</u-button>
+                        <u-button @click="onConfirm" color="primary" :readonly="readonly" :disabled="disabled || isConfirmDisabled">{{ okTitle || $tt('submit') }}</u-button>
                     </u-linear-layout>
                 </u-linear-layout>
-            </div>
             </div>
         </div>
     </m-popper>
@@ -254,6 +289,14 @@ export default {
       // 最外面的输入框
       finalEndDateTime: this.format(this.endDate, 'YYYY-MM-DD HH:mm:ss'),
       // 最外面的输入框
+      
+      // 双面板数据
+      startShowDate: undefined, // 开始面板的日期输入框
+      startShowTime: undefined, // 开始面板的时间输入框
+      endShowDate: undefined,   // 结束面板的日期输入框
+      endShowTime: undefined,   // 结束面板的时间输入框
+      
+      // 保留原有数据以兼容现有逻辑
       showDate: undefined,
       // popper里的日期输入框
       showTime: undefined,
@@ -275,6 +318,15 @@ export default {
     },
     maxCalendarDate() {
       return this.format(this.finalMaxDate, 'YYYY-MM-DD');
+    },
+    startCalendarDate() {
+      return this.startShowDate ? new Date(this.startShowDate) : undefined;
+    },
+    endCalendarDate() {
+      return this.endShowDate ? new Date(this.endShowDate) : undefined;
+    },
+    isConfirmDisabled() {
+      return !(this.startDateTime && this.endDateTime && this.isValidValue());
     },
     spMinTime() {
       return this.format(this.finalMinDate, 'HH:mm:ss');
@@ -417,9 +469,16 @@ export default {
   mounted() {
     this.autofocus && this.$refs.input.focus();
     // 在编辑器里不要打开
-    if (!this.$env.VUE_APP_DESIGNER) this.toggle(this.opened);
+    if (!this.$env.VUE_APP_DESIGNER) this.toggle(this.currentOpened);
   },
   methods: {
+    isValidValue() {
+      if (!this.startDateTime || !this.endDateTime) return false;
+      const startDate = new Date(this.startDateTime);
+      const endDate = new Date(this.endDateTime);
+
+      return !isNaN(startDate.getTime()) && !isNaN(endDate.getTime()) && startDate.getTime() <= endDate.getTime();
+    },
     noticeValidator(created = false) {
       const startDateTime = this.toValue(this.startDateTime ? new Date(this.startDateTime.replace(/-/g, '/')) : '');
       const endDateTime = this.toValue(this.endDateTime ? new Date(this.endDateTime.replace(/-/g, '/')) : '');
@@ -480,34 +539,72 @@ export default {
      * @private
      * @return {void}
      */
-    outRangeDateTime(date, time) {
+    outRangeDateTime(date, time, target) {
       if (!time) {
         time = '00:00:00';
       }
       if (date) {
         date = new Date(date);
       } else {
-        this.$emit('select', {
-          sender: this,
-          [this.dateKey]: ''
-        });
+        // 处理清空操作
+        if (target === 'start') {
+          this.startDateTime = undefined;
+          this.finalStartDateTime = undefined;
+          this.emitValue();
+        } else if (target === 'end') {
+          this.endDateTime = undefined;
+          this.finalEndDateTime = undefined;
+          this.emitValue();
+        } else {
+          // 兼容原有逻辑
+          this.$emit('select', {
+            sender: this,
+            [this.dateKey]: ''
+          });
+        }
         return;
       }
       time = time.split(':');
       date.setHours(time[0] || 0);
       date.setMinutes(time[1] || 0);
       date.setSeconds(time[2] || 0);
-      const datetime = this.format(date, 'YYYY-MM-DD');
+      const datetime = this.format(date, 'YYYY-MM-DD HH:mm:ss');
+      
+      // 根据target更新对应的数据
+      if (target === 'start') {
+        this.startDateTime = datetime;
+        this.startShowDate = this.format(date, 'YYYY-MM-DD');
+        this.startShowTime = this.format(date, this.minUnit === 'minute' ? 'HH:mm' : 'HH:mm:ss');
+        // 隐藏底部确认取消按钮时，直接更新最终值
+        if (!this.showFooterButton) {
+          this.finalStartDateTime = datetime;
+          this.emitValue();
+        }
+        return;
+      } else if (target === 'end') {
+        this.endDateTime = datetime;
+        this.endShowDate = this.format(date, 'YYYY-MM-DD');
+        this.endShowTime = this.format(date, this.minUnit === 'minute' ? 'HH:mm' : 'HH:mm:ss');
+        // 隐藏底部确认取消按钮时，直接更新最终值
+        if (!this.showFooterButton) {
+          this.finalEndDateTime = datetime;
+          this.emitValue();
+        }
+        return;
+      }
+      
+      // 兼容原有逻辑
+      const datetimeStr = this.format(date, 'YYYY-MM-DD');
       const dtime = this.format(date, 'HH:mm:ss');
-      if (datetime === this.minCalendarDate && datetime === this.maxCalendarDate) {
+      if (datetimeStr === this.minCalendarDate && datetimeStr === this.maxCalendarDate) {
         this.minTime = this.spMinTime;
         this.maxTime = this.spMaxTime;
-      } else if (datetime === this.minCalendarDate) this.minTime = this.spMinTime;else if (datetime === this.maxCalendarDate) this.maxTime = this.spMaxTime;else if (datetime === this.minCalendarDate && dtime < this.spMinTime) {
+      } else if (datetimeStr === this.minCalendarDate) this.minTime = this.spMinTime;else if (datetimeStr === this.maxCalendarDate) this.maxTime = this.spMaxTime;else if (datetimeStr === this.minCalendarDate && dtime < this.spMinTime) {
         const spMinTime = this.spMinTime.split(':');
         date.setHours(spMinTime[0]);
         date.setMinutes(spMinTime[1]);
         date.setSeconds(spMinTime[2]);
-      } else if (datetime === this.maxCalendarDate && dtime > this.spMaxTime) {
+      } else if (datetimeStr === this.maxCalendarDate && dtime > this.spMaxTime) {
         const spMaxTime = this.spMaxTime.split(':');
         date.setHours(spMaxTime[0]);
         date.setMinutes(spMaxTime[1]);
@@ -599,7 +696,18 @@ export default {
       });
     },
     setDateNow() {
-      this.updateDate(new Date());
+      const now = new Date();
+      const nowStr = this.format(now, 'YYYY-MM-DD HH:mm:ss');
+      
+      // 同时设置开始和结束时间为当前时间
+      this.startDateTime = nowStr;
+      this.endDateTime = nowStr;
+      
+      // 更新显示值
+      this.startShowDate = this.format(now, 'YYYY-MM-DD');
+      this.startShowTime = this.format(now, 'HH:mm:ss');
+      this.endShowDate = this.format(now, 'YYYY-MM-DD');
+      this.endShowTime = this.format(now, 'HH:mm:ss');
     },
     /**
      * @method isOutOfRange(date) 是否超出规定的日期时间范围
@@ -710,12 +818,25 @@ export default {
       this.showTime = undefined;
     },
     onCancel() {
+      // 恢复到之前的状态
+      this.initDualPanelData();
       this.toggle(false);
     },
     onConfirm() {
-      this.toggle(false);
-      this.finalDateTime = this.dateTime;
-      this.emitValue();
+      // 使用isValidValue验证日期时间有效性
+      if (this.isValidValue()) {
+        // 确认时更新最终的开始和结束日期时间
+        if (this.startDateTime) {
+          this.finalStartDateTime = this.startDateTime;
+        }
+        if (this.endDateTime) {
+          this.finalEndDateTime = this.endDateTime;
+        }
+
+        // 关闭弹窗并触发值更新
+        this.toggle(false);
+        this.emitValue();
+      }
     },
     emitValue() {
       const newStartDateTime = this.finalStartDateTime ? this.toValue(new Date(this.finalStartDateTime.replace(/-/g, '/'))) : undefined;
@@ -735,10 +856,11 @@ export default {
       this.$emit('input', newStartDateTime && newEndDateTime ? [newStartDateTime, newEndDateTime] : '');
     },
     onPopperOpen() {
-      if (!this.finalDateTime) return;
-      this.dateTime = this.format(new Date(this.finalDateTime.replace(/-/g, '/')), 'YYYY-MM-DD HH:mm:ss');
-      this.showDate = this.format(this.dateTime, 'YYYY-MM-DD');
-      this.showTime = this.format(this.dateTime, 'HH:mm:ss');
+      // if (!this.finalDateTime) return;
+      // this.dateTime = this.format(new Date(this.finalDateTime.replace(/-/g, '/')), 'YYYY-MM-DD HH:mm:ss');
+      // this.showDate = this.format(this.dateTime, 'YYYY-MM-DD');
+      // this.showTime = this.format(this.dateTime, 'HH:mm:ss');
+      this.initDualPanelData();
     },
     /**
      * 时间输入框输入的时候
@@ -770,6 +892,110 @@ export default {
     checkDate(value) {
       const reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
       return reg.test(value);
+    },
+    
+    /**
+     * 日期输入框变化事件（统一处理开始和结束日期）
+     * @param {string} value - 输入的日期值
+     * @param {string} type - 'start' 或 'end'
+     */
+    onRangeDateChange(value, type) {
+      if (!value) {
+        // 清空对应的日期数据
+        if (type === 'start') {
+          this.startShowDate = undefined;
+          this.startDateTime = undefined;
+          this.finalStartDateTime = undefined;
+        } else {
+          this.endShowDate = undefined;
+          this.endDateTime = undefined;
+          this.finalEndDateTime = undefined;
+        }
+        this.emitValue();
+        return;
+      }
+      
+      // 验证日期格式
+      if (this.checkDate(value)) {
+        const minTimeStr = '00:00:00';
+        const date = new Date(this.transformDate(value + ' ' + minTimeStr));
+        const isOutOfRange = this.isOutOfRange(date);
+        
+        if (!isOutOfRange) {
+          // 更新对应的显示数据
+          if (type === 'start') {
+            this.startShowDate = value;
+            this.outRangeDateTime(this.startShowDate, this.startShowTime || '00:00:00', 'start');
+          } else {
+            this.endShowDate = value;
+            this.outRangeDateTime(this.endShowDate, this.endShowTime || '00:00:00', 'end');
+          }
+        }
+      }
+    },
+    
+    // 新的统一弹窗控制方法
+    togglePopper(open) {
+      const { popper } = this.$refs;
+      if (popper) {
+        if (open) {
+          // 初始化双面板数据
+          this.initDualPanelData();
+        }
+        this.$nextTick(() => {
+          popper.toggle(!this.currentOpened);
+        });
+      }
+    },
+    
+    // 初始化双面板数据
+    initDualPanelData() {
+      const timeFormat = this.minUnit === 'minute' ? 'HH:mm' : 'HH:mm:ss';
+      
+      // 初始化面板数据
+      this.initPanelData('start', this.finalStartDateTime, timeFormat);
+      this.initPanelData('end', this.finalEndDateTime, timeFormat);
+    },
+    
+    // 初始化单个面板数据
+    initPanelData(type, dateTime, timeFormat) {
+      if (dateTime) {
+        this[`${type}ShowDate`] = this.format(dateTime, 'YYYY-MM-DD');
+        this[`${type}ShowTime`] = this.format(dateTime, timeFormat);
+        this[`${type}DateTime`] = dateTime;
+      }
+    },
+    
+    // 处理日历范围选择
+    handleCalendarRangeSelect(event) {
+      const { startDate, endDate } = event;
+      const timeFormat = this.minUnit === 'minute' ? 'HH:mm' : 'HH:mm:ss';
+      
+      if (startDate && endDate) {
+        // 范围选择完成
+        this.updateDateTimeData(startDate, endDate, timeFormat);
+      } else if (startDate) {
+        // 开始选择
+        this.updateDateTimeData(startDate, null, timeFormat);
+      }
+    },
+    // 统一更新日期时间数据
+    updateDateTimeData(startDate, endDate, timeFormat) {
+      // 更新开始时间
+      this.startDateTime = this.format(startDate, 'YYYY-MM-DD HH:mm:ss');
+      this.startShowDate = this.format(startDate, 'YYYY-MM-DD');
+      this.startShowTime = this.format(startDate, timeFormat);
+      
+      // 更新结束时间
+      if (endDate) {
+        this.endDateTime = this.format(endDate, 'YYYY-MM-DD HH:mm:ss');
+        this.endShowDate = this.format(endDate, 'YYYY-MM-DD');
+        this.endShowTime = this.format(endDate, timeFormat);
+      } else {
+        this.endDateTime = null;
+        this.endShowDate = undefined;
+        this.endShowTime = undefined;
+      }
     },
     close() {
       this.$refs.popper && this.$refs.popper.close();
@@ -910,11 +1136,51 @@ export default {
 .btnwrap[direction="horizontal"] > *:not(:last-child){
     margin-right: 10px;
 }
-.popperContent {
+.threeColumnLayout {
   display: flex;
+  width: 100%;
 }
 
 .shortCuts {
   border-right: 1px solid var(--calendar-border-color);
+}
+
+.calendarContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 时间选择区域 */
+.timeSelectionRow {
+  display: flex;
+  border-bottom: 1px solid var(--calendar-border-color);
+}
+
+.timeSection {
+  width: 50%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 10px;
+}
+
+.timeSection:first-child {
+  border-right: 1px solid var(--calendar-border-color);
+}
+
+.timeSectionTitle {
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.timeInputs {
+  display: flex;
+  gap: 6px;
+}
+
+.calendarPanel [class^='u-calendar_range'] {
+  border: unset;
+  border-radius: unset;
 }
 </style>

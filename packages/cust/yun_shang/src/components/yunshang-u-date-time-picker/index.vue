@@ -519,7 +519,7 @@ export default {
       return minDate && date < minDate && minDate || maxDate && date > maxDate && maxDate;
     },
     toggle(value) {
-      this.$refs.popper && this.$refs.popper.toggle(value);
+      this.$refs.popper && this.$refs.popper.toggle(!this.currentOpened);
     },
     format,
     transformDate,
