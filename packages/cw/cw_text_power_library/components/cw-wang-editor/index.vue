@@ -546,6 +546,17 @@ export default {
 .w-e-textarea-video-container {
     max-width: 100%;
 }
+/* 新增：对编辑器内的视频和 iframe 做响应式约束，避免超出容器 */
+.w-e-text-container video,
+.w-e-image-container video,
+.w-e-textarea-video-container video,
+.w-e-text-container iframe {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    object-fit: contain;
+}
+
 .no-accept-disabled {
     cursor: not-allowed;
     pointer-events: none;
