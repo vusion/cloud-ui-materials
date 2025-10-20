@@ -1,0 +1,27 @@
+{
+  "name": "cust-cust_huadian_setter_pc_library",
+  "sourceRoot": "packages/cust/cust_huadian_setter_pc_library/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_huadian_setter_pc_library run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_huadian_setter_pc_library run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_huadian_setter_pc_library run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

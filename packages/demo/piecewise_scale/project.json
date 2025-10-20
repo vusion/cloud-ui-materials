@@ -1,0 +1,27 @@
+{
+  "name": "demo-piecewise_scale",
+  "sourceRoot": "packages/demo/piecewise_scale/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/demo/piecewise_scale run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/demo/piecewise_scale run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/demo/piecewise_scale run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

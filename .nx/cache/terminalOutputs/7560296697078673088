@@ -1,0 +1,56 @@
+> pnpm -C packages/cw/cw_amap_new run build
+
+
+> cw_amap_new@1.0.0 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_amap_new
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1Gtransforming (27) [2msrc/mixins/infowindow.js[22m[2K[1Gtransforming (47) [2msrc/components/cw-amap-new-point-marker-label/mockData.js[22m[2K[1G[32m✓[39m 53 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m   13.32 kB[22m[1m[22m[2m │ gzip:   1.51 kB[22m
+[2mdist-theme/[22m[36mindex.mjs  [39m[1m[33m1,849.77 kB[39m[22m[2m │ gzip: 570.56 kB[22m[2m │ map: 3,581.63 kB[22m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m   13.32 kB[22m[1m[22m[2m │ gzip:   1.51 kB[22m
+[2mdist-theme/[22m[36mindex.js   [39m[1m[33m1,615.47 kB[39m[22m[2m │ gzip: 560.31 kB[22m[2m │ map: 3,316.93 kB[22m
+[32m✓ built in 1.44s[39m
+[32mstart[39m 开始生成 nasl.extension.json...                                                                                   [90m11:26:31[39m
+[32m✔[39m 生成 nasl.extension.json 成功！                                                                                       [90m11:26:31[39m
+[32mstart[39m 开始编译 api.ts                                                                                                   [90m11:26:31[39m
+[36mℹ[39m execute command:  npx tsc -p tsconfig.api.json                                                                        [90m11:26:31[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K[32m✔[39m 编译 api.ts 成功！                                                                                                    [90m11:26:32[39m
+[36mℹ[39m execute command:  npm pack                                                                                            [90m11:26:32[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K[1mnpm[22m [96mnotice[39m
+⠴[1G[0K[1mnpm[22m [96mnotice[39m 📦  cw_amap_new@1.0.0
+⠴[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Contents[39m
+⠴[1G[0K[1mnpm[22m [96mnotice[39m 672B README.md
+[1mnpm[22m [96mnotice[39m 13.3kB dist-theme/index.css
+[1mnpm[22m [96mnotice[39m 1.6MB dist-theme/index.js
+[1mnpm[22m [96mnotice[39m 3.3MB dist-theme/index.js.map
+[1mnpm[22m [96mnotice[39m 1.9MB dist-theme/index.mjs
+[1mnpm[22m [96mnotice[39m 3.6MB dist-theme/index.mjs.map
+[1mnpm[22m [96mnotice[39m 1.9kB package.json
+⠴[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Details[39m
+⠴[1G[0K[1mnpm[22m [96mnotice[39m name: cw_amap_new
+⠴[1G[0K[1mnpm[22m [96mnotice[39m version: 1.0.0
+⠴[1G[0K[1mnpm[22m [96mnotice[39m filename: cw_amap_new-1.0.0.tgz
+⠴[1G[0K[1mnpm[22m [96mnotice[39m package size: 2.4 MB
+⠴[1G[0K[1mnpm[22m [96mnotice[39m unpacked size: 10.4 MB
+⠴[1G[0K[1mnpm[22m [96mnotice[39m shasum: a3bc34d8951e8624a33e2728f3ebdb26d97ecf3f
+⠴[1G[0K[1mnpm[22m [96mnotice[39m integrity: sha512-wd1fIa4xeW1yb[...]pMD1CX6xvCWPA==
+⠴[1G[0K[1mnpm[22m [96mnotice[39m total files: 7
+⠴[1G[0K[1mnpm[22m [96mnotice[39m
+⠴[1G[0Kcw_amap_new-1.0.0.tgz
+⠴[1G[0K

@@ -1,0 +1,50 @@
+> pnpm -C packages/cw/popo_sdk run build
+
+
+> popo_sdk@1.0.0 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/popo_sdk
+> npm run build:theme
+
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+
+> popo_sdk@1.0.0 build:theme
+> vue-cli-service library-build --dest dist-theme
+
+
+[?25l[36m⠋[39m  Building for production...Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+(node:25082) V8: /Users/shang/Desktop/material/cloud-ui-materials/node_modules/ttf2woff2/jssrc/ttf2woff2.js:3 Invalid asm.js: Invalid member of stdlib
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2K[1G[36m⠙[39m  Building for production...[2K[1G[36m⠹[39m  Building for production...[2K[1G[36m⠸[39m  Building for production...[2K[1G[36m⠼[39m  Building for production...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[41m[30m ERROR [39m[49m [31mFailed to compile with 9 errors[39m                                                                                   [90m11:28:59[39m
+
+This dependency was not found:
+
+* @popo-bridge/web in ./logics/chooseContactsAndSendMessage/index.js, ./logics/chooseContactsAndSendUrl/index.js and 7 others
+
+To install it, you can run: npm install --save @popo-bridge/web
+[2K[1G[?25h[41m ERROR [49m [31mBuild failed with errors.[39m
+[?25h⠙[1G[0K[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
+[43m[30m WARN [39m[49m  Local package.json exists, but node_modules missing, did you mean to install?

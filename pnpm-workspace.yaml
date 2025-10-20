@@ -1,0 +1,6 @@
+packages:
+  - "packages/*/*"
+  - '!packages/cw/cw_oa_sdk'
+  - '!packages/cw/cw_open_popo'
+  - '!packages/cw/popo_sdk'
+  - '!packages/lcap/lcap_popo_location'

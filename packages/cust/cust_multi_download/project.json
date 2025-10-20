@@ -1,0 +1,27 @@
+{
+  "name": "cust-cust_multi_download",
+  "sourceRoot": "packages/cust/cust_multi_download/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_multi_download run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_multi_download run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_multi_download run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

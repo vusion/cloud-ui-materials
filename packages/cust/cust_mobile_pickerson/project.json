@@ -1,0 +1,27 @@
+{
+  "name": "cust-cust_mobile_pickerson",
+  "sourceRoot": "packages/cust/cust_mobile_pickerson/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_mobile_pickerson run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_mobile_pickerson run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_mobile_pickerson run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

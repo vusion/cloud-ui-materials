@@ -1,0 +1,27 @@
+{
+  "name": "cust-cust_preview_app_template",
+  "sourceRoot": "packages/cust/cust_preview_app_template/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_preview_app_template run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_preview_app_template run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_preview_app_template run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

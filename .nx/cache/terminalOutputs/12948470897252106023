@@ -1,0 +1,107 @@
+> pnpm -C packages/cw/cw_uni_sdk run build
+
+
+> cw_uni_sdk@1.0.0 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_uni_sdk
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22mDeprecation [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+[33m[1mDeprecation Warning[0m [[34mglobal-builtin[0m]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+[34m    ╷[0m
+[34m168 │[0m     background-color: [31mdarken($yellow, 10)[0m;
+[34m    │[0m [31m                      ^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    file:///Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_uni_sdk/src/components/uni-sdk-login/party.scss 168:23  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mcolor-functions[0m]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -16.3461538462%)
+color.adjust($color, $lightness: -10%)
+
+More info: https://sass-lang.com/d/color-functions
+
+[34m    ╷[0m
+[34m168 │[0m     background-color: [31mdarken($yellow, 10)[0m;
+[34m    │[0m [31m                      ^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    file:///Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_uni_sdk/src/components/uni-sdk-login/party.scss 168:23  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mglobal-builtin[0m]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+[34m    ╷[0m
+[34m248 │[0m         background-color: [31mdarken($yellow, 10)[0m !important;
+[34m    │[0m [31m                          ^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    file:///Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_uni_sdk/src/components/uni-sdk-login/party.scss 248:27  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mcolor-functions[0m]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -16.3461538462%)
+color.adjust($color, $lightness: -10%)
+
+More info: https://sass-lang.com/d/color-functions
+
+[34m    ╷[0m
+[34m248 │[0m         background-color: [31mdarken($yellow, 10)[0m !important;
+[34m    │[0m [31m                          ^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    file:///Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_uni_sdk/src/components/uni-sdk-login/party.scss 248:27  root stylesheet
+
+[2K[1Gtransforming (11) [2msrc/components/uni-sdk-login/party.scss[22m[2K[1G[32m✓[39m 11 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m3.59 kB[22m[1m[22m[2m │ gzip: 1.08 kB[22m
+[2mdist-theme/[22m[36mindex.mjs  [39m[1m[2m5.79 kB[22m[1m[22m[2m │ gzip: 2.52 kB[22m[2m │ map: 10.38 kB[22m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m3.59 kB[22m[1m[22m[2m │ gzip: 1.08 kB[22m
+[2mdist-theme/[22m[36mindex.js   [39m[1m[2m4.53 kB[22m[1m[22m[2m │ gzip: 2.34 kB[22m[2m │ map: 9.75 kB[22m
+[32m✓ built in 565ms[39m
+[32mstart[39m 开始生成 nasl.extension.json...                                                                                   [90m11:26:26[39m
+[32m✔[39m 生成 nasl.extension.json 成功！                                                                                       [90m11:26:26[39m
+[32mstart[39m 开始编译 api.ts                                                                                                   [90m11:26:26[39m
+[36mℹ[39m execute command:  npx tsc -p tsconfig.api.json                                                                        [90m11:26:26[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K[32m✔[39m 编译 api.ts 成功！                                                                                                    [90m11:26:27[39m
+[36mℹ[39m execute command:  npm pack                                                                                            [90m11:26:27[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K[1mnpm[22m [96mnotice[39m
+⠴[1G[0K[1mnpm[22m [96mnotice[39m 📦  cw_uni_sdk@1.0.0
+⠴[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Contents[39m
+⠴[1G[0K[1mnpm[22m [96mnotice[39m 672B README.md
+[1mnpm[22m [96mnotice[39m 3.6kB dist-theme/index.css
+[1mnpm[22m [96mnotice[39m 4.7kB dist-theme/index.js
+[1mnpm[22m [96mnotice[39m 10.0kB dist-theme/index.js.map
+[1mnpm[22m [96mnotice[39m 6.0kB dist-theme/index.mjs
+[1mnpm[22m [96mnotice[39m 10.6kB dist-theme/index.mjs.map
+[1mnpm[22m [96mnotice[39m 1.9kB package.json
+⠴[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Details[39m
+⠴[1G[0K[1mnpm[22m [96mnotice[39m name: cw_uni_sdk
+⠴[1G[0K[1mnpm[22m [96mnotice[39m version: 1.0.0
+⠴[1G[0K[1mnpm[22m [96mnotice[39m filename: cw_uni_sdk-1.0.0.tgz
+⠴[1G[0K[1mnpm[22m [96mnotice[39m package size: 10.2 kB
+⠴[1G[0K[1mnpm[22m [96mnotice[39m unpacked size: 37.5 kB
+⠴[1G[0K[1mnpm[22m [96mnotice[39m shasum: 534eae642ae76c836ca260e4cec6ef792206a7b8
+⠴[1G[0K[1mnpm[22m [96mnotice[39m integrity: sha512-8bgOujoYU679n[...]raOL0b/AlwGZA==
+⠴[1G[0K[1mnpm[22m [96mnotice[39m total files: 7
+⠴[1G[0K[1mnpm[22m [96mnotice[39m
+⠴[1G[0Kcw_uni_sdk-1.0.0.tgz
+⠴[1G[0K

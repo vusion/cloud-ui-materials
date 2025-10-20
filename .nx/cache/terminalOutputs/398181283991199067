@@ -1,0 +1,9 @@
+> pnpm -C packages/cw/cw_open_popo run build
+
+
+> cw_open_popo@1.0.2 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_open_popo
+> vite build
+
+sh: vite: command not found
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed.[39m
+[43m[30m WARN [39m[49m  Local package.json exists, but node_modules missing, did you mean to install?

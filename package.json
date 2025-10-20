@@ -1,20 +1,25 @@
 {
-	"name": "cloud-ui-materials",
-	"private": "true",
-	"scripts": {
-		"changelog": "node scripts/changelog.js",
-		"changelog:ci": "node scripts/changelog.js from-ci",
-		"changelog:comment": "node scripts/changelog.js from-comment"
-	},
-	"dependencies": {
-		"dom-to-image": "^2.6.0",
-		"install": "^0.13.0",
-		"lodash.mergewith": "^4.6.2",
-		"node-fetch": "2",
-		"npm": "^11.0.0",
-		"vue-tour": "^2.0.0"
-	},
-	"devDependencies": {
-		"husky": "^9.0.11"
-	}
+  "name": "cloud-ui-materials",
+  "private": "true",
+  "scripts": {
+    "changelog": "node scripts/changelog.js",
+    "changelog:ci": "node scripts/changelog.js from-ci",
+    "changelog:comment": "node scripts/changelog.js from-comment",
+    "tag:sync": "node scripts/tag-stacks.mjs",
+    "build:changed": "bash scripts/build-changed.sh",
+    "build:changed:vue2": "bash scripts/build-changed.sh vue2",
+    "build:changed:vue3": "bash scripts/build-changed.sh vue3",
+    "build:changed:react": "bash scripts/build-changed.sh react"
+  },
+  "dependencies": {
+    "dom-to-image": "^2.6.0",
+    "install": "^0.13.0",
+    "lodash.mergewith": "^4.6.2",
+    "node-fetch": "2",
+    "npm": "^11.0.0",
+    "vue-tour": "^2.0.0"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11"
+  }
 }

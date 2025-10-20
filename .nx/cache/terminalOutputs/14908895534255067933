@@ -1,0 +1,56 @@
+> pnpm -C packages/ai/cw_multimode_chat_vue2 run build
+
+
+> cw_multimode_chat_vue2@1.1.1 build /Users/shang/Desktop/material/cloud-ui-materials/packages/ai/cw_multimode_chat_vue2
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1Gtransforming (18) [2m../../../node_modules/.pnpm/ant-design-vue@1.7.8_vue-template-compiler@2.6.12_vue@2.6.12/node_modules/ant-d[2K[1Gtransforming (70) [2m../../../node_modules/.pnpm/echarts@5.6.0/node_modules/echarts/renderers.js[22m[2K[1Gtransforming (86) [2m../../../node_modules/.pnpm/@ant-design+icons-vue@2.0.0_@ant-design+icons@2.1.1_vue-template-compiler@2.6.1[2K[1Gtransforming (120) [2m../../../node_modules/.pnpm/@ant-design+icons-vue@2.0.0_@ant-design+icons@2.1.1_vue-template-compiler@2.6.[2K[1Gtransforming (230) [2msrc/components/cw-attachment/assets/upload.svg[22m[2K[1Gtransforming (426) [2m../../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArray.js[22m[2K[1Gtransforming (572) [2m../../../node_modules/.pnpm/core-js@2.6.12/node_modules/core-js/library/modules/_object-gops.js[22m[2K[1Gtransforming (710) [2m../../../node_modules/.pnpm/ant-design-vue@1.7.8_vue-template-compiler@2.6.12_vue@2.6.12/node_modules/ant-[2K[1Gtransforming (1090) [2m../../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Hash.js[22m[2K[1Gtransforming (1361) [2m../../../node_modules/.pnpm/echarts@5.6.0/node_modules/echarts/lib/coord/geo/geoSourceManager.js[22m[2K[1Gtransforming (1413) [2m../../../node_modules/.pnpm/ant-design-vue@1.7.8_vue-template-compiler@2.6.12_vue@2.6.12/node_modules/ant[2K[1Gtransforming (1615) [2m../../../node_modules/.pnpm/echarts@5.6.0/node_modules/echarts/lib/model/OptionManager.js[22m[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[32m✓[39m 1638 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m  125.71 kB[22m[1m[22m[2m │ gzip:    14.58 kB[22m
+[2mdist-theme/[22m[36mindex.mjs  [39m[1m[33m3,383.45 kB[39m[22m[2m │ gzip: 1,666.14 kB[22m[2m │ map: 7,422.47 kB[22m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m  125.71 kB[22m[1m[22m[2m │ gzip:    14.58 kB[22m
+[2mdist-theme/[22m[36mindex.js   [39m[1m[33m2,946.48 kB[39m[22m[2m │ gzip: 1,610.72 kB[22m[2m │ map: 7,309.77 kB[22m
+[32m✓ built in 4.59s[39m
+[32mstart[39m 开始生成 nasl.extension.json...                                                                                   [90m11:27:32[39m
+[32m✔[39m 生成 nasl.extension.json 成功！                                                                                       [90m11:27:32[39m
+[32mstart[39m 开始编译 api.ts                                                                                                   [90m11:27:32[39m
+[36mℹ[39m execute command:  npx tsc -p tsconfig.api.json                                                                        [90m11:27:32[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠙[1G[0K[32m✔[39m 编译 api.ts 成功！                                                                                                    [90m11:27:34[39m
+[36mℹ[39m execute command:  npm pack                                                                                            [90m11:27:34[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K[1mnpm[22m [96mnotice[39m
+⠸[1G[0K[1mnpm[22m [96mnotice[39m 📦  cw_multimode_chat_vue2@1.1.1
+⠸[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Contents[39m
+⠸[1G[0K[1mnpm[22m [96mnotice[39m 672B README.md
+[1mnpm[22m [96mnotice[39m 125.7kB dist-theme/index.css
+[1mnpm[22m [96mnotice[39m 3.0MB dist-theme/index.js
+[1mnpm[22m [96mnotice[39m 7.3MB dist-theme/index.js.map
+[1mnpm[22m [96mnotice[39m 3.4MB dist-theme/index.mjs
+[1mnpm[22m [96mnotice[39m 7.4MB dist-theme/index.mjs.map
+[1mnpm[22m [96mnotice[39m 2.0kB package.json
+⠸[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Details[39m
+⠸[1G[0K[1mnpm[22m [96mnotice[39m name: cw_multimode_chat_vue2
+⠸[1G[0K[1mnpm[22m [96mnotice[39m version: 1.1.1
+⠸[1G[0K[1mnpm[22m [96mnotice[39m filename: cw_multimode_chat_vue2-1.1.1.tgz
+⠸[1G[0K[1mnpm[22m [96mnotice[39m package size: 8.3 MB
+⠸[1G[0K[1mnpm[22m [96mnotice[39m unpacked size: 21.2 MB
+⠸[1G[0K[1mnpm[22m [96mnotice[39m shasum: fe91239cbaf5d9d8c26fb221c2ee5281609a9129
+⠸[1G[0K[1mnpm[22m [96mnotice[39m integrity: sha512-CWjKwYI7+pYYY[...]+dXtCxnMysc/g==
+⠸[1G[0K[1mnpm[22m [96mnotice[39m total files: 7
+⠸[1G[0K[1mnpm[22m [96mnotice[39m
+⠸[1G[0Kcw_multimode_chat_vue2-1.1.1.tgz
+⠸[1G[0K

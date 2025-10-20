@@ -1,0 +1,62 @@
+> pnpm -C packages/lcap/lcap_process_components_vue_pc run build
+
+
+> lcap_process_components_vue_pc@1.0.3 build /Users/shang/Desktop/material/cloud-ui-materials/packages/lcap/lcap_process_components_vue_pc
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1Gtransforming (39) [2msrc/components/fl-process-graph/components/custom/flow-branch-group.js[22m[2K[1Gtransforming (65) [2msrc/components/fl-process-graph/components/nodes/start.vue[22m[2K[1Gtransforming (175) [2m../../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_flatRest.js[22m[2K[1G[32m✓[39m 275 modules transformed.
+[2K[1G../../../node_modules/.pnpm/@joskii+jflow-core@0.1.35/node_modules/@joskii/jflow-core/dist/jflow.bundle.js (1:352): Use of eval in "../../../node_modules/.pnpm/@joskii+jflow-core@0.1.35/node_modules/@joskii/jflow-core/dist/jflow.bundle.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m    5.86 kB[22m[1m[22m[2m │ gzip:   1.43 kB[22m
+[2mdist-theme/[22m[36mindex.mjs  [39m[1m[33m1,840.90 kB[39m[22m[2m │ gzip: 407.95 kB[22m[2m │ map: 2,189.42 kB[22m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m    5.86 kB[22m[1m[22m[2m │ gzip:   1.43 kB[22m
+[2mdist-theme/[22m[36mindex.js   [39m[1m[33m1,809.98 kB[39m[22m[2m │ gzip: 403.73 kB[22m[2m │ map: 2,179.26 kB[22m
+[32m✓ built in 947ms[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2mide/index.ts[22m[2K[1G[32m✓[39m 21 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1G[2mdist-theme/ide/[22m[36mindex.js  [39m[1m[2m119.82 kB[22m[1m[22m[2m │ gzip: 18.51 kB[22m
+[32m✓ built in 48ms[39m
+[32mstart[39m 开始生成 nasl.extension.json...                                                                                   [90m11:27:18[39m
+[32m✔[39m 生成 nasl.extension.json 成功！                                                                                       [90m11:27:18[39m
+[32mstart[39m 开始编译 api.ts                                                                                                   [90m11:27:18[39m
+[36mℹ[39m execute command:  npx tsc -p tsconfig.api.json                                                                        [90m11:27:18[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K[32m✔[39m 编译 api.ts 成功！                                                                                                    [90m11:27:20[39m
+[36mℹ[39m execute command:  npm pack                                                                                            [90m11:27:20[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K[1mnpm[22m [96mnotice[39m
+⠙[1G[0K[1mnpm[22m [96mnotice[39m 📦  lcap_process_components_vue_pc@1.0.3
+⠙[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Contents[39m
+⠙[1G[0K[1mnpm[22m [96mnotice[39m 672B README.md
+[1mnpm[22m [96mnotice[39m 121.9kB dist-theme/ide/index.js
+[1mnpm[22m [96mnotice[39m 5.9kB dist-theme/index.css
+[1mnpm[22m [96mnotice[39m 1.8MB dist-theme/index.js
+[1mnpm[22m [96mnotice[39m 2.2MB dist-theme/index.js.map
+[1mnpm[22m [96mnotice[39m 1.8MB dist-theme/index.mjs
+[1mnpm[22m [96mnotice[39m 2.2MB dist-theme/index.mjs.map
+[1mnpm[22m [96mnotice[39m 2.0kB package.json
+⠙[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Details[39m
+⠙[1G[0K[1mnpm[22m [96mnotice[39m name: lcap_process_components_vue_pc
+⠙[1G[0K[1mnpm[22m [96mnotice[39m version: 1.0.3
+⠙[1G[0K[1mnpm[22m [96mnotice[39m filename: lcap_process_components_vue_pc-1.0.3.tgz
+⠙[1G[0K[1mnpm[22m [96mnotice[39m package size: 1.7 MB
+⠙[1G[0K[1mnpm[22m [96mnotice[39m unpacked size: 8.2 MB
+⠙[1G[0K[1mnpm[22m [96mnotice[39m shasum: c647b8fda13d658577177a47b80c00df052d954c
+⠙[1G[0K[1mnpm[22m [96mnotice[39m integrity: sha512-2RoWBYqtFDS5d[...]Iz7amshr10rLA==
+⠙[1G[0K[1mnpm[22m [96mnotice[39m total files: 8
+⠙[1G[0K[1mnpm[22m [96mnotice[39m
+⠙[1G[0Klcap_process_components_vue_pc-1.0.3.tgz
+⠙[1G[0K

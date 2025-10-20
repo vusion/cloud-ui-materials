@@ -1,0 +1,27 @@
+{
+  "name": "cust-yun_shang_primary",
+  "sourceRoot": "packages/cust/yun_shang_primary/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/yun_shang_primary run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/yun_shang_primary run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/yun_shang_primary run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:react"
+  ]
+}

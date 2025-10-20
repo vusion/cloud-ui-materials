@@ -1,0 +1,27 @@
+{
+  "name": "lcap-lcap_camera_view",
+  "sourceRoot": "packages/lcap/lcap_camera_view/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_camera_view run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_camera_view run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_camera_view run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

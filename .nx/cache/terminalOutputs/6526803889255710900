@@ -1,0 +1,55 @@
+> pnpm -C packages/cw/cw_ex_h_5_steps run build
+
+
+> cw_ex_h_5_steps@1.0.2 prebuild /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_ex_h_5_steps
+> npm run lcap:install
+
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+
+> cw_ex_h_5_steps@1.0.2 lcap:install
+> lcap install --once
+
+Usage: [36mlcap <command> [options][39m
+
+Options:
+  -V, --version                  output the version number
+  -h, --help                     output usage information
+
+Commands:
+  [33minit[39m <type> <name>             Initialize a kind of material: [33mcomponent[39m ...}
+  [33mconfig[39m <action> <key> [value]  Configure CLI options
+  [33mpublish[39m <version>              Publish a new version
+  [33mdeploy[39m                         Push files to NOS static bucket
+  [33mreadme[39m                         Generate final readable README.md from api.yaml and docs
+  [33musage[39m                          Generate usage.json
+  [33mvetur[39m                          Generate tags.json and attributes.json for Vetur
+  [33mcreate[39m                         Generate Component and Logic
+  [33mhelp[39m [cmd]                     display help for [cmd]
+
+  Run [36mlcap <command> --help[39m for detailed usage of given command.
+
+
+  [31mUnknown command [33minstall[31m.[39m
+⠙[1G[0K
+> cw_ex_h_5_steps@1.0.2 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_ex_h_5_steps
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1G[32m✓[39m 7 modules transformed.
+[2K[1G[31mx[39m Build failed in 153ms
+[31merror during build:
+[31m[vite:load-fallback] Could not load /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_ex_h_5_steps/.lcap/lcap-ui/package/src/utils (imported by src/components/ex-van-steps/item.jsx): ENOENT: no such file or directory, open '/Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_ex_h_5_steps/.lcap/lcap-ui/package/src/utils'[31m
+    at async open (node:internal/fs/promises:639:25)
+    at async Object.readFile (node:internal/fs/promises:1246:14)
+    at async Object.load (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/vite@5.4.20_sass-embedded@1.93.2_sass@1.93.2/node_modules/vite/dist/node/chunks/dep-D_zLpgQd.js:65356:25)
+    at async PluginDriver.hookFirstAndGetPlugin (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/rollup@4.52.5/node_modules/rollup/dist/es/shared/node-entry.js:22308:28)
+    at async file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/rollup@4.52.5/node_modules/rollup/dist/es/shared/node-entry.js:21308:33
+    at async Queue.work (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/rollup@4.52.5/node_modules/rollup/dist/es/shared/node-entry.js:22536:32)[39m
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m

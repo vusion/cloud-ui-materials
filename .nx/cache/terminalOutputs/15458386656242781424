@@ -1,0 +1,59 @@
+> pnpm -C packages/cw/cw_cascader_lib run build
+
+
+> cw_cascader_lib@1.0.1 prebuild /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_cascader_lib
+> npm run lcap:install
+
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+
+> cw_cascader_lib@1.0.1 lcap:install
+> lcap install --once
+
+Usage: [36mlcap <command> [options][39m
+
+Options:
+  -V, --version                  output the version number
+  -h, --help                     output usage information
+
+Commands:
+  [33minit[39m <type> <name>             Initialize a kind of material: [33mcomponent[39m ...}
+  [33mconfig[39m <action> <key> [value]  Configure CLI options
+  [33mpublish[39m <version>              Publish a new version
+  [33mdeploy[39m                         Push files to NOS static bucket
+  [33mreadme[39m                         Generate final readable README.md from api.yaml and docs
+  [33musage[39m                          Generate usage.json
+  [33mvetur[39m                          Generate tags.json and attributes.json for Vetur
+  [33mcreate[39m                         Generate Component and Logic
+  [33mhelp[39m [cmd]                     display help for [cmd]
+
+  Run [36mlcap <command> --help[39m for detailed usage of given command.
+
+
+  [31mUnknown command [33minstall[31m.[39m
+⠙[1G[0K
+> cw_cascader_lib@1.0.1 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_cascader_lib
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1G[2K[1G[32m✓[39m 5 modules transformed.
+[2K[1G[31mx[39m Build failed in 75ms
+[31merror during build:
+[31m[vite]: Rollup failed to resolve import "virtual-lcap:lcap-ui" from "/Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_cascader_lib/src/components/cw-el-cascader-pro/index.ts".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`[31m
+    at viteWarn (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/vite@5.4.20_sass-embedded@1.93.2_sass@1.93.2/node_modules/vite/dist/node/chunks/dep-D_zLpgQd.js:65854:17)
+    at onRollupWarning (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/vite@5.4.20_sass-embedded@1.93.2_sass@1.93.2/node_modules/vite/dist/node/chunks/dep-D_zLpgQd.js:65886:5)
+    at onwarn (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/vite@5.4.20_sass-embedded@1.93.2_sass@1.93.2/node_modules/vite/dist/node/chunks/dep-D_zLpgQd.js:65549:7)
+    at file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/rollup@4.52.5/node_modules/rollup/dist/es/shared/node-entry.js:20951:13
+    at Object.logger [as onLog] (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/rollup@4.52.5/node_modules/rollup/dist/es/shared/node-entry.js:22823:9)
+    at ModuleLoader.handleInvalidResolvedId (file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/rollup@4.52.5/node_modules/rollup/dist/es/shared/node-entry.js:21567:26)
+    at file:///Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/rollup@4.52.5/node_modules/rollup/dist/es/shared/node-entry.js:21525:26[39m
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m

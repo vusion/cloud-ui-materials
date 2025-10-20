@@ -1,0 +1,61 @@
+> pnpm -C packages/lcap/lcap_process_components_vue_h5 run build
+
+
+> lcap_process_components_vue_h5@1.0.3 build /Users/shang/Desktop/material/cloud-ui-materials/packages/lcap/lcap_process_components_vue_h5
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1G[32m✓[39m 25 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m0.16 kB[22m[1m[22m[2m │ gzip: 0.13 kB[22m
+[2mdist-theme/[22m[36mindex.mjs  [39m[1m[2m4.17 kB[22m[1m[22m[2m │ gzip: 1.35 kB[22m[2m │ map: 4.89 kB[22m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m0.16 kB[22m[1m[22m[2m │ gzip: 0.13 kB[22m
+[2mdist-theme/[22m[36mindex.js   [39m[1m[2m3.25 kB[22m[1m[22m[2m │ gzip: 1.24 kB[22m[2m │ map: 4.61 kB[22m
+[32m✓ built in 201ms[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2mide/index.ts[22m[2K[1G[32m✓[39m 18 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1G[2mdist-theme/ide/[22m[36mindex.js  [39m[1m[2m172.21 kB[22m[1m[22m[2m │ gzip: 17.50 kB[22m
+[32m✓ built in 72ms[39m
+[32mstart[39m 开始生成 nasl.extension.json...                                                                                   [90m11:27:10[39m
+[32m✔[39m 生成 nasl.extension.json 成功！                                                                                       [90m11:27:10[39m
+[32mstart[39m 开始编译 api.ts                                                                                                   [90m11:27:10[39m
+[36mℹ[39m execute command:  npx tsc -p tsconfig.api.json                                                                        [90m11:27:10[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K[32m✔[39m 编译 api.ts 成功！                                                                                                    [90m11:27:11[39m
+[36mℹ[39m execute command:  npm pack                                                                                            [90m11:27:11[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K[1mnpm[22m [96mnotice[39m
+⠹[1G[0K[1mnpm[22m [96mnotice[39m 📦  lcap_process_components_vue_h5@1.0.3
+⠹[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Contents[39m
+⠹[1G[0K[1mnpm[22m [96mnotice[39m 672B README.md
+[1mnpm[22m [96mnotice[39m 174.7kB dist-theme/ide/index.js
+[1mnpm[22m [96mnotice[39m 162B dist-theme/index.css
+[1mnpm[22m [96mnotice[39m 3.3kB dist-theme/index.js
+[1mnpm[22m [96mnotice[39m 4.6kB dist-theme/index.js.map
+[1mnpm[22m [96mnotice[39m 4.2kB dist-theme/index.mjs
+[1mnpm[22m [96mnotice[39m 4.9kB dist-theme/index.mjs.map
+[1mnpm[22m [96mnotice[39m 1.8kB package.json
+⠹[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Details[39m
+⠹[1G[0K[1mnpm[22m [96mnotice[39m name: lcap_process_components_vue_h5
+⠹[1G[0K[1mnpm[22m [96mnotice[39m version: 1.0.3
+⠹[1G[0K[1mnpm[22m [96mnotice[39m filename: lcap_process_components_vue_h5-1.0.3.tgz
+⠹[1G[0K[1mnpm[22m [96mnotice[39m package size: 22.2 kB
+⠹[1G[0K[1mnpm[22m [96mnotice[39m unpacked size: 194.2 kB
+⠹[1G[0K[1mnpm[22m [96mnotice[39m shasum: 2ddeab24c437ff59d743f3205afe6c532e7a0dd2
+⠹[1G[0K[1mnpm[22m [96mnotice[39m integrity: sha512-eH51B+iEWNJhc[...]IsmJElEG+WNNg==
+⠹[1G[0K[1mnpm[22m [96mnotice[39m total files: 8
+⠹[1G[0K[1mnpm[22m [96mnotice[39m
+⠹[1G[0Klcap_process_components_vue_h5-1.0.3.tgz
+⠹[1G[0K

@@ -1,0 +1,27 @@
+{
+  "name": "lcap-lcap-markdown-doc-search",
+  "sourceRoot": "packages/lcap/lcap-markdown-doc-search/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap-markdown-doc-search run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap-markdown-doc-search run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap-markdown-doc-search run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

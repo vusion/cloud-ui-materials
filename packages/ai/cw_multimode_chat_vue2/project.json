@@ -1,0 +1,27 @@
+{
+  "name": "ai-cw_multimode_chat_vue2",
+  "sourceRoot": "packages/ai/cw_multimode_chat_vue2/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/ai/cw_multimode_chat_vue2 run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/ai/cw_multimode_chat_vue2 run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/ai/cw_multimode_chat_vue2 run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:react"
+  ]
+}

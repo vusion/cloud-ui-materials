@@ -1,0 +1,56 @@
+> pnpm -C packages/cw/cw_three_dimensional_model_library run build
+
+
+> cw_three_dimensional_model_library@1.0.0 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_three_dimensional_model_library
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1G[32m✓[39m 9 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m0.68 kB[22m[1m[22m[2m │ gzip: 0.24 kB[22m
+[2mdist-theme/[22m[36mindex.mjs  [39m[1m[2m2.92 kB[22m[1m[22m[2m │ gzip: 1.36 kB[22m[2m │ map: 4.41 kB[22m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m0.68 kB[22m[1m[22m[2m │ gzip: 0.24 kB[22m
+[2mdist-theme/[22m[36mindex.js   [39m[1m[2m2.36 kB[22m[1m[22m[2m │ gzip: 1.25 kB[22m[2m │ map: 4.10 kB[22m
+[32m✓ built in 184ms[39m
+[32mstart[39m 开始生成 nasl.extension.json...                                                                                   [90m11:27:13[39m
+[32m✔[39m 生成 nasl.extension.json 成功！                                                                                       [90m11:27:13[39m
+[32mstart[39m 开始编译 api.ts                                                                                                   [90m11:27:13[39m
+[36mℹ[39m execute command:  npx tsc -p tsconfig.api.json                                                                        [90m11:27:13[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K[32m✔[39m 编译 api.ts 成功！                                                                                                    [90m11:27:14[39m
+[36mℹ[39m execute command:  npm pack                                                                                            [90m11:27:14[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K[1mnpm[22m [96mnotice[39m
+⠇[1G[0K[1mnpm[22m [96mnotice[39m 📦  cw_three_dimensional_model_library@1.0.0
+⠇[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Contents[39m
+⠇[1G[0K[1mnpm[22m [96mnotice[39m 672B README.md
+[1mnpm[22m [96mnotice[39m 682B dist-theme/index.css
+[1mnpm[22m [96mnotice[39m 2.4kB dist-theme/index.js
+[1mnpm[22m [96mnotice[39m 4.2kB dist-theme/index.js.map
+[1mnpm[22m [96mnotice[39m 2.9kB dist-theme/index.mjs
+[1mnpm[22m [96mnotice[39m 4.5kB dist-theme/index.mjs.map
+[1mnpm[22m [96mnotice[39m 1.6kB package.json
+⠇[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Details[39m
+⠇[1G[0K[1mnpm[22m [96mnotice[39m name: cw_three_dimensional_model_library
+⠇[1G[0K[1mnpm[22m [96mnotice[39m version: 1.0.0
+⠇[1G[0K[1mnpm[22m [96mnotice[39m filename: cw_three_dimensional_model_library-1.0.0.tgz
+⠇[1G[0K[1mnpm[22m [96mnotice[39m package size: 5.4 kB
+⠇[1G[0K[1mnpm[22m [96mnotice[39m unpacked size: 16.9 kB
+⠇[1G[0K[1mnpm[22m [96mnotice[39m shasum: 15176ba437585bb4432054db4c369845b0e00a2d
+⠇[1G[0K[1mnpm[22m [96mnotice[39m integrity: sha512-u1wBgmPnSEL1Q[...]TsyjPkMEXi6qw==
+⠇[1G[0K[1mnpm[22m [96mnotice[39m total files: 7
+⠇[1G[0K[1mnpm[22m [96mnotice[39m
+⠇[1G[0Kcw_three_dimensional_model_library-1.0.0.tgz
+⠇[1G[0K

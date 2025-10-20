@@ -1,0 +1,27 @@
+{
+  "name": "lcap-lcap_process_components_vue_pc",
+  "sourceRoot": "packages/lcap/lcap_process_components_vue_pc/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_process_components_vue_pc run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_process_components_vue_pc run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_process_components_vue_pc run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

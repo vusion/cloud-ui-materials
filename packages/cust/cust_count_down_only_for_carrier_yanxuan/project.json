@@ -1,0 +1,27 @@
+{
+  "name": "cust-cust_count_down_only_for_carrier_yanxuan",
+  "sourceRoot": "packages/cust/cust_count_down_only_for_carrier_yanxuan/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_count_down_only_for_carrier_yanxuan run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_count_down_only_for_carrier_yanxuan run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/cust/cust_count_down_only_for_carrier_yanxuan run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

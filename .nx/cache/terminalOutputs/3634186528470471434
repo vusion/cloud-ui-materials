@@ -1,0 +1,56 @@
+> pnpm -C packages/cust/yun_shang_primary run build
+
+
+> yun_shang_primary@1.1.5 build /Users/shang/Desktop/material/cloud-ui-materials/packages/cust/yun_shang_primary
+> vite build
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[36mvite v5.4.20 [32mbuilding for production...[36m[39m
+[2K[1Gtransforming (1) [2msrc/index.ts[22m[2K[1Gtransforming (13) [2m../../../node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/axios.js[22m[2K[1Gtransforming (71) [2m../../../node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/core/settle.js[22m[2K[1Gtransforming (121) [2m../../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_freeGlobal.js[22m[2K[1Gtransforming (318) [2m../../../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalObjects.js[22m[2K[1G[2K[1G[2K[1G[2K[1G[2K[1G[32m✓[39m 925 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (0)...[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m 13.39 kB[22m[1m[22m[2m │ gzip:   2.28 kB[22m
+[2mdist-theme/[22m[36mindex.mjs  [39m[1m[33m860.56 kB[39m[22m[2m │ gzip: 252.88 kB[22m[2m │ map: 1,757.59 kB[22m
+[2K[1Grendering chunks (1)...[2K[1G[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1G[2mdist-theme/[22m[35mindex.css  [39m[1m[2m 13.39 kB[22m[1m[22m[2m │ gzip:   2.28 kB[22m
+[2mdist-theme/[22m[36mindex.js   [39m[1m[33m743.88 kB[39m[22m[2m │ gzip: 238.35 kB[22m[2m │ map: 1,721.80 kB[22m
+[32m✓ built in 1.61s[39m
+[32mstart[39m 开始生成 nasl.extension.json...                                                                                   [90m11:27:34[39m
+[32m✔[39m 生成 nasl.extension.json 成功！                                                                                       [90m11:27:34[39m
+[32mstart[39m 开始编译 api.ts                                                                                                   [90m11:27:34[39m
+[36mℹ[39m execute command:  npx tsc -p tsconfig.api.json                                                                        [90m11:27:34[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K[32m✔[39m 编译 api.ts 成功！                                                                                                    [90m11:27:36[39m
+[36mℹ[39m execute command:  npm pack                                                                                            [90m11:27:36[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K⠋[1G[0K⠙[1G[0K⠹[1G[0K⠸[1G[0K⠼[1G[0K⠴[1G[0K⠦[1G[0K⠧[1G[0K⠇[1G[0K⠏[1G[0K[1mnpm[22m [96mnotice[39m
+⠏[1G[0K[1mnpm[22m [96mnotice[39m 📦  yun_shang_primary@1.1.5
+⠏[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Contents[39m
+⠏[1G[0K[1mnpm[22m [96mnotice[39m 672B README.md
+[1mnpm[22m [96mnotice[39m 13.4kB dist-theme/index.css
+[1mnpm[22m [96mnotice[39m 744.1kB dist-theme/index.js
+[1mnpm[22m [96mnotice[39m 1.7MB dist-theme/index.js.map
+[1mnpm[22m [96mnotice[39m 861.1kB dist-theme/index.mjs
+[1mnpm[22m [96mnotice[39m 1.8MB dist-theme/index.mjs.map
+[1mnpm[22m [96mnotice[39m 2.0kB package.json
+⠏[1G[0K[1mnpm[22m [96mnotice[39m [94mTarball Details[39m
+⠏[1G[0K[1mnpm[22m [96mnotice[39m name: yun_shang_primary
+⠏[1G[0K[1mnpm[22m [96mnotice[39m version: 1.1.5
+⠏[1G[0K[1mnpm[22m [96mnotice[39m filename: yun_shang_primary-1.1.5.tgz
+⠏[1G[0K[1mnpm[22m [96mnotice[39m package size: 1.4 MB
+⠏[1G[0K[1mnpm[22m [96mnotice[39m unpacked size: 5.1 MB
+⠏[1G[0K[1mnpm[22m [96mnotice[39m shasum: 80f9e24c27949775d7e83328fce6ea319cc2589f
+⠏[1G[0K[1mnpm[22m [96mnotice[39m integrity: sha512-ZHO6k8dEuuQrU[...]IPZ0DTtX1PYIA==
+⠏[1G[0K[1mnpm[22m [96mnotice[39m total files: 7
+⠏[1G[0K[1mnpm[22m [96mnotice[39m
+⠏[1G[0Kyun_shang_primary-1.1.5.tgz
+⠏[1G[0K

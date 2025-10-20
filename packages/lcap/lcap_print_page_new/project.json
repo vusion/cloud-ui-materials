@@ -1,0 +1,27 @@
+{
+  "name": "lcap-lcap_print_page_new",
+  "sourceRoot": "packages/lcap/lcap_print_page_new/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_print_page_new run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_print_page_new run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_print_page_new run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}

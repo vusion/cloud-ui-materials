@@ -1,0 +1,45 @@
+> pnpm -C packages/lcap/lcap_markdown_doc_render_view run build
+
+
+> lcap_markdown_doc_render_view@1.0.0 build /Users/shang/Desktop/material/cloud-ui-materials/packages/lcap/lcap_markdown_doc_render_view
+> npm run build:theme
+
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_youdata-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_music-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_netease-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_ysf-registry". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "dir". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "verify-deps-before-run". This will stop working in the next major version of npm.[39m
+[1mnpm[22m [33mwarn[39m [94mUnknown env config "_jsr-registry". This will stop working in the next major version of npm.[39m
+
+> lcap_markdown_doc_render_view@1.0.0 build:theme
+> vue-cli-service library-build --dest dist-theme
+
+/Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/vue-template-compiler@2.7.16/node_modules/vue-template-compiler/index.js:10
+  throw new Error(
+  ^
+
+Error: 
+
+Vue packages version mismatch:
+
+- vue@2.6.12 (/Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/vue@2.6.12/node_modules/vue/dist/vue.runtime.common.js)
+- vue-template-compiler@2.7.16 (/Users/shang/Desktop/material/cloud-ui-materials/node_modules/.pnpm/vue-template-compiler@2.7.16/node_modules/vue-template-compiler/package.json)
+
+This may cause things to work incorrectly. Make sure to use the same version for both.
+If you are using vue-loader@>=10.0, simply update vue-template-compiler.
+If you are using vue-loader@<10.0 or vueify, re-installing vue-loader/vueify should bump vue-template-compiler to the latest.
+
+    at Object.<anonymous> (/Users/shang/Desktop/material/cloud-ui-materials/node_modules/[4m.pnpm[24m/vue-template-compiler@2.7.16/node_modules/[4mvue-template-compiler[24m/index.js:10:9)
+[90m    at Module._compile (node:internal/modules/cjs/loader:1521:14)[39m
+[90m    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)[39m
+[90m    at Module.load (node:internal/modules/cjs/loader:1266:32)[39m
+[90m    at Module._load (node:internal/modules/cjs/loader:1091:12)[39m
+[90m    at Module.require (node:internal/modules/cjs/loader:1289:19)[39m
+[90m    at require (node:internal/modules/helpers:182:18)[39m
+    at Object.<anonymous> (/Users/shang/Desktop/material/cloud-ui-materials/node_modules/[4m.pnpm[24m/vusion-api@0.7.38/node_modules/[4mvusion-api[24m/out/fs/TemplateHandler.js:30:31)
+[90m    at Module._compile (node:internal/modules/cjs/loader:1521:14)[39m
+[90m    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)[39m
+
+Node.js v20.19.5
+⠙[1G[0K[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m

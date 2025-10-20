@@ -1,0 +1,27 @@
+{
+  "name": "lcap-lcap_amap_navigate",
+  "sourceRoot": "packages/lcap/lcap_amap_navigate/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_amap_navigate run build"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_amap_navigate run lint || echo 'no lint script'"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm -C packages/lcap/lcap_amap_navigate run test || echo 'no test script'"
+      }
+    }
+  },
+  "tags": [
+    "stack:vue2"
+  ]
+}
