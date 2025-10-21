@@ -24,23 +24,21 @@ jobs:
 
       - name: Generate matrix
         id: plan
+        shell: bash
         run: |
-          node -v
           node scripts/ci/plan-changed-packages.mjs > matrix.json
 
-          # 安全写出 matrix（整段 JSON）
+          # 只把 include 数组写入到输出，避免把 "range" 也作为 matrix 字段传下去
           {
             echo 'matrix<<EOF'
-            cat matrix.json
+            jq -c '.include' matrix.json
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
-          # 提前计算 count（跑空矩阵就不触发下游）
           COUNT=$(jq '.include | length' matrix.json)
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-
           echo "Planned jobs: $COUNT"
-        shell: bash
+          echo "Diff range: $(jq -r '.range' matrix.json)"
 
   build:
     name: Build ${{ matrix.name }}
@@ -50,7 +48,8 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+      matrix:
+        include: ${{ fromJson(needs.plan.outputs.matrix) }}
 
     defaults:
       run:
@@ -72,10 +71,16 @@ jobs:
         run: |
           set -e
           echo "Run in: $(pwd)"
-          for cmd in "${{ join(matrix.build, '" "') }}"; do
-            echo "+ $cmd"
-            eval "$cmd"
-          done
+          # 将 JSON 数组原样交给 Node 逐条执行，避免 Bash 转义/空格问题
+          cat > /tmp/build-steps.js <<'NODE'
+          const { execSync } = require('child_process');
+          const steps = ${{ toJson(matrix.build) }};
+          for (const cmd of steps) {
+            console.log(`+ ${cmd}`);
+            execSync(cmd, { stdio: 'inherit', shell: true });
+          }
+          NODE
+          node /tmp/build-steps.js
 
       # 上传 zip 产物（形如 ***@*.*.*.zip）
       - name: Upload ZIP artifact (if any)
