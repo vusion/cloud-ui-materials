@@ -6,6 +6,7 @@
 </template>
 
 <script>
+// test change
 export default {
     name: 'cw-amap-nav',
     props: {
