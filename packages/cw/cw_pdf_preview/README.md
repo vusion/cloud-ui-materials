@@ -44,10 +44,11 @@ npm run build
 
 ## 相关资源
 
-* 开发构建工具 [vite](https://vitejs.dev/)
-* 单元测试工具 [vitest](https://cn.vitest.dev/guide/)
-* UI demo 调试 [storybook](https://storybook.js.org/docs/get-started/install)
+- 开发构建工具 [vite](https://vitejs.dev/)
+- 单元测试工具 [vitest](https://cn.vitest.dev/guide/)
+- UI demo 调试 [storybook](https://storybook.js.org/docs/get-started/install)
 
 // test change
 // test change123
 // 测试
+// 999
