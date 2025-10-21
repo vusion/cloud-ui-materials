@@ -19,7 +19,9 @@ jobs:
 
       - name: Generate matrix
         id: plan
+        shell: bash
         run: |
+          set -euo pipefail
           node scripts/ci/plan-changed-packages.mjs > matrix.json
           echo "matrix=$(jq -c '.include' matrix.json)" >> "$GITHUB_OUTPUT"
           echo "count=$(jq '.include | length' matrix.json)" >> "$GITHUB_OUTPUT"
@@ -30,6 +32,7 @@ jobs:
     needs: plan
     if: needs.plan.outputs.count != '0'
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -56,16 +59,19 @@ jobs:
           cache: npm
           cache-dependency-path: ${{ matrix.dir }}/package-lock.json
 
-      # 仅 YAML (node14/16) 需要 lcap
+      # 仅 YAML (Node14/16) 需要 lcap
       - name: Install LCAP CLI (yaml only)
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
+        shell: bash
         run: |
+          set -euo pipefail
           npm i -g lcap@latest || (echo "⚠️ lcap install failed" && exit 1)
           lcap --version || true
 
       - name: Build package
+        shell: bash
         run: |
-          set -e
+          set -euo pipefail
           node -e '
             const {execSync} = require("child_process");
             const steps = ${{ toJson(matrix.build) }};
@@ -75,100 +81,159 @@ jobs:
             }
           '
 
-      # 只收集 zip；保持原文件名
+      # 只收集 zip；保持原文件名；暂存到仓库根下的 _release/
       - name: Stash ZIPs to workspace
+        shell: bash
         run: |
-          set -e
+          set -euo pipefail
           mkdir -p "$GITHUB_WORKSPACE/_release/${{ matrix.name }}"
           shopt -s nullglob
           zips=(*@*.*.*.zip)
-          if [ ${#zips[@]} -gt 0 ]; then
-            for z in "${zips[@]}"; do
-              cp -f "$z" "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/"
-              echo "copied: $z"
-            done
+          if ((${#zips[@]})); then
+            cp -f "${zips[@]}" "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/"
+            printf 'copied: %s\n' "${zips[@]}"
           else
             echo "No zip found in $PWD"
           fi
 
-      # 用于生成 Release 说明
+      # 记录用于 Release 表格的汇总信息
       - name: Append summary row
+        shell: bash
         run: |
-          mkdir -p $GITHUB_WORKSPACE/_release/__meta
-          echo "${{ matrix.name }}|${{ matrix.stack || 'unknown' }}" >> $GITHUB_WORKSPACE/_release/__meta/summary.tsv
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/_release/__meta"
+          echo "${{ matrix.name }}|${{ matrix.stack || 'unknown' }}" >> "$GITHUB_WORKSPACE/_release/__meta/summary.tsv"
+
+      # 将本 matrix 产物上传为工件，供 release 作业统一下载合并
+      - name: Upload release part (per package)
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.name }}
+          path: |
+            _release/${{ matrix.name }}/*
+            _release/__meta/summary.tsv
+          if-no-files-found: ignore
+          retention-days: 1
 
   release:
     needs: [plan, build]
     if: needs.plan.outputs.count != '0'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      - name: Show collected files
+      # 下载所有包的工件并合并成统一的 _release 目录结构
+      - name: Download all release parts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: _artifacts
+          merge-multiple: false
+
+      - name: Merge artifacts into _release tree
+        shell: bash
         run: |
-          echo "Collected files under _release:"
+          set -euo pipefail
+          mkdir -p _release/__meta
+          touch _release/__meta/summary.tsv
+
+          # 合并 zip
+          while IFS= read -r -d '' f; do
+            # f 形如 _artifacts/release-<name>/_release/<name>/<file>.zip
+            rel="${f#*_artifacts/}"
+            sub="${rel#*/_release/}"               # <name>/<file>.zip
+            dest_dir="_release/${sub%/*}"         # _release/<name>
+            mkdir -p "$dest_dir"
+            cp -f "$f" "$dest_dir/"
+          done < <(find _artifacts -type f -name '*@*.*.*.zip' -print0)
+
+          # 合并 summary.tsv 去重
+          while IFS= read -r -d '' s; do
+            cat "$s" >> _release/__meta/summary.tsv
+          done < <(find _artifacts -type f -path '*/_release/__meta/summary.tsv' -print0)
+          sort -u _release/__meta/summary.tsv -o _release/__meta/summary.tsv || true
+
+          echo "Merged tree:"
           ls -R _release || true
 
       - name: Generate tag
         id: tag
+        shell: bash
         run: |
+          set -euo pipefail
           TAG="build-$(date +'%Y%m%d')-${GITHUB_SHA::7}"
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "Tag: $TAG"
 
-      - name: Create tag
+      - name: Create annotated tag
+        shell: bash
         run: |
-          git tag ${{ steps.tag.outputs.tag }}
-          git push origin ${{ steps.tag.outputs.tag }}
+          set -euo pipefail
+          git tag -a "${{ steps.tag.outputs.tag }}" -m "CI release ${{ steps.tag.outputs.tag }}"
+          git push origin "${{ steps.tag.outputs.tag }}"
 
-      - name: Build release body
+      - name: Build release body markdown
         id: body
+        shell: bash
         run: |
-          mkdir -p _release/__meta
-          echo "# Components in this release" > _release/__meta/RELEASE_BODY.md
-          echo "" >> _release/__meta/RELEASE_BODY.md
-          if [ -f _release/__meta/summary.tsv ]; then
-            echo "| Component | Stack | Assets |" >> _release/__meta/RELEASE_BODY.md
-            echo "|---|---|---|" >> _release/__meta/RELEASE_BODY.md
-            while IFS="|" read -r name stack; do
-              ASSETS=""
-              if compgen -G "_release/${name}/*@*.*.*.zip" > /dev/null; then
-                for Z in _release/${name}/*@*.*.*.zip; do
-                  base=$(basename "$Z")
-                  ASSETS="$ASSETS $base"
-                done
-              fi
-              echo "| ${name} | ${stack} | ${ASSETS:--(none)-} |" >> _release/__meta/RELEASE_BODY.md
-            done < _release/__meta/summary.tsv
-          else
-            echo "_No components were summarized._" >> _release/__meta/RELEASE_BODY.md
-          fi
+          set -euo pipefail
           {
-            echo "body<<EOF"
+            echo "# Components in this release"
+            echo
+            if [[ -s _release/__meta/summary.tsv ]]; then
+              echo "| Component | Stack | Assets |"
+              echo "|---|---|---|"
+              while IFS="|" read -r name stack; do
+                stack=${stack:-unknown}
+                shopt -s nullglob
+                files=( _release/"$name"/*@*.*.*.zip )
+                if ((${#files[@]})); then
+                  assets=""
+                  for z in "${files[@]}"; do
+                    assets+=$(basename "$z")
+                    assets+=" "
+                  done
+                else
+                  assets="(none)"
+                fi
+                echo "| $name | $stack | $assets |"
+              done < _release/__meta/summary.tsv
+            else
+              echo "_No components were summarized._"
+            fi
+          } > _release/__meta/RELEASE_BODY.md
+
+          {
+            echo 'body<<EOF'
             cat _release/__meta/RELEASE_BODY.md
-            echo "EOF"
+            echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
-          - name: Create GitHub Release
-          id: create_release
-          uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            tag_name: ${{ steps.tag.outputs.tag }}
-            release_name: Release ${{ steps.tag.outputs.tag }}
-            body: ${{ steps.body.outputs.body }}
-            draft: false
-            prerelease: false
-
-        # 上传所有 zip 资产
-      - name: Upload Release Assets
-        uses: actions/upload-release-asset@v1
+      # 用 GitHub CLI 创建 Release（官方工具，组织策略允许）
+      - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: _release/**/*@*.*.*.zip
-          asset_name: ${{ github.run_id }}.zip
-          asset_content_type: application/zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create "${{ steps.tag.outputs.tag }}" \
+            --title "Release ${{ steps.tag.outputs.tag }}" \
+            --notes-file _release/__meta/RELEASE_BODY.md
+
+      - name: Upload zip assets to Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          mapfile -t files < <(find _release -type f -name '*@*.*.*.zip' | sort)
+          if ((${#files[@]})); then
+            echo "Uploading ${#files[@]} assets…"
+            gh release upload "${{ steps.tag.outputs.tag }}" "${files[@]}" --clobber
+          else
+            echo "No zip assets to upload."
+          fi
