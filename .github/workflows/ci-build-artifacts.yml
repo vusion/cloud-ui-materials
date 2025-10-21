@@ -26,12 +26,19 @@ jobs:
         id: plan
         run: |
           node -v
-          mkdir -p scripts/ci
-          # 如果脚本不在仓库里，也可以这里临时写入；建议将脚本入库（如 scripts/ci/plan-changed-packages.mjs）
           node scripts/ci/plan-changed-packages.mjs > matrix.json
-          echo "matrix=$(cat matrix.json)" >> $GITHUB_OUTPUT
-          COUNT=$(cat matrix.json | jq '.include | length')
-          echo "count=$COUNT" >> $GITHUB_OUTPUT
+
+          # 安全写出 matrix（整段 JSON）
+          {
+            echo 'matrix<<EOF'
+            cat matrix.json
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+          # 提前计算 count（跑空矩阵就不触发下游）
+          COUNT=$(jq '.include | length' matrix.json)
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+
           echo "Planned jobs: $COUNT"
         shell: bash
 
