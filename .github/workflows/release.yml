@@ -1,0 +1,154 @@
+name: Release on Merge
+
+on:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: write # 需要写 tag/release
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      count: ${{ steps.plan.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Generate matrix
+        id: plan
+        run: |
+          node scripts/ci/plan-changed-packages.mjs > matrix.json
+          echo "matrix=$(jq -c '.include' matrix.json)" >> "$GITHUB_OUTPUT"
+          echo "count=$(jq '.include | length' matrix.json)" >> "$GITHUB_OUTPUT"
+          echo "==== Plan ===="
+          cat matrix.json
+
+  build:
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.plan.outputs.matrix) }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Setup Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Enable npm cache (if lockfile exists)
+        if: ${{ hashFiles(format('{0}/package-lock.json', matrix.dir)) != '' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+
+      - name: Install LCAP CLI (yaml only)
+        if: ${{ matrix.node == '14' || matrix.node == '16' }}
+        run: |
+          npm i -g lcap@latest || (echo "⚠️ lcap install failed" && exit 1)
+
+      - name: Build package
+        run: |
+          set -e
+          node -e '
+            const {execSync} = require("child_process");
+            const steps = ${{ toJson(matrix.build) }};
+            for (const cmd of steps) {
+              console.log("+ " + cmd);
+              execSync(cmd, {stdio:"inherit", shell:true});
+            }
+          '
+
+      - name: Stash artifacts to workspace
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/_release/${{ matrix.name }}
+          # zip
+          if compgen -G "*@*.*.*.zip" > /dev/null; then
+            cp -f *@*.*.*.zip "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/"
+          fi
+          # dist-theme
+          if [ -d "dist-theme" ]; then
+            tar -czf "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/dist-theme.tgz" dist-theme
+          fi
+
+      - name: Append summary row
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/_release/__meta
+          echo "${{ matrix.name }}|${{ matrix.stack || 'unknown' }}" >> $GITHUB_WORKSPACE/_release/__meta/summary.tsv
+
+  release:
+    needs: [plan, build]
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Collect artifacts from workspace
+        run: |
+          ls -R _release || true
+
+      - name: Generate tag
+        id: tag
+        run: |
+          TAG="build-$(date +'%Y%m%d')-${GITHUB_SHA::7}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Tag: $TAG"
+
+      - name: Create tag
+        run: |
+          git tag ${{ steps.tag.outputs.tag }}
+          git push origin ${{ steps.tag.outputs.tag }}
+
+      - name: Build release body
+        id: body
+        run: |
+          mkdir -p _release/__meta
+          echo "# Components in this release" > _release/__meta/RELEASE_BODY.md
+          echo "" >> _release/__meta/RELEASE_BODY.md
+          if [ -f _release/__meta/summary.tsv ]; then
+            echo "| Component | Stack | Assets |" >> _release/__meta/RELEASE_BODY.md
+            echo "|---|---|---|" >> _release/__meta/RELEASE_BODY.md
+            while IFS="|" read -r name stack; do
+              ASSETS=""
+              if compgen -G "_release/${name}/*@*.*.*.zip" > /dev/null; then
+                for Z in _release/${name}/*@*.*.*.zip; do
+                  base=$(basename "$Z")
+                  ASSETS="$ASSETS $base"
+                done
+              fi
+              if [ -f "_release/${name}/dist-theme.tgz" ]; then
+                ASSETS="$ASSETS dist-theme.tgz"
+              fi
+              echo "| ${name} | ${stack} | ${ASSETS:--(none)-} |" >> _release/__meta/RELEASE_BODY.md
+            done < _release/__meta/summary.tsv
+          else
+            echo "_No components were summarized._" >> _release/__meta/RELEASE_BODY.md
+          fi
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          cat _release/__meta/RELEASE_BODY.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Upload assets to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: Release ${{ steps.tag.outputs.tag }}
+          body: ${{ steps.body.outputs.body }}
+          generate_release_notes: true
+          files: |
+            _release/**/*
