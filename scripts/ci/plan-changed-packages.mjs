@@ -152,7 +152,7 @@ function makePlan() {
     if (apiInfo.type === "yaml") {
       nodeVersion = "14";
       buildCmds = ["npm install --legacy-peer-deps", "npm run build", "npm run usage"];
-      artifacts = ["*@*.*.*.zip", "dist-theme"];
+      artifacts = ["*@*.*.*.zip"];
     } else if (apiInfo.type === "ts") {
       nodeVersion = "18";
       buildCmds = ["npm install --legacy-peer-deps", "npm run build"];

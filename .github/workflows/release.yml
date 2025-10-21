@@ -56,10 +56,12 @@ jobs:
           cache: npm
           cache-dependency-path: ${{ matrix.dir }}/package-lock.json
 
+      # 仅 YAML (node14/16) 需要 lcap
       - name: Install LCAP CLI (yaml only)
         if: ${{ matrix.node == '14' || matrix.node == '16' }}
         run: |
           npm i -g lcap@latest || (echo "⚠️ lcap install failed" && exit 1)
+          lcap --version || true
 
       - name: Build package
         run: |
@@ -73,18 +75,23 @@ jobs:
             }
           '
 
-      - name: Stash artifacts to workspace
+      # 只收集 zip；保持原文件名
+      - name: Stash ZIPs to workspace
         run: |
-          mkdir -p $GITHUB_WORKSPACE/_release/${{ matrix.name }}
-          # zip
-          if compgen -G "*@*.*.*.zip" > /dev/null; then
-            cp -f *@*.*.*.zip "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/"
-          fi
-          # dist-theme
-          if [ -d "dist-theme" ]; then
-            tar -czf "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/dist-theme.tgz" dist-theme
+          set -e
+          mkdir -p "$GITHUB_WORKSPACE/_release/${{ matrix.name }}"
+          shopt -s nullglob
+          zips=(*@*.*.*.zip)
+          if [ ${#zips[@]} -gt 0 ]; then
+            for z in "${zips[@]}"; do
+              cp -f "$z" "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/"
+              echo "copied: $z"
+            done
+          else
+            echo "No zip found in $PWD"
           fi
 
+      # 用于生成 Release 说明
       - name: Append summary row
         run: |
           mkdir -p $GITHUB_WORKSPACE/_release/__meta
@@ -98,8 +105,9 @@ jobs:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      - name: Collect artifacts from workspace
+      - name: Show collected files
         run: |
+          echo "Collected files under _release:"
           ls -R _release || true
 
       - name: Generate tag
@@ -131,17 +139,16 @@ jobs:
                   ASSETS="$ASSETS $base"
                 done
               fi
-              if [ -f "_release/${name}/dist-theme.tgz" ]; then
-                ASSETS="$ASSETS dist-theme.tgz"
-              fi
               echo "| ${name} | ${stack} | ${ASSETS:--(none)-} |" >> _release/__meta/RELEASE_BODY.md
             done < _release/__meta/summary.tsv
           else
             echo "_No components were summarized._" >> _release/__meta/RELEASE_BODY.md
           fi
-          echo "body<<EOF" >> $GITHUB_OUTPUT
-          cat _release/__meta/RELEASE_BODY.md >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "body<<EOF"
+            cat _release/__meta/RELEASE_BODY.md
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Upload assets to Release
         uses: softprops/action-gh-release@v2
@@ -151,4 +158,4 @@ jobs:
           body: ${{ steps.body.outputs.body }}
           generate_release_notes: true
           files: |
-            _release/**/*
+            _release/**/*@*.*.*.zip
