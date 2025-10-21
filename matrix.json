@@ -1,0 +1,31 @@
+{
+  "range": "HEAD^...HEAD",
+  "include": [
+    {
+      "name": "cw_amap",
+      "dir": "/Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_amap",
+      "node": "14",
+      "build": [
+        "npm install --legacy-peer-deps",
+        "npm run build",
+        "npx -y lcap usage"
+      ],
+      "artifacts": [
+        "*@*.*.*.zip",
+        "dist-theme"
+      ]
+    },
+    {
+      "name": "cw_pdf_preview",
+      "dir": "/Users/shang/Desktop/material/cloud-ui-materials/packages/cw/cw_pdf_preview",
+      "node": "18",
+      "build": [
+        "npm install --legacy-peer-deps",
+        "npm run build"
+      ],
+      "artifacts": [
+        "*@*.*.*.zip"
+      ]
+    }
+  ]
+}
