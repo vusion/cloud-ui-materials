@@ -1,0 +1,89 @@
+name: Build Changed Packages & Upload Artifacts
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main, master]
+
+jobs:
+  plan:
+    name: Plan matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      count: ${{ steps.plan.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 需要完整历史才能 diff
+
+      - name: Setup Git (make sure origin/main exists)
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/* || true
+
+      - name: Generate matrix
+        id: plan
+        run: |
+          node -v
+          mkdir -p scripts/ci
+          # 如果脚本不在仓库里，也可以这里临时写入；建议将脚本入库（如 scripts/ci/plan-changed-packages.mjs）
+          node scripts/ci/plan-changed-packages.mjs > matrix.json
+          echo "matrix=$(cat matrix.json)" >> $GITHUB_OUTPUT
+          COUNT=$(cat matrix.json | jq '.include | length')
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+          echo "Planned jobs: $COUNT"
+        shell: bash
+
+  build:
+    name: Build ${{ matrix.name }}
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+
+      - name: Install & Build (per package)
+        run: |
+          set -e
+          echo "Run in: $(pwd)"
+          for cmd in "${{ join(matrix.build, '" "') }}"; do
+            echo "+ $cmd"
+            eval "$cmd"
+          done
+
+      # 上传 zip 产物（形如 ***@*.*.*.zip）
+      - name: Upload ZIP artifact (if any)
+        uses: actions/upload-artifact@v4
+        if: ${{ hashFiles(format('{0}/*@*.*.*.zip', matrix.dir)) != '' }}
+        with:
+          name: ${{ matrix.name }}-zip-${{ github.sha }}
+          path: ${{ matrix.dir }}/*@*.*.*.zip
+          retention-days: 7
+
+      # 上传 dist-theme（若存在）
+      - name: Upload dist-theme (if present)
+        uses: actions/upload-artifact@v4
+        if: ${{ hashFiles(format('{0}/dist-theme/**', matrix.dir)) != '' }}
+        with:
+          name: ${{ matrix.name }}-dist-theme-${{ github.sha }}
+          path: ${{ matrix.dir }}/dist-theme/**
+          retention-days: 7
