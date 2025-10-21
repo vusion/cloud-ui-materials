@@ -5,11 +5,14 @@ on:
     branches: [main, master]
 
 permissions:
-  contents: write # 推 tag / 创建 release
+  contents: write # 需要推 tag / 创建 release
 
 jobs:
   plan:
     runs-on: ubuntu-latest
+    env:
+      # push 到 main/master 时强制全量，避免 diff 为空导致后续作业被跳过
+      PLAN_ALL: ${{ (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')) && '1' || '0' }}
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
       count: ${{ steps.plan.outputs.count }}
@@ -27,6 +30,12 @@ jobs:
           echo "count=$(jq '.include | length' matrix.json)" >> "$GITHUB_OUTPUT"
           echo "==== Plan ===="
           cat matrix.json
+
+      - name: Debug plan outputs
+        shell: bash
+        run: |
+          echo "count=${{ steps.plan.outputs.count }}"
+          echo "matrix=${{ steps.plan.outputs.matrix }}"
 
   build:
     needs: plan
@@ -145,7 +154,7 @@ jobs:
             # f 形如 _artifacts/release-<name>/_release/<name>/<file>.zip
             rel="${f#*_artifacts/}"
             sub="${rel#*/_release/}"               # <name>/<file>.zip
-            dest_dir="_release/${sub%/*}"         # _release/<name>
+            dest_dir="_release/${sub%/*}"          # _release/<name>
             mkdir -p "$dest_dir"
             cp -f "$f" "$dest_dir/"
           done < <(find _artifacts -type f -name '*@*.*.*.zip' -print0)
