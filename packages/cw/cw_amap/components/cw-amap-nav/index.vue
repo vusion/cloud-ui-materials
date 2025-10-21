@@ -7,7 +7,7 @@
 
 <script>
 // test change
-// release v1.0.5
+// release v1.0.6
 export default {
     name: 'cw-amap-nav',
     props: {

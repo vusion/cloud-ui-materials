@@ -30,13 +30,6 @@ jobs:
           echo "count=$(jq '.include | length' matrix.json)" >> "$GITHUB_OUTPUT"
           echo "==== Plan ===="
           cat matrix.json
-
-      - name: Debug plan outputs
-        shell: bash
-        run: |
-          echo "count=${{ steps.plan.outputs.count }}"
-          echo "matrix=${{ steps.plan.outputs.matrix }}"
-
   build:
     needs: plan
     if: needs.plan.outputs.count != '0'
