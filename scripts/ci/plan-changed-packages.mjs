@@ -170,7 +170,7 @@ function makePlan() {
       buildCmds = [
         "npm install --legacy-peer-deps",
         "npm run build",
-        "npx -y lcap usage",
+        "npm run usage",
       ];
       artifacts = ["*@*.*.*.zip", "dist-theme"];
     } else if (apiInfo.type === "ts") {
