@@ -60,13 +60,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      # ✅ Step 1: 保证 Node 安装不会报错（即便没有 lockfile）
+      # ✅ Step 1: 安装 Node
       - name: Setup Node ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
 
-      # ✅ Step 2: 若存在 lockfile，再单独启用 npm 缓存（可选）
+      # ✅ Step 2: 若存在 lockfile，则启用 npm 缓存
       - name: Enable npm cache (if lockfile exists)
         if: ${{ hashFiles(format('{0}/package-lock.json', matrix.dir)) != '' }}
         uses: actions/setup-node@v4
@@ -75,7 +75,16 @@ jobs:
           cache: npm
           cache-dependency-path: ${{ matrix.dir }}/package-lock.json
 
-      # ✅ Step 3: 执行构建命令（用 Node 脚本逐条执行）
+      # ✅ Step 3: 安装全局 LCAP CLI（仅 Node14/16 环境执行）
+      - name: Install global LCAP CLI
+        if: matrix.node == '14' || matrix.node == '16'
+        run: |
+          echo "Installing LCAP globally..."
+          npm install -g lcap@latest || (echo "⚠️ Failed to install lcap" && exit 1)
+          which lcap || echo "⚠️ lcap not in PATH"
+          lcap --version || echo "LCAP installed but version not shown"
+
+      # ✅ Step 4: 执行构建命令
       - name: Install & Build (per package)
         run: |
           set -e
@@ -90,20 +99,20 @@ jobs:
           NODE
           node /tmp/build-steps.js
 
-      # ✅ Step 4: 上传 zip 产物（形如 ***@*.*.*.zip）
+      # ✅ Step 5: 上传 zip 产物（形如 ***@*.*.*.zip）
       - name: Upload ZIP artifact (if any)
         uses: actions/upload-artifact@v4
         if: ${{ hashFiles(format('{0}/*@*.*.*.zip', matrix.dir)) != '' }}
         with:
-          name: ${{ matrix.name }}-zip-${{ github.sha }}
+          name: ${{ matrix.name }}.zip
           path: ${{ matrix.dir }}/*@*.*.*.zip
           retention-days: 7
 
-      # ✅ Step 5: 上传 dist-theme（若存在）
+      # ✅ Step 6: 上传 dist-theme（若存在）
       - name: Upload dist-theme (if present)
         uses: actions/upload-artifact@v4
         if: ${{ hashFiles(format('{0}/dist-theme/**', matrix.dir)) != '' }}
         with:
-          name: ${{ matrix.name }}-dist-theme-${{ github.sha }}
+          name: ${{ matrix.name }}-dist-theme
           path: ${{ matrix.dir }}/dist-theme/**
           retention-days: 7
