@@ -5,7 +5,7 @@ on:
     branches: [main, master]
 
 permissions:
-  contents: write # 需要写 tag/release
+  contents: write # 推 tag / 创建 release
 
 jobs:
   plan:
@@ -159,6 +159,12 @@ jobs:
           echo "Merged tree:"
           ls -R _release || true
 
+      - name: Configure git identity
+        shell: bash
+        run: |
+          git config --global user.email "ci-bot@github-actions[bot].github.com"
+          git config --global user.name  "GitHub Actions Bot"
+
       - name: Generate tag
         id: tag
         shell: bash
@@ -212,7 +218,6 @@ jobs:
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
-      # 用 GitHub CLI 创建 Release（官方工具，组织策略允许）
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
