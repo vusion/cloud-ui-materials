@@ -1,0 +1,5 @@
+- name: addBizAccessLog
+  description: 业务埋点
+  type: both
+  belong: logic
+  labels: [Runtime]

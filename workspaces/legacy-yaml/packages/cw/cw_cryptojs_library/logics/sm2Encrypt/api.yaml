@@ -1,0 +1,5 @@
+- name: sm2Encrypt
+  description: sm2加密
+  type: both
+  belong: logic
+  labels: [Runtime]

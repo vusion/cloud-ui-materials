@@ -1,0 +1,5 @@
+- name: resendMessage
+  description: 错误信息重发
+  type: both
+  belong: logic
+  labels: [Runtime]

@@ -1,0 +1,41 @@
+- name: gallery
+  title: 画廊
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: grid
+      type: number
+      default: 2
+      description: 行数
+      title: 行数
+    - name: spaceBetween
+      type: number
+      default: 0
+      description: 图片间距
+      title: 图片间距
+    - name: imgWidth
+      type: number
+      default: 240
+      description: 图片宽度
+      title: 图片宽度
+    - name: imgHeight
+      type: number
+      default: 196
+      description: 图片高度
+      title: 图片高度
+    - name: slidesPerView
+      type: number
+      default: 5
+      description: 画布展示图片数量
+      title: 画布展示图片数量
+    - name: delay
+      type: number
+      default: 2500
+      description: autoplay延迟时间
+      title: autoplay延迟时间
+    - name: dataSource
+      title: 数据源
+      type: array
+      default: ''
+      description: '用于展示gallery的数据源，形如Array<{link: string, url: string}>'

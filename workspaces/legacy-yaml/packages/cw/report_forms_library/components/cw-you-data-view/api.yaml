@@ -1,0 +1,93 @@
+- name: cw-you-data-view
+  title: 有数报表
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: src
+      type: string
+      default: ''
+      description: 报表地址
+    - name: scale
+      type: string
+      advanced: true
+      options: 
+        - name: '100'
+          description: 缩放100%
+        - name: width
+          description: 自适应宽度
+        - name: screen
+          description: 自适应窗口
+      default: '100'
+      description: 有数缩放配置
+    - name: bottomBarPos
+      type: string
+      default: bottom
+      advanced: true
+      options: 
+        - value: bottom
+          name: 底部栏放在底部
+        - value: top
+          name: 底部栏放在顶部
+      description: 有数底部栏位置配置
+    - name: hideProgressBar
+      type: boolean
+      advanced: true
+      default: true
+      description: 有数顶部进度条隐藏配置
+    - name: hidePageBar
+      type: boolean
+      default: true
+      advanced: true
+      description: 有数底部工具栏隐藏配置
+    - name: hideScaleBar
+      type: boolean
+      default: true
+      advanced: true
+      description: 有数缩放栏隐藏配置
+    - name: hideTitle
+      type: boolean
+      advanced: true
+      default: true
+      description: 有数顶部标题栏隐藏配置
+    - name: hidePrivate
+      type: boolean
+      advanced: true
+      default: true
+      description: 有数私有文件夹隐藏配置
+    - name: hidePublic
+      type: boolean
+      advanced: true
+      default: true
+      description: 有数公共文件夹隐藏配置
+    - name: side
+      type: boolean
+      advanced: true
+      default: false
+      description: 有数侧边栏配置
+    - name: toolbar
+      advanced: true
+      type: array
+      multi: true
+      options:
+        - value: export
+          name: 导出
+        - value: refresh
+          name: 刷新
+        - value: print
+          name: 打印
+      default: ["export", "refresh", "print"]
+      description: 有数功能键配置
+    - name: mode
+      type: string
+      advanced: true
+      options:
+        - name: simple
+          description: 箭头切换
+        - name: normal
+          description: tab 页切换
+      default: normal
+      description: 有数底部导航条显示方式配置
+  events:
+    - name: load
+      description: 加载完成后触发

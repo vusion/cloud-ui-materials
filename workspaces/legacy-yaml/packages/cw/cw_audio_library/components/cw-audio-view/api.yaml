@@ -1,0 +1,76 @@
+- name: cw-audio-view
+  title: 音频播放组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: src
+      title: 地址
+      type: string
+      description: 音频流地址
+    - name: showControls
+      title: 是否显示播放器面板
+      type: boolean
+      description: 是否显示播放器面板
+      default: true
+  events:
+    - name: start
+      title: 播放开始时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: pause
+      title: 暂停播放时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: play
+      title: 继续播放时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: ended
+      title: 播放结束时
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+    - name: videoProgress
+      title: 更新播放进度时
+      params:
+        - name: $event
+          type: string
+          description: 播放进度百分比
+    - name: onLoadedMetadata
+      title: 加载完音频资源后
+      params:
+        - name: $event
+          type: object
+          description: 播放器实例对象
+  methods:
+    - name: play
+      description: 继续播放
+      params: []
+    - name: pause
+      description: 暂停播放
+      params: []
+    - name: handleSetPlaybackRate
+      description: 设置播放速率
+      params: 
+        - name: rate
+          type: decimal
+          description: 播放速率范围(0.5 - 4）
+    - name: handleSetPlaybackVolume
+      description: 设置播放音量
+      params: 
+        - name: volume
+          type: decimal
+          description: 音量大小范围（0 - 1）
+  slots:
+    - concept: Slot
+      name: default
+      title: 默认插槽
+      description: 自定义音频播放器插槽

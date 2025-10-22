@@ -1,0 +1,5 @@
+- name: share
+  description: 分享到POPO聊天会话
+  type: h5
+  belong: logic
+  labels: [Runtime]

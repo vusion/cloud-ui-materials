@@ -1,0 +1,5 @@
+- name: uploadPdfFirstPage
+  description: 上传pdf文件的第一页
+  type: both
+  belong: logic
+  labels: [Runtime]

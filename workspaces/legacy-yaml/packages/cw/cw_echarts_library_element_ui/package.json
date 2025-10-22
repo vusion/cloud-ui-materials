@@ -1,0 +1,69 @@
+{
+  "name": "cw_echarts_library_element_ui",
+  "title": "echarts依赖库",
+  "description": "",
+  "version": "2.1.0",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component",
+    "family:legacy-yaml",
+    "biz:cw",
+    "kind:component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme",
+    "usage": "lcap usage",
+    "deploy": "lcap deploy dist-theme",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "ui": "cloud-ui.vusion"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.10",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
+  },
+  "peerDependencies": {
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.10"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "lcapVersion": "0.3.0",
+  "template": {
+    "inited": true
+  },
+  "dependencies": {
+    "css-sprite-loader": "^0.3.4",
+    "echarts": "^5.5.1",
+    "icon-font-loader": "^4.0.0",
+    "ifdef-loader": "^2.3.2",
+    "postcss-loader": "^8.1.1",
+    "svg-classic-sprite-loader": "^0.2.5",
+    "vusion-loader": "^0.5.1"
+  },
+  "turbo": {
+    "tags": [
+      "family:legacy-yaml",
+      "biz:cw",
+      "kind:component"
+    ]
+  }
+}

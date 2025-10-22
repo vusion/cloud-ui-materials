@@ -1,0 +1,39 @@
+- name: cw-drawing-image-view
+  title: 平面绘制组件
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      title: 组件值
+      description: 组件渲染的值
+    - name: comData
+      type: Array
+      title: 自定义小部件
+      description: 自定义小部件数组格式,{img:"",type:3,title:""}
+    - name: readOnly
+      type: Boolean
+      title: 只读
+  events:
+    - name: onSave
+      title: 保存后
+      description: 保存后
+      params: []
+    - name: onBindData
+      title: 绑定数据
+      description: 绑定数据
+      params: []
+    - name: onObjectSelect
+      title: 选中对象
+      description: 选中对象返回数据列表
+      params: []
+  methods:
+    - name: handleToImg
+      title: 生产图片
+      description: 生成图片
+      params: []
+    - name: handleSubmit
+      title: 提交数据
+      description: 提交数据
+      params: []

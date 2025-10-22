@@ -1,0 +1,116 @@
+- name: cw-print-designer
+  title: 分页打印组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: isShowPrint
+      title: 是否展示打印区域
+      type: boolean
+      default: false
+      description: 是否显示打印区域
+    - name: paperSize
+      type: string
+      default: a4
+      title: 打印尺寸
+      options:
+        - value: a3
+          title: A3
+        - value: a4
+          title: A4
+        - value: a5
+          title: A5
+        - value: b3
+          title: B3
+        - value: b4
+          title: B4
+        - value: b5
+          title: B5
+        - value: custom
+          title: 自定义
+      description: 请选择打印纸张尺寸
+    - name: pageWidth
+      title: 纸张宽度
+      type: number
+      default: 794
+      dependency:
+       - paperSize: custom
+    - name: pageHeight
+      title: 纸张高度
+      type: number
+      default: 794
+      dependency:
+       - paperSize: custom
+    - name: pageDirection
+      type: string
+      default: v
+      title: 打印出纸方向
+      options:
+        - value: v
+          title: 纵向
+        - value: h
+          title: 横向
+      description: 请选择打印页面方向
+    - name: isRate
+      type: boolean
+      default: false
+      title: 是否按比例缩放打印
+      description: 开启等比例缩放，画布宽度跟所内容自动变宽
+    - name: showHeader
+      type: boolean
+      default: false
+      title: 是否显示页眉区域
+      description: 是否显示页眉区域
+    - name: showFooter
+      type: boolean
+      default: false
+      title: 是否显示页尾区域
+      description: 设置页脚区域高度，单位mm
+    - name: yBorder
+      type: number
+      default: 0
+      title: 垂直页边距
+      description: 设置垂直页边距，单位mm
+    - name: xBorder
+      type: number
+      default: 0
+      title: 水平页边距
+      description: 设置水平页边距，单位mm
+  slots:
+    - concept: Slot
+      name: content
+      title: 打印内容插槽
+      description: 打印内容插槽
+    - concept: Slot
+      name: header
+      title: 页眉插槽
+      description: 页眉插槽
+    - concept: Slot
+      name: footer
+      title: 页脚插槽
+      description: 页脚插槽
+  methods:
+    - name: print
+      title: 打印
+      description: 打印
+      params:
+          - name: pagerInHeader
+            type: string
+            description: 页眉页码
+            required: false
+          - name: pagerSizeInHeader
+            type: string
+            description: 页眉页码大小
+            required: false
+          - name: pagerSizeInFooter
+            type: string
+            description: 页脚页码大小
+            required: false
+          - name: pagerInFooter
+            type: string
+            description: 页脚页码
+            required: false
+          - name: itemElement
+            type: string
+            description: 避免分页的元素名
+            required: false

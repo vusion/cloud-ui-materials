@@ -1,0 +1,26 @@
+- name: lcap-h5-popo-location
+  title: popo定位
+  type: h5
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 值
+      type: string
+      model: true
+      description: 值
+    - name: deviceid
+      title: 设备id
+      type: string
+      model: true
+      description: 设备id
+  slots:
+    - name: default
+      description: 插入文本或 HTML。
+  methods:
+    - name: getLocation
+      title: 获取地理位置
+      description: 获取地理位置
+    - name: getDeviceID
+      title: 获取设备id
+      description: 获取设备id

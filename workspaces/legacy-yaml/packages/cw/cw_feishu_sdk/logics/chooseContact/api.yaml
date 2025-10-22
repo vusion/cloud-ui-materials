@@ -1,0 +1,5 @@
+- name: chooseContact
+  description: 选择联系人
+  type: both
+  belong: logic
+  labels: [Runtime]

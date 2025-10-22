@@ -1,0 +1,5 @@
+- name: goBackHideFlow
+  description: 调用GO_BACK不隐藏卡片
+  type: pc
+  belong: logic
+  labels: [Runtime]

@@ -1,0 +1,26 @@
+- name: cw-active-drag-view
+  title: 活动布局容器
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 数据源
+      type: Array
+      description: 需要传入的值
+  slots:
+    - concept: Slot
+      name: default
+      description: 插入默认的元素
+  methods:
+    - name: handleChangeActive
+      description: 切换为活动视图
+      params: []
+    - name: handleSaveData
+      description: 保存数据
+      params: []
+  events:
+    - name: onSaveData
+      title: 保存数据时触发
+      description: 保存数据时触发
+      params: []

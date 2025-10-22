@@ -1,0 +1,38 @@
+- name: cw-yidun-view
+  title: 易盾
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: containerId
+      title: 易盾组件id 
+      type: string
+      description: 易盾组件id,用于区分多个地方使用
+    - name: captchaId
+      title: 易盾captchaId
+      type: string
+      description: 易盾captchaId,易盾官方提供
+  events:
+    - name: onVerify
+      description: 验证成功事件
+      title: 验证成功事件
+      params:
+        - name: value
+          type: string
+          description: 传出的值
+    - name: onVerifyError
+      description: 验证失败事件
+      title: 验证失败事件
+      params:
+        - name: value
+          type: string
+          description: 传出的值
+  methods: 
+    - name: verify
+      description: 验证
+      title: 验证
+      params: []
+    - name: refresh
+      description: 重置
+      title: 重置
+      params: []

@@ -1,0 +1,287 @@
+- name: large-file-split-uploader
+  title: 大文件上传
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: data-type
+      title: 接收数据类型
+      type: string
+      default: json
+      description: 接收数据类型。可选值：`text`、`xml`、`json`
+      advanced: true
+      hidden: true
+    - name: pastable
+      title: 是否可以粘贴
+      type: boolean
+      default: false
+      description: ""
+      advanced: true
+    - name: value
+      title: 值
+      type: string
+      sync: true
+      model: true
+      default: ""
+      description: 当前文件列表
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 当前的文件列表
+      tooltipLink: ""
+    - name: name
+      title: 上传的文件字段
+      type: string
+      default: file
+      description: 上传的文件字段名，后端需要这个字段获取
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 默认file，支持自定义，后端通过该字段获取文件
+      tooltipLink: ""
+    - name: accept
+      title: 支持上传的文件类型
+      type: string
+      place: 所有类型
+      description: 若要限制上传文件类型，请输入类型名称，格式为“.后缀名”，多个文件类型时使用英文逗号隔开。例如“.jpeg,.png,.gif”
+      tooltipLink: http://help.lcap.163yun.com/1.%E5%BC%80%E5%8F%91%E5%BA%94%E7%94%A8/2.%E9%A1%B5%E9%9D%A2/05.PC%E9%A1%B5%E9%9D%A2%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/06.%E8%A1%A8%E5%8D%95/150.%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.html#%E7%BB%84%E4%BB%B6%E8%AF%B4%E6%98%8E
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 支持对上传的文件类型进行限制，格式为“.后缀名”，如“.jpeg”表示仅支持上传jpeg格式的文件。多个文件类型时需使用英文逗号隔开，如“.jpeg,.png,.gif”表示仅支持上传jpeg、png、gif格式的文件。若为空值，则支持上传所有类型的文件
+    - name: with-credentials
+      title: cookie值
+      type: boolean
+      default: false
+      description: 通过设置 withCredentials 为 true 获得的第三方 cookies，将会依旧享受同源策略
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 通过设置 withCredentials 为 true 获得的第三方 cookies，将会依旧享受同源策略
+      tooltipLink: ""
+    - name: data
+      title: 附加数据
+      type: object
+      description: ""
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 补充描述
+      tooltipLink: ""
+    - name: url-field
+      title: URL 字段
+      type: string
+      default: url
+      description: 请求返回的 URL 字段名
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 请求返回的URL字段名
+      tooltipLink: ""
+    - name: headers
+      title: 请求 headers
+      type: Object
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 请求头
+      tooltipLink: ""
+    - name: converter
+      title: 转换器
+      type: string
+      options:
+        - title: JSON
+          value: json
+        - title: URL字符串
+          value: simple
+      default: json
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 支持使用JSON或URL字符串
+      tooltipLink: ""
+    - name: display
+      title: 展示方式
+      type: string
+      options:
+        - value: inline
+          title: 行内展示
+        - value: block
+          title: 块级展示，宽度会充满父元素
+      default: block
+      description: 行内展示，或块级换行展示
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 支持行内展示或块级换行展示
+      tooltipLink: ""
+    - name: description
+      title: 辅助文本
+      type: string
+      default: null
+      description: 辅助说明的文本信息，如上传的数量、大小等，在上传组件下方展示。
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 在上传组件下方展示一些提示信息，如上传的数量、大小等，默认为null
+      tooltipLink: ""
+    - name: showErrorMessage
+      title: 报错信息
+      type: boolean
+      default: true
+      description: 设置是否展示上传时的出错信息，如超出数量、大小
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 是否展示上传时的出错信息，如超出数量、大小
+      tooltipLink: ""
+    - name: dragDescription
+      title: 辅助文本
+      type: string
+      default: 点击/拖动/粘贴文件到这里
+      description: 辅助说明的文本信息
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 拖拽位置的文字指引
+      tooltipLink: ""
+    - name: access
+      title: 文件访问策略
+      type: string
+      options:
+        - value: public
+          title: 任何人可访问
+        - value: private
+          title: 用户登录后可访问
+      group: 主要属性
+      description: ""
+      brifeDoc: ""
+      docDescription: 支持任何人可访问和用户登录后可访问两种方式
+      tooltipLink: ""
+    - name: draggable
+      title: 可拖拽
+      type: boolean
+      default: false
+      description: ""
+      group: 交互属性
+      brifeDoc: ""
+      docDescription: 开启后支持拖拽上传文件，默认关闭
+      tooltipLink: ""
+    - name: readonly
+      title: 只读
+      type: boolean
+      default: false
+      description: 正常显示，但禁止选择/输入
+      group: 状态属性
+      brifeDoc: ""
+      docDescription: 正常显示，但禁止选择或输入
+      tooltipLink: ""
+    - name: disabled
+      title: 禁用
+      type: boolean
+      default: false
+      description: 置灰显示，且禁止任何交互（焦点、点击、选择、输入等）
+      group: 状态属性
+      brifeDoc: ""
+      docDescription: 置灰显示，且禁止任何交互（焦点、点击、选择、输入等）
+      tooltipLink: ""
+    - name: viaOriginURL
+      title: 源地址访问
+      type: boolean
+      default: false
+      description: ""
+    - name: multiple
+      title: 多文件上传
+      type: boolean
+      default: false
+      description: ""
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 开启后可上传多个文件，默认关闭，多文件可设置数量上限
+      tooltipLink: ""
+  slots:
+    - concept: Slot
+      name: default
+      description: 插入文本 或 HTML。
+  events:
+    - name: before-upload
+      title: 上传前
+      description: 上传前触发
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+        - name: $event.file
+          type: File
+          description: 待上传的文件
+        - name: $event.preventDefault
+          type: Function
+          description: 阻止上传流程
+        - name: senderVM
+          type: UUploader
+          description: 发送事件对象
+    - name: progress
+      title: 进度改变时
+      description: 发送进度改变时触发，在上传进度条时使用
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+        - name: $event.data
+          type: object
+          description: 进度相关信息
+        - name: senderVM
+          type: UUploader
+          description: 发送事件对象      
+    - name: success
+      title: 上传成功时
+      description: 上传成功时触发
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+        - name: $event.data
+          type: object
+          description: 服务器回传信息对象
+        - name: $event.file
+          type: object
+          description: 上传文件信息，不包含文件主体内容
+        - name: senderVM
+          type: UUploader
+          description: 发送事件对象
+    - name: error
+      title: 上传错误时
+      description: 上传报错时触发
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+        - name: $event.name
+          type: string
+          description: 错误名
+        - name: $event.message
+          type: string
+          description: 错误描述
+        - name: $event.extensions
+          type: string
+          description: 限制类型
+        - name: $event.maxSize
+          type: number
+          description: 限制大小
+        - name: $event.size
+          type: number
+          description: 当前大小
+        - name: senderVM
+          type: UUploader
+          description: 发送事件对象
+    - name: remove
+      title: 删除时
+      description: 点击删除按钮时触发
+      params:
+        - name: $event
+          type: object
+          description: 自定义事件对象
+        - name: $event.value
+          type: object
+          description: 当前展示项的数据信息
+        - name: $event.item
+          type: object
+          description: 删除项的数据信息
+        - name: $event.index
+          type: number
+          description: 删除项在数据列表中的索引
+  methods:
+    - name: select
+      title: 选择
+      description: 选择文件上传
+      params: []
