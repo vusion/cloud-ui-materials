@@ -1,33 +1,16 @@
 <template>
     <div :class="$style.root">
-        <div
-            v-if="!inDesigner && !loadingError"
-            :class="$style.stage"
-            style="width: 100%; height: 100%"
-        >
+        <div v-if="!inDesigner && !loadingError" style="width: 100%; height: 100%">
             <div :class="$style.container" ref="amap"></div>
 
-            <!-- 关键改动：改用 v-show 常驻DOM，绑定 infoStyle 控制透明度/指针 -->
-            <div
-                v-show="selectedPoint && hasInfoWindow"
-                ref="infoWindow"
-                :class="$style.infoWindow"
-                :style="infoStyle"
-            >
+            <!-- v-if 改为 v-show，绑定 style 控制离屏/渐显 -->
+            <div v-show="hasInfoWindow && selectedPoint && $scopedSlots.item" ref="infoWindow"
+                :class="$style.infoWindow" :style="infoWindowStyle">
                 <div :class="$style.infoWindowContent">
                     <slot name="item" :item="selectedPoint"></slot>
-                    <!-- 改成本地关闭钩子：先淡出再调用原clearSelectedItem -->
-                    <a
-                        :class="$style.infoWindowClose"
-                        @click="onCloseClick"
-                    >
-                        x
-                    </a>
+                    <a :class="$style.infoWindowClose" @click="onCloseClick">x</a>
                 </div>
-                <div
-                    ref="infoWindowArrow"
-                    :class="$style.infoWindowArrow"
-                ></div>
+                <div ref="infoWindowArrow" :class="$style.infoWindowArrow"></div>
             </div>
         </div>
 
@@ -35,22 +18,9 @@
             地图不可用，请前往「应用配置」页面「自定义参数配置」，配置key和密钥。如果您已经配置Key，请发布预览后重新刷新页面。
         </div>
 
-        <img
-            v-if="inDesigner"
-            :src="mapPNG"
-            style="width: 100%; height: 100%; object-fit: cover"
-        />
-        <div
-            v-if="inDesigner && hasInfoWindow"
-            style="
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                right: 0;
-                z-index: 10;
-            "
-        >
+        <img v-if="inDesigner" :src="mapPNG" style="width: 100%; height: 100%; object-fit: cover" />
+        <div v-if="inDesigner && hasInfoWindow"
+            style="width: 100%; height: 100%; position: absolute; top: 0; right: 0; z-index: 10;">
             <div s-empty="true" vusion-slot-name="item">
                 <slot name="item" :item="selectedItem"></slot>
             </div>
@@ -82,17 +52,21 @@ export default {
         return {
             loadingError: null,
             mapPNG,
-            /** 关键新增：控制“先就位后淡入”的样式状态 */
-            infoStyle: {
-                position: 'absolute',
-                left: '-9999px',   // 初始放离屏，避免首帧(0,0)
+
+            // —— 防闪烁控制 —— //
+            showToken: 0, // 并发令牌，丢弃晚到回调
+            infoWindowStyle: {
+                visibility: 'hidden', // 首帧完全不可见，避免(0,0)闪现
+                opacity: 0,
+                left: '-9999px',
                 top: '-9999px',
-                opacity: 0,        // 初始透明
-                pointerEvents: 'none',
-                transition: 'opacity 160ms ease'
-            }
+                transition: 'opacity .2s ease',
+            },
+            _resizeObserver: null,
+            _sizeStableTimer: null,
         };
     },
+
     computed: {
         inDesigner() {
             return this.$env.VUE_APP_DESIGNER;
@@ -102,9 +76,35 @@ export default {
         if (this.inDesigner) return;
         this.initAMap();
     },
+
+    destroyed() {
+        // 清理观察器/定时器
+        this._resizeObserver && this._resizeObserver.disconnect();
+        clearTimeout(this._sizeStableTimer);
+
+        if (this.pointStore && typeof this.pointStore.destroy === 'function') {
+            this.pointStore.destroy();
+        }
+        this.pointStore = null;
+        if (this.mapInstance) {
+            this.mapInstance.clearMap();
+            this.mapInstance.destroy();
+            this.mapInstance = null;
+        }
+    },
+
     watch: {
+        // —— 核心：当选中点变化时，离屏 → 等稳定 → 定位 → 渐显 —— //
+        async selectedPoint(val) {
+            if (!val) return;
+            const token = ++this.showToken;
+            this._hideInfoWindow();             // 离屏 & 隐藏
+            await this._positionAfterStable(token); // 稳定后定位+显示
+        },
+
         'currentDataSource.data'() {
-            this.fadeOutInfoWindowImmediately(); // 避免数据切换时闪
+            this._hideInfoWindow();
+            this.clearSelectedItem && this.clearSelectedItem();
             if (this.pointStore) {
                 this.pointStore.update(this.currentDataSource.data);
                 this.mapInstance.setFitView();
@@ -113,6 +113,7 @@ export default {
                 });
             }
         },
+
         center() {
             if (this.mapInstance) this.mapInstance.setZoomAndCenter(13, this.center);
         },
@@ -131,6 +132,78 @@ export default {
         }
     },
     methods: {
+        // ===== 防闪烁工具 =====
+        _hideInfoWindow() {
+            // 离屏并隐藏，同时清理观察器
+            this.infoWindowStyle = {
+                ...this.infoWindowStyle,
+                visibility: 'hidden',
+                opacity: 0,
+                left: '-9999px',
+                top: '-9999px',
+            };
+            this._resizeObserver && this._resizeObserver.disconnect();
+            clearTimeout(this._sizeStableTimer);
+        },
+        _showInfoWindow() {
+            this.infoWindowStyle = {
+                ...this.infoWindowStyle,
+                visibility: 'visible',
+                opacity: 1,
+            };
+        },
+        async _positionAfterStable(token) {
+            // 1) 等 DOM 渲染
+            await this.$nextTick();
+            // 2) 等地图/布局两帧（双 rAF），确保投影稳定
+            await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+            if (token !== this.showToken) return;
+
+            // 3) 首次定位（只设置 left/top/transform，不改透明度/visibility）
+            this.updateInfoWindowPosition && this.updateInfoWindowPosition();
+
+            const el = this.$refs.infoWindow;
+            if (!el) return;
+
+            // 4) 等尺寸稳定（插槽可能含图片/异步文本）
+            this._resizeObserver && this._resizeObserver.disconnect();
+            clearTimeout(this._sizeStableTimer);
+
+            let lastW = el.offsetWidth;
+            let lastH = el.offsetHeight;
+
+            const onStable = () => {
+                if (token !== this.showToken) return;
+                // 最终再定位一次，确保基于稳定尺寸
+                this.updateInfoWindowPosition && this.updateInfoWindowPosition();
+                this._showInfoWindow();
+            };
+
+            // 简单内容：给一个最小窗口
+            this._sizeStableTimer = setTimeout(onStable, 80);
+
+            // 富内容：尺寸波动时，稳定 80ms 后再显
+            this._resizeObserver = new ResizeObserver(() => {
+                clearTimeout(this._sizeStableTimer);
+                this._sizeStableTimer = setTimeout(() => {
+                    const w = el.offsetWidth;
+                    const h = el.offsetHeight;
+                    if (w === lastW && h === lastH) {
+                        onStable();
+                    } else {
+                        lastW = w;
+                        lastH = h;
+                    }
+                }, 80);
+            });
+            this._resizeObserver.observe(el);
+        },
+        onCloseClick() {
+            this._hideInfoWindow();
+            this.clearSelectedItem && this.clearSelectedItem();
+        },
+
+        // ===== 地图初始化 =====
         initAMap() {
             getAMapInstance(true).then(
                 async (AMap) => {
@@ -140,16 +213,14 @@ export default {
                         zoom: 13,
                         resizeEnable: true,
                     });
-                    await new Promise((res) => {
-                        this.mapInstance.on('complete', res);
-                    });
+                    await new Promise((res) => this.mapInstance.on('complete', res));
+
                     this.$emit('maploaded', { AMap, mapInstance: this.mapInstance });
 
                     this.pointStore = createMapMarkerStore({
                         onMarkClick: (e) => {
                             const extData = e.target.getExtData();
                             this.$emit('click', { ...e, extData });
-                            // 原逻辑：内部 mixin 会计算并设置 infoWindow 的 left/top/arrow
                             this.moveMarker(extData.position, extData);
                             // 新增：补一手“先就位后淡入”
                             this.fadeInAfterPosition();
@@ -164,10 +235,26 @@ export default {
                         customPointOptions: this.customPointOptions,
                         moveDuration: this.needMoveAnimate ? this.moveDuration : 0,
                     });
+
                     if (this.currentDataSource.data) {
                         this.pointStore.init(this.currentDataSource.data);
                         this.mapInstance.setFitView();
                     }
+
+                    // 地图交互后双 rAF 重新定位，防止刚结束那帧坐标不稳定
+                    const safeReposition = () => {
+                        const token = this.showToken;
+                        requestAnimationFrame(() =>
+                            requestAnimationFrame(() => {
+                                if (token !== this.showToken) return;
+                                if (this.selectedPoint && this.updateInfoWindowPosition) {
+                                    this.updateInfoWindowPosition();
+                                }
+                            })
+                        );
+                    };
+                    this.mapInstance.on('moveend', safeReposition);
+                    this.mapInstance.on('zoomend', safeReposition);
                 },
                 (e) => {
                     this.loadingError = e.message;
@@ -175,6 +262,7 @@ export default {
             );
         },
 
+        // ===== 各类 marker 工厂 =====
         getMarkerInstance(point) {
             const AMap = this.AMap;
             const { type, text, ...others } = point;
@@ -272,16 +360,18 @@ height: 100%;
     color: #fff;
 }
 
-/* 关键：从首帧就给出定位锚点，避免进入时再切换 transform */
+/* 只过渡透明度，避免位置“漂移感” */
 .infoWindow {
     position: absolute;
     z-index: 121;
     display: block;
     pointer-events: auto;
+    transition: opacity .2s ease;
+    will-change: transform, opacity;
 }
 
 .infoWindowContent {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
     border-radius: 2px;
     text-align: left;
     background: #fff;
@@ -289,10 +379,17 @@ height: 100%;
     padding: 10px 18px 10px 10px;
 }
 
+.infoWindowContent img {
+    /* 若slot内有图片，建议固定宽高或至少这样避免 reflow 抖动 */
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 .infoWindowClose {
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 0;
+    top: 0;
     color: #c3c3c3;
     text-decoration: none;
     font: 700 16px/14px Tahoma, Verdana, sans-serif;
@@ -308,7 +405,11 @@ height: 100%;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
 }
-.infoWindowArrow[placement='top'] { border-top: 8px solid #fff; }
+
+.infoWindowArrow[placement='top'] {
+    border-top: 8px solid #fff;
+}
+
 .infoWindowArrow[placement='bottom'] {
     border-bottom: 8px solid #fff;
     top: 0;
@@ -324,7 +425,7 @@ height: 100%;
 
 .root div[s-empty]:empty {
     position: relative;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
     border-radius: 2px;
     text-align: left;
     background: #fff;
