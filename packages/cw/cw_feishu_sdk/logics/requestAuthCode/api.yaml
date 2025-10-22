@@ -1,5 +1,0 @@
-- name: requestAuthCode
-  description: 免等授权
-  type: both
-  belong: logic
-  labels: [Runtime]

@@ -1,5 +1,0 @@
-- name: formulaToString
-  description: 公式转字符串
-  type: pc
-  belong: logic
-  labels: [Runtime]

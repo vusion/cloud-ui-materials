@@ -1,5 +1,0 @@
-- name: getNetworkType
-  description: 获取网络状态接口
-  type: h5
-  belong: logic
-  labels: [Runtime]

@@ -1,5 +1,0 @@
-- name: getOauth2Url
-  description: 获得指定类型的第三方登录地址
-  type: both
-  belong: logic
-  labels: [Runtime]

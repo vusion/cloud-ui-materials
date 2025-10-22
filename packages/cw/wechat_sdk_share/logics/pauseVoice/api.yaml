@@ -1,5 +1,0 @@
-- name: pauseVoice
-  description: 暂停播放接口
-  type: h5
-  belong: logic
-  labels: [Runtime]

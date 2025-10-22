@@ -1,5 +1,0 @@
-- name: closeWindow
-  description: 关闭当前网页窗口接口
-  type: h5
-  belong: logic
-  labels: [Runtime]

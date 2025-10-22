@@ -2,7 +2,7 @@
   "name": "cw_amap",
   "title": "高德地图组件",
   "description": "",
-  "version": "1.0.15",
+  "version": "1.0.20",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -11,10 +11,7 @@
   "keywords": [
     "lcap",
     "material",
-    "component",
-    "family:legacy-yaml",
-    "biz:cw",
-    "kind:component"
+    "component"
   ],
   "scripts": {
     "dev": "vue-cli-service doc --port 9090",
@@ -57,12 +54,5 @@
     "@floating-ui/dom": "^1.5.4",
     "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.2"
-  },
-  "turbo": {
-    "tags": [
-      "family:legacy-yaml",
-      "biz:cw",
-      "kind:component"
-    ]
   }
 }

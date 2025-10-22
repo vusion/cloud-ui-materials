@@ -1,5 +1,0 @@
-- name: encryptByDes
-  description: Des加密
-  type: both
-  belong: logic
-  labels: [Runtime]

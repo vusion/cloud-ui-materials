@@ -1,5 +1,0 @@
-- name: getOauthCodeAndState
-  description: 获取code和state
-  type: both
-  belong: logic
-  labels: [Runtime]

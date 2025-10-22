@@ -1,9 +1,0 @@
-- name: cust-count-down-only-for-carrier-yanxuan
-  title: 倒计时
-  type: pc
-  belong: component
-  labels: [Runtime]
-  attrs:
-      - name: inquiryStartTime
-        type: number
-        description: 开始时间的时间戳,单位ms

@@ -1,5 +1,0 @@
-- name: startRecord
-  description: 开始录音接口
-  type: h5
-  belong: logic
-  labels: [Runtime]

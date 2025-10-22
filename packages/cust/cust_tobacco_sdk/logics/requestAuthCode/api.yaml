@@ -1,5 +1,0 @@
-- name: requestAuthCode
-  description: 获取用户token
-  type: both
-  belong: logic
-  labels: [Runtime]

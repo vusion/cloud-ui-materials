@@ -1,5 +1,0 @@
-- name: sm2Decrypt
-  description: sm2解密
-  type: both
-  belong: logic
-  labels: [Runtime]

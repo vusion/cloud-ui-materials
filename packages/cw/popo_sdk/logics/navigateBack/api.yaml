@@ -1,6 +1,0 @@
-- name: navigateBack
-  title: 
-  description: 关闭当前页面，返回上一页面
-  type: h5
-  belong: logic
-  labels: [Runtime]

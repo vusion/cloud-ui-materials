@@ -1,5 +1,0 @@
-- name: ready
-  description: ready
-  type: both
-  belong: logic
-  labels: [Runtime]

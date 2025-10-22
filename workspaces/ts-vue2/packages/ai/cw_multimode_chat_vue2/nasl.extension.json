@@ -1,0 +1,2439 @@
+{
+  "name": "cw_multimode_chat_vue2",
+  "title": "多模态对话式AI交互组件",
+  "description": "支持多模态输入和展示，适配AI场景下的对话式交互",
+  "specVersion": "1.0.0",
+  "type": "module",
+  "subType": "extension",
+  "version": "1.1.1",
+  "frontends": [
+    {
+      "concept": "FrontendLibrary",
+      "name": "pc",
+      "type": "pc",
+      "frameworkKind": "vue2",
+      "frameworkUI": "both",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwBubbleList",
+          "kebabName": "cw-bubble-list",
+          "title": "对话气泡",
+          "description": "对话气泡",
+          "icon": "",
+          "tsTypeParams": "T",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "bindOpen": true,
+              "tabKind": "property",
+              "name": "dataSource",
+              "title": "数据源",
+              "tsType": "{\n  list: nasl.collection.List<T>;\n  total: nasl.core.Integer;\n} | nasl.collection.List<T>",
+              "description": "展示数据的输入源，可设置为数据集对象或者返回数据集的逻辑",
+              "docDescription": "列表展示的数据。数据源可以绑定变量或者逻辑。变量或逻辑的返回值可以是数组，也可以是对象。对象格式为{list:[], total:10}"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "name": "dataSchema",
+              "title": "数据类型",
+              "tsType": "T",
+              "description": "数据源返回的数据结构的类型，自动识别类型进行展示说明",
+              "docDescription": "列表每一行的数据类型。该属性为展示属性，由数据源推倒得到，无需填写。"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "PropertySelectSetter"
+              },
+              "name": "roleField",
+              "title": "角色字段",
+              "tsType": "(item: T) => any",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "role"
+                },
+                "playground": []
+              },
+              "description": "角色的字段名"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "leftRoleName",
+              "title": "左侧角色值",
+              "tsType": "nasl.core.String",
+              "description": "左侧展示的角色值"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "rightRoleName",
+              "title": "右侧角色值",
+              "tsType": "nasl.core.String",
+              "description": "右侧展示的角色值"
+            }
+          ],
+          "readableProps": [],
+          "events": [],
+          "methods": [
+            {
+              "concept": "LogicDeclaration",
+              "description": "重新加载数据",
+              "params": [],
+              "returns": [],
+              "name": "reload",
+              "title": "重新加载数据",
+              "tsType": "() => void"
+            }
+          ],
+          "slots": [
+            {
+              "concept": "SlotDeclaration",
+              "name": "leftBubble",
+              "title": "左侧对话气泡",
+              "tsType": "(current: nasl.ui.Current<T>) => Array<nasl.ui.ViewComponent>",
+              "params": [
+                {
+                  "concept": "Param",
+                  "name": "current",
+                  "description": "",
+                  "typeAnnotation": {
+                    "typeKind": "generic",
+                    "typeName": "Current",
+                    "typeNamespace": "nasl.ui",
+                    "concept": "TypeAnnotation",
+                    "inferred": false,
+                    "ruleMap": {},
+                    "typeArguments": [
+                      {
+                        "concept": "TypeAnnotation",
+                        "typeKind": "typeParam",
+                        "inferred": false,
+                        "ruleMap": {}
+                      }
+                    ]
+                  }
+                }
+              ],
+              "description": "左侧对话气泡"
+            },
+            {
+              "concept": "SlotDeclaration",
+              "name": "rightBubble",
+              "title": "右侧对话气泡",
+              "tsType": "(current: nasl.ui.Current<T>) => Array<nasl.ui.ViewComponent>",
+              "params": [
+                {
+                  "concept": "Param",
+                  "name": "current",
+                  "description": "",
+                  "typeAnnotation": {
+                    "typeKind": "generic",
+                    "typeName": "Current",
+                    "typeNamespace": "nasl.ui",
+                    "concept": "TypeAnnotation",
+                    "inferred": false,
+                    "ruleMap": {},
+                    "typeArguments": [
+                      {
+                        "concept": "TypeAnnotation",
+                        "typeKind": "typeParam",
+                        "inferred": false,
+                        "ruleMap": {}
+                      }
+                    ]
+                  }
+                }
+              ],
+              "description": "右侧对话气泡"
+            }
+          ],
+          "children": [
+            {
+              "concept": "ViewComponentDeclaration",
+              "group": "",
+              "name": "CwBubble",
+              "kebabName": "cw-bubble",
+              "title": "对话气泡项",
+              "description": "对话气泡项",
+              "icon": "",
+              "tsTypeParams": "T",
+              "props": [
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "content",
+                  "title": "内容值",
+                  "tsType": "nasl.core.String",
+                  "description": "内容的值字段"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showAvatar",
+                  "title": "显示头像",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否显示头像，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "avatar",
+                  "title": "头像值",
+                  "tsType": "nasl.core.String",
+                  "description": "头像值对应的字段",
+                  "if": "_ => _.showAvatar === true",
+                  "tsIf": "_ => _.showAvatar === true"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showUserName",
+                  "title": "显示昵称",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否显示昵称，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "name",
+                  "title": "昵称值",
+                  "tsType": "nasl.core.String",
+                  "description": "昵称值对应的字段",
+                  "if": "_ => _.showUserName === true",
+                  "tsIf": "_ => _.showUserName === true"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showTime",
+                  "title": "显示时间",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否展示时间，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "time",
+                  "title": "时间值",
+                  "tsType": "nasl.core.DateTime | nasl.core.Date | nasl.core.Time",
+                  "description": "时间值对应的字段",
+                  "if": "_ => _.showTime === true",
+                  "tsIf": "_ => _.showTime === true"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "fileList",
+                  "title": "文件列表值",
+                  "tsType": "nasl.collection.List<any>",
+                  "description": "文件列表值对应的字段"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showFooter",
+                  "title": "显示底部插槽",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否显示底部插槽，默认关闭"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "状态属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "loading",
+                  "title": "加载中",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否加载中，默认关闭"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "状态属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "typing",
+                  "title": "打字机效果",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否打字机效果，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "EnumSelectSetter",
+                    "options": [
+                      {
+                        "title": "全圆角",
+                        "value": "normal"
+                      },
+                      {
+                        "title": "胶囊型",
+                        "value": "round"
+                      },
+                      {
+                        "title": "切角",
+                        "value": "corner"
+                      },
+                      {
+                        "title": "无",
+                        "value": "none"
+                      }
+                    ]
+                  },
+                  "name": "shape",
+                  "title": "气泡形状",
+                  "tsType": "'normal' | 'round' | 'corner' | 'none'",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "StringLiteral",
+                      "value": "normal"
+                    },
+                    "playground": []
+                  }
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "filled",
+                  "title": "填充背景",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "docDescription": "控制气泡是否填充背景，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "border",
+                  "title": "显示边框",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "docDescription": "控制气泡边框的显隐，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "shadow",
+                  "title": "阴影",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "docDescription": "控制气泡是否展示阴影，默认开启"
+                }
+              ],
+              "readableProps": [],
+              "events": [
+                {
+                  "concept": "EventDeclaration",
+                  "name": "typing-complete",
+                  "title": "打字完成时",
+                  "tsType": "(event: any) => any",
+                  "description": "打字效果完成时触发"
+                }
+              ],
+              "methods": [],
+              "slots": [
+                {
+                  "concept": "SlotDeclaration",
+                  "name": "footer",
+                  "title": "底部内容",
+                  "tsType": "() => Array<nasl.ui.ViewComponent>",
+                  "params": [],
+                  "description": "底部内容"
+                }
+              ],
+              "children": [],
+              "blocks": [],
+              "themeVariables": [],
+              "type": "both",
+              "ideusage": {
+                "idetype": "container",
+                "additionalAttribute": {
+                  "role": "\"ai\"",
+                  "content": "\"Normal message\"",
+                  "name": "\"Name\"",
+                  "time": "\"2025-03-12 16:35:47\""
+                },
+                "operator": {
+                  "copy": false,
+                  "duplicate": false,
+                  "delete": false,
+                  "cut": false,
+                  "d2c": false
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cw-bubble-list><template #leftBubble=\"current\"><cw-bubble placement=\"start\"></cw-bubble></template><template #rightBubble=\"current\"><cw-bubble placement=\"end\"></cw-bubble></template></cw-bubble-list></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "container",
+            "childAccept": "target.tag === 'cw-bubble'",
+            "dataSource": {
+              "dismiss": "!this.getAttribute('dataSource') && this.getDefaultElements().length > 0",
+              "display": 4,
+              "loopRule": "nth-last-child(-n+2):not(:only-child)",
+              "loopElem": "> div",
+              "displayData": "\"[{role: 'ai'}, {role:'user'}, {role: 'ai'}, {role:'user'}]\"",
+              "propertyName": ":dataSource",
+              "emptySlot": {
+                "display": "inline",
+                "condition": "!this.getAttribute('dataSource')",
+                "accept": false,
+                "content": "\"请绑定数据源或插入子节点\""
+              },
+              "slotWrapperInlineStyle": {
+                "default": "display: inline-block;"
+              }
+            },
+            "additionalAttribute": {
+              "roleField": "\"role\"",
+              "leftRoleName": "\"ai\"",
+              "rightRoleName": "\"user\""
+            },
+            "displaySlotConditions": {
+              "itemFollter": "!!this.getAttribute('dataSource')"
+            }
+          }
+        },
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwSender",
+          "kebabName": "cw-sender",
+          "title": "输入框",
+          "description": "输入框",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "sync": true,
+              "tabKind": "property",
+              "name": "value",
+              "title": "值",
+              "tsType": "nasl.core.String",
+              "description": "当前输入框的值",
+              "docDescription": "当前输入框的值"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "supportAttachment",
+              "title": "是否支持上传附件",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "sync": true,
+              "tabKind": "property",
+              "name": "fileList",
+              "title": "文件列表值",
+              "tsType": "nasl.collection.List<{\n  name: nasl.core.String;\n  percent: nasl.core.Decimal;\n  size: nasl.core.Integer;\n  status: nasl.core.String;\n  type: nasl.core.String;\n  url: nasl.core.String;\n  originFileObj: nasl.ui.File;\n}>",
+              "description": "当前已上传的文件列表的值",
+              "docDescription": "当前已上传的文件列表的值",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "url",
+              "title": "文件上传地址",
+              "tsType": "nasl.core.String",
+              "description": "文件上传的URL地址，如/upload",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter",
+                "placeholder": "所有类型"
+              },
+              "name": "accept",
+              "title": "支持上传的文件类型",
+              "tsType": "nasl.core.String",
+              "description": "若要限制上传文件类型，请输入类型名称，格式为“.后缀名”，多个文件类型时使用英文逗号隔开。例如“.jpeg,.png,.gif”",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "name": "urlField",
+              "title": "文件 URL 字段",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "result"
+                },
+                "playground": []
+              },
+              "description": "请求返回的 URL 字段名",
+              "docDescription": "请求返回的URL字段名",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "name",
+              "title": "上传的文件字段",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "file"
+                },
+                "playground": []
+              },
+              "description": "上传的文件字段名，后端需要这个字段获取",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "headers",
+              "title": "请求头",
+              "tsType": "object",
+              "description": "设置上传的请求头部",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "POST",
+                    "value": "POST"
+                  },
+                  {
+                    "title": "GET",
+                    "value": "GET"
+                  },
+                  {
+                    "title": "PUT",
+                    "value": "PUT"
+                  },
+                  {
+                    "title": "OPTIONS",
+                    "value": "OPTIONS"
+                  },
+                  {
+                    "title": "PATCH",
+                    "value": "PATCH"
+                  },
+                  {
+                    "title": "post",
+                    "value": "post"
+                  },
+                  {
+                    "title": "get",
+                    "value": "get"
+                  },
+                  {
+                    "title": "put",
+                    "value": "put"
+                  },
+                  {
+                    "title": "options",
+                    "value": "options"
+                  },
+                  {
+                    "title": "patch",
+                    "value": "patch"
+                  }
+                ]
+              },
+              "name": "method",
+              "title": "HTTP 请求类型",
+              "tsType": "'POST' | 'GET' | 'PUT' | 'OPTIONS' | 'PATCH' | 'post' | 'get' | 'put' | 'options' | 'patch'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "POST"
+                },
+                "playground": []
+              },
+              "description": "HTTP 请求类型。可选项：POST/GET/PUT/OPTIONS/PATCH/post/get/put/options/patch",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "withCredentials",
+              "title": "是否携带Cookie",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "上传请求时是否携带 cookie",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "data",
+              "title": "附加数据",
+              "tsType": "object",
+              "description": "上传请求所需的额外字段，默认字段有 `file`，表示文件信息。可以添加额外的文件名字段，如：`{file_name: \"custom-file-name.txt\"}`。",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter",
+                "precision": 0
+              },
+              "name": "maxCount",
+              "title": "列表数量上限",
+              "tsType": "nasl.core.Integer",
+              "docDescription": "列表数量上限",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "name": "maxSize",
+              "title": "最大文件大小",
+              "tsType": "nasl.core.String",
+              "description": "可上传的最大文件大小。默认为50MB；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位：`KB`、`MB`、`GB`",
+              "docDescription": "可上传的最大文件大小。默认50MB；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位KB、MB、GB",
+              "implicitToString": true,
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "任何人可访问",
+                    "value": "public"
+                  },
+                  {
+                    "title": "用户登录后可访问",
+                    "value": "private"
+                  }
+                ]
+              },
+              "name": "access",
+              "title": "文件访问策略",
+              "tsType": "'public' | 'private'",
+              "docDescription": "支持任何人可访问和用户登录后可访问两种方式",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "ttl",
+              "title": "文件有效期",
+              "tsType": "nasl.core.Boolean",
+              "description": "是否开启文件有效期控制",
+              "docDescription": "支持配置文件自动清理，开启后可自定义上传后有效天数",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter"
+              },
+              "name": "ttlValue",
+              "title": "上传后有效天数",
+              "tsType": "nasl.core.Decimal",
+              "description": "文件上传后的有效期天数",
+              "docDescription": "开启文件有效期开关后显示，可配置文件自动清理的时间",
+              "if": "_ => _.ttl === true && _.supportAttachment === true",
+              "tsIf": "_ => _.ttl === true && _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "viaOriginURL",
+              "title": "源地址访问",
+              "tsType": "nasl.core.Boolean",
+              "description": "开启后支持通过文件存储源地址访问文件",
+              "docDescription": "开启后支持通过文件存储源地址访问文件",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "name": "placeholder",
+              "title": "占位符",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "请输入"
+                },
+                "playground": []
+              },
+              "description": "为空时显示的占位符文本",
+              "docDescription": "内容为空时的提示文本。",
+              "implicitToString": true
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "Enter",
+                    "value": "enter"
+                  },
+                  {
+                    "title": "ShiftEnter",
+                    "value": "shiftEnter"
+                  }
+                ]
+              },
+              "name": "submitType",
+              "title": "提交方式",
+              "tsType": "'enter' | 'shiftEnter'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "enter"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "supportExtra",
+              "title": "是否开启底部插槽",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter",
+                "precision": 0
+              },
+              "name": "maxlength",
+              "title": "最大字符数",
+              "tsType": "nasl.core.Integer",
+              "docDescription": "限定输入文本最大长度。"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "圆形",
+                    "value": "circle"
+                  },
+                  {
+                    "title": "方形",
+                    "value": "normal"
+                  },
+                  {
+                    "title": "椭圆",
+                    "value": "round"
+                  }
+                ]
+              },
+              "name": "submitBtnShape",
+              "title": "提交按钮形态",
+              "tsType": "'circle' | 'normal' | 'round'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "circle"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "箭头",
+                    "value": "arrowup"
+                  },
+                  {
+                    "title": "飞机",
+                    "value": "plane"
+                  }
+                ]
+              },
+              "name": "submitBtnIcon",
+              "title": "提交按钮图标",
+              "tsType": "'arrowup' | 'plane'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "arrowup"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "shadow",
+              "title": "显示阴影",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "border",
+              "title": "显示边框",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "状态属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "disabled",
+              "title": "禁用",
+              "tsType": "nasl.core.Boolean",
+              "description": "是否禁用"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "状态属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "readonly",
+              "title": "只读",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "正常显示，但禁止选择/输入",
+              "docDescription": "正常显示，但禁止选择或输入",
+              "settable": true
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "状态属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "loading",
+              "title": "加载中",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "发送按钮加载中状态",
+              "docDescription": "发送按钮加载中状态",
+              "settable": true
+            }
+          ],
+          "readableProps": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "name": "value",
+              "title": "当前输入框的值",
+              "tsType": "nasl.core.String"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "name": "fileList",
+              "title": "文件列表",
+              "tsType": "nasl.collection.List<{\n  name: nasl.core.String;\n  percent: nasl.core.Decimal;\n  size: nasl.core.Integer;\n  status: nasl.core.String;\n  type: nasl.core.String;\n  url: nasl.core.String;\n  originFileObj: nasl.ui.File;\n}>"
+            }
+          ],
+          "events": [
+            {
+              "concept": "EventDeclaration",
+              "name": "submit",
+              "title": "点击发送按钮",
+              "tsType": "(event: {\n  content: nasl.core.String;\n  fileList: nasl.collection.List<{\n    name: nasl.core.String;\n    percent: nasl.core.Decimal;\n    size: nasl.core.Integer;\n    status: nasl.core.String;\n    type: nasl.core.String;\n    url: nasl.core.String;\n    originFileObj: nasl.ui.File;\n  }>;\n}) => any",
+              "description": "点击发送按钮时触发"
+            },
+            {
+              "concept": "EventDeclaration",
+              "name": "change",
+              "title": "输入框值改变时",
+              "tsType": "(event: {\n  content: nasl.core.String;\n  fileList: nasl.collection.List<{\n    name: nasl.core.String;\n    percent: nasl.core.Decimal;\n    size: nasl.core.Integer;\n    status: nasl.core.String;\n    type: nasl.core.String;\n    url: nasl.core.String;\n    originFileObj: nasl.ui.File;\n  }>;\n}) => any",
+              "description": "选中值发生变化时触发"
+            },
+            {
+              "concept": "EventDeclaration",
+              "name": "cancel",
+              "title": "点击取消按钮",
+              "tsType": "(event: any) => any",
+              "description": "点击取消按钮时触发"
+            }
+          ],
+          "methods": [],
+          "slots": [
+            {
+              "concept": "SlotDeclaration",
+              "name": "default",
+              "title": "底部内容",
+              "tsType": "() => Array<nasl.ui.ViewComponent>",
+              "params": [],
+              "description": "底部内容"
+            }
+          ],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cw-sender maxSize=\"50MB\"></cw-sender></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "container"
+          }
+        }
+      ],
+      "logics": []
+    },
+    {
+      "concept": "FrontendLibrary",
+      "name": "h5",
+      "type": "h5",
+      "frameworkKind": "vue2",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwBubbleList",
+          "kebabName": "cw-bubble-list",
+          "title": "对话气泡",
+          "description": "对话气泡",
+          "icon": "",
+          "tsTypeParams": "T",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "bindOpen": true,
+              "tabKind": "property",
+              "name": "dataSource",
+              "title": "数据源",
+              "tsType": "{\n  list: nasl.collection.List<T>;\n  total: nasl.core.Integer;\n} | nasl.collection.List<T>",
+              "description": "展示数据的输入源，可设置为数据集对象或者返回数据集的逻辑",
+              "docDescription": "列表展示的数据。数据源可以绑定变量或者逻辑。变量或逻辑的返回值可以是数组，也可以是对象。对象格式为{list:[], total:10}"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "name": "dataSchema",
+              "title": "数据类型",
+              "tsType": "T",
+              "description": "数据源返回的数据结构的类型，自动识别类型进行展示说明",
+              "docDescription": "列表每一行的数据类型。该属性为展示属性，由数据源推倒得到，无需填写。"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "PropertySelectSetter"
+              },
+              "name": "roleField",
+              "title": "角色字段",
+              "tsType": "(item: T) => any",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "role"
+                },
+                "playground": []
+              },
+              "description": "角色的字段名"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "leftRoleName",
+              "title": "左侧角色值",
+              "tsType": "nasl.core.String",
+              "description": "左侧展示的角色值"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "rightRoleName",
+              "title": "右侧角色值",
+              "tsType": "nasl.core.String",
+              "description": "右侧展示的角色值"
+            }
+          ],
+          "readableProps": [],
+          "events": [],
+          "methods": [
+            {
+              "concept": "LogicDeclaration",
+              "description": "重新加载数据",
+              "params": [],
+              "returns": [],
+              "name": "reload",
+              "title": "重新加载数据",
+              "tsType": "() => void"
+            }
+          ],
+          "slots": [
+            {
+              "concept": "SlotDeclaration",
+              "name": "leftBubble",
+              "title": "左侧对话气泡",
+              "tsType": "(current: nasl.ui.Current<T>) => Array<nasl.ui.ViewComponent>",
+              "params": [
+                {
+                  "concept": "Param",
+                  "name": "current",
+                  "description": "",
+                  "typeAnnotation": {
+                    "typeKind": "generic",
+                    "typeName": "Current",
+                    "typeNamespace": "nasl.ui",
+                    "concept": "TypeAnnotation",
+                    "inferred": false,
+                    "ruleMap": {},
+                    "typeArguments": [
+                      {
+                        "concept": "TypeAnnotation",
+                        "typeKind": "typeParam",
+                        "inferred": false,
+                        "ruleMap": {}
+                      }
+                    ]
+                  }
+                }
+              ],
+              "description": "左侧对话气泡"
+            },
+            {
+              "concept": "SlotDeclaration",
+              "name": "rightBubble",
+              "title": "右侧对话气泡",
+              "tsType": "(current: nasl.ui.Current<T>) => Array<nasl.ui.ViewComponent>",
+              "params": [
+                {
+                  "concept": "Param",
+                  "name": "current",
+                  "description": "",
+                  "typeAnnotation": {
+                    "typeKind": "generic",
+                    "typeName": "Current",
+                    "typeNamespace": "nasl.ui",
+                    "concept": "TypeAnnotation",
+                    "inferred": false,
+                    "ruleMap": {},
+                    "typeArguments": [
+                      {
+                        "concept": "TypeAnnotation",
+                        "typeKind": "typeParam",
+                        "inferred": false,
+                        "ruleMap": {}
+                      }
+                    ]
+                  }
+                }
+              ],
+              "description": "右侧对话气泡"
+            }
+          ],
+          "children": [
+            {
+              "concept": "ViewComponentDeclaration",
+              "group": "",
+              "name": "CwBubble",
+              "kebabName": "cw-bubble",
+              "title": "对话气泡项",
+              "description": "对话气泡项",
+              "icon": "",
+              "tsTypeParams": "T",
+              "props": [
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "content",
+                  "title": "内容值",
+                  "tsType": "nasl.core.String",
+                  "description": "内容的值字段"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showAvatar",
+                  "title": "显示头像",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否显示头像，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "avatar",
+                  "title": "头像值",
+                  "tsType": "nasl.core.String",
+                  "description": "头像值对应的字段",
+                  "if": "_ => _.showAvatar === true",
+                  "tsIf": "_ => _.showAvatar === true"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showUserName",
+                  "title": "显示昵称",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否显示昵称，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "name",
+                  "title": "昵称值",
+                  "tsType": "nasl.core.String",
+                  "description": "昵称值对应的字段",
+                  "if": "_ => _.showUserName === true",
+                  "tsIf": "_ => _.showUserName === true"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showTime",
+                  "title": "显示时间",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否展示时间，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "time",
+                  "title": "时间值",
+                  "tsType": "nasl.core.DateTime | nasl.core.Date | nasl.core.Time",
+                  "description": "时间值对应的字段",
+                  "if": "_ => _.showTime === true",
+                  "tsIf": "_ => _.showTime === true"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "bindOpen": true,
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "InputSetter"
+                  },
+                  "name": "fileList",
+                  "title": "文件列表值",
+                  "tsType": "nasl.collection.List<any>",
+                  "description": "文件列表值对应的字段"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "主要属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "showFooter",
+                  "title": "显示底部插槽",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否显示底部插槽，默认关闭"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "状态属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "loading",
+                  "title": "加载中",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否加载中，默认关闭"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "状态属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "typing",
+                  "title": "打字机效果",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "description": "是否打字机效果，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "EnumSelectSetter",
+                    "options": [
+                      {
+                        "title": "全圆角",
+                        "value": "normal"
+                      },
+                      {
+                        "title": "胶囊型",
+                        "value": "round"
+                      },
+                      {
+                        "title": "切角",
+                        "value": "corner"
+                      },
+                      {
+                        "title": "无",
+                        "value": "none"
+                      }
+                    ]
+                  },
+                  "name": "shape",
+                  "title": "气泡形状",
+                  "tsType": "'normal' | 'round' | 'corner' | 'none'",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "StringLiteral",
+                      "value": "normal"
+                    },
+                    "playground": []
+                  }
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "filled",
+                  "title": "填充背景",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "true"
+                    },
+                    "playground": []
+                  },
+                  "docDescription": "控制气泡是否填充背景，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "border",
+                  "title": "显示边框",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "docDescription": "控制气泡边框的显隐，默认开启"
+                },
+                {
+                  "concept": "PropDeclaration",
+                  "group": "样式属性",
+                  "tabKind": "property",
+                  "setter": {
+                    "concept": "SwitchSetter"
+                  },
+                  "name": "shadow",
+                  "title": "阴影",
+                  "tsType": "nasl.core.Boolean",
+                  "defaultValue": {
+                    "concept": "DefaultValue",
+                    "expression": {
+                      "concept": "BooleanLiteral",
+                      "value": "false"
+                    },
+                    "playground": []
+                  },
+                  "docDescription": "控制气泡是否展示阴影，默认开启"
+                }
+              ],
+              "readableProps": [],
+              "events": [
+                {
+                  "concept": "EventDeclaration",
+                  "name": "typing-complete",
+                  "title": "打字完成时",
+                  "tsType": "(event: any) => any",
+                  "description": "打字效果完成时触发"
+                }
+              ],
+              "methods": [],
+              "slots": [
+                {
+                  "concept": "SlotDeclaration",
+                  "name": "footer",
+                  "title": "底部内容",
+                  "tsType": "() => Array<nasl.ui.ViewComponent>",
+                  "params": [],
+                  "description": "底部内容"
+                }
+              ],
+              "children": [],
+              "blocks": [],
+              "themeVariables": [],
+              "type": "both",
+              "ideusage": {
+                "idetype": "container",
+                "additionalAttribute": {
+                  "role": "\"ai\"",
+                  "content": "\"Normal message\"",
+                  "name": "\"Name\"",
+                  "time": "\"2025-03-12 16:35:47\""
+                },
+                "operator": {
+                  "copy": false,
+                  "duplicate": false,
+                  "delete": false,
+                  "cut": false,
+                  "d2c": false
+                }
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cw-bubble-list><template #leftBubble=\"current\"><cw-bubble placement=\"start\"></cw-bubble></template><template #rightBubble=\"current\"><cw-bubble placement=\"end\"></cw-bubble></template></cw-bubble-list></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "container",
+            "childAccept": "target.tag === 'cw-bubble'",
+            "dataSource": {
+              "dismiss": "!this.getAttribute('dataSource') && this.getDefaultElements().length > 0",
+              "display": 4,
+              "loopRule": "nth-last-child(-n+2):not(:only-child)",
+              "loopElem": "> div",
+              "displayData": "\"[{role: 'ai'}, {role:'user'}, {role: 'ai'}, {role:'user'}]\"",
+              "propertyName": ":dataSource",
+              "emptySlot": {
+                "display": "inline",
+                "condition": "!this.getAttribute('dataSource')",
+                "accept": false,
+                "content": "\"请绑定数据源或插入子节点\""
+              },
+              "slotWrapperInlineStyle": {
+                "default": "display: inline-block;"
+              }
+            },
+            "additionalAttribute": {
+              "roleField": "\"role\"",
+              "leftRoleName": "\"ai\"",
+              "rightRoleName": "\"user\""
+            },
+            "displaySlotConditions": {
+              "itemFollter": "!!this.getAttribute('dataSource')"
+            }
+          }
+        },
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwSender",
+          "kebabName": "cw-sender",
+          "title": "输入框",
+          "description": "输入框",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "sync": true,
+              "tabKind": "property",
+              "name": "value",
+              "title": "值",
+              "tsType": "nasl.core.String",
+              "description": "当前输入框的值",
+              "docDescription": "当前输入框的值"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "supportAttachment",
+              "title": "是否支持上传附件",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "sync": true,
+              "tabKind": "property",
+              "name": "fileList",
+              "title": "文件列表值",
+              "tsType": "nasl.collection.List<{\n  name: nasl.core.String;\n  percent: nasl.core.Decimal;\n  size: nasl.core.Integer;\n  status: nasl.core.String;\n  type: nasl.core.String;\n  url: nasl.core.String;\n  originFileObj: nasl.ui.File;\n}>",
+              "description": "当前已上传的文件列表的值",
+              "docDescription": "当前已上传的文件列表的值",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "url",
+              "title": "文件上传地址",
+              "tsType": "nasl.core.String",
+              "description": "文件上传的URL地址，如/upload",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter",
+                "placeholder": "所有类型"
+              },
+              "name": "accept",
+              "title": "支持上传的文件类型",
+              "tsType": "nasl.core.String",
+              "description": "若要限制上传文件类型，请输入类型名称，格式为“.后缀名”，多个文件类型时使用英文逗号隔开。例如“.jpeg,.png,.gif”",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "name": "urlField",
+              "title": "文件 URL 字段",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "result"
+                },
+                "playground": []
+              },
+              "description": "请求返回的 URL 字段名",
+              "docDescription": "请求返回的URL字段名",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "name",
+              "title": "上传的文件字段",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "file"
+                },
+                "playground": []
+              },
+              "description": "上传的文件字段名，后端需要这个字段获取",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "headers",
+              "title": "请求头",
+              "tsType": "object",
+              "description": "设置上传的请求头部",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "POST",
+                    "value": "POST"
+                  },
+                  {
+                    "title": "GET",
+                    "value": "GET"
+                  },
+                  {
+                    "title": "PUT",
+                    "value": "PUT"
+                  },
+                  {
+                    "title": "OPTIONS",
+                    "value": "OPTIONS"
+                  },
+                  {
+                    "title": "PATCH",
+                    "value": "PATCH"
+                  },
+                  {
+                    "title": "post",
+                    "value": "post"
+                  },
+                  {
+                    "title": "get",
+                    "value": "get"
+                  },
+                  {
+                    "title": "put",
+                    "value": "put"
+                  },
+                  {
+                    "title": "options",
+                    "value": "options"
+                  },
+                  {
+                    "title": "patch",
+                    "value": "patch"
+                  }
+                ]
+              },
+              "name": "method",
+              "title": "HTTP 请求类型",
+              "tsType": "'POST' | 'GET' | 'PUT' | 'OPTIONS' | 'PATCH' | 'post' | 'get' | 'put' | 'options' | 'patch'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "POST"
+                },
+                "playground": []
+              },
+              "description": "HTTP 请求类型。可选项：POST/GET/PUT/OPTIONS/PATCH/post/get/put/options/patch",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "withCredentials",
+              "title": "是否携带Cookie",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "上传请求时是否携带 cookie",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "data",
+              "title": "附加数据",
+              "tsType": "object",
+              "description": "上传请求所需的额外字段，默认字段有 `file`，表示文件信息。可以添加额外的文件名字段，如：`{file_name: \"custom-file-name.txt\"}`。",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter",
+                "precision": 0
+              },
+              "name": "maxCount",
+              "title": "列表数量上限",
+              "tsType": "nasl.core.Integer",
+              "docDescription": "列表数量上限",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "name": "maxSize",
+              "title": "最大文件大小",
+              "tsType": "nasl.core.String",
+              "description": "可上传的最大文件大小。默认为50MB；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位：`KB`、`MB`、`GB`",
+              "docDescription": "可上传的最大文件大小。默认50MB；如果为数字，则表示单位为字节；如果为字符串，可以添加以下单位KB、MB、GB",
+              "implicitToString": true,
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "任何人可访问",
+                    "value": "public"
+                  },
+                  {
+                    "title": "用户登录后可访问",
+                    "value": "private"
+                  }
+                ]
+              },
+              "name": "access",
+              "title": "文件访问策略",
+              "tsType": "'public' | 'private'",
+              "docDescription": "支持任何人可访问和用户登录后可访问两种方式",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "ttl",
+              "title": "文件有效期",
+              "tsType": "nasl.core.Boolean",
+              "description": "是否开启文件有效期控制",
+              "docDescription": "支持配置文件自动清理，开启后可自定义上传后有效天数",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter"
+              },
+              "name": "ttlValue",
+              "title": "上传后有效天数",
+              "tsType": "nasl.core.Decimal",
+              "description": "文件上传后的有效期天数",
+              "docDescription": "开启文件有效期开关后显示，可配置文件自动清理的时间",
+              "if": "_ => _.ttl === true && _.supportAttachment === true",
+              "tsIf": "_ => _.ttl === true && _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "数据属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "viaOriginURL",
+              "title": "源地址访问",
+              "tsType": "nasl.core.Boolean",
+              "description": "开启后支持通过文件存储源地址访问文件",
+              "docDescription": "开启后支持通过文件存储源地址访问文件",
+              "if": "_ => _.supportAttachment === true",
+              "tsIf": "_ => _.supportAttachment === true"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "name": "placeholder",
+              "title": "占位符",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "请输入"
+                },
+                "playground": []
+              },
+              "description": "为空时显示的占位符文本",
+              "docDescription": "内容为空时的提示文本。",
+              "implicitToString": true
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "Enter",
+                    "value": "enter"
+                  },
+                  {
+                    "title": "ShiftEnter",
+                    "value": "shiftEnter"
+                  }
+                ]
+              },
+              "name": "submitType",
+              "title": "提交方式",
+              "tsType": "'enter' | 'shiftEnter'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "enter"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "supportExtra",
+              "title": "是否开启底部插槽",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "NumberInputSetter",
+                "precision": 0
+              },
+              "name": "maxlength",
+              "title": "最大字符数",
+              "tsType": "nasl.core.Integer",
+              "docDescription": "限定输入文本最大长度。"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "圆形",
+                    "value": "circle"
+                  },
+                  {
+                    "title": "方形",
+                    "value": "normal"
+                  },
+                  {
+                    "title": "椭圆",
+                    "value": "round"
+                  }
+                ]
+              },
+              "name": "submitBtnShape",
+              "title": "提交按钮形态",
+              "tsType": "'circle' | 'normal' | 'round'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "circle"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "EnumSelectSetter",
+                "options": [
+                  {
+                    "title": "箭头",
+                    "value": "arrowup"
+                  },
+                  {
+                    "title": "飞机",
+                    "value": "plane"
+                  }
+                ]
+              },
+              "name": "submitBtnIcon",
+              "title": "提交按钮图标",
+              "tsType": "'arrowup' | 'plane'",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "arrowup"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "shadow",
+              "title": "显示阴影",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "样式属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "border",
+              "title": "显示边框",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              }
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "状态属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "disabled",
+              "title": "禁用",
+              "tsType": "nasl.core.Boolean",
+              "description": "是否禁用"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "状态属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "readonly",
+              "title": "只读",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "正常显示，但禁止选择/输入",
+              "docDescription": "正常显示，但禁止选择或输入",
+              "settable": true
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "状态属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "loading",
+              "title": "加载中",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "发送按钮加载中状态",
+              "docDescription": "发送按钮加载中状态",
+              "settable": true
+            }
+          ],
+          "readableProps": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "name": "value",
+              "title": "当前输入框的值",
+              "tsType": "nasl.core.String"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "name": "fileList",
+              "title": "文件列表",
+              "tsType": "nasl.collection.List<{\n  name: nasl.core.String;\n  percent: nasl.core.Decimal;\n  size: nasl.core.Integer;\n  status: nasl.core.String;\n  type: nasl.core.String;\n  url: nasl.core.String;\n  originFileObj: nasl.ui.File;\n}>"
+            }
+          ],
+          "events": [
+            {
+              "concept": "EventDeclaration",
+              "name": "submit",
+              "title": "点击发送按钮",
+              "tsType": "(event: {\n  content: nasl.core.String;\n  fileList: nasl.collection.List<{\n    name: nasl.core.String;\n    percent: nasl.core.Decimal;\n    size: nasl.core.Integer;\n    status: nasl.core.String;\n    type: nasl.core.String;\n    url: nasl.core.String;\n    originFileObj: nasl.ui.File;\n  }>;\n}) => any",
+              "description": "点击发送按钮时触发"
+            },
+            {
+              "concept": "EventDeclaration",
+              "name": "change",
+              "title": "输入框值改变时",
+              "tsType": "(event: {\n  content: nasl.core.String;\n  fileList: nasl.collection.List<{\n    name: nasl.core.String;\n    percent: nasl.core.Decimal;\n    size: nasl.core.Integer;\n    status: nasl.core.String;\n    type: nasl.core.String;\n    url: nasl.core.String;\n    originFileObj: nasl.ui.File;\n  }>;\n}) => any",
+              "description": "选中值发生变化时触发"
+            },
+            {
+              "concept": "EventDeclaration",
+              "name": "cancel",
+              "title": "点击取消按钮",
+              "tsType": "(event: any) => any",
+              "description": "点击取消按钮时触发"
+            }
+          ],
+          "methods": [],
+          "slots": [
+            {
+              "concept": "SlotDeclaration",
+              "name": "default",
+              "title": "底部内容",
+              "tsType": "() => Array<nasl.ui.ViewComponent>",
+              "params": [],
+              "description": "底部内容"
+            }
+          ],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cw-sender maxSize=\"50MB\"></cw-sender></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "container"
+          }
+        }
+      ],
+      "logics": []
+    }
+  ],
+  "externalDependencyMap": {
+    "npm": [
+      {
+        "name": "vue",
+        "version": "^2.6.0"
+      }
+    ]
+  },
+  "summary": {
+    "name": "cw_multimode_chat_vue2",
+    "title": "多模态对话式AI交互组件",
+    "version": "1.1.1",
+    "description": "支持多模态输入和展示，适配AI场景下的对话式交互",
+    "frontends": [
+      {
+        "type": "pc",
+        "frameworkKind": "vue2",
+        "frameworkUI": "both",
+        "viewComponents": [
+          {
+            "name": "CwBubbleList",
+            "title": "对话气泡"
+          },
+          {
+            "name": "CwSender",
+            "title": "输入框"
+          }
+        ],
+        "logics": []
+      },
+      {
+        "type": "h5",
+        "frameworkKind": "vue2",
+        "frameworkUI": "both",
+        "viewComponents": [
+          {
+            "name": "CwBubbleList",
+            "title": "对话气泡"
+          },
+          {
+            "name": "CwSender",
+            "title": "输入框"
+          }
+        ],
+        "logics": []
+      }
+    ]
+  },
+  "compilerInfoMap": {
+    "js": {
+      "prefix": "extension"
+    },
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.d.ts\":\"f5c03d716e9dd59f\",\"nasl.extension.json\":\"1e8139f49df8a927\",\"dist-theme/index.css\":\"a70fd8c5c27125be\",\"dist-theme/index.js\":\"fc2f279608245335\"}}"
+  },
+  "ideVersion": "3.11"
+}
