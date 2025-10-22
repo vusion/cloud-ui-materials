@@ -1,0 +1,150 @@
+{
+	"executionStatus": {
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/ai/cw_multimode_chat_vue2": {
+			"status": "passed",
+			"duration": 27272.083584
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/adl": {
+			"status": "passed",
+			"duration": 4259.641166
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_aux_m_extend_library": {
+			"status": "failure",
+			"duration": 1318.801084,
+			"error": {
+				"code": "ELIFECYCLE",
+				"errno": 1,
+				"pkgid": "cust_aux_m_extend_library@1.0.0",
+				"stage": "build",
+				"script": "vite build",
+				"pkgname": "cust_aux_m_extend_library"
+			},
+			"message": "cust_aux_m_extend_library@1.0.0 build: `vite build`\nExit status 1",
+			"prefix": "/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_aux_m_extend_library"
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_aux_pc_extend_library": {
+			"status": "failure",
+			"duration": 1260.772875,
+			"error": {
+				"code": "ELIFECYCLE",
+				"errno": 1,
+				"pkgid": "cust_aux_pc_extend_library@1.0.0",
+				"stage": "build",
+				"script": "vite build",
+				"pkgname": "cust_aux_pc_extend_library"
+			},
+			"message": "cust_aux_pc_extend_library@1.0.0 build: `vite build`\nExit status 1",
+			"prefix": "/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_aux_pc_extend_library"
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_card_translate_lib": {
+			"status": "passed",
+			"duration": 3610.879958
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_cgn_model_render_library": {
+			"status": "passed",
+			"duration": 3851.906541
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_crop_view": {
+			"status": "passed",
+			"duration": 3754.745541
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_huadian_setter_pc_library": {
+			"status": "failure",
+			"duration": 2093.122417,
+			"error": {
+				"code": "ELIFECYCLE",
+				"errno": 1,
+				"pkgid": "cust_huadian_setter_pc_library@1.0.0",
+				"stage": "build",
+				"script": "vite build",
+				"pkgname": "cust_huadian_setter_pc_library"
+			},
+			"message": "cust_huadian_setter_pc_library@1.0.0 build: `vite build`\nExit status 1",
+			"prefix": "/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_huadian_setter_pc_library"
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_mobile_pickerson": {
+			"status": "passed",
+			"duration": 6280.257
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_swiper_lib": {
+			"status": "passed",
+			"duration": 4198.792875
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/cust_zrzyt_fujian_library": {
+			"status": "passed",
+			"duration": 3550.942042
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/export_excel": {
+			"status": "passed",
+			"duration": 22897.715
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/yun_shang": {
+			"status": "passed",
+			"duration": 13958.865083
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cust/yun_shang_primary": {
+			"status": "passed",
+			"duration": 5687.562
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_amap_new": {
+			"status": "passed",
+			"duration": 6695.212916
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_audio_player": {
+			"status": "passed",
+			"duration": 4188.178167
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_cascader_lib": {
+			"status": "passed",
+			"duration": 14314.690167
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_eu_extend_cu_library": {
+			"status": "passed",
+			"duration": 15374.541
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_ex_h_5_steps": {
+			"status": "passed",
+			"duration": 8796.833791
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_flexible_block": {
+			"status": "passed",
+			"duration": 3682.276083
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_monaco_editor": {
+			"status": "passed",
+			"duration": 4517.119917
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_open_popo": {
+			"status": "passed",
+			"duration": 3248.516917
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_pdf_preview": {
+			"status": "passed",
+			"duration": 3491.345125
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_pump_house_model_library": {
+			"status": "passed",
+			"duration": 3499.398625
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_three_dimensional_model_library": {
+			"status": "passed",
+			"duration": 3574.852792
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/cw/cw_uni_sdk": {
+			"status": "passed",
+			"duration": 3803.148625
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/game/xy_2": {
+			"status": "passed",
+			"duration": 3734.042084
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/lcap/lcap_process_components_vue_h5": {
+			"status": "passed",
+			"duration": 3553.093792
+		},
+		"/Users/shang/Desktop/material/cloud-ui-materials/workspaces/ts-vue2/packages/lcap/lcap_process_components_vue_pc": {
+			"status": "passed",
+			"duration": 4736.720709
+		}
+	}
+}
