@@ -1,0 +1,5 @@
+- name: updateAppMessageShareData
+  description: 分享给朋友
+  type: h5
+  belong: logic
+  labels: [Runtime]

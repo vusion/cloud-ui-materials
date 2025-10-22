@@ -1,0 +1,31 @@
+- name: chooseContactsAndSendMessage
+  title: 唤起选人
+  description: 请在这里添加描述
+  belong: logic
+  type: h5
+  labels: [Runtime]
+  params:
+    - name: image
+      concept: Param
+      required: false
+      typeAnnotation:
+        concept: TypeAnnotation
+        typeKind: primitive
+        typeName: String
+        typeNamespace: nasl.core
+    - name: text
+      concept: Param
+      required: false
+      typeAnnotation:
+        concept: TypeAnnotation
+        typeKind: primitive
+        typeName: String
+        typeNamespace: nasl.core
+  returns:
+    - name: return
+      concept: Return
+      typeAnnotation:
+        concept: TypeAnnotation
+        typeKind: primitive
+        typeName: String
+        typeNamespace: nasl.core

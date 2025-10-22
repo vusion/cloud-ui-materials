@@ -1,0 +1,21 @@
+- name: cover-flow
+  title: 立体轮播图
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: imgWidth
+      type: number
+      default: 200
+      description: 每张图片的宽度
+      title: 每张图片的宽度
+    - name: imgHeight
+      type: number
+      default: 200
+      description: 每张图片的高度
+      title: 每张图片的高度
+    - name: dataSource
+      title: 数据源
+      type: array
+      default: ''
+      description: '用于展示coverflow的数据源，形如Array<{text: string, url: string}>'

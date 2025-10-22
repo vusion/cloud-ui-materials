@@ -1,0 +1,30 @@
+[
+    {
+        "name": "appid",
+        "description": "微信服务号appid",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "secret",
+        "description": "微信服务号secret",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    }
+]

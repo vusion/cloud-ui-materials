@@ -1,0 +1,5 @@
+- name: desensitizationFromRegex
+  description: 基于正则表达式脱敏
+  type: both
+  belong: logic
+  labels: [Runtime]

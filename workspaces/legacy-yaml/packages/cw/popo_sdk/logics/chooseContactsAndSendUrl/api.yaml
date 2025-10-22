@@ -1,0 +1,31 @@
+- name: chooseContactsAndSendUrl
+  title: 唤起选人组件
+  description: 唤起选人组件，并给指定的联系人发送网页链接
+  belong: logic
+  type: h5
+  labels: [Runtime]
+  params:
+    - name: url
+      concept: Param
+      required: false
+      typeAnnotation:
+        concept: TypeAnnotation
+        typeKind: primitive
+        typeName: String
+        typeNamespace: nasl.core
+    - name: urlTitle
+      concept: Param
+      required: false
+      typeAnnotation:
+        concept: TypeAnnotation
+        typeKind: primitive
+        typeName: String
+        typeNamespace: nasl.core
+  returns:
+    - name: return
+      concept: Return
+      typeAnnotation:
+        concept: TypeAnnotation
+        typeKind: primitive
+        typeName: String
+        typeNamespace: nasl.core

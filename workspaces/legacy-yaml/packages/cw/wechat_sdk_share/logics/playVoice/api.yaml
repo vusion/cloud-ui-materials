@@ -1,0 +1,5 @@
+- name: playVoice
+  description: 播放语音接口
+  type: h5
+  belong: logic
+  labels: [Runtime]

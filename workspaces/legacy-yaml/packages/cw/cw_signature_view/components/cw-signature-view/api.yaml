@@ -1,0 +1,52 @@
+- name: cw-signature-view
+  title: 签名板组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: openSmooth
+      title: 是否开启笔锋
+      type: boolean
+      default: true
+      description: 是否开启笔锋
+    - name: penColor
+      title: 画笔颜色
+      type: string
+      default: black
+      description: 设置画笔颜色
+    - name: penWidth
+      title: 画笔宽度
+      type: number
+      default: 2
+      description: 设置画笔宽度
+    - name: bgColor
+      title: 画布背景颜色
+      type: string
+      default: "#F8F9FA"
+      description: 设置画布背景颜色
+  methods:
+    - name: reloadSignature
+      title: 重新加载签名板
+      description: 重新加载签名板
+    - name: getSignature
+      title: 获取签名板生成图片
+      description: 获取签名板生成图片
+    - name: clearSignature
+      title: 清除签名板生成图片
+      description: 清除签名板生成图片
+    - name: rotateSignature
+      title: 旋转签名板生成图片
+      description: 旋转签名板生成图片
+      params:
+        - name: angle
+          title: 旋转角度
+          type: number
+          default: 90
+          description: 旋转角度
+    - name: isEmpty
+      title: 签名板是否为空
+      description: 当前签名板是否为空
+      returns:
+        - name: isEmpty
+          type: boolean
+          description: 当前签名板是否为空

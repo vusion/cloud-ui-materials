@@ -1,0 +1,5 @@
+- name: desensitizationFromLength
+  description: 基于首尾长度脱敏
+  type: both
+  belong: logic
+  labels: [Runtime]

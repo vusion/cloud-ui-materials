@@ -1,0 +1,30 @@
+[
+    {
+        "name": "AGENT_ID",
+        "description": "必填，微应用ID，在移动工作平台注册微应用后由平台提供",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "name": "RESOURCES_ID",
+        "description": "需要进行权限校验的资源（菜单）id（注册后由平台提供）。不传，返回登录用户信息；传了如果没权限，返回没权限提示；有权限，返回有权限的资源及子集资源id集合",
+        "values": [
+            {
+                "env": "dev",
+                "value": ""
+            },
+            {
+                "env": "online",
+                "value": ""
+            }
+        ]
+    }
+]

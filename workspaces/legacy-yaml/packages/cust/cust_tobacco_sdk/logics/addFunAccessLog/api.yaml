@@ -1,0 +1,5 @@
+- name: addFunAccessLog
+  description: 功能埋点
+  type: both
+  belong: logic
+  labels: [Runtime]

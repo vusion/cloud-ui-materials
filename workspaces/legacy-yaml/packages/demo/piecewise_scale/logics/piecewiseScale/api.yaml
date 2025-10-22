@@ -1,0 +1,5 @@
+- name: piecewiseScale
+  description: 分段缩放，width0是临界宽度0，默认1920，scale0是临界宽度0对应的缩放比例，默认1。width1是临界宽度1，默认2560，scale1是临界宽度1对应的缩放比例，默认1.25。width2是临界宽度2，默认3840，scale2是临界宽度2对应的缩放比例，默认1.75。
+  type: pc
+  belong: logic
+  labels: [Runtime]

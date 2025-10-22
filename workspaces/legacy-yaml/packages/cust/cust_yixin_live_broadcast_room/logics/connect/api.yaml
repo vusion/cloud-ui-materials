@@ -1,0 +1,5 @@
+- name: connect
+  description: 连接
+  type: both
+  belong: logic
+  labels: [Runtime]

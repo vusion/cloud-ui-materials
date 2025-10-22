@@ -1,0 +1,10 @@
+- name: cust-preview
+  title: 预览
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: tableName
+      title: 表名
+      type: string
+      description: 表名

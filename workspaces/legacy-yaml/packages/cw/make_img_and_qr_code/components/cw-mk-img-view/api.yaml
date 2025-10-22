@@ -1,0 +1,17 @@
+- name: cw-mk-img-view
+  title: 生成图片
+  type: both
+  belong: component
+  labels: [Runtime]
+  methods:
+    - name: run
+      description: 生成图片
+      params: []
+  events:
+    - name: preRun
+      title: 生成前
+      description: 生成图片前⌚️
+  slots:
+    - concept: Slot
+      name: default
+      description: 插入默认的元素

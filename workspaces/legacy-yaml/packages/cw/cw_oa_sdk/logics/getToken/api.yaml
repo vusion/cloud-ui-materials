@@ -1,0 +1,5 @@
+- name: getToken
+  description: 获取token信息
+  type: pc
+  belong: logic
+  labels: [Runtime]

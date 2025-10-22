@@ -1,0 +1,5 @@
+- name: updateTimelineShareData
+  description: 分享朋友圈
+  type: h5
+  belong: logic
+  labels: [Runtime]

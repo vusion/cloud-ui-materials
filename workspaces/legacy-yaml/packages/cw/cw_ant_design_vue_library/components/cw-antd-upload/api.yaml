@@ -1,0 +1,75 @@
+- name: cw-antd-upload
+  title: 文件上传
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 选中值
+      type: string
+      sync: true
+      model: true
+      description: 当前选中的值
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 当前选择的值
+      tooltipLink: ""
+    - name: outputSize
+      title: 输出图片质量
+      type: string
+      description: 输出图片质量0.1-1 之间
+    - name: autoCropWidth
+      title: 默认生成截图框宽度	
+      type: string
+      description: 默认生成截图框高度	
+    - name: autoCropHeight
+      title: 默认生成截图框高度
+      type: string
+      description: 默认生成截图框高度
+    - name: canMoveBox
+      title: 截图框能否移动
+      type: boolean
+      description: 截图框能否移动,默认可拖动
+    - name: fixedBox
+      title: 固定截图框大小	
+      type: boolean
+      description: 固定截图框大小	,默认flase不固定
+    - name: uploadUrl
+      title: 上传地址
+      type: string
+      description: 上传地址,默认平台地址可自定义
+    - name: zoom
+      title: 图片缩放比例
+      type: string
+      description: 图片缩放比例,默认1。
+    - name: info
+      title: 截图信息
+      default: true
+      type: boolean
+      description: 截图信息,默认true展示
+    - name: uploadType
+      title: 上传方式
+      type: string
+      options:
+        - value: null
+          title: 默认
+        - value: camera
+          title: 相机   
+      description: 上传方式,默认为相机相册
+  events:
+    - name: onSuccess
+      description: 上传成功时
+      title: 上传成功时
+      params:
+        - name: value
+          type: string
+          description: 改变的值
+    - name: onError
+      description: 上传失败时
+      title: 上传失败时
+      params:
+        - name: value
+          type: string
+          description: 错误原因
+
+    

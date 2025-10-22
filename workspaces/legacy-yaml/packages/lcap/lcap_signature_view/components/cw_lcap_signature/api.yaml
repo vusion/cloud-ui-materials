@@ -1,0 +1,65 @@
+- name: lcap-signature
+  title: 签名板
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: language
+      title: 语言
+      type: string
+      default: english
+      description: 语言版本
+      options:
+        - value: english
+          title: 英文
+        - value: chinese
+          title: 中文
+    - name: buttonText
+      title: 按钮文字
+      type: string
+      default: 请在此处签名
+      description: 按钮文字
+    - name: openSmooth
+      title: 是否开启笔锋
+      type: boolean
+      default: true
+      description: 是否开启笔锋
+    - name: penColor
+      title: 画笔颜色
+      type: string
+      default: black
+      description: 设置画笔颜色
+    - name: reSignName
+      title: 是否允许重新签名
+      type: boolean
+      default: false
+      description: 是否允许用户重新签名
+    - name: penWidth
+      title: 画笔宽度
+      type: number
+      default: 2
+      description: 设置画笔宽度
+    - name: bgColor
+      title: 画布背景颜色
+      type: string
+      default: "#F8F9FA"
+      description: 设置画布背景颜色
+  methods:
+    - name: openSignatureModal
+      title: 打开签名版
+      description: 打开签名版
+      params: []
+  events:
+    - name: openSignatureModal
+      title: 打开签名版时
+      description: 打开签名版时触发
+    - name: clearSignature
+      title: 清空签名版时
+      description: 清空签名版时触发
+    - name: saveSignature
+      title: 保存签名时
+      params:
+        - name: $event.signature
+          type: any
+          description: 返还签名的base64
+      description: 保存签名时触发

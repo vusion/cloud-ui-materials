@@ -1,0 +1,28 @@
+- name: markdown
+  title: md编辑器
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      default: ""
+      description: 需要传入的值
+      title: 需要传入的值
+    - name: mode
+      type: string
+      description: markdown模式
+      title: markdown模式
+      default: editor
+      options:
+        - value: editor
+          title: 编辑器
+        - value: viewer
+          title: 渲染器
+  events:
+    - name: change
+      title: 内容变化时
+      params:
+        - name: $event
+          type: string
+          description: value

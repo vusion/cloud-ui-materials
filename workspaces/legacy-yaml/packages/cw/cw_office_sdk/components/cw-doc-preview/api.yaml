@@ -1,0 +1,36 @@
+- name: cw-doc-preview
+  title: docx预览
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+      - name: value
+        title: 链接地址
+        type: string
+        default: 请在这里编写代码
+        description: 需要传入的值
+      - name: panZoom
+        title: 是否开启缩放
+        type: boolean
+        default: false
+        description: 是否开启缩放
+      - name: emptyText
+        title: 加载中提示
+        type: string
+        default: '文件加载中'
+      - name: ignoreWidth
+        title: 禁用页面的渲染宽度
+        type: boolean
+        default: false
+        description: 禁用页面的渲染宽度
+        model: false
+        bindHide: true
+        sync: false
+      - name: ignoreHeight
+        title: 禁用页面的渲染高度
+        type: boolean
+        default: false
+        description: 禁用页面的渲染高度
+        model: false
+        bindHide: true
+        sync: false

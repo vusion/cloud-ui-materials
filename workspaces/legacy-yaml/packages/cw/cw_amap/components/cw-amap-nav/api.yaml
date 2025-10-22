@@ -1,0 +1,38 @@
+- name: cw-amap-nav
+  title: 地图导航
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+      - name: canto
+        title: 是否开启导航
+        type: boolean
+        default: true
+        description: 是否开启导航
+      - name: lalg
+        title: 位置坐标
+        type: string
+        description: 位置坐标
+      - name: label
+        title: 导航名称
+        type: string
+        description: 导航页标题显示的名称
+      - name: target
+        title: 打开方式
+        type: string
+        options:
+            - value: _blank
+              title: 新标签页
+            - value: _self
+              title: 当前窗口
+            - value: _parent
+              title: 父级窗口
+            - value: _top
+              title: 顶级窗口
+        default: _self
+        description: 链接打开方式
+      - name: callnativet
+        title: 是否调起高德地图APP
+        type: boolean
+        default: true
+        description: 是否调起高德地图APP

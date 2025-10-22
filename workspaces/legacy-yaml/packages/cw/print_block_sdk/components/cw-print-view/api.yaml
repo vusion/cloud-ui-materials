@@ -1,0 +1,15 @@
+- name: cw-print-view
+  title: 打印组件
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: isShowPrint
+      title: 是否展示打印区域
+      type: boolean
+      default: false
+      description: 是否显示打印区域
+  methods:
+    - name: print
+      description: 打印
+      params: []
