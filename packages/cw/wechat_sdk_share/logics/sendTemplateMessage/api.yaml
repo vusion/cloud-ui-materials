@@ -1,5 +1,0 @@
-- name: sendTemplateMessage
-  description: 发送模版消息
-  type: both
-  belong: logic
-  labels: [Runtime]

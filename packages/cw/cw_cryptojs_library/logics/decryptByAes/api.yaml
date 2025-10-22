@@ -1,5 +1,0 @@
-- name: decryptByAes
-  description: 请在这里添加描述
-  type: both
-  belong: logic
-  labels: [Runtime]

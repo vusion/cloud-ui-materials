@@ -1,5 +1,0 @@
-- name: encryptSha256
-  description: RSA-SHA256加密私钥
-  type: both
-  belong: logic
-  labels: [Runtime]

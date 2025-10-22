@@ -1,5 +1,0 @@
-- name: getPlatformInfo
-  description: 获取系统信息
-  type: h5
-  belong: logic
-  labels: [Runtime]

@@ -1,5 +1,0 @@
-- name: multiMethodEncrypt
-  description: 支持多种加密方法加密时间戳
-  type: both
-  belong: logic
-  labels: [Runtime]

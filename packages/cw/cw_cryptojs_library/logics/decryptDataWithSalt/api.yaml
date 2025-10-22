@@ -1,5 +1,0 @@
-- name: decryptDataWithSalt
-  description: 加盐解密算法
-  type: both
-  belong: logic
-  labels: [Runtime]

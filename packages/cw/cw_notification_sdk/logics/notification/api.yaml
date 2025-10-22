@@ -1,5 +1,0 @@
-- name: notification
-  description: 通知
-  type: both
-  belong: logic
-  labels: [Runtime]

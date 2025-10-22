@@ -1,5 +1,0 @@
-- name: login
-  description: 调用login获取登录凭证code
-  type: h5
-  belong: logic
-  labels: [Runtime]

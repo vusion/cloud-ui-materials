@@ -1,6 +1,0 @@
-- name: shareAppToFriend
-  title: 
-  description: 分享小程序给好友
-  type: h5
-  belong: logic
-  labels: [Runtime]

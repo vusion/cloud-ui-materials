@@ -1,5 +1,0 @@
-- name: destroy
-  description: 销毁实例
-  type: both
-  belong: logic
-  labels: [Runtime]

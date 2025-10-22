@@ -1,5 +1,0 @@
-- name: goBack
-  description: 调用GO_BACK
-  type: pc
-  belong: logic
-  labels: [Runtime]

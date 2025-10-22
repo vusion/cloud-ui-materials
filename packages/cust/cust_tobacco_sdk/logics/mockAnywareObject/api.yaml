@@ -1,5 +1,0 @@
-- name: mockAnywareObject
-  description: 模拟anyware对象
-  type: both
-  belong: logic
-  labels: [Runtime]

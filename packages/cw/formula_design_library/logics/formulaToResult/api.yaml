@@ -1,5 +1,0 @@
-- name: formulaToResult
-  description: 公式转化成结果
-  type: pc
-  belong: logic
-  labels: [Runtime]

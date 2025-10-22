@@ -1,5 +1,0 @@
-- name: uploadMultiDownload
-  description: 上传组件批量下载
-  type: both
-  belong: logic
-  labels: [Runtime]

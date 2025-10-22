@@ -1,5 +1,0 @@
-- name: base64ToFile
-  description: base64转化成File
-  type: both
-  belong: logic
-  labels: [Runtime]

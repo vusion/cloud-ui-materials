@@ -1,5 +1,0 @@
-- name: attachToRoom
-  description: 将数据源绑定到聊天室
-  type: both
-  belong: logic
-  labels: [Runtime]
