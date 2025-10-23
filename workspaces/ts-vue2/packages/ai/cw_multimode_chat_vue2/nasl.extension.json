@@ -2433,7 +2433,7 @@
     "js": {
       "prefix": "extension"
     },
-    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.d.ts\":\"f5c03d716e9dd59f\",\"nasl.extension.json\":\"1e8139f49df8a927\",\"dist-theme/index.css\":\"a70fd8c5c27125be\",\"dist-theme/index.js\":\"6973a8b6b9ab7277\"}}"
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.json\":\"1e8139f49df8a927\",\"nasl.extension.d.ts\":\"f5c03d716e9dd59f\",\"dist-theme/index.css\":\"a70fd8c5c27125be\",\"dist-theme/index.js\":\"fc2f279608245335\"}}"
   },
   "ideVersion": "3.11"
 }

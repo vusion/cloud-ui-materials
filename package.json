@@ -11,7 +11,9 @@
     "build:ci": "turbo run build --filter='./workspaces/ts-vue2...' --filter='./workspaces/legacy-yaml...' --filter='!./workspaces/legacy-yaml/packages/cw/cw_oa_sdk' --filter='!./workspaces/legacy-yaml/packages/cw/cw_office_sdk' --filter='!./workspaces/legacy-yaml/packages/cw/cw_swiper_library' --filter='!./workspaces/legacy-yaml/packages/cw/popo_sdk' --filter='!./workspaces/legacy-yaml/packages/lcap/lcap_popo_location'",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "postinstall": "node scripts/mono/install-all-workspaces.mjs",
+    "install:workspaces": "node scripts/mono/install-all-workspaces.mjs --verbose"
   },
   "dependencies": {
     "dom-to-image": "^2.6.0",
