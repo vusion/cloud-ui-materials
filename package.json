@@ -3,12 +3,8 @@
   "private": true,
   "packageManager": "pnpm@10.18.3",
   "scripts": {
-    "changelog": "node scripts/changelog.js",
-    "changelog:ci": "node scripts/changelog.js from-ci",
-    "changelog:comment": "node scripts/changelog.js from-comment",
-    "build": "turbo run build",
+    "build": "turbo run build --parallel --concurrency=$(node -p 'os.cpus().length') --continue",
     "build:fast": "turbo run build --parallel",
-    "build:ci": "turbo run build --filter='./workspaces/ts-vue2...' --filter='./workspaces/legacy-yaml...' --filter='!./workspaces/legacy-yaml/packages/cw/cw_oa_sdk' --filter='!./workspaces/legacy-yaml/packages/cw/cw_office_sdk' --filter='!./workspaces/legacy-yaml/packages/cw/cw_swiper_library' --filter='!./workspaces/legacy-yaml/packages/cw/popo_sdk' --filter='!./workspaces/legacy-yaml/packages/lcap/lcap_popo_location'",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
