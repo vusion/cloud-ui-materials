@@ -1,0 +1,33 @@
+.view-type-room .ant-form-item{
+  margin-bottom: 0;
+}
+/* [class^='u-sidebar__']{
+    height: calc(100vh - 64px) !important;
+} */
+
+:root{
+    --label-width: 100px;
+  }
+ .form-vertical .ant-form-item-label label{
+    font-size: 16px !important;
+    font-weight: 600;
+    word-break: break-all;
+    display: inline-block;
+    width:100%;
+    overflow: hidden;
+    white-space: normal;
+  }
+
+  .ant-btn-primary{
+    background-color:#375efa ;
+    border-color: #375efa;
+  } 
+
+  .ant-btn-primary:active,.ant-btn-primary:focus{
+    background-color:#223FCF ;
+    border-color: #223FCF;
+  } 
+  .ant-btn-primary:hover{
+    background-color:  #5A7FFB ;
+    border-color:   #5A7FFB;
+  } 

@@ -1,0 +1,10 @@
+- name: cw-add-data-source-view
+  title: 数据源配置组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      type: string
+      default: 请在这里编写代码
+      description: 需要传入的值

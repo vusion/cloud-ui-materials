@@ -3130,6 +3130,12 @@ export default {
     getContainColumns(column) {
       if (column.$children.length) {
         const children = column.$children.filter(childrenVM => this.isColumnVM(childrenVM));
+        const slotVMs = column.$slots.default || [];
+        children.sort((column1, column2) => {
+            const index1 = slotVMs.findIndex((slotVm) => slotVm === column1.$vnode);
+            const index2 = slotVMs.findIndex((slotVm) => slotVm === column2.$vnode);
+            return index1 - index2;
+        });
         return flatMap(children, this.getContainColumns);
       } else {
         return this.isColumnVM(column) ? [column] : [];
