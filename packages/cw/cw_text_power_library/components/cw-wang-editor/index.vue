@@ -97,6 +97,10 @@ export default {
             type: String,
             default: 'filePath',
         },
+        viaOriginURL: {
+            type: Boolean,
+            default: true,
+        },
     },
     data() {
         const vm = this;
@@ -150,7 +154,7 @@ export default {
                         ? {
                               server:
                                   this.uploadImgServer ||
-                                  '/gateway/lowcode/api/v1/app/upload',
+                                  (window.appInfo && window.appInfo.basePath ? window.appInfo.basePath : '') + '/gateway/lowcode/api/v1/app/upload',
                               fieldName: 'file',
                               maxFileSize: 50 * 1024 * 1024, // 50M
                               // 自定义增加 http header
@@ -172,10 +176,14 @@ export default {
                               },
                               customInsert: (res, insertFn) => {
                                   const url = res[this.urlField];
-                                  insertFn(url);
+                                  // 如果URL以/upload开头，添加basePath前缀
+                                  const finalUrl = url && url.startsWith('/upload') 
+                                      ? (window.appInfo && window.appInfo.basePath ? window.appInfo.basePath : '') + url
+                                      : url;
+                                  insertFn(finalUrl);
                               },
                               meta: {
-                                  viaOriginURL: true,
+                                  viaOriginURL: this.viaOriginURL,
                               },
                               allowedFileTypes: this.acceptEditorList,
                               disable: true,
@@ -193,7 +201,7 @@ export default {
                     uploadVideo: {
                         server: this.acceptVideo
                             ? this.uploadImgServer ||
-                              '/gateway/lowcode/api/v1/app/upload'
+                              (window.appInfo && window.appInfo.basePath ? window.appInfo.basePath : '') + '/gateway/lowcode/api/v1/app/upload'
                             : null,
                         fieldName: 'file',
                         maxFileSize: 1000 * 1024 * 1024, // 1000M
@@ -215,10 +223,14 @@ export default {
                         // 自定义插入视频
                         customInsert(res, insertFn) {
                             const url = res.filePath;
-                            insertFn(url);
+                            // 如果URL以/upload开头，添加basePath前缀
+                            const finalUrl = url && url.startsWith('/upload') 
+                                ? (window.appInfo && window.appInfo.basePath ? window.appInfo.basePath : '') + url
+                                : url;
+                            insertFn(finalUrl);
                         },
                         meta: {
-                            viaOriginURL: true,
+                            viaOriginURL: this.viaOriginURL,
                         },
                         allowedFileTypes: this.acceptVideoEditorList,
                     },
@@ -388,7 +400,7 @@ export default {
                 : {};
 
             const url = await fetch(
-                this.uploadImgServer || '/gateway/lowcode/api/v1/app/upload',
+                this.uploadImgServer || (window.appInfo && window.appInfo.basePath ? window.appInfo.basePath : '') + '/gateway/lowcode/api/v1/app/upload',
                 {
                     method: 'POST',
                     headers,
@@ -398,7 +410,12 @@ export default {
                 .then((res) => res.json())
                 .then((v) => v.filePath)
                 .catch((v) => ''); //图片上传出现问题返回为空
-            return url;
+            
+            // 如果URL以/upload开头，添加basePath前缀
+            const finalUrl = url && url.startsWith('/upload') 
+                ? (window.appInfo && window.appInfo.basePath ? window.appInfo.basePath : '') + url
+                : url;
+            return finalUrl;
         },
         customPaste(editor, event) {
             // return true;

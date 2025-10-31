@@ -60,6 +60,11 @@
         type: string
         default: filePath
         description: 请求返回的 URL 字段名
+      - name: viaOriginURL
+        title: 使用原始URL
+        type: boolean
+        default: true
+        description: 控制插入图片/视频时是否直接使用服务端返回的原始URL
   events:
       - name: change
         title: 内容改变时
