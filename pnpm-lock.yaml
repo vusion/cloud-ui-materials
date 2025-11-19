@@ -21,8 +21,8 @@ importers:
         specifier: '2'
         version: 2.7.0
       npm:
-        specifier: ^11.0.0
-        version: 11.3.0
+        specifier: ^11.6.2
+        version: 11.6.2
       vue-tour:
         specifier: ^2.0.0
         version: 2.0.0
@@ -94,8 +94,8 @@ packages:
       encoding:
         optional: true
 
-  npm@11.3.0:
-    resolution: {integrity: sha512-luthFIP0nFX3+nTfYbWI3p4hP4CiVnKOZ5jdxnF2x7B+Shz8feiSJCLLzgJUNxQ2cDdTaVUiH6RRsMT++vIMZg==}
+  npm@11.6.2:
+    resolution: {integrity: sha512-7iKzNfy8lWYs3zq4oFPa8EXZz5xt9gQNKJZau3B1ErLBb6bF7sBJ00x09485DOvRT2l5Gerbl3VlZNT57MxJVA==}
     engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
     bundledDependencies:
@@ -141,7 +141,6 @@ packages:
       - ms
       - node-gyp
       - nopt
-      - normalize-package-data
       - npm-audit-report
       - npm-install-checks
       - npm-package-arg
@@ -247,7 +246,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  npm@11.3.0: {}
+  npm@11.6.2: {}
 
   picocolors@1.1.1: {}
 

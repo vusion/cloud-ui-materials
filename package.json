@@ -11,7 +11,7 @@
 		"install": "^0.13.0",
 		"lodash.mergewith": "^4.6.2",
 		"node-fetch": "2",
-		"npm": "^11.0.0",
+		"npm": "^11.6.2",
 		"vue-tour": "^2.0.0"
 	},
 	"devDependencies": {
