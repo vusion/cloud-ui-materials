@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.printView, hideOnScreen ? $style.printViewHidden : '']" ref="printBlock" :style="{
+  <div :class="[$style.printView, (hideOnScreen && !$env.VUE_APP_DESIGNER) ? $style.printViewHidden : '']" ref="printBlock" :style="{
     width: viewWidth,
     'min-height': '10px',
     padding: yBorder + 'pt ' + xBorder + 'pt'
@@ -116,8 +116,8 @@ export default {
       const params = {
         direction: this.pageDirection,
         format: this.pageFormat,
-        pagerWidth: mmToPt(mm, DEFAULT_DPI),
-        pagerHeight: mmToPt(mm, DEFAULT_DPI),
+        pagerWidth: mmToPt(this.pageWidth, DEFAULT_DPI),
+        pagerHeight: mmToPt(this.pageHeight, DEFAULT_DPI),
         baseY: this.yBorder,
         baseX: this.xBorder,
       }

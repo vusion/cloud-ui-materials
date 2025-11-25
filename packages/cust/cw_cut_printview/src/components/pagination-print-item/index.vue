@@ -15,7 +15,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
     margin: 0 !important;
     height: 100%;
   }
@@ -26,7 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 14px;
     margin: 10px;
   }
   </style>
