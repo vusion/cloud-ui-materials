@@ -30,7 +30,7 @@
   },
   "lcapVersion": "0.3.0",
   "devDependencies": {
-    "@vue/cli-service": "^4.4.1",
+    "@vue/cli-service": "^5.0.9",
     "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
     "url-loader": "^4.1.1",
