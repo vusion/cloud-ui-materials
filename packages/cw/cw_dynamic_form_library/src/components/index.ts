@@ -4,6 +4,12 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 // 安装 Ant Design Vue 插件
 Vue.use(Antd);
+// 把被Antd覆盖掉的pc-ui中的方法，再覆盖回去
+const Modal = window.LcapUI?.UModalReal
+if (Modal) {
+  Modal.install(Vue, 'UModalReal')
+}
+
 import 'ant-design-vue/dist/antd.css';
 import '@/styles/index.css';
 // COMPONENT IMPORTS
