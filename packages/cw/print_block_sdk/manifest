@@ -1,10 +1,10 @@
 Plugin-Version: 1.0.0
 Library-Type: Frontend
 Metadata-File: usage.json
-packages/extension/print_block_sdk@0.0.12/dist-theme/chunk-09cc0a96.3ec0e5e3.js: dist-theme/chunk-09cc0a96.3ec0e5e3.js
-packages/extension/print_block_sdk@0.0.12/dist-theme/chunk-09cc0a96.3ec0e5e3.js.map: dist-theme/chunk-09cc0a96.3ec0e5e3.js.map
-packages/extension/print_block_sdk@0.0.12/dist-theme/chunk-2d216214.88ca78a5.js: dist-theme/chunk-2d216214.88ca78a5.js
-packages/extension/print_block_sdk@0.0.12/dist-theme/chunk-2d216214.88ca78a5.js.map: dist-theme/chunk-2d216214.88ca78a5.js.map
-packages/extension/print_block_sdk@0.0.12/dist-theme/demo.html: dist-theme/demo.html
-packages/extension/print_block_sdk@0.0.12/dist-theme/index.js: dist-theme/index.js
-packages/extension/print_block_sdk@0.0.12/dist-theme/index.js.map: dist-theme/index.js.map
+packages/extension/print_block_sdk@1.4.0/dist-theme/chunk-2d0cf37d.3eacf2bf.js: dist-theme/chunk-2d0cf37d.3eacf2bf.js
+packages/extension/print_block_sdk@1.4.0/dist-theme/chunk-2d0cf37d.3eacf2bf.js.map: dist-theme/chunk-2d0cf37d.3eacf2bf.js.map
+packages/extension/print_block_sdk@1.4.0/dist-theme/chunk-54455fa0.5432be67.js: dist-theme/chunk-54455fa0.5432be67.js
+packages/extension/print_block_sdk@1.4.0/dist-theme/chunk-54455fa0.5432be67.js.map: dist-theme/chunk-54455fa0.5432be67.js.map
+packages/extension/print_block_sdk@1.4.0/dist-theme/demo.html: dist-theme/demo.html
+packages/extension/print_block_sdk@1.4.0/dist-theme/index.js: dist-theme/index.js
+packages/extension/print_block_sdk@1.4.0/dist-theme/index.js.map: dist-theme/index.js.map
