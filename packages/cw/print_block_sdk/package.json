@@ -29,7 +29,7 @@
     "ui": "cloud-ui.vusion"
   },
   "devDependencies": {
-    "@vue/cli-service": "^4.4.1",
+    "@vue/cli-service": "^5.0.9",
     "cloud-ui.vusion": "^0.11.20",
     "core-js": "^3.6.5",
     "vue": "^2.6.10",
