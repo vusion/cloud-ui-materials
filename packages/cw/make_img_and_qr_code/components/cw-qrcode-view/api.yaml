@@ -28,4 +28,7 @@
     - name: load
       title: 加载事件
       description: 加载事件
-      params: []
+      params: 
+        - name: $event
+          type: object
+          description: 二维码base64地址
