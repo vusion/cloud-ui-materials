@@ -19,5 +19,13 @@ namespace extensions.cw_cut_printview.viewComponents {
   }
 
   export class PaginationPrintItemOptions extends ViewComponentOptions {
+    @Prop({
+      title: '是否横向打印',
+      description: '是否横向打印',
+      setter: {
+        concept: 'SwitchSetter',
+      },
+    })
+    isHorizontal: nasl.core.Boolean = false;
   }
 }
