@@ -50,7 +50,7 @@
     "jsdom": "^23.0.1",
     "marked": "^12.0.1",
     "rimraf": "^5.0.5",
-    "storybook": "^7.6.17",
+    "storybook": "^7.6.21",
     "typescript": "^5.3.3",
     "vite": "^5.0.10",
     "vitest": "^1.1.0",
