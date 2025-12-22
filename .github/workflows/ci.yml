@@ -1,0 +1,59 @@
+name: Assets Full-Auto Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # 阶段 1：生成执行计划
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+      - id: set-matrix
+        run: |
+          # 运行你已有的脚本，提取 include 数组并过滤掉有错误的项
+          PLAN=$(node scripts/plan-changed-packages.mjs)
+          # 使用 jq 压缩成一行，方便 GitHub Actions 读取
+          echo "matrix=$(echo $PLAN | jq -c '.include | map(select(.error == null))')" >> $GITHUB_OUTPUT
+
+  # 阶段 2：执行并行构建与 AI 同步
+  build:
+    needs: plan
+    # 如果没有变动的包，则不执行后续任务
+    if: ${{ needs.plan.outputs.matrix != '[]' && needs.plan.outputs.matrix != '' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        pkg: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node ${{ matrix.pkg.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.pkg.node }}
+          cache: 'pnpm'
+
+      - name: Install & Build
+        run: |
+          cd ${{ matrix.pkg.dir }}
+          # 动态执行你脚本中定义的 buildCmds (数组转为命令串)
+          ${{ join(matrix.pkg.build, ' && ') }}
+
+      - name: Sync to CoreAgent (Upload & AI Doc)
+        # 仅在主干合并且构建成功后执行
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          COREAGENT_TOKEN: ${{ secrets.COREAGENT_TOKEN }}
+          OSS_CONFIG: ${{ secrets.OSS_CONFIG }}
+        run: |
+          # 将当前组件的所有元数据传给同步脚本
+          node scripts/sync-to-coreagent.mjs '${{ toJson(matrix.pkg) }}'
