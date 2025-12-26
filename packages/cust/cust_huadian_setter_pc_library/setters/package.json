@@ -12,7 +12,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@types/axios": "^0.14.4",
     "axios": "^1.11.0",
-    "element-plus": "^2.10.4",
+    "element-plus": "^2.11.0",
     "vue": "^3.4.33"
   },
   "devDependencies": {
