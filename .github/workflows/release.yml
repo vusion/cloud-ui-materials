@@ -1,18 +1,14 @@
 name: Independent Component Release
 
-# on:
-#   push:
-#     branches: [ "main" ]
-#   workflow_dispatch:
-#     inputs:
-#       plan_all:
-#         description: 'Whether to build all packages'
-#         default: 'false'
-
 on:
-  workflow_dispatch: # 允许手动触发
   push:
-    branches: [ "monorepo/turporepo-plan" ] # 测试分支
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      plan_all:
+        description: 'Whether to build all packages'
+        default: 'false'
+
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -32,26 +28,35 @@ jobs:
 
   build-and-release:
     needs: plan
-    if: ${{ needs.plan.outputs.matrix != '[]' && needs.plan.outputs.matrix != '' }}
+    # 修正：判断 include 数组是否为空
+    if: needs.plan.outputs.matrix != '' && fromJSON(needs.plan.outputs.matrix).include[0] != null
     strategy:
       fail-fast: false
       matrix:
-        batch: ${{ fromJSON(needs.plan.outputs.matrix) }}
+        # 修正：引用 .include 数组
+        batch: ${{ fromJSON(needs.plan.outputs.matrix).include }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          # 建议统一使用一个较高的版本来处理发布逻辑，构建逻辑则在内部子进程处理
+          node-version: 20
+
       - name: Process Batch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COREAGENT_TOKEN: ${{ secrets.COREAGENT_TOKEN }}
         run: |
-          # 将当前批次的数据写入临时文件
+          # 调试打印，确保能看到当前处理的批次 ID
+          echo "Processing Batch ID: ${{ matrix.batch.id }}"
+          
           echo '${{ toJson(matrix.batch.items) }}' > batch_items.json
           
-          # 使用 Node 脚本执行循环构建与发布逻辑
           node -e "
           const fs = require('fs');
           const cp = require('child_process');
@@ -61,24 +66,31 @@ jobs:
           for (const pkg of items) {
             console.log('\x1b[32m%s\x1b[0m', '>>>>> Processing: ' + pkg.name);
             
-            // 1. 构建
-            cp.execSync(pkg.build.join(' && '), { cwd: pkg.dir, stdio: 'inherit' });
+            // 检查目录是否存在
+            if (!fs.existsSync(pkg.dir)) {
+              console.error('❌ Directory not found: ' + pkg.dir);
+              continue;
+            }
 
-            // 2. 打包 ZIP: [组件名]-v[版本号].zip
+            // 1. 执行构建命令组
+            try {
+              cp.execSync(pkg.build.join(' && '), { cwd: pkg.dir, stdio: 'inherit' });
+            } catch(e) { console.error('Build failed for ' + pkg.name); continue; }
+
+            // 2. 打包 ZIP
             const zipName = \`\${pkg.name.replace(/[@/]/g, '-')}-v\${pkg.version}.zip\`;
             cp.execSync(\`zip -r \${zipName} dist/\`, { cwd: pkg.dir, stdio: 'inherit' });
-            const zipPath = path.join(pkg.dir, zipName);
+            const zipPath = path.resolve(pkg.dir, zipName);
 
-            // 3. 创建独立 Release (使用 GitHub CLI)
+            // 3. 创建独立 Release
             const tagName = \`\${pkg.name}@\${pkg.version}-\${process.env.GITHUB_RUN_NUMBER}\`;
             try {
               cp.execSync(\`gh release create \"\${tagName}\" \"\${zipPath}\" --title \"\${pkg.name} v\${pkg.version}\" --notes \"Automated release for \${pkg.name}\"\`, { stdio: 'inherit' });
-              console.log('✅ Release created: ' + tagName);
-            } catch (e) { console.error('Release failed, might already exist.'); }
+            } catch (e) { console.warn('⚠️ Release already exists or failed, skipping release step.'); }
 
-            // 4. 调用 AI 文档同步脚本
+            // 4. 同步 AI 文档
             try {
               cp.execSync(\`node scripts/ci/sync-to-coreagent.mjs '\${JSON.stringify(pkg)}' \${tagName}\`, { stdio: 'inherit' });
-            } catch (e) { console.error('AI Sync failed for ' + pkg.name); }
+            } catch (e) { console.error('❌ AI Sync failed'); }
           }
           "
