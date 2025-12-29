@@ -4,7 +4,7 @@ import path from "path";
 import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
-/* ----------------------- 1. 环境初始化 ----------------------- */
+/* ----------------------- 1. 环境与路径初始化 ----------------------- */
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** 自动寻找仓库根目录，定位 pnpm-workspace.yaml 所在位置 */
@@ -33,32 +33,32 @@ function getChangedFiles(range) {
   if (!range) return null;
   try {
     debug(`Checking git diff for range: ${range}`);
-    // --name-only 返回的是相对于仓库根目录的路径，如 "workspaces/ts-vue2/packages/cw/btn/index.js"
+    // 获取变动文件的相对路径列表
     const output = execSync(`git diff --name-only ${range}`, { cwd: repoRoot, encoding: "utf8" });
     return output.split("\n").filter(Boolean).map(f => f.trim());
   } catch (e) {
-    debug(`Git diff failed: ${e.message}. Falling back to full scan or empty.`);
+    debug(`Git diff failed: ${e.message}`);
     return null;
   }
 }
 
-/* ----------------------- 3. 深度组件扫描 ----------------------- */
+/* ----------------------- 3. 深度扫描组件包 ----------------------- */
 
-/** 递归扫描所有包含 api.yaml 或 api.ts 的组件 */
+/** 递归扫描 workspaces 下所有包含 api.yaml 或 api.ts 的组件 */
 function findComponentPackages(dir, result = []) {
   if (!fs.existsSync(dir)) return result;
   
   try {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
     
-    // 检查当前目录下是否有 API 特征文件
+    // 检查特征文件：识别是 Legacy 还是 Modern
     const hasApiYaml = entries.find(e => e.isFile() && (e.name === "api.yaml" || e.name === "api.yml"));
     const hasApiTs = entries.find(e => e.isFile() && e.name === "api.ts");
 
     if (hasApiYaml || hasApiTs) {
-      // 向上溯源寻找 package.json 确定包根目录
       let currentDir = dir;
       let pkg = null;
+      // 向上寻找 package.json 以确定组件包根目录
       while (currentDir.startsWith(workspacesRoot)) {
         const pjPath = path.join(currentDir, "package.json");
         if (fs.existsSync(pjPath)) {
@@ -70,13 +70,13 @@ function findComponentPackages(dir, result = []) {
 
       if (pkg && pkg.name) {
         result.push({
-          dir: currentDir, // package.json 所在目录
-          relDir: path.relative(repoRoot, currentDir), // 相对路径用于 Diff 匹配
+          dir: currentDir, 
+          relDir: path.relative(repoRoot, currentDir),
           name: pkg.name,
           apiPath: path.join(dir, hasApiYaml ? hasApiYaml.name : "api.ts"),
           isYaml: !!hasApiYaml
         });
-        return result; // 找到组件后停止向下递归
+        return result; 
       }
     }
 
@@ -92,11 +92,10 @@ function findComponentPackages(dir, result = []) {
   return result;
 }
 
-/* ----------------------- 4. 生成构建计划 ----------------------- */
+/* ----------------------- 4. 构建任务计划 ----------------------- */
 
 function makePlan() {
   const isAll = process.env.PLAN_ALL === "1";
-  // 优先级：参数传入 > 环境默认 > HEAD^...HEAD
   const range = isAll ? null : (process.argv[2] || "HEAD^...HEAD");
   
   const changedFiles = getChangedFiles(range);
@@ -105,13 +104,12 @@ function makePlan() {
   debug(`Found ${allComponents.length} components total in workspaces.`);
 
   const include = allComponents.filter(c => {
-    // 全量模式直接通过
     if (isAll) return true;
-    // 增量模式：匹配相对路径
     if (!changedFiles) return false;
+    // 增量过滤：只有当组件相对路径命中变动文件时才包含
     return changedFiles.some(f => f.startsWith(c.relDir));
   }).map(c => {
-    // 文档标识符切换为 usage.md
+    // 文档标识符：判断 usage.md 是否存在
     const usagePath = path.join(c.dir, "usage.md");
     const hasUsage = fs.existsSync(usagePath);
     
@@ -119,15 +117,15 @@ function makePlan() {
       name: c.name,
       dir: c.dir,
       relDir: c.relDir,
-      // 分流：api.yaml -> Node 16; api.ts -> Node 18
+      // Node 分流：Legacy (yaml) 使用 Node 16
       node: c.isYaml ? "16" : "18",
       build: c.isYaml ? ["npm run build", "npm run usage"] : ["npm run build"],
       aiContext: {
-        // 如果没有 usage.md 或有改动，则标记需要 AI 处理
+        // 如果没有 usage.md，则标记为初次生成
         shouldUpdateDoc: !hasUsage || !isAll,
         isFirstTime: !hasUsage,
         apiType: c.isYaml ? "yaml" : "ts",
-        // 提取 API 定义供 AI 生成文档
+        // 提取 API 定义作为 AI 的上下文输入
         apiContent: fs.readFileSync(c.apiPath, "utf8").substring(0, 4000)
       }
     };
@@ -139,7 +137,7 @@ function makePlan() {
   };
 }
 
-/* ----------------------- 5. 执行与输出 ----------------------- */
+/* ----------------------- 5. 输出结果 ----------------------- */
 const plan = makePlan();
 process.stdout.write(JSON.stringify(plan, null, 2));
 debug(`Plan generated: ${plan.include.length} components included.`);

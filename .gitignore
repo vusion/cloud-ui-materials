@@ -38,5 +38,4 @@ usage.json
 *.zip
 
 .turbo
-
 .lcap/
