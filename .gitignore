@@ -36,3 +36,5 @@ usage.json
 .history
 
 *.zip
+
+.lcap/
