@@ -93,7 +93,8 @@ function makePlan() {
       relDir: c.relDir,
       node: c.isYaml ? "16" : "18",
       build: c.isYaml ? ["npm run build", "npm run usage"] : ["npm run build"],
-      apiPath: c.apiPath,
+      hasUsage: hasUsage,
+      // apiPath: c.apiPath,
       // aiContext: { shouldUpdateDoc: !hasUsage || !isAll, isFirstTime: !hasUsage }
     };
   });
