@@ -1,246 +1,80 @@
-name: Build & Release Changed Packages
+name: Independent Component Release
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
   push:
-    branches: [main, master]
-
-permissions:
-  contents: write
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      plan_all:
+        description: 'Whether to build all packages'
+        default: 'false'
 
 jobs:
   plan:
-    name: Plan changed packages
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.plan.outputs.matrix }}
-      count: ${{ steps.plan.outputs.count }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - name: Generate matrix (only changed packages)
-        id: plan
-        shell: bash
+        with:
+          fetch-depth: 0
+      - name: Generate Plan
+        id: set-matrix
+        env:
+          PLAN_ALL: ${{ github.event.inputs.plan_all == 'true' && '1' || '0' }}
         run: |
-          set -euo pipefail
+          RESULT=$(node scripts/ci/plan-changed-packages.mjs)
+          echo "matrix=$(echo $RESULT | jq -c '.include')" >> $GITHUB_OUTPUT
 
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            RANGE="${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}"
-            echo "Using PR range: $RANGE"
-          else
-            RANGE="HEAD^...HEAD"
-            echo "Using push range: $RANGE"
-          fi
-
-          node scripts/ci/plan-changed-packages.mjs "$RANGE" > matrix.json
-
-          echo "matrix=$(jq -c '.include' matrix.json)" >> "$GITHUB_OUTPUT"
-          echo "count=$(jq '.include | length' matrix.json)" >> "$GITHUB_OUTPUT"
-          echo "==== Plan ===="
-          cat matrix.json
-
-  build:
-    name: Build ${{ matrix.name }}
+  build-and-release:
     needs: plan
-    if: needs.plan.outputs.count != '0'
-    runs-on: ubuntu-latest
-
+    if: ${{ needs.plan.outputs.matrix != '[]' && needs.plan.outputs.matrix != '' }}
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJson(needs.plan.outputs.matrix) }}
-
-    defaults:
-      run:
-        working-directory: ${{ matrix.dir }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - name: Setup Node ${{ matrix.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Enable npm cache (if lockfile exists)
-        if: ${{ hashFiles(format('{0}/package-lock.json', matrix.dir)) != '' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: npm
-          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
-
-      - name: Install LCAP CLI (yaml only)
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          npm i -g lcap@latest || (echo "⚠️ lcap install failed" && exit 1)
-          lcap --version || true
-
-      - name: Install & Build
-        shell: bash
-        run: |
-          set -euo pipefail
-          node -e '
-            const {execSync} = require("child_process");
-            const steps = ${{ toJson(matrix.build) }};
-            for (const cmd of steps) {
-              console.log("+ " + cmd);
-              execSync(cmd, {stdio:"inherit", shell:true});
-            }
-          '
-
-      - name: Stash ZIPs to workspace (keep original names)
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/_release/${{ matrix.name }}"
-          shopt -s nullglob
-          zips=(*@*.*.*.zip)
-          if ((${#zips[@]})); then
-            cp -f "${zips[@]}" "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/"
-            printf 'copied: %s\n' "${zips[@]}"
-          else
-            echo "No zip found in $PWD"
-          fi
-
-      - name: Append summary row (for release table)
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/_release/__meta"
-          echo "${{ matrix.name }}|${{ matrix.stack || 'unknown' }}" >> "$GITHUB_WORKSPACE/_release/__meta/summary.tsv"
-
-      - name: Upload artifact (per package)
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-${{ matrix.name }}
-          path: |
-            _release/${{ matrix.name }}/*
-            _release/__meta/summary.tsv
-          if-no-files-found: ignore
-          retention-days: 3
-
-  release:
-    name: Create tag & release (on merge only)
-    needs: [plan, build]
-    if: github.event_name == 'push' && needs.plan.outputs.count != '0'
+        batch: ${{ fromJSON(needs.plan.outputs.matrix) }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - name: Download all built artifacts
-        uses: actions/download-artifact@v4
         with:
-          pattern: release-*
-          path: _artifacts
-          merge-multiple: false
+          fetch-depth: 0
 
-      - name: Merge artifacts into _release tree
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p _release/__meta
-          : > _release/__meta/summary.tsv
-          while IFS= read -r -d '' f; do
-            rel="${f#*_artifacts/}"
-            sub="${rel#*/_release/}"
-            dest_dir="_release/${sub%/*}"
-            mkdir -p "$dest_dir"
-            cp -f "$f" "$dest_dir/"
-          done < <(find _artifacts -type f -name '*@*.*.*.zip' -print0)
-          while IFS= read -r -d '' s; do
-            cat "$s" >> _release/__meta/summary.tsv
-          done < <(find _artifacts -type f -path '*/_release/__meta/summary.tsv' -print0)
-          sort -u _release/__meta/summary.tsv -o _release/__meta/summary.tsv || true
-          echo "Merged tree:"
-          ls -R _release || true
-
-      - name: Configure git identity
-        shell: bash
-        run: |
-          git config --global user.email "ci-bot@github-actions[bot].github.com"
-          git config --global user.name  "GitHub Actions Bot"
-
-      - name: Generate tag name
-        id: tag
-        shell: bash
-        run: |
-          set -euo pipefail
-          TAG="build-$(date +'%Y%m%d')-${GITHUB_SHA::7}"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "Tag: $TAG"
-
-      - name: Create annotated tag
-        shell: bash
-        run: |
-          set -euo pipefail
-          git tag -a "${{ steps.tag.outputs.tag }}" -m "CI release ${{ steps.tag.outputs.tag }}"
-          git push origin "${{ steps.tag.outputs.tag }}"
-
-      - name: Build release body markdown
-        id: body
-        shell: bash
-        run: |
-          set -euo pipefail
-          {
-            echo "# Components in this release"
-            echo
-            if [[ -s _release/__meta/summary.tsv ]]; then
-              echo "| Component | Stack | Assets |"
-              echo "|---|---|---|"
-              while IFS="|" read -r name stack; do
-                stack=${stack:-unknown}
-                shopt -s nullglob
-                files=( _release/"$name"/*@*.*.*.zip )
-                if ((${#files[@]})); then
-                  assets=""
-                  for z in "${files[@]}"; do
-                    assets+=$(basename "$z")" "
-                  done
-                else
-                  assets="(none)"
-                fi
-                echo "| $name | $stack | $assets |"
-              done < _release/__meta/summary.tsv
-            else
-              echo "_No components were summarized._"
-            fi
-          } > _release/__meta/RELEASE_BODY.md
-          {
-            echo 'body<<EOF'
-            cat _release/__meta/RELEASE_BODY.md
-            echo 'EOF'
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Create GitHub Release
+      - name: Process Batch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
+          COREAGENT_TOKEN: ${{ secrets.COREAGENT_TOKEN }}
         run: |
-          set -euo pipefail
-          gh release create "${{ steps.tag.outputs.tag }}" \
-            --title "Release ${{ steps.tag.outputs.tag }}" \
-            --notes-file _release/__meta/RELEASE_BODY.md
+          # 将当前批次的数据写入临时文件
+          echo '${{ toJson(matrix.batch.items) }}' > batch_items.json
+          
+          # 使用 Node 脚本执行循环构建与发布逻辑
+          node -e "
+          const fs = require('fs');
+          const cp = require('child_process');
+          const path = require('path');
+          const items = JSON.parse(fs.readFileSync('batch_items.json', 'utf8'));
 
-      - name: Upload zip assets to Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          shopt -s nullglob
-          mapfile -t files < <(find _release -type f -name '*@*.*.*.zip' | sort)
-          if ((${#files[@]})); then
-            echo "Uploading ${#files[@]} assets…"
-            gh release upload "${{ steps.tag.outputs.tag }}" "${files[@]}" --clobber
-          else
-            echo "No zip assets to upload."
-          fi
+          for (const pkg of items) {
+            console.log('\x1b[32m%s\x1b[0m', '>>>>> Processing: ' + pkg.name);
+            
+            // 1. 构建
+            cp.execSync(pkg.build.join(' && '), { cwd: pkg.dir, stdio: 'inherit' });
+
+            // 2. 打包 ZIP: [组件名]-v[版本号].zip
+            const zipName = \`\${pkg.name.replace(/[@/]/g, '-')}-v\${pkg.version}.zip\`;
+            cp.execSync(\`zip -r \${zipName} dist/\`, { cwd: pkg.dir, stdio: 'inherit' });
+            const zipPath = path.join(pkg.dir, zipName);
+
+            // 3. 创建独立 Release (使用 GitHub CLI)
+            const tagName = \`\${pkg.name}@\${pkg.version}-\${process.env.GITHUB_RUN_NUMBER}\`;
+            try {
+              cp.execSync(\`gh release create \"\${tagName}\" \"\${zipPath}\" --title \"\${pkg.name} v\${pkg.version}\" --notes \"Automated release for \${pkg.name}\"\`, { stdio: 'inherit' });
+              console.log('✅ Release created: ' + tagName);
+            } catch (e) { console.error('Release failed, might already exist.'); }
+
+            // 4. 调用 AI 文档同步脚本
+            try {
+              cp.execSync(\`node scripts/ci/sync-to-coreagent.mjs '\${JSON.stringify(pkg)}' \${tagName}\`, { stdio: 'inherit' });
+            } catch (e) { console.error('AI Sync failed for ' + pkg.name); }
+          }
+          "
