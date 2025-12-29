@@ -12,7 +12,7 @@ name: Independent Component Release
 on:
   workflow_dispatch: # 允许手动触发
   push:
-    branches: [ "test-ci-branch" ] # 测试分支
+    branches: [ "monorepo/turporepo-plan" ] # 测试分支
 jobs:
   plan:
     runs-on: ubuntu-latest
