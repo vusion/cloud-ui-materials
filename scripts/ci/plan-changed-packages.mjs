@@ -89,7 +89,7 @@ function makePlan() {
     return {
       name: c.name,
       version: c.version,
-      dir: c.dir,
+      // dir: c.dir,
       relDir: c.relDir,
       node: c.isYaml ? "16" : "18",
       build: c.isYaml ? ["npm run build", "npm run usage"] : ["npm run build"],
@@ -100,7 +100,7 @@ function makePlan() {
   });
 
   // 分片逻辑：解决 256 矩阵限制，每组处理 10 个包
-  const batchSize = 10;
+  const batchSize = 20;
   const batches = [];
   for (let i = 0; i < include.length; i += batchSize) {
     const items = include.slice(i, i + batchSize);

@@ -1,13 +1,9 @@
-name: Independent Component Release
+name: Component Release & AI Doc Sync
 
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
-    inputs:
-      plan_all:
-        description: 'Whether to build all packages'
-        default: 'false'
+    branches: [ "test/ci-branch" ] # 仅在测试分支推送时触发
+  workflow_dispatch:              # 开启手动触发按钮
 
 jobs:
   plan:
@@ -20,77 +16,61 @@ jobs:
           fetch-depth: 0
       - name: Generate Plan
         id: set-matrix
-        env:
-          PLAN_ALL: ${{ github.event.inputs.plan_all == 'true' && '1' || '0' }}
         run: |
+          # 执行脚本并将 JSON 结果存入输出变量
           RESULT=$(node scripts/ci/plan-changed-packages.mjs)
-          echo "matrix=$(echo $RESULT | jq -c '.include')" >> $GITHUB_OUTPUT
+          echo "matrix=$RESULT" >> $GITHUB_OUTPUT
 
   build-and-release:
     needs: plan
-    # 修正：判断 include 数组是否为空
+    # 健壮性检查：只有当存在需要处理的分组时才运行
     if: needs.plan.outputs.matrix != '' && fromJSON(needs.plan.outputs.matrix).include[0] != null
     strategy:
       fail-fast: false
       matrix:
-        # 修正：引用 .include 数组
+        # 核心：这里引用 .include，这样每一个 batch 对象就是一个 matrix 单元
         batch: ${{ fromJSON(needs.plan.outputs.matrix).include }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          # 建议统一使用一个较高的版本来处理发布逻辑，构建逻辑则在内部子进程处理
-          node-version: 20
-
-      - name: Process Batch
+      
+      - name: Process Component Batch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COREAGENT_TOKEN: ${{ secrets.COREAGENT_TOKEN }}
         run: |
-          # 调试打印，确保能看到当前处理的批次 ID
-          echo "Processing Batch ID: ${{ matrix.batch.id }}"
+          # 1. 将该分组的 items 存为临时文件供 Node 循环读取
+          echo '${{ toJson(matrix.batch.items) }}' > batch_data.json
           
-          echo '${{ toJson(matrix.batch.items) }}' > batch_items.json
-          
+          # 2. 运行 Node 脚本处理该组内的所有组件
           node -e "
           const fs = require('fs');
           const cp = require('child_process');
           const path = require('path');
-          const items = JSON.parse(fs.readFileSync('batch_items.json', 'utf8'));
+          const batch = JSON.parse(fs.readFileSync('batch_data.json', 'utf8'));
 
-          for (const pkg of items) {
-            console.log('\x1b[32m%s\x1b[0m', '>>>>> Processing: ' + pkg.name);
+          for (const pkg of batch) {
+            console.log('--- 🚀 Processing: ' + pkg.name + ' ---');
             
-            // 检查目录是否存在
-            if (!fs.existsSync(pkg.dir)) {
-              console.error('❌ Directory not found: ' + pkg.dir);
-              continue;
-            }
+            // A. 执行构建
+            cp.execSync(pkg.build.join(' && '), { cwd: pkg.dir, stdio: 'inherit' });
 
-            // 1. 执行构建命令组
-            try {
-              cp.execSync(pkg.build.join(' && '), { cwd: pkg.dir, stdio: 'inherit' });
-            } catch(e) { console.error('Build failed for ' + pkg.name); continue; }
-
-            // 2. 打包 ZIP
+            // B. 打包 ZIP (使用你测试成功的命名逻辑)
             const zipName = \`\${pkg.name.replace(/[@/]/g, '-')}-v\${pkg.version}.zip\`;
             cp.execSync(\`zip -r \${zipName} dist/\`, { cwd: pkg.dir, stdio: 'inherit' });
             const zipPath = path.resolve(pkg.dir, zipName);
 
-            // 3. 创建独立 Release
+            // C. 创建独立 Release 并上传 ZIP
+            // 使用组件名@版本号-构建号作为唯一 Tag
             const tagName = \`\${pkg.name}@\${pkg.version}-\${process.env.GITHUB_RUN_NUMBER}\`;
             try {
-              cp.execSync(\`gh release create \"\${tagName}\" \"\${zipPath}\" --title \"\${pkg.name} v\${pkg.version}\" --notes \"Automated release for \${pkg.name}\"\`, { stdio: 'inherit' });
-            } catch (e) { console.warn('⚠️ Release already exists or failed, skipping release step.'); }
+              cp.execSync(\`gh release create \"\${tagName}\" \"\${zipPath}\" --title \"\${pkg.name} v\${pkg.version}\" --notes \"Automated asset release\"\`, { stdio: 'inherit' });
+            } catch (e) { console.warn('Release failed, check permissions or if tag exists.'); }
 
-            // 4. 同步 AI 文档
+            // D. 调用智能体更新文档
+            // 假设你已准备好 scripts/ci/sync-to-coreagent.mjs
             try {
               cp.execSync(\`node scripts/ci/sync-to-coreagent.mjs '\${JSON.stringify(pkg)}' \${tagName}\`, { stdio: 'inherit' });
-            } catch (e) { console.error('❌ AI Sync failed'); }
+            } catch (e) { console.error('AI Sync failed for ' + pkg.name); }
           }
           "
