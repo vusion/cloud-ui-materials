@@ -3,6 +3,7 @@
         v-if="columnVM&&columnVM.colSpan !== 0"
         ref="th"
         :class="[$style['head-title'], boldHeader ? $style.boldHeader : null]"
+        :line="line"
         :key="columnIndex"
         :sortable="columnVM.sortable && sortTrigger === 'head'" :filterable="!!columnVM.filters" @click="columnVM.sortable && sortTrigger === 'head' && onClickSort(columnVM)"
         :disabled="columnVM.currentHidden"
@@ -53,6 +54,7 @@ export default {
   props: {
     columnVM: Object,
     columnIndex: Number,
+    line: Boolean,
     resizable: Boolean,
     sortTrigger: String,
     currentSorting: Object,

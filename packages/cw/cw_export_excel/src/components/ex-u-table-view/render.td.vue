@@ -1,5 +1,6 @@
 <template>
     <td :class="$style.cell"
+        :line="line"
         :ellipsis="getTdEllipsis()"
         v-ellipsis-title
         :disabled="disabled"
@@ -115,6 +116,7 @@ export default {
     rowIndex: Number,
     index: Number,
     columnIndex: Number,
+    line: Boolean,
     columnItem: Object,
     item: [Object, String, Number],
     wrapItem: Object,

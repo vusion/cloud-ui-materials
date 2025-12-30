@@ -14,6 +14,7 @@
                                 <u-table-render-th
                                     :columnVM="columnVM"
                                     :columnIndex="columnIndex"
+                                    :line="line"
                                     :boldHeader="boldHeader"
                                     :sortTrigger="sortTrigger"
                                     :headTrLength="headTr.length"
@@ -98,6 +99,7 @@
                                       :key="getRowKey(item, rowIndex)"
                                       :item="item"
                                       :rowIndex="rowIndex"
+                                      :line="line"
                                       :selectable="selectable"
                                       :rowDraggable="rowDraggable"
                                       :visibleColumnVMs="visibleColumnVMs"

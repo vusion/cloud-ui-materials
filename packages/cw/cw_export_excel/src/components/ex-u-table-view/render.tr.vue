@@ -26,6 +26,7 @@
       :rowIndex="rowIndex + virtualIndex"
       :index="rowIndex + virtualIndex"
       :columnIndex="columnIndex"
+      :line="line"
       :columnItem="columnVM.columnItem"
       :style="getStyle('td', columnVM, {item, columnIndex, rowIndex: rowIndex + virtualIndex, index: rowIndex + virtualIndex})"
       :last-left-fixed="isTdLastLeftFixed(columnVM, columnIndex, visibleColumnVMs, item, rowIndex)"
@@ -63,6 +64,10 @@ export default {
       type: Number
     },
     selectable: {
+      type: Boolean,
+      default: false
+    },
+    line: {
       type: Boolean,
       default: false
     },

@@ -9,6 +9,7 @@
           <td
             v-for="(columnVM, columnIndex) in visibleColumnVMs"
             :class="$style.cell"
+            :line="line"
             :style="getStyle('td', columnVM, {})"
             :last-left-fixed="isTdLastLeftFixed(columnVM, columnIndex, visibleColumnVMs, {}, 0)"
             :first-right-fixed="isFirstRightFixed(columnVM, columnIndex, visibleColumnVMs)"
