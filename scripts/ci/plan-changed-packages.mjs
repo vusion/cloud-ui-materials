@@ -59,13 +59,33 @@ function findComponentPackages(dir, result = []) {
 /* ----------------------- 2. 依赖追踪与分组 ----------------------- */
 function makePlan() {
   const isAll = process.env.PLAN_ALL === "1";
+  const testPackage = process.env.TEST_PACKAGE;
   const range = isAll ? null : (process.argv[2] || "HEAD^...HEAD");
   const changedFiles = getChangedFiles(range);
   const allComponents = findComponentPackages(workspacesRoot);
 
   // 识别直接变动的包
   let affectedDirs = new Set();
-  if (isAll) {
+  if (testPackage) {
+    // 测试模式：只构建指定的包
+    debug(`测试模式：查找包 "${testPackage}"`);
+    const targetPkg = allComponents.find(c => 
+      c.name === testPackage || 
+      c.name.includes(testPackage) ||
+      c.relDir.includes(testPackage)
+    );
+    if (targetPkg) {
+      affectedDirs.add(targetPkg.dir);
+      debug(`找到包: ${targetPkg.name} (${targetPkg.relDir})`);
+    } else {
+      console.error(`❌ 未找到包 "${testPackage}"`);
+      console.error(`可用包列表（前20个）:`);
+      allComponents.slice(0, 20).forEach(c => {
+        console.error(`  - ${c.name} (${c.relDir})`);
+      });
+      process.exit(1);
+    }
+  } else if (isAll) {
     allComponents.forEach(c => affectedDirs.add(c.dir));
   } else if (changedFiles) {
     allComponents.forEach(c => {

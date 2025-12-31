@@ -1,0 +1,83 @@
+name: Auto Generate PR Description
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: ["main", "test-ci-branch"]
+
+jobs:
+  generate-pr-body:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Fetch Base Branch
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate PR Body
+        run: |
+          export GITHUB_BASE_REF="${{ github.event.pull_request.base.ref }}"
+          export GITHUB_HEAD_REF="${{ github.event.pull_request.head.ref }}"
+          export GITHUB_BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          export GITHUB_HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          export GITHUB_SERVER_URL="${{ github.server_url }}"
+          export GITHUB_REPOSITORY="${{ github.repository }}"
+          node scripts/ci/generate-pr-body.mjs
+
+      - name: Update PR Body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const repoRoot = process.cwd();
+            const prBodyPath = path.join(repoRoot, 'pr_body.txt');
+
+            if (!fs.existsSync(prBodyPath)) {
+              console.log('⚠️ PR body 文件不存在，跳过更新');
+              return;
+            }
+
+            const prBody = fs.readFileSync(prBodyPath, 'utf8');
+            const prNumber = context.issue.number;
+            const autoGenMarker = '*此 PR 描述由 CI 自动生成*';
+
+            try {
+              const { data: currentPR } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+              });
+              
+              // 如果已包含自动生成标记，替换；否则追加
+              let newBody = prBody;
+              if (currentPR.body?.includes(autoGenMarker)) {
+                newBody = currentPR.body.split(autoGenMarker)[0] + '\n\n' + prBody;
+              } else if (currentPR.body) {
+                newBody = currentPR.body + '\n\n---\n\n' + prBody;
+              }
+              
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                body: newBody
+              });
+              
+              console.log(`✅ 已更新 PR #${prNumber} 的 body`);
+            } catch (error) {
+              console.error(`❌ 更新 PR body 失败: ${error.message}`);
+            }
+

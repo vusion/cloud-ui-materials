@@ -1,14 +1,18 @@
-name: Component Release & AI Doc Sync
+name: Component PR Artifacts (Fault-Tolerant)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["test-ci-branch", "main"]
   workflow_dispatch:
     inputs:
-      plan_all:
-        description: '是否全量构建所有组件'
+      build_all:
+        description: "构建所有包（忽略变更检测）"
         required: false
-        default: 'false'
+        type: boolean
+      test_package:
+        description: "测试单个包（输入包名，如：cw_countup）"
+        required: false
+        type: string
 
 jobs:
   plan:
@@ -19,113 +23,201 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+          # PR 事件时，需要 checkout PR 的 head 和 base
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
+      - name: Fetch Base Branch (for PR events)
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Generate Plan
         id: set-matrix
-        env:
-          PLAN_ALL: ${{ github.event.inputs.plan_all == 'true' && '1' || '0' }}
         run: |
-          # 执行脚本并捕捉 JSON 输出
-          RESULT=$(node scripts/ci/plan-changed-packages.mjs)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.test_package }}" ]; then
+            echo "🧪 测试模式：构建指定包 '${{ github.event.inputs.test_package }}'"
+            RESULT=$(TEST_PACKAGE="${{ github.event.inputs.test_package }}" node scripts/ci/plan-changed-packages.mjs)
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.build_all }}" = "true" ]; then
+            echo "🔧 手动触发：构建所有包"
+            RESULT=$(PLAN_ALL=1 node scripts/ci/plan-changed-packages.mjs)
+          elif [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.action }}" = "closed" ] && [ "${{ github.event.pull_request.merged }}" = "true" ]; then
+            echo "🔧 PR 合并：检测 PR 中的变更"
+            # PR 合并时，使用 PR 的 base 和 head 来检测变更
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+            RESULT=$(node scripts/ci/plan-changed-packages.mjs "$BASE_SHA...$HEAD_SHA")
+          elif [ "${{ github.event_name }}" = "push" ] && [ -n "${{ github.event.before }}" ] && [ -n "${{ github.event.after }}" ]; then
+            echo "🔧 Push 事件：检测变更的包"
+            # Push 事件时，使用 before 和 after 来检测变更
+            RESULT=$(node scripts/ci/plan-changed-packages.mjs "${{ github.event.before }}...${{ github.event.after }}")
+          else
+            echo "🔧 增量构建：检测变更的包"
+            RESULT=$(node scripts/ci/plan-changed-packages.mjs)
+          fi
           echo "matrix=$RESULT" >> $GITHUB_OUTPUT
-          # 调试打印 Batch 数量，确保小于 256
-          echo "Debug: Batch Count = $(echo $RESULT | jq '.include | length')"
 
-  build-and-release:
+          # 解析结果并显示信息
+          BATCH_COUNT=$(echo "$RESULT" | node -e "const d=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(d); console.log(j.include?.length || 0)")
+          TOTAL_PACKAGES=$(echo "$RESULT" | node -e "const d=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(d); const total = j.include?.reduce((s,b)=>s+(b.items?.length||0),0) || 0; console.log(total)")
+
+          if [ "$BATCH_COUNT" = "0" ]; then
+            echo "⚠️ 没有检测到需要构建的包"
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              echo "💡 提示："
+              echo "   - 勾选 '构建所有包' 选项来构建所有包"
+              echo "   - 或在 '测试单个包' 中输入包名（如：cw_countup）"
+            fi
+          else
+            echo "✅ 检测到 $BATCH_COUNT 个批次，共 $TOTAL_PACKAGES 个包需要构建"
+          fi
+
+  build-and-comment:
     needs: plan
-    # 只有当 include 数组不为空时才触发
-    if: needs.plan.outputs.matrix != '' && fromJSON(needs.plan.outputs.matrix).include[0] != null
+    if: |
+      needs.plan.outputs.matrix != '' &&
+      fromJSON(needs.plan.outputs.matrix).include != null &&
+      fromJSON(needs.plan.outputs.matrix).include[0] != null &&
+      (
+        github.event_name == 'push' ||
+        github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true)
+      )
     strategy:
       fail-fast: false
       matrix:
-        # 引用 .include 数组级，实现分组并行
         batch: ${{ fromJSON(needs.plan.outputs.matrix).include }}
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # PR 合并时，需要 checkout 合并后的代码
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "pnpm"
 
-      - name: Install Global Build Tools
+      - name: Setup Dependencies (Stubs & Config)
+        run: node scripts/ci/setup-dependencies.mjs
+
+      - name: Configure Turbo
+        run: node scripts/ci/configure-turbo.mjs
+
+      - name: Install Root Dependencies
         run: |
-          # 修复 turbo: not found 错误
-          npm install -g turbo
-          # 如果你的构建还需要其他全局工具，可在此处添加
+          echo "🚀 开始安装根目录依赖..."
+          # 安装根目录依赖（包括 turbo），不使用 --ignore-scripts 以触发 postinstall
+          pnpm install --prefer-offline --no-frozen-lockfile || true
+          echo "✅ 根目录依赖安装完成"
 
-      - name: Process Component Batch
+      - name: Install Workspace Dependencies
+        run: |
+          echo "🚀 开始安装各工作区依赖..."
+          # 显式执行工作区安装脚本（确保所有子工作区的依赖都安装）
+          # 这会为每个工作区（legacy-yaml, ts-vue2 等）执行 pnpm install
+          node scripts/mono/install-all-workspaces.mjs || true
+          echo "✅ 工作区依赖安装完成"
+
+      - name: Verify Critical Dependencies
+        run: |
+          echo "🔍 验证关键依赖..."
+          # 检查 turbo 是否可用
+          if ! command -v turbo &> /dev/null; then
+            echo "⚠️ turbo 未找到，尝试全局安装..."
+            npm install -g turbo@2.5.8
+          else
+            echo "✅ turbo 已安装: $(turbo --version)"
+          fi
+
+          # 验证 pnpm 工作区是否正确识别
+          echo "📦 验证 pnpm 工作区..."
+          pnpm list --depth=0 --json > /dev/null 2>&1 && echo "✅ pnpm 工作区配置正常" || echo "⚠️ pnpm 工作区配置可能有问题"
+
+          echo "✅ 依赖验证完成"
+      - name: Install LCAP
+        run: |
+          npm install -g lcap@latest
+          lcap config set platform https://defaulttenant.lcap.hadri.163yun.com
+          lcap config set username admin
+          lcap config set password Admin@123456
+
+      - name: Build and Package
+        id: build-package
+        continue-on-error: false
+        run: |
+          echo '${{ toJson(matrix.batch.items) }}' > batch_items.json
+          node scripts/ci/build-and-package.mjs
+        env:
+          # Turbo 远程缓存配置（可选）
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+      - name: Check Build Results
+        if: always()
+        run: |
+          echo "🔍 检查构建结果..."
+          if [ -f "build_results.json" ]; then
+            FAIL_COUNT=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('build_results.json','utf8')); console.log(data.filter(r=>r.status==='failed').length)")
+            if [ "$FAIL_COUNT" -gt 0 ]; then
+              echo "❌ 检测到 $FAIL_COUNT 个包构建失败"
+              echo ""
+              echo "失败详情:"
+              node -e "
+                const fs = require('fs');
+                const data = JSON.parse(fs.readFileSync('build_results.json', 'utf8'));
+                data
+                  .filter(r => r.status === 'failed')
+                  .forEach(r => {
+                    console.log(\`  - \${r.name}: \${r.error}\`);
+                  });
+              "
+              exit 1
+            else
+              echo "✅ 所有包构建成功"
+            fi
+          else
+            echo "⚠️ 构建结果文件不存在，无法验证"
+            exit 1
+          fi
+
+      - name: Generate Diff Description and Update Documentation
+        if: github.event_name == 'push'
+        run: node scripts/ci/generate-diff-docs.mjs
+        env:
+          COREAGENT_AK: ${{ secrets.COREAGENT_AK }}
+          COREAGENT_SK: ${{ secrets.COREAGENT_SK }}
+
+      - name: Generate CHANGELOG
+        if: github.event_name == 'push'
+        run: node scripts/ci/generate-changelog.mjs
+        env:
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Create Git Tags and Commit CHANGELOG
+        if: github.event_name == 'push'
+        run: node scripts/ci/create-tags.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COREAGENT_TOKEN: ${{ secrets.COREAGENT_TOKEN }}
-        run: |
-          # 将当前分组的数据导出为临时文件供 Node 处理
-          echo '${{ toJson(matrix.batch.items) }}' > batch_items.json
-          
-          node -e "
-          const fs = require('fs');
-          const cp = require('child_process');
-          const path = require('path');
-          const items = JSON.parse(fs.readFileSync('batch_items.json', 'utf8'));
 
-          for (const pkg of items) {
-            console.log('\x1b[32m%s\x1b[0m', '>>>>> 正在处理组件: ' + pkg.name);
-            
-            try {
-              // 1. 在组件目录安装依赖，解决局部依赖缺失
-              console.log('--- 正在安装依赖...');
-              cp.execSync('npm install --prefer-offline --no-audit --legacy-peer-deps', { 
-                cwd: pkg.dir, 
-                stdio: 'inherit' 
-              });
-
-              // 2. 执行构建逻辑 (例如 npm run build && npm run usage)
-              console.log('--- 正在执行构建...');
-              cp.execSync(pkg.build.join(' && '), { 
-                cwd: pkg.dir, 
-                stdio: 'inherit' 
-              });
-
-              // 3. 产物打包: [组件名]-v[版本号].zip
-              const zipName = \`\${pkg.name.replace(/[@/]/g, '-')}-v\${pkg.version}.zip\`;
-              console.log('--- 正在打包: ' + zipName);
-              // 假设构建产物在 dist 目录
-              cp.execSync(\`zip -r \${zipName} dist/\`, { cwd: pkg.dir, stdio: 'inherit' });
-              const zipPath = path.resolve(pkg.dir, zipName);
-
-              // 4. 创建 GitHub Release 并上传产物
-              // Tag 格式: 组件名@版本号-构建号 (确保唯一性)
-              const tagName = \`\${pkg.name}@\${pkg.version}-\${process.env.GITHUB_RUN_NUMBER}\`;
-              console.log('--- 正在创建 Release: ' + tagName);
-              try {
-                cp.execSync(\`gh release create \"\${tagName}\" \"\${zipPath}\" --title \"\${pkg.name} v\${pkg.version}\" --notes \"由 CI 自动发布的组件资产包。\"\`, { stdio: 'inherit' });
-              } catch (re) {
-                console.warn('⚠️ Release 创建失败，可能由于 Tag 已存在或权限不足，尝试更新现有 Release...');
-                cp.execSync(\`gh release upload \"\${tagName}\" \"\${zipPath}\" --clobber\`, { stdio: 'inherit' });
-              }
-
-              // 5. 调用智能体同步文档与变更日志
-              console.log('--- 正在调用 AI 同步文档...');
-              try {
-                cp.execSync(\`node scripts/ci/sync-to-coreagent.mjs '\${JSON.stringify(pkg)}' \${tagName}\`, { stdio: 'inherit' });
-              } catch (ae) {
-                console.error('❌ AI 同步失败');
-              }
-
-            } catch (err) {
-              console.error('❌ 处理组件 ' + pkg.name + ' 时发生严重错误:');
-              console.error(err.message);
-              // 继续处理 batch 中的下一个组件
-              continue; 
-            }
-          }
-          "
+      - name: Create or Update GitHub Release
+        if: github.event_name == 'push'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const createRelease = require('./scripts/ci/create-release.js');
+            await createRelease({ github, context });
