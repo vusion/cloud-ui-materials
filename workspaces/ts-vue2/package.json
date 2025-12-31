@@ -1,0 +1,29 @@
+{
+  "name": "@cloud-ui/ts-vue2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Temporary placeholder to bypass missing manifest error",
+  "license": "UNLICENSED",
+  "scripts": {
+    "install": "echo 'ts-vue2 placeholder: no install steps required'"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "2.7.16",
+    "css-loader": "^7.1.2",
+    "fs-extra": "^11.3.2",
+    "prop-types": "^15.8.1",
+    "terser": "^5.44.0",
+    "vue": "2.7.16",
+    "vue-template-compiler": "2.7.16"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "^18.3.1",
+      "react-dom": "^18.3.1",
+      "postcss": "^8.4.38",
+      "vue": "2.7.16",
+      "vue-template-compiler": "2.7.16",
+      "@vue/compiler-sfc": "2.7.16"
+    }
+  }
+}

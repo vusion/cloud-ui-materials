@@ -1,0 +1,31 @@
+- name: cw-qrcode-view
+  title: 二维码组件
+  type: both
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: value
+      title: 二维码内容
+      type: string
+      default: 生成二维码的内容
+      description: 生成二维码的内容
+    - name: src
+      title: 二维码中间图片地址
+      type: image
+      description: 用于显示二维码中间的图片
+      compType: linkInput
+    - name: bgColor
+      title: 二维码背景的颜色
+      type: string
+      sync: true
+      description: 二维码背景的颜色
+    - name: codeColor
+      title: 二维码码的颜色
+      type: string
+      sync: true
+      description: 二维码码的颜色
+  events:
+    - name: load
+      title: 加载事件
+      description: 加载事件
+      params: []

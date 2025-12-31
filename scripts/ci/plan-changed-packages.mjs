@@ -2,173 +2,132 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import { fileURLToPath } from "url";
 
-/* ----------------------- 基础工具 ----------------------- */
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(__dirname, "../../");
+const workspacesRoot = path.join(repoRoot, "workspaces");
+const debug = (msg) => console.error(`[DEBUG] ${msg}`);
 
-const repoRoot = process.cwd();
-const pkgsRoot = path.join(repoRoot, "packages");
+/* ----------------------- 1. 基础逻辑 ----------------------- */
+function getChangedFiles(range) {
+  if (!range) return null;
+  try {
+    const output = execSync(`git diff --name-only ${range}`, { cwd: repoRoot, encoding: "utf8" });
+    return output.split("\n").filter(Boolean).map(f => f.trim());
+  } catch (e) { return null; }
+}
 
-const IGNORE_DIRS = new Set([
-  "node_modules", "dist", "build", "lib",
-  ".git", ".turbo", ".nx", ".next", ".cache", "coverage"
-]);
+function findComponentPackages(dir, result = []) {
+  if (!fs.existsSync(dir)) return result;
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const hasApiYaml = entries.find(e => e.isFile() && (e.name === "api.yaml" || e.name === "api.yml"));
+  const hasApiTs = entries.find(e => e.isFile() && e.name === "api.ts");
 
-const exists = (p) => { try { fs.accessSync(p); return true; } catch { return false; } };
-const readJSON = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
-
-function listWorkspacePackages() {
-  const result = [];
-  (function walk(dir) {
-    if (!exists(dir)) return;
-    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, ent.name);
-      if (ent.isDirectory()) {
-        if (IGNORE_DIRS.has(ent.name)) continue;
-        const pj = path.join(full, "package.json");
-        if (exists(pj)) { result.push({ dir: full, pkg: readJSON(pj) }); continue; }
-        walk(full);
+  if (hasApiYaml || hasApiTs) {
+    let currentDir = dir;
+    let pkg = null;
+    while (currentDir.startsWith(workspacesRoot)) {
+      const pjPath = path.join(currentDir, "package.json");
+      if (fs.existsSync(pjPath)) {
+        pkg = JSON.parse(fs.readFileSync(pjPath, "utf8"));
+        break;
       }
+      currentDir = path.dirname(currentDir);
     }
-  })(pkgsRoot);
+    if (pkg && pkg.name) {
+      result.push({
+        dir: currentDir,
+        relDir: path.relative(repoRoot, currentDir),
+        name: pkg.name,
+        version: pkg.version,
+        apiPath: path.join(dir, hasApiYaml ? (hasApiYaml.name) : "api.ts"),
+        isYaml: !!hasApiYaml,
+        dependencies: { ...pkg.dependencies, ...pkg.devDependencies }
+      });
+      return result;
+    }
+  }
+  for (const ent of entries) {
+    if (ent.isDirectory() && !["node_modules", "dist", ".git"].includes(ent.name)) {
+      findComponentPackages(path.join(dir, ent.name), result);
+    }
+  }
   return result;
 }
 
-/** 从文件反推其所属包（最近的 package.json，且在 packages/ 下） */
-function resolvePackageRootForFile(file) {
-  let cur = path.dirname(file);
-  while (cur.startsWith(repoRoot)) {
-    const pj = path.join(cur, "package.json");
-    if (exists(pj) && cur.startsWith(pkgsRoot)) return cur;
-    const parent = path.dirname(cur);
-    if (parent === cur) break;
-    cur = parent;
-  }
-  return null;
-}
+/* ----------------------- 2. 依赖追踪与分组 ----------------------- */
+function makePlan() {
+  const isAll = process.env.PLAN_ALL === "1";
+  const testPackage = process.env.TEST_PACKAGE;
+  const range = isAll ? null : (process.argv[2] || "HEAD^...HEAD");
+  const changedFiles = getChangedFiles(range);
+  const allComponents = findComponentPackages(workspacesRoot);
 
-/** 递归查找 api.yaml / api.ts */
-function detectApiType(pkgDir) {
-  let foundYaml = null, foundTs = null;
-  (function walk(dir) {
-    if (!exists(dir)) return;
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
-    for (const ent of entries) {
-      const full = path.join(dir, ent.name);
-      if (ent.isDirectory()) {
-        if (IGNORE_DIRS.has(ent.name)) continue;
-        if (foundYaml && foundTs) return;
-        walk(full);
-      } else if (ent.isFile()) {
-        if (ent.name === "api.yaml") foundYaml = full;
-        if (ent.name === "api.ts")   foundTs  = full;
-        if (foundYaml && foundTs) return;
+  // 识别直接变动的包
+  let affectedDirs = new Set();
+  if (testPackage) {
+    // 测试模式：只构建指定的包
+    debug(`测试模式：查找包 "${testPackage}"`);
+    const targetPkg = allComponents.find(c => 
+      c.name === testPackage || 
+      c.name.includes(testPackage) ||
+      c.relDir.includes(testPackage)
+    );
+    if (targetPkg) {
+      affectedDirs.add(targetPkg.dir);
+      debug(`找到包: ${targetPkg.name} (${targetPkg.relDir})`);
+    } else {
+      console.error(`❌ 未找到包 "${testPackage}"`);
+      console.error(`可用包列表（前20个）:`);
+      allComponents.slice(0, 20).forEach(c => {
+        console.error(`  - ${c.name} (${c.relDir})`);
+      });
+      process.exit(1);
+    }
+  } else if (isAll) {
+    allComponents.forEach(c => affectedDirs.add(c.dir));
+  } else if (changedFiles) {
+    allComponents.forEach(c => {
+      if (changedFiles.some(f => f.startsWith(c.relDir))) affectedDirs.add(c.dir);
+    });
+  }
+
+  // 依赖追踪：如果 A 变了，找出所有依赖 A 的包 B
+  const finalAffected = new Set(affectedDirs);
+  allComponents.forEach(c => {
+    for (const dir of affectedDirs) {
+      const sourcePkg = allComponents.find(item => item.dir === dir);
+      if (sourcePkg && c.dependencies[sourcePkg.name]) {
+        finalAffected.add(c.dir);
       }
     }
-  })(pkgDir);
+  });
 
-  if (foundYaml && foundTs) return { type: "conflict", yamlPath: foundYaml, tsPath: foundTs };
-  if (foundYaml) return { type: "yaml", yamlPath: foundYaml };
-  if (foundTs)   return { type: "ts",   tsPath:   foundTs   };
-  return { type: "none" };
-}
+  const include = allComponents.filter(c => finalAffected.has(c.dir)).map(c => {
+    const hasUsage = fs.existsSync(path.join(c.dir, "usage.md"));
+    return {
+      name: c.name,
+      version: c.version,
+      // dir: c.dir,
+      relDir: c.relDir,
+      node: c.isYaml ? "16" : "18",
+      build: c.isYaml ? ["npm run build", "npm run usage"] : ["npm run build"],
+      hasUsage: hasUsage,
+      // apiPath: c.apiPath,
+      // aiContext: { shouldUpdateDoc: !hasUsage || !isAll, isFirstTime: !hasUsage }
+    };
+  });
 
-/** 读取依赖版本 */
-function getDepsVersion(pkg, name) {
-  const s = (pkg.dependencies && pkg.dependencies[name]) ||
-            (pkg.devDependencies && pkg.devDependencies[name]) ||
-            (pkg.peerDependencies && pkg.peerDependencies[name]);
-  return typeof s === "string" ? s : null;
-}
-
-/** 简单判断主版本 */
-function detectStack(pkg, apiInfo) {
-  const vueVer = getDepsVersion(pkg, "vue");
-  const vue3 = vueVer && /^(\^|~|>=|<=|>|<)?\s*3(\D|$)/.test(vueVer);
-  const vue2 = vueVer && /^(\^|~|>=|<=|>|<)?\s*2(\D|$)/.test(vueVer);
-  const hasReact = !!getDepsVersion(pkg, "react") || !!getDepsVersion(pkg, "react-dom");
-  const hasCompilerSfc = !!getDepsVersion(pkg, "@vue/compiler-sfc");
-
-  // 优先级：vue2(yaml) > vue2(ts) > vue3 > react
-  if (apiInfo.type === "yaml") return "vue2(api.yaml)";
-  if (apiInfo.type === "ts" && vue2) return "vue2(api.ts)";
-  if (vue3 || hasCompilerSfc) return "vue3";
-  if (hasReact) return "react";
-  if (apiInfo.type === "ts") return "vue2(api.ts)"; // 兜底：未标明vue版本但有api.ts，归入vue2(ts)
-  return "unknown";
-}
-
-/** 选取 diff 范围 */
-function pickDiffRange() {
-  const argsRange = process.argv.slice(2).find(a => a.includes("..."));
-  const envBase = process.env.GITHUB_BASE_SHA || process.env.BASE_SHA || process.env.PR_BASE_SHA;
-  const envHead = process.env.GITHUB_SHA      || process.env.HEAD_SHA || "HEAD";
-  if (process.argv.includes("--all") || process.env.PLAN_ALL === "1") return null;
-  if (envBase) return `${envBase}...${envHead}`;
-  if (argsRange) return argsRange;
-  return "HEAD^...HEAD";
-}
-
-/** 改动文件列表 */
-function changedFiles(range) {
-  if (range === null) return [];
-  try {
-    const out = execSync(`git diff --name-only ${range}`, { cwd: repoRoot, stdio: ["ignore","pipe","pipe"] });
-    return out.toString("utf8").split("\n").map(s => s.trim()).filter(Boolean);
-  } catch {
-    try {
-      const out = execSync(`git fetch origin main --depth=1 >/dev/null 2>&1 || true; git diff --name-only origin/main...HEAD`, { cwd: repoRoot, shell: "/bin/bash" });
-      return out.toString("utf8").split("\n").map(s => s.trim()).filter(Boolean);
-    } catch { return []; }
-  }
-}
-
-/* ----------------------- 生成计划 ----------------------- */
-
-function makePlan() {
-  const workspaces = listWorkspacePackages();
-  const range = pickDiffRange();
-
-  const selected = new Map(); // dir -> {dir,pkg}
-  if (range === null) {
-    for (const w of workspaces) selected.set(w.dir, w);
-  } else {
-    for (const f of changedFiles(range)) {
-      const abs = path.join(repoRoot, f);
-      const root = resolvePackageRootForFile(abs);
-      if (root) selected.set(root, { dir: root, pkg: readJSON(path.join(root,"package.json")) });
-    }
+  // 分片逻辑：解决 256 矩阵限制，每组处理 10 个包
+  const batchSize = 20;
+  const batches = [];
+  for (let i = 0; i < include.length; i += batchSize) {
+    const items = include.slice(i, i + batchSize);
+    batches.push({ id: `batch-${i / batchSize}`, items });
   }
 
-  if (selected.size === 0) return { range, include: [] };
-
-  const include = [];
-  for (const { dir, pkg } of selected.values()) {
-    const name = pkg.name || path.basename(dir);
-    const apiInfo = detectApiType(dir);
-    const stack = detectStack(pkg, apiInfo);
-
-    let nodeVersion = null, buildCmds = [], artifacts = [], error = undefined;
-
-    if (apiInfo.type === "yaml") {
-      nodeVersion = "14";
-      buildCmds = ["npm install --legacy-peer-deps", "npm run build", "npm run usage"];
-      artifacts = ["*@*.*.*.zip"];
-    } else if (apiInfo.type === "ts") {
-      nodeVersion = "18";
-      buildCmds = ["npm install --legacy-peer-deps", "npm run build"];
-      artifacts = ["*@*.*.*.zip"];
-    } else if (apiInfo.type === "conflict") {
-      error = `Both api.yaml and api.ts detected.\n  yaml: ${apiInfo.yamlPath}\n  ts:   ${apiInfo.tsPath}`;
-    } else {
-      error = "No api.yaml or api.ts found, skipped by plan.";
-    }
-
-    include.push({ name, dir, node: nodeVersion, build: buildCmds, artifacts, stack, error });
-  }
-
-  include.sort((a,b)=>a.name.localeCompare(b.name));
-  return { range, include };
+  return { include: batches };
 }
 
-/* ----------------------- 主流程 ----------------------- */
-console.log(JSON.stringify(makePlan(), null, 2));
+process.stdout.write(JSON.stringify(makePlan()));

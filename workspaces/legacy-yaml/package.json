@@ -1,0 +1,26 @@
+{
+  "name": "@cloud-ui/legacy-yaml",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Temporary placeholder to bypass missing manifest error",
+  "license": "UNLICENSED",
+  "scripts": {
+    "install": "echo 'legacy-yaml placeholder: no install steps required'"
+  },
+  "pnpm": {
+    "overrides": {
+      "@popo-bridge/web": "link:stubs/popo-bridge-web",
+      "@oa/iframe-channel": "link:stubs/oa/iframe-channel",
+      "@popo-bridge/web-vue2": "link:stubs/popo-bridge-web-vue2",
+      "vue-loader": "^15.10.1",
+      "vue-template-compiler": "2.7.16",
+      "webpack": "^4.47.0",
+      "babel-loader": "^8.3.0",
+      "postcss-loader": "^3.0.0",
+      "less-loader": "^7.3.0",
+      "html-webpack-plugin": "^3.2.0",
+      "less": "4.1.3",
+      "lodash.get": "^4.4.2"
+    }
+  }
+}
