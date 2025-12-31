@@ -1,0 +1,76 @@
+{
+  "name": "cust_card_translate_lib",
+  "private": "true",
+  "version": "1.0.0",
+  "lcapIdeVersion": "3.8",
+  "title": "移动卡片",
+  "description": "移动卡片",
+  "main": "dist-theme/index.js",
+  "files": [
+    "dist-theme"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist-theme/index.js",
+      "import": "./dist-theme/index.mjs",
+      "require": "./dist-theme/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "npm run start",
+    "start": "storybook dev -p 8008",
+    "build": "vite build",
+    "test": "vitest",
+    "release": "lcap publish"
+  },
+  "keywords": [
+    "Vue",
+    "family:ts-vue2",
+    "biz:cust",
+    "kind:component"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@lcap/builder": "^1.3.1",
+    "@nasl/types": "^0.1.10",
+    "@lcap/storybook-vue-vite": "^7.6.17",
+    "@lcap/vite-plugin-vue2": "^1.0.0",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/builder-vite": "^7.6.17",
+    "@storybook/test": "^7.6.17",
+    "@storybook/vue": "^7.6.17",
+    "@types/fs-extra": "^11.0.4",
+    "@types/lodash": "^4.14.202",
+    "@vue/test-utils": "^1.3.5",
+    "autoprefixer": "^10.4.16",
+    "jest-serializer-vue-tjw": "^3.20.0",
+    "jsdom": "^23.0.1",
+    "marked": "^12.0.1",
+    "rimraf": "^5.0.5",
+    "storybook": "^7.6.17",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0",
+    "vitest-canvas-mock": "^0.3.3",
+    "vue": "2.6.12",
+    "vue-i18n": "^8.15.5",
+    "vue-router": "3.3.4",
+    "vue-template-compiler": "2.6.12"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.0"
+  },
+  "turbo": {
+    "tags": [
+      "family:ts-vue2",
+      "biz:cust",
+      "kind:component"
+    ]
+  }
+}

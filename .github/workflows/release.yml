@@ -1,246 +1,223 @@
-name: Build & Release Changed Packages
+name: Component PR Artifacts (Fault-Tolerant)
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
   push:
-    branches: [main, master]
-
-permissions:
-  contents: write
+    branches: ["test-ci-branch", "main"]
+  workflow_dispatch:
+    inputs:
+      build_all:
+        description: "构建所有包（忽略变更检测）"
+        required: false
+        type: boolean
+      test_package:
+        description: "测试单个包（输入包名，如：cw_countup）"
+        required: false
+        type: string
 
 jobs:
   plan:
-    name: Plan changed packages
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.plan.outputs.matrix }}
-      count: ${{ steps.plan.outputs.count }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - name: Generate matrix (only changed packages)
-        id: plan
-        shell: bash
+        with:
+          fetch-depth: 0
+          # PR 事件时，需要 checkout PR 的 head 和 base
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
+      - name: Fetch Base Branch (for PR events)
+        if: github.event_name == 'pull_request'
         run: |
-          set -euo pipefail
-
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            RANGE="${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}"
-            echo "Using PR range: $RANGE"
+          git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate Plan
+        id: set-matrix
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.test_package }}" ]; then
+            echo "🧪 测试模式：构建指定包 '${{ github.event.inputs.test_package }}'"
+            RESULT=$(TEST_PACKAGE="${{ github.event.inputs.test_package }}" node scripts/ci/plan-changed-packages.mjs)
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.build_all }}" = "true" ]; then
+            echo "🔧 手动触发：构建所有包"
+            RESULT=$(PLAN_ALL=1 node scripts/ci/plan-changed-packages.mjs)
+          elif [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.action }}" = "closed" ] && [ "${{ github.event.pull_request.merged }}" = "true" ]; then
+            echo "🔧 PR 合并：检测 PR 中的变更"
+            # PR 合并时，使用 PR 的 base 和 head 来检测变更
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+            RESULT=$(node scripts/ci/plan-changed-packages.mjs "$BASE_SHA...$HEAD_SHA")
+          elif [ "${{ github.event_name }}" = "push" ] && [ -n "${{ github.event.before }}" ] && [ -n "${{ github.event.after }}" ]; then
+            echo "🔧 Push 事件：检测变更的包"
+            # Push 事件时，使用 before 和 after 来检测变更
+            RESULT=$(node scripts/ci/plan-changed-packages.mjs "${{ github.event.before }}...${{ github.event.after }}")
           else
-            RANGE="HEAD^...HEAD"
-            echo "Using push range: $RANGE"
+            echo "🔧 增量构建：检测变更的包"
+            RESULT=$(node scripts/ci/plan-changed-packages.mjs)
+          fi
+          echo "matrix=$RESULT" >> $GITHUB_OUTPUT
+
+          # 解析结果并显示信息
+          BATCH_COUNT=$(echo "$RESULT" | node -e "const d=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(d); console.log(j.include?.length || 0)")
+          TOTAL_PACKAGES=$(echo "$RESULT" | node -e "const d=require('fs').readFileSync(0,'utf8'); const j=JSON.parse(d); const total = j.include?.reduce((s,b)=>s+(b.items?.length||0),0) || 0; console.log(total)")
+
+          if [ "$BATCH_COUNT" = "0" ]; then
+            echo "⚠️ 没有检测到需要构建的包"
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              echo "💡 提示："
+              echo "   - 勾选 '构建所有包' 选项来构建所有包"
+              echo "   - 或在 '测试单个包' 中输入包名（如：cw_countup）"
+            fi
+          else
+            echo "✅ 检测到 $BATCH_COUNT 个批次，共 $TOTAL_PACKAGES 个包需要构建"
           fi
 
-          node scripts/ci/plan-changed-packages.mjs "$RANGE" > matrix.json
-
-          echo "matrix=$(jq -c '.include' matrix.json)" >> "$GITHUB_OUTPUT"
-          echo "count=$(jq '.include | length' matrix.json)" >> "$GITHUB_OUTPUT"
-          echo "==== Plan ===="
-          cat matrix.json
-
-  build:
-    name: Build ${{ matrix.name }}
+  build-and-comment:
     needs: plan
-    if: needs.plan.outputs.count != '0'
-    runs-on: ubuntu-latest
-
+    if: |
+      needs.plan.outputs.matrix != '' &&
+      fromJSON(needs.plan.outputs.matrix).include != null &&
+      fromJSON(needs.plan.outputs.matrix).include[0] != null &&
+      (
+        github.event_name == 'push' ||
+        github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true)
+      )
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJson(needs.plan.outputs.matrix) }}
-
-    defaults:
-      run:
-        working-directory: ${{ matrix.dir }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - name: Setup Node ${{ matrix.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Enable npm cache (if lockfile exists)
-        if: ${{ hashFiles(format('{0}/package-lock.json', matrix.dir)) != '' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: npm
-          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
-
-      - name: Install LCAP CLI (yaml only)
-        if: ${{ matrix.node == '14' || matrix.node == '16' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          npm i -g lcap@latest || (echo "⚠️ lcap install failed" && exit 1)
-          lcap --version || true
-
-      - name: Install & Build
-        shell: bash
-        run: |
-          set -euo pipefail
-          node -e '
-            const {execSync} = require("child_process");
-            const steps = ${{ toJson(matrix.build) }};
-            for (const cmd of steps) {
-              console.log("+ " + cmd);
-              execSync(cmd, {stdio:"inherit", shell:true});
-            }
-          '
-
-      - name: Stash ZIPs to workspace (keep original names)
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/_release/${{ matrix.name }}"
-          shopt -s nullglob
-          zips=(*@*.*.*.zip)
-          if ((${#zips[@]})); then
-            cp -f "${zips[@]}" "$GITHUB_WORKSPACE/_release/${{ matrix.name }}/"
-            printf 'copied: %s\n' "${zips[@]}"
-          else
-            echo "No zip found in $PWD"
-          fi
-
-      - name: Append summary row (for release table)
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "$GITHUB_WORKSPACE/_release/__meta"
-          echo "${{ matrix.name }}|${{ matrix.stack || 'unknown' }}" >> "$GITHUB_WORKSPACE/_release/__meta/summary.tsv"
-
-      - name: Upload artifact (per package)
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-${{ matrix.name }}
-          path: |
-            _release/${{ matrix.name }}/*
-            _release/__meta/summary.tsv
-          if-no-files-found: ignore
-          retention-days: 3
-
-  release:
-    name: Create tag & release (on merge only)
-    needs: [plan, build]
-    if: github.event_name == 'push' && needs.plan.outputs.count != '0'
+        batch: ${{ fromJSON(needs.plan.outputs.matrix).include }}
     runs-on: ubuntu-latest
     permissions:
+      pull-requests: write
       contents: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - name: Download all built artifacts
-        uses: actions/download-artifact@v4
         with:
-          pattern: release-*
-          path: _artifacts
-          merge-multiple: false
+          fetch-depth: 0
+          # PR 合并时，需要 checkout 合并后的代码
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
 
-      - name: Merge artifacts into _release tree
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p _release/__meta
-          : > _release/__meta/summary.tsv
-          while IFS= read -r -d '' f; do
-            rel="${f#*_artifacts/}"
-            sub="${rel#*/_release/}"
-            dest_dir="_release/${sub%/*}"
-            mkdir -p "$dest_dir"
-            cp -f "$f" "$dest_dir/"
-          done < <(find _artifacts -type f -name '*@*.*.*.zip' -print0)
-          while IFS= read -r -d '' s; do
-            cat "$s" >> _release/__meta/summary.tsv
-          done < <(find _artifacts -type f -path '*/_release/__meta/summary.tsv' -print0)
-          sort -u _release/__meta/summary.tsv -o _release/__meta/summary.tsv || true
-          echo "Merged tree:"
-          ls -R _release || true
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
 
-      - name: Configure git identity
-        shell: bash
-        run: |
-          git config --global user.email "ci-bot@github-actions[bot].github.com"
-          git config --global user.name  "GitHub Actions Bot"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
 
-      - name: Generate tag name
-        id: tag
-        shell: bash
-        run: |
-          set -euo pipefail
-          TAG="build-$(date +'%Y%m%d')-${GITHUB_SHA::7}"
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "Tag: $TAG"
+      - name: Setup Dependencies (Stubs & Config)
+        run: node scripts/ci/setup-dependencies.mjs
 
-      - name: Create annotated tag
-        shell: bash
-        run: |
-          set -euo pipefail
-          git tag -a "${{ steps.tag.outputs.tag }}" -m "CI release ${{ steps.tag.outputs.tag }}"
-          git push origin "${{ steps.tag.outputs.tag }}"
+      - name: Configure Turbo
+        run: node scripts/ci/configure-turbo.mjs
 
-      - name: Build release body markdown
-        id: body
-        shell: bash
+      - name: Install Root Dependencies
         run: |
-          set -euo pipefail
-          {
-            echo "# Components in this release"
-            echo
-            if [[ -s _release/__meta/summary.tsv ]]; then
-              echo "| Component | Stack | Assets |"
-              echo "|---|---|---|"
-              while IFS="|" read -r name stack; do
-                stack=${stack:-unknown}
-                shopt -s nullglob
-                files=( _release/"$name"/*@*.*.*.zip )
-                if ((${#files[@]})); then
-                  assets=""
-                  for z in "${files[@]}"; do
-                    assets+=$(basename "$z")" "
-                  done
-                else
-                  assets="(none)"
-                fi
-                echo "| $name | $stack | $assets |"
-              done < _release/__meta/summary.tsv
-            else
-              echo "_No components were summarized._"
-            fi
-          } > _release/__meta/RELEASE_BODY.md
-          {
-            echo 'body<<EOF'
-            cat _release/__meta/RELEASE_BODY.md
-            echo 'EOF'
-          } >> "$GITHUB_OUTPUT"
+          echo "🚀 开始安装根目录依赖..."
+          # 安装根目录依赖（包括 turbo），不使用 --ignore-scripts 以触发 postinstall
+          pnpm install --prefer-offline --no-frozen-lockfile || true
+          echo "✅ 根目录依赖安装完成"
 
-      - name: Create GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
+      - name: Install Workspace Dependencies
         run: |
-          set -euo pipefail
-          gh release create "${{ steps.tag.outputs.tag }}" \
-            --title "Release ${{ steps.tag.outputs.tag }}" \
-            --notes-file _release/__meta/RELEASE_BODY.md
+          echo "🚀 开始安装各工作区依赖..."
+          # 显式执行工作区安装脚本（确保所有子工作区的依赖都安装）
+          # 这会为每个工作区（legacy-yaml, ts-vue2 等）执行 pnpm install
+          node scripts/mono/install-all-workspaces.mjs || true
+          echo "✅ 工作区依赖安装完成"
 
-      - name: Upload zip assets to Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
+      - name: Verify Critical Dependencies
         run: |
-          set -euo pipefail
-          shopt -s nullglob
-          mapfile -t files < <(find _release -type f -name '*@*.*.*.zip' | sort)
-          if ((${#files[@]})); then
-            echo "Uploading ${#files[@]} assets…"
-            gh release upload "${{ steps.tag.outputs.tag }}" "${files[@]}" --clobber
+          echo "🔍 验证关键依赖..."
+          # 检查 turbo 是否可用
+          if ! command -v turbo &> /dev/null; then
+            echo "⚠️ turbo 未找到，尝试全局安装..."
+            npm install -g turbo@2.5.8
           else
-            echo "No zip assets to upload."
+            echo "✅ turbo 已安装: $(turbo --version)"
           fi
+
+          # 验证 pnpm 工作区是否正确识别
+          echo "📦 验证 pnpm 工作区..."
+          pnpm list --depth=0 --json > /dev/null 2>&1 && echo "✅ pnpm 工作区配置正常" || echo "⚠️ pnpm 工作区配置可能有问题"
+
+          echo "✅ 依赖验证完成"
+      - name: Install LCAP
+        run: |
+          npm install -g lcap@latest
+          lcap config set platform https://defaulttenant.lcap.hadri.163yun.com
+          lcap config set username admin
+          lcap config set password Admin@123456
+
+      - name: Build and Package
+        id: build-package
+        continue-on-error: false
+        run: |
+          echo '${{ toJson(matrix.batch.items) }}' > batch_items.json
+          node scripts/ci/build-and-package.mjs
+        env:
+          # Turbo 远程缓存配置（可选）
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+      - name: Check Build Results
+        if: always()
+        run: |
+          echo "🔍 检查构建结果..."
+          if [ -f "build_results.json" ]; then
+            FAIL_COUNT=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('build_results.json','utf8')); console.log(data.filter(r=>r.status==='failed').length)")
+            if [ "$FAIL_COUNT" -gt 0 ]; then
+              echo "❌ 检测到 $FAIL_COUNT 个包构建失败"
+              echo ""
+              echo "失败详情:"
+              node -e "
+                const fs = require('fs');
+                const data = JSON.parse(fs.readFileSync('build_results.json', 'utf8'));
+                data
+                  .filter(r => r.status === 'failed')
+                  .forEach(r => {
+                    console.log(\`  - \${r.name}: \${r.error}\`);
+                  });
+              "
+              exit 1
+            else
+              echo "✅ 所有包构建成功"
+            fi
+          else
+            echo "⚠️ 构建结果文件不存在，无法验证"
+            exit 1
+          fi
+
+      - name: Generate Diff Description and Update Documentation
+        if: github.event_name == 'push'
+        run: node scripts/ci/generate-diff-docs.mjs
+        env:
+          COREAGENT_AK: ${{ secrets.COREAGENT_AK }}
+          COREAGENT_SK: ${{ secrets.COREAGENT_SK }}
+
+      - name: Generate CHANGELOG
+        if: github.event_name == 'push'
+        run: node scripts/ci/generate-changelog.mjs
+        env:
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Create Git Tags and Commit CHANGELOG
+        if: github.event_name == 'push'
+        run: node scripts/ci/create-tags.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create or Update GitHub Release
+        if: github.event_name == 'push'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const createRelease = require('./scripts/ci/create-release.js');
+            await createRelease({ github, context });

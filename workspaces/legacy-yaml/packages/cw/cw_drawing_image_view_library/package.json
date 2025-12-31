@@ -1,0 +1,68 @@
+{
+  "name": "cw_drawing_view_library",
+  "title": "平面绘制依赖库",
+  "description": "可导入一个背景，在上面实现小部件的拖拽",
+  "version": "1.1.7",
+  "main": "./index.js",
+  "author": "",
+  "repository": "",
+  "homepage": "",
+  "license": "MIT",
+  "keywords": [
+    "lcap",
+    "material",
+    "component",
+    "family:legacy-yaml",
+    "biz:cw",
+    "kind:component"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service doc --port 9090",
+    "build:theme": "vue-cli-service library-build --dest dist-theme",
+    "build:doc": "vue-cli-service doc-build",
+    "build": "npm run build:theme",
+    "usage": "lcap usage",
+    "deploy": "lcap deploy dist-theme",
+    "prepublishOnly": "lcap publish",
+    "release": "lcap publish"
+  },
+  "vuePlugins": {},
+  "babel": {},
+  "vusion": {
+    "ui": "cloud-ui.vusion"
+  },
+  "lcapVersion": "0.3.0",
+  "devDependencies": {
+    "@vue/cli-service": "^4.4.1",
+    "cloud-ui.vusion": "^0.11.20",
+    "core-js": "^3.6.5",
+    "globby": "10.0.2",
+    "vue": "^2.6.12",
+    "vue-cli-plugin-vusion": "0.14.2-beta",
+    "vue-loader": "15.9.8"
+  },
+  "peerDependencies": {
+    "cloud-ui.vusion": "^0.11.20",
+    "vue": "^2.6.12"
+  },
+  "vetur": {
+    "tags": "./vetur/tags.json",
+    "attributes": "./vetur/attributes.json"
+  },
+  "template": {
+    "inited": true
+  },
+  "dependencies": {
+    "ant-design-vue": "1.7.8",
+    "element-ui": "^2.15.14",
+    "fabric": "^5.3.0-browser",
+    "pdfjs-dist": "2.6.347"
+  },
+  "turbo": {
+    "tags": [
+      "family:legacy-yaml",
+      "biz:cw",
+      "kind:component"
+    ]
+  }
+}

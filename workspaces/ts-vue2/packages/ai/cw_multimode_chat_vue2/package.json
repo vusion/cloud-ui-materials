@@ -1,0 +1,85 @@
+{
+  "name": "cw_multimode_chat_vue2",
+  "private": "true",
+  "version": "1.1.1",
+  "lcapIdeVersion": "3.11",
+  "title": "多模态对话式AI交互组件",
+  "description": "支持多模态输入和展示，适配AI场景下的对话式交互",
+  "main": "dist-theme/index.js",
+  "files": [
+    "dist-theme"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist-theme/index.js",
+      "import": "./dist-theme/index.mjs",
+      "require": "./dist-theme/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "npm run start",
+    "start": "storybook dev -p 8008",
+    "build": "vite build",
+    "watch": "lcap-scripts watch",
+    "test": "vitest",
+    "release": "lcap publish"
+  },
+  "keywords": [
+    "Vue",
+    "family:ts-vue2",
+    "biz:ai",
+    "kind:component"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ant-design-vue": "1.7.8",
+    "echarts": "^5.6.0",
+    "lodash": "^4.17.21",
+    "markdown-it": "^14.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@lcap/builder": "^1.4.0",
+    "@lcap/storybook-vue-vite": "^7.6.17",
+    "@lcap/vite-plugin-vue2": "^1.0.0",
+    "@nasl/types": "^0.1.10",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/builder-vite": "^7.6.17",
+    "@storybook/test": "^7.6.17",
+    "@storybook/vue": "^7.6.17",
+    "@types/fs-extra": "^11.0.4",
+    "@types/lodash": "^4.14.202",
+    "@vue/test-utils": "^1.3.5",
+    "autoprefixer": "^10.4.16",
+    "jest-serializer-vue-tjw": "^3.20.0",
+    "jsdom": "^23.0.1",
+    "marked": "^12.0.1",
+    "rimraf": "^5.0.5",
+    "storybook": "^7.6.17",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-plugin-antdv-fix": "^1.0.3",
+    "vitest": "^1.1.0",
+    "vitest-canvas-mock": "^0.3.3",
+    "vue": "2.6.12",
+    "vue-i18n": "^8.15.5",
+    "vue-router": "3.3.4",
+    "vue-template-compiler": "2.6.12"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.0"
+  },
+  "turbo": {
+    "tags": [
+      "family:ts-vue2",
+      "biz:ai",
+      "kind:component"
+    ]
+  }
+}
