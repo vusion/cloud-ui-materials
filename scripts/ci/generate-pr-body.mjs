@@ -3,13 +3,13 @@
  * 生成 PR Body 内容
  * 基于 commits 和变更的组件生成详细的变更说明
  */
-import fs from 'fs';
-import { execSync } from 'child_process';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import { execSync } from "child_process";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(__dirname, '../../');
+const repoRoot = path.resolve(__dirname, "../../");
 
 // 从环境变量获取 PR 信息
 // 在 PR 事件中，使用 PR 的 base 和 head
@@ -23,7 +23,9 @@ if (process.env.GITHUB_BASE_SHA && process.env.GITHUB_HEAD_SHA) {
 } else if (process.env.GITHUB_EVENT_PATH) {
   // 尝试从 event.json 读取
   try {
-    const eventData = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+    const eventData = JSON.parse(
+      fs.readFileSync(process.env.GITHUB_EVENT_PATH, "utf8")
+    );
     if (eventData.pull_request) {
       baseSha = eventData.pull_request.base.sha;
       headSha = eventData.pull_request.head.sha;
@@ -38,8 +40,8 @@ if (process.env.GITHUB_BASE_SHA && process.env.GITHUB_HEAD_SHA) {
 
 // 默认值
 if (!baseSha || !headSha) {
-  baseSha = process.env.GITHUB_BASE_REF || 'HEAD^';
-  headSha = process.env.GITHUB_HEAD_REF || process.env.GITHUB_SHA || 'HEAD';
+  baseSha = process.env.GITHUB_BASE_REF || "HEAD^";
+  headSha = process.env.GITHUB_HEAD_REF || process.env.GITHUB_SHA || "HEAD";
 }
 
 console.log(`📝 生成 PR Body (${baseSha}...${headSha})`);
@@ -50,18 +52,34 @@ function collectCommits() {
     const range = `${baseSha}...${headSha}`;
     const commitsRaw = execSync(
       `git log --format='%H|%h|%an|%ae|%s|%b' ${range}`,
-      { encoding: 'utf8', cwd: repoRoot, maxBuffer: 10 * 1024 * 1024 }
+      { encoding: "utf8", cwd: repoRoot, maxBuffer: 10 * 1024 * 1024 }
     );
-    
+
     const commits = commitsRaw
-      .split('\n')
+      .split("\n")
       .filter(Boolean)
-      .map(line => {
-        const [hash, shortHash, author, email, subject, ...bodyParts] = line.split('|');
-        const body = bodyParts.join('|');
-        return { hash, shortHash, author, email, subject, body };
-      });
-    
+      .map((line) => {
+        const parts = line.split("|");
+        // 确保至少有 5 个部分（hash, shortHash, author, email, subject）
+        if (parts.length < 5) {
+          console.warn(
+            `⚠️ 跳过格式不正确的 commit 行: ${line.substring(0, 50)}...`
+          );
+          return null;
+        }
+        const [hash, shortHash, author, email, subject, ...bodyParts] = parts;
+        const body = bodyParts.join("|");
+        return {
+          hash: hash || "",
+          shortHash: shortHash || "",
+          author: author || "",
+          email: email || "",
+          subject: subject || "",
+          body: body || "",
+        };
+      })
+      .filter(Boolean); // 过滤掉 null 值
+
     console.log(`✅ 收集到 ${commits.length} 个 commits`);
     return commits;
   } catch (err) {
@@ -74,32 +92,36 @@ function collectCommits() {
 function detectChangedPackages() {
   try {
     const range = `${baseSha}...${headSha}`;
-    const changedFiles = execSync(
-      `git diff --name-only ${range}`,
-      { encoding: 'utf8', cwd: repoRoot }
-    ).split('\n').filter(Boolean);
-    
+    const changedFiles = execSync(`git diff --name-only ${range}`, {
+      encoding: "utf8",
+      cwd: repoRoot,
+    })
+      .split("\n")
+      .filter(Boolean);
+
     const packages = new Map();
-    
+
     // 查找所有组件包
-    const workspacesRoot = path.join(repoRoot, 'workspaces');
+    const workspacesRoot = path.join(repoRoot, "workspaces");
     if (!fs.existsSync(workspacesRoot)) {
       return packages;
     }
-    
+
     function findComponentPackages(dir, result = []) {
       if (!fs.existsSync(dir)) return result;
       const entries = fs.readdirSync(dir, { withFileTypes: true });
-      const hasApiYaml = entries.find(e => e.isFile() && (e.name === 'api.yaml' || e.name === 'api.yml'));
-      const hasApiTs = entries.find(e => e.isFile() && e.name === 'api.ts');
-      
+      const hasApiYaml = entries.find(
+        (e) => e.isFile() && (e.name === "api.yaml" || e.name === "api.yml")
+      );
+      const hasApiTs = entries.find((e) => e.isFile() && e.name === "api.ts");
+
       if (hasApiYaml || hasApiTs) {
         let currentDir = dir;
         let pkg = null;
         while (currentDir.startsWith(workspacesRoot)) {
-          const pjPath = path.join(currentDir, 'package.json');
+          const pjPath = path.join(currentDir, "package.json");
           if (fs.existsSync(pjPath)) {
-            pkg = JSON.parse(fs.readFileSync(pjPath, 'utf8'));
+            pkg = JSON.parse(fs.readFileSync(pjPath, "utf8"));
             break;
           }
           currentDir = path.dirname(currentDir);
@@ -109,21 +131,24 @@ function detectChangedPackages() {
             dir: currentDir,
             relDir: path.relative(repoRoot, currentDir),
             name: pkg.name,
-            version: pkg.version
+            version: pkg.version,
           });
           return result;
         }
       }
       for (const ent of entries) {
-        if (ent.isDirectory() && !['node_modules', 'dist', '.git'].includes(ent.name)) {
+        if (
+          ent.isDirectory() &&
+          !["node_modules", "dist", ".git"].includes(ent.name)
+        ) {
           findComponentPackages(path.join(dir, ent.name), result);
         }
       }
       return result;
     }
-    
+
     const allPackages = findComponentPackages(workspacesRoot);
-    
+
     // 匹配变更的文件到组件包
     for (const file of changedFiles) {
       for (const pkg of allPackages) {
@@ -131,14 +156,14 @@ function detectChangedPackages() {
           if (!packages.has(pkg.name)) {
             packages.set(pkg.name, {
               ...pkg,
-              changedFiles: []
+              changedFiles: [],
             });
           }
           packages.get(pkg.name).changedFiles.push(file);
         }
       }
     }
-    
+
     console.log(`✅ 检测到 ${packages.size} 个变更的组件包`);
     return packages;
   } catch (err) {
@@ -153,25 +178,31 @@ function parseCommits(commits) {
   const result = {
     packages: new Map(),
     types: new Set(),
-    breakingChanges: []
+    breakingChanges: [],
   };
-  
+
   for (const commit of commits) {
+    // 安全检查：确保 commit.subject 存在
+    if (!commit || !commit.subject) {
+      console.warn(`⚠️ 跳过无效的 commit: ${JSON.stringify(commit)}`);
+      continue;
+    }
+
     const match = commit.subject.match(titleReg);
     if (match) {
       const [, type, scope, subject] = match;
       const normalizedType = type.toLowerCase();
-      
+
       result.types.add(normalizedType);
-      
+
       if (scope) {
         // 尝试匹配包名
-        const pkgName = scope.replace(/^@[^/]+\//, '').replace(/-/g, '_');
+        const pkgName = scope.replace(/^@[^/]+\//, "").replace(/-/g, "_");
         if (!result.packages.has(pkgName)) {
           result.packages.set(pkgName, {
             name: pkgName,
             commits: [],
-            types: new Set()
+            types: new Set(),
           });
         }
         const pkg = result.packages.get(pkgName);
@@ -179,109 +210,136 @@ function parseCommits(commits) {
           hash: commit.shortHash,
           subject,
           type: normalizedType,
-          author: commit.author
+          author: commit.author,
         });
         pkg.types.add(normalizedType);
       }
     }
-    
+
     // 检查 BREAKING CHANGE
     if (commit.body && /BREAKING CHANGE/i.test(commit.body)) {
       result.breakingChanges.push({
         hash: commit.shortHash,
         subject: commit.subject,
-        body: commit.body
+        body: commit.body,
       });
     }
   }
-  
+
   return result;
 }
 
 // 4. 生成 PR Body
 function generatePRBody(commits, changedPackages, parsedCommits) {
-  let body = '## 📋 变更概览\n\n';
-  
+  let body = "## 📋 变更概览\n\n";
+
   // 统计信息
   const totalCommits = commits.length;
   const totalPackages = changedPackages.size;
   const types = Array.from(parsedCommits.types);
-  
+
   body += `- **提交数量**: ${totalCommits} 个\n`;
   body += `- **涉及组件**: ${totalPackages} 个\n`;
   if (types.length > 0) {
-    body += `- **变更类型**: ${types.join(', ')}\n`;
+    body += `- **变更类型**: ${types.join(", ")}\n`;
   }
-  body += '\n';
-  
+  body += "\n";
+
   // 变更的组件详情
   if (changedPackages.size > 0) {
-    body += '## 📦 变更的组件\n\n';
-    
+    body += "## 📦 变更的组件\n\n";
+
     for (const [pkgName, pkg] of changedPackages) {
       body += `### ${pkg.name}@v${pkg.version}\n\n`;
       body += `- **路径**: \`${pkg.relDir}\`\n`;
-      
+
       // 关联的 commits
       const relatedCommits = parsedCommits.packages.get(pkgName);
       if (relatedCommits && relatedCommits.commits.length > 0) {
         body += `- **相关提交**:\n`;
         for (const commit of relatedCommits.commits) {
-          const typeEmoji = commit.type === 'feat' ? '✨' : 
-                           commit.type === 'fix' ? '🐛' : 
-                           commit.type === 'refactor' ? '♻️' : '📝';
-          body += `  - ${typeEmoji} [${commit.hash}](${process.env.GITHUB_SERVER_URL || 'https://github.com'}/${process.env.GITHUB_REPOSITORY || ''}/commit/${commit.hash}) ${commit.subject}\n`;
+          const typeEmoji =
+            commit.type === "feat"
+              ? "✨"
+              : commit.type === "fix"
+              ? "🐛"
+              : commit.type === "refactor"
+              ? "♻️"
+              : "📝";
+          body += `  - ${typeEmoji} [${commit.hash}](${
+            process.env.GITHUB_SERVER_URL || "https://github.com"
+          }/${process.env.GITHUB_REPOSITORY || ""}/commit/${commit.hash}) ${
+            commit.subject
+          }\n`;
         }
       }
-      
+
       // 变更的文件
       if (pkg.changedFiles && pkg.changedFiles.length > 0) {
         body += `- **变更文件** (${pkg.changedFiles.length} 个):\n`;
-        const fileList = pkg.changedFiles.slice(0, 10).map(f => `  - \`${f}\``).join('\n');
+        const fileList = pkg.changedFiles
+          .slice(0, 10)
+          .map((f) => `  - \`${f}\``)
+          .join("\n");
         body += fileList;
         if (pkg.changedFiles.length > 10) {
           body += `\n  - ... 还有 ${pkg.changedFiles.length - 10} 个文件`;
         }
-        body += '\n';
+        body += "\n";
       }
-      
-      body += '\n';
+
+      body += "\n";
     }
   }
-  
+
   // 所有 commits 列表
   if (commits.length > 0) {
-    body += '## 📝 提交记录\n\n';
+    body += "## 📝 提交记录\n\n";
     for (const commit of commits.slice(0, 20)) {
-      const match = commit.subject.match(/^(\S+?)(?:\((\S+)\))?\s*[:：]\s*(.*)/);
+      const match = commit.subject.match(
+        /^(\S+?)(?:\((\S+)\))?\s*[:：]\s*(.*)/
+      );
       if (match) {
         const [, type, scope, subject] = match;
-        const typeEmoji = type.toLowerCase() === 'feat' ? '✨' : 
-                         type.toLowerCase() === 'fix' ? '🐛' : 
-                         type.toLowerCase() === 'refactor' ? '♻️' : '📝';
-        body += `- ${typeEmoji} [${commit.shortHash}](${process.env.GITHUB_SERVER_URL || 'https://github.com'}/${process.env.GITHUB_REPOSITORY || ''}/commit/${commit.hash}) ${subject} (@${commit.author})\n`;
+        const typeEmoji =
+          type.toLowerCase() === "feat"
+            ? "✨"
+            : type.toLowerCase() === "fix"
+            ? "🐛"
+            : type.toLowerCase() === "refactor"
+            ? "♻️"
+            : "📝";
+        body += `- ${typeEmoji} [${commit.shortHash}](${
+          process.env.GITHUB_SERVER_URL || "https://github.com"
+        }/${process.env.GITHUB_REPOSITORY || ""}/commit/${
+          commit.hash
+        }) ${subject} (@${commit.author})\n`;
       } else {
-        body += `- 📝 [${commit.shortHash}](${process.env.GITHUB_SERVER_URL || 'https://github.com'}/${process.env.GITHUB_REPOSITORY || ''}/commit/${commit.hash}) ${commit.subject} (@${commit.author})\n`;
+        body += `- 📝 [${commit.shortHash}](${
+          process.env.GITHUB_SERVER_URL || "https://github.com"
+        }/${process.env.GITHUB_REPOSITORY || ""}/commit/${commit.hash}) ${
+          commit.subject
+        } (@${commit.author})\n`;
       }
     }
     if (commits.length > 20) {
       body += `\n... 还有 ${commits.length - 20} 个提交\n`;
     }
-    body += '\n';
+    body += "\n";
   }
-  
+
   // Breaking Changes
   if (parsedCommits.breakingChanges.length > 0) {
-    body += '## ⚠️ Breaking Changes\n\n';
+    body += "## ⚠️ Breaking Changes\n\n";
     for (const bc of parsedCommits.breakingChanges) {
       body += `### [${bc.hash}] ${bc.subject}\n\n`;
       body += `${bc.body}\n\n`;
     }
   }
-  
-  body += '---\n\n';
-  body += '*此 PR 描述由 CI 自动生成*\n';
-  
+
+  body += "---\n\n";
+  body += "*此 PR 描述由 CI 自动生成*\n";
+
   return body;
 }
 
@@ -290,22 +348,21 @@ async function main() {
   const commits = collectCommits();
   const changedPackages = detectChangedPackages();
   const parsedCommits = parseCommits(commits);
-  
+
   const prBody = generatePRBody(commits, changedPackages, parsedCommits);
-  
+
   // 保存到文件
-  const outputPath = path.join(repoRoot, 'pr_body.txt');
+  const outputPath = path.join(repoRoot, "pr_body.txt");
   fs.writeFileSync(outputPath, prBody);
   console.log(`✅ PR Body 已生成: ${outputPath}`);
-  
+
   // 输出到 stdout（供 GitHub Actions 使用）
-  console.log('\n--- PR Body ---');
+  console.log("\n--- PR Body ---");
   console.log(prBody);
-  console.log('--- End PR Body ---\n');
+  console.log("--- End PR Body ---\n");
 }
 
-main().catch(err => {
-  console.error('❌ 生成 PR Body 失败:', err);
+main().catch((err) => {
+  console.error("❌ 生成 PR Body 失败:", err);
   process.exit(1);
 });
-
