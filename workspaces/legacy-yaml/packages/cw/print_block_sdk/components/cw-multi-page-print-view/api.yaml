@@ -1,0 +1,26 @@
+- name: cw-multi-page-print-view
+  title: 多页打印组件
+  type: pc
+  belong: component
+  labels: [Runtime]
+  attrs:
+    - name: isShowPrint
+      title: 是否展示打印区域
+      type: boolean
+      default: false
+      description: 是否显示打印区域
+    - name: overlapHeight
+      title: 页间重叠高度(px)
+      type: number
+      default: 0
+      description: 0-50，0 表示不切片直接长图打印；>0 时按该值分页并在相邻页顶部重复显示。
+  methods:
+    - name: print
+      description: 打印
+      params: []
+  slots:
+    - concept: Slot
+      name: default
+      title: 默认插槽
+      description: 默认插槽
+

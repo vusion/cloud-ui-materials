@@ -1,0 +1,10 @@
+packages:
+  - "workspaces/legacy-yaml/packages/*/*"
+  - "workspaces/ts-vue2/packages/*/*"
+  - "!**/.lcap/**"
+  - "!**/dist/**"
+  - "!**/node_modules/**"
+  - "tools/**"
+  - "scripts/**"
+  - "!**/.lcap/**" 
+  - "!**/source/**" 
