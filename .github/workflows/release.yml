@@ -100,16 +100,16 @@ jobs:
           # PR 合并时，需要 checkout 合并后的代码
           ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
+
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@8 --activate
+          pnpm --version
 
       - name: Setup Dependencies (Stubs & Config)
         run: node scripts/ci/setup-dependencies.mjs
