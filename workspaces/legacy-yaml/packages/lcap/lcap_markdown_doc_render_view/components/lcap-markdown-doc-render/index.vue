@@ -243,17 +243,58 @@ export default {
       return result;
     },
     handleTocSelected(node) {
-      // 获取最准确的位置信息
-      this.initHeadersTopDistance();
       // 阻止锚点定位时所触发的滚动事件
       clickFlag = true;
 
       this.curTocItem.value = node.slug;
-      window.scrollTo(0, this.headersTop[node.slug] - this.outlinePositionTop)
+
+      const targetElement = document.getElementById(node.slug);
+      if (!targetElement) {
+        // 降级方案：使用原来的计算方法
+        this.initHeadersTopDistance();
+        if (this.headersTop[node.slug] !== undefined) {
+          window.scrollTo({
+            top: Math.max(0, this.headersTop[node.slug] - this.outlinePositionTop),
+            behavior: 'smooth'
+          });
+        }
+        setTimeout(() => {
+          clickFlag = false;
+        }, 1000);
+        return;
+      }
+
+      // 第一步：先快速跳转到目标位置附近（触发懒加载图片开始加载）
+      const initialRect = targetElement.getBoundingClientRect();
+      const initialScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const initialTargetPosition = initialRect.top + initialScrollTop - this.outlinePositionTop;
+
+      // 先跳转到大致位置（不等待，立即跳转）
+      window.scrollTo({
+        top: Math.max(0, initialTargetPosition),
+        behavior: 'auto' // 使用 auto 快速跳转，不等待动画
+      });
+
+      // 第二步：等待目标位置附近的懒加载图片加载完成
+      this.waitForLazyImagesNearTarget(targetElement).then(() => {
+        // 使用 requestAnimationFrame 确保 DOM 已更新
+        requestAnimationFrame(() => {
+          // 重新计算准确位置（此时懒加载图片已加载，页面高度已更新）
+          const rect = targetElement.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const targetPosition = rect.top + scrollTop - this.outlinePositionTop;
+
+          // 精确调整到目标位置（使用平滑滚动）
+          window.scrollTo({
+            top: Math.max(0, targetPosition),
+            behavior: 'smooth'
+          });
+        });
+      });
 
       setTimeout(() => {
         clickFlag = false;
-      }, 500);
+      }, 1500);
     },
     handleToggleToc(node) {
       const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
@@ -357,13 +398,13 @@ export default {
       }
     },
     getElementTopDistance(element) {
-      let distance = 0;
-      while (element) {
-        distance += element.offsetTop;
-        element = element.offsetParent;
-      }
+      if (!element) return 0;
 
-      return distance;
+      // 使用 getBoundingClientRect 获取更准确的位置
+      // 结合当前滚动位置计算绝对位置
+      const rect = element.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      return rect.top + scrollTop;
     },
 
     initHeadersTopDistance() {
@@ -375,6 +416,133 @@ export default {
       }
 
       this.headersTop = map;
+    },
+
+    // 等待目标位置附近的懒加载图片加载完成
+    waitForLazyImagesNearTarget(targetElement) {
+      return new Promise((resolve) => {
+        // 获取目标元素的位置信息
+        const targetRect = targetElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetTop = targetRect.top + scrollTop;
+
+        // 定义需要预加载的区域范围（目标位置上下各 3000px，确保覆盖足够范围）
+        const preloadRange = 3000;
+        const rangeTop = Math.max(0, targetTop - preloadRange);
+        const rangeBottom = targetTop + preloadRange;
+
+        // 获取所有图片
+        const allImages = document.querySelectorAll('.theme-default-content img');
+        const imagesInRange = [];
+
+        // 筛选出目标位置附近的图片并触发懒加载
+        allImages.forEach((img) => {
+          const imgRect = img.getBoundingClientRect();
+          const imgTop = imgRect.top + scrollTop;
+
+          // 检查图片是否在预加载范围内
+          if (imgTop >= rangeTop && imgTop <= rangeBottom) {
+            imagesInRange.push(img);
+
+            // 强制触发懒加载图片的加载
+            this.triggerLazyImageLoad(img);
+          }
+        });
+
+        if (imagesInRange.length === 0) {
+          // 没有图片需要等待，直接 resolve
+          requestAnimationFrame(() => {
+            resolve();
+          });
+          return;
+        }
+
+        let loadedCount = 0;
+        const totalImages = imagesInRange.length;
+        let resolved = false;
+
+        const checkComplete = () => {
+          loadedCount++;
+          if (loadedCount >= totalImages && !resolved) {
+            resolved = true;
+            // 等待一帧确保布局已更新
+            requestAnimationFrame(() => {
+              resolve();
+            });
+          }
+        };
+
+        imagesInRange.forEach((img) => {
+          if (img.complete && img.naturalHeight !== 0) {
+            // 图片已加载
+            checkComplete();
+          } else {
+            // 监听图片加载事件
+            img.addEventListener('load', checkComplete, { once: true });
+            img.addEventListener('error', checkComplete, { once: true });
+          }
+        });
+
+        // 设置超时，避免某些图片一直不加载导致卡死
+        setTimeout(() => {
+          if (!resolved) {
+            resolved = true;
+            resolve();
+          }
+        }, 2000);
+      });
+    },
+
+    // 触发懒加载图片的加载
+    triggerLazyImageLoad(img) {
+      // 方法1: 处理 loading="lazy" 属性
+      if (img.loading === 'lazy') {
+        img.loading = 'eager';
+      }
+
+      // 方法2: 处理 data-src 属性（常见的懒加载库使用方式）
+      const dataSrc = img.dataset.src || img.getAttribute('data-src') || img.getAttribute('data-lazy-src');
+      if (dataSrc && (!img.src || img.src === '' || img.src.includes('data:image'))) {
+        img.src = dataSrc;
+        // 移除 data-src 属性，避免重复加载
+        if (img.dataset.src) {
+          delete img.dataset.src;
+        }
+        img.removeAttribute('data-src');
+        img.removeAttribute('data-lazy-src');
+      }
+
+      // 方法3: 处理 srcset 懒加载
+      const dataSrcset = img.dataset.srcset || img.getAttribute('data-srcset');
+      if (dataSrcset && (!img.srcset || img.srcset === '')) {
+        img.srcset = dataSrcset;
+        if (img.dataset.srcset) {
+          delete img.dataset.srcset;
+        }
+        img.removeAttribute('data-srcset');
+      }
+
+      // 方法4: 如果图片在可视区域内但还没加载，强制触发
+      const imgRect = img.getBoundingClientRect();
+      if (imgRect.top < window.innerHeight + 1000 && imgRect.bottom > -1000) {
+        // 通过临时修改 src 触发加载（如果图片还没有 src）
+        if (!img.src || img.src === '' || img.src.includes('placeholder')) {
+          // 尝试从其他属性获取真实图片地址
+          const realSrc = dataSrc || img.getAttribute('data-original') || img.getAttribute('data-url');
+          if (realSrc) {
+            img.src = realSrc;
+          }
+        }
+
+        // 触发 Intersection Observer（如果存在）
+        // 通过临时移除和添加元素来触发观察器
+        if (img.parentNode) {
+          const parent = img.parentNode;
+          const nextSibling = img.nextSibling;
+          parent.removeChild(img);
+          parent.insertBefore(img, nextSibling);
+        }
+      }
     },
     // 页面滚动时给地址栏加hash
     setActiveHash() {
