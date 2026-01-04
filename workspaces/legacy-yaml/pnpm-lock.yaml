@@ -1949,6 +1949,9 @@ importers:
 
   packages/lcap/lcap_markdown_doc_render_view:
     dependencies:
+      '@vue/composition-api':
+        specifier: ^1.7.2
+        version: 1.7.2(vue@2.7.16)
       escape-html:
         specifier: ^1.0.3
         version: 1.0.3
@@ -1979,12 +1982,18 @@ importers:
       medium-zoom:
         specifier: ^1.0.8
         version: 1.1.0
+      oh-vue-icons:
+        specifier: 0.4.7
+        version: 0.4.7
       prismjs:
         specifier: ^1.29.0
         version: 1.30.0
       raw-loader:
         specifier: ^4.0.2
         version: 4.0.2(webpack@4.47.0)
+      v-runtime-template:
+        specifier: ^1.10.0
+        version: 1.10.0
       vue-loader:
         specifier: ^15.10.1
         version: 15.11.1(@vue/compiler-sfc@3.5.22)(css-loader@5.2.7(webpack@4.47.0))(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(prettier@3.6.2)(underscore@1.13.7)(vue-template-compiler@2.7.16)(webpack@4.47.0)
@@ -8573,6 +8582,9 @@ packages:
   odometer_countup@1.0.4:
     resolution: {integrity: sha512-Hocyn8Do00H0VKB+c1vKaZU9isMLw9jZJVBuywdr+tU4PojqRwDY0xWWbUH4byz/hOcsCr+vNEmC2UOn+37wrA==}
 
+  oh-vue-icons@0.4.7:
+    resolution: {integrity: sha512-gNyXi/ztl6wYykPbdcBfvVCyE6yU9nkafzXmt1DAsEhE2C7CupxSr/BIFZOIcjml9yUwG6OQjkcjfQASZH1sKg==}
+
   omggif@1.0.10:
     resolution: {integrity: sha512-LMJTtvgc/nugXj0Vcrrs68Mn2D1r0zf630VNtqtpI1FEO7e+O9FP4gqs9AcnBaSEeoHIPm28u6qgPR0oyEpGSw==}
 
@@ -10971,6 +10983,9 @@ packages:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
     engines: {node: '>=8'}
     hasBin: true
+
+  v-runtime-template@1.10.0:
+    resolution: {integrity: sha512-WLlq9jUepSfUrMEenw3mn7FDXX6hhbl11JjC1OKhwLzifHzVrY5a696TUHDPyj9jke3GGnR7b+2T3od/RL5cww==}
 
   v-viewer@1.7.4:
     resolution: {integrity: sha512-K3PQ8utnVXXBCa5IRXRAhk/m83fNIsK77gTSXqAmPJe8eDTaSY1nifAOWPUmQDjzuCxYfa14UjGftHR9MFV70Q==}
@@ -20246,6 +20261,8 @@ snapshots:
     dependencies:
       countup.js: 2.8.0
 
+  oh-vue-icons@0.4.7: {}
+
   omggif@1.0.10: {}
 
   omit.js@1.0.2:
@@ -23063,6 +23080,8 @@ snapshots:
       diff: 5.2.0
       kleur: 4.1.5
       sade: 1.8.1
+
+  v-runtime-template@1.10.0: {}
 
   v-viewer@1.7.4(vue@2.7.16):
     dependencies:
