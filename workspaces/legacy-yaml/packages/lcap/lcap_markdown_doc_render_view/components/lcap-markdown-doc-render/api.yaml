@@ -38,3 +38,18 @@
           type: string
           description: 链接地址
       description: 点击链接时触发的事件
+    - name: linkcopied
+      title: 链接复制成功时
+      params:
+        - name: $event
+          type: string
+          description: 链接地址
+      description: 链接复制成功时触发的事件
+  methods:
+    - name: scrollToTitle
+      title: 滚动到指定标题
+      params:
+        - name: title
+          type: string
+          description: 标题
+      description: 滚动到指定标题
