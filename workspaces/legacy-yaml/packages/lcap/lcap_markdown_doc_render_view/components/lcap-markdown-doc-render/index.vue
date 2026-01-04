@@ -1,7 +1,10 @@
 <template>
   <div class="markdown-root">
     <div :class="{ 'content': true, 'pinned': pinned }" ref="content">
-      <div class="theme-default-content" v-html="html" @click="onTapMarkdown"></div>
+      <div class="theme-default-content" @click="handleClick">
+        <v-runtime-template :template="html" @copied="handleLinkCopied"
+          class="theme-default-content"></v-runtime-template>
+      </div>
     </div>
 
     <div class="anchor-wrap" :style="anchorStyle">
@@ -20,7 +23,6 @@
         <div slot="text" slot-scope="{ node }" :class="[curTocItem.value === node.slug ? 'active' : '', 'tocItem']"
           @click="handleTocSelected(node)">
           <a>{{ node.title }}</a>
-          <!-- <a :href="`#${node.slug}`">{{ node.title }}</a> -->
         </div>
       </u-tree-view>
     </div>
@@ -35,13 +37,16 @@ import emojiPlugin from 'markdown-it-emoji'
 import debounce from 'lodash.debounce'
 
 // import mediumZoom from 'medium-zoom'
+import CopyLink from './lib/copyLink.vue';
+import VRuntimeTemplate from 'v-runtime-template'
 import Zooming from 'zooming'
-
+import copyPlugin, { copyToClipboard } from './lib/copyLinkPlugin'
 import slugify from './utils/slugify'
 import parseHeaders from './utils/parseHeaders'
 import extractHeaders from './utils/extractHeaders'
 
 import highlight from './lib/highlight';
+import { get } from 'lodash';
 const highlightLinesPlugin = require('./lib/highlightLines')
 const preWrapperPlugin = require('./lib/preWrapper')
 const lineNumbersPlugin = require('./lib/lineNumbers')
@@ -80,8 +85,13 @@ md.use(emojiPlugin)
 
 md.use(tocPlugin, {
   slugify,
-  includeLevel: [2, 3],
+  includeLevel: [2, 3, 4, 5],
   format: parseHeaders
+})
+md.use(copyPlugin, {
+  slugify,
+  includeLevel: [2, 3],
+  copyToClipboard
 })
 
 let scrollListener = undefined;
@@ -109,6 +119,8 @@ export default {
     }
   },
   components: {
+    VRuntimeTemplate,
+    CopyLink
     //    'tree-view': TreeView,
   },
   data: () => ({
@@ -123,7 +135,8 @@ export default {
     toggle: true,
     pinned: true,
 
-    headersTop: {}
+    headersTop: {},
+    title: null
   }),
   computed: {
     anchorStyle() {
@@ -157,24 +170,24 @@ export default {
     const selector = '.theme-default-content img'
 
     this.zoomInstance.listen(selector);
-
-    // if (!this.mediumZoomInstance) {
-    //     this.mediumZoomInstance = mediumZoom(selector)
-    // } else {
-    //     this.mediumZoomInstance.detach()
-    //     this.mediumZoomInstance.attach(selector)
-    // }
   },
   beforeDestroy() {
     this.scrollWraper.removeEventListener('scroll', scrollListener)
+    // const content = this.$el.querySelector('.theme-default-content');
+    // if (content) {
+    //   content.addEventListener('click', this.onTapMarkdown);
+    // }
   },
   activated() {
 
   },
   methods: {
+    handleLinkCopied(slug) {
+      this.$emit('linkcopied', slug)
+      console.log('link copied:', slug)
+    },
     renderMarkdown(text) {
       window.scrollTo(0, 0)
-
       let htmlString = md.render(text)
       const headers = extractHeaders(text, ['h2', 'h3', 'h4', 'h5'], md)
       // 处理a签
@@ -186,6 +199,15 @@ export default {
 
       // 获取所有a标签
       const links = doc.getElementsByTagName("a");
+      const styleTags = htmlString.match(/<style[^>]*>([^<]*)<\/style>/g);
+      if (styleTags) {
+        styleTags.forEach((styleTag) => {
+          const styleContent = styleTag.match(/<style[^>]*>([^<]*)<\/style>/)[1];
+          const styleElement = document.createElement('style');
+          styleElement.innerHTML = styleContent;
+          document.head.appendChild(styleElement);
+        });
+      }
 
       // 遍历所有a标签，替换href属性为点击事件
       for (let i = 0; i < links.length; i++) {
@@ -212,10 +234,28 @@ export default {
       this.$nextTick(() => {
         this.$refs.treeView.toggleAll(true);
         this.initialTocListener();
+        // const content = this.$el.querySelector('.theme-default-content');
+        // if (content) {
+        //   content.addEventListener('click', this.onTapMarkdown);
+        // }
       })
 
       if (process.env.NODE_ENV !== 'production') {
         console.log('tocData', this.tocData);
+      }
+      setTimeout(() => {
+        const title = get(this.$route, 'query.title', '')
+
+        if (title) {
+          const headerItem = headers.find(h => h.slug === decodeURIComponent(title) || h.title === decodeURIComponent(title));
+          headerItem && this.handleTocSelected(headerItem)
+        }
+      })
+    },
+    scrollToTitle(title) {
+      if (title) {
+        const headerItem = this.headers.find(h => h.slug === decodeURIComponent(title) || h.title === decodeURIComponent(title));
+        headerItem && this.handleTocSelected(headerItem)
       }
     },
     getTocData(headers, rootLevel = 2, maxLevel = 5) {
@@ -275,26 +315,55 @@ export default {
         behavior: 'auto' // 使用 auto 快速跳转，不等待动画
       });
 
-      // 第二步：等待目标位置附近的懒加载图片加载完成
-      this.waitForLazyImagesNearTarget(targetElement).then(() => {
-        // 使用 requestAnimationFrame 确保 DOM 已更新
-        requestAnimationFrame(() => {
-          // 重新计算准确位置（此时懒加载图片已加载，页面高度已更新）
-          const rect = targetElement.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const targetPosition = rect.top + scrollTop - this.outlinePositionTop;
+      // 等待一小段时间，让浏览器完成滚动和触发懒加载
+      setTimeout(() => {
+        // 第二步：等待目标位置附近的懒加载图片加载完成
+        this.waitForLazyImagesNearTarget(targetElement).then(() => {
+          // 多次尝试精确定位，确保位置准确
+          this.adjustScrollPosition(targetElement, 3);
+        });
+      }, 100);
+    },
 
-          // 精确调整到目标位置（使用平滑滚动）
+    // 调整滚动位置，多次尝试以确保准确性
+    adjustScrollPosition(targetElement, retryCount = 3) {
+      if (!targetElement || retryCount <= 0) {
+        setTimeout(() => {
+          clickFlag = false;
+        }, 500);
+        return;
+      }
+
+      // 使用 requestAnimationFrame 确保 DOM 已更新
+      requestAnimationFrame(() => {
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetPosition = rect.top + scrollTop - this.outlinePositionTop;
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const offset = Math.abs(currentScrollTop - (targetPosition));
+
+        // 如果位置已经准确（误差小于 5px），或者是最后一次尝试，直接滚动
+        if (offset < 5 || retryCount === 1) {
           window.scrollTo({
             top: Math.max(0, targetPosition),
             behavior: 'smooth'
           });
-        });
-      });
+          setTimeout(() => {
+            clickFlag = false;
+          }, 500);
+        } else {
+          // 否则先滚动到新位置，然后继续调整
+          window.scrollTo({
+            top: Math.max(0, targetPosition),
+            behavior: 'auto'
+          });
 
-      setTimeout(() => {
-        clickFlag = false;
-      }, 1500);
+          // 等待图片加载和布局更新后再次调整
+          setTimeout(() => {
+            this.adjustScrollPosition(targetElement, retryCount - 1);
+          }, 300);
+        }
+      });
     },
     handleToggleToc(node) {
       const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
@@ -380,21 +449,30 @@ export default {
       this.toggle = !this.toggle;
       this.$refs.treeView.toggleAll(this.toggle);
     },
+    handleClick(event) {
+      // 使用 event.target.closest 查找最近的 a 标签
+      const linkElement = event.target.closest('a');
+      if (linkElement) {
+        this.onTapMarkdown(linkElement, event);
+      }
+    },
 
-    onTapMarkdown(e) {
-      const { tagName } = e.target;
+    onTapMarkdown(linkElement, event) {
+      if (linkElement.classList.contains('copy-link')) {
+        event.preventDefault();
+        const slug = linkElement.getAttribute('data-slug');
+        copyToClipboard(slug);
+      } else {
+        const _href = linkElement.getAttribute("_href") // link
+        const slug = linkElement.getAttribute("slug") // hash
 
-      if (!['A'].includes(tagName)) return;
-
-
-      const _href = e.target.getAttribute("_href") // link
-      const slug = e.target.getAttribute("slug") // hash
-
-      if (_href) {
-        console.log('link:', decodeURIComponent(_href));
-        this.$emit('link', decodeURIComponent(_href))
-      } else if (slug) {
-        this.handleTocSelected({ slug: decodeURIComponent(slug).toLowerCase() })
+        if (_href) {
+          console.log('link:', decodeURIComponent(_href));
+          this.$emit('link', decodeURIComponent(_href))
+        } else if (slug) {
+          event.preventDefault();
+          this.handleTocSelected({ slug: decodeURIComponent(slug).toLowerCase() })
+        }
       }
     },
     getElementTopDistance(element) {
@@ -487,9 +565,12 @@ export default {
         setTimeout(() => {
           if (!resolved) {
             resolved = true;
-            resolve();
+            // 等待一帧确保布局已更新
+            requestAnimationFrame(() => {
+              resolve();
+            });
           }
-        }, 2000);
+        }, 3000);
       });
     },
 
@@ -762,5 +843,15 @@ function getParentTocIndex(activeTocItem, curTocIndex, tocList) {
 
 .foldIcon .iconItem.unfold {
   background-image: url(./assets/unfold.png);
+}
+
+.markdown-root .content h2,
+.markdown-root .content h3,
+.markdown-root .content h4,
+.markdown-root .content h5 {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
 }
 </style>
