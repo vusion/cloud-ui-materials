@@ -3,12 +3,12 @@
         <div id="reader" v-if="!$env.VUE_APP_DESIGNER">{{ message }}</div>
         <div class="qrcode-render">{{ message }}</div>
     </div>
-</template>
-
-<script>
-import { Html5Qrcode } from 'html5-qrcode';
-// let html5QrCode = null;
-export default {
+  </template>
+  
+  <script>
+  import { Html5Qrcode } from 'html5-qrcode';
+  // let html5QrCode = null;
+  export default {
     name: 'cw-qrcode-scan-view',
     props: {},
     data() {
@@ -27,7 +27,7 @@ export default {
             setTimeout(() => {
                 this.html5QrCode.clear();
                 this.html5QrCode = null;
-
+  
                 !this.$env.VUE_APP_DESIGNER && this.getCameras();
             }, 500);
         } else {
@@ -98,22 +98,37 @@ export default {
                 });
         },
     },
-};
-</script>
-
-<style>
-.qrcode-view {
+  };
+  </script>
+  
+  <style>
+  .qrcode-view {
     width: 100vw;
-}
-.preview {
-    height: 400px;
-}
-
-.qrcode-render {
+    height: 100vh; /* 使扫码区域在 H5 页面中充满屏幕高度 */
+    overflow: hidden;
+  }
+  .preview {
+    height: 100vh;
+  }
+  
+  .qrcode-render {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     width: 100%;
-}
-</style>
+  }
+  
+  /* 让 html5-qrcode 渲染出来的视频区域充满容器 */
+  #reader {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .qrcode-view video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 避免拉伸，按比例裁剪铺满 */
+  }
+  </style>
+  
