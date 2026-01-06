@@ -1,0 +1,9 @@
+{
+  "name": "@ysf/fetch",
+  "version": "0.2.7",
+  "description": "Stub package for @ysf/fetch (CI build only)",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "private": true
+}
+
