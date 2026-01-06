@@ -165,6 +165,15 @@ export default {
   mounted() {
     this.scrollWraper = document
     this.renderMarkdown(this.text);
+
+    // 监听用户的真实滚动行为（鼠标滚轮 / 触摸 / 键盘），
+    // 一旦用户开始主动滚动，就解除 clickFlag 锁定，让高亮重新跟随滚动
+    this._userScrollHandler = () => {
+      clickFlag = false;
+    };
+    document.addEventListener('wheel', this._userScrollHandler, { passive: true });
+    document.addEventListener('touchmove', this._userScrollHandler, { passive: true });
+    document.addEventListener('keydown', this._userScrollHandler);
   },
   updated() {
     const selector = '.theme-default-content img'
@@ -173,6 +182,11 @@ export default {
   },
   beforeDestroy() {
     this.scrollWraper.removeEventListener('scroll', scrollListener)
+    if (this._userScrollHandler) {
+      document.removeEventListener('wheel', this._userScrollHandler);
+      document.removeEventListener('touchmove', this._userScrollHandler);
+      document.removeEventListener('keydown', this._userScrollHandler);
+    }
     // const content = this.$el.querySelector('.theme-default-content');
     // if (content) {
     //   content.addEventListener('click', this.onTapMarkdown);
@@ -298,9 +312,6 @@ export default {
             behavior: 'smooth'
           });
         }
-        setTimeout(() => {
-          clickFlag = false;
-        }, 1000);
         return;
       }
 
@@ -324,13 +335,9 @@ export default {
         });
       }, 100);
     },
-
     // 调整滚动位置，多次尝试以确保准确性
     adjustScrollPosition(targetElement, retryCount = 3) {
       if (!targetElement || retryCount <= 0) {
-        setTimeout(() => {
-          clickFlag = false;
-        }, 500);
         return;
       }
 
@@ -348,9 +355,6 @@ export default {
             top: Math.max(0, targetPosition),
             behavior: 'smooth'
           });
-          setTimeout(() => {
-            clickFlag = false;
-          }, 500);
         } else {
           // 否则先滚动到新位置，然后继续调整
           window.scrollTo({
@@ -407,7 +411,6 @@ export default {
         if (clickFlag) return;
         curHeight = document.documentElement.scrollTop;
         curHeight += this.outlinePositionTop;
-        console.log('scroll');
         const headers = document.querySelectorAll(".markdown-root .content h2, .markdown-root .content h3, .markdown-root .content h4, .markdown-root .content h5");
         const tocList = document.querySelectorAll(".tocItem");
 
