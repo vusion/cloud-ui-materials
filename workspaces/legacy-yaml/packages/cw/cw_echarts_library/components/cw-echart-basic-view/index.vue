@@ -26,7 +26,7 @@
 <script>
 import echartBasic from '@/widgets/echartBasic';
 import * as echarts from 'echarts';
-import { fakeData } from '@/utils/fakeData';
+import { fakeData, defaultOptions } from '@/utils/fakeData';
 import '@/utils/theme.js';
 import Vue from 'vue';
 Vue.prototype.$echarts = echarts;
@@ -83,6 +83,9 @@ export default {
                 this.$env.VUE_APP_DESIGNER || !window.appInfo
                     ? fakeData
                     : this.dataSource;
+            if (this.$env.VUE_APP_DESIGNER || !window.appInfo) {
+                this.options = { ...this.options, ...defaultOptions };
+            }
             this.sourceData = await this.handleDataSource(fnDataSource);
         },
         async handleDataSource(dataSource) {

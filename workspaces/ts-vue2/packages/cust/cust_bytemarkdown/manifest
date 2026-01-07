@@ -1,0 +1,15 @@
+Plugin-Version: 1.0.0
+Library-Type: Frontend
+Metadata-File: nasl.extension.json
+Tag: Vue
+packages/extension/cw_bytemarkdown@1.0.8/dist-theme/index.cjs: dist-theme/index.cjs
+packages/extension/cw_bytemarkdown@1.0.8/dist-theme/index.cjs.map: dist-theme/index.cjs.map
+packages/extension/cw_bytemarkdown@1.0.8/dist-theme/index.css: dist-theme/index.css
+packages/extension/cw_bytemarkdown@1.0.8/dist-theme/index.js: dist-theme/index.js
+packages/extension/cw_bytemarkdown@1.0.8/dist-theme/index.js.map: dist-theme/index.js.map
+packages/extension/cw_bytemarkdown@1.0.8/dist-theme/index.mjs: dist-theme/index.mjs
+packages/extension/cw_bytemarkdown@1.0.8/dist-theme/index.mjs.map: dist-theme/index.mjs.map
+packages/extension/cw_bytemarkdown@1.0.8/nasl.extension.d.ts: nasl.extension.d.ts
+packages/extension/cw_bytemarkdown@1.0.8/manifest: manifest
+packages/extension/cw_bytemarkdown@1.0.8/source.zip: source.zip
+packages/extension/cw_bytemarkdown@1.0.8/zip.tgz: zip.tgz
