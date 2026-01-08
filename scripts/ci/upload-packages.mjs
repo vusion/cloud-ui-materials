@@ -12,6 +12,110 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../../");
 
 /**
+ * 上传依赖信息到 /rest/uploadDependency 接口
+ */
+async function uploadDependency(packageInfo, fileUrl) {
+  const uploadUrl = process.env.UPLOAD_API_URL;
+  if (!uploadUrl) {
+    console.log("ℹ️  未配置 UPLOAD_API_URL，跳过依赖上传");
+    return { skipped: true };
+  }
+
+  // 构建 uploadDependency 接口 URL
+  const urlObj = new URL(uploadUrl);
+  const dependencyUrl = `${urlObj.origin}/rest/uploadDependency`;
+
+  const uploadToken = process.env.UPLOAD_API_TOKEN;
+  const domainName = process.env.UPLOAD_DOMAIN_NAME;
+
+  console.log(`📤 开始上传依赖信息到 ${dependencyUrl}...`);
+
+  try {
+    const requestBody = {
+      name: packageInfo.name || "",
+      description: packageInfo.title || packageInfo.description || "",
+      version: packageInfo.version || "",
+      fileUrl: fileUrl,
+      category: "frontend",
+    };
+
+    // 构建请求头
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    if (domainName) {
+      headers["DomainName"] = domainName;
+    }
+
+    if (uploadToken && uploadToken !== "undefined") {
+      if (uploadToken.startsWith("Token ")) {
+        headers["Authorization"] = uploadToken;
+      } else if (uploadToken.includes(":")) {
+        const [username, password] = uploadToken.split(":");
+        const basicAuth = Buffer.from(`${username}:${password}`).toString(
+          "base64"
+        );
+        headers["Authorization"] = `Basic ${basicAuth}`;
+      } else {
+        headers["Authorization"] = `Bearer ${uploadToken}`;
+      }
+    }
+
+    if (process.env.UPLOAD_HEADERS) {
+      try {
+        const customHeaders = JSON.parse(process.env.UPLOAD_HEADERS);
+        Object.assign(headers, customHeaders);
+      } catch (e) {
+        console.warn("⚠️  UPLOAD_HEADERS 格式错误，忽略自定义请求头");
+      }
+    }
+
+    // 发送请求
+    const response = await fetch(dependencyUrl, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(requestBody),
+    });
+
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch {
+      responseData = { raw: responseText };
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        `依赖上传失败 (${response.status}): ${JSON.stringify(responseData)}`
+      );
+    }
+
+    console.log(
+      `✅ 依赖信息上传成功: ${packageInfo.name}@${packageInfo.version}`
+    );
+    console.log(`📋 响应数据: ${JSON.stringify(responseData)}`);
+
+    return {
+      success: true,
+      url: dependencyUrl,
+      response: responseData,
+    };
+  } catch (error) {
+    console.error(`❌ 依赖上传失败: ${error.message}`);
+    if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
+      console.warn("⚠️  依赖上传失败但继续执行（UPLOAD_FAIL_CONTINUE=true）");
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+    throw error;
+  }
+}
+
+/**
  * 上传 zip 文件到指定接口
  */
 async function uploadZipFile(zipFilePath, metadata) {
@@ -207,6 +311,46 @@ async function main() {
         // 更新构建结果
         result.uploadResult = uploadResult;
         result.uploadResultUrl = uploadResult.uploadResultUrl;
+
+        // 如果上传成功且有返回的 URL，调用 uploadDependency 接口
+        if (uploadResult.uploadResultUrl) {
+          try {
+            // 读取 package.json 获取依赖信息
+            const pkgJsonPath = path.join(result.dir, "package.json");
+            if (fs.existsSync(pkgJsonPath)) {
+              const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf8"));
+              const dependencyResult = await uploadDependency(
+                pkgJson,
+                uploadResult.uploadResultUrl
+              );
+              if (dependencyResult && dependencyResult.success) {
+                result.dependencyUploadResult = dependencyResult;
+                console.log(`✅ ${result.name}: 依赖信息上传成功`);
+              } else if (dependencyResult && dependencyResult.skipped) {
+                console.log(
+                  `ℹ️  ${result.name}: 跳过依赖上传（未配置 UPLOAD_API_URL）`
+                );
+              } else {
+                console.warn(
+                  `⚠️  ${result.name}: 依赖上传失败，但不影响整体流程`
+                );
+              }
+            } else {
+              console.warn(
+                `⚠️  ${result.name}: package.json 不存在，跳过依赖上传: ${pkgJsonPath}`
+              );
+            }
+          } catch (depError) {
+            console.warn(
+              `⚠️  ${result.name}: 依赖上传出错，但不影响整体流程: ${depError.message}`
+            );
+            // 依赖上传失败不影响整体流程，继续处理
+          }
+        } else {
+          console.warn(
+            `⚠️  ${result.name}: 上传成功但未获取到文件 URL，跳过依赖上传`
+          );
+        }
       } else if (uploadResult && uploadResult.skipped) {
         console.log(`ℹ️  ${result.name}: 跳过上传（未配置 UPLOAD_API_URL）`);
       } else {
@@ -231,10 +375,7 @@ async function main() {
   }
 
   // 保存更新后的构建结果（包含上传信息）
-  fs.writeFileSync(
-    buildResultsPath,
-    JSON.stringify(buildResults, null, 2)
-  );
+  fs.writeFileSync(buildResultsPath, JSON.stringify(buildResults, null, 2));
 
   // 输出汇总
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -258,4 +399,3 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
-
