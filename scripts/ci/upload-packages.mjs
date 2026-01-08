@@ -15,7 +15,13 @@ const repoRoot = path.resolve(__dirname, "../../");
  * 上传依赖信息到 /rest/uploadDependency 接口
  */
 async function uploadDependency(packageInfo, fileUrl) {
-  const dependencyUrl = `${process.env.BASE_URL}/rest/uploadDependency`;
+  const baseUrl = process.env.BASE_URL;
+  if (!baseUrl || baseUrl.trim() === "") {
+    console.log("ℹ️  未配置 BASE_URL，跳过依赖上传");
+    return { skipped: true };
+  }
+
+  const dependencyUrl = `${baseUrl}/rest/uploadDependency`;
 
   const uploadToken = process.env.UPLOAD_API_TOKEN;
   const domainName = process.env.UPLOAD_DOMAIN_NAME;
@@ -96,6 +102,17 @@ async function uploadDependency(packageInfo, fileUrl) {
     };
   } catch (error) {
     console.error(`❌ 依赖上传失败: ${error.message}`);
+    console.error(`   目标 URL: ${dependencyUrl}`);
+    if (
+      error.message.includes("fetch failed") ||
+      error.message.includes("ECONNREFUSED") ||
+      error.message.includes("ENOTFOUND")
+    ) {
+      console.error(`   💡 提示: 可能是网络连接问题，请检查：`);
+      console.error(`      - BASE_URL 是否正确配置: ${baseUrl || "未配置"}`);
+      console.error(`      - 服务器是否可访问`);
+      console.error(`      - 网络连接是否正常`);
+    }
     if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
       console.warn("⚠️  依赖上传失败但继续执行（UPLOAD_FAIL_CONTINUE=true）");
       return {
@@ -111,18 +128,18 @@ async function uploadDependency(packageInfo, fileUrl) {
  * 上传 zip 文件到指定接口
  */
 async function uploadZipFile(zipFilePath, metadata) {
-  const uploadUrl = process.env.BASE_URL + "/upload";
+  const baseUrl = process.env.BASE_URL;
+  if (!baseUrl || baseUrl.trim() === "") {
+    console.log("ℹ️  未配置 BASE_URL，跳过文件上传");
+    return { skipped: true };
+  }
+
+  const uploadUrl = `${baseUrl}/upload`;
   const uploadToken = process.env.UPLOAD_API_TOKEN;
   const uploadMethod = process.env.UPLOAD_METHOD || "POST";
   const domainName = process.env.UPLOAD_DOMAIN_NAME;
   const lcapIsCompress = process.env.UPLOAD_LCAP_IS_COMPRESS || "undefined";
   const viaOriginURL = process.env.UPLOAD_VIA_ORIGIN_URL || "undefined";
-
-  // 如果未配置上传接口，跳过上传
-  if (!uploadUrl) {
-    console.log("ℹ️  未配置 UPLOAD_API_URL，跳过文件上传");
-    return { skipped: true };
-  }
 
   if (!fs.existsSync(zipFilePath)) {
     throw new Error(`zip 文件不存在: ${zipFilePath}`);
@@ -245,6 +262,17 @@ async function uploadZipFile(zipFilePath, metadata) {
     };
   } catch (error) {
     console.error(`❌ 上传失败: ${error.message}`);
+    console.error(`   目标 URL: ${uploadUrl}`);
+    if (
+      error.message.includes("fetch failed") ||
+      error.message.includes("ECONNREFUSED") ||
+      error.message.includes("ENOTFOUND")
+    ) {
+      console.error(`   💡 提示: 可能是网络连接问题，请检查：`);
+      console.error(`      - BASE_URL 是否正确配置: ${baseUrl || "未配置"}`);
+      console.error(`      - 服务器是否可访问`);
+      console.error(`      - 网络连接是否正常`);
+    }
     if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
       console.warn("⚠️  上传失败但继续执行（UPLOAD_FAIL_CONTINUE=true）");
       return {
