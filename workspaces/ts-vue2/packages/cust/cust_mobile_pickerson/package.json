@@ -21,7 +21,10 @@
     "build": "vite build",
     "test": "vitest",
     "release": "lcap publish",
-    "postinstall": "lcap install --once"
+    "postinstall": "lcap install --once",
+    "lcap:install": "lcap install --once",
+    "prestart": "npm run lcap:install",
+    "prebuild": "npm run lcap:install"
   },
   "keywords": [
     "Vue",
@@ -88,10 +91,11 @@
   },
   "lcap": {
     "lcap-ui": {
+      "framework": "vue2",
+      "pkgName": "",
       "platform": "https://dogfood.lcap.163yun.com",
       "type": "h5",
-      "version": "1.0.0",
-      "framework": "vue2"
+      "version": "1.0.0"
     }
   },
   "turbo": {
