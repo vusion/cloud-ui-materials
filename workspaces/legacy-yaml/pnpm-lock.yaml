@@ -2132,6 +2132,8 @@ importers:
         specifier: ^15.10.1
         version: 15.11.1(@vue/compiler-sfc@3.5.22)(css-loader@5.2.7(webpack@4.47.0))(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(prettier@3.6.2)(underscore@1.13.7)(vue-template-compiler@2.7.16)(webpack@4.47.0)
 
+  stubs/ysf/fetch: {}
+
 packages:
 
   '@achrinza/node-ipc@9.2.2':
