@@ -165,6 +165,7 @@ jobs:
           # Turbo 远程缓存配置（可选）
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          UPLOAD_API_URL: ${{ vars.UPLOAD_API_URL }}
 
       - name: Check Build Results
         if: always()
