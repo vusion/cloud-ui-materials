@@ -1,9 +1,10 @@
 {
-  "name": "cust_mobile_pickerson",
-  "version": "1.0.3",
+  "name": "cw_bytemarkdown",
+  "private": "true",
+  "version": "1.0.8",
   "lcapIdeVersion": "3.8",
-  "title": "h5选择器组件",
-  "description": "h5选择器组件",
+  "title": "markdown依赖库",
+  "description": "markdown依赖库",
   "main": "dist-theme/index.js",
   "files": [
     "dist-theme"
@@ -20,46 +21,38 @@
     "start": "storybook dev -p 8008",
     "build": "vite build",
     "test": "vitest",
-    "release": "lcap publish",
-    "postinstall": "lcap install --once",
-    "lcap:install": "lcap install --once",
-    "prestart": "npm run lcap:install",
-    "prebuild": "npm run lcap:install"
+    "release": "lcap publish"
   },
   "keywords": [
-    "Vue",
-    "family:ts-vue2",
-    "biz:cust",
-    "kind:component"
+    "Vue"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime": "7.x",
-    "@popperjs/core": "^2.10.2",
-    "@vant/icons": "^1.7.1",
-    "@vant/popperjs": "^1.1.0",
-    "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
-    "animate.css": "^4.1.1",
-    "clipboard": "^2.0.11",
-    "dayjs": "^1.11.9",
-    "lodash": "^4.17.21",
-    "normalize.css": "^7.0.0",
-    "online-svg-icon-vue2": "^1.2.3",
-    "postcss": "7.0.0",
-    "resize-observer-polyfill": "^1.5.1",
-    "vconsole": "^3.9.3",
-    "vue-lazyload": "1.2.3",
-    "vue-month-picker": "^1.6.0",
-    "whatwg-fetch": "3.6.2",
-    "@lcap/vue2-utils": "1.0.0",
-    "@lcap/validator": "1.0.0"
+    "@bytemd/plugin-breaks": "^1.21.0",
+    "@bytemd/plugin-frontmatter": "^1.21.0",
+    "@bytemd/plugin-gemoji": "^1.21.0",
+    "@bytemd/plugin-gfm": "^1.21.0",
+    "@bytemd/plugin-highlight": "^1.21.0",
+    "@bytemd/plugin-math": "^1.21.0",
+    "@bytemd/plugin-medium-zoom": "^1.21.0",
+    "@bytemd/plugin-mermaid": "^1.21.0",
+    "@bytemd/vue": "^1.21.0",
+    "@jsdevtools/rehype-toc": "^3.0.2",
+    "axios": "^1.7.3",
+    "bytemd": "^1.21.0",
+    "github-markdown-css": "^5.8.1",
+    "hast-util-from-html-isomorphic": "^2.0.0",
+    "js-cookie": "^3.0.5",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
+    "toc-helper": "^2.1.1"
   },
   "devDependencies": {
-    "@lcap/builder": "^1.3.0-beta.4",
-    "@nasl/types": "^0.1.8",
+    "@lcap/builder": "^1.1.3",
     "@lcap/storybook-vue-vite": "^7.6.17",
     "@lcap/vite-plugin-vue2": "^1.0.0",
+    "@nasl/types": "^0.1.7",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
@@ -74,6 +67,7 @@
     "autoprefixer": "^10.4.16",
     "jest-serializer-vue-tjw": "^3.20.0",
     "jsdom": "^23.0.1",
+    "less": "^4.2.0",
     "marked": "^12.0.1",
     "rimraf": "^5.0.5",
     "storybook": "^7.6.17",
@@ -88,21 +82,5 @@
   },
   "peerDependencies": {
     "vue": "^2.6.0"
-  },
-  "lcap": {
-    "lcap-ui": {
-      "framework": "vue2",
-      "pkgName": "",
-      "platform": "https://dogfood.lcap.163yun.com",
-      "type": "h5",
-      "version": "1.0.0"
-    }
-  },
-  "turbo": {
-    "tags": [
-      "family:ts-vue2",
-      "biz:cust",
-      "kind:component"
-    ]
   }
 }

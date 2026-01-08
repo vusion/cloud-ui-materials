@@ -1,0 +1,348 @@
+{
+  "name": "cw_bytemarkdown",
+  "title": "markdown依赖库",
+  "description": "markdown依赖库",
+  "specVersion": "1.0.0",
+  "type": "module",
+  "subType": "extension",
+  "version": "1.0.8",
+  "frontends": [
+    {
+      "concept": "FrontendLibrary",
+      "name": "pc",
+      "type": "pc",
+      "frameworkKind": "vue2",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "ByteMarkdownEditor",
+          "kebabName": "byte-markdown-editor",
+          "title": "markdown编辑器",
+          "description": "markdown编辑器",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "sync": true,
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "value",
+              "title": "内容",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": ""
+                },
+                "playground": []
+              },
+              "description": "显示文本"
+            }
+          ],
+          "readableProps": [],
+          "events": [
+            {
+              "concept": "EventDeclaration",
+              "name": "change",
+              "title": "内容变化",
+              "tsType": "(value: string) => void",
+              "description": "内容变化"
+            }
+          ],
+          "methods": [],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><byte-markdown-editor></byte-markdown-editor></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        },
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "ByteMarkdownPreview",
+          "kebabName": "byte-markdown-preview",
+          "title": "markdown渲染组件",
+          "description": "markdown渲染组件",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "text",
+              "title": "内容",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": ""
+                },
+                "playground": []
+              },
+              "description": "显示文本"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "showToc",
+              "title": "显示目录",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否显示目录大纲"
+            }
+          ],
+          "readableProps": [],
+          "events": [],
+          "methods": [],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><byte-markdown-preview></byte-markdown-preview></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        }
+      ],
+      "logics": []
+    },
+    {
+      "concept": "FrontendLibrary",
+      "name": "h5",
+      "type": "h5",
+      "frameworkKind": "vue2",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "ByteMarkdownEditor",
+          "kebabName": "byte-markdown-editor",
+          "title": "markdown编辑器",
+          "description": "markdown编辑器",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "sync": true,
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "value",
+              "title": "内容",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": ""
+                },
+                "playground": []
+              },
+              "description": "显示文本"
+            }
+          ],
+          "readableProps": [],
+          "events": [
+            {
+              "concept": "EventDeclaration",
+              "name": "change",
+              "title": "内容变化",
+              "tsType": "(value: string) => void",
+              "description": "内容变化"
+            }
+          ],
+          "methods": [],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><byte-markdown-editor></byte-markdown-editor></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        },
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "ByteMarkdownPreview",
+          "kebabName": "byte-markdown-preview",
+          "title": "markdown渲染组件",
+          "description": "markdown渲染组件",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "text",
+              "title": "内容",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": ""
+                },
+                "playground": []
+              },
+              "description": "显示文本"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "showToc",
+              "title": "显示目录",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "false"
+                },
+                "playground": []
+              },
+              "description": "是否显示目录大纲"
+            }
+          ],
+          "readableProps": [],
+          "events": [],
+          "methods": [],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><byte-markdown-preview></byte-markdown-preview></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        }
+      ],
+      "logics": []
+    }
+  ],
+  "externalDependencyMap": {
+    "npm": [
+      {
+        "name": "vue",
+        "version": "^2.6.0"
+      }
+    ]
+  },
+  "summary": {
+    "name": "cw_bytemarkdown",
+    "title": "markdown依赖库",
+    "version": "1.0.8",
+    "description": "markdown依赖库",
+    "frontends": [
+      {
+        "type": "pc",
+        "frameworkKind": "vue2",
+        "viewComponents": [
+          {
+            "name": "ByteMarkdownEditor",
+            "title": "markdown编辑器"
+          },
+          {
+            "name": "ByteMarkdownPreview",
+            "title": "markdown渲染组件"
+          }
+        ],
+        "logics": []
+      },
+      {
+        "type": "h5",
+        "frameworkKind": "vue2",
+        "viewComponents": [
+          {
+            "name": "ByteMarkdownEditor",
+            "title": "markdown编辑器"
+          },
+          {
+            "name": "ByteMarkdownPreview",
+            "title": "markdown渲染组件"
+          }
+        ],
+        "logics": []
+      }
+    ]
+  },
+  "compilerInfoMap": {
+    "js": {
+      "prefix": "extension"
+    },
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"ide\":[]}"
+  },
+  "ideVersion": "3.8"
+}

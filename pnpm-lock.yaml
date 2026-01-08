@@ -8,6 +8,7 @@ overrides:
   '@popo-bridge/web': link:./workspaces/legacy-yaml/stubs/popo-bridge-web
   '@oa/iframe-channel': link:./workspaces/legacy-yaml/stubs/oa/iframe-channel
   '@popo-bridge/web-vue2': link:./workspaces/legacy-yaml/stubs/popo-bridge-web-vue2
+  '@ysf/fetch': link:./workspaces/legacy-yaml/stubs/ysf/fetch
   vue-loader: ^15.10.1
   vue-template-compiler: 2.7.16
   webpack: ^4.47.0
@@ -2001,6 +2002,9 @@ importers:
 
   workspaces/legacy-yaml/packages/lcap/lcap_markdown_doc_render_view:
     dependencies:
+      '@vue/composition-api':
+        specifier: ^1.7.2
+        version: 1.7.2(vue@2.7.16)
       escape-html:
         specifier: ^1.0.3
         version: 1.0.3
@@ -2031,12 +2035,18 @@ importers:
       medium-zoom:
         specifier: ^1.0.8
         version: 1.1.0
+      oh-vue-icons:
+        specifier: 0.4.7
+        version: 0.4.7
       prismjs:
         specifier: ^1.29.0
         version: 1.30.0
       raw-loader:
         specifier: ^4.0.2
         version: 4.0.2(webpack@4.47.0)
+      v-runtime-template:
+        specifier: ^1.10.0
+        version: 1.10.0
       vue-loader:
         specifier: ^15.10.1
         version: 15.11.1(@vue/compiler-sfc@2.7.16)(css-loader@7.1.2(webpack@4.47.0))(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(prettier@3.6.2)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)(vue-template-compiler@2.7.16)(webpack@4.47.0)
@@ -2198,13 +2208,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.4.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -2225,7 +2235,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -2264,16 +2274,16 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vite-plugin-antdv-fix:
         specifier: ^1.0.3
         version: 1.0.3
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -2298,13 +2308,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.4.2
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -2325,7 +2335,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -2364,13 +2374,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -2446,13 +2456,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.14
         version: 0.1.14
@@ -2473,7 +2483,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -2515,13 +2525,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -2603,13 +2613,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.14
         version: 0.1.14
@@ -2630,7 +2640,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -2672,13 +2682,161 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
+  workspaces/ts-vue2/packages/cust/cust_bytemarkdown:
+    dependencies:
+      '@bytemd/plugin-breaks':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/plugin-frontmatter':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/plugin-gemoji':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/plugin-gfm':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/plugin-highlight':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/plugin-math':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/plugin-medium-zoom':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/plugin-mermaid':
+        specifier: ^1.21.0
+        version: 1.22.0(bytemd@1.22.0)
+      '@bytemd/vue':
+        specifier: ^1.21.0
+        version: 1.22.0(vue@2.7.16)
+      '@jsdevtools/rehype-toc':
+        specifier: ^3.0.2
+        version: 3.0.2
+      axios:
+        specifier: ^1.7.3
+        version: 1.12.2
+      bytemd:
+        specifier: ^1.21.0
+        version: 1.22.0
+      github-markdown-css:
+        specifier: ^5.8.1
+        version: 5.8.1
+      hast-util-from-html-isomorphic:
+        specifier: ^2.0.0
+        version: 2.0.0
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
+      rehype-autolink-headings:
+        specifier: ^7.1.0
+        version: 7.1.0
+      rehype-slug:
+        specifier: ^6.0.0
+        version: 6.0.0
+      toc-helper:
+        specifier: ^2.1.1
+        version: 2.1.1
+    devDependencies:
+      '@lcap/builder':
+        specifier: ^1.1.3
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: ^0.1.7
+        version: 0.1.14
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@18.3.1)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0(canvas@2.11.2(encoding@0.1.13))
+      less:
+        specifier: 4.1.3
+        version: 4.1.3
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -2696,13 +2854,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -2723,7 +2881,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -2762,13 +2920,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -2786,13 +2944,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.14
         version: 0.1.14
@@ -2813,7 +2971,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -2855,13 +3013,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -2886,13 +3044,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -2913,7 +3071,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -2958,13 +3116,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3046,13 +3204,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.14
         version: 0.1.14
@@ -3073,7 +3231,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -3115,13 +3273,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3197,13 +3355,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.0-beta.4
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.8
         version: 0.1.14
@@ -3224,7 +3382,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -3263,13 +3421,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3291,13 +3449,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -3318,7 +3476,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -3363,13 +3521,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3391,13 +3549,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.14
         version: 0.1.14
@@ -3418,7 +3576,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -3460,13 +3618,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3554,13 +3712,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.14
         version: 0.1.14
@@ -3581,7 +3739,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -3623,13 +3781,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3732,13 +3890,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -3759,7 +3917,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -3798,13 +3956,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3821,8 +3979,8 @@ importers:
   workspaces/ts-vue2/packages/cust/yun_shang_primary:
     dependencies:
       '@ysf/fetch':
-        specifier: ^0.2.7
-        version: 0.2.7
+        specifier: link:../../../../legacy-yaml/stubs/ysf/fetch
+        version: link:../../../../legacy-yaml/stubs/ysf/fetch
       ant-design-vue:
         specifier: ^1.7.8
         version: 1.7.8(vue-template-compiler@2.7.16)(vue@2.7.16)
@@ -3844,13 +4002,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.4.2
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -3871,7 +4029,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -3910,13 +4068,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -3950,13 +4108,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.6.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.14
         version: 0.1.14
@@ -3977,7 +4135,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4019,13 +4177,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4050,13 +4208,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.4.2
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -4077,7 +4235,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4116,13 +4274,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4140,13 +4298,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.5.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.11
         version: 0.1.14
@@ -4167,7 +4325,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4209,13 +4367,237 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
+  workspaces/ts-vue2/packages/cw/cw_cut_printview:
+    dependencies:
+      html2canvas:
+        specifier: ^1.4.1
+        version: 1.4.1
+      jspdf:
+        specifier: ^3.0.4
+        version: 3.0.4
+      print-js:
+        specifier: ^1.6.0
+        version: 1.6.0
+    devDependencies:
+      '@lcap/builder':
+        specifier: ^1.6.1
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: ^0.1.14
+        version: 0.1.14
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@18.3.1)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0(canvas@2.11.2(encoding@0.1.13))
+      lcap-ide-server-proxy:
+        specifier: ^0.1.2-beta
+        version: 0.1.2-beta
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
+  workspaces/ts-vue2/packages/cw/cw_dynamic_form_library:
+    dependencies:
+      ant-design-vue:
+        specifier: 1.7.8
+        version: 1.7.8(vue-template-compiler@2.7.16)(vue@2.7.16)
+      axios:
+        specifier: ^1.12.2
+        version: 1.12.2
+      json5:
+        specifier: ^2.2.3
+        version: 2.2.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      moment:
+        specifier: ^2.30.1
+        version: 2.30.1
+      photoswipe:
+        specifier: 5.4.3
+        version: 5.4.3
+      vue-draggable-plus:
+        specifier: ^0.6.0
+        version: 0.6.0(@types/sortablejs@1.15.9)
+      vuedraggable:
+        specifier: 2.24.3
+        version: 2.24.3
+    devDependencies:
+      '@lcap/builder':
+        specifier: ^1.6.1
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: ^0.1.14
+        version: 0.1.14
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@18.3.1)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0(canvas@2.11.2(encoding@0.1.13))
+      lcap-ide-server-proxy:
+        specifier: ^0.1.2-beta
+        version: 0.1.2-beta
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vite-plugin-vue2-svg:
+        specifier: ^0.4.0
+        version: 0.4.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)(vue-template-compiler@2.7.16)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4297,13 +4679,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.5.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.11
         version: 0.1.14
@@ -4324,7 +4706,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4363,13 +4745,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4445,13 +4827,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.4.2
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -4472,7 +4854,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4511,13 +4893,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4535,13 +4917,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.0-beta.4
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.8
         version: 0.1.14
@@ -4562,7 +4944,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4601,13 +4983,185 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
+  workspaces/ts-vue2/packages/cw/cw_form_designer_library:
+    dependencies:
+      '@joskii/jflow-core':
+        specifier: ^0.1.22
+        version: 0.1.35
+      '@joskii/jflow-vue2-plugin':
+        specifier: ^0.1.1
+        version: 0.1.1(@joskii/jflow-core@0.1.35)(vue@2.7.16)
+      '@lcap/validator':
+        specifier: 1.0.0
+        version: 1.0.0
+      '@lcap/vue2-utils':
+        specifier: 1.0.0
+        version: 1.0.0
+      '@popperjs/core':
+        specifier: ^2.10.2
+        version: 2.11.8
+      animate.css:
+        specifier: ^4.1.1
+        version: 4.1.1
+      classnames:
+        specifier: ^2.2.6
+        version: 2.5.1
+      countup.js:
+        specifier: ^1.9.3
+        version: 1.9.3
+      dayjs:
+        specifier: ^1.10.7
+        version: 1.11.18
+      decimal.js:
+        specifier: ^10.4.2
+        version: 10.6.0
+      dompurify:
+        specifier: ^2.0.15
+        version: 2.5.8
+      element-ui:
+        specifier: ^2.15.14
+        version: 2.15.14(vue@2.7.16)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      normalize.css:
+        specifier: ^7.0.0
+        version: 7.0.0
+      online-svg-icon-vue2:
+        specifier: ^1.2.3
+        version: 1.2.3
+      postcss:
+        specifier: ^8.4.38
+        version: 8.5.6
+      regenerator-runtime:
+        specifier: ^0.13.9
+        version: 0.13.11
+      resize-observer-polyfill:
+        specifier: ^1.5.1
+        version: 1.5.1
+      swiper:
+        specifier: ^7.4.1
+        version: 7.4.1
+      uuid:
+        specifier: ^13.0.0
+        version: 13.0.0
+      vue-cropper:
+        specifier: ^0.5.8
+        version: 0.5.11
+      whatwg-fetch:
+        specifier: 3.6.2
+        version: 3.6.2
+      xlsx-js-style:
+        specifier: ^1.2.0
+        version: 1.2.0
+      yargs:
+        specifier: ^16.2.0
+        version: 16.2.0
+    devDependencies:
+      '@lcap/builder':
+        specifier: ^1.6.1
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: ^0.1.14
+        version: 0.1.14
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@18.3.1)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/composition-api':
+        specifier: ^1.7.2
+        version: 1.7.2(vue@2.7.16)
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0(canvas@2.11.2(encoding@0.1.13))
+      lcap-ide-server-proxy:
+        specifier: ^0.1.2-beta
+        version: 0.1.2-beta
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      sass:
+        specifier: ^1.93.3
+        version: 1.97.2
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4625,20 +5179,20 @@ importers:
     dependencies:
       '@vitejs/plugin-vue2':
         specifier: ^2.3.3
-        version: 2.3.4(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 2.3.4(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -4659,7 +5213,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4698,13 +5252,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4722,13 +5276,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.4.2
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -4749,7 +5303,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4788,13 +5342,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4816,13 +5370,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.4.2
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -4843,7 +5397,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4882,13 +5436,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4906,13 +5460,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.5.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.11
         version: 0.1.14
@@ -4933,7 +5487,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -4972,13 +5526,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -4996,13 +5550,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.5.0
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.11
         version: 0.1.14
@@ -5023,7 +5577,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -5062,13 +5616,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -5194,8 +5748,8 @@ importers:
   workspaces/ts-vue2/packages/game/xy_2:
     dependencies:
       '@ysf/fetch':
-        specifier: ^0.2.7
-        version: 0.2.7
+        specifier: link:../../../../legacy-yaml/stubs/ysf/fetch
+        version: link:../../../../legacy-yaml/stubs/ysf/fetch
       ant-design-vue:
         specifier: '1.7'
         version: 1.7.8(vue-template-compiler@2.7.16)(vue@2.7.16)
@@ -5205,13 +5759,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.5.0-beta.19
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -5232,7 +5786,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -5271,13 +5825,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -5295,13 +5849,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -5322,7 +5876,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -5361,13 +5915,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -5401,13 +5955,13 @@ importers:
     devDependencies:
       '@lcap/builder':
         specifier: ^1.3.1
-        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/storybook-vue-vite':
         specifier: ^7.6.17
-        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
       '@lcap/vite-plugin-vue2':
         specifier: ^1.0.0
-        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
       '@nasl/types':
         specifier: ^0.1.10
         version: 0.1.14
@@ -5428,7 +5982,7 @@ importers:
         version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/builder-vite':
         specifier: ^7.6.17
-        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       '@storybook/test':
         specifier: ^7.6.17
         version: 7.6.20
@@ -5467,13 +6021,13 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^5.0.10
-        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest:
         specifier: ^1.1.0
-        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vitest-canvas-mock:
         specifier: ^0.3.3
-        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
       vue:
         specifier: 2.7.16
         version: 2.7.16
@@ -6793,6 +7347,10 @@ packages:
   '@js-preview/excel@1.7.14':
     resolution: {integrity: sha512-7QHtuRalWQzWIKARc/IRN8+kj1S5eWV4+cAQipzZngE3mVxMPL1RHXKJt/ONmpcKZ410egYkaBuOOs9+LctBkA==}
 
+  '@jsdevtools/rehype-toc@3.0.2':
+    resolution: {integrity: sha512-n5JEf16Wr4mdkRMZ8wMP/wN9/sHmTjRPbouXjJH371mZ2LEGDl72t8tEsMRNFerQN/QJtivOxqK1frdGa4QK5Q==}
+    engines: {node: '>=10'}
+
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
@@ -6920,42 +7478,36 @@ packages:
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm-musl@2.5.1':
     resolution: {integrity: sha512-6E+m/Mm1t1yhB8X412stiKFG3XykmgdIOqhjWj+VL8oHkKABfu/gjFj8DvLrYVHSBNC+/u5PeNrujiSQ1zwd1Q==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-arm64-glibc@2.5.1':
     resolution: {integrity: sha512-LrGp+f02yU3BN9A+DGuY3v3bmnFUggAITBGriZHUREfNEzZh/GO06FF5u2kx8x+GBEUYfyTGamol4j3m9ANe8w==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm64-musl@2.5.1':
     resolution: {integrity: sha512-cFOjABi92pMYRXS7AcQv9/M1YuKRw8SZniCDw0ssQb/noPkRzA+HBDkwmyOJYp5wXcsTrhxO0zq1U11cK9jsFg==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-x64-glibc@2.5.1':
     resolution: {integrity: sha512-GcESn8NZySmfwlTsIur+49yDqSny2IhPeZfXunQi48DMugKeZ7uy1FX83pO0X22sHntJ4Ub+9k34XQCX+oHt2A==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-x64-musl@2.5.1':
     resolution: {integrity: sha512-n0E2EQbatQ3bXhcH2D1XIAANAcTZkQICBPVaxMeaCVBtOpBZpWJuf7LwyWPSBDITb7In8mqQgJ7gH8CILCURXg==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-win32-arm64@2.5.1':
     resolution: {integrity: sha512-RFzklRvmc3PkjKjry3hLF9wD7ppR4AKcWNzH7kXR7GUe0Igb3Nz8fyPwtZCSquGrhU5HhUNDr/mKBqj7tqA2Vw==}
@@ -7456,67 +8008,56 @@ packages:
     resolution: {integrity: sha512-PsNAbcyv9CcecAUagQefwX8fQn9LQ4nZkpDboBOttmyffnInRy8R8dSg6hxxl2Re5QhHBf6FYIDhIj5v982ATQ==}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.52.5':
     resolution: {integrity: sha512-Fw4tysRutyQc/wwkmcyoqFtJhh0u31K+Q6jYjeicsGJJ7bbEq8LwPWV/w0cnzOqR2m694/Af6hpFayLJZkG2VQ==}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.52.5':
     resolution: {integrity: sha512-a+3wVnAYdQClOTlyapKmyI6BLPAFYs0JM8HRpgYZQO02rMR09ZcV9LbQB+NL6sljzG38869YqThrRnfPMCDtZg==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.52.5':
     resolution: {integrity: sha512-AvttBOMwO9Pcuuf7m9PkC1PUIKsfaAJ4AYhy944qeTJgQOqJYJ9oVl2nYgY7Rk0mkbsuOpCAYSs6wLYB2Xiw0Q==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-loong64-gnu@4.52.5':
     resolution: {integrity: sha512-DkDk8pmXQV2wVrF6oq5tONK6UHLz/XcEVow4JTTerdeV1uqPeHxwcg7aFsfnSm9L+OO8WJsWotKM2JJPMWrQtA==}
     cpu: [loong64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-ppc64-gnu@4.52.5':
     resolution: {integrity: sha512-W/b9ZN/U9+hPQVvlGwjzi+Wy4xdoH2I8EjaCkMvzpI7wJUs8sWJ03Rq96jRnHkSrcHTpQe8h5Tg3ZzUPGauvAw==}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.52.5':
     resolution: {integrity: sha512-sjQLr9BW7R/ZiXnQiWPkErNfLMkkWIoCz7YMn27HldKsADEKa5WYdobaa1hmN6slu9oWQbB6/jFpJ+P2IkVrmw==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.52.5':
     resolution: {integrity: sha512-hq3jU/kGyjXWTvAh2awn8oHroCbrPm8JqM7RUpKjalIRWWXE01CQOf/tUNWNHjmbMHg/hmNCwc/Pz3k1T/j/Lg==}
     cpu: [riscv64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.52.5':
     resolution: {integrity: sha512-gn8kHOrku8D4NGHMK1Y7NA7INQTRdVOntt1OCYypZPRt6skGbddska44K8iocdpxHTMMNui5oH4elPH4QOLrFQ==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.52.5':
     resolution: {integrity: sha512-hXGLYpdhiNElzN770+H2nlx+jRog8TyynpTVzdlc6bndktjKWyZyiCsuDAlpd+j+W+WNqfcyAWz9HxxIGfZm1Q==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.52.5':
     resolution: {integrity: sha512-arCGIcuNKjBoKAXD+y7XomR9gY6Mw7HnFBv5Rw7wQRvwYLR7gBAgV7Mb2QTyjXfTveBNFAtPt46/36vV9STLNg==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-openharmony-arm64@4.52.5':
     resolution: {integrity: sha512-QoFqB6+/9Rly/RiPjaomPLmR/13cgkIGfA40LHly9zcH1S0bN2HVFYk3a1eAyHQyjs3ZJYlXvIGtcCs5tko9Cw==}
@@ -7837,6 +8378,10 @@ packages:
   '@transloadit/prettier-bytes@0.0.7':
     resolution: {integrity: sha512-VeJbUb0wEKbcwaSlj5n+LscBl9IPgLPkHVGBkh00cztv6X4L/TJXK58LzFuBKX7/GAfiGhIwH67YTLTlzvIzBA==}
 
+  '@trysound/sax@0.2.0':
+    resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
+    engines: {node: '>=10.13.0'}
+
   '@types/aria-query@5.0.4':
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
 
@@ -7947,6 +8492,9 @@ packages:
 
   '@types/hast@2.3.10':
     resolution: {integrity: sha512-McWspRw8xx8J9HurkVBfYj0xKoE25tOFlHGdx4MJ5xORQrMGZNqJhVQWaIbm6Oyla5kYOXtDiopzKRJzEOkwJw==}
+
+  '@types/hast@3.0.4':
+    resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
   '@types/highlight.js@9.12.4':
     resolution: {integrity: sha512-t2szdkwmg2JJyuCM20e8kR2X59WCE5Zkl4bzm1u1Oukjm79zpbiAv+QjnwLnuuV0WHEcX2NgUItu0pAMKuOPww==}
@@ -8102,6 +8650,9 @@ packages:
   '@types/shelljs@0.8.17':
     resolution: {integrity: sha512-IDksKYmQA2W9MkQjiyptbMmcQx+8+Ol6b7h6dPU5S05JyiQDSb/nZKnrMrZqGwgV6VkVdl6/SPCKPDlMRvqECg==}
 
+  '@types/sortablejs@1.15.9':
+    resolution: {integrity: sha512-7HP+rZGE2p886PKV9c9OJzLBI6BBJu1O7lJGYnPyG3fS4/duUCcngkNCjsLwIMV+WMqANe3tt4irrXHSIe68OQ==}
+
   '@types/source-list-map@0.1.6':
     resolution: {integrity: sha512-5JcVt1u5HDmlXkwOD2nslZVllBBc7HDuOICfiZah2Z0is8M8g+ddAEawbmd3VjedfDHBzxCaXLs07QEmb7y54g==}
 
@@ -8125,6 +8676,9 @@ packages:
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
+
+  '@types/unist@3.0.3':
+    resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
   '@types/uslug@1.0.4':
     resolution: {integrity: sha512-jbP99TZUc9kr/YX6YNuO5dbkEW4qhIf1f6t0jn2l0sUr0P2io1J/AwsjjHXiVCOdcBw3NulyOPQJgjWLBqbxqQ==}
@@ -8156,6 +8710,9 @@ packages:
 
   '@types/yargs@17.0.33':
     resolution: {integrity: sha512-WpxBCKWPLr4xSsHgz511rFJAM+wS28w2zEO1QDNY5zM/S8ok70NNfztH0xwhqKyaK0OHCbN98LDAZuy1ctxDkA==}
+
+  '@ungap/structured-clone@1.3.0':
+    resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
   '@uppy/companion-client@2.2.2':
     resolution: {integrity: sha512-5mTp2iq97/mYSisMaBtFRry6PTgZA6SIL7LePteOV5x0/DxKfrZW3DEiQERJmYpHzy7k8johpm2gHnEKto56Og==}
@@ -8613,14 +9170,6 @@ packages:
   '@yarnpkg/libzip@2.3.0':
     resolution: {integrity: sha512-6xm38yGVIa6mKm/DUCF2zFFJhERh/QWp1ufm4cNUvxsONBmfPg8uZ9pZBdOmF6qFGr/HlT6ABBkCSx/dlEtvWg==}
     engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
-
-  '@ysf/fetch@0.2.7':
-    resolution: {integrity: sha1-SZDAuGQOqTC+2wS95Ie51w/vPyg=, tarball: http://rnpm.hz.netease.com/@ysf/fetch/download/@ysf/fetch-0.2.7.tgz}
-    engines: {node: '>= 6.2.0', npm: '>= 3.0.0'}
-
-  '@ysf/helper@0.1.9':
-    resolution: {integrity: sha1-usosrhba3UmLO5G9r1Yn2k5RCbQ=, tarball: http://rnpm.hz.netease.com/@ysf/helper/download/@ysf/helper-0.1.9.tgz}
-    engines: {node: '>= 6.2.0', npm: '>= 3.0.0'}
 
   '@yxim/nim-web-sdk@9.20.17':
     resolution: {integrity: sha512-e8UL+eDkgW59NVwKUrS5fNGJVcbPcWBOGF+OoPyY5W+JIzcmQnmCZ8e1hYm2kd6ay4CETJ/dRkJ0naRg5cgAdA==}
@@ -10481,6 +11030,10 @@ packages:
     resolution: {integrity: sha512-tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==}
     engines: {node: '>=8.0.0'}
 
+  css-tree@2.2.1:
+    resolution: {integrity: sha512-OA0mILzGc1kCOCSJerOeqDxDQ4HOh+G8NbOJFOTgOCzpw7fCBubk0fEyxp8AgOL/jvLgYA/uV0cMbe43ElF1JA==}
+    engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
+
   css-tree@2.3.1:
     resolution: {integrity: sha512-6Fv1DV/TYw//QF5IzQdqsNDjx/wc8TrMBZsqjL9eW01tWb7R7k/mq+/VXfJCl7SoD5emsJop9cOByJZfs8hYIw==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
@@ -10546,6 +11099,10 @@ packages:
   csso@4.2.0:
     resolution: {integrity: sha512-wvlcdIbf6pwKEk7vHj8/Bkc0B4ylXZruLvOgs9doS5eOsOpuodOV2zJChSpkp+pRpYQLQMeF04nr3Z68Sta9jA==}
     engines: {node: '>=8.0.0'}
+
+  csso@5.0.5:
+    resolution: {integrity: sha512-0LrrStPOdJj+SPCCrGhzryycLjwcgUSHBtxNA8aIDxf0GLsRh1cKYhB00Gd1lDOS4yGH69+SNn13+TWbVHETFQ==}
+    engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0, npm: '>=7.0.0'}
 
   cssom@0.3.8:
     resolution: {integrity: sha512-b0tGHbfegbhPJpxpiBPU2sCkigAqtM9O121le6bbOlgyV+NyGyCmVfJ6QW9eRjz8CpNfWEOYBIMIGRYkLwsIYg==}
@@ -11004,6 +11561,9 @@ packages:
     resolution: {integrity: sha512-CmnVc+Hek2egPx1PeTFVta2W78xy2K/9Rkf6cC4T59S50tVnzKj+tnx5mmx5lwvCkujZ4uRrpRSuV+IVs3f90Q==}
     engines: {node: '>= 4.0.0'}
     hasBin: true
+
+  devlop@1.1.0:
+    resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
   dhtmlx-gantt@7.0.4:
     resolution: {integrity: sha512-N3WmSQd5W+qzUAvQZYFyDQU96HLwDMtYdsNdVAD4NhNtOUoW7piqjMnz5P2EfVBOIu8NvirtDm3w4ckU/kzILg==}
@@ -12091,6 +12651,9 @@ packages:
   github-slugger@1.5.0:
     resolution: {integrity: sha512-wIh+gKBI9Nshz2o46B0B3f5k/W+WI9ZAv6y5Dn5WJ5SK1t0TnDimB4WE5rmTD05ZAIn8HALCZVmCsvj0w0v0lw==}
 
+  github-slugger@2.0.0:
+    resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
+
   gl-matrix@3.4.4:
     resolution: {integrity: sha512-latSnyDNt/8zYUB6VIJ6PCh2jBjJX6gnDsoCZ7LyW7GkqrD51EWwa9qCoGixj8YqBtETQK/xY7OmpTF8xz1DdQ==}
 
@@ -12326,11 +12889,32 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
+  hast-util-from-dom@5.0.1:
+    resolution: {integrity: sha512-N+LqofjR2zuzTjCPzyDUdSshy4Ma6li7p/c3pA78uTwzFgENbgbUrm2ugwsOdcjI1muO+o6Dgzp9p8WHtn/39Q==}
+
+  hast-util-from-html-isomorphic@2.0.0:
+    resolution: {integrity: sha512-zJfpXq44yff2hmE0XmwEOzdWin5xwH+QIhMLOScpX91e/NSGPsAzNCvLQDIEPyO2TXi+lBmU6hjLIhV8MwP2kw==}
+
+  hast-util-from-html@2.0.3:
+    resolution: {integrity: sha512-CUSRHXyKjzHov8yKsQjGOElXy/3EKpyX56ELnkHH34vDVw1N1XSQ1ZcAvTyAPtGqLTuKP/uxM+aLkSPqF/EtMw==}
+
   hast-util-from-parse5@7.1.2:
     resolution: {integrity: sha512-Nz7FfPBuljzsN3tCQ4kCBKqdNhQE2l0Tn+X1ubgKBPRoiDIu1mL08Cfw4k7q71+Duyaw7DXDN+VTAp4Vh3oCOw==}
 
+  hast-util-from-parse5@8.0.3:
+    resolution: {integrity: sha512-3kxEVkEKt0zvcZ3hCRYI8rqrgwtlIOFMWkbclACvjlDw8Li9S2hk/d51OI0nr/gIpdMHNepwgOKqZ/sy0Clpyg==}
+
+  hast-util-heading-rank@3.0.0:
+    resolution: {integrity: sha512-EJKb8oMUXVHcWZTDepnr+WNbfnXKFNf9duMesmr4S8SXTJBJ9M4Yok08pu9vxdJwdlGRhVumk9mEhkEvKGifwA==}
+
+  hast-util-is-element@3.0.0:
+    resolution: {integrity: sha512-Val9mnv2IWpLbNPqc/pUem+a7Ipj2aHacCwgNfTiK0vJKl0LF+4Ba4+v1oPHFpf3bLYmreq0/l3Gud9S5OH42g==}
+
   hast-util-parse-selector@3.1.1:
     resolution: {integrity: sha512-jdlwBjEexy1oGz0aJ2f4GKMaVKkA9jwjr4MjAAI22E5fM/TXVZHuS5OpONtdeIkRKqAaryQ2E9xNQxijoThSZA==}
+
+  hast-util-parse-selector@4.0.0:
+    resolution: {integrity: sha512-wkQCkSYoOGCRKERFWcxMVMOcYE2K1AaNLU8DXS9arxnLOUEWbOXKXiJUNzEpqZ3JOKpnha3jkFrumEjVliDe7A==}
 
   hast-util-raw@7.2.3:
     resolution: {integrity: sha512-RujVQfVsOrxzPOPSzZFiwofMArbQke6DJjnFfceiEbFh7S05CbPt0cYN+A5YeD3pso0JQk6O1aHBnx9+Pm2uqg==}
@@ -12344,11 +12928,17 @@ packages:
   hast-util-to-parse5@7.1.0:
     resolution: {integrity: sha512-YNRgAJkH2Jky5ySkIqFXTQiaqcAtJyVE+D5lkN6CdtOqrnkLfGYYrEcKuHOJZlp+MwjSwuD3fZuawI+sic/RBw==}
 
+  hast-util-to-string@3.0.1:
+    resolution: {integrity: sha512-XelQVTDWvqcl3axRfI0xSeoVKzyIFPwsAGSLIsKdJKQMXDYJS4WYrBNF/8J7RdhIcFI2BOHgAifggsvsxp/3+A==}
+
   hast-util-whitespace@2.0.1:
     resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
 
   hastscript@7.2.0:
     resolution: {integrity: sha512-TtYPq24IldU8iKoJQqvZOuhi5CyCQRAbvDOX0x1eW6rsHSxa/1i2CCiptNTotGHJ3VoHRGmqiv6/D3q113ikkw==}
+
+  hastscript@9.0.1:
+    resolution: {integrity: sha512-g7df9rMFX/SPi34tyGCyUBREQoKkapwdY/T04Qn9TDWfHhAYt4/I0gMVirzK5wEzeUqIjEB+LXC/ypb7Aqno5w==}
 
   he@1.1.1:
     resolution: {integrity: sha512-z/GDPjlRMNOa2XJiB4em8wJpuuBfrFOlYKTZxtpkdr1uPdibHI8rYA3MY0KDObpVyaes0e/aunid/t88ZI2EKA==}
@@ -13387,6 +13977,9 @@ packages:
   jspdf@3.0.3:
     resolution: {integrity: sha512-eURjAyz5iX1H8BOYAfzvdPfIKK53V7mCpBTe7Kb16PaM8JSXEcUQNBQaiWMI8wY5RvNOPj4GccMjTlfwRBd+oQ==}
 
+  jspdf@3.0.4:
+    resolution: {integrity: sha512-dc6oQ8y37rRcHn316s4ngz/nOjayLF/FFxBF4V9zamQKRqXxyiH1zagkCdktdWhtoQId5K20xt1lB90XzkB+hQ==}
+
   jsprim@1.4.2:
     resolution: {integrity: sha512-P2bSOMAc/ciLz6DzgjVlGJP9+BrJWu5UDGK70C2iweC5QBIeFf0ZXRvGjEj2uYgrY2MkAAhsSWHDWlFtEroZWw==}
     engines: {node: '>=0.6.0'}
@@ -13975,6 +14568,9 @@ packages:
   mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
 
+  mdn-data@2.0.28:
+    resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
+
   mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
 
@@ -14333,6 +14929,9 @@ packages:
 
   moment@2.29.4:
     resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+
+  moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
   monaco-editor@0.52.2:
     resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
@@ -14761,6 +15360,9 @@ packages:
   odometer_countup@1.0.4:
     resolution: {integrity: sha512-Hocyn8Do00H0VKB+c1vKaZU9isMLw9jZJVBuywdr+tU4PojqRwDY0xWWbUH4byz/hOcsCr+vNEmC2UOn+37wrA==}
 
+  oh-vue-icons@0.4.7:
+    resolution: {integrity: sha512-gNyXi/ztl6wYykPbdcBfvVCyE6yU9nkafzXmt1DAsEhE2C7CupxSr/BIFZOIcjml9yUwG6OQjkcjfQASZH1sKg==}
+
   ometa@0.2.2:
     resolution: {integrity: sha512-LZuoK/yjU3FvrxPjUXUlZ1bavCfBPqauA7fsNdwi+AVhRdyk2IzgP3JRnevvjzQ6fKHdUw8YISshf53FmpHrng==}
     engines: {node: '>= 0.2.0'}
@@ -15138,6 +15740,10 @@ packages:
 
   performance-now@2.1.0:
     resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
+
+  photoswipe@5.4.3:
+    resolution: {integrity: sha512-9UC6oJBK4oXFZ5HcdlcvGkfEHsVrmE4csUdCQhEjHYb3PvPLO3PG7UhnPuOgjxwmhq5s17Un5NUdum01LgBDng==}
+    engines: {node: '>= 0.12.0'}
 
   picocolors@0.2.1:
     resolution: {integrity: sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA==}
@@ -15678,6 +16284,9 @@ packages:
   property-information@6.5.0:
     resolution: {integrity: sha512-PgTgs/BlvHxOu8QuEN7wi5A0OmXaBcHpmCSTehcs6Uuu9IkDIEo13Hy7n898RHfrQ49vKCoGeWZSaAK01nwVig==}
 
+  property-information@7.1.0:
+    resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
+
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
 
@@ -16029,11 +16638,17 @@ packages:
   regl@1.7.0:
     resolution: {integrity: sha512-bEAtp/qrtKucxXSJkD4ebopFZYP0q1+3Vb2WECWv/T8yQEgKxDxJ7ztO285tAMaYZVR6mM1GgI6CCn8FROtL1w==}
 
+  rehype-autolink-headings@7.1.0:
+    resolution: {integrity: sha512-rItO/pSdvnvsP4QRB1pmPiNHUskikqtPojZKJPPPAVx9Hj8i8TwMBhofrrAYRhYOOBZH9tgmG5lPqDLuIWPWmw==}
+
   rehype-raw@6.1.1:
     resolution: {integrity: sha512-d6AKtisSRtDRX4aSPsJGTfnzrX2ZkHQLE5kiUuGOeEoLpbEulFF4hj0mLPbsa+7vmguDKOVVEQdHKDSwoaIDsQ==}
 
   rehype-sanitize@5.0.1:
     resolution: {integrity: sha512-da/jIOjq8eYt/1r9GN6GwxIR3gde7OZ+WV8pheu1tL8K0D9KxM2AyMh+UEfke+FfdM3PvGHeYJU0Td5OWa7L5A==}
+
+  rehype-slug@6.0.0:
+    resolution: {integrity: sha512-lWyvf/jwu+oS5+hL5eClVd3hNdmwM1kAC0BUvEGD19pajQMIzcNUd/k9GsfQ+FfECvX+JE+e9/btsKH0EjJT6A==}
 
   rehype-stringify@9.0.4:
     resolution: {integrity: sha512-Uk5xu1YKdqobe5XpSskwPvo1XeHUUucWEQSl8hTrXt5selvca1e8K1EZ37E6YoZ4BT8BCqCdVfQW7OfHfthtVQ==}
@@ -16354,56 +16969,48 @@ packages:
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: glibc
 
   sass-embedded-linux-arm@1.93.2:
     resolution: {integrity: sha512-N3+D/ToHtzwLDO+lSH05Wo6/KRxFBPnbjVHASOlHzqJnK+g5cqex7IFAp6ozzlRStySk61Rp6d+YGrqZ6/P0PA==}
     engines: {node: '>=14.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: glibc
 
   sass-embedded-linux-musl-arm64@1.93.2:
     resolution: {integrity: sha512-+3EHuDPkMiAX5kytsjEC1bKZCawB9J6pm2eBIzzLMPWbf5xdx++vO1DpT7hD4bm4ZGn0eVHgSOKIfP6CVz6tVg==}
     engines: {node: '>=14.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: musl
 
   sass-embedded-linux-musl-arm@1.93.2:
     resolution: {integrity: sha512-XBTvx66yRenvEsp3VaJCb3HQSyqCsUh7R+pbxcN5TuzueybZi0LXvn9zneksdXcmjACMlMpIVXi6LyHPQkYc8A==}
     engines: {node: '>=14.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: musl
 
   sass-embedded-linux-musl-riscv64@1.93.2:
     resolution: {integrity: sha512-0sB5kmVZDKTYzmCSlTUnjh6mzOhzmQiW/NNI5g8JS4JiHw2sDNTvt1dsFTuqFkUHyEOY3ESTsfHHBQV8Ip4bEA==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [linux]
-    libc: musl
 
   sass-embedded-linux-musl-x64@1.93.2:
     resolution: {integrity: sha512-t3ejQ+1LEVuHy7JHBI2tWHhoMfhedUNDjGJR2FKaLgrtJntGnyD1RyX0xb3nuqL/UXiEAtmTmZY+Uh3SLUe1Hg==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: musl
 
   sass-embedded-linux-riscv64@1.93.2:
     resolution: {integrity: sha512-e7AndEwAbFtXaLy6on4BfNGTr3wtGZQmypUgYpSNVcYDO+CWxatKVY4cxbehMPhxG9g5ru+eaMfynvhZt7fLaA==}
     engines: {node: '>=14.0.0'}
     cpu: [riscv64]
     os: [linux]
-    libc: glibc
 
   sass-embedded-linux-x64@1.93.2:
     resolution: {integrity: sha512-U3EIUZQL11DU0xDDHXexd4PYPHQaSQa2hzc4EzmhHqrAj+TyfYO94htjWOd+DdTPtSwmLp+9cTWwPZBODzC96w==}
     engines: {node: '>=14.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: glibc
 
   sass-embedded-unknown-all@1.93.2:
     resolution: {integrity: sha512-7VnaOmyewcXohiuoFagJ3SK5ddP9yXpU0rzz+pZQmS1/+5O6vzyFCUoEt3HDRaLctH4GT3nUGoK1jg0ae62IfQ==}
@@ -16428,6 +17035,11 @@ packages:
 
   sass@1.93.2:
     resolution: {integrity: sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+
+  sass@1.97.2:
+    resolution: {integrity: sha512-y5LWb0IlbO4e97Zr7c3mlpabcbBtS+ieiZ9iwDooShpFKWXf62zz5pEPdwrLYm+Bxn1fnbwFGzHuCLSA9tBmrw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -17129,6 +17741,11 @@ packages:
     deprecated: This SVGO version is no longer supported. Upgrade to v2.x.x.
     hasBin: true
 
+  svgo@3.3.2:
+    resolution: {integrity: sha512-OoohrmuUlBs8B8o6MB2Aevn+pRIH9zDALSR+6hhqVfa6fRwG/Qw9VUMSMW9VNg2CFc/MTIfabtdOVl9ODIJjpw==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+
   svgpath@2.6.0:
     resolution: {integrity: sha512-OIWR6bKzXvdXYyO4DK/UWa1VA1JeKq8E+0ug2DG98Y/vOmMpfZNj+TIG988HjfYSqtcy/hFOtZq/n/j5GSESNg==}
 
@@ -17356,6 +17973,9 @@ packages:
   to-regex@3.0.2:
     resolution: {integrity: sha512-FWtleNAtZ/Ki2qtqej2CXTOayOH9bHDQF+Q48VpWyDXjbYxA4Yz8iDB31zXOBUlOHHKidDbqGVrTUvQMPmBGBw==}
     engines: {node: '>=0.10.0'}
+
+  toc-helper@2.1.1:
+    resolution: {integrity: sha512-NeRn4igBOWVGgm6jdhDzjWC97+/un3FqXMXl8/vLcn2zR8Q1nWmyjcmB7zZ0oOHSOTWWhCUtzGW+FsACvDjQPQ==}
 
   tocbot@4.36.4:
     resolution: {integrity: sha512-ffznkKnZ1NdghwR1y8hN6W7kjn4FwcXq32Z1mn35gA7jd8dt2cTVAwL3d0BXXZGPu0Hd0evverUvcYAb/7vn0g==}
@@ -17644,6 +18264,9 @@ packages:
   unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
 
+  unified@11.0.5:
+    resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
+
   union-value@1.0.1:
     resolution: {integrity: sha512-tJfXmxMeWYnczCVs7XAEvIV7ieppALdyepWMkHkwciRpZraG/xwT+s2JN8+pr1+8jCRf80FFzvr+MpQeeoF4Xg==}
     engines: {node: '>=0.10.0'}
@@ -17685,11 +18308,20 @@ packages:
   unist-util-is@5.2.1:
     resolution: {integrity: sha512-u9njyyfEh43npf1M+yGKDGVPbY/JWEemg5nH05ncKPfi+kBbKBJoTdsogMu33uhytuLlv9y0O7GH7fEdwLdLQw==}
 
+  unist-util-is@6.0.1:
+    resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
+
   unist-util-position@4.0.4:
     resolution: {integrity: sha512-kUBE91efOWfIVBo8xzh/uZQ7p9ffYRtUbMRZBNFYwf0RK8koUMx6dGUfwylLOKmaT2cs4wSW96QoYUSXAyEtpg==}
 
+  unist-util-remove-position@5.0.0:
+    resolution: {integrity: sha512-Hp5Kh3wLxv0PHj9m2yZhhLt58KzPtEYKQQ4yxfYFEO7EvHwzyDYnduhHnY1mDxoqr7VUwVuHXk9RXKIiYS1N8Q==}
+
   unist-util-stringify-position@3.0.3:
     resolution: {integrity: sha512-k5GzIBZ/QatR8N5X2y+drfpWG8IDBzdnVj6OInRNWm1oXrzydiaAT2OQiA8DPRRZyAKb9b6I2a6PxYklZD0gKg==}
+
+  unist-util-stringify-position@4.0.0:
+    resolution: {integrity: sha512-0ASV06AAoKCDkS2+xw5RXJywruurpbC4JZSm7nr7MOt1ojAzvyyaO+UxZf18j8FCF6kmzCZKcAgN/yu2gm2XgQ==}
 
   unist-util-visit-parents@3.1.1:
     resolution: {integrity: sha512-1KROIZWo6bcMrZEwiH2UrXDyalAa0uqzWCxCJj6lPOvTve2WkfgCytoDTPaMnodXh1WrXOq0haVYHj99ynJlsg==}
@@ -17697,11 +18329,17 @@ packages:
   unist-util-visit-parents@5.1.3:
     resolution: {integrity: sha512-x6+y8g7wWMyQhL1iZfhIPhDAs7Xwbn9nRosDXl7qoPTSCy0yNxnKc+hWokFifWQIDGi154rdUqKvbCa4+1kLhg==}
 
+  unist-util-visit-parents@6.0.2:
+    resolution: {integrity: sha512-goh1s1TBrqSqukSc8wrjwWhL0hiJxgA8m4kFxGlQ+8FYQ3C/m11FcTs4YYem7V664AhHVvgoQLk890Ssdsr2IQ==}
+
   unist-util-visit@2.0.3:
     resolution: {integrity: sha512-iJ4/RczbJMkD0712mGktuGpm/U4By4FfDonL7N/9tATGIF4imikjOuagyMY53tnZq3NP6BcmlrHhEKAfGWjh7Q==}
 
   unist-util-visit@4.1.2:
     resolution: {integrity: sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==}
+
+  unist-util-visit@5.0.0:
+    resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
 
   universalify@0.1.2:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
@@ -17899,6 +18537,10 @@ packages:
   utrie@1.0.2:
     resolution: {integrity: sha512-1MLa5ouZiOmQzUbjbu9VmjLzn1QLXBhwpUa7kdLUQK+KQ5KA9I1vk5U4YHe/X2Ch7PYnJfWuWT+VbuxbGwljhw==}
 
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
+    hasBin: true
+
   uuid@3.4.0:
     resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}
     deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
@@ -17920,6 +18562,9 @@ packages:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
     engines: {node: '>=8'}
     hasBin: true
+
+  v-runtime-template@1.10.0:
+    resolution: {integrity: sha512-WLlq9jUepSfUrMEenw3mn7FDXX6hhbl11JjC1OKhwLzifHzVrY5a696TUHDPyj9jke3GGnR7b+2T3od/RL5cww==}
 
   v-viewer@1.7.4:
     resolution: {integrity: sha512-K3PQ8utnVXXBCa5IRXRAhk/m83fNIsK77gTSXqAmPJe8eDTaSY1nifAOWPUmQDjzuCxYfa14UjGftHR9MFV70Q==}
@@ -17977,11 +18622,20 @@ packages:
   vfile-location@4.1.0:
     resolution: {integrity: sha512-YF23YMyASIIJXpktBa4vIGLJ5Gs88UB/XePgqPmTa7cDA+JeO3yclbpheQYCHjVHBn/yePzrXuygIL+xbvRYHw==}
 
+  vfile-location@5.0.3:
+    resolution: {integrity: sha512-5yXvWDEgqeiYiBe1lbxYF7UMAIm/IcopxMHrMQDq3nvKcjPKIhZklUKL+AE7J7uApI4kwe2snsK+eI6UTj9EHg==}
+
   vfile-message@3.1.4:
     resolution: {integrity: sha512-fa0Z6P8HUrQN4BZaX05SIVXic+7kE3b05PWAtPuYP9QLHsLKYR7/AlLW3NtOrpXRLeawpDLMsVkmk5DG0NXgWw==}
 
+  vfile-message@4.0.3:
+    resolution: {integrity: sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==}
+
   vfile@5.3.7:
     resolution: {integrity: sha512-r7qlzkgErKjobAmyNIkkSpizsFPYiUPuJb5pNW1RB4JcYVZhs4lIbVqk8XPk033CV/1z8ss5pkax8SuhGpcG8g==}
+
+  vfile@6.0.3:
+    resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
   video.js@7.21.7:
     resolution: {integrity: sha512-T2s3WFAht7Zjr2OSJamND9x9Dn2O+Z5WuHGdh8jI5SYh5mkMdVTQ7vSRmA5PYpjXJ2ycch6jpMjkJEIEU2xxqw==}
@@ -18017,6 +18671,11 @@ packages:
 
   vite-plugin-dynamic-import@1.6.0:
     resolution: {integrity: sha512-TM0sz70wfzTIo9YCxVFwS8OA9lNREsh+0vMHGSkWDTZ7bgd1Yjs5RV8EgB634l/91IsXJReg0xtmuQqP0mf+rg==}
+
+  vite-plugin-vue2-svg@0.4.0:
+    resolution: {integrity: sha512-Z9NT9PTGwEKMSfxruPeBeAgMWAgMz5DiE6u8ZNtkYXODGWceUi6Dhp/f0NFO02sEoDiDxkokzr8u4qK4+9rXJQ==}
+    peerDependencies:
+      vue-template-compiler: 2.7.16
 
   vite@5.4.21:
     resolution: {integrity: sha512-o5a9xKjbtuhY6Bi5S3+HvbRERmouabWbyUcpXXUA1u+GNUKoROi9byOJ8M0nHbHYHkYICiMlqxkg1KkYmm25Sw==}
@@ -18143,6 +18802,15 @@ packages:
     resolution: {integrity: sha512-n9ENAcs+40awPZMsas7STqjkZiVlIjxIKgiJr5rSohDP0/JCrD9VtlzNojafsA1MChm/hz2h3PDtUedx3lbgfA==}
     peerDependencies:
       vue: 2.7.16
+
+  vue-draggable-plus@0.6.0:
+    resolution: {integrity: sha512-G5TSfHrt9tX9EjdG49InoFJbt2NYk0h3kgjgKxkFWr3ulIUays0oFObr5KZ8qzD4+QnhtALiRwIqY6qul4egqw==}
+    peerDependencies:
+      '@types/sortablejs': ^1.15.0
+      '@vue/composition-api': '*'
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
 
   vue-github-badge@1.0.1:
     resolution: {integrity: sha512-8X+FUWapnnDfs6cRUg3mCfHUf2r5arUfCSRdvbIn860oj9us3Rz3VOtioUgmfzh6EhaaYTs0Oh78EzJ+Z6uqAA==}
@@ -20232,6 +20900,8 @@ snapshots:
 
   '@js-preview/excel@1.7.14': {}
 
+  '@jsdevtools/rehype-toc@3.0.2': {}
+
   '@juggle/resize-observer@3.4.0': {}
 
   '@lcap/builder@1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)':
@@ -20277,6 +20947,61 @@ snapshots:
       send: 1.2.0
       serve-index: 1.9.1(supports-color@6.1.0)
       vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+      yaml: 2.8.1
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bufferutil
+      - canvas
+      - prop-types
+      - react-native-b4a
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - vue
+
+  '@lcap/builder@1.6.1(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)':
+    dependencies:
+      '@babel/core': 7.28.4
+      '@babel/generator': 7.28.3
+      '@babel/parser': 7.28.4
+      '@babel/plugin-proposal-decorators': 7.28.0(@babel/core@7.28.4)
+      '@babel/plugin-transform-react-jsx': 7.27.1(@babel/core@7.28.4)
+      '@babel/plugin-transform-typescript': 7.28.0(@babel/core@7.28.4)
+      '@babel/preset-typescript': 7.27.1(@babel/core@7.28.4)
+      '@babel/traverse': 7.28.4
+      '@babel/types': 7.28.4
+      '@lcap/extension-ui': 1.1.1
+      '@lcap/material-parser': 1.0.0(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(vue@2.7.16)
+      archiver: 7.0.1
+      babel-plugin-parameter-decorator: 1.0.16
+      chalk: 5.6.2
+      chokidar: 4.0.3
+      commander: 11.1.0
+      connect: 3.7.0
+      consola: 2.15.3
+      cors: 2.8.5
+      dayjs: 1.11.18
+      event-stream: 4.0.1
+      fast-glob: 3.3.3
+      faye-websocket: 0.11.4
+      loader-utils: 3.3.1
+      lodash: 4.17.21
+      magic-string: 0.30.19
+      open: 8.4.2
+      parse-imports: 2.2.1
+      picocolors: 1.1.1
+      portfinder: 1.0.38(supports-color@6.1.0)
+      postcss: 8.5.6
+      postcss-values-parser: 6.0.2(postcss@8.5.6)
+      prettier: 2.8.8
+      prompts: 2.4.2
+      react-style-object-to-css: 1.1.2
+      rollup: 4.52.5
+      rollup-plugin-dts: 6.2.3(rollup@4.52.5)(typescript@5.9.3)
+      semver: 7.7.3
+      send: 1.2.0
+      serve-index: 1.9.1(supports-color@6.1.0)
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       yaml: 2.8.1
     transitivePeerDependencies:
       - bare-abort-controller
@@ -20362,10 +21087,122 @@ snapshots:
       - utf-8-validate
       - vite-plugin-glimmerx
 
+  '@lcap/storybook-vue-vite@7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)':
+    dependencies:
+      '@storybook/builder-vite': 7.6.17(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/core-common': 7.6.17(encoding@0.1.13)
+      '@storybook/core-server': 7.6.17(encoding@0.1.13)
+      '@storybook/vue': 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(vue@2.7.16)
+      magic-string: 0.30.19
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vue: 2.7.16
+      vue-docgen-api: 4.79.2(vue@2.7.16)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@preact/preset-vite'
+      - babel-loader
+      - bufferutil
+      - css-loader
+      - encoding
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - vite-plugin-glimmerx
+
   '@lcap/validator@1.0.0':
     dependencies:
       lodash: 4.17.21
       validator: 13.15.15
+
+  '@lcap/vite-plugin-vue2@1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)':
+    dependencies:
+      '@babel/core': 7.28.4
+      '@babel/parser': 7.28.4
+      '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.28.4)
+      '@babel/plugin-proposal-decorators': 7.28.0(@babel/core@7.28.4)
+      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6(@babel/core@7.28.4)
+      '@babel/plugin-proposal-object-rest-spread': 7.20.7(@babel/core@7.28.4)
+      '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.28.4)
+      '@babel/plugin-transform-arrow-functions': 7.27.1(@babel/core@7.28.4)
+      '@babel/plugin-transform-block-scoping': 7.28.4(@babel/core@7.28.4)
+      '@babel/plugin-transform-computed-properties': 7.27.1(@babel/core@7.28.4)
+      '@babel/plugin-transform-destructuring': 7.28.0(@babel/core@7.28.4)
+      '@babel/plugin-transform-parameters': 7.27.7(@babel/core@7.28.4)
+      '@babel/plugin-transform-spread': 7.27.1(@babel/core@7.28.4)
+      '@babel/plugin-transform-typescript': 7.28.0(@babel/core@7.28.4)
+      '@rollup/pluginutils': 5.3.0(rollup@4.52.5)
+      '@vue/babel-helper-vue-jsx-merge-props': 1.4.0
+      '@vue/babel-preset-jsx': 1.4.0(@babel/core@7.28.4)(vue@2.7.16)
+      '@vue/component-compiler-utils': 3.3.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
+      consolidate: 0.16.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
+      debug: 4.4.3(supports-color@6.1.0)
+      fs-extra: 10.1.0
+      hash-sum: 2.0.0
+      magic-string: 0.26.7
+      prettier: 2.8.8
+      querystring: 0.2.1
+      slash: 3.0.0
+      source-map: 0.7.6
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vue-template-babel-compiler: 1.2.0(vue-template-compiler@2.7.16)
+      vue-template-compiler: 2.7.16
+    transitivePeerDependencies:
+      - arc-templates
+      - atpl
+      - babel-core
+      - bracket-template
+      - coffee-script
+      - dot
+      - dust
+      - dustjs-helpers
+      - dustjs-linkedin
+      - eco
+      - ect
+      - ejs
+      - haml-coffee
+      - hamlet
+      - hamljs
+      - handlebars
+      - hogan.js
+      - htmling
+      - jade
+      - jazz
+      - jqtpl
+      - just
+      - liquid-node
+      - liquor
+      - lodash
+      - marko
+      - mote
+      - mustache
+      - nunjucks
+      - plates
+      - pug
+      - qejs
+      - ractive
+      - razor-tmpl
+      - react
+      - react-dom
+      - rollup
+      - slm
+      - squirrelly
+      - supports-color
+      - swig
+      - swig-templates
+      - teacup
+      - templayed
+      - then-jade
+      - then-pug
+      - tinyliquid
+      - toffee
+      - twig
+      - twing
+      - underscore
+      - vash
+      - velocityjs
+      - vue
+      - walrus
+      - whiskers
 
   '@lcap/vite-plugin-vue2@1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)':
     dependencies:
@@ -20387,7 +21224,7 @@ snapshots:
       '@vue/babel-helper-vue-jsx-merge-props': 1.4.0
       '@vue/babel-preset-jsx': 1.4.0(@babel/core@7.28.4)(vue@2.7.16)
       '@vue/component-compiler-utils': 3.3.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
-      consolidate: 0.16.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
+      consolidate: 0.16.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
       debug: 4.4.3(supports-color@6.1.0)
       fs-extra: 10.1.0
       hash-sum: 2.0.0
@@ -21237,6 +22074,31 @@ snapshots:
       - encoding
       - supports-color
 
+  '@storybook/builder-vite@7.6.17(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))':
+    dependencies:
+      '@storybook/channels': 7.6.17
+      '@storybook/client-logger': 7.6.17
+      '@storybook/core-common': 7.6.17(encoding@0.1.13)
+      '@storybook/csf-plugin': 7.6.17
+      '@storybook/node-logger': 7.6.17
+      '@storybook/preview': 7.6.17
+      '@storybook/preview-api': 7.6.17
+      '@storybook/types': 7.6.17
+      '@types/find-cache-dir': 3.2.1
+      browser-assert: 1.2.1
+      es-module-lexer: 0.9.3
+      express: 4.21.2(supports-color@6.1.0)
+      find-cache-dir: 3.3.2
+      fs-extra: 11.3.2
+      magic-string: 0.30.19
+      rollup: 3.29.5
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
   '@storybook/builder-vite@7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))':
     dependencies:
       '@storybook/channels': 7.6.20
@@ -21256,6 +22118,31 @@ snapshots:
       magic-string: 0.30.19
       rollup: 3.29.5
       vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+
+  '@storybook/builder-vite@7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))':
+    dependencies:
+      '@storybook/channels': 7.6.20
+      '@storybook/client-logger': 7.6.20
+      '@storybook/core-common': 7.6.20(encoding@0.1.13)
+      '@storybook/csf-plugin': 7.6.20
+      '@storybook/node-logger': 7.6.20
+      '@storybook/preview': 7.6.20
+      '@storybook/preview-api': 7.6.20
+      '@storybook/types': 7.6.20
+      '@types/find-cache-dir': 3.2.1
+      browser-assert: 1.2.1
+      es-module-lexer: 0.9.3
+      express: 4.21.2(supports-color@6.1.0)
+      find-cache-dir: 3.3.2
+      fs-extra: 11.3.2
+      magic-string: 0.30.19
+      rollup: 3.29.5
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
     optionalDependencies:
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -21825,6 +22712,8 @@ snapshots:
 
   '@transloadit/prettier-bytes@0.0.7': {}
 
+  '@trysound/sax@0.2.0': {}
+
   '@types/aria-query@5.0.4': {}
 
   '@types/axios@0.14.4':
@@ -21946,7 +22835,7 @@ snapshots:
 
   '@types/fs-extra@8.1.5':
     dependencies:
-      '@types/node': 10.17.60
+      '@types/node': 24.9.1
 
   '@types/glob@7.2.0':
     dependencies:
@@ -21962,6 +22851,10 @@ snapshots:
       '@types/node': 24.9.1
 
   '@types/hast@2.3.10':
+    dependencies:
+      '@types/unist': 2.0.11
+
+  '@types/hast@3.0.4':
     dependencies:
       '@types/unist': 2.0.11
 
@@ -22043,7 +22936,7 @@ snapshots:
 
   '@types/minimatch@6.0.0':
     dependencies:
-      minimatch: 3.1.2
+      minimatch: 10.0.3
 
   '@types/minimist@1.2.5': {}
 
@@ -22051,7 +22944,7 @@ snapshots:
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 18.19.130
+      '@types/node': 24.9.1
       form-data: 4.0.4
 
   '@types/node@10.17.60': {}
@@ -22120,8 +23013,10 @@ snapshots:
 
   '@types/shelljs@0.8.17':
     dependencies:
-      '@types/node': 10.17.60
+      '@types/node': 24.9.1
       glob: 11.0.3
+
+  '@types/sortablejs@1.15.9': {}
 
   '@types/source-list-map@0.1.6': {}
 
@@ -22145,6 +23040,8 @@ snapshots:
       source-map: 0.6.1
 
   '@types/unist@2.0.11': {}
+
+  '@types/unist@3.0.3': {}
 
   '@types/uslug@1.0.4': {}
 
@@ -22179,7 +23076,7 @@ snapshots:
 
   '@types/yaml@1.9.7':
     dependencies:
-      yaml: 1.10.2
+      yaml: 2.8.1
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -22190,6 +23087,8 @@ snapshots:
   '@types/yargs@17.0.33':
     dependencies:
       '@types/yargs-parser': 21.0.3
+
+  '@ungap/structured-clone@1.3.0': {}
 
   '@uppy/companion-client@2.2.2':
     dependencies:
@@ -22252,9 +23151,9 @@ snapshots:
       global: 4.4.0
       is-function: 1.0.2
 
-  '@vitejs/plugin-vue2@2.3.4(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0))(vue@2.7.16)':
+  '@vitejs/plugin-vue2@2.3.4(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)':
     dependencies:
-      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       vue: 2.7.16
 
   '@vitest/expect@0.34.7':
@@ -23448,15 +24347,6 @@ snapshots:
       '@types/emscripten': 1.41.4
       tslib: 1.14.1
 
-  '@ysf/fetch@0.2.7':
-    dependencies:
-      '@ysf/helper': 0.1.9
-
-  '@ysf/helper@0.1.9':
-    dependencies:
-      core-js: 3.46.0
-      xss: 1.0.15
-
   '@yxim/nim-web-sdk@9.20.17': {}
 
   abab@2.0.6:
@@ -23627,7 +24517,7 @@ snapshots:
       ismobilejs: 1.1.1
       json2mq: 0.2.0
       lodash: 4.17.21
-      moment: 2.29.4
+      moment: 2.30.1
       mutationobserver-shim: 0.3.7
       node-emoji: 1.11.0
       omit.js: 1.0.2
@@ -24988,7 +25878,7 @@ snapshots:
       inquirer: 6.5.2
       lodash: 4.17.21
       lz-string: 1.5.0
-      ms: 2.0.0
+      ms: 2.1.3
       open: 6.4.0
       ora: 1.4.0
       pacote: 2.7.38
@@ -25213,13 +26103,14 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       underscore: 1.13.7
 
-  consolidate@0.16.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7):
+  consolidate@0.16.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7):
     dependencies:
       bluebird: 3.7.2
     optionalDependencies:
       ejs: 3.1.10
       handlebars: 4.7.8
       lodash: 4.17.21
+      mustache: 3.2.1
       pug: 3.0.3
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -25545,6 +26436,11 @@ snapshots:
       mdn-data: 2.0.14
       source-map: 0.6.1
 
+  css-tree@2.2.1:
+    dependencies:
+      mdn-data: 2.0.28
+      source-map-js: 1.2.1
+
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
@@ -25621,6 +26517,10 @@ snapshots:
   csso@4.2.0:
     dependencies:
       css-tree: 1.1.3
+
+  csso@5.0.5:
+    dependencies:
+      css-tree: 2.2.1
 
   cssom@0.3.8: {}
 
@@ -26122,6 +27022,10 @@ snapshots:
       debug: 4.4.3(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
+
+  devlop@1.1.0:
+    dependencies:
+      dequal: 2.0.3
 
   dhtmlx-gantt@7.0.4: {}
 
@@ -27489,6 +28393,8 @@ snapshots:
 
   github-slugger@1.5.0: {}
 
+  github-slugger@2.0.0: {}
+
   gl-matrix@3.4.4: {}
 
   gl-vec2@1.3.0: {}
@@ -27807,6 +28713,28 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  hast-util-from-dom@5.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      hastscript: 9.0.1
+      web-namespaces: 2.0.1
+
+  hast-util-from-html-isomorphic@2.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-from-dom: 5.0.1
+      hast-util-from-html: 2.0.3
+      unist-util-remove-position: 5.0.0
+
+  hast-util-from-html@2.0.3:
+    dependencies:
+      '@types/hast': 3.0.4
+      devlop: 1.1.0
+      hast-util-from-parse5: 8.0.3
+      parse5: 7.3.0
+      vfile: 6.0.3
+      vfile-message: 4.0.3
+
   hast-util-from-parse5@7.1.2:
     dependencies:
       '@types/hast': 2.3.10
@@ -27817,9 +28745,32 @@ snapshots:
       vfile-location: 4.1.0
       web-namespaces: 2.0.1
 
+  hast-util-from-parse5@8.0.3:
+    dependencies:
+      '@types/hast': 3.0.4
+      '@types/unist': 3.0.3
+      devlop: 1.1.0
+      hastscript: 9.0.1
+      property-information: 7.1.0
+      vfile: 6.0.3
+      vfile-location: 5.0.3
+      web-namespaces: 2.0.1
+
+  hast-util-heading-rank@3.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+
+  hast-util-is-element@3.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+
   hast-util-parse-selector@3.1.1:
     dependencies:
       '@types/hast': 2.3.10
+
+  hast-util-parse-selector@4.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
 
   hast-util-raw@7.2.3:
     dependencies:
@@ -27862,6 +28813,10 @@ snapshots:
       web-namespaces: 2.0.1
       zwitch: 2.0.4
 
+  hast-util-to-string@3.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+
   hast-util-whitespace@2.0.1: {}
 
   hastscript@7.2.0:
@@ -27870,6 +28825,14 @@ snapshots:
       comma-separated-tokens: 2.0.3
       hast-util-parse-selector: 3.1.1
       property-information: 6.5.0
+      space-separated-tokens: 2.0.2
+
+  hastscript@9.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      comma-separated-tokens: 2.0.3
+      hast-util-parse-selector: 4.0.0
+      property-information: 7.1.0
       space-separated-tokens: 2.0.2
 
   he@1.1.1: {}
@@ -28130,7 +29093,7 @@ snapshots:
 
   humanize-ms@1.2.1:
     dependencies:
-      ms: 2.0.0
+      ms: 2.1.3
 
   humanize-url@1.0.1:
     dependencies:
@@ -29041,6 +30004,17 @@ snapshots:
       dompurify: 3.3.0
       html2canvas: 1.4.1
 
+  jspdf@3.0.4:
+    dependencies:
+      '@babel/runtime': 7.28.4
+      fast-png: 6.4.0
+      fflate: 0.8.2
+    optionalDependencies:
+      canvg: 3.0.11
+      core-js: 3.46.0
+      dompurify: 3.3.0
+      html2canvas: 1.4.1
+
   jsprim@1.4.2:
     dependencies:
       assert-plus: 1.0.0
@@ -29789,6 +30763,8 @@ snapshots:
 
   mdn-data@2.0.14: {}
 
+  mdn-data@2.0.28: {}
+
   mdn-data@2.0.30: {}
 
   mdn-data@2.0.4: {}
@@ -30323,6 +31299,8 @@ snapshots:
 
   moment@2.29.4: {}
 
+  moment@2.30.1: {}
+
   monaco-editor@0.52.2: {}
 
   moo-color@1.0.3:
@@ -30760,6 +31738,8 @@ snapshots:
     dependencies:
       countup.js: 2.8.0
 
+  oh-vue-icons@0.4.7: {}
+
   ometa@0.2.2: {}
 
   omggif@1.0.10: {}
@@ -31168,6 +32148,8 @@ snapshots:
   pend@1.2.0: {}
 
   performance-now@2.1.0: {}
+
+  photoswipe@5.4.3: {}
 
   picocolors@0.2.1: {}
 
@@ -31840,6 +32822,8 @@ snapshots:
 
   property-information@6.5.0: {}
 
+  property-information@7.1.0: {}
+
   proto-list@1.2.4: {}
 
   protoduck@4.0.0:
@@ -32278,6 +33262,15 @@ snapshots:
 
   regl@1.7.0: {}
 
+  rehype-autolink-headings@7.1.0:
+    dependencies:
+      '@types/hast': 3.0.4
+      '@ungap/structured-clone': 1.3.0
+      hast-util-heading-rank: 3.0.0
+      hast-util-is-element: 3.0.0
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
+
   rehype-raw@6.1.1:
     dependencies:
       '@types/hast': 2.3.10
@@ -32289,6 +33282,14 @@ snapshots:
       '@types/hast': 2.3.10
       hast-util-sanitize: 4.1.0
       unified: 10.1.2
+
+  rehype-slug@6.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+      github-slugger: 2.0.0
+      hast-util-heading-rank: 3.0.0
+      hast-util-to-string: 3.0.1
+      unist-util-visit: 5.0.0
 
   rehype-stringify@9.0.4:
     dependencies:
@@ -32706,6 +33707,14 @@ snapshots:
       sass-embedded-win32-x64: 1.93.2
 
   sass@1.93.2:
+    dependencies:
+      chokidar: 4.0.3
+      immutable: 5.1.4
+      source-map-js: 1.2.1
+    optionalDependencies:
+      '@parcel/watcher': 2.5.1
+
+  sass@1.97.2:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.4
@@ -33556,6 +34565,16 @@ snapshots:
       unquote: 1.1.1
       util.promisify: 1.0.1
 
+  svgo@3.3.2:
+    dependencies:
+      '@trysound/sax': 0.2.0
+      commander: 7.2.0
+      css-select: 5.2.2
+      css-tree: 2.3.1
+      css-what: 6.2.2
+      csso: 5.0.5
+      picocolors: 1.1.1
+
   svgpath@2.6.0: {}
 
   swap-case@1.1.2:
@@ -33817,6 +34836,8 @@ snapshots:
       regex-not: 1.0.2
       safe-regex: 1.1.0
 
+  toc-helper@2.1.1: {}
+
   tocbot@4.36.4: {}
 
   toidentifier@1.0.1: {}
@@ -34070,6 +35091,16 @@ snapshots:
       trough: 2.2.0
       vfile: 5.3.7
 
+  unified@11.0.5:
+    dependencies:
+      '@types/unist': 3.0.3
+      bail: 2.0.2
+      devlop: 1.1.0
+      extend: 3.0.2
+      is-plain-obj: 4.1.0
+      trough: 2.2.0
+      vfile: 6.0.3
+
   union-value@1.0.1:
     dependencies:
       arr-union: 3.1.0
@@ -34113,13 +35144,26 @@ snapshots:
     dependencies:
       '@types/unist': 2.0.11
 
+  unist-util-is@6.0.1:
+    dependencies:
+      '@types/unist': 3.0.3
+
   unist-util-position@4.0.4:
     dependencies:
       '@types/unist': 2.0.11
 
+  unist-util-remove-position@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-visit: 5.0.0
+
   unist-util-stringify-position@3.0.3:
     dependencies:
       '@types/unist': 2.0.11
+
+  unist-util-stringify-position@4.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
 
   unist-util-visit-parents@3.1.1:
     dependencies:
@@ -34130,6 +35174,11 @@ snapshots:
     dependencies:
       '@types/unist': 2.0.11
       unist-util-is: 5.2.1
+
+  unist-util-visit-parents@6.0.2:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
 
   unist-util-visit@2.0.3:
     dependencies:
@@ -34142,6 +35191,12 @@ snapshots:
       '@types/unist': 2.0.11
       unist-util-is: 5.2.1
       unist-util-visit-parents: 5.1.3
+
+  unist-util-visit@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+      unist-util-visit-parents: 6.0.2
 
   universalify@0.1.2: {}
 
@@ -34346,6 +35401,8 @@ snapshots:
     dependencies:
       base64-arraybuffer: 1.0.2
 
+  uuid@13.0.0: {}
+
   uuid@3.4.0: {}
 
   uuid@7.0.3: {}
@@ -34360,6 +35417,8 @@ snapshots:
       diff: 5.2.0
       kleur: 4.1.5
       sade: 1.8.1
+
+  v-runtime-template@1.10.0: {}
 
   v-viewer@1.7.4(viewerjs@1.11.7)(vue@2.7.16):
     dependencies:
@@ -34422,10 +35481,20 @@ snapshots:
       '@types/unist': 2.0.11
       vfile: 5.3.7
 
+  vfile-location@5.0.3:
+    dependencies:
+      '@types/unist': 3.0.3
+      vfile: 6.0.3
+
   vfile-message@3.1.4:
     dependencies:
       '@types/unist': 2.0.11
       unist-util-stringify-position: 3.0.3
+
+  vfile-message@4.0.3:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-stringify-position: 4.0.0
 
   vfile@5.3.7:
     dependencies:
@@ -34433,6 +35502,11 @@ snapshots:
       is-buffer: 2.0.5
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
+
+  vfile@6.0.3:
+    dependencies:
+      '@types/unist': 3.0.3
+      vfile-message: 4.0.3
 
   video.js@7.21.7:
     dependencies:
@@ -34498,6 +35572,24 @@ snapshots:
       - supports-color
       - terser
 
+  vite-node@1.6.1(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0):
+    dependencies:
+      cac: 6.7.14
+      debug: 4.4.3(supports-color@6.1.0)
+      pathe: 1.1.2
+      picocolors: 1.1.1
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+
   vite-plugin-antdv-fix@1.0.3: {}
 
   vite-plugin-dynamic-import@1.6.0:
@@ -34506,6 +35598,66 @@ snapshots:
       es-module-lexer: 1.7.0
       fast-glob: 3.3.3
       magic-string: 0.30.19
+
+  vite-plugin-vue2-svg@0.4.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)(vue-template-compiler@2.7.16):
+    dependencies:
+      '@vue/component-compiler-utils': 3.3.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(underscore@1.13.7)
+      svgo: 3.3.2
+      vue-template-compiler: 2.7.16
+    transitivePeerDependencies:
+      - arc-templates
+      - atpl
+      - babel-core
+      - bracket-template
+      - coffee-script
+      - dot
+      - dust
+      - dustjs-helpers
+      - dustjs-linkedin
+      - eco
+      - ect
+      - ejs
+      - haml-coffee
+      - hamlet
+      - hamljs
+      - handlebars
+      - hogan.js
+      - htmling
+      - jade
+      - jazz
+      - jqtpl
+      - just
+      - liquid-node
+      - liquor
+      - lodash
+      - marko
+      - mote
+      - mustache
+      - nunjucks
+      - plates
+      - pug
+      - qejs
+      - ractive
+      - razor-tmpl
+      - react
+      - react-dom
+      - slm
+      - squirrelly
+      - swig
+      - swig-templates
+      - teacup
+      - templayed
+      - then-jade
+      - then-pug
+      - tinyliquid
+      - toffee
+      - twig
+      - twing
+      - underscore
+      - vash
+      - velocityjs
+      - walrus
+      - whiskers
 
   vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0):
     dependencies:
@@ -34520,10 +35672,28 @@ snapshots:
       sass-embedded: 1.93.2
       terser: 5.44.0
 
+  vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0):
+    dependencies:
+      esbuild: 0.21.5
+      postcss: 8.5.6
+      rollup: 4.52.5
+    optionalDependencies:
+      '@types/node': 24.9.1
+      fsevents: 2.3.3
+      less: 4.1.3
+      sass: 1.97.2
+      sass-embedded: 1.93.2
+      terser: 5.44.0
+
   vitest-canvas-mock@0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)):
     dependencies:
       jest-canvas-mock: 2.5.2
       vitest: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+
+  vitest-canvas-mock@0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)):
+    dependencies:
+      jest-canvas-mock: 2.5.2
+      vitest: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
 
   vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0):
     dependencies:
@@ -34546,6 +35716,41 @@ snapshots:
       tinypool: 0.8.4
       vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
       vite-node: 1.6.1(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)
+      why-is-node-running: 2.3.0
+    optionalDependencies:
+      '@types/node': 24.9.1
+      jsdom: 23.2.0(canvas@2.11.2(encoding@0.1.13))
+    transitivePeerDependencies:
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+
+  vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0):
+    dependencies:
+      '@vitest/expect': 1.6.1
+      '@vitest/runner': 1.6.1
+      '@vitest/snapshot': 1.6.1
+      '@vitest/spy': 1.6.1
+      '@vitest/utils': 1.6.1
+      acorn-walk: 8.3.4
+      chai: 4.5.0
+      debug: 4.4.3(supports-color@6.1.0)
+      execa: 8.0.1
+      local-pkg: 0.5.1
+      magic-string: 0.30.19
+      pathe: 1.1.2
+      picocolors: 1.1.1
+      std-env: 3.10.0
+      strip-literal: 2.1.1
+      tinybench: 2.9.0
+      tinypool: 0.8.4
+      vite: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vite-node: 1.6.1(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.9.1
@@ -35102,6 +36307,10 @@ snapshots:
       ts-map: 1.0.3
       vue: 2.7.16
       vue-inbrowser-compiler-independent-utils: 4.71.1(vue@2.7.16)
+
+  vue-draggable-plus@0.6.0(@types/sortablejs@1.15.9):
+    dependencies:
+      '@types/sortablejs': 1.15.9
 
   vue-github-badge@1.0.1: {}
 
