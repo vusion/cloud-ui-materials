@@ -7,7 +7,12 @@ import printJS from 'print-js';
  * 特性：
  * 1. <div class="print-view-split-line print-view-split-landscape"></div>
  * -> 仅让紧随其后的这一个 content-wrapper 横向打印。
- * 2. 该块结束后，自动恢复竖向打印。
+ * 2. 该块结束后，自动恢复到「默认打印方向」。
+ *
+ * 默认打印方向兼容参数：
+ * - param.defaultOrientation: 'p' | 'l' （p=竖向 portrait，l=横向 landscape）
+ * - 兼容老版本 param.direction: 'v' | 'h' （v=竖向，h=横向）
+ *   - 若同时传入，以 param.defaultOrientation 优先。
  */
 export default class Html2Pdf {
   constructor(element, param = {}) {
@@ -36,6 +41,13 @@ export default class Html2Pdf {
 
     this.header = param.header;
     this.footer = param.footer;
+
+    // 默认打印方向：
+    // - 新参数：defaultOrientation: 'p' | 'l'
+    // - 兼容旧参数：direction: 'v' | 'h'
+    const legacyDirection = param.direction; // 'v' | 'h'
+    const mappedFromLegacy = legacyDirection === 'h' ? 'l' : legacyDirection === 'v' ? 'p' : undefined;
+    this.defaultOrientation = param.defaultOrientation || mappedFromLegacy || 'p'; // 默认竖向
 
     // 类名定义
     this.itemClass = 'print-view-split'; // 内容块 (大表格/卡片)
@@ -74,8 +86,8 @@ export default class Html2Pdf {
   }
 
   async print() {
-    // 默认起始方向
-    const startOrientation = 'p';
+    // 默认起始方向（支持通过参数配置）
+    const startOrientation = this.defaultOrientation || 'p';
 
     const pdf = new jsPDF({
       unit: 'pt',
@@ -122,11 +134,11 @@ export default class Html2Pdf {
     const pdfContentTotalHeight = this.element.scrollHeight * this.rate;
 
     // 6. === 核心：遍历节点计算分页 ===
-    // 初始第一页
-    this.pagesInfo = [{ y: 0, orientation: 'p' }];
+    // 初始第一页（遵循默认打印方向）
+    this.pagesInfo = [{ y: 0, orientation: startOrientation }];
 
     // 记录由于“单次横向”逻辑，当前期望的下一个块的方向
-    this.nextBlockOrientation = 'p';
+    this.nextBlockOrientation = startOrientation;
 
     // 预计算有效内容高度
     // 基础高度（不含表头）：用于第一页和手动分页
@@ -264,10 +276,11 @@ export default class Html2Pdf {
           this.addPagePoint(top, 'l', true);
         } else {
           // 普通分页线（包括表头分页线）：
-          // 1. 恢复默认竖向 (或者保持现状？根据需求，默认恢复竖向比较安全)
-          this.nextBlockOrientation = 'p';
+          // 1. 恢复默认方向（兼容：默认可能是竖向 'p' 或横向 'l'）
+          const backTo = this.defaultOrientation || 'p';
+          this.nextBlockOrientation = backTo;
           // 手动分页不显示表头
-          this.addPagePoint(top, 'p', true);
+          this.addPagePoint(top, backTo, true);
         }
         continue;
       }
@@ -280,9 +293,9 @@ export default class Html2Pdf {
         // 计算表格/卡片位置
         this.updateTablePos(rateOffsetHeight, top, targetOrientation);
 
-        // 【关键点】: 如果当前是横向，消费完这个 item 后，立即恢复竖向
+        // 【关键点】: 如果当前是横向，消费完这个 item 后，立即恢复到「默认打印方向」
         if (targetOrientation === 'l') {
-          this.nextBlockOrientation = 'p';
+          this.nextBlockOrientation = this.defaultOrientation || 'p';
           // 此时我们不一定非要立刻加分页点。
           // 只有当下一个元素是竖向且当前页剩下的空间不够，或者方向不同时，updateNormalElPos 会自动处理
         }
