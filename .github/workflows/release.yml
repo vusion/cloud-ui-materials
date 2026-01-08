@@ -213,7 +213,7 @@ jobs:
         run: |
           node scripts/ci/upload-packages.mjs
         env:
-          UPLOAD_API_URL: ${{ vars.UPLOAD_API_URL }}
+          BASE_URL: ${{ vars.UPLOAD_API_URL }}
 
       - name: Generate Diff Description and Update Documentation
         if: steps['check-build-results'].outputs.success_count > 0

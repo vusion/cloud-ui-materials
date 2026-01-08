@@ -15,15 +15,7 @@ const repoRoot = path.resolve(__dirname, "../../");
  * 上传依赖信息到 /rest/uploadDependency 接口
  */
 async function uploadDependency(packageInfo, fileUrl) {
-  const uploadUrl = process.env.UPLOAD_API_URL;
-  if (!uploadUrl) {
-    console.log("ℹ️  未配置 UPLOAD_API_URL，跳过依赖上传");
-    return { skipped: true };
-  }
-
-  // 构建 uploadDependency 接口 URL
-  const urlObj = new URL(uploadUrl);
-  const dependencyUrl = `${urlObj.origin}/rest/uploadDependency`;
+  const dependencyUrl = `${process.env.BASE_URL}/rest/uploadDependency`;
 
   const uploadToken = process.env.UPLOAD_API_TOKEN;
   const domainName = process.env.UPLOAD_DOMAIN_NAME;
@@ -119,7 +111,7 @@ async function uploadDependency(packageInfo, fileUrl) {
  * 上传 zip 文件到指定接口
  */
 async function uploadZipFile(zipFilePath, metadata) {
-  const uploadUrl = process.env.UPLOAD_API_URL;
+  const uploadUrl = process.env.BASE_URL + "/upload";
   const uploadToken = process.env.UPLOAD_API_TOKEN;
   const uploadMethod = process.env.UPLOAD_METHOD || "POST";
   const domainName = process.env.UPLOAD_DOMAIN_NAME;
