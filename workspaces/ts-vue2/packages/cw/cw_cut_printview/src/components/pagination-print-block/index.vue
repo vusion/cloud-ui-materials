@@ -1,9 +1,10 @@
 <template>
-  <div :class="[$style.printView, (hideOnScreen && !$env.VUE_APP_DESIGNER) ? $style.printViewHidden : '']" ref="printBlock" :style="{
-    width: viewWidth,
-    'min-height': '10px',
-    padding: yBorder + 'pt ' + xBorder + 'pt'
-  }">
+  <div :class="[$style.printView, (hideOnScreen && !$env.VUE_APP_DESIGNER) ? $style.printViewHidden : '']"
+    ref="printBlock" :style="{
+      width: viewWidth,
+      'min-height': '10px',
+      padding: yBorder + 'pt ' + xBorder + 'pt'
+    }">
     <div :class="$style.printRoom" vusion-slot-name="default" ref="printContent" s-empty="true">
       <slot></slot>
     </div>
@@ -97,6 +98,10 @@ export default {
       type: Boolean,
       default: false
     },
+    printDirection: {
+      type: String,
+      default: 'vertical'
+    },
   },
   computed: {
     viewWidth() {
@@ -113,8 +118,15 @@ export default {
       printObj.print();
     },
     generatePrintParams() {
+      // 映射 printDirection ('vertical'/'horizontal') 到 defaultOrientation ('p'/'l')
+      const orientationMap = {
+        'vertical': 'p',
+        'horizontal': 'l'
+      };
+      const defaultOrientation = orientationMap[this.printDirection] || 'p';
+
       const params = {
-        direction: this.pageDirection,
+        defaultOrientation: defaultOrientation,
         format: this.pageFormat,
         pagerWidth: mmToPt(this.pageWidth, DEFAULT_DPI),
         pagerHeight: mmToPt(this.pageHeight, DEFAULT_DPI),

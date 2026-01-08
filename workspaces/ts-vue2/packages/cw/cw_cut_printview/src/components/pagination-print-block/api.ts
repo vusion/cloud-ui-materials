@@ -80,6 +80,16 @@ namespace extensions.cw_cut_printview.viewComponents {
     })
     hideOnScreen: boolean = false;
 
+    @Prop({
+      title: '默认打印方向',
+      description: '默认打印方向',
+      setter: {
+        concept: 'EnumSelectSetter',
+        options: [{ title: '纵向' }, { title: '横向' }],
+      },
+    })
+    printDirection: 'vertical' | 'horizontal' = 'vertical';
+
     @Slot({
       title: '打印内容',
       description: '打印内容'
