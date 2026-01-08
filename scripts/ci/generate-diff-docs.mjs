@@ -8,8 +8,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '../../');
 
 const buildResultsPath = path.join(repoRoot, 'build_results.json');
+
+// 检查 build_results.json 是否存在
+if (!fs.existsSync(buildResultsPath)) {
+  console.error('❌ 构建结果文件不存在: build_results.json');
+  console.log('💡 请先运行构建脚本');
+  process.exit(1);
+}
+
 const buildResults = JSON.parse(fs.readFileSync(buildResultsPath, 'utf8'));
 const successfulBuilds = buildResults.filter(r => r.status === 'success');
+
+if (successfulBuilds.length === 0) {
+  console.log('ℹ️  没有成功构建的包，跳过生成 diff 描述');
+  process.exit(0);
+}
 
 let diffDescription = '## 📝 本次变更说明\n\n';
 

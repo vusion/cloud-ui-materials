@@ -10,169 +10,6 @@ const repoRoot = path.resolve(__dirname, "../../");
 const batchItemsPath = path.join(repoRoot, "batch_items.json");
 const items = JSON.parse(fs.readFileSync(batchItemsPath, "utf8"));
 
-/**
- * 上传 zip 文件到指定接口
- * @param {string} zipFilePath - zip 文件路径
- * @param {object} metadata - 包的元数据信息
- * @returns {Promise<object>} 上传结果
- */
-async function uploadZipFile(zipFilePath, metadata) {
-  const uploadUrl = process.env.UPLOAD_API_URL;
-  const uploadToken = process.env.UPLOAD_API_TOKEN;
-  const uploadMethod = process.env.UPLOAD_METHOD || "POST";
-  const domainName = process.env.UPLOAD_DOMAIN_NAME; // DomainName 请求头
-  const lcapIsCompress = process.env.UPLOAD_LCAP_IS_COMPRESS || "undefined"; // lcapIsCompress 字段
-  const viaOriginURL = process.env.UPLOAD_VIA_ORIGIN_URL || "undefined"; // viaOriginURL 字段
-
-  // 如果未配置上传接口，跳过上传
-  if (!uploadUrl) {
-    console.log("ℹ️  未配置 UPLOAD_API_URL，跳过文件上传");
-    return { skipped: true };
-  }
-
-  if (!fs.existsSync(zipFilePath)) {
-    throw new Error(`zip 文件不存在: ${zipFilePath}`);
-  }
-
-  console.log(`📤 开始上传 ${path.basename(zipFilePath)} 到 ${uploadUrl}...`);
-
-  try {
-    // 动态导入 form-data
-    let FormData;
-    try {
-      const formDataModule = await import("form-data");
-      FormData =
-        formDataModule.default || formDataModule.FormData || formDataModule;
-    } catch (e) {
-      // 如果 form-data 不可用，尝试使用原生 FormData（Node.js 18+）
-      if (typeof globalThis.FormData !== "undefined") {
-        FormData = globalThis.FormData;
-      } else {
-        throw new Error(
-          "FormData 不可用，请安装 form-data 包: pnpm add -D form-data"
-        );
-      }
-    }
-
-    const formData = new FormData();
-    const fileStream = fs.createReadStream(zipFilePath);
-    const fileName = path.basename(zipFilePath);
-
-    // 添加文件
-    formData.append("file", fileStream, fileName);
-
-    // 添加 LCAP 特定字段（根据 curl 示例）
-    formData.append("lcapIsCompress", lcapIsCompress);
-    formData.append("viaOriginURL", viaOriginURL);
-
-    // 添加元数据（可选）
-    if (metadata) {
-      formData.append("packageName", metadata.name || "");
-      formData.append("version", metadata.version || "");
-      formData.append("relDir", metadata.relDir || "");
-    }
-
-    // 构建请求头
-    const headers = {};
-
-    // form-data 包有 getHeaders() 方法，原生 FormData 没有
-    if (typeof formData.getHeaders === "function") {
-      Object.assign(headers, formData.getHeaders());
-    }
-
-    // 添加 DomainName 请求头（根据 curl 示例）
-    if (domainName) {
-      headers["DomainName"] = domainName;
-    }
-
-    // 添加认证 token（如果提供）
-    if (uploadToken) {
-      // 如果 token 为空字符串或 "undefined"，不添加 Authorization
-      if (uploadToken && uploadToken !== "undefined") {
-        headers["Authorization"] = `Bearer ${uploadToken}`;
-        // 也支持其他认证方式
-        if (uploadToken.startsWith("Token ")) {
-          headers["Authorization"] = uploadToken;
-        } else if (uploadToken.includes(":")) {
-          // Basic Auth
-          const [username, password] = uploadToken.split(":");
-          const basicAuth = Buffer.from(`${username}:${password}`).toString(
-            "base64"
-          );
-          headers["Authorization"] = `Basic ${basicAuth}`;
-        }
-      }
-    }
-
-    // 支持自定义请求头
-    if (process.env.UPLOAD_HEADERS) {
-      try {
-        const customHeaders = JSON.parse(process.env.UPLOAD_HEADERS);
-        Object.assign(headers, customHeaders);
-      } catch (e) {
-        console.warn("⚠️  UPLOAD_HEADERS 格式错误，忽略自定义请求头");
-      }
-    }
-
-    // 发送请求
-    const response = await fetch(uploadUrl, {
-      method: uploadMethod,
-      headers: headers,
-      body: formData,
-    });
-
-    const responseText = await response.text();
-    let responseData;
-    try {
-      responseData = JSON.parse(responseText);
-    } catch {
-      responseData = { raw: responseText };
-    }
-
-    if (!response.ok) {
-      throw new Error(
-        `上传失败 (${response.status}): ${JSON.stringify(responseData)}`
-      );
-    }
-
-    // 解析上传后的链接
-    let uploadResultUrl = null;
-    if (responseData && responseData.result) {
-      uploadResultUrl = responseData.result;
-    } else if (responseData && responseData.filePath) {
-      // 如果没有 result，尝试从 filePath 构建完整 URL
-      const urlObj = new URL(uploadUrl);
-      uploadResultUrl = `${urlObj.origin}${responseData.filePath}`;
-    }
-
-    console.log(`✅ 上传成功: ${fileName}`);
-    if (uploadResultUrl) {
-      console.log(`🔗 上传链接: ${uploadResultUrl}`);
-    } else {
-      console.log(`📋 响应数据: ${JSON.stringify(responseData)}`);
-    }
-
-    return {
-      success: true,
-      url: uploadUrl,
-      fileName: fileName,
-      uploadResultUrl: uploadResultUrl, // 上传后的文件链接
-      response: responseData,
-    };
-  } catch (error) {
-    console.error(`❌ 上传失败: ${error.message}`);
-    // 如果配置了失败时继续，则只记录错误不抛出
-    if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
-      console.warn("⚠️  上传失败但继续执行（UPLOAD_FAIL_CONTINUE=true）");
-      return {
-        success: false,
-        error: error.message,
-      };
-    }
-    throw error;
-  }
-}
-
 let summary = "";
 const buildResults = [];
 let successCount = 0;
@@ -394,44 +231,8 @@ for (const pkg of items) {
       ).toFixed(2)} KB) -> ${finalZipPath}`
     );
 
-    // 上传 zip 文件到指定接口
-    let uploadResult = null;
-    let uploadResultUrl = null;
-    try {
-      uploadResult = await uploadZipFile(finalZipPath, {
-        name: pkg.name,
-        version: version,
-        relDir: pkg.relDir,
-        zipName: zipFile.name,
-        zipSize: zipFile.size,
-      });
-      // 提取上传后的链接
-      if (
-        uploadResult &&
-        uploadResult.success &&
-        uploadResult.uploadResultUrl
-      ) {
-        uploadResultUrl = uploadResult.uploadResultUrl;
-      }
-    } catch (uploadErr) {
-      // 上传失败的处理
-      const uploadErrorMsg = uploadErr.message || String(uploadErr);
-      console.error(`❌ ${pkg.name} 上传失败: ${uploadErrorMsg}`);
-
-      // 如果配置了上传失败时继续，则只记录错误
-      if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
-        console.warn(
-          `⚠️  上传失败但继续处理其他包（UPLOAD_FAIL_CONTINUE=true）`
-        );
-      } else {
-        // 默认情况下，上传失败不影响构建结果，但会记录
-        console.warn(`⚠️  上传失败，但构建成功，继续处理其他包`);
-      }
-      uploadResult = {
-        success: false,
-        error: uploadErrorMsg,
-      };
-    }
+    // 上传逻辑已移至独立的 upload-packages.mjs 脚本
+    // 在构建阶段只记录 zip 文件信息，上传将在 Check Build Results 之后执行
 
     // 生成 Artifacts 链接（如果是在 CI 环境中）
     const artifactUrl = process.env.GITHUB_RUN_ID
@@ -451,14 +252,10 @@ for (const pkg of items) {
       zipSize: zipFile.size,
       artifactUrl: artifactUrl,
       downloadUrl: artifactUrl ? `${artifactUrl}#artifacts` : null,
-      uploadResult: uploadResult,
-      uploadResultUrl: uploadResultUrl, // 上传后的文件链接
+      // uploadResult 和 uploadResultUrl 将在 upload-packages.mjs 中填充
     });
 
     summary += `- ✅ ${pkg.name} (v${version}) - ${zipFile.name}`;
-    if (uploadResultUrl) {
-      summary += ` [上传链接](${uploadResultUrl})`;
-    }
     if (artifactUrl) {
       summary += ` [下载](${artifactUrl}#artifacts)`;
     }
