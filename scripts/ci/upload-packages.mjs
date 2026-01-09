@@ -29,11 +29,25 @@ async function uploadDependency(packageInfo, fileUrl) {
   console.log(`📤 开始上传依赖信息到 ${dependencyUrl}...`);
 
   try {
+    // 确保 fileUrl 是字符串类型
+    let fileUrlString = "";
+    if (fileUrl) {
+      if (Array.isArray(fileUrl)) {
+        // 如果是数组，取第一个元素
+        fileUrlString = fileUrl[0] || "";
+      } else if (typeof fileUrl === "string") {
+        fileUrlString = fileUrl;
+      } else {
+        // 其他类型转换为字符串
+        fileUrlString = String(fileUrl);
+      }
+    }
+
     const requestBody = {
       name: packageInfo.name || "",
       description: packageInfo.title || packageInfo.description || "",
       version: packageInfo.version || "",
-      fileUrl: fileUrl,
+      fileUrl: fileUrlString,
       category: "frontend",
     };
 
@@ -240,17 +254,35 @@ async function uploadZipFile(zipFilePath, metadata) {
     // 解析上传后的链接
     let uploadResultUrl = null;
     if (responseData && responseData.result) {
-      uploadResultUrl = responseData.result;
+      // 处理 result 可能是数组或字符串的情况
+      if (Array.isArray(responseData.result)) {
+        // 如果是数组，取第一个元素
+        uploadResultUrl = responseData.result[0] || null;
+      } else if (typeof responseData.result === "string") {
+        uploadResultUrl = responseData.result;
+      } else {
+        // 如果是对象或其他类型，尝试转换为字符串
+        uploadResultUrl = String(responseData.result);
+      }
     } else if (responseData && responseData.filePath) {
       const urlObj = new URL(uploadUrl);
       uploadResultUrl = `${urlObj.origin}${responseData.filePath}`;
+    } else if (responseData && responseData.url) {
+      // 支持 url 字段
+      uploadResultUrl =
+        typeof responseData.url === "string"
+          ? responseData.url
+          : String(responseData.url);
     }
 
     console.log(`✅ 上传成功: ${fileName}`);
     if (uploadResultUrl) {
-      console.log(`🔗 上传链接: ${uploadResultUrl}`);
+      console.log(
+        `🔗 上传链接: ${uploadResultUrl} (类型: ${typeof uploadResultUrl})`
+      );
     } else {
       console.log(`📋 响应数据: ${JSON.stringify(responseData)}`);
+      console.log(`⚠️  未从响应中解析到文件 URL，请检查响应数据结构`);
     }
 
     return {
@@ -334,37 +366,69 @@ async function main() {
 
         // 如果上传成功且有返回的 URL，调用 uploadDependency 接口
         if (uploadResult.uploadResultUrl) {
-          try {
-            // 读取 package.json 获取依赖信息
-            const pkgJsonPath = path.join(result.dir, "package.json");
-            if (fs.existsSync(pkgJsonPath)) {
-              const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf8"));
-              const dependencyResult = await uploadDependency(
-                pkgJson,
+          // 验证 uploadResultUrl 是有效的字符串
+          let validFileUrl = null;
+          if (
+            typeof uploadResult.uploadResultUrl === "string" &&
+            uploadResult.uploadResultUrl.trim() !== ""
+          ) {
+            validFileUrl = uploadResult.uploadResultUrl;
+          } else if (
+            Array.isArray(uploadResult.uploadResultUrl) &&
+            uploadResult.uploadResultUrl.length > 0
+          ) {
+            // 如果是数组，取第一个元素
+            validFileUrl = String(uploadResult.uploadResultUrl[0]);
+            console.warn(
+              `⚠️  ${result.name}: uploadResultUrl 是数组，使用第一个元素: ${validFileUrl}`
+            );
+          } else {
+            console.warn(
+              `⚠️  ${result.name}: uploadResultUrl 格式无效: ${JSON.stringify(
                 uploadResult.uploadResultUrl
-              );
-              if (dependencyResult && dependencyResult.success) {
-                result.dependencyUploadResult = dependencyResult;
-                console.log(`✅ ${result.name}: 依赖信息上传成功`);
-              } else if (dependencyResult && dependencyResult.skipped) {
-                console.log(
-                  `ℹ️  ${result.name}: 跳过依赖上传（未配置 UPLOAD_API_URL）`
+              )}`
+            );
+          }
+
+          if (validFileUrl) {
+            try {
+              // 读取 package.json 获取依赖信息
+              const pkgJsonPath = path.join(result.dir, "package.json");
+              if (fs.existsSync(pkgJsonPath)) {
+                const pkgJson = JSON.parse(
+                  fs.readFileSync(pkgJsonPath, "utf8")
                 );
+                const dependencyResult = await uploadDependency(
+                  pkgJson,
+                  validFileUrl
+                );
+                if (dependencyResult && dependencyResult.success) {
+                  result.dependencyUploadResult = dependencyResult;
+                  console.log(`✅ ${result.name}: 依赖信息上传成功`);
+                } else if (dependencyResult && dependencyResult.skipped) {
+                  console.log(
+                    `ℹ️  ${result.name}: 跳过依赖上传（未配置 BASE_URL）`
+                  );
+                } else {
+                  console.warn(
+                    `⚠️  ${result.name}: 依赖上传失败，但不影响整体流程`
+                  );
+                }
               } else {
                 console.warn(
-                  `⚠️  ${result.name}: 依赖上传失败，但不影响整体流程`
+                  `⚠️  ${result.name}: package.json 不存在，跳过依赖上传: ${pkgJsonPath}`
                 );
               }
-            } else {
+            } catch (depError) {
               console.warn(
-                `⚠️  ${result.name}: package.json 不存在，跳过依赖上传: ${pkgJsonPath}`
+                `⚠️  ${result.name}: 依赖上传出错，但不影响整体流程: ${depError.message}`
               );
+              // 依赖上传失败不影响整体流程，继续处理
             }
-          } catch (depError) {
+          } else {
             console.warn(
-              `⚠️  ${result.name}: 依赖上传出错，但不影响整体流程: ${depError.message}`
+              `⚠️  ${result.name}: 上传成功但 fileUrl 无效，跳过依赖上传`
             );
-            // 依赖上传失败不影响整体流程，继续处理
           }
         } else {
           console.warn(
