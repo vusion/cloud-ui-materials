@@ -231,6 +231,9 @@ for (const pkg of items) {
       ).toFixed(2)} KB) -> ${finalZipPath}`
     );
 
+    // 上传逻辑已移至独立的 upload-packages.mjs 脚本
+    // 在构建阶段只记录 zip 文件信息，上传将在 Check Build Results 之后执行
+
     // 生成 Artifacts 链接（如果是在 CI 环境中）
     const artifactUrl = process.env.GITHUB_RUN_ID
       ? `${process.env.GITHUB_SERVER_URL || "https://github.com"}/${
@@ -249,6 +252,7 @@ for (const pkg of items) {
       zipSize: zipFile.size,
       artifactUrl: artifactUrl,
       downloadUrl: artifactUrl ? `${artifactUrl}#artifacts` : null,
+      // uploadResult 和 uploadResultUrl 将在 upload-packages.mjs 中填充
     });
 
     summary += `- ✅ ${pkg.name} (v${version}) - ${zipFile.name}`;
