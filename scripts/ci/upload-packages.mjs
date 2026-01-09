@@ -340,9 +340,12 @@ async function uploadZipFile(zipFilePath, metadata) {
 
     console.log(`✅ 上传成功: ${fileName}`);
     if (uploadResultUrl) {
-      console.log(`🔗 上传链接: ${uploadResultUrl}`);
+      console.log(
+        `🔗 上传链接: ${uploadResultUrl} (类型: ${typeof uploadResultUrl})`
+      );
     } else {
       console.log(`📋 响应数据: ${JSON.stringify(responseData)}`);
+      console.log(`⚠️  未从响应中解析到文件 URL，请检查响应数据结构`);
     }
 
     return {

@@ -30,7 +30,7 @@ export default defineConfig(({ command }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        'highlight.js': path.resolve(__dirname, '../../../node_modules/.pnpm/highlight.js@11.11.1/node_modules/highlight.js'),
+        'highlight.js': path.dirname(require.resolve('highlight.js/package.json')),
       },
     },
     define: {
