@@ -342,7 +342,7 @@
     "js": {
       "prefix": "extension"
     },
-    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"ide\":[]}"
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.json\":\"c8e05445424f65d8\",\"nasl.extension.d.ts\":\"39762ffc137e0398\",\"dist-theme/index.css\":\"8d1a4c72d46cf7ae\",\"dist-theme/index.js\":\"99ed106a1c3328cd\"}}"
   },
   "ideVersion": "3.8"
 }
