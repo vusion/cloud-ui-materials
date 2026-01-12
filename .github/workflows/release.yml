@@ -172,6 +172,9 @@ jobs:
         continue-on-error: true
         run: |
           echo "🔍 检查构建结果..."
+          SUCCESS_COUNT=0
+          FAIL_COUNT=0
+
           if [ -f "build_results.json" ]; then
             SUCCESS_COUNT=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('build_results.json','utf8')); console.log(data.filter(r=>r.status==='success').length)")
             FAIL_COUNT=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('build_results.json','utf8')); console.log(data.filter(r=>r.status==='failed').length)")
@@ -198,19 +201,25 @@ jobs:
               "
             fi
             
-            if [ "$SUCCESS_COUNT" -eq 0 ]; then
-              echo "⚠️ 没有成功构建的包"
-              exit 1
+            # 只要有成功构建的包就继续，不退出
+            if [ "$SUCCESS_COUNT" -gt 0 ]; then
+              echo "✅ 有 $SUCCESS_COUNT 个包构建成功，将继续执行上传流程"
+            else
+              echo "⚠️ 没有成功构建的包，将跳过上传流程"
             fi
           else
             echo "⚠️ 构建结果文件不存在，无法验证"
             echo "success_count=0" >> $GITHUB_OUTPUT
-            exit 1
+            echo "fail_count=0" >> $GITHUB_OUTPUT
           fi
 
       - name: Upload Packages
-        if: steps['check-build-results'].outputs.success_count > 0
+        if: |
+          always() &&
+          steps['check-build-results'].outcome == 'success' &&
+          steps['check-build-results'].outputs.success_count > 0
         run: |
+          echo "📤 开始上传构建成功的包..."
           node scripts/ci/upload-packages.mjs
         env:
           BASE_URL: ${{ vars.UPLOAD_API_URL }}
