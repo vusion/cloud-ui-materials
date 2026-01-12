@@ -148,12 +148,21 @@ async function uploadZipFile(zipFilePath, metadata) {
     return { skipped: true };
   }
 
-  const uploadUrl = `${baseUrl}/upload`;
+  // 1. 确保上传路径正确
+  const uploadUrl = `${baseUrl}/expand/base64/file_upload`;
+
+  // 2. 根据抓包成功的请求，修正默认值
+  // 成功请求传的是字符串 "false"，而不是 "undefined"
+  const lcapIsCompress = process.env.UPLOAD_LCAP_IS_COMPRESS || "false";
+  const viaOriginURL = process.env.UPLOAD_VIA_ORIGIN_URL || "false";
+
+  // 3. 补全关键 Header 的默认值
+  const domainName = process.env.UPLOAD_DOMAIN_NAME || "material";
+  const connectionGroup =
+    process.env.UPLOAD_CONNECTION_GROUP || "lcap_default_connection";
+
   const uploadToken = process.env.UPLOAD_API_TOKEN;
   const uploadMethod = process.env.UPLOAD_METHOD || "POST";
-  const domainName = process.env.UPLOAD_DOMAIN_NAME;
-  const lcapIsCompress = process.env.UPLOAD_LCAP_IS_COMPRESS || "undefined";
-  const viaOriginURL = process.env.UPLOAD_VIA_ORIGIN_URL || "undefined";
 
   if (!fs.existsSync(zipFilePath)) {
     throw new Error(`zip 文件不存在: ${zipFilePath}`);
@@ -162,51 +171,60 @@ async function uploadZipFile(zipFilePath, metadata) {
   console.log(`📤 开始上传 ${path.basename(zipFilePath)} 到 ${uploadUrl}...`);
 
   try {
-    // 动态导入 form-data
-    let FormData;
-    try {
-      const formDataModule = await import("form-data");
-      FormData =
-        formDataModule.default || formDataModule.FormData || formDataModule;
-    } catch (e) {
-      if (typeof globalThis.FormData !== "undefined") {
-        FormData = globalThis.FormData;
-      } else {
-        throw new Error(
-          "FormData 不可用，请安装 form-data 包: pnpm add -D form-data"
-        );
-      }
-    }
-
-    const formData = new FormData();
-    const fileStream = fs.createReadStream(zipFilePath);
     const fileName = path.basename(zipFilePath);
+    const fileStats = fs.statSync(zipFilePath);
 
-    // 添加文件
-    formData.append("file", fileStream, fileName);
-
-    // 添加 LCAP 特定字段
-    formData.append("lcapIsCompress", lcapIsCompress);
-    formData.append("viaOriginURL", viaOriginURL);
-
-    // 添加元数据
-    if (metadata) {
-      formData.append("packageName", metadata.name || "");
-      formData.append("version", metadata.version || "");
-      formData.append("relDir", metadata.relDir || "");
+    if (process.env.DEBUG_UPLOAD === "true") {
+      console.log(
+        `📦 文件信息: ${fileName}, 大小: ${(
+          fileStats.size /
+          1024 /
+          1024
+        ).toFixed(2)} MB`
+      );
     }
 
-    // 构建请求头
+    // ============================================================
+    // 关键修复：将文件转换为 base64 格式传递
+    // 服务器期望接收 JSON 格式：{"base64String":"","fileName":""}
+    // ============================================================
+
+    // 读取文件为 Buffer，然后转换为 base64
+    const fileBuffer = fs.readFileSync(zipFilePath);
+    const base64String = fileBuffer.toString("base64");
+
+    if (process.env.DEBUG_UPLOAD === "true") {
+      console.log(
+        `📦 Base64 编码后大小: ${(base64String.length / 1024 / 1024).toFixed(
+          2
+        )} MB`
+      );
+    }
+
+    // 构建请求体：JSON 格式，包含 base64String 和 fileName
+    const requestBody = {
+      base64String: base64String,
+      fileName: fileName,
+    };
+
+    // ============================================================
+    // 构建 Headers
+    // ============================================================
     const headers = {};
 
-    if (typeof formData.getHeaders === "function") {
-      Object.assign(headers, formData.getHeaders());
-    }
+    // 1. 设置 Content-Type 为 application/json
+    headers["Content-Type"] = "application/json";
 
-    if (domainName) {
-      headers["DomainName"] = domainName;
-    }
+    // 2. 添加抓包中出现的关键 Header (强制小写 key 以防万一)
+    headers["domainname"] = domainName;
+    headers["file-connection-group"] = connectionGroup; // 之前缺失的关键 Header
 
+    // 3. 模拟浏览器行为 Header
+    headers["accept"] = "*/*";
+    headers["cache-control"] = "no-cache";
+    headers["pragma"] = "no-cache";
+
+    // 4. 处理 Token
     if (uploadToken && uploadToken !== "undefined") {
       if (uploadToken.startsWith("Token ")) {
         headers["Authorization"] = uploadToken;
@@ -221,6 +239,7 @@ async function uploadZipFile(zipFilePath, metadata) {
       }
     }
 
+    // 5. 处理自定义 Header (如果有)
     if (process.env.UPLOAD_HEADERS) {
       try {
         const customHeaders = JSON.parse(process.env.UPLOAD_HEADERS);
@@ -234,7 +253,7 @@ async function uploadZipFile(zipFilePath, metadata) {
     const response = await fetch(uploadUrl, {
       method: uploadMethod,
       headers: headers,
-      body: formData,
+      body: JSON.stringify(requestBody), // JSON 格式：{"base64String":"","fileName":""}
     });
 
     const responseText = await response.text();
@@ -251,28 +270,72 @@ async function uploadZipFile(zipFilePath, metadata) {
       );
     }
 
-    // 解析上传后的链接
+    // 解析上传结果
+    // 响应格式：{"Code":200,"Message":"success","Data":{"result":"...","filePath":"...","success":true}}
     let uploadResultUrl = null;
-    if (responseData && responseData.result) {
-      // 处理 result 可能是数组或字符串的情况
+
+    // 1. 检查 Data 字段（新接口格式）
+    if (responseData && responseData.Data) {
+      const data = responseData.Data;
+      if (data.result && typeof data.result === "string") {
+        uploadResultUrl = data.result;
+        console.log(`🔗 从 Data.result 获取 URL: ${uploadResultUrl}`);
+      } else if (data.filePath && typeof data.filePath === "string") {
+        // 如果 filePath 是相对路径，需要拼接完整 URL
+        if (data.filePath.startsWith("http")) {
+          uploadResultUrl = data.filePath;
+        } else {
+          const urlObj = new URL(uploadUrl);
+          uploadResultUrl = `${urlObj.origin}${data.filePath}`;
+        }
+        console.log(`🔗 从 Data.filePath 获取 URL: ${uploadResultUrl}`);
+      }
+    }
+
+    // 2. 兼容旧格式：直接检查 result 字段
+    if (!uploadResultUrl && responseData && responseData.result) {
       if (Array.isArray(responseData.result)) {
-        // 如果是数组，取第一个元素
         uploadResultUrl = responseData.result[0] || null;
       } else if (typeof responseData.result === "string") {
         uploadResultUrl = responseData.result;
       } else {
-        // 如果是对象或其他类型，尝试转换为字符串
         uploadResultUrl = String(responseData.result);
       }
-    } else if (responseData && responseData.filePath) {
-      const urlObj = new URL(uploadUrl);
-      uploadResultUrl = `${urlObj.origin}${responseData.filePath}`;
-    } else if (responseData && responseData.url) {
-      // 支持 url 字段
+      if (uploadResultUrl) {
+        console.log(`🔗 从 result 字段获取 URL: ${uploadResultUrl}`);
+      }
+    }
+
+    // 3. 兼容旧格式：检查 filePath 字段
+    if (!uploadResultUrl && responseData && responseData.filePath) {
+      if (Array.isArray(responseData.filePath)) {
+        if (responseData.filePath.length > 0) {
+          const filePath = responseData.filePath[0];
+          const urlObj = new URL(uploadUrl);
+          uploadResultUrl = filePath.startsWith("http")
+            ? filePath
+            : `${urlObj.origin}${filePath}`;
+        }
+      } else if (typeof responseData.filePath === "string") {
+        const urlObj = new URL(uploadUrl);
+        uploadResultUrl = responseData.filePath.startsWith("http")
+          ? responseData.filePath
+          : `${urlObj.origin}${responseData.filePath}`;
+      }
+      if (uploadResultUrl) {
+        console.log(`🔗 从 filePath 字段获取 URL: ${uploadResultUrl}`);
+      }
+    }
+
+    // 4. 检查其他可能的字段
+    if (!uploadResultUrl && responseData && responseData.url) {
       uploadResultUrl =
         typeof responseData.url === "string"
           ? responseData.url
           : String(responseData.url);
+      if (uploadResultUrl) {
+        console.log(`🔗 从 url 字段获取 URL: ${uploadResultUrl}`);
+      }
     }
 
     console.log(`✅ 上传成功: ${fileName}`);
@@ -295,15 +358,14 @@ async function uploadZipFile(zipFilePath, metadata) {
   } catch (error) {
     console.error(`❌ 上传失败: ${error.message}`);
     console.error(`   目标 URL: ${uploadUrl}`);
+
+    // 错误检查逻辑
     if (
       error.message.includes("fetch failed") ||
       error.message.includes("ECONNREFUSED") ||
       error.message.includes("ENOTFOUND")
     ) {
-      console.error(`   💡 提示: 可能是网络连接问题，请检查：`);
-      console.error(`      - BASE_URL 是否正确配置: ${baseUrl || "未配置"}`);
-      console.error(`      - 服务器是否可访问`);
-      console.error(`      - 网络连接是否正常`);
+      console.error(`   💡 提示: 请检查网络或 VPN 连接，以及 BASE_URL 配置。`);
     }
     if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
       console.warn("⚠️  上传失败但继续执行（UPLOAD_FAIL_CONTINUE=true）");
