@@ -2,7 +2,7 @@
   "name": "cw_qrcode_library",
   "title": "扫一扫依赖库",
   "description": "",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./index.js",
   "author": "",
   "repository": "",
