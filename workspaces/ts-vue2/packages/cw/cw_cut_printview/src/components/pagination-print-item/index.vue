@@ -1,6 +1,7 @@
 <template>
   <div class='print-view-split-line' :class="[$style.root, {
     ['print-view-split-landscape']: isHorizontal,
+    ['print-view-split-vertical']: !isHorizontal,
     [$style.designerPrintSplit]: $env.VUE_APP_DESIGNER
   }]" >
     <u-text v-if="$env.VUE_APP_DESIGNER">分页占位符，打印时不会显示</u-text>

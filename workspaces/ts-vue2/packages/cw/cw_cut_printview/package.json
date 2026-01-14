@@ -1,7 +1,7 @@
 {
   "name": "cw_cut_printview",
   "private": "true",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "lcapIdeVersion": "3.8",
   "title": "分页打印组件",
   "description": "分页打印组件",
