@@ -9,12 +9,16 @@ export {};
  * @type both
  * @title 加载插件
  * @desc 加载插件
- * @param options { whitelist: string[] } 参数描述
+ * @param options { blacklist: string[] } 参数描述
  * @returns 返回结果描述
  */
-export function loadingPlugin(options: { whitelist: string[] }) {
+export function loadingPlugin(options: { blacklist: string[] }) {
     console.log(options)
     Vue.use(LoadingPlugin,{
-        whitelist: options.whitelist || []
+        blacklist: options.blacklist || []
     });
 }
+
+
+
+console.log(123)
