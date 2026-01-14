@@ -43,25 +43,37 @@
     },
     methods: {
         start() {
-            // console.log(html5QrCode);
+            const config = {
+                fps: 30, // 提升到 30fps
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.777778, // 16:9
+                // 开启实验性功能：优先使用原生 BarcodeDetector (性能提升巨大)
+                experimentalFeatures: {
+                    useBarCodeDetectorIfSupported: true
+                },
+                videoConstraints: {
+                    facingMode: "environment",
+                    // 尝试强制开启连续自动对焦
+                    focusMode: "continuous",
+                    // 优先请求高清分辨率，利于识别
+                    width: { min: 640, ideal: 1280, max: 1920 },
+                    height: { min: 480, ideal: 720, max: 1080 },
+                }
+            };
+
             this.html5QrCode
                 .start(
-                    // environment后置摄像头 user前置摄像头
                     { facingMode: 'environment' },
-                    {
-                        fps: 20, // 可选，每秒帧扫描二维码
-                        qrbox: { width: 250, height: 250 }, // 可选，如果你想要有界框UI
-                        aspectRatio: 16 / 9, // 可选，视频馈送需要的纵横比，(4:3--1.333334, 16:9--1.777778, 1:1--1.0)传递错误的纵横比会导致视频不显示
-                    },
+                    config,
                     (decodedText, decodedResult) => {
-                        //  alert(JSON.stringify(decodedResult) )
-                        // do something when code is read
                         this.$emit('onScan', decodedText);
-                        this.html5QrCode.stop();
-                        this.html5QrCode.clear();
+                        this.html5QrCode.stop().then(() => {
+                             this.html5QrCode.clear();
+                        }).catch(err => {
+                            console.log("Failed to stop/clear", err);
+                        });
                         console.log('decodedText', decodedText);
                         console.log('decodedResult', decodedResult);
-                        // this.$emit("goBack", decodedText)
                     }
                 )
                 .catch((err) => {
