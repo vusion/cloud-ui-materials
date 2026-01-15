@@ -1,10 +1,15 @@
 <template>
   <div :class="[$style.printView, (hideOnScreen && !$env.VUE_APP_DESIGNER) ? $style.printViewHidden : '']"
     ref="printBlock" :style="{
-      width: viewWidth,
       'min-height': '10px',
       padding: yBorder + 'pt ' + xBorder + 'pt'
     }">
+    <div v-if="loading" :class="$style.printLoading">
+      <svg :class="$style.spinner" viewBox="0 0 50 50">
+        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+      </svg>
+      <span :class="$style.loadingText">正在生成打印内容，请稍候...</span>
+    </div>
     <div :class="$style.printRoom" vusion-slot-name="default" ref="printContent" s-empty="true">
       <slot></slot>
     </div>
@@ -102,6 +107,10 @@ export default {
       type: String,
       default: 'vertical'
     },
+    debug: {
+      type: Boolean,
+      default: true
+    },
   },
   computed: {
     viewWidth() {
@@ -111,11 +120,21 @@ export default {
       return this.isRate ? '100%' : this.pageHeight + 'mm';
     },
   },
+  data() {
+    return {
+      loading: false,
+    };
+  },
   methods: {
-    print() {
+    async print() {
       const params = this.generatePrintParams();
       const printObj = new HTML2PRINT(this.$refs.printContent, params);
-      printObj.print();
+      try {
+        this.loading = true;
+        await printObj.print();
+      } finally {
+        this.loading = false;
+      }
     },
     generatePrintParams() {
       // 映射 printDirection ('vertical'/'horizontal') 到 defaultOrientation ('p'/'l')
@@ -132,6 +151,7 @@ export default {
         pagerHeight: mmToPt(this.pageHeight, DEFAULT_DPI),
         baseY: this.yBorder,
         baseX: this.xBorder,
+        debug: this.debug,
       }
       return params;
     }
@@ -150,6 +170,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
+  position: relative;
 }
 
 .printViewHidden {
@@ -159,6 +180,48 @@ export default {
   pointer-events: none;
   opacity: 0;
   z-index: -1;
+}
+
+.printLoading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  background: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.loadingText {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+}
+
+.spinner .path {
+  stroke: #409EFF;
+  stroke-linecap: round;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .printView>div[s-empty]:empty {
