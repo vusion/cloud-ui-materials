@@ -945,6 +945,183 @@ export default class Html2Pdf {
       console.error('Canvas生成失败', e);
       return null;
     }
+
+    // 按 offsetTop 排序
+    rowGeometries.sort((a, b) => a.offsetTop - b.offsetTop);
+
+    // 4. 变量初始化
+    let sourceY = 0; // 大图上的切割起始点（px）
+    let currentPdfY = this.baseY + headerH; // PDF 页面的绘制起始点（pt）
+    let pageCount = 0;
+    let isFirstPageOfSection = true; // 标记是否为该章节的第一页
+    const baseImageHeightPx = baseImageResult.canvasHeight; // baseImage 的总高度（px）
+    const headerImageHeightPt = headerImageResult.height; // headerImage 的高度（pt）
+    const headerImageHeightPx = headerImageResult.canvasHeight; // headerImage 的高度（px）
+
+    // 转换函数：px -> pt
+    const pxToPt = (px) => px * 0.75;
+    const ptToPx = (pt) => pt / 0.75;
+
+    // 计算可用高度（pt -> px，用于分页判定）
+    const availableHeightPx = ptToPx(availablePageH); // 可用高度（px）
+
+    // 如果这不是整个 PDF 的第一页，需要先添加新页
+    if (!isFirstSection) {
+      pdf.addPage(this.format, section.orientation);
+      pageCount++;
+      // 注意：作为新 section 的第一页，不绘制表头（表头在原始位置）
+      // isFirstPageOfSection 保持为 true，表示这是该 section 的第一页
+      currentPdfY = this.baseY + headerH; // 内容从页眉下方开始
+    }
+
+    // === Row Iteration (行遍历循环) ===
+    for (let i = 0; i < rowGeometries.length; i++) {
+      const row = rowGeometries[i];
+
+      // Calculate Space: 使用 (当前行底边坐标 - 当前页起始 sourceY) > 可用高度 作为分页判定条件
+      const rowBottom = row.bottom; // 当前行底边坐标（px）
+      const contentHeightFromSourceY = rowBottom - sourceY; // 从 sourceY 到当前行底边的高度（px）
+
+      if (contentHeightFromSourceY > availableHeightPx) {
+        // === IF Overflow (溢出换页) ===
+
+        // Step 1 (Flush): 将上一行结束点到当前行开始点之间的内容绘制到 PDF
+        const h = row.offsetTop - sourceY; // 高度（px）
+        if (h > 0) {
+          // 从 baseImage 裁剪指定区域（使用正确的缩放比例）
+          const clippedData = await this.clipImage(
+            baseImageResult.data,
+            0, // sx: 从左边开始
+            sourceY, // sy: 从 sourceY 开始
+            baseImageResult.canvasWidth, // sw: 完整宽度
+            h // sh: 高度
+          );
+
+          const hPt = pxToPt(h);
+          pdf.addImage(clippedData, 'JPEG', this.baseX, currentPdfY, baseImageResult.width, hPt);
+        }
+
+        // 添加页眉页脚到当前页（在换页前）
+        const currentPageNo = isFirstPageOfSection && isFirstSection ? startPageNo + 1 : startPageNo + pageCount + 1;
+        await this.addCommonHeader(pdf, currentPageNo, contentWidth, headerH);
+        await this.addCommonFooter(pdf, currentPageNo, contentWidth, pageHeight, footerH);
+
+        // Step 2 (New Page): 添加新页
+        let hasAddedPage = false;
+        if (isFirstPageOfSection && isFirstSection) {
+          // 第一页已存在，不需要添加，但标记已处理第一页
+          isFirstPageOfSection = false;
+          pageCount = 1;
+          hasAddedPage = false; // 没有执行 addPage
+        } else {
+          pdf.addPage(this.format, section.orientation);
+          pageCount++;
+          isFirstPageOfSection = false; // 执行了 addPage，不再是第一页
+          hasAddedPage = true; // 执行了 addPage
+        }
+
+        // Step 3 (Draw Header): 只有在执行了 addPage() 之后才绘制表头
+        if (hasAddedPage) {
+          // 执行了 addPage，需要绘制表头
+          pdf.addImage(headerImageResult.data, 'JPEG', this.baseX, this.baseY + headerH, headerImageResult.width, headerImageHeightPt);
+          // Step 4 (Reset Pointers - 关键!): 更新指针
+          currentPdfY = this.baseY + headerH + headerImageHeightPt; // 内容必须接在表头下方
+        } else {
+          // 第一页，不绘制表头，currentPdfY 保持原值
+          // 但如果已经绘制了内容，需要更新 currentPdfY
+          if (h > 0) {
+            currentPdfY += pxToPt(h);
+          }
+        }
+
+        // 更新 sourceY 为当前行的 offsetTop（每一页绘制完成后必须更新）
+        sourceY = row.offsetTop; // 大图切割点移动到当前行头部
+      }
+      // ELSE (未溢出): 不执行绘制操作，继续累积内容
+    }
+
+    // === Loop End (循环结束 - 修复尾页截断) ===
+
+    // Step 1: 计算剩余高度（将大图中剩余的内容绘制到最后一页）
+    const remainH = baseImageHeightPx - sourceY; // px
+
+    if (remainH > 0) {
+      // Step 2: 检查剩余部分是否能塞进当前页
+      const remainHPt = pxToPt(remainH);
+      // 计算当前页剩余可用高度（考虑表头）
+      // 如果 isFirstPageOfSection = true，无论是整个 PDF 的第一页还是新 section 的第一页，表头都在原始位置
+      const currentPageAvailableHeight = isFirstPageOfSection
+        ? availablePageH // 第一页，表头在原始位置，不需要额外空间
+        : availablePageH - headerImageHeightPt; // 后续页，需要减去表头高度
+      const currentPageAvailableHeightPx = ptToPx(currentPageAvailableHeight);
+
+      const needNewPage = remainH > currentPageAvailableHeightPx;
+
+      if (needNewPage) {
+        // 如果当前页有内容，先添加页眉页脚
+        if (sourceY > 0 || pageCount > 0) {
+          // 当前页有内容，需要添加页眉页脚
+          const prevPageNo = isFirstPageOfSection && isFirstSection ? startPageNo + 1 : startPageNo + pageCount + 1;
+          await this.addCommonHeader(pdf, prevPageNo, contentWidth, headerH);
+          await this.addCommonFooter(pdf, prevPageNo, contentWidth, pageHeight, footerH);
+        }
+
+        // 需要新页
+        let hasAddedPage = false;
+        if (isFirstPageOfSection && isFirstSection) {
+          // 第一页已存在，不需要添加，但标记已处理
+          isFirstPageOfSection = false;
+          pageCount = 1;
+          hasAddedPage = false; // 没有执行 addPage
+        } else {
+          pdf.addPage(this.format, section.orientation);
+          pageCount++;
+          isFirstPageOfSection = false;
+          hasAddedPage = true; // 执行了 addPage
+        }
+
+        // 绘制表头（只有在执行了 addPage 之后才绘制）
+        if (hasAddedPage) {
+          pdf.addImage(headerImageResult.data, 'JPEG', this.baseX, this.baseY + headerH, headerImageResult.width, headerImageHeightPt);
+          currentPdfY = this.baseY + headerH + headerImageHeightPt;
+        } else {
+          currentPdfY = this.baseY + headerH;
+        }
+      }
+
+      // Step 3 (Final Flush): 绘制剩余内容（尾部数据）
+      const clippedData = await this.clipImage(
+        baseImageResult.data,
+        0, // sx
+        sourceY, // sy
+        baseImageResult.canvasWidth, // sw
+        remainH // sh
+      );
+
+      pdf.addImage(clippedData, 'JPEG', this.baseX, currentPdfY, baseImageResult.width, remainHPt);
+
+      // 为最后一页添加页眉页脚
+      const finalPageNo = isFirstPageOfSection && isFirstSection ? startPageNo + 1 : startPageNo + pageCount + 1;
+      await this.addCommonHeader(pdf, finalPageNo, contentWidth, headerH);
+      await this.addCommonFooter(pdf, finalPageNo, contentWidth, pageHeight, footerH);
+    } else if (pageCount === 0 && isFirstSection) {
+      // 如果没有剩余内容且是第一页（可能所有内容都在第一页，或者没有任何行）
+      if (rowGeometries.length === 0) {
+        // 没有任何行，只绘制表头
+        pdf.addImage(headerImageResult.data, 'JPEG', this.baseX, this.baseY + headerH, headerImageResult.width, headerImageHeightPt);
+      }
+      await this.addCommonHeader(pdf, startPageNo + 1, contentWidth, headerH);
+      await this.addCommonFooter(pdf, startPageNo + 1, contentWidth, pageHeight, footerH);
+      pageCount = 1;
+    } else if (sourceY > 0 || pageCount > 0) {
+      // 如果 sourceY > 0 或 pageCount > 0，说明有内容被绘制，需要为当前页添加页眉页脚
+      const finalPageNo = isFirstPageOfSection && isFirstSection ? startPageNo + 1 : startPageNo + pageCount + 1;
+      await this.addCommonHeader(pdf, finalPageNo, contentWidth, headerH);
+      await this.addCommonFooter(pdf, finalPageNo, contentWidth, pageHeight, footerH);
+    }
+
+    document.body.removeChild(container);
+    return pageCount > 0 ? pageCount : 1;
   }
 
   addBlank(pdf, x, y, w, h) {
