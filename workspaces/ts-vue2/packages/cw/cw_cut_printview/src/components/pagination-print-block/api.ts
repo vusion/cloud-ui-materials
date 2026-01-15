@@ -81,6 +81,15 @@ namespace extensions.cw_cut_printview.viewComponents {
     hideOnScreen: boolean = false;
 
     @Prop({
+      title: '是否调试',
+      description: '是否调试',
+      setter: {
+        concept: 'SwitchSetter',
+      },
+    })
+    debug: boolean = false;
+
+    @Prop({
       title: '默认打印方向',
       description: '默认打印方向',
       setter: {
