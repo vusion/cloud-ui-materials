@@ -92,6 +92,7 @@ export default class Html2Pdf {
       const sections = this.splitDomToSections(printViewElement);
       allSections = allSections.concat(sections);
     }
+    this.allSections = allSections;
     this._timeEnd('拆分章节总耗时');
 
     // 如果没有任何section，创建一个包含所有元素的section
@@ -419,8 +420,8 @@ export default class Html2Pdf {
       pdf.addPage(this.format, section.orientation);
       pageCount++;
       currentPdfY = this.baseY + headerH; // 重置为页眉下方
-      isFirstPageOfSection = false; // 新 section 的第一页，但已执行 addPage
     }
+    isFirstPageOfSection = this.defaultOrientation === 'l' ? false : isFirstPageOfSection; // 新 section 的第一页，但已执行 addPage
 
     // 用于存储表头图片（如果有 table-row 元素）
     const headerImageMap = new Map(); // key: header 的 top，value: { data, width, height }
@@ -582,8 +583,9 @@ export default class Html2Pdf {
       }
 
       const currentPageAvailableHeightPx = ptToPx(currentPageAvailableHeight);
-      const needNewPage = safeRemainH > currentPageAvailableHeightPx;
 
+      // const needNewPage = (this.defaultOrientation === 'l' && (this.allSections.length === 1 || isFirstSection)) ? true : (safeRemainH > currentPageAvailableHeightPx);
+      const needNewPage = safeRemainH > currentPageAvailableHeightPx;
       if (needNewPage) {
         // 如果当前页有内容，先添加页眉页脚
         if (sourceY > 0 || pageCount > 0) {
