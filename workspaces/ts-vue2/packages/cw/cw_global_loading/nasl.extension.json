@@ -1,0 +1,290 @@
+{
+  "name": "globa_loading",
+  "title": "全局加载动画",
+  "description": "全局加载动画",
+  "specVersion": "1.0.0",
+  "type": "module",
+  "subType": "extension",
+  "version": "1.0.0",
+  "frontends": [
+    {
+      "concept": "FrontendLibrary",
+      "name": "pc",
+      "type": "pc",
+      "frameworkKind": "vue2",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwdGlobalApiMonitor",
+          "kebabName": "cwd-global-api-monitor",
+          "title": "全局接口监控",
+          "description": "全局接口监控组件，当监控到接口请求时显示加载动画，所有请求完成后自动隐藏",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "loadingText",
+              "title": "加载提示文字",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "加载中..."
+                },
+                "playground": []
+              },
+              "description": "加载动画显示的提示文字"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "autoStart",
+              "title": "自动开始监控",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              },
+              "description": "组件挂载后是否自动开始监控接口请求，当检测到请求时显示加载动画"
+            }
+          ],
+          "readableProps": [],
+          "events": [
+            {
+              "concept": "EventDeclaration",
+              "name": "loading-complete",
+              "title": "加载完成",
+              "tsType": "(event: null) => void",
+              "description": "当所有接口请求完成并关闭加载动画时触发"
+            }
+          ],
+          "methods": [
+            {
+              "concept": "LogicDeclaration",
+              "description": "手动显示加载动画",
+              "params": [],
+              "returns": [],
+              "name": "show",
+              "title": "显示加载",
+              "tsType": "() => void"
+            },
+            {
+              "concept": "LogicDeclaration",
+              "description": "手动隐藏加载动画",
+              "params": [],
+              "returns": [],
+              "name": "hide",
+              "title": "隐藏加载",
+              "tsType": "() => void"
+            },
+            {
+              "concept": "LogicDeclaration",
+              "description": "重置监控状态，允许重新开始监控",
+              "params": [],
+              "returns": [],
+              "name": "reset",
+              "title": "重置状态",
+              "tsType": "() => void"
+            }
+          ],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cwd-global-api-monitor></cwd-global-api-monitor></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        }
+      ],
+      "logics": []
+    },
+    {
+      "concept": "FrontendLibrary",
+      "name": "h5",
+      "type": "h5",
+      "frameworkKind": "vue2",
+      "viewComponents": [
+        {
+          "concept": "ViewComponentDeclaration",
+          "group": "",
+          "name": "CwdGlobalApiMonitor",
+          "kebabName": "cwd-global-api-monitor",
+          "title": "全局接口监控",
+          "description": "全局接口监控组件，当监控到接口请求时显示加载动画，所有请求完成后自动隐藏",
+          "icon": "",
+          "tsTypeParams": "",
+          "props": [
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "InputSetter"
+              },
+              "name": "loadingText",
+              "title": "加载提示文字",
+              "tsType": "nasl.core.String",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "StringLiteral",
+                  "value": "加载中..."
+                },
+                "playground": []
+              },
+              "description": "加载动画显示的提示文字"
+            },
+            {
+              "concept": "PropDeclaration",
+              "group": "主要属性",
+              "tabKind": "property",
+              "setter": {
+                "concept": "SwitchSetter"
+              },
+              "name": "autoStart",
+              "title": "自动开始监控",
+              "tsType": "nasl.core.Boolean",
+              "defaultValue": {
+                "concept": "DefaultValue",
+                "expression": {
+                  "concept": "BooleanLiteral",
+                  "value": "true"
+                },
+                "playground": []
+              },
+              "description": "组件挂载后是否自动开始监控接口请求，当检测到请求时显示加载动画"
+            }
+          ],
+          "readableProps": [],
+          "events": [
+            {
+              "concept": "EventDeclaration",
+              "name": "loading-complete",
+              "title": "加载完成",
+              "tsType": "(event: null) => void",
+              "description": "当所有接口请求完成并关闭加载动画时触发"
+            }
+          ],
+          "methods": [
+            {
+              "concept": "LogicDeclaration",
+              "description": "手动显示加载动画",
+              "params": [],
+              "returns": [],
+              "name": "show",
+              "title": "显示加载",
+              "tsType": "() => void"
+            },
+            {
+              "concept": "LogicDeclaration",
+              "description": "手动隐藏加载动画",
+              "params": [],
+              "returns": [],
+              "name": "hide",
+              "title": "隐藏加载",
+              "tsType": "() => void"
+            },
+            {
+              "concept": "LogicDeclaration",
+              "description": "重置监控状态，允许重新开始监控",
+              "params": [],
+              "returns": [],
+              "name": "reset",
+              "title": "重置状态",
+              "tsType": "() => void"
+            }
+          ],
+          "slots": [],
+          "children": [],
+          "blocks": [
+            {
+              "concept": "ViewBlockWithImage",
+              "title": "基本用法",
+              "description": "",
+              "code": "<template><cwd-global-api-monitor></cwd-global-api-monitor></template>",
+              "screenshot": "",
+              "drawing": ""
+            }
+          ],
+          "themeVariables": [],
+          "type": "both",
+          "ideusage": {
+            "idetype": "element"
+          }
+        }
+      ],
+      "logics": []
+    }
+  ],
+  "externalDependencyMap": {
+    "npm": [
+      {
+        "name": "vue",
+        "version": "^2.6.0"
+      }
+    ]
+  },
+  "summary": {
+    "name": "globa_loading",
+    "title": "全局加载动画",
+    "version": "1.0.0",
+    "description": "全局加载动画",
+    "frontends": [
+      {
+        "type": "pc",
+        "frameworkKind": "vue2",
+        "viewComponents": [
+          {
+            "name": "CwdGlobalApiMonitor",
+            "title": "全局接口监控"
+          }
+        ],
+        "logics": []
+      },
+      {
+        "type": "h5",
+        "frameworkKind": "vue2",
+        "viewComponents": [
+          {
+            "name": "CwdGlobalApiMonitor",
+            "title": "全局接口监控"
+          }
+        ],
+        "logics": []
+      }
+    ]
+  },
+  "compilerInfoMap": {
+    "js": {
+      "prefix": "extension"
+    },
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.json\":\"54d5c187af6eb23c\",\"nasl.extension.d.ts\":\"498da6d59b51d333\",\"dist-theme/index.js\":\"62fae6be62391b15\",\"dist-theme/index.css\":\"6ddbea72ee999541\"}}"
+  },
+  "ideVersion": "3.8"
+}

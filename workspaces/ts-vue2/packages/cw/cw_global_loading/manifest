@@ -1,0 +1,14 @@
+Plugin-Version: 1.0.0
+Library-Type: Frontend
+Metadata-File: nasl.extension.json
+Tag: Vue,AIGC
+packages/extension/globa_loading@1.0.0/dist-theme/index.css: dist-theme/index.css
+packages/extension/globa_loading@1.0.0/dist-theme/index.js: dist-theme/index.js
+packages/extension/globa_loading@1.0.0/dist-theme/index.js.map: dist-theme/index.js.map
+packages/extension/globa_loading@1.0.0/dist-theme/index.mjs: dist-theme/index.mjs
+packages/extension/globa_loading@1.0.0/dist-theme/index.mjs.map: dist-theme/index.mjs.map
+packages/extension/globa_loading@1.0.0/manifest: manifest
+packages/extension/globa_loading@1.0.0/source.zip: source.zip
+packages/extension/globa_loading@1.0.0/nasl.extension.d.ts: nasl.extension.d.ts
+packages/extension/globa_loading@1.0.0/nasl.extension.json: nasl.extension.json
+packages/extension/globa_loading@1.0.0/zip.tgz: zip.tgz
