@@ -1,0 +1,77 @@
+/**
+ * @component gx-u-navbar-multi
+ */
+:root {
+  /**
+   * @type input
+   * @desc 导航栏高度
+   */
+  --navbar-height: 60px;
+
+  /**
+   * @type color
+   * @desc 导航栏背景颜色
+   */
+  --navbar-background: var(--el-color-background-1);
+
+  /**
+   * @type color
+   * @desc 导航栏字体颜色
+   */
+  --navbar-color: white;
+
+  /**
+   * @type color
+   * @desc 导航栏菜单项字体颜色
+   */
+  --navbar-item-color: white;
+
+  /**
+   * @type color
+   * @desc 导航栏菜单项悬浮字体颜色
+   */
+  --navbar-item-color-hover: white;
+
+  /**
+   * @type color
+   * @desc 导航栏菜单选中字体颜色
+   */
+  --navbar-item-color-selected: white;
+
+  /**
+   * @type color
+   * @desc 导航栏分组字体颜色
+   */
+  --navbar-group-color: white;
+
+  /**
+   * @type color
+   * @desc 导航栏分组悬浮字体颜色
+   */
+  --navbar-group-color-hover: white;
+
+  /**
+   * @type color
+   * @desc 导航栏菜单项分隔线颜色
+   */
+  --navbar-divider-line-background: transparent;
+
+  /**
+   * @type input
+   * @desc 导航栏菜单项展开图标大小
+   */
+  --navbar-item-expand-icon-size: 14px;
+
+  /**
+   * @type color
+   * @desc 导航栏菜单项高亮线条颜色
+   */
+  --navbar-item-line-background: currentColor;
+
+  /**
+   * @type color
+   * @desc 导航栏分隔组件颜色
+   */
+  --navbar-divider-background: #ddd;
+
+}
