@@ -91,7 +91,7 @@
     "lcap-ui": {
       "framework": "vue2",
       "pkgName": "@lcap/pc-ui",
-      "platform": "http://cstest.lcap.codewave-test.163yun.com",
+      "platform": "https://shengji.codewave.163.com",
       "type": "pc",
       "version": "1.4.0"
     }
