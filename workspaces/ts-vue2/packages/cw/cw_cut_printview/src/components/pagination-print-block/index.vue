@@ -1,9 +1,12 @@
 <template>
-  <div :class="[$style.printView, (hideOnScreen && !$env.VUE_APP_DESIGNER) ? $style.printViewHidden : '']"
-    ref="printBlock" :style="{
+  <div
+    :class="[$style.printView, (hideOnScreen && !$env.VUE_APP_DESIGNER) ? $style.printViewHidden : '']"
+    ref="printBlock"
+    :style="{
       'min-height': '10px',
       padding: yBorder + 'pt ' + xBorder + 'pt'
-    }">
+    }"
+  >
     <div v-if="loading" :class="$style.printLoading">
       <svg :class="$style.spinner" viewBox="0 0 50 50">
         <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
@@ -111,6 +114,10 @@ export default {
       type: Boolean,
       default: true
     },
+    inheritPageStyle: {
+      type: Boolean,
+      default: false
+    },
   },
   computed: {
     viewWidth() {
@@ -152,6 +159,7 @@ export default {
         baseY: this.yBorder,
         baseX: this.xBorder,
         debug: this.debug,
+        inheritPageStyle: this.inheritPageStyle,
       }
       return params;
     }
@@ -183,18 +191,19 @@ export default {
 }
 
 .printLoading {
-  position: absolute;
+  /* 全屏遮罩 loading */
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 9;
+  z-index: 9999;
   background: rgba(255, 255, 255, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .loadingText {

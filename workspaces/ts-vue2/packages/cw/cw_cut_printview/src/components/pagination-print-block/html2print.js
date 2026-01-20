@@ -92,6 +92,7 @@ export default class Html2Pdf {
       const sections = this.splitDomToSections(printViewElement);
       allSections = allSections.concat(sections);
     }
+    this.allSections = allSections;
     this._timeEnd('拆分章节总耗时');
 
     // 如果没有任何section，创建一个包含所有元素的section
@@ -418,9 +419,10 @@ export default class Html2Pdf {
     if (!isFirstSection) {
       pdf.addPage(this.format, section.orientation);
       pageCount++;
+      isFirstPageOfSection = container.querySelectorAll('[id^="copy_head_"]').length > 0 ? false : isFirstPageOfSection;
       currentPdfY = this.baseY + headerH; // 重置为页眉下方
-      isFirstPageOfSection = false; // 新 section 的第一页，但已执行 addPage
     }
+    // isFirstPageOfSection = container.querySelectorAll('[id^="copy_head_"]').length > 0 ? false : isFirstPageOfSection;
 
     // 用于存储表头图片（如果有 table-row 元素）
     const headerImageMap = new Map(); // key: header 的 top，value: { data, width, height }
@@ -533,13 +535,14 @@ export default class Html2Pdf {
     }
 
     // === 循环结束：绘制剩余内容 ===
-    // 关键修复：使用最后一个元素的 bottom 来确定实际内容底部
-    // 而不是仅依赖 canvasHeightPx，因为横向模式下 canvasHeightPx 可能不准确
-    let actualContentBottomPx = canvasHeightPx; // 默认使用 canvas 高度
+    // 使用最后一个元素的 bottom 作为“真实内容底部”
+    // 注意：不能再用 canvasHeightPx 去取 max，否则像当前模板这种高度被布局撑高、
+    // 但底部其实只是空白的情况，会把整块空白当成“还有内容”，导致多出一页只带表头的空白页
+    let actualContentBottomPx = canvasHeightPx;
     if (sortedElements.length > 0) {
-      // 使用最后一个元素（已排序）的 bottom 作为实际内容底部
       const lastElement = sortedElements[sortedElements.length - 1];
-      actualContentBottomPx = Math.max(actualContentBottomPx, lastElement.bottom);
+      // 这里直接以最后一个元素的 bottom 为准，忽略 canvas 上多余的空白高度
+      actualContentBottomPx = lastElement.bottom;
     }
     const remainH = actualContentBottomPx - sourceY; // px
 
@@ -582,8 +585,9 @@ export default class Html2Pdf {
       }
 
       const currentPageAvailableHeightPx = ptToPx(currentPageAvailableHeight);
-      const needNewPage = safeRemainH > currentPageAvailableHeightPx;
 
+      // const needNewPage = (this.defaultOrientation === 'l' && (this.allSections.length === 1 || isFirstSection)) ? true : (safeRemainH > currentPageAvailableHeightPx);
+      const needNewPage = safeRemainH > currentPageAvailableHeightPx;
       if (needNewPage) {
         // 如果当前页有内容，先添加页眉页脚
         if (sourceY > 0 || pageCount > 0) {
