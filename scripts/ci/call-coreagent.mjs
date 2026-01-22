@@ -352,8 +352,9 @@ async function commitDocs(pkgDir, packageName, repoRoot) {
       
       console.log(`✅ 已提交文档变更: ${packageName}`);
       
-      // 如果设置了环境变量，自动 push（需要配置 git 权限）
-      if (process.env.AUTO_PUSH_DOCS === 'true') {
+      // 在 CI 环境中自动 push（需要配置 git 权限）
+      // 或者在非 CI 环境中，如果设置了 AUTO_PUSH_DOCS 环境变量也 push
+      if (process.env.CI || process.env.GITHUB_ACTIONS || process.env.AUTO_PUSH_DOCS === 'true') {
         try {
           execSync('git push', {
             encoding: 'utf8',
@@ -363,6 +364,10 @@ async function commitDocs(pkgDir, packageName, repoRoot) {
           console.log(`✅ 已推送文档变更: ${packageName}`);
         } catch (pushError) {
           console.warn(`⚠️ 推送文档失败 (${packageName}): ${pushError.message}`);
+          // 输出更多调试信息
+          if (process.env.GITHUB_ACTIONS) {
+            console.warn(`   提示: 请确保工作流有 contents: write 权限，并且 checkout 步骤配置了 persist-credentials: true`);
+          }
         }
       }
     }
