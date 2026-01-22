@@ -2,6 +2,13 @@ import '@nasl/types';
 
 import { pp } from '@popo-bridge/web';
 
+
+declare global {
+  interface Window {
+    __popo__: typeof pp;
+  }
+}
+window.__popo__ = pp;
 /**
  * @NaslLogic
  * @type both
