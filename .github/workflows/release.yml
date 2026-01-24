@@ -132,6 +132,13 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install LCAP
+        run: |
+          npm install -g lcap@latest
+          lcap config set platform https://defaulttenant.lcap.hadri.163yun.com
+          lcap config set username admin
+          lcap config set password Admin@123456
+
       - name: Install pnpm
         run: |
           corepack enable
@@ -175,12 +182,6 @@ jobs:
           pnpm list --depth=0 --json > /dev/null 2>&1 && echo "✅ pnpm 工作区配置正常" || echo "⚠️ pnpm 工作区配置可能有问题"
 
           echo "✅ 依赖验证完成"
-      - name: Install LCAP
-        run: |
-          npm install -g lcap@latest
-          lcap config set platform https://defaulttenant.lcap.hadri.163yun.com
-          lcap config set username admin
-          lcap config set password Admin@123456
 
       - name: Build and Package
         id: build-package
@@ -255,8 +256,8 @@ jobs:
         if: steps['check-build-results'].outputs.success_count > 0
         run: node scripts/ci/generate-diff-docs.mjs
         env:
-          COREAGENT_AK: ${{ secrets.COREAGENT_AK }}
-          COREAGENT_SK: ${{ secrets.COREAGENT_SK }}
+          COREAGENT_APP_ID: ${{ secrets.COREAGENT_APP_ID }}
+          COREAGENT_APP_KEY: ${{ secrets.COREAGENT_APP_KEY }}
 
       - name: Generate CHANGELOG
         if: steps['check-build-results'].outputs.success_count > 0
