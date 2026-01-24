@@ -7,6 +7,174 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '../../');
 
+/**
+ * 上传文档文件（转成 base64）
+ */
+async function uploadDocumentFile(filePath, fileName) {
+  const baseUrl = process.env.BASE_URL;
+  if (!baseUrl || baseUrl.trim() === "") {
+    console.log("ℹ️  未配置 BASE_URL，跳过文档上传");
+    return { skipped: true };
+  }
+
+  if (!fs.existsSync(filePath)) {
+    console.log(`ℹ️  文档文件不存在，跳过上传: ${filePath}`);
+    return { skipped: true };
+  }
+
+  const uploadUrl = `${baseUrl}/expand/base64/file_upload`;
+  const domainName = process.env.UPLOAD_DOMAIN_NAME || "material";
+  const connectionGroup =
+    process.env.UPLOAD_CONNECTION_GROUP || "lcap_default_connection";
+  const uploadToken = process.env.UPLOAD_API_TOKEN;
+  const uploadMethod = process.env.UPLOAD_METHOD || "POST";
+
+  console.log(`📤 开始上传文档 ${fileName} 到 ${uploadUrl}...`);
+
+  try {
+    // 读取文件为 Buffer，然后转换为 base64
+    const fileBuffer = fs.readFileSync(filePath);
+    const base64String = fileBuffer.toString("base64");
+
+    // 构建请求体：JSON 格式，包含 base64String 和 fileName
+    const requestBody = {
+      base64String: base64String,
+      fileName: fileName,
+    };
+
+    // 构建 Headers
+    const headers = {
+      "Content-Type": "application/json",
+      "domainname": domainName,
+      "file-connection-group": connectionGroup,
+      "accept": "*/*",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+    };
+
+    // 处理 Token
+    if (uploadToken && uploadToken !== "undefined") {
+      if (uploadToken.startsWith("Token ")) {
+        headers["Authorization"] = uploadToken;
+      } else if (uploadToken.includes(":")) {
+        const [username, password] = uploadToken.split(":");
+        const basicAuth = Buffer.from(`${username}:${password}`).toString(
+          "base64"
+        );
+        headers["Authorization"] = `Basic ${basicAuth}`;
+      } else {
+        headers["Authorization"] = `Bearer ${uploadToken}`;
+      }
+    }
+
+    // 处理自定义 Header (如果有)
+    if (process.env.UPLOAD_HEADERS) {
+      try {
+        const customHeaders = JSON.parse(process.env.UPLOAD_HEADERS);
+        Object.assign(headers, customHeaders);
+      } catch (e) {
+        console.warn("⚠️  UPLOAD_HEADERS 格式错误，忽略自定义请求头");
+      }
+    }
+
+    // 发送请求
+    const response = await fetch(uploadUrl, {
+      method: uploadMethod,
+      headers: headers,
+      body: JSON.stringify(requestBody),
+    });
+
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch {
+      responseData = { raw: responseText };
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        `文档上传失败 (${response.status}): ${JSON.stringify(responseData)}`
+      );
+    }
+
+    // 解析上传结果
+    let uploadResultUrl = null;
+
+    // 检查 Data 字段（新接口格式）
+    if (responseData && responseData.Data) {
+      const data = responseData.Data;
+      if (data.result && typeof data.result === "string") {
+        uploadResultUrl = data.result;
+      } else if (data.filePath && typeof data.filePath === "string") {
+        if (data.filePath.startsWith("http")) {
+          uploadResultUrl = data.filePath;
+        } else {
+          const urlObj = new URL(uploadUrl);
+          uploadResultUrl = `${urlObj.origin}${data.filePath}`;
+        }
+      }
+    }
+
+    // 兼容旧格式
+    if (!uploadResultUrl && responseData && responseData.result) {
+      if (Array.isArray(responseData.result)) {
+        uploadResultUrl = responseData.result[0] || null;
+      } else if (typeof responseData.result === "string") {
+        uploadResultUrl = responseData.result;
+      }
+    }
+
+    if (!uploadResultUrl && responseData && responseData.filePath) {
+      if (Array.isArray(responseData.filePath)) {
+        if (responseData.filePath.length > 0) {
+          const filePath = responseData.filePath[0];
+          const urlObj = new URL(uploadUrl);
+          uploadResultUrl = filePath.startsWith("http")
+            ? filePath
+            : `${urlObj.origin}${filePath}`;
+        }
+      } else if (typeof responseData.filePath === "string") {
+        const urlObj = new URL(uploadUrl);
+        uploadResultUrl = responseData.filePath.startsWith("http")
+          ? responseData.filePath
+          : `${urlObj.origin}${responseData.filePath}`;
+      }
+    }
+
+    if (!uploadResultUrl && responseData && responseData.url) {
+      uploadResultUrl =
+        typeof responseData.url === "string"
+          ? responseData.url
+          : String(responseData.url);
+    }
+
+    if (uploadResultUrl) {
+      console.log(`✅ 文档上传成功: ${fileName}`);
+      console.log(`🔗 文档链接: ${uploadResultUrl}`);
+    } else {
+      console.warn(`⚠️  文档上传成功但未获取到 URL: ${fileName}`);
+      console.log(`📋 响应数据: ${JSON.stringify(responseData)}`);
+    }
+
+    return {
+      success: true,
+      url: uploadResultUrl,
+      response: responseData,
+    };
+  } catch (error) {
+    console.error(`❌ 文档上传失败 (${fileName}): ${error.message}`);
+    if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
+      console.warn("⚠️  文档上传失败但继续执行（UPLOAD_FAIL_CONTINUE=true）");
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+    throw error;
+  }
+}
+
 // 检测 workspaces 下所有有变更的包（不依赖构建结果）
 const workspacesRoot = path.join(repoRoot, 'workspaces');
 const changedPackages = new Set();
@@ -612,6 +780,188 @@ for (const diffResult of diffResults) {
     );
   } catch (aiError) {
     console.warn(`⚠️ AI 文档生成失败 (${diffResult.package}): ${aiError.message}`);
+  }
+}
+
+// 上传生成的文档（只上传，不调用接口，由 upload-packages.mjs 统一调用）
+const docUploadResults = {};
+
+try {
+  // 为每个生成文档的包上传文档
+  for (const packageInfo of packagesToProcess) {
+    try {
+      const docsDir = path.join(packageInfo.dir, 'docs');
+      const usagePath = path.join(docsDir, 'usage.md');
+      const changelogPath = path.join(docsDir, 'changelog.md');
+      
+      // 检查是否有生成的文档
+      const hasUsage = fs.existsSync(usagePath);
+      const hasChangelog = fs.existsSync(changelogPath);
+      
+      if (!hasUsage && !hasChangelog) {
+        continue; // 没有生成文档，跳过
+      }
+
+      // 上传文档
+      let uploadedChangelogPath = null;
+      let uploadedReadmePath = null;
+
+      if (hasChangelog) {
+        try {
+          const changelogUploadResult = await uploadDocumentFile(
+            changelogPath,
+            `${packageInfo.name}-changelog.md`
+          );
+          if (changelogUploadResult && changelogUploadResult.success && changelogUploadResult.url) {
+            uploadedChangelogPath = changelogUploadResult.url;
+            console.log(`✅ ${packageInfo.name}: changelog.md 上传成功`);
+          }
+        } catch (e) {
+          console.warn(`⚠️ ${packageInfo.name}: changelog.md 上传失败: ${e.message}`);
+        }
+      }
+
+      if (hasUsage) {
+        try {
+          const usageUploadResult = await uploadDocumentFile(
+            usagePath,
+            `${packageInfo.name}-usage.md`
+          );
+          if (usageUploadResult && usageUploadResult.success && usageUploadResult.url) {
+            uploadedReadmePath = usageUploadResult.url;
+            console.log(`✅ ${packageInfo.name}: usage.md 上传成功`);
+          }
+        } catch (e) {
+          console.warn(`⚠️ ${packageInfo.name}: usage.md 上传失败: ${e.message}`);
+        }
+      }
+
+      // 保存上传结果，供 upload-packages.mjs 使用
+      if (uploadedChangelogPath || uploadedReadmePath) {
+        docUploadResults[packageInfo.name] = {
+          changelogPath: uploadedChangelogPath,
+          readmePath: uploadedReadmePath
+        };
+      }
+    } catch (error) {
+      console.warn(`⚠️ ${packageInfo.name}: 文档上传出错: ${error.message}`);
+      // 继续处理其他包
+    }
+  }
+
+  // 保存文档上传结果到文件
+  if (Object.keys(docUploadResults).length > 0) {
+    const docUploadResultsPath = path.join(repoRoot, 'doc_upload_results.json');
+    fs.writeFileSync(docUploadResultsPath, JSON.stringify(docUploadResults, null, 2));
+    console.log(`✅ 已保存文档上传结果到 doc_upload_results.json`);
+  }
+} catch (error) {
+  console.warn(`⚠️ 文档上传过程出错: ${error.message}`);
+  // 不影响主流程，继续执行
+}
+
+// 统一提交所有生成的文档（避免重复触发构建）
+try {
+  const { setupGitUser } = await import('../utils/git.js');
+  
+  // 在 CI 环境中设置 git 用户信息
+  if (process.env.CI || process.env.GITHUB_ACTIONS) {
+    setupGitUser();
+  }
+  
+  // 检查是否有文档文件的变更
+  const status = execSync('git status --porcelain', {
+    encoding: 'utf8',
+    cwd: repoRoot,
+    stdio: 'pipe'
+  });
+  
+  const docFiles = status.split('\n')
+    .filter(line => line.trim())
+    .map(line => line.trim().split(/\s+/).pop())
+    .filter(file => {
+      if (!file) return false;
+      // 匹配 docs/usage.md 和 docs/changelog.md
+      return file.endsWith('docs/usage.md') || file.endsWith('docs/changelog.md');
+    });
+  
+  if (docFiles.length > 0) {
+    // 添加所有文档文件
+    execSync(`git add ${docFiles.join(' ')}`, {
+      encoding: 'utf8',
+      cwd: repoRoot,
+      stdio: 'pipe'
+    });
+    
+    // 提交（包含 [skip ci] 避免触发 CI/CD）
+    const commitMessage = `docs: update usage and changelog files [skip ci]`;
+    execSync(`git commit -m "${commitMessage}"`, {
+      encoding: 'utf8',
+      cwd: repoRoot,
+      stdio: 'pipe'
+    });
+    
+    console.log(`✅ 已提交 ${docFiles.length} 个文档文件`);
+    
+    // 在 CI 环境中自动 push
+    if (process.env.CI || process.env.GITHUB_ACTIONS || process.env.AUTO_PUSH_DOCS === 'true') {
+      try {
+        // 检查当前分支状态，确保不在 detached HEAD 状态
+        const currentBranch = execSync('git branch --show-current', {
+          encoding: 'utf8',
+          cwd: repoRoot,
+          stdio: 'pipe'
+        }).trim();
+        
+        if (!currentBranch) {
+          // 如果在 detached HEAD 状态，尝试从 GITHUB_REF 获取分支名
+          if (process.env.GITHUB_REF) {
+            const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
+            if (branchName && branchName !== process.env.GITHUB_REF) {
+              console.log(`📌 检测到 detached HEAD，切换到分支: ${branchName}`);
+              execSync(`git checkout -B ${branchName}`, {
+                encoding: 'utf8',
+                cwd: repoRoot,
+                stdio: 'pipe'
+              });
+            }
+          }
+        }
+        
+        // 获取当前分支名（如果仍然没有，使用 HEAD）
+        const branchToPush = execSync('git branch --show-current', {
+          encoding: 'utf8',
+          cwd: repoRoot,
+          stdio: 'pipe'
+        }).trim() || 'HEAD';
+        
+        console.log(`📤 推送分支: ${branchToPush}`);
+        execSync(`git push origin ${branchToPush}`, {
+          encoding: 'utf8',
+          cwd: repoRoot,
+          stdio: 'pipe'
+        });
+        console.log(`✅ 已推送文档变更`);
+      } catch (pushError) {
+        console.warn(`⚠️ 推送文档失败: ${pushError.message}`);
+        // 输出更多调试信息
+        if (process.env.GITHUB_ACTIONS) {
+          console.warn(`   提示: 请确保工作流有 contents: write 权限，并且 checkout 步骤配置了 persist-credentials: true`);
+        }
+      }
+    }
+  } else {
+    console.log(`ℹ️ 没有文档文件变更，跳过提交`);
+  }
+} catch (error) {
+  // 如果提交失败（例如没有变更或不在 git 仓库中），只记录警告
+  const errorMsg = error.message || String(error);
+  if (errorMsg.includes('nothing to commit') || 
+      errorMsg.includes('not a git repository') ||
+      errorMsg.includes('no changes added to commit')) {
+    console.log(`ℹ️ 跳过提交文档: ${errorMsg}`);
+  } else {
+    console.warn(`⚠️ 提交文档失败: ${errorMsg}`);
   }
 }
 

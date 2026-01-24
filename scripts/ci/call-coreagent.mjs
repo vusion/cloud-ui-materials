@@ -375,8 +375,7 @@ ${existingChangelog || '(空 - 首次生成)'}
           console.log(`✅ changelog.md 已生成/更新: ${changelogPath}`);
         }
         
-        // 提交文档变更
-        await commitDocs(pkgDir, packageName, repoRoot);
+        // 不在这里提交，由 generate-diff-docs.mjs 统一提交
       } else {
         // 如果无法解析 JSON，尝试智能分割
         console.warn(`⚠️ 无法解析 JSON 响应，尝试智能分割...`);
@@ -399,8 +398,7 @@ ${existingChangelog || '(空 - 首次生成)'}
           console.log(`✅ usage.md 已生成（完整响应）: ${usagePath}`);
         }
         
-        // 提交文档变更
-        await commitDocs(pkgDir, packageName, repoRoot);
+        // 不在这里提交，由 generate-diff-docs.mjs 统一提交
       }
     } catch (parseError) {
       console.error(`❌ 解析响应失败: ${parseError.message}`);
@@ -410,138 +408,5 @@ ${existingChangelog || '(空 - 首次生成)'}
     console.error(`❌ 智能体返回异常:`, result.message || result);
   }
 }
-
-/**
- * 提交文档变更
- */
-async function commitDocs(pkgDir, packageName, repoRoot) {
-  try {
-    const { setupGitUser } = await import('../utils/git.js');
-    
-    // 在 CI 环境中设置 git 用户信息
-    if (process.env.CI || process.env.GITHUB_ACTIONS) {
-      setupGitUser();
-    }
-    
-    // 计算相对于仓库根目录的路径（使用正斜杠，git 需要）
-    const relPath = path.relative(repoRoot, pkgDir);
-    const docsUsagePath = path.join(relPath, 'docs', 'usage.md').replace(/\\/g, '/');
-    const docsChangelogPath = path.join(relPath, 'docs', 'changelog.md').replace(/\\/g, '/');
-    
-    // 检查文件是否存在且有变更
-    const usagePath = path.join(pkgDir, 'docs', 'usage.md');
-    const changelogPath = path.join(pkgDir, 'docs', 'changelog.md');
-    
-    if (!fs.existsSync(usagePath) && !fs.existsSync(changelogPath)) {
-      console.log(`ℹ️ ${packageName} 没有生成文档，跳过提交`);
-      return;
-    }
-    
-    // 检查是否有变更
-    const status = execSync('git status --porcelain', {
-      encoding: 'utf8',
-      cwd: repoRoot,
-      stdio: 'pipe'
-    });
-    
-    const hasChanges = status.split('\n').some(line => {
-      const file = line.trim().split(/\s+/).pop();
-      return file === docsUsagePath || file === docsChangelogPath;
-    });
-    
-    if (!hasChanges) {
-      console.log(`ℹ️ ${packageName} 没有文档变更，跳过提交`);
-      return;
-    }
-    
-    // 添加变更的文件
-    const filesToAdd = [];
-    if (fs.existsSync(usagePath)) {
-      filesToAdd.push(docsUsagePath);
-    }
-    if (fs.existsSync(changelogPath)) {
-      filesToAdd.push(docsChangelogPath);
-    }
-    
-    if (filesToAdd.length > 0) {
-      execSync(`git add ${filesToAdd.join(' ')}`, {
-        encoding: 'utf8',
-        cwd: repoRoot,
-        stdio: 'pipe'
-      });
-      
-      // 提交（包含 [skip ci] 避免触发 CI/CD）
-      const commitMessage = `docs: update usage and changelog for ${packageName} [skip ci]`;
-      execSync(`git commit -m "${commitMessage}"`, {
-        encoding: 'utf8',
-        cwd: repoRoot,
-        stdio: 'pipe'
-      });
-      
-      console.log(`✅ 已提交文档变更: ${packageName}`);
-      
-      // 在 CI 环境中自动 push（需要配置 git 权限）
-      // 或者在非 CI 环境中，如果设置了 AUTO_PUSH_DOCS 环境变量也 push
-      if (process.env.CI || process.env.GITHUB_ACTIONS || process.env.AUTO_PUSH_DOCS === 'true') {
-        try {
-          // 检查当前分支状态，确保不在 detached HEAD 状态
-          const currentBranch = execSync('git branch --show-current', {
-            encoding: 'utf8',
-            cwd: repoRoot,
-            stdio: 'pipe'
-          }).trim();
-          
-          if (!currentBranch) {
-            // 如果在 detached HEAD 状态，尝试从 GITHUB_REF 获取分支名
-            if (process.env.GITHUB_REF) {
-              const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
-              if (branchName && branchName !== process.env.GITHUB_REF) {
-                console.log(`📌 检测到 detached HEAD，切换到分支: ${branchName}`);
-                execSync(`git checkout -B ${branchName}`, {
-                  encoding: 'utf8',
-                  cwd: repoRoot,
-                  stdio: 'pipe'
-                });
-              }
-            }
-          }
-          
-          // 获取当前分支名（如果仍然没有，使用 HEAD）
-          const branchToPush = execSync('git branch --show-current', {
-            encoding: 'utf8',
-            cwd: repoRoot,
-            stdio: 'pipe'
-          }).trim() || 'HEAD';
-          
-          console.log(`📤 推送分支: ${branchToPush}`);
-          execSync(`git push origin ${branchToPush}`, {
-            encoding: 'utf8',
-            cwd: repoRoot,
-            stdio: 'pipe'
-          });
-          console.log(`✅ 已推送文档变更: ${packageName}`);
-        } catch (pushError) {
-          console.warn(`⚠️ 推送文档失败 (${packageName}): ${pushError.message}`);
-          // 输出更多调试信息
-          if (process.env.GITHUB_ACTIONS) {
-            console.warn(`   提示: 请确保工作流有 contents: write 权限，并且 checkout 步骤配置了 persist-credentials: true`);
-          }
-        }
-      }
-    }
-  } catch (error) {
-    // 如果提交失败（例如没有变更或不在 git 仓库中），只记录警告
-    const errorMsg = error.message || String(error);
-    if (errorMsg.includes('nothing to commit') || 
-        errorMsg.includes('not a git repository') ||
-        errorMsg.includes('no changes added to commit')) {
-      console.log(`ℹ️ ${packageName} 跳过提交: ${errorMsg}`);
-    } else {
-      console.warn(`⚠️ 提交文档失败 (${packageName}): ${errorMsg}`);
-    }
-  }
-}
-
-
 
 main().catch(console.error);

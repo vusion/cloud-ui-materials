@@ -12,9 +12,177 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../../");
 
 /**
+ * 上传文档文件（转成 base64）
+ */
+async function uploadDocumentFile(filePath, fileName) {
+  const baseUrl = process.env.BASE_URL;
+  if (!baseUrl || baseUrl.trim() === "") {
+    console.log("ℹ️  未配置 BASE_URL，跳过文档上传");
+    return { skipped: true };
+  }
+
+  if (!fs.existsSync(filePath)) {
+    console.log(`ℹ️  文档文件不存在，跳过上传: ${filePath}`);
+    return { skipped: true };
+  }
+
+  const uploadUrl = `${baseUrl}/expand/base64/file_upload`;
+  const domainName = process.env.UPLOAD_DOMAIN_NAME || "material";
+  const connectionGroup =
+    process.env.UPLOAD_CONNECTION_GROUP || "lcap_default_connection";
+  const uploadToken = process.env.UPLOAD_API_TOKEN;
+  const uploadMethod = process.env.UPLOAD_METHOD || "POST";
+
+  console.log(`📤 开始上传文档 ${fileName} 到 ${uploadUrl}...`);
+
+  try {
+    // 读取文件为 Buffer，然后转换为 base64
+    const fileBuffer = fs.readFileSync(filePath);
+    const base64String = fileBuffer.toString("base64");
+
+    // 构建请求体：JSON 格式，包含 base64String 和 fileName
+    const requestBody = {
+      base64String: base64String,
+      fileName: fileName,
+    };
+
+    // 构建 Headers
+    const headers = {
+      "Content-Type": "application/json",
+      "domainname": domainName,
+      "file-connection-group": connectionGroup,
+      "accept": "*/*",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+    };
+
+    // 处理 Token
+    if (uploadToken && uploadToken !== "undefined") {
+      if (uploadToken.startsWith("Token ")) {
+        headers["Authorization"] = uploadToken;
+      } else if (uploadToken.includes(":")) {
+        const [username, password] = uploadToken.split(":");
+        const basicAuth = Buffer.from(`${username}:${password}`).toString(
+          "base64"
+        );
+        headers["Authorization"] = `Basic ${basicAuth}`;
+      } else {
+        headers["Authorization"] = `Bearer ${uploadToken}`;
+      }
+    }
+
+    // 处理自定义 Header (如果有)
+    if (process.env.UPLOAD_HEADERS) {
+      try {
+        const customHeaders = JSON.parse(process.env.UPLOAD_HEADERS);
+        Object.assign(headers, customHeaders);
+      } catch (e) {
+        console.warn("⚠️  UPLOAD_HEADERS 格式错误，忽略自定义请求头");
+      }
+    }
+
+    // 发送请求
+    const response = await fetch(uploadUrl, {
+      method: uploadMethod,
+      headers: headers,
+      body: JSON.stringify(requestBody),
+    });
+
+    const responseText = await response.text();
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch {
+      responseData = { raw: responseText };
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        `文档上传失败 (${response.status}): ${JSON.stringify(responseData)}`
+      );
+    }
+
+    // 解析上传结果
+    let uploadResultUrl = null;
+
+    // 检查 Data 字段（新接口格式）
+    if (responseData && responseData.Data) {
+      const data = responseData.Data;
+      if (data.result && typeof data.result === "string") {
+        uploadResultUrl = data.result;
+      } else if (data.filePath && typeof data.filePath === "string") {
+        if (data.filePath.startsWith("http")) {
+          uploadResultUrl = data.filePath;
+        } else {
+          const urlObj = new URL(uploadUrl);
+          uploadResultUrl = `${urlObj.origin}${data.filePath}`;
+        }
+      }
+    }
+
+    // 兼容旧格式
+    if (!uploadResultUrl && responseData && responseData.result) {
+      if (Array.isArray(responseData.result)) {
+        uploadResultUrl = responseData.result[0] || null;
+      } else if (typeof responseData.result === "string") {
+        uploadResultUrl = responseData.result;
+      }
+    }
+
+    if (!uploadResultUrl && responseData && responseData.filePath) {
+      if (Array.isArray(responseData.filePath)) {
+        if (responseData.filePath.length > 0) {
+          const filePath = responseData.filePath[0];
+          const urlObj = new URL(uploadUrl);
+          uploadResultUrl = filePath.startsWith("http")
+            ? filePath
+            : `${urlObj.origin}${filePath}`;
+        }
+      } else if (typeof responseData.filePath === "string") {
+        const urlObj = new URL(uploadUrl);
+        uploadResultUrl = responseData.filePath.startsWith("http")
+          ? responseData.filePath
+          : `${urlObj.origin}${responseData.filePath}`;
+      }
+    }
+
+    if (!uploadResultUrl && responseData && responseData.url) {
+      uploadResultUrl =
+        typeof responseData.url === "string"
+          ? responseData.url
+          : String(responseData.url);
+    }
+
+    if (uploadResultUrl) {
+      console.log(`✅ 文档上传成功: ${fileName}`);
+      console.log(`🔗 文档链接: ${uploadResultUrl}`);
+    } else {
+      console.warn(`⚠️  文档上传成功但未获取到 URL: ${fileName}`);
+      console.log(`📋 响应数据: ${JSON.stringify(responseData)}`);
+    }
+
+    return {
+      success: true,
+      url: uploadResultUrl,
+      response: responseData,
+    };
+  } catch (error) {
+    console.error(`❌ 文档上传失败 (${fileName}): ${error.message}`);
+    if (process.env.UPLOAD_FAIL_CONTINUE === "true") {
+      console.warn("⚠️  文档上传失败但继续执行（UPLOAD_FAIL_CONTINUE=true）");
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+    throw error;
+  }
+}
+
+/**
  * 上传依赖信息到 /rest/uploadDependency 接口
  */
-async function uploadDependency(packageInfo, fileUrl) {
+async function uploadDependency(packageInfo, fileUrl, changelogPath, readmePath) {
   const baseUrl = process.env.BASE_URL;
   if (!baseUrl || baseUrl.trim() === "") {
     console.log("ℹ️  未配置 BASE_URL，跳过依赖上传");
@@ -50,6 +218,14 @@ async function uploadDependency(packageInfo, fileUrl) {
       fileUrl: fileUrlString,
       category: "frontend",
     };
+
+    // 添加文档链接（如果提供）
+    if (changelogPath) {
+      requestBody.changelogPath = changelogPath;
+    }
+    if (readmePath) {
+      requestBody.readmePath = readmePath;
+    }
 
     // 构建请求头
     const headers = {
@@ -454,19 +630,118 @@ async function main() {
 
           if (validFileUrl) {
             try {
-              // 读取 package.json 获取依赖信息
+              // 读取文档上传结果（如果 generate-diff-docs.mjs 已经上传了文档）
+              let changelogPath = null;
+              let readmePath = null;
+              
+              const docUploadResultsPath = path.join(repoRoot, "doc_upload_results.json");
+              let docUploadResults = {};
+              
+              if (fs.existsSync(docUploadResultsPath)) {
+                try {
+                  docUploadResults = JSON.parse(fs.readFileSync(docUploadResultsPath, "utf8"));
+                  console.log(`📄 读取到文档上传结果文件`);
+                } catch (e) {
+                  console.warn(`⚠️  读取文档上传结果失败: ${e.message}`);
+                }
+              }
+
+              // 如果文档已经由 generate-diff-docs.mjs 上传，使用其上传结果
+              if (docUploadResults[result.name]) {
+                changelogPath = docUploadResults[result.name].changelogPath || null;
+                readmePath = docUploadResults[result.name].readmePath || null;
+                if (changelogPath || readmePath) {
+                  console.log(`✅ ${result.name}: 使用已上传的文档链接`);
+                  if (changelogPath) {
+                    console.log(`   📄 changelogPath: ${changelogPath}`);
+                  }
+                  if (readmePath) {
+                    console.log(`   📄 readmePath: ${readmePath}`);
+                  }
+                }
+              } else {
+                // 如果没有文档上传结果，尝试上传现有文档
+                // 查找并上传 changelog.md (优先查找 docs/changelog.md，然后是 CHANGELOG.md)
+                const docsChangelogPath = path.join(result.dir, "docs", "changelog.md");
+                const rootChangelogPath = path.join(result.dir, "CHANGELOG.md");
+                
+                if (fs.existsSync(docsChangelogPath)) {
+                  console.log(`📄 找到文档: docs/changelog.md`);
+                  const changelogUploadResult = await uploadDocumentFile(
+                    docsChangelogPath,
+                    `${result.name}-changelog.md`
+                  );
+                  if (changelogUploadResult && changelogUploadResult.success && changelogUploadResult.url) {
+                    changelogPath = changelogUploadResult.url;
+                    console.log(`✅ ${result.name}: changelog.md 上传成功`);
+                  }
+                } else if (fs.existsSync(rootChangelogPath)) {
+                  console.log(`📄 找到文档: CHANGELOG.md`);
+                  const changelogUploadResult = await uploadDocumentFile(
+                    rootChangelogPath,
+                    `${result.name}-CHANGELOG.md`
+                  );
+                  if (changelogUploadResult && changelogUploadResult.success && changelogUploadResult.url) {
+                    changelogPath = changelogUploadResult.url;
+                    console.log(`✅ ${result.name}: CHANGELOG.md 上传成功`);
+                  }
+                } else {
+                  console.log(`ℹ️  ${result.name}: 未找到 changelog 文档`);
+                }
+
+                // 查找并上传 README (优先查找 docs/usage.md，然后是 README.md)
+                const docsUsagePath = path.join(result.dir, "docs", "usage.md");
+                const readmePathFile = path.join(result.dir, "README.md");
+                
+                if (fs.existsSync(docsUsagePath)) {
+                  console.log(`📄 找到文档: docs/usage.md`);
+                  const readmeUploadResult = await uploadDocumentFile(
+                    docsUsagePath,
+                    `${result.name}-usage.md`
+                  );
+                  if (readmeUploadResult && readmeUploadResult.success && readmeUploadResult.url) {
+                    readmePath = readmeUploadResult.url;
+                    console.log(`✅ ${result.name}: usage.md 上传成功`);
+                  }
+                } else if (fs.existsSync(readmePathFile)) {
+                  console.log(`📄 找到文档: README.md`);
+                  const readmeUploadResult = await uploadDocumentFile(
+                    readmePathFile,
+                    `${result.name}-README.md`
+                  );
+                  if (readmeUploadResult && readmeUploadResult.success && readmeUploadResult.url) {
+                    readmePath = readmeUploadResult.url;
+                    console.log(`✅ ${result.name}: README.md 上传成功`);
+                  }
+                } else {
+                  console.log(`ℹ️  ${result.name}: 未找到 README 文档`);
+                }
+              }
+
+              // 读取 package.json 获取依赖信息，统一调用一次接口
               const pkgJsonPath = path.join(result.dir, "package.json");
               if (fs.existsSync(pkgJsonPath)) {
                 const pkgJson = JSON.parse(
                   fs.readFileSync(pkgJsonPath, "utf8")
                 );
+                // 统一调用一次 uploadDependency 接口，包含所有链接
                 const dependencyResult = await uploadDependency(
                   pkgJson,
-                  validFileUrl
+                  validFileUrl,
+                  changelogPath,
+                  readmePath
                 );
                 if (dependencyResult && dependencyResult.success) {
                   result.dependencyUploadResult = dependencyResult;
-                  console.log(`✅ ${result.name}: 依赖信息上传成功`);
+                  result.changelogPath = changelogPath;
+                  result.readmePath = readmePath;
+                  console.log(`✅ ${result.name}: 依赖信息上传成功（包含所有链接）`);
+                  if (changelogPath) {
+                    console.log(`   📄 changelogPath: ${changelogPath}`);
+                  }
+                  if (readmePath) {
+                    console.log(`   📄 readmePath: ${readmePath}`);
+                  }
                 } else if (dependencyResult && dependencyResult.skipped) {
                   console.log(
                     `ℹ️  ${result.name}: 跳过依赖上传（未配置 BASE_URL）`
