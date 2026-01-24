@@ -286,10 +286,5 @@ jobs:
         env:
           COREAGENT_APP_ID: ${{ secrets.COREAGENT_APP_ID }}
           COREAGENT_APP_KEY: ${{ secrets.COREAGENT_APP_KEY }}
-
-      - name: Generate CHANGELOG
-        if: steps['check-build-results'].outputs.success_count > 0
-        run: node scripts/ci/generate-changelog.mjs
-        env:
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_REPOSITORY: ${{ github.repository }}
