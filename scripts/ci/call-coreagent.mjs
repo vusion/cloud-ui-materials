@@ -471,7 +471,37 @@ async function commitDocs(pkgDir, packageName, repoRoot) {
       // 或者在非 CI 环境中，如果设置了 AUTO_PUSH_DOCS 环境变量也 push
       if (process.env.CI || process.env.GITHUB_ACTIONS || process.env.AUTO_PUSH_DOCS === 'true') {
         try {
-          execSync('git push', {
+          // 检查当前分支状态，确保不在 detached HEAD 状态
+          const currentBranch = execSync('git branch --show-current', {
+            encoding: 'utf8',
+            cwd: repoRoot,
+            stdio: 'pipe'
+          }).trim();
+          
+          if (!currentBranch) {
+            // 如果在 detached HEAD 状态，尝试从 GITHUB_REF 获取分支名
+            if (process.env.GITHUB_REF) {
+              const branchName = process.env.GITHUB_REF.replace('refs/heads/', '');
+              if (branchName && branchName !== process.env.GITHUB_REF) {
+                console.log(`📌 检测到 detached HEAD，切换到分支: ${branchName}`);
+                execSync(`git checkout -B ${branchName}`, {
+                  encoding: 'utf8',
+                  cwd: repoRoot,
+                  stdio: 'pipe'
+                });
+              }
+            }
+          }
+          
+          // 获取当前分支名（如果仍然没有，使用 HEAD）
+          const branchToPush = execSync('git branch --show-current', {
+            encoding: 'utf8',
+            cwd: repoRoot,
+            stdio: 'pipe'
+          }).trim() || 'HEAD';
+          
+          console.log(`📤 推送分支: ${branchToPush}`);
+          execSync(`git push origin ${branchToPush}`, {
             encoding: 'utf8',
             cwd: repoRoot,
             stdio: 'pipe'

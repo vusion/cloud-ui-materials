@@ -121,11 +121,39 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # PR 合并时，需要 checkout 合并后的代码
-          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+          # 对于 push 事件，checkout 到分支；对于 PR 合并事件，checkout 到目标分支
+          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.base.ref || github.ref }}
           # 配置 token 和持久化凭据，以便后续可以 push 代码
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
+
+      - name: Setup Git Branch for Push
+        run: |
+          # 确保在正确的分支上，避免 detached HEAD 状态
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # Push 事件：从 refs/heads/branch-name 提取分支名
+            BRANCH_NAME=${GITHUB_REF#refs/heads/}
+            echo "📌 当前分支: $BRANCH_NAME"
+            git checkout -B "$BRANCH_NAME" || git checkout "$BRANCH_NAME"
+          elif [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.action }}" = "closed" ] && [ "${{ github.event.pull_request.merged }}" = "true" ]; then
+            # PR 合并事件：checkout 到目标分支
+            BRANCH_NAME="${{ github.event.pull_request.base.ref }}"
+            echo "📌 PR 合并到分支: $BRANCH_NAME"
+            git fetch origin "$BRANCH_NAME:$BRANCH_NAME" || true
+            git checkout -B "$BRANCH_NAME" || git checkout "$BRANCH_NAME"
+          else
+            # 其他情况：尝试从 GITHUB_REF 获取分支名
+            BRANCH_NAME=${GITHUB_REF#refs/heads/}
+            if [ "$BRANCH_NAME" != "$GITHUB_REF" ]; then
+              echo "📌 使用分支: $BRANCH_NAME"
+              git checkout -B "$BRANCH_NAME" || git checkout "$BRANCH_NAME"
+            else
+              echo "⚠️ 无法确定分支名，使用当前 HEAD"
+            fi
+          fi
+          # 显示当前分支状态
+          echo "当前分支: $(git branch --show-current)"
+          echo "HEAD 状态: $(git rev-parse --abbrev-ref HEAD)"
 
       - name: Setup Node
         uses: actions/setup-node@v4
