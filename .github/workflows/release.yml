@@ -19,21 +19,44 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      skip_ci: ${{ steps.check-skip-ci.outputs.skip_ci }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           # PR 事件时，需要 checkout PR 的 head 和 base
           ref: ${{ github.event.pull_request.head.sha || github.ref }}
+          # 配置 token 和持久化凭据（虽然 plan job 不需要 push，但保持一致性）
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+      - name: Check for skip CI
+        if: github.event_name == 'push'
+        run: |
+          # 检查最近的提交信息是否包含 [skip ci] 标记
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          if echo "$COMMIT_MSG" | grep -qiE '\[skip ci\]|\[ci skip\]|\[no ci\]|\[skip actions\]|\[actions skip\]'; then
+            echo "⏭️ 检测到 [skip ci] 标记，跳过工作流执行"
+            echo "skip_ci=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ 未检测到 [skip ci] 标记，继续执行工作流"
+            echo "skip_ci=false" >> $GITHUB_OUTPUT
+          fi
+        id: check-skip-ci
       - name: Fetch Base Branch (for PR events)
         if: github.event_name == 'pull_request'
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
       - name: Setup Node
+        if: |
+          github.event_name != 'push' || 
+          steps['check-skip-ci'].outputs.skip_ci != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Generate Plan
+        if: |
+          github.event_name != 'push' || 
+          steps['check-skip-ci'].outputs.skip_ci != 'true'
         id: set-matrix
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.test_package }}" ]; then
@@ -76,6 +99,7 @@ jobs:
   build-and-comment:
     needs: plan
     if: |
+      needs.plan.outputs.skip_ci != 'true' &&
       needs.plan.outputs.matrix != '' &&
       fromJSON(needs.plan.outputs.matrix).include != null &&
       fromJSON(needs.plan.outputs.matrix).include[0] != null &&
@@ -99,6 +123,9 @@ jobs:
           fetch-depth: 0
           # PR 合并时，需要 checkout 合并后的代码
           ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+          # 配置 token 和持久化凭据，以便后续可以 push 代码
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
 
       - name: Setup Node
         uses: actions/setup-node@v4
