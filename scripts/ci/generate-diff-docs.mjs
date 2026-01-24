@@ -876,22 +876,46 @@ try {
     stdio: 'pipe'
   });
   
+  console.log('🔍 检查文档文件变更...');
+  console.log(`Git status 输出:\n${status}`);
+  
   const docFiles = status.split('\n')
     .filter(line => line.trim())
-    .map(line => line.trim().split(/\s+/).pop())
+    .map(line => {
+      // git status --porcelain 格式: " M file" 或 "?? file" 等
+      // 提取文件名（最后一个字段）
+      const parts = line.trim().split(/\s+/);
+      return parts[parts.length - 1];
+    })
     .filter(file => {
       if (!file) return false;
-      // 匹配 docs/usage.md 和 docs/changelog.md
-      return file.endsWith('docs/usage.md') || file.endsWith('docs/changelog.md');
+      // 匹配包含 docs/usage.md 或 docs/changelog.md 的路径
+      // 支持完整路径如 workspaces/.../docs/usage.md
+      const normalizedFile = file.replace(/\\/g, '/');
+      return normalizedFile.includes('/docs/usage.md') || normalizedFile.includes('/docs/changelog.md');
     });
+  
+  console.log(`📋 检测到 ${docFiles.length} 个文档文件变更:`, docFiles);
   
   if (docFiles.length > 0) {
     // 添加所有文档文件
-    execSync(`git add ${docFiles.join(' ')}`, {
-      encoding: 'utf8',
-      cwd: repoRoot,
-      stdio: 'pipe'
-    });
+    // 使用 -- 分隔符确保路径被正确识别
+    console.log(`📝 准备添加 ${docFiles.length} 个文档文件`);
+    for (const file of docFiles) {
+      console.log(`   - ${file}`);
+    }
+    // 逐个添加文件，避免路径问题
+    for (const file of docFiles) {
+      try {
+        execSync(`git add -- "${file}"`, {
+          encoding: 'utf8',
+          cwd: repoRoot,
+          stdio: 'pipe'
+        });
+      } catch (e) {
+        console.warn(`⚠️ 添加文件失败 ${file}: ${e.message}`);
+      }
+    }
     
     // 提交（包含 [skip ci] 避免触发 CI/CD）
     const commitMessage = `docs: update usage and changelog files [skip ci]`;
