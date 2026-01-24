@@ -870,50 +870,85 @@ try {
   }
   
   // 检查是否有文档文件的变更
-  const status = execSync('git status --porcelain', {
-    encoding: 'utf8',
-    cwd: repoRoot,
-    stdio: 'pipe'
-  });
+  // 先查找所有生成的文档文件
+  const allDocFiles = [];
+  for (const packageInfo of packagesToProcess) {
+    const docsDir = path.join(packageInfo.dir, 'docs');
+    const usagePath = path.join(docsDir, 'usage.md');
+    const changelogPath = path.join(docsDir, 'changelog.md');
+    
+    if (fs.existsSync(usagePath)) {
+      const relPath = path.relative(repoRoot, usagePath).replace(/\\/g, '/');
+      allDocFiles.push(relPath);
+    }
+    if (fs.existsSync(changelogPath)) {
+      const relPath = path.relative(repoRoot, changelogPath).replace(/\\/g, '/');
+      allDocFiles.push(relPath);
+    }
+  }
   
   console.log('🔍 检查文档文件变更...');
-  console.log(`Git status 输出:\n${status}`);
+  console.log(`📋 找到 ${allDocFiles.length} 个生成的文档文件:`, allDocFiles);
   
-  const docFiles = status.split('\n')
-    .filter(line => line.trim())
-    .map(line => {
-      // git status --porcelain 格式: " M file" 或 "?? file" 等
-      // 提取文件名（最后一个字段）
-      const parts = line.trim().split(/\s+/);
-      return parts[parts.length - 1];
-    })
-    .filter(file => {
-      if (!file) return false;
-      // 匹配包含 docs/usage.md 或 docs/changelog.md 的路径
-      // 支持完整路径如 workspaces/.../docs/usage.md
-      const normalizedFile = file.replace(/\\/g, '/');
-      return normalizedFile.includes('/docs/usage.md') || normalizedFile.includes('/docs/changelog.md');
-    });
+  // 检查这些文件在 git 中的状态
+  const docFiles = [];
+  for (const file of allDocFiles) {
+    try {
+      // 检查文件是否在 git 中（已跟踪或未跟踪）
+      const status = execSync(`git status --porcelain -- "${file}"`, {
+        encoding: 'utf8',
+        cwd: repoRoot,
+        stdio: 'pipe'
+      }).trim();
+      
+      if (status) {
+        // 文件有变更（已修改、已添加或未跟踪）
+        const parts = status.trim().split(/\s+/);
+        const statusCode = parts[0];
+        const fileName = parts[parts.length - 1];
+        
+        // 检查状态码：M=已修改, A=已添加, ??=未跟踪
+        if (statusCode.includes('M') || statusCode.includes('A') || statusCode === '??') {
+          docFiles.push(fileName);
+          console.log(`   ✅ ${fileName} (状态: ${statusCode})`);
+        }
+      } else {
+        // 文件存在但 git 没有检测到变更，可能是新文件，也添加
+        if (fs.existsSync(path.join(repoRoot, file))) {
+          docFiles.push(file);
+          console.log(`   ✅ ${file} (新文件)`);
+        }
+      }
+    } catch (e) {
+      // 如果 git status 失败，但文件存在，也尝试添加
+      if (fs.existsSync(path.join(repoRoot, file))) {
+        docFiles.push(file);
+        console.log(`   ✅ ${file} (文件存在，尝试添加)`);
+      }
+    }
+  }
   
-  console.log(`📋 检测到 ${docFiles.length} 个文档文件变更:`, docFiles);
+  console.log(`📋 检测到 ${docFiles.length} 个需要提交的文档文件`);
   
   if (docFiles.length > 0) {
     // 添加所有文档文件
-    // 使用 -- 分隔符确保路径被正确识别
     console.log(`📝 准备添加 ${docFiles.length} 个文档文件`);
-    for (const file of docFiles) {
-      console.log(`   - ${file}`);
-    }
     // 逐个添加文件，避免路径问题
     for (const file of docFiles) {
       try {
-        execSync(`git add -- "${file}"`, {
-          encoding: 'utf8',
-          cwd: repoRoot,
-          stdio: 'pipe'
-        });
+        const filePath = path.join(repoRoot, file);
+        if (fs.existsSync(filePath)) {
+          console.log(`   ➕ 添加: ${file}`);
+          execSync(`git add -- "${file}"`, {
+            encoding: 'utf8',
+            cwd: repoRoot,
+            stdio: 'pipe'
+          });
+        } else {
+          console.warn(`   ⚠️ 文件不存在: ${file}`);
+        }
       } catch (e) {
-        console.warn(`⚠️ 添加文件失败 ${file}: ${e.message}`);
+        console.warn(`   ⚠️ 添加文件失败 ${file}: ${e.message}`);
       }
     }
     

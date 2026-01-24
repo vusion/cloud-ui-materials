@@ -221,10 +221,10 @@ async function uploadDependency(packageInfo, fileUrl, changelogPath, readmePath)
 
     // 添加文档链接（如果提供）
     if (changelogPath) {
-      requestBody.changelogPath = changelogPath;
+      requestBody.changelog = changelogPath;
     }
     if (readmePath) {
-      requestBody.readmePath = readmePath;
+      requestBody.readme = readmePath;
     }
 
     // 构建请求头
