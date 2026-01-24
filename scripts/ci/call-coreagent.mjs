@@ -25,13 +25,26 @@ async function callAgent(payload) {
   const responseMode = process.env.COREAGENT_RESPONSE_MODE || 'blocking';
   // 用户标识
   const userId = process.env.COREAGENT_USER || 'system';
-  // 输入变量名（根据工作流定义的变量名配置）
-  // const inputVariableName = process.env.COREAGENT_INPUT_VARIABLE || 'prompt';
+  // 输入变量名（根据工作流定义的变量名配置，默认为 'prompt'）
+  const inputVariableName = process.env.COREAGENT_INPUT_VARIABLE || 'prompt';
 
   // CoreAgent Workflows API 请求格式
+  // 处理 payload：如果 payload 是对象且包含 prompt 字段，提取 prompt 值；否则直接使用 payload
+  let inputValue;
+  if (payload && typeof payload === 'object' && 'prompt' in payload) {
+    // 如果传入的是 {prompt: "..."} 格式，提取 prompt 字段的值
+    inputValue = payload.prompt;
+  } else if (typeof payload === 'string') {
+    // 如果直接传入字符串，直接使用
+    inputValue = payload;
+  } else {
+    // 其他情况，转换为 JSON 字符串
+    inputValue = JSON.stringify(payload);
+  }
+
   const requestData = {
     inputs: {
-      payload
+      [inputVariableName]: inputValue
     },
     response_mode: responseMode,
     user: userId
