@@ -248,6 +248,8 @@ async function generateUsageAndChangelog(pkgDir, aiContext) {
   
   // 检查是否是首次生成（usage.md 不存在）
   const isFirstTime = !fs.existsSync(usagePath);
+  // 检查是否是首次生成 changelog
+  const isFirstChangelog = !fs.existsSync(changelogPath);
   
   // 检查版本是否更新（如果版本没有更新，不需要更新 changelog）
   let shouldUpdateChangelog = true;
@@ -265,6 +267,10 @@ async function generateUsageAndChangelog(pkgDir, aiContext) {
     // 如果没有 diffResult（首次生成），需要生成 changelog
     shouldUpdateChangelog = true;
   }
+  
+  // 判断是否应该以当前版本作为初始版本
+  // 如果是首次生成 changelog 且当前版本不是 0.0.0，说明应该以当前版本作为初始版本
+  const isInitialVersion = isFirstChangelog && version !== '0.0.0';
   
   // 如果没有 diffResult，尝试从包路径推断工作区和分类
   let workspace = 'unknown';
@@ -357,8 +363,13 @@ ${shouldUpdateChangelog
    - 如果是 style_change，说明样式调整
    - 如果是 config_change，说明配置变更
    - 保持与现有 changelog 格式一致`
-    : `   - 这是首次生成 changelog，请创建初始版本条目（格式：## ${version}）
-   - 说明这是初始版本，包含所有现有组件和功能`)
+    : (isInitialVersion
+      ? `   - 这是首次生成 changelog，当前版本是 ${version}（不是 0.0.0）
+   - **重要：请以当前版本 ${version} 作为初始版本条目（格式：## ${version}），不要创建 1.0.0 或其他版本**
+   - 说明这是初始版本 ${version}，包含所有现有组件和功能
+   - 描述当前版本的功能特性和组件列表`
+      : `   - 这是首次生成 changelog，请创建初始版本条目（格式：## ${version}）
+   - 说明这是初始版本，包含所有现有组件和功能`))
   : `   - **重要：版本 ${version} 没有更新，请保持现有 changelog.md 内容不变，不要添加新版本条目**
    - 只返回现有的 changelog.md 内容，不要做任何修改`}
 
