@@ -33,7 +33,7 @@
   "license": "ISC",
   "dependencies": {
     "@vitejs/plugin-vue2": "^2.3.3",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.23"
   },
   "devDependencies": {
     "@lcap/builder": "^1.3.1",
