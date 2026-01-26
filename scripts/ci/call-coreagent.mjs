@@ -249,6 +249,23 @@ async function generateUsageAndChangelog(pkgDir, aiContext) {
   // 检查是否是首次生成（usage.md 不存在）
   const isFirstTime = !fs.existsSync(usagePath);
   
+  // 检查版本是否更新（如果版本没有更新，不需要更新 changelog）
+  let shouldUpdateChangelog = true;
+  if (diffResult && diffResult.type !== 'version_change') {
+    // 如果不是版本变更，检查现有 changelog 是否已经包含当前版本
+    if (existingChangelog) {
+      // 检查 changelog 中是否已经包含当前版本
+      const versionPattern = new RegExp(`##\\s+${version.replace(/\./g, '\\.')}`, 'i');
+      if (versionPattern.test(existingChangelog)) {
+        shouldUpdateChangelog = false;
+        console.log(`ℹ️ 版本 ${version} 已在 changelog.md 中存在，跳过更新 changelog`);
+      }
+    }
+  } else if (!diffResult) {
+    // 如果没有 diffResult（首次生成），需要生成 changelog
+    shouldUpdateChangelog = true;
+  }
+  
   // 如果没有 diffResult，尝试从包路径推断工作区和分类
   let workspace = 'unknown';
   let category = 'unknown';
@@ -331,19 +348,26 @@ ${existingChangelog || '(空 - 首次生成)'}
    - 保持文档结构清晰，使用 Markdown 格式
 
 2. **changelog.md**:
-   ${diffResult ? `- 在文档顶部添加新版本条目（格式：## ${version}）
+${shouldUpdateChangelog 
+  ? (diffResult 
+    ? `   - 在文档顶部添加新版本条目（格式：## ${version}）
    - 根据变更类型和摘要，生成相应的变更说明
    - 如果是 version_change，说明版本升级原因
    - 如果是 logic_change，说明功能变更或修复（说明哪些组件受到影响）
    - 如果是 style_change，说明样式调整
    - 如果是 config_change，说明配置变更
-   - 保持与现有 changelog 格式一致` : `- 这是首次生成 changelog，请创建初始版本条目（格式：## ${version}）
-   - 说明这是初始版本，包含所有现有组件和功能`}
+   - 保持与现有 changelog 格式一致`
+    : `   - 这是首次生成 changelog，请创建初始版本条目（格式：## ${version}）
+   - 说明这是初始版本，包含所有现有组件和功能`)
+  : `   - **重要：版本 ${version} 没有更新，请保持现有 changelog.md 内容不变，不要添加新版本条目**
+   - 只返回现有的 changelog.md 内容，不要做任何修改`}
 
 请以 JSON 格式返回，包含两个字段：
 {
   "usage": "完整的 usage.md 内容",
-  "changelog": "完整的 changelog.md 内容（包含新版本条目和现有内容）"
+  "changelog": ${shouldUpdateChangelog 
+    ? '"完整的 changelog.md 内容（包含新版本条目和现有内容）"' 
+    : '"保持现有的 changelog.md 内容不变（如果版本未更新，直接返回现有内容）"'}
 }
   `;
 
@@ -370,9 +394,12 @@ ${existingChangelog || '(空 - 首次生成)'}
           console.log(`✅ usage.md 已生成/更新: ${usagePath}`);
         }
         
-        if (parsed.changelog) {
+        // 只有在需要更新 changelog 时才写入
+        if (parsed.changelog && shouldUpdateChangelog) {
           fs.writeFileSync(changelogPath, parsed.changelog);
           console.log(`✅ changelog.md 已生成/更新: ${changelogPath}`);
+        } else if (!shouldUpdateChangelog) {
+          console.log(`ℹ️ 版本未更新，跳过 changelog.md 更新`);
         }
         
         // 不在这里提交，由 generate-diff-docs.mjs 统一提交
@@ -389,9 +416,11 @@ ${existingChangelog || '(空 - 首次生成)'}
           console.log(`✅ usage.md 已生成/更新: ${usagePath}`);
         }
         
-        if (changelogMatch) {
+        if (changelogMatch && shouldUpdateChangelog) {
           fs.writeFileSync(changelogPath, changelogMatch[1].trim());
           console.log(`✅ changelog.md 已生成/更新: ${changelogPath}`);
+        } else if (!shouldUpdateChangelog) {
+          console.log(`ℹ️ 版本未更新，跳过 changelog.md 更新`);
         } else if (!usageMatch) {
           // 如果都找不到，将整个响应作为 usage.md
           fs.writeFileSync(usagePath, responseText);
