@@ -273,9 +273,98 @@ for (const packagePath of changedPackages) {
   }
 }
 
+// 如果没有检测到变更的包，尝试从其他来源获取包列表（用于首次生成文档）
+// 注意：如果有 git 变更，会优先走 git diff 流程，不会进入这个分支
 if (packagesToProcess.length === 0) {
-  console.log('ℹ️  没有检测到变更的包，跳过生成 diff 描述');
-  process.exit(0);
+  console.log('ℹ️  没有检测到变更的包，尝试从其他来源获取包列表（用于首次生成文档）...');
+  
+  // 1. 尝试从 batch_items.json 读取（如果存在）
+  const batchItemsPath = path.join(repoRoot, 'batch_items.json');
+  if (fs.existsSync(batchItemsPath)) {
+    try {
+      const batchItems = JSON.parse(fs.readFileSync(batchItemsPath, 'utf8'));
+      const items = Array.isArray(batchItems) ? batchItems : (batchItems.items || []);
+      
+      for (const item of items) {
+        const relDir = item.relDir || item.dir || '';
+        if (relDir && !packagesToProcess.find(p => p.relDir === relDir)) {
+          const pkgJsonPath = path.join(repoRoot, relDir, 'package.json');
+          if (fs.existsSync(pkgJsonPath)) {
+            try {
+              const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
+              const docsDir = path.join(repoRoot, relDir, 'docs');
+              const usagePath = path.join(docsDir, 'usage.md');
+              const hasUsageDoc = fs.existsSync(usagePath);
+              
+              // 如果文档不存在，添加到处理列表（首次生成）
+              if (!hasUsageDoc) {
+                packagesToProcess.push({
+                  name: pkgJson.name || path.basename(relDir),
+                  version: pkgJson.version || '0.0.0',
+                  dir: path.join(repoRoot, relDir),
+                  relDir: relDir
+                });
+                console.log(`📦 从 batch_items.json 添加包（首次生成文档）: ${pkgJson.name || relDir}`);
+              }
+            } catch (e) {
+              console.warn(`⚠️ 读取包信息失败 (${relDir}): ${e.message}`);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn(`⚠️ 读取 batch_items.json 失败: ${e.message}`);
+    }
+  }
+  
+  // 2. 尝试从 build_results.json 读取（如果存在）
+  const buildResultsPath = path.join(repoRoot, 'build_results.json');
+  if (fs.existsSync(buildResultsPath) && packagesToProcess.length === 0) {
+    try {
+      const buildResults = JSON.parse(fs.readFileSync(buildResultsPath, 'utf8'));
+      const results = Array.isArray(buildResults) ? buildResults : [];
+      
+      for (const result of results) {
+        const relDir = result.relDir || result.dir || '';
+        if (relDir && !packagesToProcess.find(p => p.relDir === relDir)) {
+          const pkgJsonPath = path.join(repoRoot, relDir, 'package.json');
+          if (fs.existsSync(pkgJsonPath)) {
+            try {
+              const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
+              const docsDir = path.join(repoRoot, relDir, 'docs');
+              const usagePath = path.join(docsDir, 'usage.md');
+              const hasUsageDoc = fs.existsSync(usagePath);
+              
+              // 如果文档不存在，添加到处理列表（首次生成）
+              if (!hasUsageDoc) {
+                packagesToProcess.push({
+                  name: pkgJson.name || path.basename(relDir),
+                  version: pkgJson.version || '0.0.0',
+                  dir: path.join(repoRoot, relDir),
+                  relDir: relDir
+                });
+                console.log(`📦 从 build_results.json 添加包（首次生成文档）: ${pkgJson.name || relDir}`);
+              }
+            } catch (e) {
+              console.warn(`⚠️ 读取包信息失败 (${relDir}): ${e.message}`);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn(`⚠️ 读取 build_results.json 失败: ${e.message}`);
+    }
+  }
+  
+  // 如果仍然没有包需要处理，退出
+  if (packagesToProcess.length === 0) {
+    console.log('ℹ️  没有检测到需要生成文档的包，跳过生成 diff 描述');
+    process.exit(0);
+  } else {
+    console.log(`📋 找到 ${packagesToProcess.length} 个需要首次生成文档的包`);
+  }
+} else {
+  console.log(`📋 通过 git diff 检测到 ${packagesToProcess.length} 个有变更的包，将走 git diff 流程`);
 }
 
 console.log(`📋 将处理 ${packagesToProcess.length} 个包`);

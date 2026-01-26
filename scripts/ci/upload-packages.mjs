@@ -777,42 +777,26 @@ async function main() {
                   console.log(`ℹ️  ${result.name}: 未找到 changelog 文档`);
                 }
 
-                // 查找并上传 README (优先查找 docs/usage.md，然后是 README.md)
+                // 查找并上传 usage.md (只查找 docs/usage.md)
                 const docsUsagePath = path.join(result.dir, "docs", "usage.md");
-                const readmePathFile = path.join(result.dir, "README.md");
                 
                 if (fs.existsSync(docsUsagePath)) {
                   console.log(`📄 找到文档: docs/usage.md`);
-                  const readmeUploadResult = await uploadDocumentFile(
+                  const usageUploadResult = await uploadDocumentFile(
                     docsUsagePath,
                     `${result.name}-usage.md`
                   );
-                  if (readmeUploadResult && readmeUploadResult.success && readmeUploadResult.url) {
+                  if (usageUploadResult && usageUploadResult.success && usageUploadResult.url) {
                     // 验证上传后的 URL 是否包含正确的包名
-                    if (validateDocumentUrl(readmeUploadResult.url, result.name, 'usage')) {
-                      readmePath = readmeUploadResult.url;
+                    if (validateDocumentUrl(usageUploadResult.url, result.name, 'usage')) {
+                      readmePath = usageUploadResult.url;
                       console.log(`✅ ${result.name}: usage.md 上传成功（已验证包名匹配）`);
                     } else {
-                      console.error(`❌ ${result.name}: usage.md 上传后验证失败，URL: ${readmeUploadResult.url}`);
-                    }
-                  }
-                } else if (fs.existsSync(readmePathFile)) {
-                  console.log(`📄 找到文档: README.md`);
-                  const readmeUploadResult = await uploadDocumentFile(
-                    readmePathFile,
-                    `${result.name}-README.md`
-                  );
-                  if (readmeUploadResult && readmeUploadResult.success && readmeUploadResult.url) {
-                    // 验证上传后的 URL 是否包含正确的包名
-                    if (validateDocumentUrl(readmeUploadResult.url, result.name, 'usage')) {
-                      readmePath = readmeUploadResult.url;
-                      console.log(`✅ ${result.name}: README.md 上传成功（已验证包名匹配）`);
-                    } else {
-                      console.error(`❌ ${result.name}: README.md 上传后验证失败，URL: ${readmeUploadResult.url}`);
+                      console.error(`❌ ${result.name}: usage.md 上传后验证失败，URL: ${usageUploadResult.url}`);
                     }
                   }
                 } else {
-                  console.log(`ℹ️  ${result.name}: 未找到 README 文档`);
+                  console.log(`ℹ️  ${result.name}: 未找到 usage.md 文档`);
                 }
               }
 
