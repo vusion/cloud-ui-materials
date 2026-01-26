@@ -104,20 +104,33 @@ function makePlan() {
     }
   });
 
-  const include = allComponents.filter(c => finalAffected.has(c.dir)).map(c => {
-    const hasUsage = fs.existsSync(path.join(c.dir, "usage.md"));
-    return {
-      name: c.name,
-      version: c.version,
-      // dir: c.dir,
-      relDir: c.relDir,
-      node: c.isYaml ? "16" : "18",
-      build: c.isYaml ? ["npm run build", "npm run usage"] : ["npm run build"],
-      hasUsage: hasUsage,
-      // apiPath: c.apiPath,
-      // aiContext: { shouldUpdateDoc: !hasUsage || !isAll, isFirstTime: !hasUsage }
-    };
-  });
+  // 去重：确保同一个包只出现一次（基于 relDir）
+  const seenPackages = new Map();
+  const include = allComponents
+    .filter(c => finalAffected.has(c.dir))
+    .filter(c => {
+      // 使用 relDir 作为唯一标识（因为同一个包可能有多个组件目录）
+      if (seenPackages.has(c.relDir)) {
+        debug(`跳过重复的包: ${c.name} (${c.relDir})`);
+        return false;
+      }
+      seenPackages.set(c.relDir, true);
+      return true;
+    })
+    .map(c => {
+      const hasUsage = fs.existsSync(path.join(c.dir, "usage.md"));
+      return {
+        name: c.name,
+        version: c.version,
+        // dir: c.dir,
+        relDir: c.relDir,
+        node: c.isYaml ? "16" : "18",
+        build: c.isYaml ? ["npm run build", "npm run usage"] : ["npm run build"],
+        hasUsage: hasUsage,
+        // apiPath: c.apiPath,
+        // aiContext: { shouldUpdateDoc: !hasUsage || !isAll, isFirstTime: !hasUsage }
+      };
+    });
 
   // 分片逻辑：解决 256 矩阵限制，每组处理 10 个包
   const batchSize = 20;

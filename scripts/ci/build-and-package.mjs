@@ -8,7 +8,26 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "../../");
 
 const batchItemsPath = path.join(repoRoot, "batch_items.json");
-const items = JSON.parse(fs.readFileSync(batchItemsPath, "utf8"));
+const rawItems = JSON.parse(fs.readFileSync(batchItemsPath, "utf8"));
+
+// 去重：根据 relDir 去重，避免重复构建同一个包
+// 使用 relDir 作为唯一标识，因为同一个包路径应该只构建一次
+const seenPackages = new Map();
+const items = [];
+for (const pkg of rawItems) {
+  const key = pkg.relDir || `${pkg.name}@${pkg.version || 'unknown'}`;
+  if (!seenPackages.has(key)) {
+    seenPackages.set(key, true);
+    items.push(pkg);
+  } else {
+    console.log(`⚠️ 跳过重复的包: ${pkg.name} (relDir: ${pkg.relDir || 'N/A'})`);
+  }
+}
+
+if (rawItems.length !== items.length) {
+  console.log(`ℹ️ 已去重: ${rawItems.length} 个条目 -> ${items.length} 个唯一包`);
+  console.log(`   重复的包将被跳过，不会重复构建`);
+}
 
 let summary = "";
 const buildResults = [];
