@@ -297,8 +297,11 @@ async function generateUsageAndChangelog(pkgDir, aiContext) {
     ? allComponents.map(c => `- ${c.name}: ${(c.apiContent || '').substring(0, 200)}`).join('\n')
     : '无组件信息';
 
-  // 构建变更信息部分（如果有 diffResult）
-  const changeInfoSection = diffResult ? `
+  // 构建变更信息部分
+  let changeInfoSection = '';
+  if (diffResult && diffResult.type !== 'initial_generation') {
+    // 有实际的变更信息
+    changeInfoSection = `
 ## 变更信息
 - 变更类型: ${diffResult.type}
 - 变更摘要: ${diffResult.summary}
@@ -307,10 +310,22 @@ async function generateUsageAndChangelog(pkgDir, aiContext) {
 \`\`\`
 ${diffResult.diff_content.substring(0, 8000)}
 \`\`\`
-` : `
-## 变更信息
-- 这是首次生成文档，没有变更信息
 `;
+  } else if (diffResult && diffResult.type === 'initial_generation') {
+    // 首次生成：基于当前代码状态，没有变更信息
+    changeInfoSection = `
+## 变更信息
+- 这是首次生成文档，基于当前代码状态生成
+- 没有代码变更历史，将基于当前代码结构和 API 定义生成文档
+`;
+  } else {
+    // 没有 diffResult（手动执行或首次生成）
+    changeInfoSection = `
+## 变更信息
+- 这是首次生成文档，基于当前代码状态生成
+- 没有代码变更历史，将基于当前代码结构和 API 定义生成文档
+`;
+  }
 
   const prompt = `
 请根据以下信息生成或更新依赖库的 usage.md 和 changelog.md 文档。
@@ -355,7 +370,7 @@ ${existingChangelog || '(空 - 首次生成)'}
 
 2. **changelog.md**:
 ${shouldUpdateChangelog 
-  ? (diffResult 
+  ? (diffResult && diffResult.type !== 'initial_generation'
     ? `   - 在文档顶部添加新版本条目（格式：## ${version}）
    - 根据变更类型和摘要，生成相应的变更说明
    - 如果是 version_change，说明版本升级原因
@@ -367,9 +382,11 @@ ${shouldUpdateChangelog
       ? `   - 这是首次生成 changelog，当前版本是 ${version}（不是 0.0.0）
    - **重要：请以当前版本 ${version} 作为初始版本条目（格式：## ${version}），不要创建 1.0.0 或其他版本**
    - 说明这是初始版本 ${version}，包含所有现有组件和功能
-   - 描述当前版本的功能特性和组件列表`
+   - 描述当前版本的功能特性和组件列表
+   - 基于当前代码状态生成，没有变更历史`
       : `   - 这是首次生成 changelog，请创建初始版本条目（格式：## ${version}）
-   - 说明这是初始版本，包含所有现有组件和功能`))
+   - 说明这是初始版本，包含所有现有组件和功能
+   - 基于当前代码状态生成，没有变更历史`))
   : `   - **重要：版本 ${version} 没有更新，请保持现有 changelog.md 内容不变，不要添加新版本条目**
    - 只返回现有的 changelog.md 内容，不要做任何修改`}
 

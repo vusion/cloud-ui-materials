@@ -180,6 +180,55 @@ async function uploadDocumentFile(filePath, fileName) {
 }
 
 /**
+ * 验证文档 URL 是否属于指定的包
+ * @param {string} docUrl - 文档 URL
+ * @param {string} packageName - 包名
+ * @param {string} docType - 文档类型 ('changelog' 或 'usage')
+ * @returns {boolean} - 是否匹配
+ */
+function validateDocumentUrl(docUrl, packageName, docType) {
+  if (!docUrl || !packageName) {
+    return false;
+  }
+  
+  // 从 URL 中提取文件名
+  let fileName = '';
+  try {
+    const urlObj = new URL(docUrl);
+    // 尝试从查询参数中获取 fileName
+    fileName = urlObj.searchParams.get('fileName') || '';
+    // 如果没有，尝试从路径中提取
+    if (!fileName) {
+      const pathParts = urlObj.pathname.split('/');
+      fileName = pathParts[pathParts.length - 1] || '';
+    }
+  } catch (e) {
+    // 如果不是有效的 URL，尝试直接解析字符串
+    const match = docUrl.match(/([^/]+\.md)/);
+    if (match) {
+      fileName = match[1];
+    }
+  }
+  
+  if (!fileName) {
+    console.warn(`⚠️  无法从 URL 中提取文件名: ${docUrl}`);
+    return false;
+  }
+  
+  // 预期的文件名格式: {packageName}-{docType}.md
+  const expectedPrefix = `${packageName}-${docType === 'changelog' ? 'changelog' : 'usage'}`;
+  const isValid = fileName.startsWith(expectedPrefix) || fileName.includes(`${packageName}-`);
+  
+  if (!isValid) {
+    console.error(`❌ 文档 URL 验证失败: 包名 ${packageName} 与文档文件名 ${fileName} 不匹配`);
+    console.error(`   预期文件名应包含: ${expectedPrefix}`);
+    console.error(`   实际 URL: ${docUrl}`);
+  }
+  
+  return isValid;
+}
+
+/**
  * 上传依赖信息到 /rest/uploadDependency 接口
  */
 async function uploadDependency(packageInfo, fileUrl, changelogPath, readmePath) {
@@ -265,6 +314,7 @@ async function uploadDependency(packageInfo, fileUrl, changelogPath, readmePath)
       headers: headers,
       body: JSON.stringify(requestBody),
     });
+    console.log(`requestBody: ${requestBody}`);
 
     const responseText = await response.text();
     let responseData;
@@ -648,18 +698,46 @@ async function main() {
 
               // 如果文档已经由 generate-diff-docs.mjs 上传，使用其上传结果
               if (docUploadResults[result.name]) {
-                changelogPath = docUploadResults[result.name].changelogPath || null;
-                readmePath = docUploadResults[result.name].readmePath || null;
+                const docResult = docUploadResults[result.name];
+                let validChangelog = null;
+                let validReadme = null;
+                
+                // 验证 changelog 文档是否属于当前包
+                if (docResult.changelogPath) {
+                  if (validateDocumentUrl(docResult.changelogPath, result.name, 'changelog')) {
+                    validChangelog = docResult.changelogPath;
+                  } else {
+                    console.error(`❌ ${result.name}: changelog 文档 URL 验证失败，跳过使用`);
+                  }
+                }
+                
+                // 验证 readme 文档是否属于当前包
+                if (docResult.readmePath) {
+                  if (validateDocumentUrl(docResult.readmePath, result.name, 'usage')) {
+                    validReadme = docResult.readmePath;
+                  } else {
+                    console.error(`❌ ${result.name}: readme 文档 URL 验证失败，跳过使用`);
+                  }
+                }
+                
+                changelogPath = validChangelog;
+                readmePath = validReadme;
+                
                 if (changelogPath || readmePath) {
-                  console.log(`✅ ${result.name}: 使用已上传的文档链接`);
+                  console.log(`✅ ${result.name}: 使用已上传的文档链接（已验证包名匹配）`);
                   if (changelogPath) {
                     console.log(`   📄 changelogPath: ${changelogPath}`);
                   }
                   if (readmePath) {
                     console.log(`   📄 readmePath: ${readmePath}`);
                   }
+                } else {
+                  console.warn(`⚠️  ${result.name}: 文档上传结果中的文档验证失败，将尝试上传本地文档`);
                 }
-              } else {
+              }
+              
+              // 如果没有从 doc_upload_results.json 获取到有效的文档，尝试上传本地文档
+              if (!changelogPath && !readmePath) {
                 // 如果没有文档上传结果，尝试上传现有文档
                 // 查找并上传 changelog.md (优先查找 docs/changelog.md，然后是 CHANGELOG.md)
                 const docsChangelogPath = path.join(result.dir, "docs", "changelog.md");
@@ -672,8 +750,13 @@ async function main() {
                     `${result.name}-changelog.md`
                   );
                   if (changelogUploadResult && changelogUploadResult.success && changelogUploadResult.url) {
-                    changelogPath = changelogUploadResult.url;
-                    console.log(`✅ ${result.name}: changelog.md 上传成功`);
+                    // 验证上传后的 URL 是否包含正确的包名
+                    if (validateDocumentUrl(changelogUploadResult.url, result.name, 'changelog')) {
+                      changelogPath = changelogUploadResult.url;
+                      console.log(`✅ ${result.name}: changelog.md 上传成功（已验证包名匹配）`);
+                    } else {
+                      console.error(`❌ ${result.name}: changelog.md 上传后验证失败，URL: ${changelogUploadResult.url}`);
+                    }
                   }
                 } else if (fs.existsSync(rootChangelogPath)) {
                   console.log(`📄 找到文档: CHANGELOG.md`);
@@ -682,8 +765,13 @@ async function main() {
                     `${result.name}-CHANGELOG.md`
                   );
                   if (changelogUploadResult && changelogUploadResult.success && changelogUploadResult.url) {
-                    changelogPath = changelogUploadResult.url;
-                    console.log(`✅ ${result.name}: CHANGELOG.md 上传成功`);
+                    // 验证上传后的 URL 是否包含正确的包名
+                    if (validateDocumentUrl(changelogUploadResult.url, result.name, 'changelog')) {
+                      changelogPath = changelogUploadResult.url;
+                      console.log(`✅ ${result.name}: CHANGELOG.md 上传成功（已验证包名匹配）`);
+                    } else {
+                      console.error(`❌ ${result.name}: CHANGELOG.md 上传后验证失败，URL: ${changelogUploadResult.url}`);
+                    }
                   }
                 } else {
                   console.log(`ℹ️  ${result.name}: 未找到 changelog 文档`);
@@ -700,8 +788,13 @@ async function main() {
                     `${result.name}-usage.md`
                   );
                   if (readmeUploadResult && readmeUploadResult.success && readmeUploadResult.url) {
-                    readmePath = readmeUploadResult.url;
-                    console.log(`✅ ${result.name}: usage.md 上传成功`);
+                    // 验证上传后的 URL 是否包含正确的包名
+                    if (validateDocumentUrl(readmeUploadResult.url, result.name, 'usage')) {
+                      readmePath = readmeUploadResult.url;
+                      console.log(`✅ ${result.name}: usage.md 上传成功（已验证包名匹配）`);
+                    } else {
+                      console.error(`❌ ${result.name}: usage.md 上传后验证失败，URL: ${readmeUploadResult.url}`);
+                    }
                   }
                 } else if (fs.existsSync(readmePathFile)) {
                   console.log(`📄 找到文档: README.md`);
@@ -710,8 +803,13 @@ async function main() {
                     `${result.name}-README.md`
                   );
                   if (readmeUploadResult && readmeUploadResult.success && readmeUploadResult.url) {
-                    readmePath = readmeUploadResult.url;
-                    console.log(`✅ ${result.name}: README.md 上传成功`);
+                    // 验证上传后的 URL 是否包含正确的包名
+                    if (validateDocumentUrl(readmeUploadResult.url, result.name, 'usage')) {
+                      readmePath = readmeUploadResult.url;
+                      console.log(`✅ ${result.name}: README.md 上传成功（已验证包名匹配）`);
+                    } else {
+                      console.error(`❌ ${result.name}: README.md 上传后验证失败，URL: ${readmeUploadResult.url}`);
+                    }
                   }
                 } else {
                   console.log(`ℹ️  ${result.name}: 未找到 README 文档`);
@@ -724,12 +822,26 @@ async function main() {
                 const pkgJson = JSON.parse(
                   fs.readFileSync(pkgJsonPath, "utf8")
                 );
+                // 在调用 uploadDependency 之前，再次验证文档 URL
+                let finalChangelogPath = changelogPath;
+                let finalReadmePath = readmePath;
+                
+                if (finalChangelogPath && !validateDocumentUrl(finalChangelogPath, result.name, 'changelog')) {
+                  console.error(`❌ ${result.name}: changelog 文档验证失败，将不包含在依赖信息中`);
+                  finalChangelogPath = null;
+                }
+                
+                if (finalReadmePath && !validateDocumentUrl(finalReadmePath, result.name, 'usage')) {
+                  console.error(`❌ ${result.name}: readme 文档验证失败，将不包含在依赖信息中`);
+                  finalReadmePath = null;
+                }
+                
                 // 统一调用一次 uploadDependency 接口，包含所有链接
                 const dependencyResult = await uploadDependency(
                   pkgJson,
                   validFileUrl,
-                  changelogPath,
-                  readmePath
+                  finalChangelogPath,
+                  finalReadmePath
                 );
                 if (dependencyResult && dependencyResult.success) {
                   result.dependencyUploadResult = dependencyResult;

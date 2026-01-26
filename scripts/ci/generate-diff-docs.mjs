@@ -645,13 +645,37 @@ for (const result of packagesToProcess) {
       // 忽略错误（可能是第一个提交或没有提交）
     }
     
-    if (!diff.trim()) {
-      continue;
-    }
-    
     // 解析路径结构
     const { workspace, category, package: packageName } = parsePathStructure(result.relDir);
     
+    // 检查是否已有文档（用于判断是否需要首次生成）
+    const docsDir = path.join(result.dir, 'docs');
+    const usagePath = path.join(docsDir, 'usage.md');
+    const hasUsageDoc = fs.existsSync(usagePath);
+    
+    // 如果没有 diff，但文档不存在，也需要生成文档（首次生成场景）
+    if (!diff.trim()) {
+      if (!hasUsageDoc) {
+        // 首次生成：没有 diff，但需要生成文档
+        console.log(`ℹ️ ${packageName || result.name}: 没有检测到变更，但文档不存在，将基于当前代码生成文档`);
+        diffResults.push({
+          workspace: workspace || 'unknown',
+          category: category || 'unknown',
+          package: packageName || result.name,
+          component: 'Root/Package',
+          type: 'initial_generation',
+          summary: '首次生成文档，基于当前代码状态',
+          affected_files: [],
+          diff_content: ''
+        });
+      } else {
+        // 有文档且没有 diff，跳过
+        console.log(`ℹ️ ${packageName || result.name}: 没有检测到变更，且文档已存在，跳过`);
+      }
+      continue;
+    }
+    
+    // 有 diff 的情况：正常处理
     // 检测组件
     const component = detectComponent(result.dir, result.relDir, diff);
     
@@ -837,10 +861,15 @@ try {
       }
 
       // 保存上传结果，供 upload-packages.mjs 使用
+      // 同时保存包名信息用于验证
       if (uploadedChangelogPath || uploadedReadmePath) {
         docUploadResults[packageInfo.name] = {
+          packageName: packageInfo.name, // 保存包名用于验证
           changelogPath: uploadedChangelogPath,
-          readmePath: uploadedReadmePath
+          readmePath: uploadedReadmePath,
+          // 保存原始文件名用于验证
+          changelogFileName: uploadedChangelogPath ? `${packageInfo.name}-changelog.md` : null,
+          readmeFileName: uploadedReadmePath ? `${packageInfo.name}-usage.md` : null
         };
       }
     } catch (error) {
