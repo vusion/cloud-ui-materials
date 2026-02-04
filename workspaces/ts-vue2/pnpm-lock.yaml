@@ -1309,6 +1309,99 @@ importers:
         specifier: 2.7.16
         version: 2.7.16
 
+  packages/cust/cust_library_shenxiaoli:
+    devDependencies:
+      '@lcap/builder':
+        specifier: 1.6.1
+        version: 1.6.1(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(css-loader@7.1.2)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.52.5)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: 0.1.14
+        version: 0.1.14
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@19.2.0)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(css-loader@7.1.2)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0
+      lcap-ide-server-proxy:
+        specifier: ^0.1.2-beta
+        version: 0.1.2-beta
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
   packages/cust/cust_mobile_pickerson:
     dependencies:
       '@babel/runtime':
@@ -3978,6 +4071,109 @@ importers:
         specifier: 2.7.16
         version: 2.7.16
 
+  packages/cw/vue_calendar_new:
+    dependencies:
+      ant-design-vue:
+        specifier: 1.7.8
+        version: 1.7.8(vue-template-compiler@2.7.16)(vue@2.7.16)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      moment:
+        specifier: ^2.29.1
+        version: 2.30.1
+    devDependencies:
+      '@lcap/builder':
+        specifier: ^1.6.2
+        version: 1.6.2(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(css-loader@7.1.2)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(pug@3.0.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.52.5)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: ^0.2.1
+        version: 0.2.1
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@19.2.0)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(css-loader@7.1.2)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0
+      lcap-ide-server-proxy:
+        specifier: ^0.1.2-beta
+        version: 0.1.2-beta
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0)(less@4.5.1)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
   packages/game/xy_2:
     dependencies:
       '@ysf/fetch':
@@ -5426,6 +5622,9 @@ packages:
 
   '@nasl/types@0.1.15':
     resolution: {integrity: sha512-5Gj4uCN3Mbd9bEwg23St2IIZTfPRm3m49GHxfUvUD//DQ+ij+Bcmvda5oz/ouv3Lo3RH+i1fJfcTKLW3ZEtoEg==}
+
+  '@nasl/types@0.2.1':
+    resolution: {integrity: sha512-vOTJRH4YQ9fvqsBIxzLyM8pTw6hjJY8sIO5iSvS98H6QIGr/aDYzANcNG21l3eHARcazLb5ysF0YTC4Lf1bZPw==}
 
   '@ndelangen/get-tarball@3.0.9':
     resolution: {integrity: sha512-9JKTEik4vq+yGosHYhZ1tiH/3WpUS0Nh0kej4Agndhox8pAdWhEx5knFVRcb/ya9knCRCs1rPxNrSXTDdfVqpA==}
@@ -13588,6 +13787,8 @@ snapshots:
   '@nasl/types@0.1.14': {}
 
   '@nasl/types@0.1.15': {}
+
+  '@nasl/types@0.2.1': {}
 
   '@ndelangen/get-tarball@3.0.9':
     dependencies:

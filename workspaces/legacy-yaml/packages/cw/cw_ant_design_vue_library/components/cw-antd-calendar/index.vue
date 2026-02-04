@@ -1,9 +1,15 @@
 <template>
   <div  class="cw-ant-calendar" style="--calendar-primary-background: #1890ff;--calendar-value-border-radius:2px">
     <a-calendar v-model="currentValue" ref="calendar" :header-render="headerRender" :locale="locale"  valueFormat="YYYY-MM-DD"  :fullscreen="false" @panelChange="handlePanelChange" @select="handleSelect" :getPopupContainer="getPopupContainer">
-      <ul slot="dateCellRender" slot-scope="value" class="events">
-        <span v-for="item in getListData(value)" :key="item.content" class="cicle"></span>
-      </ul>
+      <template slot="dateCellRender" slot-scope="value">
+        <div vusion-slot-name="dateCell">
+          <slot name="dateCell" :value="value" :data="getListData(value)">
+            <ul class="events" style="margin:0;padding:0;list-style:none;">
+              <span v-for="item in getListData(value)" :key="item.content" class="cicle"></span>
+            </ul>
+          </slot>
+        </div>
+      </template>
     </a-calendar>
   </div>
 </template>

@@ -71,5 +71,9 @@
         - name: value
           type: string
           description: 错误原因
+  slots:
+    - name: default
+      title: 默认
+      description: 上传按钮内容
 
     

@@ -70,3 +70,16 @@
       default: 2px
       type: input
       description: 日历圆角
+  slots:
+    - name: dateCell
+      title: 日期单元格
+      description: 自定义日期单元格内容
+      params:
+        - name: value
+          title: 当前日期
+          type: String
+          description: 当前日期(Moment对象)
+        - name: data
+          title: 当前数据
+          type: Array<Item>
+          description: 当前日期匹配的数据列表

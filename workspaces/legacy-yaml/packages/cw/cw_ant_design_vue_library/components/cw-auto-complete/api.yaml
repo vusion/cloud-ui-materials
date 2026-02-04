@@ -51,5 +51,13 @@
         - name: value
           type: string
           description: 改变的值
+  slots:
+    - name: item
+      title: 选项内容
+      description: 自定义选项显示内容
+      params:
+        - name: item
+          title: 选项数据
+          type: Item
   
 

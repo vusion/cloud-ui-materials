@@ -15,12 +15,16 @@
       <template slot="dataSource">
         <template v-if="valueField">
           <a-select-option  v-for="item in listSource" :key="get(item,valueField)" :title="get(item,valueField)" >
-            {{ get(item,valueField) }}
+            <slot name="item" :item="item">
+              {{ get(item,valueField) }}
+            </slot>
           </a-select-option>
         </template>
         <template v-else>
           <a-select-option  v-for="item in listSource" :key="item" :title="item">
-            {{ item }}
+            <slot name="item" :item="item">
+              {{ item }}
+            </slot>
           </a-select-option>
         </template>
       </template>
