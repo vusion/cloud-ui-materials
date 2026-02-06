@@ -13,6 +13,9 @@
 import HgHtml2Print from './hg-html2print.js';
 
 const ORIENTATION_MAP = { vertical: 'p', horizontal: 'l' };
+// A4 纸张：竖向宽 210mm，高 297mm；横向反之
+const A4_WIDTH_MM = 210;
+const A4_HEIGHT_MM = 297;
 
 export default {
   name: 'hg-print-block',
@@ -43,12 +46,22 @@ export default {
   },
   computed: {
     rootStyle() {
-      const y = Number(this.yBorder);
-      const x = Number(this.xBorder);
-      const yPx = Math.max(0, isNaN(y) ? 10 : y);
-      const xPx = Math.max(0, isNaN(x) ? 10 : x);
+      // 将边距和宽度统一按 mm 解释，使设计时就以实际纸张尺寸为准
+      const yMm = Number(this.yBorder);
+      const xMm = Number(this.xBorder);
+      const safeYMm = Math.max(0, Number.isNaN(yMm) ? 10 : yMm);
+      const safeXMm = Math.max(0, Number.isNaN(xMm) ? 10 : xMm);
+
+      // 根据横向/竖向限定可视宽度：整体为 A4 宽度减去两侧边距（单位 mm）
+      const isLandscape = this.printDirection === 'horizontal';
+      const pageWidthMm = isLandscape ? A4_HEIGHT_MM : A4_WIDTH_MM;
+      const contentWidthMm = pageWidthMm - 2 * safeXMm;
+
       return {
-        padding: `${yPx}px ${xPx}px`,
+        // 这里使用 mm，让浏览器在打印模式下按实际物理尺寸渲染
+        padding: `${safeYMm}mm ${safeXMm}mm`,
+        width: `${contentWidthMm}mm`,
+        margin: '0 auto',
         minHeight: '10px',
         boxSizing: 'border-box',
       };

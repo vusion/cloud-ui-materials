@@ -11,6 +11,7 @@ const DATA_PRINT_HEADER = 'data-hg-print-header';
 const DATA_PRINT_BADGE = 'data-hg-print-badge';
 const A4_WIDTH_PT = 595.28;
 const A4_HEIGHT_PT = 841.89;
+const MM_TO_PT = 72 / 25.4; // 1mm = 72/25.4 pt
 
 export default class HgHtml2Print {
   constructor(element, param = {}) {
@@ -18,8 +19,11 @@ export default class HgHtml2Print {
       throw new TypeError('element 应为 HTMLElement');
     }
     this.element = element;
-    this.baseX = param.baseX != null ? param.baseX : 10;
-    this.baseY = param.baseY != null ? param.baseY : 10;
+    // 这里将传入的边距按 mm 解释，再统一转换为 pt，和 PDF 纸张单位一致
+    const baseXmm = param.baseX != null ? param.baseX : 10;
+    const baseYmm = param.baseY != null ? param.baseY : 10;
+    this.baseX = baseXmm * MM_TO_PT;
+    this.baseY = baseYmm * MM_TO_PT;
     this.orientation = param.orientation || 'p'; // 'p' | 'l'
     this.debug = param.debug || false;
     this._imgCache = new Map();
@@ -49,14 +53,17 @@ export default class HgHtml2Print {
     canvas.height = Math.max(1, Math.round(sh));
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, Math.round(sx), Math.round(sy), Math.round(sw), Math.round(sh), 0, 0, Math.round(sw), Math.round(sh));
-    return canvas.toDataURL('image/jpeg', 0.95);
+    // 使用 PNG 避免文字和线条的 JPEG 压缩损失
+    return canvas.toDataURL('image/png', 0.95);
   }
 
   async toCanvas(element, width) {
     if (!element) return null;
     try {
+      // 提高截图分辨率，减小 PDF 模糊
+      const dpr = (typeof window !== 'undefined' && window.devicePixelRatio) || 2;
       const options = {
-        scale: 1,
+        scale: dpr,
         useCORS: true,
         logging: false,
         allowTaint: true,
@@ -64,13 +71,15 @@ export default class HgHtml2Print {
       };
       if (width) options.width = width;
       const canvas = await html2canvas(element, options);
-      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const imgData = canvas.toDataURL('image/png', 0.95);
+      // width / height 仍使用 CSS 像素换算为 pt，避免因 scale 放大导致 PDF 再次缩放
       return {
         data: imgData,
-        width: canvas.width * 0.75,
-        height: canvas.height * 0.75,
+        width: (canvas.width / dpr) * 0.75,
+        height: (canvas.height / dpr) * 0.75,
         canvasWidth: canvas.width,
         canvasHeight: canvas.height,
+        scale: dpr,
       };
     } catch (e) {
       console.error('[huagong_print] toCanvas 失败', e);
@@ -125,7 +134,8 @@ export default class HgHtml2Print {
   /**
    * 提取徽章信息：
    *  - 查找带 data-hg-print-badge 的节点
-   *  - 记录其在容器内的像素坐标
+   *  - 优先读取组件提供的 PDF 坐标（data-hg-print-badge-x / y，单位 pt，基于内容区域）
+   *  - 否则回退为在容器内的像素坐标
    *  - 将徽章单独渲染为图片
    *  - 在容器克隆中隐藏徽章，避免参与主体截图
    */
@@ -137,13 +147,33 @@ export default class HgHtml2Print {
       // 在原始元素上截图，避免克隆过程中的样式抖动
       const sourceBadge = this.element.querySelector(`[${DATA_PRINT_BADGE}]`) || badgeClone;
 
-      const containerRect = container.getBoundingClientRect();
-      const badgeRect = badgeClone.getBoundingClientRect();
-      const xPx = badgeRect.left - containerRect.left;
-      const yPx = badgeRect.top - containerRect.top;
+      // 优先使用组件显式提供的 PDF 坐标（pt）
+      let pdfXPt = null;
+      let pdfYPt = null;
+      const xAttr = badgeClone.getAttribute('data-hg-print-badge-x');
+      const yAttr = badgeClone.getAttribute('data-hg-print-badge-y');
+      if (xAttr != null && xAttr !== '') {
+        const v = Number(xAttr);
+        if (!Number.isNaN(v)) pdfXPt = v;
+      }
+      if (yAttr != null && yAttr !== '') {
+        const v = Number(yAttr);
+        if (!Number.isNaN(v)) pdfYPt = v;
+      }
+
+      // 如果没有显式 PDF 坐标，则退回 DOM 像素坐标
+      let xPx = 0;
+      let yPx = 0;
+      if (pdfXPt == null || pdfYPt == null) {
+        const containerRect = container.getBoundingClientRect();
+        const badgeRect = badgeClone.getBoundingClientRect();
+        xPx = badgeRect.left - containerRect.left;
+        yPx = badgeRect.top - containerRect.top;
+      }
 
       const canvas = await html2canvas(sourceBadge, {
-        scale: 1,
+        // 徽章通常较小，也按设备像素比渲染，保证文字清晰
+        scale: (typeof window !== 'undefined' && window.devicePixelRatio) || 2,
         useCORS: true,
         logging: false,
         allowTaint: true,
@@ -161,6 +191,8 @@ export default class HgHtml2Print {
         yPx,
         widthPx: canvas.width,
         heightPx: canvas.height,
+        pdfXPt,
+        pdfYPt,
       };
     } catch (e) {
       this._log('提取徽章失败', e);
@@ -221,7 +253,7 @@ export default class HgHtml2Print {
       return;
     }
 
-    const { data: baseImageData, canvasWidth: cwPx } = baseResult;
+    const { data: baseImageData, canvasWidth: cwPx, scale: canvasScale = 1 } = baseResult;
     const contentWidthPtUsed = Math.min(contentWidthPt, actualWidth * 0.75);
     const pxToPt = (px) => px * 0.75;
 
@@ -237,7 +269,7 @@ export default class HgHtml2Print {
     const drawHeader = () => {
       if (headerImageResult && headerImageResult.data) {
         const headerW = Math.min(contentWidthPtUsed, headerImageResult.width);
-        pdf.addImage(headerImageResult.data, 'JPEG', this.baseX, this.baseY, headerW, headerHeightPt);
+        pdf.addImage(headerImageResult.data, 'PNG', this.baseX, this.baseY, headerW, headerHeightPt);
       }
     };
 
@@ -257,9 +289,10 @@ export default class HgHtml2Print {
         currentPdfY = contentStartY;
       }
 
-      const clipped = await this.clipImage(baseImageData, 0, seg.top, cwPx, segH);
-      const drawW = Math.min(contentWidthPtUsed, pxToPt(cwPx));
-      pdf.addImage(clipped, 'JPEG', this.baseX, currentPdfY, drawW, segHPt);
+      // clipImage 的坐标需要使用渲染后的像素（考虑 html2canvas 的 scale）
+      const clipped = await this.clipImage(baseImageData, 0, seg.top * canvasScale, cwPx, segH * canvasScale);
+      const drawW = Math.min(contentWidthPtUsed, pxToPt(cwPx / canvasScale));
+      pdf.addImage(clipped, 'PNG', this.baseX, currentPdfY, drawW, segHPt);
 
       currentPdfY += segHPt;
       isFirstPage = false;
@@ -270,11 +303,13 @@ export default class HgHtml2Print {
       const totalPages = pdf.internal.getNumberOfPages();
       const scaleXPxToPt = cwPx > 0 ? contentWidthPtUsed / cwPx : 0;
       const scaleYPxToPt = 0.75; // 垂直方向按像素到 pt 的固定换算
-
       const badgeWPt = badgeInfo.widthPx * scaleXPxToPt;
       const badgeHPt = badgeInfo.heightPx * scaleYPxToPt;
-      const badgeXPt = this.baseX + badgeInfo.xPx * scaleXPxToPt;
-      const badgeYPt = contentStartY + badgeInfo.yPx * scaleYPxToPt;
+
+      // 如果组件显式提供了 PDF 坐标（单位 pt，基于内容区域左上角），优先使用
+      const hasPdfCoord = badgeInfo.pdfXPt != null && badgeInfo.pdfYPt != null;
+      const badgeXPt = hasPdfCoord ? this.baseX + badgeInfo.pdfXPt : this.baseX + badgeInfo.xPx * scaleXPxToPt;
+      const badgeYPt = hasPdfCoord ? contentStartY + badgeInfo.pdfYPt : contentStartY + badgeInfo.yPx * scaleYPxToPt;
 
       for (let page = 1; page <= totalPages; page++) {
         pdf.setPage(page);

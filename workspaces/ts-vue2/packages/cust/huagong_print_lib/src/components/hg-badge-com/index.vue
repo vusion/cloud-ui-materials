@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root" data-hg-print-badge>
+  <div data-hg-print-badge :data-hg-print-badge-x="x" :data-hg-print-badge-y="y">
     <slot></slot>
   </div>
 </template>
@@ -20,18 +20,6 @@ export default {
 </script>
 <style module>
 .root {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 20px;
-  min-height: 20px;
-  padding: 2px 6px;
-  background-color: red;
-  color: #fff;
-  font-size: 12px;
-  line-height: 1;
-  border-radius: 10px;
-  box-sizing: border-box;
+  
 }
 </style>

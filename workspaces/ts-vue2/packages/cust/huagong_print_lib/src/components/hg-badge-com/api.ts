@@ -5,7 +5,7 @@ namespace extensions.huagong_print_lib.viewComponents {
   @ExtensionComponent({
     type: 'both',
     ideusage: {
-      idetype: 'element',
+      idetype: 'container',
     }
   })
   @Component({
