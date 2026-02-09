@@ -1,6 +1,6 @@
 <template>
-  <div :class="[$style.printView, hideOnScreen && !$env?.VUE_APP_DESIGNER ? $style.printViewHidden : '']"
-    ref="printBlock" :style="rootStyle">
+  <div :class="[$style.printView, hideOnScreen && !isDesigner ? $style.printViewHidden : '']" ref="printBlock"
+    :style="rootStyle">
     <div v-if="loading" :class="$style.printLoading">
       <span :class="$style.loadingText">正在生成打印内容，请稍候...</span>
     </div>
@@ -13,9 +13,11 @@
 import HgHtml2Print from './hg-html2print.js';
 
 const ORIENTATION_MAP = { vertical: 'p', horizontal: 'l' };
-// A4 纸张：竖向宽 210mm，高 297mm；横向反之
-const A4_WIDTH_MM = 210;
-const A4_HEIGHT_MM = 297;
+// A4 纸张尺寸（pt），与 hg-html2print.js 一致，保证容器与 PDF 宽高比例一致
+const A4_WIDTH_PT = 595.28;
+const A4_HEIGHT_PT = 841.89;
+/** 1 CSS px = 0.75 pt（96dpi 下 72pt=96px），与打印逻辑 pxToPt 一致 */
+const PT_PER_PX = 0.75;
 
 export default {
   name: 'hg-print-block',
@@ -45,22 +47,23 @@ export default {
     return { loading: false };
   },
   computed: {
+    isDesigner() {
+      return false;
+    },
     rootStyle() {
-      // 将边距和宽度统一按 mm 解释，使设计时就以实际纸张尺寸为准
-      const yMm = Number(this.yBorder);
-      const xMm = Number(this.xBorder);
-      const safeYMm = Math.max(0, Number.isNaN(yMm) ? 10 : yMm);
-      const safeXMm = Math.max(0, Number.isNaN(xMm) ? 10 : xMm);
+      const yPt = Number(this.yBorder);
+      const xPt = Number(this.xBorder);
+      const safeYPt = Math.max(0, Number.isNaN(yPt) ? 10 : yPt);
+      const safeXPt = Math.max(0, Number.isNaN(xPt) ? 10 : xPt);
 
-      // 根据横向/竖向限定可视宽度：整体为 A4 宽度减去两侧边距（单位 mm）
       const isLandscape = this.printDirection === 'horizontal';
-      const pageWidthMm = isLandscape ? A4_HEIGHT_MM : A4_WIDTH_MM;
-      const contentWidthMm = pageWidthMm - 2 * safeXMm;
+      const pageWidthPt = isLandscape ? A4_HEIGHT_PT : A4_WIDTH_PT;
+      // 容器总宽度（px）= 页宽(pt)/PT_PER_PX，使内容区宽度 = (pageWidthPt - 2*safeXPt)/PT_PER_PX，与 PDF 内容区一致
+      const totalWidthPx = pageWidthPt / PT_PER_PX;
 
       return {
-        // 这里使用 mm，让浏览器在打印模式下按实际物理尺寸渲染
-        padding: `${safeYMm}mm ${safeXMm}mm`,
-        width: `${contentWidthMm}mm`,
+        width: `${totalWidthPx}px`,
+        padding: `${safeYPt}pt ${safeXPt}pt`,
         margin: '0 auto',
         minHeight: '10px',
         boxSizing: 'border-box',

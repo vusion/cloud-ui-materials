@@ -14,10 +14,7 @@ export default defineConfig(({ command }) => {
     plugins: [
       vue2({
         jsx: true,
-        jsxInclude: [
-          /.(jsx|tsx)$/,
-          /\.lcap\/.*(js|ts)$/,
-        ],
+        jsxInclude: [/.(jsx|tsx)$/, /\.lcap\/.*(js|ts)$/],
         jsxOptions: {
           vModel: true,
           functional: false,
@@ -31,7 +28,11 @@ export default defineConfig(({ command }) => {
         framework: 'vue2',
       }),
     ],
+    optimizeDeps: {
+      include: ['vue'],
+    },
     resolve: {
+      dedupe: ['vue'],
       extensions: ['.js', '.ts', '.tsx', '.jsx', '.vue', '.mjs', '.cjs', '.json'],
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -43,10 +44,12 @@ export default defineConfig(({ command }) => {
       },
     },
     define: {
-      'process.env': {
-        VUE_APP_DESIGNER: false,
-        NODE_ENV: command === 'build' ? 'production' : 'development',
-      },
+      __DEFINES__: JSON.stringify({
+        'process.env.VUE_APP_DESIGNER': false,
+        'process.env.NODE_ENV': command === 'build' ? 'production' : 'development',
+      }),
+      'process.env.VUE_APP_DESIGNER': JSON.stringify(false),
+      'process.env.NODE_ENV': JSON.stringify(command === 'build' ? 'production' : 'development'),
     },
     css: {
       modules: {
