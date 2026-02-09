@@ -221,6 +221,7 @@ export default class HgHtml2Print {
     const badgeElement = container.querySelector(`[${DATA_PRINT_BADGE}]`) || null;
     const rect = container.getBoundingClientRect();
 
+    const isHeaderOrContains = (el) => el === headerElement || (headerElement && el.contains && el.contains(headerElement));
     const isBadgeOrContains = (el) => el === badgeElement || (badgeElement && el.contains && el.contains(badgeElement));
     const hasPrintItem = (el) =>
       (el && el.hasAttribute && el.hasAttribute(DATA_PRINT_ITEM)) || (el.querySelector && !!el.querySelector(`[${DATA_PRINT_ITEM}]`));
@@ -230,7 +231,7 @@ export default class HgHtml2Print {
 
     const children = Array.from(contentRoot.children || []);
     children.forEach((child) => {
-      if (isBadgeOrContains(child)) return;
+      if (isHeaderOrContains(child) || isBadgeOrContains(child)) return;
 
       const hRect = child.getBoundingClientRect();
       const hTop = hRect.top - rect.top;
@@ -500,7 +501,10 @@ export default class HgHtml2Print {
     }
   }
 
-  async print() {
+  /**
+   * @param {string} [uploadUrl='/upload'] 生成 PDF 后上传到该接口地址，传空则不上传
+   */
+  async print(uploadUrl = '/upload') {
     const isLandscape = this.orientation === 'l';
     const pageWidthPt = isLandscape ? A4_HEIGHT_PT : A4_WIDTH_PT;
     const pageHeightPt = isLandscape ? A4_WIDTH_PT : A4_HEIGHT_PT;
@@ -541,10 +545,9 @@ export default class HgHtml2Print {
     // inline 模式下必须预留底部区域，避免 body 与徽章重叠；高度与绘制时一致 (heightPx 为 canvas 像素)
     const badgeReservedPt =
       badgeInline && badgeInfo && badgeInfo.data ? (badgeInfo.heightPx / dprForBadge) * PT_PER_PX + BADGE_DEFAULT_BOTTOM_GAP : 0;
-    // 内联模式下每页内容区高度已扣除徽章预留，body 不会排入徽章区
-    const firstPageAvailableHPt = Math.max(0, pageHeightPt - 2 * this.baseY - badgeReservedPt);
+    // 内联模式下每页内容区高度已扣除徽章预留，body 不会排入徽章区；表头不参与分页，每页顶部单独绘制，故首页与其它页 body 可用高一致
     const bodyAvailablePageHPt = Math.max(0, pageHeightPt - 2 * this.baseY - headerHeightPt - badgeReservedPt);
-    const firstPageContentHPx = firstPageAvailableHPt / PT_PER_PX;
+    const firstPageContentHPx = bodyAvailablePageHPt / PT_PER_PX;
     const otherPageContentHPx = bodyAvailablePageHPt / PT_PER_PX;
 
     const { blocks, headerElement: _headerEl, badgeElement: _badgeEl } = this.analyzeBlocks(container);
@@ -633,11 +636,9 @@ export default class HgHtml2Print {
     };
 
     for (let i = 0; i < pages.length; i++) {
-      if (i > 0) {
-        pdf.addPage('a4', this.orientation);
-        drawHeader();
-      }
-      let currentPdfY = i === 0 ? this.baseY : contentStartY;
+      if (i > 0) pdf.addPage('a4', this.orientation);
+      drawHeader();
+      let currentPdfY = contentStartY;
 
       for (const seg of pages[i].segments) {
         const segmentTopPx = blocks[seg.blockIndex].top + seg.offsetY;
@@ -699,12 +700,26 @@ export default class HgHtml2Print {
     }
 
     const blob = pdf.output('blob');
-    const url = URL.createObjectURL(blob);
-    try {
-      printJS({ printable: url, type: 'pdf', showModal: true });
-    } catch (e) {
-      window.open(url, '_blank');
+    let uploadResult = null;
+    if (uploadUrl && typeof fetch === 'function') {
+      try {
+        const formData = new FormData();
+        formData.append('file', new File([blob], 'print.pdf', { type: 'application/pdf' }));
+        formData.append('lcapIsCompress', false);
+        formData.append('viaOriginURL', false);
+        uploadResult = await fetch(uploadUrl, { method: 'POST', body: formData }).then((r) => r.json());
+        this._log('PDF 上传结果', uploadResult);
+      } catch (e) {
+        this._log('PDF 上传失败', e);
+      }
     }
-    setTimeout(() => URL.revokeObjectURL(url), 10000);
+    const blobUrl = URL.createObjectURL(blob);
+    try {
+      printJS({ printable: blobUrl, type: 'pdf', showModal: true });
+    } catch (e) {
+      window.open(blobUrl, '_blank');
+    }
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+    return { filePath: uploadResult?.filePath, size: blob.size, url: uploadResult?.url };
   }
 }

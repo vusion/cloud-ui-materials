@@ -62,7 +62,7 @@ export default {
       const totalWidthPx = pageWidthPt / PT_PER_PX;
 
       return {
-        width: `${totalWidthPx}px`,
+        width: `100%`,
         padding: `${safeYPt}pt ${safeXPt}pt`,
         margin: '0 auto',
         minHeight: '10px',
@@ -71,7 +71,7 @@ export default {
     },
   },
   methods: {
-    async print() {
+    async print(url = '/upload') {
       const orientation = ORIENTATION_MAP[this.printDirection] || 'p';
       const params = {
         orientation,
@@ -84,7 +84,11 @@ export default {
       const printer = new HgHtml2Print(el, params);
       try {
         this.loading = true;
-        await printer.print();
+        const uploadResult = await printer.print(url);
+        console.log('uploadResult', uploadResult);
+        if (uploadResult != null) {
+          this.$emit('upload-success', { ...uploadResult });
+        }
       } finally {
         this.loading = false;
       }

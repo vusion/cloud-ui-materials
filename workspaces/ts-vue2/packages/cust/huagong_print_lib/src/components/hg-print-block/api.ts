@@ -1,6 +1,6 @@
 /// <reference types="@nasl/types" />
 namespace extensions.huagong_print_lib.viewComponents {
-  const { Component, Prop, ViewComponent, Slot, Method, ViewComponentOptions } = nasl.ui;
+  const { Component, Prop, ViewComponent, Slot, Method, Param, Event, ViewComponentOptions } = nasl.ui;
 
   @ExtensionComponent({
     type: 'both',
@@ -15,9 +15,15 @@ namespace extensions.huagong_print_lib.viewComponents {
   export class HgPrintBlock extends ViewComponent {
     @Method({
       title: '打印',
-      description: '将容器内容按当前方向与边距导出为 PDF 并调起打印。',
+      description: '将容器内容按当前方向与边距导出为 PDF 并调起打印；可将 PDF 上传到指定接口。',
     })
-    print(): void { }
+    print(
+      @Param({
+        title: '上传地址',
+        description: '生成 PDF 后上传到该接口地址，不传或传空则不上传；默认为 \'/upload\'。',
+      })
+      url: string = '/upload',
+    ): void { }
 
     constructor(options?: Partial<HgPrintBlockOptions>) {
       super();
@@ -86,5 +92,15 @@ namespace extensions.huagong_print_lib.viewComponents {
       ],
     })
     slotDefault: () => Array<nasl.ui.ViewComponent>;
+
+    @Event({
+      title: '上传成功',
+      description: 'PDF 上传到接口成功后触发，参数为上传返回的文件信息。',
+    })
+    onUploadSuccess: (event: {
+      filePath: nasl.core.String,
+      url: nasl.core.String,
+      size: nasl.core.Integer
+    }) => any;
   }
 }
