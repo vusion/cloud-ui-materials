@@ -1,0 +1,144 @@
+/**
+ * @component ex-u-uploader
+ */
+:root {
+  /**
+   * @type input
+   * @desc 文件上传列表项顶部外间距,如 1px
+   */
+  --uploader-list-margin-top: 6px;
+
+  /**
+   * @type input
+   * @desc 文件上传列表项之间的间距,如 1px
+   */
+  --uploader-item-space: 2px;
+
+  /**
+   * @type input
+   * @desc 文件上传列表项的内间距,如 1px
+   */
+  --uploader-item-padding: 4px;
+
+  /**
+   * @type input
+   * @desc 文件上传列表项的行高,如 1px
+   */
+  --uploader-item-line-height: 1.8;
+
+  /**
+   * @type input
+   * @desc 文件上传列表项的圆角,如 1px
+   */
+  --uploader-item-border-radius: var(--border-radius-base);
+
+  /**
+   * @type color
+   * @desc 文件上传列表项背景色,如 #223325
+   */
+  --uploader-item-background: transparent;
+
+  /**
+   * @type color
+   * @desc 文件上传列表项背景色(hover状态) ,如 #223325
+   */
+  --uploader-item-background-hover: var(--background-color-disabled);
+
+  /**
+   * @type color
+   * @desc 文件上传列表项图标颜色 ,如 #223325
+   */
+  --uploader-item-icon-color: var(--color-light);
+
+  /**
+   * @type color
+   * @desc 文件上传列表项链接文本颜色,如 #223325
+   */
+  --uploader-link-color: inherit;
+
+  /**
+   * @type color
+   * @desc 文件上传列表项链接文本颜色(hover状态),如 #223325
+   */
+  --uploader-link-color-hover: var(--link-color);
+
+  /**
+   * @type input
+   * @desc 卡片式文件上传按钮的圆角,如 1px
+   */
+  --uploader-card-border-radius: var(--border-radius-large);
+
+  /**
+   * @type input
+   * @desc 卡片式文件上传文件项之间的间距,如 1px
+   */
+  --uploader-card-space: 8px;
+
+  /**
+   * @type color
+   * @desc 卡片式文件上传遮罩层颜色,如 #223325
+   */
+  --uploader-mask-background: var(--el-color-background-3);
+
+  /**
+   * @type color
+   * @desc 拖拽上传文件窗口背景色,如 #223325
+   * @depAttrs {"draggable":[true]}
+   */
+  --uploader-draggable-background: #fcfcfc;
+
+  /**
+   * @type input
+   * @desc 拖拽上传文件窗口边框宽度,如 1px
+   * @depAttrs {"draggable":[true]}
+   */
+  --uploader-draggable-border-width: 1px;
+
+  /**
+   * @type color
+   * @desc 拖拽上传文件窗口边框颜色,如 #223325
+   * @depAttrs {"draggable":[true]}
+   */
+  --uploader-draggable-border-color: var(--border-color-base);
+
+  /**
+   * @type color
+   * @desc 拖拽上传文件窗口边框颜色（hover状态）,如 #223325
+   * @depAttrs {"draggable":[true]}
+   */
+  --uploader-draggable-border-color-hover: var(--brand-primary);
+
+  /**
+   * @type input
+   * @desc 拖拽上传文件窗口圆角大小,如 1px
+   * @depAttrs {"draggable":[true]}
+   */
+  --uploader-draggable-border-radius: var(--border-radius-large);
+
+  /**
+   * @type input
+   * @desc 拖拽上传文件窗口内边距大小,如 1px
+   * @depAttrs {"draggable":[true]}
+   */
+  --uploader-draggable-padding: 12px 0 20px;
+
+  /**
+   * @type input
+   * @desc 拖拽上传文件窗口图标大小,如 1px
+   * @depAttrs {"draggable":[true]}
+   */
+  --uploader-draggable-icon-size: 24px;
+
+  /**
+   * @type input
+   * @desc 卡片式文件上传按钮的宽度,如 80px
+   */
+  --uploader-card-width: 80px;
+
+  /**
+   * @type input
+   * @desc 卡片式文件上传按钮的高度,如 80px
+   */
+  --uploader-card-height: 80px;
+
+}
