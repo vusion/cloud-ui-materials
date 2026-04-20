@@ -1,0 +1,10 @@
+/**
+* @component cw-wangeditor-next
+*/
+.cw-wangeditor-next {
+  /**
+  * @desc 背景颜色
+  * @type color
+  */
+  --w-e-textarea-bg-color: #fff !important;
+}
