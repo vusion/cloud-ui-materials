@@ -35,7 +35,7 @@
   "dependencies": {
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.1"
+    "jspdf": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.4.1",
