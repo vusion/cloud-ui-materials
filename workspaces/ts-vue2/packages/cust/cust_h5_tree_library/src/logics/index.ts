@@ -1,0 +1,3 @@
+import '@nasl/types';
+
+export {};
