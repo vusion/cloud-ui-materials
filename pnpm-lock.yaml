@@ -3767,6 +3767,115 @@ importers:
         specifier: 2.7.16
         version: 2.7.16
 
+  workspaces/ts-vue2/packages/cust/cust_shandong_jingshi_process_library:
+    dependencies:
+      '@joskii/jflow-core':
+        specifier: ^0.1.34
+        version: 0.1.35
+      '@joskii/jflow-vue2-plugin':
+        specifier: ^0.1.1
+        version: 0.1.1(@joskii/jflow-core@0.1.35)(vue@2.7.16)
+      '@lcap/vue2-utils':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@nasl/ast-mini':
+        specifier: 3.9.0-beta
+        version: 3.9.0-beta
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
+    devDependencies:
+      '@lcap/builder':
+        specifier: ^1.6.2
+        version: 1.6.2(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: ^0.1.15
+        version: 0.1.15
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@18.3.1)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0(canvas@2.11.2(encoding@0.1.13))
+      lcap-ide-server-proxy:
+        specifier: ^0.1.2-beta
+        version: 0.1.2-beta
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
   workspaces/ts-vue2/packages/cust/cust_swiper_lib:
     dependencies:
       swiper:
@@ -6089,6 +6198,133 @@ importers:
         specifier: 2.7.16
         version: 2.7.16
 
+  workspaces/ts-vue2/packages/cw/cw_text_power_library_new:
+    dependencies:
+      '@wangeditor-next/editor':
+        specifier: ^5.6.49
+        version: 5.7.0
+      '@wangeditor-next/editor-for-vue2':
+        specifier: ^1.0.2
+        version: 1.0.2(@wangeditor-next/editor@5.7.0)(vue@2.7.16)
+      docx:
+        specifier: ^8.5.0
+        version: 8.6.0
+      file-saver:
+        specifier: ^2.0.5
+        version: 2.0.5
+      jszip:
+        specifier: ^3.10.1
+        version: 3.10.1
+      lodash.get:
+        specifier: ^4.4.2
+        version: 4.4.2
+      snabbdom:
+        specifier: ^3.6.3
+        version: 3.6.3
+      v-viewer:
+        specifier: ^1.6.4
+        version: 1.7.4(viewerjs@1.11.7)(vue@2.7.16)
+      viewerjs:
+        specifier: ^1.11.6
+        version: 1.11.7
+      xss:
+        specifier: ^1.0.0
+        version: 1.0.15
+    devDependencies:
+      '@lcap/builder':
+        specifier: ^1.6.2
+        version: 1.6.2(canvas@2.11.2(encoding@0.1.13))(prop-types@15.8.1)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/storybook-vue-vite':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue@2.7.16)
+      '@lcap/vite-plugin-vue2':
+        specifier: ^1.0.0
+        version: 1.0.1(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(mustache@3.2.1)(pug@3.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.52.5)(underscore@1.13.7)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))(vue-template-compiler@2.7.16)(vue@2.7.16)
+      '@nasl/types':
+        specifier: ^0.2.1
+        version: 0.2.1
+      '@storybook/addon-essentials':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/addon-interactions':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/addon-links':
+        specifier: ^7.6.17
+        version: 7.6.20(react@18.3.1)
+      '@storybook/addon-onboarding':
+        specifier: ^1.0.10
+        version: 1.0.11(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/blocks':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@storybook/builder-vite':
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)(typescript@5.9.3)(vite@5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      '@storybook/test':
+        specifier: ^7.6.17
+        version: 7.6.20
+      '@storybook/vue':
+        specifier: ^7.6.17
+        version: 7.6.17(@babel/core@7.28.4)(babel-loader@8.4.1(@babel/core@7.28.4)(webpack@4.47.0))(css-loader@7.1.2(webpack@4.47.0))(encoding@0.1.13)(vue@2.7.16)
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.20
+      '@vue/test-utils':
+        specifier: ^1.3.5
+        version: 1.3.6(vue-template-compiler@2.7.16)(vue@2.7.16)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.21(postcss@8.5.6)
+      baseline-browser-mapping:
+        specifier: ^2.9.19
+        version: 2.10.27
+      jest-serializer-vue-tjw:
+        specifier: ^3.20.0
+        version: 3.20.0
+      jsdom:
+        specifier: ^23.0.1
+        version: 23.2.0(canvas@2.11.2(encoding@0.1.13))
+      lcap-ide-server-proxy:
+        specifier: ^0.1.2-beta
+        version: 0.1.2-beta
+      marked:
+        specifier: ^12.0.1
+        version: 12.0.2
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
+      storybook:
+        specifier: ^7.6.17
+        version: 7.6.20(encoding@0.1.13)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.10
+        version: 5.4.21(@types/node@24.9.1)(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0)
+      vitest-canvas-mock:
+        specifier: ^0.3.3
+        version: 0.3.3(vitest@1.6.1(@types/node@24.9.1)(jsdom@23.2.0(canvas@2.11.2(encoding@0.1.13)))(less@4.1.3)(sass-embedded@1.93.2)(sass@1.97.2)(terser@5.44.0))
+      vue:
+        specifier: 2.7.16
+        version: 2.7.16
+      vue-i18n:
+        specifier: ^8.15.5
+        version: 8.28.2(vue@2.7.16)
+      vue-router:
+        specifier: 3.3.4
+        version: 3.3.4(vue@2.7.16)
+      vue-template-compiler:
+        specifier: 2.7.16
+        version: 2.7.16
+
   workspaces/ts-vue2/packages/cw/cw_three_dimensional_model_library:
     devDependencies:
       '@lcap/builder':
@@ -7970,6 +8206,9 @@ packages:
   '@nasl/types@0.1.15':
     resolution: {integrity: sha512-5Gj4uCN3Mbd9bEwg23St2IIZTfPRm3m49GHxfUvUD//DQ+ij+Bcmvda5oz/ouv3Lo3RH+i1fJfcTKLW3ZEtoEg==}
 
+  '@nasl/types@0.2.1':
+    resolution: {integrity: sha512-vOTJRH4YQ9fvqsBIxzLyM8pTw6hjJY8sIO5iSvS98H6QIGr/aDYzANcNG21l3eHARcazLb5ysF0YTC4Lf1bZPw==}
+
   '@ndelangen/get-tarball@3.0.9':
     resolution: {integrity: sha512-9JKTEik4vq+yGosHYhZ1tiH/3WpUS0Nh0kej4Agndhox8pAdWhEx5knFVRcb/ya9knCRCs1rPxNrSXTDdfVqpA==}
 
@@ -9562,12 +9801,30 @@ packages:
       slate: ^0.82.0
       snabbdom: ^3.6.0
 
+  '@wangeditor-next/basic-modules@2.0.0':
+    resolution: {integrity: sha512-oH7Cv6mHorvBkj5t3isP9wncgWABYLlQpoQZYOIFtWVwgsQatwoGVFHF6PoJzz+mTkt5UaJcyfDxFSo9Thvhdw==}
+    peerDependencies:
+      '@wangeditor-next/core': 1.8.0
+      dom7: ^3.0.0 || ^4.0.0
+      lodash.throttle: ^4.1.1
+      nanoid: ^5.0.0
+      slate: ^0.123.0
+      snabbdom: ^3.6.0
+
   '@wangeditor-next/code-highlight@1.3.43':
     resolution: {integrity: sha512-22eHjYDmtTxZqZOma2ls9zWA6gsgSkWq3XtmLylA15kegVBKAy7YxYbRrdS7D4Y/igqOerSbc5oMsOdeYjRfnQ==}
     peerDependencies:
       '@wangeditor-next/core': 1.7.45
       dom7: ^3.0.0 || ^4.0.0
       slate: ^0.82.0
+      snabbdom: ^3.6.0
+
+  '@wangeditor-next/code-highlight@2.0.0':
+    resolution: {integrity: sha512-A0m4KghOK+9jyufSBidTAtva5VssC2zW3oYItRdMi75p3WV8Kqb67q0kUeFcDzlm9H+IvXzwvSnQ8xl6Zk07nw==}
+    peerDependencies:
+      '@wangeditor-next/core': 1.8.0
+      dom7: ^3.0.0 || ^4.0.0
+      slate: ^0.123.0
       snabbdom: ^3.6.0
 
   '@wangeditor-next/core@1.7.45':
@@ -9587,6 +9844,23 @@ packages:
       slate: ^0.82.0
       snabbdom: ^3.6.0
 
+  '@wangeditor-next/core@1.8.0':
+    resolution: {integrity: sha512-U2TlQ0Lpo6aLb0KD8oJgzG/rFAYO61cy+qbZu+t5lDfS3CECNjOhGIC3C7/dXIhiMQ8V/LY4cvrPt9R5G4vLjA==}
+    peerDependencies:
+      '@uppy/core': ^2.1.1
+      '@uppy/xhr-upload': ^2.0.3
+      dom7: ^3.0.0 || ^4.0.0
+      is-hotkey: ^0.2.0
+      lodash.camelcase: ^4.3.0
+      lodash.clonedeep: ^4.5.0
+      lodash.debounce: ^4.0.8
+      lodash.foreach: ^4.5.0
+      lodash.throttle: ^4.1.1
+      lodash.toarray: ^4.4.0
+      nanoid: ^5.0.0
+      slate: ^0.123.0
+      snabbdom: ^3.6.0
+
   '@wangeditor-next/editor-for-vue2@1.0.2':
     resolution: {integrity: sha512-HDZiB2R6ZjeEQKPDB4ZWDg8pD6u1aAulfquhOSMbpr9786S1zYS+NsFO5Xq4gak5ffO1ukAmjrRDID0FStjj1w==}
     peerDependencies:
@@ -9596,12 +9870,23 @@ packages:
   '@wangeditor-next/editor@5.6.46':
     resolution: {integrity: sha512-Hio4MFSiICacxqIs7oRcfDQC2udqB502mL5gFfcxkfv8EUVESkKPMu9pjmOJcKNTaINp18svPnUEKDB5+v988A==}
 
+  '@wangeditor-next/editor@5.7.0':
+    resolution: {integrity: sha512-bxkw/TeWBJz7AU4qXZnx5tx/s1yzx8XdLmSRN9ev4btArKnfXR/6hr3dqxUSsyea8q//IpEv1qr9tc2ureEAsA==}
+
   '@wangeditor-next/list-module@1.1.51':
     resolution: {integrity: sha512-gsHmXAO0rXCd2vXhxJHbRCClEjzokzpS2ozdt1tZHZv/fZUIdTnwwCCT2OThF8SxnlBS5bmZxVa9zYnDxXGjaQ==}
     peerDependencies:
       '@wangeditor-next/core': 1.7.45
       dom7: ^3.0.0 || ^4.0.0
       slate: ^0.82.0
+      snabbdom: ^3.6.0
+
+  '@wangeditor-next/list-module@2.0.0':
+    resolution: {integrity: sha512-n7WruLV9VQxBFbav/pwWS+n5rsANqmEhVINwtngTSbScD/tDYRtLJ95SGKPU3gtBR9KHd06yEnXEgG3Pmy7A4A==}
+    peerDependencies:
+      '@wangeditor-next/core': 1.8.0
+      dom7: ^3.0.0 || ^4.0.0
+      slate: ^0.123.0
       snabbdom: ^3.6.0
 
   '@wangeditor-next/table-module@1.6.58':
@@ -9613,6 +9898,17 @@ packages:
       lodash.throttle: ^4.1.1
       nanoid: ^5.0.0
       slate: ^0.82.0
+      snabbdom: ^3.6.0
+
+  '@wangeditor-next/table-module@2.0.0':
+    resolution: {integrity: sha512-uOj0QA6Esb/T75cCGYWByWDRX/i8EBYIJq0tNOhGxufKQVAS9/D8QshTKQpKniS1AR2PaZg4BEPkn6+QuipKTw==}
+    peerDependencies:
+      '@wangeditor-next/core': 1.8.0
+      dom7: ^3.0.0 || ^4.0.0
+      lodash.debounce: ^4.0.8
+      lodash.throttle: ^4.1.1
+      nanoid: ^5.0.0
+      slate: ^0.123.0
       snabbdom: ^3.6.0
 
   '@wangeditor-next/upload-image-module@1.1.49':
@@ -9627,6 +9923,18 @@ packages:
       slate: ^0.82.0
       snabbdom: ^3.6.0
 
+  '@wangeditor-next/upload-image-module@2.0.0':
+    resolution: {integrity: sha512-mAZjCEpANWYmAZ1xkdda25AT+BMvEUqY5F3WHMB0zg3yPqUtzMv7FN1dpLl1ujErpnX+CdkL0iwon7nejpymjw==}
+    peerDependencies:
+      '@uppy/core': ^2.0.3
+      '@uppy/xhr-upload': ^2.0.3
+      '@wangeditor-next/basic-modules': 2.0.0
+      '@wangeditor-next/core': 1.8.0
+      dom7: ^3.0.0 || ^4.0.0
+      lodash.foreach: ^4.5.0
+      slate: ^0.123.0
+      snabbdom: ^3.6.0
+
   '@wangeditor-next/video-module@1.3.51':
     resolution: {integrity: sha512-67ecZCGIY+MUsqFtmwR9QKWlzGeIXVyXHmzPuevYwEqRwg50oR2xCSuoQLhfs5CKjXDZKsZhOnD/CGgt82TU+A==}
     peerDependencies:
@@ -9636,6 +9944,17 @@ packages:
       dom7: ^3.0.0 || ^4.0.0
       nanoid: ^5.0.0
       slate: ^0.82.0
+      snabbdom: ^3.6.0
+
+  '@wangeditor-next/video-module@2.0.0':
+    resolution: {integrity: sha512-M21rIXlQ41rb5mjAlzEuZB9mRDDrNSsj8EmJBzAwKStEGpJhzMC44HCOFtzbRvh2W3J5mGAPXXWbdHGknxDa6g==}
+    peerDependencies:
+      '@uppy/core': ^2.1.4
+      '@uppy/xhr-upload': ^2.0.7
+      '@wangeditor-next/core': 1.8.0
+      dom7: ^3.0.0 || ^4.0.0
+      nanoid: ^5.0.0
+      slate: ^0.123.0
       snabbdom: ^3.6.0
 
   '@webassemblyjs/ast@1.9.0':
@@ -10250,8 +10569,9 @@ packages:
     resolution: {integrity: sha512-5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg==}
     engines: {node: '>=0.10.0'}
 
-  baseline-browser-mapping@2.8.19:
-    resolution: {integrity: sha512-zoKGUdu6vb2jd3YOq0nnhEDQVbPcHhco3UImJrv5dSkvxTc2pl2WjOPsjZXDwPDSl5eghIMuY3R6J9NDKF3KcQ==}
+  baseline-browser-mapping@2.10.27:
+    resolution: {integrity: sha512-zEs/ufmZoUd7WftKpKyXaT6RFxpQ5Qm9xytKRHvJfxFV9DFJkZph9RvJ1LcOUi0Z1ZVijMte65JbILeV+8QQEA==}
+    engines: {node: '>=6.0.0'}
     hasBin: true
 
   batch@0.6.1:
@@ -17854,6 +18174,14 @@ packages:
     peerDependencies:
       slate: '>=0.65.3'
 
+  slate-history@0.115.0:
+    resolution: {integrity: sha512-QdUm9aVyQFz6JG4a84Z6Um+tJpZJmsh9bjXwTVTvYiN4rdKbqL6+/4HT94on1WYxe10Q4vY6mA6BCpoYxgF3tQ==}
+    peerDependencies:
+      slate: '>=0.114.3'
+
+  slate@0.123.0:
+    resolution: {integrity: sha512-Oon3HR/QzJQBjuOUJT1jGGlp8Ff7t3Bkr/rJ2lDqxNT4H+cBnXpEVQ/si6hn1ZCHhD2xY/2N91PQoH/rD7kxTg==}
+
   slate@0.82.1:
     resolution: {integrity: sha512-3mdRdq7U3jSEoyFrGvbeb28hgrvrr4NdFCtJX+IjaNvSFozY0VZd/CGHF0zf/JDx7aEov864xd5uj0HQxxEWTQ==}
 
@@ -21963,6 +22291,8 @@ snapshots:
 
   '@nasl/types@0.1.15': {}
 
+  '@nasl/types@0.2.1': {}
+
   '@ndelangen/get-tarball@3.0.9':
     dependencies:
       gunzip-maybe: 1.4.2
@@ -24758,12 +25088,30 @@ snapshots:
       slate: 0.82.1
       snabbdom: 3.6.3
 
+  '@wangeditor-next/basic-modules@2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)':
+    dependencies:
+      '@wangeditor-next/core': 1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      dom7: 4.0.6
+      is-url: 1.2.4
+      lodash.throttle: 4.1.1
+      nanoid: 5.1.6
+      slate: 0.123.0
+      snabbdom: 3.6.3
+
   '@wangeditor-next/code-highlight@1.3.43(@wangeditor-next/core@1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3))(dom7@4.0.6)(slate@0.82.1)(snabbdom@3.6.3)':
     dependencies:
       '@wangeditor-next/core': 1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3)
       dom7: 4.0.6
       prismjs: 1.30.0
       slate: 0.82.1
+      snabbdom: 3.6.3
+
+  '@wangeditor-next/code-highlight@2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(slate@0.123.0)(snabbdom@3.6.3)':
+    dependencies:
+      '@wangeditor-next/core': 1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      dom7: 4.0.6
+      prismjs: 1.30.0
+      slate: 0.123.0
       snabbdom: 3.6.3
 
   '@wangeditor-next/core@1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3)':
@@ -24788,9 +25136,36 @@ snapshots:
       slate-history: 0.109.0(slate@0.82.1)
       snabbdom: 3.6.3
 
+  '@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)':
+    dependencies:
+      '@types/event-emitter': 0.3.5
+      '@uppy/core': 2.3.4
+      '@uppy/xhr-upload': 2.1.3(@uppy/core@2.3.4)
+      dom7: 4.0.6
+      event-emitter: 0.3.5
+      html-void-elements: 3.0.0
+      i18next: 23.16.8
+      is-hotkey: 0.2.0
+      lodash.camelcase: 4.3.0
+      lodash.clonedeep: 4.5.0
+      lodash.debounce: 4.0.8
+      lodash.foreach: 4.5.0
+      lodash.throttle: 4.1.1
+      lodash.toarray: 4.4.0
+      nanoid: 5.1.6
+      scroll-into-view-if-needed: 3.1.0
+      slate: 0.123.0
+      slate-history: 0.115.0(slate@0.123.0)
+      snabbdom: 3.6.3
+
   '@wangeditor-next/editor-for-vue2@1.0.2(@wangeditor-next/editor@5.6.46)(vue@2.7.16)':
     dependencies:
       '@wangeditor-next/editor': 5.6.46
+      vue: 2.7.16
+
+  '@wangeditor-next/editor-for-vue2@1.0.2(@wangeditor-next/editor@5.7.0)(vue@2.7.16)':
+    dependencies:
+      '@wangeditor-next/editor': 5.7.0
       vue: 2.7.16
 
   '@wangeditor-next/editor@5.6.46':
@@ -24816,11 +25191,41 @@ snapshots:
       slate: 0.82.1
       snabbdom: 3.6.3
 
+  '@wangeditor-next/editor@5.7.0':
+    dependencies:
+      '@uppy/core': 2.3.4
+      '@uppy/xhr-upload': 2.1.3(@uppy/core@2.3.4)
+      '@wangeditor-next/basic-modules': 2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      '@wangeditor-next/code-highlight': 2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(slate@0.123.0)(snabbdom@3.6.3)
+      '@wangeditor-next/core': 1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      '@wangeditor-next/list-module': 2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(slate@0.123.0)(snabbdom@3.6.3)
+      '@wangeditor-next/table-module': 2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.debounce@4.0.8)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      '@wangeditor-next/upload-image-module': 2.0.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor-next/basic-modules@2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.foreach@4.5.0)(slate@0.123.0)(snabbdom@3.6.3)
+      '@wangeditor-next/video-module': 2.0.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      dom7: 4.0.6
+      is-hotkey: 0.2.0
+      lodash.camelcase: 4.3.0
+      lodash.clonedeep: 4.5.0
+      lodash.debounce: 4.0.8
+      lodash.foreach: 4.5.0
+      lodash.throttle: 4.1.1
+      lodash.toarray: 4.4.0
+      nanoid: 5.1.6
+      slate: 0.123.0
+      snabbdom: 3.6.3
+
   '@wangeditor-next/list-module@1.1.51(@wangeditor-next/core@1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3))(dom7@4.0.6)(slate@0.82.1)(snabbdom@3.6.3)':
     dependencies:
       '@wangeditor-next/core': 1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3)
       dom7: 4.0.6
       slate: 0.82.1
+      snabbdom: 3.6.3
+
+  '@wangeditor-next/list-module@2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(slate@0.123.0)(snabbdom@3.6.3)':
+    dependencies:
+      '@wangeditor-next/core': 1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      dom7: 4.0.6
+      slate: 0.123.0
       snabbdom: 3.6.3
 
   '@wangeditor-next/table-module@1.6.58(@wangeditor-next/core@1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.debounce@4.0.8)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3)':
@@ -24831,6 +25236,16 @@ snapshots:
       lodash.throttle: 4.1.1
       nanoid: 5.1.6
       slate: 0.82.1
+      snabbdom: 3.6.3
+
+  '@wangeditor-next/table-module@2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.debounce@4.0.8)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)':
+    dependencies:
+      '@wangeditor-next/core': 1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      dom7: 4.0.6
+      lodash.debounce: 4.0.8
+      lodash.throttle: 4.1.1
+      nanoid: 5.1.6
+      slate: 0.123.0
       snabbdom: 3.6.3
 
   '@wangeditor-next/upload-image-module@1.1.49(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor-next/basic-modules@1.5.46(@wangeditor-next/core@1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3))(@wangeditor-next/core@1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.foreach@4.5.0)(slate@0.82.1)(snabbdom@3.6.3)':
@@ -24844,6 +25259,17 @@ snapshots:
       slate: 0.82.1
       snabbdom: 3.6.3
 
+  '@wangeditor-next/upload-image-module@2.0.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor-next/basic-modules@2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.foreach@4.5.0)(slate@0.123.0)(snabbdom@3.6.3)':
+    dependencies:
+      '@uppy/core': 2.3.4
+      '@uppy/xhr-upload': 2.1.3(@uppy/core@2.3.4)
+      '@wangeditor-next/basic-modules': 2.0.0(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(lodash.throttle@4.1.1)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      '@wangeditor-next/core': 1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      dom7: 4.0.6
+      lodash.foreach: 4.5.0
+      slate: 0.123.0
+      snabbdom: 3.6.3
+
   '@wangeditor-next/video-module@1.3.51(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor-next/core@1.7.45(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3))(dom7@4.0.6)(nanoid@5.1.6)(slate@0.82.1)(snabbdom@3.6.3)':
     dependencies:
       '@uppy/core': 2.3.4
@@ -24852,6 +25278,16 @@ snapshots:
       dom7: 4.0.6
       nanoid: 5.1.6
       slate: 0.82.1
+      snabbdom: 3.6.3
+
+  '@wangeditor-next/video-module@2.0.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(@wangeditor-next/core@1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3))(dom7@4.0.6)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)':
+    dependencies:
+      '@uppy/core': 2.3.4
+      '@uppy/xhr-upload': 2.1.3(@uppy/core@2.3.4)
+      '@wangeditor-next/core': 1.8.0(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@4.0.6)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@5.1.6)(slate@0.123.0)(snabbdom@3.6.3)
+      dom7: 4.0.6
+      nanoid: 5.1.6
+      slate: 0.123.0
       snabbdom: 3.6.3
 
   '@webassemblyjs/ast@1.9.0':
@@ -25574,7 +26010,7 @@ snapshots:
       mixin-deep: 1.3.2
       pascalcase: 0.1.1
 
-  baseline-browser-mapping@2.8.19: {}
+  baseline-browser-mapping@2.10.27: {}
 
   batch@0.6.1: {}
 
@@ -25783,7 +26219,7 @@ snapshots:
 
   browserslist@4.26.3:
     dependencies:
-      baseline-browser-mapping: 2.8.19
+      baseline-browser-mapping: 2.10.27
       caniuse-lite: 1.0.30001751
       electron-to-chromium: 1.5.238
       node-releases: 2.0.26
@@ -34656,6 +35092,12 @@ snapshots:
     dependencies:
       is-plain-object: 5.0.0
       slate: 0.82.1
+
+  slate-history@0.115.0(slate@0.123.0):
+    dependencies:
+      slate: 0.123.0
+
+  slate@0.123.0: {}
 
   slate@0.82.1:
     dependencies:
