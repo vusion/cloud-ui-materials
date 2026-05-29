@@ -1,7 +1,7 @@
 {
   "name": "cw_eu_extend_cu_library",
   "private": "true",
-  "version": "1.0.0",
+  "version": "1.0.25",
   "lcapIdeVersion": "3.10",
   "title": "ElementUI扩展CloudUI组件依赖库",
   "description": "ElementUI扩展CloudUI组件依赖库",
@@ -22,10 +22,7 @@
     "prebuild": "npm run lcap:install"
   },
   "keywords": [
-    "Vue",
-    "family:ts-vue2",
-    "biz:cw",
-    "kind:component"
+    "Vue"
   ],
   "author": "",
   "license": "ISC",
@@ -94,12 +91,5 @@
       "type": "pc",
       "version": "1.4.0"
     }
-  },
-  "turbo": {
-    "tags": [
-      "family:ts-vue2",
-      "biz:cw",
-      "kind:component"
-    ]
   }
 }

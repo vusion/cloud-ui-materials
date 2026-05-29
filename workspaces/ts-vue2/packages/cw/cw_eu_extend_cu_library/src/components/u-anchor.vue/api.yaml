@@ -1,0 +1,15 @@
+- name: u-anchor
+  title: 锚点
+  icon: anchor
+  description: 锚点
+  labels:
+    - Navigation
+  attrs:
+    - name: label
+      title: 标识
+      type: string
+      description: 锚点的唯一标识，用于跳转链接，如“/page#linkname”
+      group: 数据属性
+      brifeDoc: ""
+      docDescription: 锚点的唯一标识，用于跳转链接，标识为空时，默认将组件名作为标识
+      tooltipLink: ""

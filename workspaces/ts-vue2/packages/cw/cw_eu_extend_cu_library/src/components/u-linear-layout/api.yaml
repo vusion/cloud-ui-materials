@@ -1,0 +1,397 @@
+- name: u-linear-layout
+  title: 线性布局
+  description: 内部元素按照一定的规则布局
+  icon: linear-layout
+  labels:
+    - Layout
+  attrs:
+    - name: display
+      title: 展示方式
+      type: string
+      options:
+        - value: inline
+          title: 行内
+        - value: block
+          title: 块级
+      default: block
+      description: 行内展示，或块级换行展示
+      advanced: true
+    - name: type
+      title: 布局模式
+      type: string
+      options:
+        - value: flex
+          title: flex 布局模式
+      description: 布局模式
+      advanced: true
+    - name: mode
+      title: 布局模式
+      type: string
+      display: capsules
+      bindHide: true
+      description: ""
+      tooltipLink: http://help.lcap.163yun.com/1.%E5%BC%80%E5%8F%91%E5%BA%94%E7%94%A8/2.%E9%A1%B5%E9%9D%A2/05.PC%E9%A1%B5%E9%9D%A2%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/01.%E5%B8%83%E5%B1%80/020.%E7%BA%BF%E6%80%A7%E5%B8%83%E5%B1%80.html
+      options:
+        - value: inline
+          title: 行内
+          icon: layout-inline-block
+          tooltip: 内联布局
+        - value: block
+          title: 块级
+          icon: layout-block
+          tooltip: 块级布局
+        - value: flex
+          title: 弹性
+          icon: layout-flex
+          tooltip: 弹性布局
+      default: block
+      toggleclear:
+        - justify
+        - alignment
+        - wrap
+        - layout
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: >-
+        内联布局：将当前元素修改为内联布局模式，各个内联布局模式的元素将默认排布在同一行中，若空间不足以排布下一个内联布局元素，则该元素将会换行。
+
+        块级布局：将当前元素修改为块级布局模式，各个块级布局模式的元素之前和之后均会换行。
+
+        弹性布局：在弹性布局模式中，子元素可以在任何方向上排布，也可以“弹性伸缩”其尺寸，既可以增加尺寸以填满未使用的空间，也可以收缩尺寸以避免溢出父元素。
+    - name: direction
+      title: 主轴方向
+      type: string
+      display: capsules
+      bindHide: true
+      options:
+        - value: horizontal
+          title: 横向排列
+          icon: flex-horizontal
+          tooltip: 横向
+        - value: vertical
+          title: 纵向排列
+          icon: flex-vertical
+          tooltip: 纵向
+      default: horizontal
+      toggleclear:
+        - justify
+        - alignment
+      group: 主要属性
+      description: ""
+      brifeDoc: ""
+      docDescription: |-
+        横向：内部子元素进行横向排布，建议内部子元素使用行内布局。
+        纵向：内部子元素进行纵向排布，建议内部子元素使用块级布局。
+      tooltipLink: ""
+    - name: justify
+      title: 横轴对齐
+      type: string
+      display: capsules
+      bindHide: true
+      options:
+        - value: start
+          title: 左对齐
+          icon: horizontal-justify-start
+          tooltip: 左对齐
+        - value: center
+          title: 居中对齐
+          icon: horizontal-justify-center
+          tooltip: 居中对齐
+        - value: end
+          title: 右对齐
+          icon: horizontal-justify-end
+          tooltip: 右对齐
+        - value: space-between
+          title: 平均分布(两端不留空)
+          icon: horizontal-justify-space-between
+          tooltip: 平均分布(两端不留空)
+          dependency:
+            - direction: horizontal
+            - mode: flex
+        - value: space-around
+          title: 平均分布
+          icon: horizontal-justify-space-around
+          tooltip: 平均分布
+          dependency:
+            - mode: flex
+      default: start
+      dependency:
+        - direction: horizontal
+        - mode: inline
+          direction: horizontal
+        - mode: inline
+          direction: vertical
+        - mode: block
+          direction: horizontal
+        - mode: block
+          direction: vertical
+      toggleupdate:
+        - value: space-between
+          updateData:
+            gap: normal
+        - value: space-around
+          updateData:
+            gap: normal
+      group: 主要属性
+      description: ""
+      brifeDoc: ""
+      docDescription: |-
+        主轴方向为横向时：支持左对齐、居中对齐、右对齐、平均分布（两端不留空）、平均分布，其中平均分布仅在弹性布局模式下展示。
+        主轴方向为纵向时：支持左对齐、居中对齐、右对齐、占满容器宽度，其中占满容器宽度仅在弹性布局模式下展示。
+      tooltipLink: ""
+    - name: alignment
+      title: 纵轴对齐
+      type: string
+      display: capsules
+      bindHide: true
+      options:
+        - value: start
+          title: 顶对齐
+          icon: horizontal-alignment-start
+          tooltip: 顶对齐
+        - value: center
+          title: 垂直居中
+          icon: horizontal-alignment-center
+          tooltip: 垂直居中
+        - value: end
+          title: 底对齐
+          icon: horizontal-alignment-end
+          tooltip: 底对齐
+        - value: baseline
+          title: 行内文字基线对齐
+          icon: horizontal-alignment-baseline
+          tooltip: 行内文字基线对齐
+        - value: stretch
+          title: 占满容器高度
+          icon: horizontal-alignment-stretch
+          tooltip: 占满容器高度
+      default: stretch
+      dependency:
+        - mode: flex
+          direction: horizontal
+      group: 主要属性
+      description: ""
+      brifeDoc: ""
+      docDescription: |-
+        主轴方向为横向时：支持顶对齐、垂直居中、底对齐、行内文字基线对齐、占满容器高度。
+        主轴方向为纵向时：支持顶对齐、垂直居中、底对齐、平均分布（两端不留空）、平均分布。
+      tooltipLink: ""
+    - name: alignment
+      title: 纵轴对齐
+      type: string
+      display: capsules
+      bindHide: true
+      options:
+        - value: start
+          title: 左对齐
+          icon: vertical-alignment-start
+          tooltip: 左对齐
+        - value: center
+          title: 居中对齐
+          icon: vertical-alignment-center
+          tooltip: 居中对齐
+        - value: end
+          title: 右对齐
+          icon: vertical-alignment-end
+          tooltip: 右对齐
+        - value: stretch
+          title: 拉伸子元素充满整个父元素空间
+          icon: vertical-alignment-stretch
+          tooltip: 占满容器宽度
+      default: stretch
+      dependency:
+        - mode: flex
+          direction: vertical
+      group: 主要属性
+      description: ""
+      brifeDoc: ""
+      docDescription: |-
+        主轴方向为横向时：支持顶对齐、垂直居中、底对齐、行内文字基线对齐、占满容器高度。
+        主轴方向为纵向时：支持顶对齐、垂直居中、底对齐、平均分布（两端不留空）、平均分布。
+      tooltipLink: ""
+    - name: justify
+      title: 横轴对齐
+      type: string
+      display: capsules
+      bindHide: true
+      options:
+        - value: start
+          title: 顶对齐
+          icon: vertical-justify-start
+          tooltip: 顶对齐
+        - value: center
+          title: 垂直居中
+          icon: vertical-justify-center
+          tooltip: 垂直居中
+        - value: end
+          title: 底对齐
+          icon: vertical-justify-end
+          tooltip: 底对齐
+        - value: space-between
+          title: 平均分布(两端不留空)
+          icon: vertical-justify-space-between
+          tooltip: 平均分布(两端不留空)
+        - value: space-around
+          title: 平均分布
+          icon: vertical-justify-space-around
+          tooltip: 平均分布
+      default: start
+      dependency:
+        - mode: flex
+          direction: vertical
+      toggleupdate:
+        - value: space-between
+          updateData:
+            gap: normal
+        - value: space-around
+          updateData:
+            gap: normal
+      group: 主要属性
+      description: ""
+      brifeDoc: ""
+      docDescription: |-
+        主轴方向为横向时：支持左对齐、居中对齐、右对齐、平均分布（两端不留空）、平均分布，其中平均分布仅在弹性布局模式下展示。
+        主轴方向为纵向时：支持左对齐、居中对齐、右对齐、占满容器宽度，其中占满容器宽度仅在弹性布局模式下展示。
+      tooltipLink: ""
+    - name: layout
+      title: 子元素展示方式
+      type: string
+      options:
+        - value: none
+          title: 子元素默认布局
+        - value: inline
+          title: 子元素行内布局
+        - value: block
+          title: 子元素块级布局
+      default: none
+      description: 子元素行内展示或块级换行展示
+      dependency:
+        - mode: inline
+        - mode: block
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 布局内各个组件的布局方式，支持默认、行内和块级三种布局方式。
+      tooltipLink: ""
+    - name: wrap
+      title: 换行
+      type: boolean
+      default: true
+      description: 设置弹性布局下子元素总宽度超出父级时子元素是否换行展示
+      dependency:
+        - mode: flex
+      group: 主要属性
+      brifeDoc: ""
+      docDescription: 支持控制弹性布局模式下，子元素总宽度超过父级时是否换行展示，默认开启。
+      tooltipLink: ""
+    - name: loadingIcon
+      title: 加载中图标
+      type: icon
+      default: loading
+      description: 加载中状态显示的图标
+      group: 状态属性
+      brifeDoc: ""
+      docDescription: 支持从图标库选择图标或上传自定义图标。
+      tooltipLink: ""
+    - name: loadingIconRotate
+      title: 加载中图标旋转
+      type: boolean
+      default: true
+      description: 设置加载中图标是否旋转，默认开启。
+      group: 状态属性
+      brifeDoc: ""
+      docDescription: 支持控制加载中图标是否旋转，默认开启。
+      tooltipLink: ""
+    - name: loadingText
+      title: 加载中文案
+      type: string
+      default: ""
+      description: 加载中状态显示的提示文案
+      group: 状态属性
+      brifeDoc: ""
+      docDescription: 支持编辑组件加载中情况显示文案。
+      tooltipLink: ""
+    - name: gap
+      title: 内容间隙
+      type: string
+      options:
+        - value: shrink
+          title: 收缩
+          advanced: true
+        - value: none
+          title: 无
+        - value: small
+          title: 小
+        - value: normal
+          title: 正常
+        - value: large
+          title: 大
+      default: normal
+      description: 内容块间隙大小
+      dependency:
+        - "!justify":
+            - space-between
+            - space-around
+      group: 样式属性
+      brifeDoc: ""
+      docDescription: 布局内各个组件之间的间隔，通常有收缩、无、小、正常、大，默认为正常。
+      tooltipLink: ""
+  slots:
+    - concept: Slot
+      name: default
+      description: 内容
+  events:
+    - name: click
+      title: 点击
+      description: 在元素上按下并释放任意鼠标按钮时触发。
+    - name: dblclick
+      title: 双击
+      description: 在元素上双击鼠标按钮时触发。
+    - name: contextmenu
+      title: 右键点击
+      description: 在右键菜单显示前触发。
+    - name: mousedown
+      title: 鼠标按下
+      description: 在元素上按下任意鼠标按钮时触发。
+    - name: mouseup
+      title: 鼠标释放
+      description: 在元素上释放任意鼠标按钮时触发。
+    - name: mouseenter
+      title: 鼠标移入
+      description: 鼠标移入元素时触发。
+    - name: mouseleave
+      title: 鼠标移出
+      description: 鼠标移出元素时触发。
+    - name: scroll
+      title: 滚动时
+      description: 滚动时触发
+      params:
+        - name: $event
+          type: object
+          description: 滚动事件对象
+          schema:
+            $ref: "#/systemTypes/ScrollEvent"
+        - name: $event.scrollHeight
+          type: any
+          description: 滚动内容高度
+        - name: $event.scrollWidth
+          type: any
+          description: 滚动内容宽度
+        - name: $event.scrollTop
+          type: any
+          description: 滚动内容距离顶部高度
+        - name: $event.scrollLeft
+          type: any
+          description: 滚动内容距离左侧宽度
+        - name: $event.clientHeight
+          type: any
+          description: 可视区域高度
+        - name: $event.clientWidth
+          type: any
+          description: 可视区域宽度
+  methods:
+    - name: openLoading
+      title: 打开加载中
+      description: 打开加载中
+    - name: closeLoading
+      title: 关闭加载中
+      description: 关闭加载中

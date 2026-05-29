@@ -1,201 +1,91 @@
 <template>
-<div v-if="$env.VUE_APP_DESIGNER" :class="$style.root" ref="root" :border="border">
-    <div v-if="title" :class="$style.title" ref="title" :style="{ textAlign: titleAlignment }" vusion-slot-name="title" vusion-slot-name-edit="title">
-        <slot name="title">{{ title }}</slot>
+  <div v-if="$env.VUE_APP_DESIGNER" :class="$style.root" ref="root" :border="border">
+    <div v-if="title" :class="$style.title" ref="title" :style="{ textAlign: titleAlignment }" vusion-slot-name="title"
+      vusion-slot-name-edit="title">
+      <slot name="title">{{ title }}</slot>
     </div>
     <slot name="config-columns"></slot>
-    <u-table-designer
-        ref="tableRender"
-
-        :tableMetaList="tableMetaList"
-        :visibleColumnVMs="visibleColumnVMs"
-        :visibleTableHeadTrArr="visibleTableHeadTrArr"
-        :columnVMsMap="columnVMsMap"
-
-        :emptyText="emptyText"
-        :errorText="errorText"
-        :loadingText="loadingText"
-        :currentData="currentData"
-        :currentDataSource="currentDataSource"
-        :currentLoading="currentLoading"
-        :currentError="currentError"
-        :currentEmpty="currentEmpty"
-        :errorImage="errorImage"
-
-        :pageable="pageable"
-
-        :striped="striped"
-        :border="border"
-        :line="line"
-        :color="color"
-        :boldHeader="boldHeader"
-
-        :defaultOrder="defaultOrder"
-        :sorting="sorting"
-        :sortTrigger="sortTrigger"
-
-        :useStickyFixed="useStickyFixed"
-        :fixedRightList="fixedRightList"
-        :fixedLeftList="fixedLeftList"
-
-        :tableWidth="tableWidth"
-        :tableHeight="tableHeight"
-        :bodyHeight="bodyHeight"
-
-        :thEllipsis="thEllipsis"
-        :ellipsis="ellipsis"
-
-        :resizable="resizable"
-        :minColumnWidth="minColumnWidth"
-        :resizeRemaining="resizeRemaining"
-
-        :treeDisplay="treeDisplay"
-        :hasChildrenField="hasChildrenField"
-
-        :selectable="selectable"
-
-        :virtual="virtual"
-        :itemHeight="itemHeight"
-        :virtualCount="virtualCount"
-        :listKey="listKey"
-
-        :rowDraggable="rowDraggable"
-        :handlerDraggable="handlerDraggable"
-
-        :disabled="disabled"
-        :readonly="readonly"
-
-        :showHead="showHead"
-        :rootWidth="rootWidth"
-        :value-field="valueField"
-        :useMask="useMask">
+    <u-table-designer ref="tableRender" :tableMetaList="tableMetaList" :visibleColumnVMs="visibleColumnVMs"
+      :visibleTableHeadTrArr="visibleTableHeadTrArr" :columnVMsMap="columnVMsMap" :emptyText="emptyText"
+      :errorText="errorText" :loadingText="loadingText" :currentData="currentData"
+      :currentDataSource="currentDataSource" :currentLoading="currentLoading" :currentError="currentError"
+      :currentEmpty="currentEmpty" :errorImage="errorImage" :pageable="pageable" :striped="striped" :border="border"
+      :line="line" :color="color" :boldHeader="boldHeader" :defaultOrder="defaultOrder" :sorting="sorting"
+      :sortTrigger="sortTrigger" :useStickyFixed="useStickyFixed" :fixedRightList="fixedRightList"
+      :fixedLeftList="fixedLeftList" :tableWidth="tableWidth" :tableHeight="tableHeight" :bodyHeight="bodyHeight"
+      :thEllipsis="thEllipsis" :ellipsis="ellipsis" :resizable="resizable" :minColumnWidth="minColumnWidth"
+      :resizeRemaining="resizeRemaining" :treeDisplay="treeDisplay" :hasChildrenField="hasChildrenField"
+      :selectable="selectable" :virtual="virtual" :itemHeight="itemHeight" :virtualCount="virtualCount"
+      :listKey="listKey" :rowDraggable="rowDraggable" :handlerDraggable="handlerDraggable" :disabled="disabled"
+      :readonly="readonly" :showHead="showHead" :rootWidth="rootWidth" :value-field="valueField" :useMask="useMask">
     </u-table-designer>
     <u-table-view-drop-ghost :data="dropData"></u-table-view-drop-ghost>
     <u-pagination :class="$style.pagination" ref="pagination" v-if="usePagination && currentDataSource"
-        :total-items="currentDataSource.total" :page="currentDataSource.paging && currentDataSource.paging.number"
-        :page-size="currentDataSource.paging && currentDataSource.paging.size" :page-size-options="pageSizeOptions" :show-total="showTotal" :show-sizer="showSizer" :show-jumper="showJumper"
-        :size="paginationSize"
-        @change="page($event.page)" @change-page-size="onChangePageSize">
+      :total-items="currentDataSource.total" :page="currentDataSource.paging && currentDataSource.paging.number"
+      :page-size="currentDataSource.paging && currentDataSource.paging.size" :page-size-options="pageSizeOptions"
+      :show-total="showTotal" :show-sizer="showSizer" :show-jumper="showJumper" :size="paginationSize"
+      @change="page($event.page)" @change-page-size="onChangePageSize">
     </u-pagination>
-    <div><slot></slot></div>
-    <div v-if="draggable || acrossTableDrag" ref="dragGhost" :class="$style.dragGhost" :designer="$env.VUE_APP_DESIGNER">
-        <u-text color="secondary" :class="$style.text" v-if="$env.VUE_APP_DESIGNER">拖拽缩略图配置区域</u-text>
-        <slot name="dragGhost" :item="dragState.source"></slot>
-        <div vusion-slot-name="dragGhost" v-if="$env.VUE_APP_DESIGNER">
-            <s-empty v-if="!$slots.dragGhost
-                && $scopedSlots
-                && !($scopedSlots.dragGhost && $scopedSlots.dragGhost())
-                && !!$attrs['vusion-node-path']">
-            </s-empty>
-        </div>
+    <div>
+      <slot></slot>
+    </div>
+    <div v-if="draggable || acrossTableDrag" ref="dragGhost" :class="$style.dragGhost"
+      :designer="$env.VUE_APP_DESIGNER">
+      <u-text color="secondary" :class="$style.text" v-if="$env.VUE_APP_DESIGNER">拖拽缩略图配置区域</u-text>
+      <slot name="dragGhost" :item="dragState.source"></slot>
+      <div vusion-slot-name="dragGhost" v-if="$env.VUE_APP_DESIGNER">
+        <s-empty v-if="!$slots.dragGhost
+          && $scopedSlots
+          && !($scopedSlots.dragGhost && $scopedSlots.dragGhost())
+          && !!$attrs['vusion-node-path']">
+        </s-empty>
+      </div>
     </div>
     <div v-if="draggable || acrossTableDrag" :class="$style.dragGhost">
-        <div :class="$style.trdragGhost" ref="trDragGhost"></div>
+      <div :class="$style.trdragGhost" ref="trDragGhost"></div>
     </div>
-</div>
-<div v-else :class="$style.root" ref="root" :border="border"
-    @dragend="onDragEnd($event)"
-    @drop="onDrop($event)"
-    @dragover="onRootDragover($event)"
-    @dragleave="onRootDragleave($event)"
-    @dragenter="onRootDragenter($event)">
-    <div v-if="title" :class="$style.title" ref="title" :style="{ textAlign: titleAlignment }" vusion-slot-name="title" vusion-slot-name-edit="title">
-        <slot name="title">{{ title }}</slot>
+  </div>
+  <div v-else :class="$style.root" ref="root" :border="border" @dragend="onDragEnd($event)" @drop="onDrop($event)"
+    @dragover="onRootDragover($event)" @dragleave="onRootDragleave($event)" @dragenter="onRootDragenter($event)">
+    <div v-if="title" :class="$style.title" ref="title" :style="{ textAlign: titleAlignment }" vusion-slot-name="title"
+      vusion-slot-name-edit="title">
+      <slot name="title">{{ title }}</slot>
     </div>
     <slot name="config-columns"></slot>
-    <u-table-render
-        ref="tableRender"
-
-        :tableMetaList="tableMetaList"
-        :visibleColumnVMs="visibleColumnVMs"
-        :visibleTableHeadTrArr="visibleTableHeadTrArr"
-        :columnVMsMap="columnVMsMap"
-
-        :emptyText="emptyText"
-        :errorText="errorText"
-        :loadingText="loadingText"
-        :currentData="currentData"
-        :currentDataSource="currentDataSource"
-        :currentLoading="currentLoading"
-        :currentError="currentError"
-        :currentEmpty="currentEmpty"
-        :errorImage="errorImage"
-
-        :pageable="pageable"
-
-        :striped="striped"
-        :border="border"
-        :line="line"
-        :color="color"
-        :boldHeader="boldHeader"
-
-        :defaultOrder="defaultOrder"
-        :sorting="sorting"
-        :sortTrigger="sortTrigger"
-
-        :useStickyFixed="useStickyFixed"
-        :fixedRightList="fixedRightList"
-        :fixedLeftList="fixedLeftList"
-
-        :tableWidth="tableWidth"
-        :tableHeight="tableHeight"
-        :bodyHeight="bodyHeight"
-
-        :thEllipsis="thEllipsis"
-        :ellipsis="ellipsis"
-
-        :resizable="resizable"
-        :minColumnWidth="minColumnWidth"
-        :resizeRemaining="resizeRemaining"
-
-        :treeDisplay="treeDisplay"
-        :hasChildrenField="hasChildrenField"
-
-        :selectable="selectable"
-
-        :virtual="virtual"
-        :itemHeight="itemHeight"
-        :virtualCount="virtualCount"
-        :listKey="listKey"
-
-        :rowDraggable="rowDraggable"
-        :handlerDraggable="handlerDraggable"
-
-        :disabled="disabled"
-        :readonly="readonly"
-
-        :showHead="showHead"
-
-        :filterMultiple="filterMultiple"
-        :filterMax="filterMax"
-
-        :rootWidth="rootWidth"
-        :value-field="valueField"
-        :rowStyle="rowStyle"
-        :usePagination="usePagination"
-
-        :nativeScroll="nativeScroll"
-        :currentValues="currentValues"
-        :lazyLoad="lazyLoad"
-        :bufferSize="bufferSize"
-        @resize="onResizerDragEnd">
+    <u-table-render ref="tableRender" :tableMetaList="tableMetaList" :visibleColumnVMs="visibleColumnVMs"
+      :visibleTableHeadTrArr="visibleTableHeadTrArr" :columnVMsMap="columnVMsMap" :emptyText="emptyText"
+      :errorText="errorText" :loadingText="loadingText" :currentData="currentData"
+      :currentDataSource="currentDataSource" :currentLoading="currentLoading" :currentError="currentError"
+      :currentEmpty="currentEmpty" :errorImage="errorImage" :pageable="pageable" :striped="striped" :border="border"
+      :line="line" :color="color" :boldHeader="boldHeader" :defaultOrder="defaultOrder" :sorting="sorting"
+      :sortTrigger="sortTrigger" :useStickyFixed="useStickyFixed" :fixedRightList="fixedRightList"
+      :fixedLeftList="fixedLeftList" :tableWidth="tableWidth" :tableHeight="tableHeight" :bodyHeight="bodyHeight"
+      :thEllipsis="thEllipsis" :ellipsis="ellipsis" :resizable="resizable" :minColumnWidth="minColumnWidth"
+      :resizeRemaining="resizeRemaining" :treeDisplay="treeDisplay" :hasChildrenField="hasChildrenField"
+      :selectable="selectable" :virtual="virtual" :itemHeight="itemHeight" :virtualCount="virtualCount"
+      :listKey="listKey" :rowDraggable="rowDraggable" :handlerDraggable="handlerDraggable" :disabled="disabled"
+      :readonly="readonly" :showHead="showHead" :filterMultiple="filterMultiple" :filterMax="filterMax"
+      :rootWidth="rootWidth" :value-field="valueField" :rowStyle="rowStyle" :usePagination="usePagination"
+      :nativeScroll="nativeScroll" :currentValues="currentValues" :lazyLoad="lazyLoad" :bufferSize="bufferSize"
+      @resize="onResizerDragEnd">
     </u-table-render>
     <u-table-view-drop-ghost :data="dropData"></u-table-view-drop-ghost>
     <u-pagination :class="$style.pagination" ref="pagination" v-if="usePagination && currentDataSource"
-        :total-items="currentDataSource.total" :page="currentDataSource.paging.number"
-        :page-size="currentDataSource.paging.size" :page-size-options="pageSizeOptions" :show-total="showTotal" :show-sizer="showSizer" :show-jumper="showJumper"
-        :size="paginationSize"
-        :max-page="currentDataSource.paging.number"
-        @change="page($event.page)" @change-page-size="onChangePageSize">
+      :total-items="currentDataSource.total" :page="currentDataSource.paging.number"
+      :page-size="currentDataSource.paging.size" :page-size-options="pageSizeOptions" :show-total="showTotal"
+      :show-sizer="showSizer" :show-jumper="showJumper" :size="paginationSize"
+      :max-page="currentDataSource.paging.number" @change="page($event.page)" @change-page-size="onChangePageSize">
     </u-pagination>
-    <div><slot></slot></div>
+    <div>
+      <slot></slot>
+    </div>
     <div v-if="draggable || acrossTableDrag" ref="dragGhost" :class="$style.dragGhost">
-        <slot name="dragGhost" :item="dragState.source"></slot>
+      <slot name="dragGhost" :item="dragState.source"></slot>
     </div>
     <div v-if="draggable || acrossTableDrag" :class="$style.dragGhost">
-        <div :class="$style.trdragGhost" ref="trDragGhost"></div>
+      <div :class="$style.trdragGhost" ref="trDragGhost"></div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -870,6 +760,7 @@ export default {
     }
   },
   mounted() {
+
     if (this.data) this.processData(this.data);
     this.watchCurrentData();
     this.watchValue(this.value);
@@ -993,7 +884,7 @@ export default {
       const options = this.getDataSourceOptions();
       const isNew = typeof this.pagination !== 'undefined';
       const Constructor = isNew ? DataSourceNew : DataSource;
-      if (dataSource instanceof DataSource || dataSource instanceof DataSourceNew) return dataSource;else if (dataSource instanceof Array) {
+      if (dataSource instanceof DataSource || dataSource instanceof DataSourceNew) return dataSource; else if (dataSource instanceof Array) {
         options.data = Array.from(dataSource);
         // 使用了新的分页, 数组肯定不是后端数据
         if (isNew) {
@@ -1009,7 +900,7 @@ export default {
         options.load = function load(params, extraParams) {
           self.$emitSyncParams(params);
           const result = dataSource(params, extraParams);
-          if (result instanceof Promise) return result;else if (result instanceof Array) return Promise.resolve(result);else return Promise.resolve(result);
+          if (result instanceof Promise) return result; else if (result instanceof Array) return Promise.resolve(result); else return Promise.resolve(result);
         };
         // 使用了新的分页, 函数类型先当做后端数据
         if (isNew) {
@@ -1077,13 +968,13 @@ export default {
           this.visibleColumnVMs.forEach((columnVM, index) => {
             if (!columnVM.currentWidth) {
               noWidthColumnVMs.push(columnVM);
-            } else if (String(columnVM.currentWidth).endsWith('%')) percentColumnVMs.push(columnVM);else valueColumnVMs.push(columnVM);
+            } else if (String(columnVM.currentWidth).endsWith('%')) percentColumnVMs.push(columnVM); else valueColumnVMs.push(columnVM);
             // 当右侧有fixed，到当前列的时候却是非fixed，fixedRightCount置为0
             if (fixedRightCount && !columnVM.fixed) {
               fixedRightCount = 0;
             }
             if (columnVM.fixed) {
-              if (index === 0) fixedLeftCount = 1;else if (fixedLeftCount === index && lastIsFixed) fixedLeftCount++;else if (!lastIsFixed) {
+              if (index === 0) fixedLeftCount = 1; else if (fixedLeftCount === index && lastIsFixed) fixedLeftCount++; else if (!lastIsFixed) {
                 fixedRightCount = 1;
               } else fixedRightCount++;
             }
@@ -1127,7 +1018,7 @@ export default {
           let tableWidth = '';
           if (this.visibleColumnVMs.some(columnVM => columnVM.currentWidth) || defaultColumnWidth) {
             tableWidth = this.visibleColumnVMs.reduce((prev, columnVM) => {
-              if (String(columnVM.currentWidth).endsWith('%')) return prev + parseFloat(columnVM.currentWidth) * rootWidth / 100;else return prev + parseFloat(columnVM.computedWidth);
+              if (String(columnVM.currentWidth).endsWith('%')) return prev + parseFloat(columnVM.currentWidth) * rootWidth / 100; else return prev + parseFloat(columnVM.computedWidth);
             }, 0);
             this.tableWidth = tableWidth;
           } else this.tableWidth = tableWidth = rootWidth; // @important: Work with overflow-x: hidden to prevent two horizontal scrollbar
@@ -1308,6 +1199,7 @@ export default {
       return this.visibleColumnVMs.map(item => item.field).filter(item => !!item).join(',');
     },
     async exportExcel(page = 1, size = 2000, filename, sort, order, excludeColumns = [], includeStyles = false) {
+      console.log("daochu")
       if (this.currentDataSource.sorting && this.currentDataSource.sorting.field) {
         const {
           sorting
@@ -1361,7 +1253,7 @@ export default {
           });
           // console.timeEnd('加载数据');
           if (res instanceof Object) {
-            if (res.hasOwnProperty('list')) res = res.list;else if (res.hasOwnProperty('content')) res = res.content;else if (res.hasOwnProperty('data')) res = res.data;
+            if (res.hasOwnProperty('list')) res = res.list; else if (res.hasOwnProperty('content')) res = res.content; else if (res.hasOwnProperty('data')) res = res.data;
           }
           if (!(res instanceof Array)) {
             this.$toast.show('数据格式不是数组');
@@ -1865,7 +1757,7 @@ export default {
         item,
         oldItem
       }, this)) return;
-      if (cancelable && item === oldItem) this.selectedItem = undefined;else this.selectedItem = item; // Assign and sync `value`
+      if (cancelable && item === oldItem) this.selectedItem = undefined; else this.selectedItem = item; // Assign and sync `value`
       const value = this.selectedItem && this.$at2(this.selectedItem, this.valueField);
       this.$emit('input', value, this);
       this.$emit('update:value', value, this); // Emit `after-` events
@@ -1951,7 +1843,7 @@ export default {
               if (item.checked) checkedLength++;
               if (item.checked === null) checkedLength += 0.5;
             });
-            if (checkedLength === 0) parentItem.checked = false;else if (checkedLength === children.length) parentItem.checked = true;else parentItem.checked = null;
+            if (checkedLength === 0) parentItem.checked = false; else if (checkedLength === children.length) parentItem.checked = true; else parentItem.checked = null;
             this.checkRecursively(parentItem, parentItem.checked, 'up');
           }
         }
@@ -1961,7 +1853,7 @@ export default {
       const valueField = this.getValueField();
       if (valueField) {
         const label = this.$at(item, valueField);
-        if (checked && !this.currentValues.includes(label)) this.currentValues.push(label);else if (!checked && this.currentValues.includes(label)) this.currentValues.splice(this.currentValues.indexOf(label), 1);
+        if (checked && !this.currentValues.includes(label)) this.currentValues.push(label); else if (!checked && this.currentValues.includes(label)) this.currentValues.splice(this.currentValues.indexOf(label), 1);
         if (checked) {
           this.checkedItems[label] = item;
         } else {
@@ -2609,7 +2501,7 @@ export default {
       if (this.dragState && this.dragState.dragging) {
         const sourceNode = this.dragState.source;
         if (!sourceNode) return false;
-        if (item === sourceNode) return true;else if (item.parentPointer !== undefined) {
+        if (item === sourceNode) return true; else if (item.parentPointer !== undefined) {
           return this.isSubNode(item, sourceNode);
         } else {
           return false;
@@ -2618,7 +2510,7 @@ export default {
     },
     setAtWithoutSync(obj, propertyPath, value) {
       const lastIndex = propertyPath.lastIndexOf('.');
-      if (lastIndex === -1) obj[propertyPath] = value;else {
+      if (lastIndex === -1) obj[propertyPath] = value; else {
         const prepath = propertyPath.slice(0, lastIndex);
         const subpath = propertyPath.slice(lastIndex + 1);
         const item = this.$at(obj, prepath);
@@ -3029,88 +2921,101 @@ export default {
 </script>
 <style module>
 .root {
-    position: relative;
-    /* 不能加这句，会使分页器的 Select 无法显示！ overflow: hidden; */
+  position: relative;
+  /* 不能加这句，会使分页器的 Select 无法显示！ overflow: hidden; */
 }
 
-.root[editable] td{
-    padding-top: 4px;
-    padding-bottom: 4px;
-    min-height: var(--table-view-editable-td-min-height);
-    height: 1px;
+.root[editable] td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  min-height: var(--table-view-editable-td-min-height);
+  height: 1px;
 }
+
 .title {
-    text-align: center;
-    margin-bottom: var(--table-view-title-space);
+  text-align: center;
+  margin-bottom: var(--table-view-title-space);
 }
 
 .extra {
-    float: right;
+  float: right;
 }
 
 .body {
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
+
 .body[sticky-fixed] {
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .pagination {
-    text-align: right;
-    margin-top: var(--table-view-pagination-space);
+  text-align: right;
+  margin-top: var(--table-view-pagination-space);
 }
 
 .dragHandler {
-    cursor: var(--table-view-drag-cursor);
+  cursor: var(--table-view-drag-cursor);
 }
+
 .dragHandler[disabled] {
-    cursor: var(--table-view-drag-cursor-disabled);
-    color: var(--table-view-drag-color-disabled);
+  cursor: var(--table-view-drag-cursor-disabled);
+  color: var(--table-view-drag-color-disabled);
 }
 
 .expand-td {
-    /* transition: $transition-duration height ease-in-out, $transition-duration padding-top ease-in-out, $transition-duration padding-bottom ease-in-out; */
-    background-color: var(--table-view-expand-td-background);
+  /* transition: $transition-duration height ease-in-out, $transition-duration padding-top ease-in-out, $transition-duration padding-bottom ease-in-out; */
+  background-color: var(--table-view-expand-td-background);
 }
 
 .spinner {
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 .dropghost {
-    position: absolute;
+  position: absolute;
 }
+
 .dropghost .line {
-    position: absolute;
-    border: 1px solid red;
-    width: 100%;
+  position: absolute;
+  border: 1px solid red;
+  width: 100%;
 }
+
 .dragGhost {
-    position: absolute;
-    z-index: -999;
-    left: -9999px;
-    top: -9999px;
+  position: absolute;
+  z-index: -999;
+  left: -9999px;
+  top: -9999px;
 }
-.trdragGhost{
-    overflow: clip;
+
+.trdragGhost {
+  overflow: clip;
 }
+
 .dragGhost[designer] {
-    position: static;
-    padding: 5px;
-    background: rgb(250, 250, 250);
-    border: 1px dashed rgb(195, 195, 195);
+  position: static;
+  padding: 5px;
+  background: rgb(250, 250, 250);
+  border: 1px dashed rgb(195, 195, 195);
 }
+
 .dragGhost[designer] .text {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 @keyframes rotate {
-    0% { transform: rotate(0); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

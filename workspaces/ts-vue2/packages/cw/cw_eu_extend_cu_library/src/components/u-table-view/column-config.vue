@@ -1,45 +1,34 @@
 <template>
-<div :class="$style.root">
+  <div :class="$style.root"><span>dddd</span>
     <span vusion-slot-name="title" vusion-click-enabled>
-        <slot name="title">
-            <s-empty
-                v-if="!($slots && $slots.title)
-                    && $env.VUE_APP_DESIGNER
-                    && !!$attrs['vusion-node-path']">
-            </s-empty>
-        </slot>
-        <u-table-view-filters-popper
-            :value="currentValue"
-            :data="currentDataSource.data"
-            :text-field="textField"
-            :value-field="valueField"
-            :multiple="true"
-            :hidden="hiddenConfig"
-            :show-footer="showFooter"
-            @select="onSelectShowColumns($event)"
-            @load="onLoadConfigList()"
-            :vusion-scope-id="$vnode.context.$options._scopeId"
-            :vusion-node-path="$attrs['vusion-node-path']"
-            :vusion-node-tag="$attrs['vusion-node-tag']"
-            vusion-slot-name="item"
-            :class="[{[$style.designerMask]: dataSource && $env.VUE_APP_DESIGNER}]"
-            ref="filterPopper"
-            @open="onPopperOpen">
-            <template #item="item" v-if="dataSource">
-                <slot name="item" v-bind="item"></slot>
-                <s-empty v-if="$scopedSlots
-                && !($scopedSlots.item && $scopedSlots.item(item))
-                && $env.VUE_APP_DESIGNER
-                && !!$attrs['vusion-node-path']
-                && !!dataSource"></s-empty>
-            </template>
-            <template #footer>
-                <u-link @click="confirm">确定</u-link>
-                <u-link @click="cancel">取消</u-link>
-            </template>
-        </u-table-view-filters-popper>
+      <slot name="title">
+        <s-empty v-if="!($slots && $slots.title)
+          && $env.VUE_APP_DESIGNER
+          && !!$attrs['vusion-node-path']">
+        </s-empty>
+      </slot>
+      <u-table-view-filters-popper :value="currentValue" :data="currentDataSource.data" :text-field="textField"
+        :value-field="valueField" :multiple="true" :hidden="hiddenConfig" :show-footer="showFooter"
+        @select="onSelectShowColumns($event)" @load="onLoadConfigList()"
+        :vusion-scope-id="$vnode.context.$options._scopeId" :vusion-node-path="$attrs['vusion-node-path']"
+        :vusion-node-tag="$attrs['vusion-node-tag']" vusion-slot-name="item"
+        :class="[{ [$style.designerMask]: dataSource && $env.VUE_APP_DESIGNER }]" ref="filterPopper"
+        @open="onPopperOpen">
+        <template #item="item" v-if="dataSource">
+          <slot name="item" v-bind="item"></slot>
+          <s-empty v-if="$scopedSlots
+            && !($scopedSlots.item && $scopedSlots.item(item))
+            && $env.VUE_APP_DESIGNER
+            && !!$attrs['vusion-node-path']
+            && !!dataSource"></s-empty>
+        </template>
+        <template #footer>
+          <u-link @click="confirm">确定</u-link>
+          <u-link @click="cancel">取消</u-link>
+        </template>
+      </u-table-view-filters-popper>
     </span>
-</div>
+  </div>
 </template>
 <script>
 import MEmitter from "@lcap-ui/src/components/m-emitter.vue";
@@ -97,6 +86,7 @@ export default {
     }
   },
   created() {
+    console.log("created", columnVM)
     !this.parentVM && this.$contact(this.$options.parentName, parentVM => {
       this.parentVM = parentVM;
       parentVM.configColumnVM = this;
@@ -109,10 +99,11 @@ export default {
   },
   methods: {
     getTitleInfo(nodes, columnVM) {
+      console.log("输出表格配置列getTitleInfo", columnVM)
       let titleInfo;
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-        if (node && node.tag && node.tag.endsWith('u-text')) {
+        if (node && node.tag && (node.tag.endsWith('u-text') || node.tag.endsWith('el-text'))) {
           const title = node.componentOptions && node.componentOptions.propsData && node.componentOptions.propsData.text;
           if (title) {
             titleInfo = {
@@ -139,9 +130,12 @@ export default {
      * 没有数据源解析每一列的数据，如果title是插槽，只处理第一层组件是u-text的情况
      */
     getConfigurabeList() {
+      console.log("getConfigurabeList")
       // 解析列得到默认值
       if (!this.parentVM) return [];
+
       const columnVMs = this.parentVM.columnVMs;
+      console.log("表格配置列", columnVMs)
       const data = [];
       columnVMs.forEach(columnVM => {
         if (columnVM.field) {
@@ -152,7 +146,8 @@ export default {
             });
           } else {
             const titleSlot = columnVM.$slots.title && columnVM.$slots.title[0];
-            if (titleSlot && titleSlot.tag && titleSlot.tag.endsWith('u-text')) {
+            console.log("输出表格配置列titleSlot", titleSlot)
+            if (titleSlot && titleSlot.tag && (titleSlot.tag.endsWith('u-text') || titleSlot.tag.endsWith('el-text'))) {
               const title = titleSlot.componentOptions && titleSlot.componentOptions.propsData && titleSlot.componentOptions.propsData.text;
               if (title) {
                 data.push({
@@ -162,6 +157,7 @@ export default {
               }
             } else if (this.$env.VUE_APP_DESIGNER) {
               const titleInfo = this.getTitleInNewIDE(columnVM);
+              console.log("输出表格配置列titleInfo", titleInfo)
               if (titleInfo) {
                 data.push(titleInfo);
               }
@@ -253,24 +249,27 @@ export default {
 </script>
 <style module>
 .root {
-    cursor: pointer;
-    position: absolute;
-    z-index: 100; /*fix:2891670506516992 表格配置固定列后打开可配置展示列，配置图标被遮挡*/
-    right: 7px;
-    top: 8px;
+  cursor: pointer;
+  position: absolute;
+  z-index: 100;
+  /*fix:2891670506516992 表格配置固定列后打开可配置展示列，配置图标被遮挡*/
+  right: 7px;
+  top: 8px;
 }
+
 .designerMask [class^='u-table-view_filter__']:not(:first-child) {
-    position: relative;
+  position: relative;
 }
+
 .designerMask [class^='u-table-view_filter__']:not(:first-child)::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: rgba(255,255,255,0.8);
-    z-index: 999;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 999;
 }
 </style>

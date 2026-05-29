@@ -13,6 +13,7 @@ export default {
 export const Block1 = {
   name: '普通数据表格',
   render: () => ({
-    template: `<u-table-view :pagination="true" :pageSize="20" :pageNumber="1"></u-table-view>`,
+    template: `<u-table-view :pagination="true" :pageSize="20" :pageNumber="1" :line="true"  :striped="true">       
+    </u-table-view>`,
   }),
 };
