@@ -41,6 +41,7 @@ export default defineConfig(({ command }) => {
         'swiper/swiper-bundle.esm.js': path.resolve(__dirname, './node_modules/swiper/swiper-bundle.esm.js'),
         '@joskii/jflow-core': path.resolve(__dirname, './node_modules/@joskii/jflow-core/dist/jflow.es.min.js'),
         '@joskii/jflow-vue2-plugin': path.resolve(__dirname, './node_modules/@joskii/jflow-vue2-plugin/dist/jflow-vue2-plugin.es.min.js'),
+        '@vue/composition-api': path.resolve(__dirname, './node_modules/@vue/composition-api'),
       },
     },
     define: {

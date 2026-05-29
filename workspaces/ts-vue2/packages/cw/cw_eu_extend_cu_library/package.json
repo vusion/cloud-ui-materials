@@ -64,6 +64,7 @@
     "@storybook/vue": "^7.6.17",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.14.202",
+    "@vue/composition-api": "^1.7.2",
     "@vue/test-utils": "^1.3.5",
     "autoprefixer": "^10.4.16",
     "jest-serializer-vue-tjw": "^3.20.0",

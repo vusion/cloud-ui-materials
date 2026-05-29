@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import * as CloudUI from '@/index.js';
+import * as CloudUI from '@lcap-ui/src/main';
 import Component from '../index.js';
 import ExamplesDemo1 from '../demos/examples/ExamplesDemo1.vue';
 import ExamplesDemo2 from '../demos/examples/ExamplesDemo2.vue';
