@@ -1,0 +1,26 @@
+/** 与 legacy i18n/zh-CN.json 对齐的默认文案 */
+export const messages = {
+  year: '年',
+  month: '月',
+  Sunday: '日',
+  Monday: '一',
+  Tuesday: '二',
+  Wednesday: '三',
+  Thursday: '四',
+  Friday: '五',
+  Saturday: '六',
+  January: '1',
+  February: '2',
+  March: '3',
+  April: '4',
+  May: '5',
+  June: '6',
+  July: '7',
+  August: '8',
+  September: '9',
+  October: '10',
+  November: '11',
+  December: '12',
+} as const;
+
+export type MessageKey = keyof typeof messages;
