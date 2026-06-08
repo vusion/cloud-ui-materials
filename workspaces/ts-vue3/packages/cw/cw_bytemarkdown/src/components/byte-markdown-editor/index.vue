@@ -101,6 +101,10 @@ onMounted(() => {
 .bytemd {
   height: 100%;
 }
+.bytemd-status{
+  height: 24px;
+  border: none;
+}
 
 .markdown-body {
   pre {
