@@ -6,6 +6,34 @@ namespace extensions.cw_calendar_library.viewComponents {
     type: 'pc',
     ideusage: {
       idetype: 'element',
+      dataSource: {
+        dismiss: "!this.getAttribute('dataSource') && this.getDefaultElements().length > 0",
+        display: 7,
+        loopRule: 'tbody > tr > td:not(:first-child)',
+        loopElem: 'tbody > tr > td:not(:first-child) > div',
+        displayData: '"[{}, {}, {}]"',
+        propertyName: ':dataSource',
+        emptySlot: {
+          display: 'inline',
+          condition: "!this.getAttribute('dataSource')",
+          accept: false,
+          content: '"文本占位"',
+        },
+        slotWrapperInlineStyle: {
+          default: 'display: inline-block;',
+        },
+      },
+      additionalAttribute: {
+        firstField: '"parent.name"',
+        parentKey: '"parent.name"',
+        childKey: '"child.name"',
+        startKey: '"startTime"',
+        endKey: '"endTime"',
+        firstTitle: '"姓名"',
+      },
+      displaySlotConditions: {
+        itemFilter: "!!this.getAttribute('dataSource') || !!this.getAttribute('dataSourceParent')",
+      },
     },
   })
   @Component({
@@ -53,6 +81,7 @@ namespace extensions.cw_calendar_library.viewComponents {
       title: '主数据源',
       description:
         '日历表格主数据源，数组方式表示直接的数据，函数需要返回一个 Promise；分页对象格式为 { content, totalPages }',
+      bindOpen: true,
     })
     dataSourceParent:
       | nasl.collection.List<nasl.collection.Map<nasl.core.String, nasl.core.String>>
@@ -66,6 +95,7 @@ namespace extensions.cw_calendar_library.viewComponents {
       title: '子数据源',
       description:
         '日历表格子数据源，数组方式表示直接的数据，函数需要返回一个 Promise；分页对象格式为 { content, totalPages }',
+      bindOpen: true,
     })
     dataSource: nasl.collection.List<nasl.collection.Map<nasl.core.String, nasl.core.String>>;
 

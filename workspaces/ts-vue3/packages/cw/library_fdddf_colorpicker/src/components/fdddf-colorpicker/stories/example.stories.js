@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import Component from '../index';
 
 export default {
@@ -18,16 +19,23 @@ export const Example1 = {
     },
     props: Object.keys(argTypes),
     setup() {
+      const value = ref(args.value);
       return {
         args,
+        value,
       };
     },
-    template: '<fdddf-colorpicker v-bind="args"></fdddf-colorpicker>',
+    template: `
+    <div>
+    <fdddf-colorpicker v-bind="args" v-model:value="value"></fdddf-colorpicker>
+    <div>当前值：{{ value }}</div>
+    </div>
+    `,
   }),
   args: {
     value: '#ff0000',
     label: 'ColorPicker',
     hidePalette: false,
-    withoutInput: false,
+    withoutInput: true,
   },
 };

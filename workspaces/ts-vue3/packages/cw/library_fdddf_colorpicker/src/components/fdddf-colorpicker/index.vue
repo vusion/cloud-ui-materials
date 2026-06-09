@@ -1,15 +1,17 @@
 <template>
   <div :class="$style.root">
     <div v-if="label" :class="$style.label">{{ label }}</div>
-    <div v-if="!withoutInput" :class="$style.inputRow">
+    <div v-if="showNativeColorInput || !withoutInput" :class="$style.inputRow">
       <input
         v-if="showNativeColorInput"
         :class="$style.nativeColor"
         type="color"
         :value="nativeColorValue"
         @input="onNativeInput"
+        @change="onNativeInput"
       />
       <input
+        v-if="!withoutInput"
         :class="$style.textInput"
         type="text"
         v-model="localText"
@@ -87,6 +89,7 @@ const props = withDefaults(defineProps<FdddfColorpickerProps>(), {
 
 const emit = defineEmits<{
   'update:value': [v: string];
+  'sync:state': [prop: string, val: string];
   change: [event: { value: string }];
 }>();
 
@@ -118,6 +121,7 @@ function commit(next: string) {
   const v = (next || '').trim() || '#000000';
   localText.value = v;
   emit('update:value', v);
+  emit('sync:state', 'value', v);
   emit('change', { value: v });
 }
 

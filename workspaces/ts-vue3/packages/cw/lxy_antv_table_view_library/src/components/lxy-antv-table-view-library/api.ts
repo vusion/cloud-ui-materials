@@ -33,7 +33,7 @@ namespace extensions.lxy_antv_table_view_library.viewComponents {
       description:
         "表头相关设置rows代表行头，columns代表列头，values代表取值，例如{rows:['province','city'],columns:['type','sub_type'],values:['number']}",
     })
-    fields: nasl.collection.Map<nasl.core.String, nasl.core.String>;
+    fields: nasl.collection.Map<nasl.core.String, nasl.core.String|nasl.collection.List<nasl.core.String>>;
 
     @Prop({
       group: '数据属性',

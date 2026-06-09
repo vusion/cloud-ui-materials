@@ -595,3 +595,75 @@ Link: [Ant Design X](https://x.ant.design)
     ],
   },
 };
+
+export const Example2 = {
+  name: '简单数据源',
+  render: () => ({
+    components: {
+      'cw-bubble-list': Component,
+      'cw-bubble': CwBubble,
+    },
+    data() {
+      return {
+        dataSource: [
+          { role: 'ai' },
+          { role: 'user' },
+          { role: 'ai' },
+          { role: 'user' },
+        ],
+      };
+    },
+    template: `<cw-bubble-list
+      :dataSource="dataSource"
+      roleField="role"
+      leftRoleName="ai"
+      rightRoleName="user">
+      <template #leftBubble="{ item, index }">
+        <cw-bubble
+          placement="start"
+          :content="item.content || 'AI 消息 ' + (index + 1)"
+          name="AI"
+        />
+      </template>
+      <template #rightBubble="{ item, index }">
+        <cw-bubble
+          placement="end"
+          :content="item.content || '用户消息 ' + (index + 1)"
+          name="User"
+        />
+      </template>
+    </cw-bubble-list>`,
+  }),
+};
+
+export const Example3 = {
+  name: 'IDE 生成模板',
+  render: () => ({
+    components: {
+      'cw-bubble-list': Component,
+      'cw-bubble': CwBubble,
+    },
+    methods: {
+      handleDataSourceLoad() {
+        return [
+          { role: 'ai' },
+          { role: 'user' },
+          { role: 'ai' },
+          { role: 'user' },
+        ];
+      },
+    },
+    template: `<cw-bubble-list
+      :dataSource="handleDataSourceLoad"
+      roleField="role"
+      leftRoleName="ai"
+      rightRoleName="user">
+      <template #rightBubble="current">
+        <cw-bubble :placement="\`end\`" />
+      </template>
+      <template #leftBubble="current">
+        <cw-bubble :placement="\`start\`" />
+      </template>
+    </cw-bubble-list>`,
+  }),
+};

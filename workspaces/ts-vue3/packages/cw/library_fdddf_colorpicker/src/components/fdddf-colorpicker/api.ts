@@ -23,6 +23,8 @@ namespace extensions.library_fdddf_colorpicker.viewComponents {
       group: '主要属性',
       title: '颜色值',
       description: '颜色值,hex或rgba格式',
+      sync: true,
+      bindOpen: true,
       setter: {
         concept: 'InputSetter',
       },
@@ -78,8 +80,8 @@ namespace extensions.library_fdddf_colorpicker.viewComponents {
 
     @Prop({
       group: '主要属性',
-      title: '无输入框',
-      description: '没有输入框',
+      title: '无文本输入框',
+      description: '隐藏文本输入框，保留原生取色器与调色板',
       setter: {
         concept: 'SwitchSetter',
       },
