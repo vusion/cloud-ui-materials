@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root"><span>dddd</span>
+  <div :class="$style.root">
     <span vusion-slot-name="title" vusion-click-enabled>
       <slot name="title">
         <s-empty v-if="!($slots && $slots.title)

@@ -1,7 +1,7 @@
 {
   "name": "cw_eu_extend_cu_library",
   "private": "true",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "lcapIdeVersion": "3.10",
   "title": "ElementUI扩展CloudUI组件依赖库",
   "description": "ElementUI扩展CloudUI组件依赖库",
