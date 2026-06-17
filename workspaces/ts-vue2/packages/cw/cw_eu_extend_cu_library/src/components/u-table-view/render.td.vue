@@ -1,6 +1,11 @@
 <template>
-  <td :class="$style.cell" :ellipsis="getTdEllipsis()" v-ellipsis-title :disabled="disabled"
-    :tree-column="treeDisplay && columnIndex === treeColumnIndex">
+  <td :class="[$style.cell, showExcelCell ? $style['cell-excel-mode'] : null]"
+    :data-excel-row="showExcelCell ? rowIndex : undefined"
+    :data-excel-col="showExcelCell ? excelColIndex : undefined"
+    :ellipsis="getTdEllipsis()" v-ellipsis-title :disabled="disabled"
+    :tree-column="treeDisplay && columnIndex === treeColumnIndex"
+    @mousedown.stop="onExcelCellMouseDownLocal"
+    @mouseover="onExcelCellMouseOverLocal">
     <!-- type === 'index' -->
     <span v-if="vm.type === 'index'">
       <template v-if="vm.autoIndex && usePagination && currentDataSource">
@@ -47,8 +52,33 @@
       <i-ico :class="$style.dragHandler" name="dragHandler" :draggable="handlerDraggable && item.draggable || undefined"
         :disabled="!(handlerDraggable && item.draggable)"></i-ico>
     </span>
+    <!-- Excel 模式：展示绑定字段文本，双击 / F2 / 输入进入编辑 -->
+    <div
+      v-if="showExcelCell"
+      :class="[$style['cell-excel'], isExcelCellEditingNow ? $style['cell-excel-editing'] : null]"
+      @dblclick.stop="onExcelCellDblClick"
+      @selectstart="onExcelCellSelectStart"
+    >
+      <input
+        v-if="isExcelCellEditingNow"
+        ref="excelInput"
+        :class="$style['cell-excel-input']"
+        :value="excelEditingDraft"
+        :readonly="readonly"
+        :disabled="disabled"
+        @input="onExcelCellInput"
+        @keydown.stop="onExcelCellKeydown"
+        @blur="onExcelCellBlur"
+      />
+      <span
+        v-else
+        ref="excelText"
+        :class="[$style['cell-excel-text'], cellExcelTextClass]"
+        :title="excelDisplayText"
+      >{{ excelDisplayText }}</span>
+    </div>
     <!-- Editable text -->
-    <template v-if="vm.type === 'editable'">
+    <template v-else-if="vm.type === 'editable'">
       <div @dblclick.stop="onSetEditing(item, vm)" :class="$style.editablewrap"
         :ellipsis="vm.ellipsis !== undefined ? vm.ellipsis : ellipsis"
         :style="{ width: getEditablewrapWidth(item, columnIndex, treeColumnIndex) }" :editing="item.editing === vm.field">
@@ -70,7 +100,7 @@
         </div>
       </div>
     </template>
-    <f-slot v-else name="cell" :vm="vm"
+    <f-slot v-else-if="!showExcelCell" name="cell" :vm="vm"
       :props="{ item: item, value: $at(item, vm.field), columnVM: vm, rowIndex, columnIndex, index: rowIndex, columnItem: vm.columnItem }">
       <span v-if="vm.field && !['radio', 'checkbox'].includes(vm.type)" :class="$style['column-field']">{{
         vm.currentFormatter.format($at(item, vm.field) || item) }}</span>
@@ -93,9 +123,16 @@
   </td>
 </template>
 <script>
+import excelTdMixin from './excel/mixins/td-mixin.js';
+
 export default {
   name: 'u-table-render-td',
-  inject: ['currentDataSource', 'toggleExpanded', 'number2Pixel'],
+  mixins: [excelTdMixin],
+  inject: {
+    currentDataSource: { default: null },
+    toggleExpanded: { default: null },
+    number2Pixel: { default: null },
+  },
   props: {
     vm: Object,
     rowIndex: Number,

@@ -1,5 +1,5 @@
 import Component from '../index';
-import CasesDemo1 from '../demo/CasesDemo1.vue';
+import CasesDemo1 from '../demos/CasesDemo1.vue';
 export default {
   id: 'u-table-view-ex',
   title: 'Ex/UTableView/内置区块',

@@ -45,7 +45,7 @@
       <div :class="$style.trdragGhost" ref="trDragGhost"></div>
     </div>
   </div>
-  <div v-else :class="$style.root" ref="root" :border="border" @dragend="onDragEnd($event)" @drop="onDrop($event)"
+  <div v-else :class="[$style.root, isExcelModeEnabled ? $style.excelMode : null]" :style="excelModeSelectionStyle" ref="root" :border="border" tabindex="-1" @dragend="onDragEnd($event)" @drop="onDrop($event)"
     @dragover="onRootDragover($event)" @dragleave="onRootDragleave($event)" @dragenter="onRootDragenter($event)">
     <div v-if="title" :class="$style.title" ref="title" :style="{ textAlign: titleAlignment }" vusion-slot-name="title"
       vusion-slot-name-edit="title">
@@ -106,6 +106,7 @@ import * as xlsxUtils from "@lcap-ui/src/utils/xlsx";
 import UTableRender from './render.table.vue';
 import UTableDesigner from './designer.table.vue';
 import TreeTableMixin from './tree-table-mixins';
+import ExcelModeMixin, { getExcelProvide } from './excel/mixins/mode-mixin.js';
 export default {
   name: 'u-table-view',
   components: {
@@ -137,7 +138,7 @@ export default {
       return this.selectedItem && this.$at(this.selectedItem, this.getValueField());
     },
     values: 'currentValues'
-  }), TreeTableMixin],
+  }), TreeTableMixin, ExcelModeMixin],
   // i18n,
   props: {
     data: Array,
@@ -504,7 +505,8 @@ export default {
       getItemRowSpan: this.getItemRowSpan,
       getTableContentElem: this.getTableContentElem,
       filterMultiple: this.filterMultiple,
-      filterMax: this.filterMax
+      filterMax: this.filterMax,
+      ...getExcelProvide(this, true),
     };
   },
   computed: {
@@ -1227,6 +1229,7 @@ export default {
       };
       document.addEventListener('click', fn, true);
       document.addEventListener('keydown', fn, true);
+      this.exportExcelBlocking = true;
       // 空值和boolean值时到处默认文件名
       if (!filename || filename === true) {
         filename = document.title.split(' ').shift() || 'Export';
@@ -1365,12 +1368,14 @@ export default {
         // console.timeEnd('生成文件');
       } catch (err) {
         console.error(err);
+      } finally {
+        await new Promise(res => {
+          setTimeout(res);
+        });
+        document.removeEventListener('click', fn, true);
+        document.removeEventListener('keydown', fn, true);
+        this.exportExcelBlocking = false;
       }
-      await new Promise(res => {
-        setTimeout(res);
-      });
-      document.removeEventListener('click', fn, true);
-      document.removeEventListener('keydown', fn, true);
     },
     async getRenderResult(arr = [], excludeColumns = [], hasHeader = true, includeStyles = false) {
       let mergesMap = [];
@@ -2919,10 +2924,17 @@ export default {
   }
 };
 </script>
+<style module src="./index.css"></style>
 <style module>
 .root {
   position: relative;
   /* 不能加这句，会使分页器的 Select 无法显示！ overflow: hidden; */
+}
+
+.root:focus,
+.root:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .root[editable] td {

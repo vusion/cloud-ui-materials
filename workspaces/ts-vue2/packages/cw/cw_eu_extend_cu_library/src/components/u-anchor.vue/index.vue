@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import SEmpty from '../s-empty.vue';
+import SEmpty from "@lcap-ui/src/components/s-empty.vue";
 export default {
     name: 'u-anchor',
     components: { SEmpty },

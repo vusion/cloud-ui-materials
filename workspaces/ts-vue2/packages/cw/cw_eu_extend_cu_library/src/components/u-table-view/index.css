@@ -689,3 +689,93 @@ td[tdtextalign="center"] {
 td[tdtextalign="right"] {
     text-align: right !important;
 }
+
+/* Excel 选区框（运行时由 overlay 层绘制） */
+.excel-selection-layer {
+    position: absolute;
+    pointer-events: none;
+    border: 2px solid var(--table-view-excel-mode-selection-border);
+    box-sizing: border-box;
+    z-index: 5;
+}
+
+.excelMode .excel-selection-layer {
+    /* 高于 stickingHead(200)，列选时表头与表体共用一个封闭框 */
+    z-index: 210;
+}
+
+/* Excel 复制模式：选区框虚线（剪贴板内容与当前选区关联） */
+.excel-selection-layer-copy {
+    border-style: dashed;
+}
+
+/* excelMode 开启：表格整体接近 Excel 的网格与单元格交互 */
+.excelMode .table table {
+    border-collapse: collapse;
+}
+
+.excelMode .cell {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.excelMode .cell-excel-mode {
+    cursor: cell;
+}
+
+.cell-excel {
+    box-sizing: border-box;
+    min-height: 28px;
+    width: 100%;
+    padding: 4px 8px;
+    line-height: 20px;
+    font-size: var(--font-size-base, 14px);
+    color: var(--color-text, #333);
+}
+
+.cell-excel-text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cell-excel-input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 3px 7px;
+    border: 1px solid var(--table-view-excel-mode-selection-border);
+    border-radius: 0;
+    outline: none;
+    line-height: 20px;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background: #fff;
+}
+
+.cell-excel-editing {
+    padding: 0;
+}
+
+.excelMode .cell-excel-text {
+    user-select: none;
+}
+
+.excelMode .cell-excel-text-selectable {
+    user-select: text;
+}
+
+.excelMode .cell-excel-input {
+    user-select: text;
+}
+
+/* Excel 粘贴：根节点聚焦时不显示表格外框高亮（覆盖 lcap 全局 tabindex 样式） */
+.excelMode:focus,
+.excelMode:focus-visible,
+.excelMode:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+}

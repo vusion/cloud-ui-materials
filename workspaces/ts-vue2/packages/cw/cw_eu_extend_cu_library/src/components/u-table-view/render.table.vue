@@ -174,6 +174,14 @@
                     <div ref="virtualPlaceholder" v-if="virtual"></div>
                 </f-scroll-view>
             </div>
+            <div
+                v-if="excelSelectionOverlayByPosition[tableMeta.position]"
+                :class="[
+                    $style['excel-selection-layer'],
+                    isExcelSelectionCopyActive ? $style['excel-selection-layer-copy'] : null,
+                ]"
+                :style="excelSelectionOverlayByPosition[tableMeta.position]"
+            />
         </div>
     </f-render>
 </template>
@@ -187,6 +195,8 @@ import UTableRenderTd from './render.td.vue';
 import UTableRenderTr from './render.tr.vue';
 import UTableRenderTrExpander from './render.tr.expander.vue';
 import UTableRenderTh from './render.th.vue';
+import { getExcelInject, getExcelProvide } from './excel/mixins/mode-mixin.js';
+
 export default {
   name: 'u-table-render',
   mixins: [i18nMixin('u-table-view'), FVirtualTable],
@@ -353,7 +363,24 @@ export default {
       hasScroll: false // 作为下拉加载是否展示"没有更多"的依据。第一页不满，没有滚动条的情况下，不展示
     };
   },
-  inject: ['toggleExpanded', 'debouncedLoad', 'sort', 'filter', 'checkAll', 'onClickRow', 'onDblclickRow', 'check', 'toggleTreeExpanded', 'select', 'onDragStart', 'onDragOver', 'isDragging', 'getItemRowSpan', 'getItemColSpan'],
+  inject: {
+    toggleExpanded: { default: null },
+    debouncedLoad: { default: null },
+    sort: { default: null },
+    filter: { default: null },
+    checkAll: { default: null },
+    onClickRow: { default: null },
+    onDblclickRow: { default: null },
+    check: { default: null },
+    toggleTreeExpanded: { default: null },
+    select: { default: null },
+    onDragStart: { default: null },
+    onDragOver: { default: null },
+    isDragging: { default: null },
+    getItemRowSpan: { default: null },
+    getItemColSpan: { default: null },
+    ...getExcelInject(),
+  },
   provide() {
     return {
       currentDataSource: this.currentDataSource,
@@ -370,8 +397,15 @@ export default {
       getRealItem: this.getRealItem,
       isTdLastLeftFixed: this.isTdLastLeftFixed,
       isFirstRightFixed: this.isFirstRightFixed,
-      getStyle: this.getStyle
+      getStyle: this.getStyle,
+      ...getExcelProvide(this),
     };
+  },
+  mounted() {
+    this.$on('virtual-scroll', this.syncExcelSelectionOverlay);
+  },
+  beforeDestroy() {
+    this.$off('virtual-scroll', this.syncExcelSelectionOverlay);
   },
   watch: {
     'currentDataSource.sorting'(sorting) {
@@ -402,9 +436,30 @@ export default {
       } else {
         return treeColumnIndex;
       }
-    }
+    },
+    /** 各 tablewrap（left/static/right）上的 Excel 选区框样式，按 position 索引 */
+    excelSelectionOverlayByPosition() {
+      if (!this.isExcelModeEnabled || !this.getExcelOverlayStyle) {
+        return {};
+      }
+      const styles = {};
+      (this.tableMetaList || []).forEach((meta) => {
+        const style = this.getExcelOverlayStyle(meta.position);
+        if (style) {
+          styles[meta.position] = style;
+        }
+      });
+      return styles;
+    },
+    isExcelSelectionCopyActive() {
+      return !!(this.excelSelection && this.excelSelection.copyActive);
+    },
   },
   methods: {
+    /** 滚动/虚拟列表后通知根组件重算选区 overlay（RAF 防抖） */
+    syncExcelSelectionOverlay() {
+      this.scheduleExcelOverlayUpdate && this.scheduleExcelOverlayUpdate();
+    },
     getRowKey(item, rowIndex) {
       return this.valueField && this.$at(item, this.valueField) ? this.$at(item, this.valueField) : rowIndex;
     },
@@ -670,6 +725,7 @@ export default {
       }
       this.scrollXStart = e.target.scrollLeft === 0;
       this.scrollXEnd = e.target.scrollLeft >= e.target.scrollWidth - e.target.clientWidth;
+      this.syncExcelSelectionOverlay();
       if (this.pageable !== 'auto-more' || this.currentLoading) return;
       const el = e.target;
       if (el.scrollHeight === el.scrollTop + el.clientHeight && this.currentDataSource && this.currentDataSource.hasMore()) this.debouncedLoad(true);
@@ -691,6 +747,7 @@ export default {
         this.syncScrollViewScroll(data.scrollTop, data.target);
       }
       if (this.virtual) this.throttledVirtualScroll(data);
+      this.syncExcelSelectionOverlay();
       if (this.$refs.scrollView[0].$refs.wrap === data.target) {
         if (this.$refs.head && this.$refs.head[0]) {
           this.$refs.head[0].scrollLeft = data.scrollLeft;

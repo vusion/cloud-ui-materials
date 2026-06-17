@@ -185,4 +185,14 @@
    */
   --table-view-column-sticky-zindex: 99;
 
+  /**
+   * @type color
+   * @group 交互
+   * @prefix table-view
+   * @desc Excel 模式选区框边框颜色（可由 excelModeSelectionColor 覆盖）,如 #337eff
+   * @excludeElTags ["td","th"]
+   * @depAttrs {"excelMode":[true]}
+   */
+  --table-view-excel-mode-selection-border: #337eff;
+
 }

@@ -1,5 +1,5 @@
 <script>
-import SEmpty from '../s-empty.vue';
+import SEmpty from "@lcap-ui/src/components/s-empty.vue";
 import ULoading from '../u-loading.vue';
 import { throttle } from '../../utils/throttle';
 import Gap from '../../mixins/gap';
