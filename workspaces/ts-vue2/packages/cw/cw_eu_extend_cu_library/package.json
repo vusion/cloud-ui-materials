@@ -1,7 +1,7 @@
 {
   "name": "cw_eu_extend_cu_library",
   "private": "true",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "lcapIdeVersion": "3.10",
   "title": "ElementUI扩展CloudUI组件依赖库",
   "description": "ElementUI扩展CloudUI组件依赖库",
@@ -50,8 +50,9 @@
     "@lcap/validator": "1.0.0"
   },
   "devDependencies": {
-    "@lcap/builder": "^1.5.0",
-    "@nasl/types": "^0.1.11",
+    "@vue/composition-api": "^1.7.2",
+    "@lcap/builder": "^1.6.2",
+    "@nasl/types": "^0.2.1",
     "@lcap/storybook-vue-vite": "^7.6.17",
     "@lcap/vite-plugin-vue2": "^1.0.0",
     "@storybook/addon-essentials": "^7.6.17",
@@ -64,11 +65,11 @@
     "@storybook/vue": "^7.6.17",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.14.202",
-    "@vue/composition-api": "^1.7.2",
     "@vue/test-utils": "^1.3.5",
     "autoprefixer": "^10.4.16",
     "jest-serializer-vue-tjw": "^3.20.0",
     "jsdom": "^23.0.1",
+    "lcap-ide-server-proxy": "^0.1.2-beta",
     "marked": "^12.0.1",
     "rimraf": "^5.0.5",
     "storybook": "^7.6.17",

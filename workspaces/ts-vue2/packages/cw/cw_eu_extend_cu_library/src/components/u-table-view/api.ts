@@ -40,7 +40,8 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
         "expression": "!this.getAttribute('configurable')?.value"
       }],
       "additionalAttribute": {
-        ":useMask": false
+        ":useMask": false,
+        ":excelMode": false
       }
     }
   })
@@ -593,6 +594,38 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     resizable: nasl.core.Boolean = false;
     @Prop({
       group: '交互属性',
+      title: '启用 Excel 模式',
+      description: '开启后切换为 Excel 式单元格展示与选区交互，支持复制/粘贴、删除、撤销与重做',
+      docDescription: '开启后以字段值文本展示数据格（不渲染列模板内表单），单击选中、双击或输入编辑，支持 Ctrl/Cmd+C/V、Delete、Ctrl/Cmd+Z 撤销与 Ctrl/Cmd+Shift+Z/Ctrl/Cmd+Y 重做',
+      setter: {
+        concept: 'SwitchSetter'
+      }
+    })
+    excelMode: nasl.core.Boolean = false;
+    @Prop<UTableViewOptions<T, V, P, M>, 'excelModeUndoMax'>({
+      group: '交互属性',
+      title: 'Excel 模式撤销与重做最大步数',
+      description: 'Excel 模式下写操作（粘贴/删除）的撤销与重做栈各自的最大深度',
+      setter: {
+        concept: 'NumberInputSetter',
+        precision: 0
+      },
+      if: _ => _.excelMode === true
+    })
+    excelModeUndoMax: nasl.core.Integer = 20;
+    @Prop<UTableViewOptions<T, V, P, M>, 'excelModeSelectionColor'>({
+      group: '交互属性',
+      title: 'Excel 选区颜色',
+      description: 'Excel 模式下选区框边框与单元格编辑态边框颜色',
+      docDescription: '设置选区 overlay 边框颜色；同时作用于行内编辑 input 边框。默认 #337eff',
+      setter: {
+        concept: 'InputSetter'
+      },
+      if: _ => _.excelMode === true
+    })
+    excelModeSelectionColor: nasl.core.String = '#337eff';
+    @Prop({
+      group: '交互属性',
       title: '调整列宽效果',
       description: '设置调整列宽时如何处理剩余大小',
       docDescription: '表示调整列宽时其他列宽的处理方式。在"可调整列宽"属性开启时有效',
@@ -1133,6 +1166,49 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     onTreeToggleExpanded: (event: {
       item: T;
       expanded: nasl.core.Boolean;
+    }) => any;
+    @Event({
+      title: 'Excel 粘贴完成',
+      description: '从 Excel 粘贴数据成功后触发'
+    })
+    onExcelPaste: (event: {
+      rows: nasl.collection.List<T>;
+      newRows: nasl.collection.List<T>;
+      pasteData: nasl.collection.List<nasl.collection.List<nasl.core.String>>;
+      selection: object;
+    }) => any;
+    @Event({
+      title: 'Excel 删除完成',
+      description: '按 Delete / Backspace 删除（清空）选区内可粘贴单元格内容后触发'
+    })
+    onExcelDelete: (event: {
+      rows: nasl.collection.List<T>;
+      newRows: nasl.collection.List<T>;
+      pasteData: nasl.collection.List<nasl.collection.List<nasl.core.String>>;
+      selection: object;
+    }) => any;
+    @Event({
+      title: 'Excel 复制完成',
+      description: '将当前选区导出为 TSV 并写入剪贴板后触发'
+    })
+    onExcelCopy: (event: {
+      copyData: nasl.collection.List<nasl.collection.List<nasl.core.String>>;
+      tsv: nasl.core.String;
+      selection: object;
+    }) => any;
+    @Event({
+      title: 'Excel 撤销',
+      description: '撤销最近一次 Excel 粘贴或清空操作后触发'
+    })
+    onExcelUndo: (event: {
+      snapshot: object;
+    }) => any;
+    @Event({
+      title: 'Excel 重做',
+      description: '重做最近一次撤销的 Excel 粘贴或清空操作后触发'
+    })
+    onExcelRedo: (event: {
+      snapshot: object;
     }) => any;
     @Slot({
       title: '默认',

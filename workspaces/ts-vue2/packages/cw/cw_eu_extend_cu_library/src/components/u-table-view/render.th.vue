@@ -3,8 +3,10 @@
         v-if="columnVM&&columnVM.colSpan !== 0"
         ref="th"
         :class="[$style['head-title'], boldHeader ? $style.boldHeader : null]"
+        :data-excel-col="excelHeadColIndex >= 0 ? excelHeadColIndex : undefined"
         :key="columnIndex"
-        :sortable="columnVM.sortable && sortTrigger === 'head'" :filterable="!!columnVM.filters" @click="columnVM.sortable && sortTrigger === 'head' && onClickSort(columnVM)"
+        :sortable="columnVM.sortable && sortTrigger === 'head'" :filterable="!!columnVM.filters"
+        @click="onHeadClick(columnVM, $event)"
         :disabled="columnVM.currentHidden"
         :colspan="columnVM.colSpan"
         :rowspan="columnVM.rowSpan"
@@ -47,9 +49,23 @@
 </template>
 
 <script>
+import excelThMixin from './excel/mixins/th-mixin.js';
+
 export default {
   name: 'u-table-render-th',
-  inject: ['onClickSort', 'checkAll', 'onSelectFilters', 'getFiltersValue', 'isFilterActive', 'onResizerDragStart', 'onResizerDrag', 'onResizerDragEnd', 'filterMultiple', 'filterMax'],
+  mixins: [excelThMixin],
+  inject: {
+    onClickSort: { default: null },
+    checkAll: { default: null },
+    onSelectFilters: { default: null },
+    getFiltersValue: { default: null },
+    isFilterActive: { default: null },
+    onResizerDragStart: { default: null },
+    onResizerDrag: { default: null },
+    onResizerDragEnd: { default: null },
+    filterMultiple: { default: null },
+    filterMax: { default: null },
+  },
   props: {
     columnVM: Object,
     columnIndex: Number,

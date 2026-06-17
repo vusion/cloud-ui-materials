@@ -2,6 +2,13 @@ import 'virtual-lcap:lcap-ui.css';
 import Vue from 'vue';
 import * as Components from '@/index';
 import * as LcapUI from 'virtual-lcap:lcap-ui';
+
+// Storybook 环境下未必注入 i18n；lcap-ui 内部组件会在 render 中访问 `$i18n`
+if (!Vue.prototype.$i18n) {
+  const fallbackI18n = (key) => key;
+  fallbackI18n.t = (key) => key;
+  Vue.prototype.$i18n = fallbackI18n;
+}
 Vue.use(LcapUI);
 
 Object.keys(Components).forEach((key) => {
