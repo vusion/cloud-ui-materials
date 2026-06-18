@@ -55,7 +55,7 @@
     "crypto-js": "^4.2.0",
     "jsencrypt": "^3.3.2",
     "sjcl": "^1.0.8",
-    "sm-crypto": "^0.3.13"
+    "sm-crypto": "^0.4.0"
   },
   "turbo": {
     "tags": [
