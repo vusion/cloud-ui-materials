@@ -41,7 +41,7 @@
     "dayjs": "^1.10.7",
     "decimal.js": "^10.4.2",
     "dompurify": "^2.0.15",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.23",
     "normalize.css": "^7.0.0",
     "online-svg-icon-vue2": "^1.2.3",
     "regenerator-runtime": "^0.13.9",
