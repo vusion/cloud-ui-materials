@@ -637,33 +637,98 @@ export const Example2 = {
 };
 
 export const Example3 = {
-  name: 'IDE 生成模板',
+  name: '业务对话模板',
   render: () => ({
     components: {
       'cw-bubble-list': Component,
       'cw-bubble': CwBubble,
     },
-    methods: {
-      handleDataSourceLoad() {
-        return [
-          { role: 'ai' },
-          { role: 'user' },
-          { role: 'ai' },
-          { role: 'user' },
-        ];
-      },
+    data() {
+      return {
+        chatList: [
+          {
+            roleName: 'agent',
+            content: '您好，我是智能助手，请问有什么可以帮您？',
+            displayName: '智能助手',
+            createTime: '2025-03-12 16:35:47',
+            loading: false,
+            files: [],
+          },
+          {
+            roleName: 'user',
+            content: '请帮我分析附件中的数据',
+            displayName: '张三',
+            createTime: '2025-03-12 16:36:00',
+            loading: false,
+            files: [
+              { uid: '1', name: 'report.pdf', size: 102400 },
+              { uid: '2', name: 'data.xlsx', size: 204800 },
+              { uid: '3', name: 'notes.docx', size: 51200 },
+            ],
+          },
+          {
+            roleName: 'agent',
+            content: '好的，正在分析文档，请稍候…',
+            displayName: '智能助手',
+            createTime: '2025-03-12 16:36:30',
+            loading: true,
+            files: [],
+          },
+        ],
+      };
     },
-    template: `<cw-bubble-list
-      :dataSource="handleDataSourceLoad"
-      roleField="role"
-      leftRoleName="ai"
-      rightRoleName="user">
-      <template #rightBubble="current">
-        <cw-bubble :placement="\`end\`" />
-      </template>
-      <template #leftBubble="current">
-        <cw-bubble :placement="\`start\`" />
-      </template>
-    </cw-bubble-list>`,
+    template: `<div style="height: 480px;">
+      <cw-bubble-list
+        :dataSource="chatList"
+        leftRoleName="agent"
+        rightRoleName="user"
+        roleField="roleName"
+        style="height: 100%;"
+      >
+        <template #rightBubble="current">
+          <cw-bubble
+            placement="end"
+            :content="current.item.content"
+            :name="current.item.displayName"
+            :time="current.item.createTime"
+            :loading="current.item.loading"
+            :fileList="current.item.files"
+            :showFooter="true"
+          >
+            <template #footer>
+              <div
+                v-if="current.item.files && current.item.files.length"
+                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%;"
+              >
+                <div
+                  v-for="(file, fileIndex) in current.item.files"
+                  :key="file.uid || fileIndex"
+                  style="display: flex; align-items: center; gap: 8px; width: 100%; background: #fff; padding: 8px; border-radius: 8px;"
+                >
+                  <span style="flex-shrink: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 4px;">📁</span>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ file.name }}</div>
+                    <div style="font-size: 12px; color: #999;">{{ file.size }}</div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </cw-bubble>
+        </template>
+        <template #leftBubble="current">
+          <cw-bubble
+            placement="start"
+            :content="current.item.content"
+            :showFooter="false"
+            :time="current.item.createTime"
+            :name="current.item.displayName"
+            :border="true"
+            :shadow="true"
+            :loading="current.item.loading"
+            :fileList="current.item.files"
+          />
+        </template>
+      </cw-bubble-list>
+    </div>`,
   }),
 };

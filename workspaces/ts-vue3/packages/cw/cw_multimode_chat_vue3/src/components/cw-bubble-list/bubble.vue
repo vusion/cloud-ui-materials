@@ -1,5 +1,5 @@
 <template>
-  <div :class="[$style.root, $style[placement]]">
+  <div :class="[$style.root, placement === 'end' ? $style.end : '']">
     <div v-if="showAvatar" :class="$style.avatar">
       <Avatar>
         <template #icon>
@@ -12,7 +12,17 @@
         <span v-if="showUserName" :class="$style.name">{{ name }}</span>
         <span v-if="showTime" :class="$style.time">{{ formatTime(time) }}</span>
       </div>
-      <div v-if="!!content" :class="contentClass">
+      <div
+        v-if="!!content"
+        :class="[
+          $style.content,
+          $style[`shape-${shape ? shape : 'normal'}`],
+          filled ? $style['content-filled'] : '',
+          border ? $style['content-border'] : '',
+          shadow ? $style['content-shadow'] : '',
+          loading ? $style.loading : '',
+        ]"
+      >
         <div :class="$style.text" :typing="isTyping ? 'true' : undefined">
           <slot>
             <span v-if="isMarkdown" v-html="renderMarkdown(mergedTypingContent ?? '')"></span>
@@ -41,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, getCurrentInstance, toRef, useCssModule, type PropType } from 'vue';
+import { computed, getCurrentInstance, toRef, type PropType } from 'vue';
 import { Avatar } from 'ant-design-vue';
 import markdownit from 'markdown-it';
 import { markdownItEcharts } from './echarts-plugin';
@@ -55,8 +65,6 @@ defineOptions({ name: 'cw-bubble' });
 
 const md = markdownit({ html: true, breaks: true });
 md.use(markdownItEcharts);
-
-const $style = useCssModule();
 
 const props = defineProps({
   placement: { type: String, default: 'start' },
@@ -91,19 +99,6 @@ const { mergedTypingContent, isTyping } = useBubbleTyping(
   toRef(props, 'typing'),
   toRef(props, 'typingConfig'),
   (val) => emit('typing-complete', val)
-);
-
-const contentClass = computed(() =>
-  [
-    $style.content,
-    $style[`shape-${props.shape ? props.shape : 'normal'}`],
-    props.filled ? $style['content-filled'] : '',
-    props.border ? $style['content-border'] : '',
-    props.shadow ? $style['content-shadow'] : '',
-    props.loading ? $style['loading'] : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
 );
 
 const defaultAvatar = computed(() => (props.placement === 'start' ? AISvg : UserSvg));

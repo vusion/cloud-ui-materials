@@ -44,6 +44,7 @@ export const Example1 = {
         v-model:file-list="fileList"
         :max-size="10"
         :max-count="2"
+        :data-nodepath="132"
         @submit="onSubmit"
         @change="onChange"
       />

@@ -13,6 +13,18 @@ namespace extensions.cw_multimode_chat_vue3.viewComponents {
     description: '输入框',
   })
   export class CwSender extends ViewComponent {
+    @Method({
+      title: '打开附件区域',
+      description: '展开附件上传区域',
+    })
+    openAttachment(): void {}
+
+    @Method({
+      title: '关闭附件区域',
+      description: '收起附件上传区域',
+    })
+    closeAttachment(): void {}
+
     constructor(options?: Partial<CwSenderOptions>) {
       super();
     }

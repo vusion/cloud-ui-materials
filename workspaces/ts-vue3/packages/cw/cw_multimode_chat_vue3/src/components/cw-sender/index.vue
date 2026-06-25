@@ -9,9 +9,9 @@
           <cw-attachment
             ref="attachmentRef"
             :file-list="currentFileList"
-            v-bind="{ ...$props, ...$attrs }"
+            v-bind="attachmentBind"
             @filechange="onFileChange"
-            @click-header="showAttachment = false"
+            @click-header="closeAttachment"
           />
         </div>
       </f-collapse-transition>
@@ -19,7 +19,7 @@
         <div
           v-if="!showAttachment && currentFileList.length"
           :class="[$style.attachwrap, $style.attachwrapactive]"
-          @click="showAttachment = true"
+          @click="openAttachment"
         >
           附件 {{ currentFileList.length }}
         </div>
@@ -59,7 +59,7 @@
           v-if="supportAttachment"
           ref="attachiconRef"
           :class="[$style.attachmenticon, showAttachment ? $style.attachmentopen : '']"
-          @click.stop="showAttachment = !showAttachment"
+          @click.stop="toggleAttachment"
         >
           <PaperClipOutlined />
         </span>
@@ -102,7 +102,7 @@ export default {
     'cw-attachment': CWAttachment,
     'f-collapse-transition': FCollapseTransition,
   },
-  inheritAttrs: false,
+  // inheritAttrs: false,
   props: {
     value: String,
     fileList: { type: Array as PropType<FileItem[]>, default: () => [] },
@@ -150,6 +150,9 @@ export default {
       ArrowupSvg,
       LoadingSvg,
     };
+  },
+  mounted() {
+    console.log(this,'===mounted');
   },
   computed: {
     sendBtnIcon() {
@@ -247,8 +250,19 @@ export default {
       if (files?.[0] && this.supportAttachment) {
         e.preventDefault();
         (this.$refs.attachmentRef as { manualUploadFiles: (f: FileList | File[]) => void })?.manualUploadFiles(files);
-        this.showAttachment = true;
+        this.openAttachment();
       }
+    },
+    openAttachment() {
+      if (!this.supportAttachment) return;
+      this.showAttachment = true;
+    },
+    closeAttachment() {
+      this.showAttachment = false;
+    },
+    toggleAttachment() {
+      if (!this.supportAttachment) return;
+      this.showAttachment = !this.showAttachment;
     },
     onKeyDown(_e: KeyboardEvent) {},
     onFileChange(fileList: FileItem[]) {

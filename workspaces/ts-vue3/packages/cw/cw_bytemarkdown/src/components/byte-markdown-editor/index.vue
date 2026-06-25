@@ -106,6 +106,14 @@ onMounted(() => {
   border: none;
 }
 
+/* 右侧预览区背景 */
+.byte-md-editor-root {
+  .bytemd-preview,
+  .bytemd-preview .markdown-body {
+    background-color: var(--cw-style-background-color, #fff);
+  }
+}
+
 .markdown-body {
   pre {
     position: relative;
