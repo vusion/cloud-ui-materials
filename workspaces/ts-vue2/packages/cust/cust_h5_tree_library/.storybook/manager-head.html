@@ -1,0 +1,38 @@
+<style>
+  .sidebar-header {
+    display: none !important;
+  }
+
+  #sidebar-bottom-wrapper {
+    display: none !important;
+  }
+
+  #tabbutton-storybook-actions-panel {
+    display: none !important;
+  }
+
+  #tabbutton-chromaui-addon-visual-tests-panel {
+    display: none !important;
+  }
+
+  #tabbutton-storybook-interactions-panel {
+    display: none !important;
+  }
+
+  .css-dwidct {
+    display: none !important;
+  }
+</style>
+<script>
+  window.STORYBOOK_DISABLE_TELEMETRY = true;
+  window.STORYBOOK_ENABLE_CRASH_REPORTS = false;
+  window.addEventListener('message', function(e) {
+    if (e.origin !== 'https://cstest.lcap.codewave-test.163yun.com') {
+      return;
+    }
+
+    if (e.data && e.data.type === 'reload') {
+      window.location.reload();
+    }
+  });
+</script>
