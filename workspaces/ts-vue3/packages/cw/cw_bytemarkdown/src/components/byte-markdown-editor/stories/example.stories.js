@@ -28,6 +28,9 @@ export const Example1 = {
   }),
   args: {
     text: 'Hello world',
-    'data-nodepath':'12341243'
+    'data-nodepath':'12341243',
+    style:{
+      backgroundColor: 'red',
+    },
   },
 };

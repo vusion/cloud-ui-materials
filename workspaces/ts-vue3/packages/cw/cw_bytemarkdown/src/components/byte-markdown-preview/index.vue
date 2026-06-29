@@ -70,11 +70,11 @@ const sanitize = {
 
 <style>
 .markdown-body {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 .bytemd,
 .bytemd-preview {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 </style>

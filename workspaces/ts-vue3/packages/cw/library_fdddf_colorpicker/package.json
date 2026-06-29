@@ -1,7 +1,7 @@
 {
-  "name": "fdddf_colorpicker_vue3",
+  "name": "library_fdddf_colorpicker_vue3",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.1",
   "lcapIdeVersion": "4.4",
   "main": "dist-theme/index.js",
   "module": "dist-theme/index.mjs",

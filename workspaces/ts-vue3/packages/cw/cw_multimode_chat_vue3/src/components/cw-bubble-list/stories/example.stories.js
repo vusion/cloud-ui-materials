@@ -688,10 +688,10 @@ export const Example3 = {
         <template #rightBubble="current">
           <cw-bubble
             placement="end"
-            :content="current.item.content"
+            :content="' 加载中...'"
             :name="current.item.displayName"
             :time="current.item.createTime"
-            :loading="current.item.loading"
+            :loading="true"
             :fileList="current.item.files"
             :showFooter="true"
           >
