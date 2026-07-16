@@ -19,6 +19,7 @@ export const Example1 = {
     template: '<cw-wangeditor-next v-bind="$props"></cw-wangeditor-next>',
   }),
   args: {
-    text: 'Hello world',
+    value: 'Hello world',
+    readOnly:true,
   },
 };

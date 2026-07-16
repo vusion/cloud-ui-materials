@@ -90,14 +90,7 @@ const parseText = (node, _parser, options) => {
         get(props, ['w:vertAlign', 'w:val']) === 'subscript' && {
             sub: true,
         },
-        get(props, ['w:u']) && { underline: true },
-        props['w:sz'] && { fontSize: `${props['w:sz']['w:val']}px` },
-        get(props, ['w:color', 'w:val']) && {
-            color: `#${get(props, ['w:color', 'w:val'])}`,
-        },
-        get(props, ['w:shd', 'w:color']) && {
-            bgColor: `#${get(props, ['w:shd', 'w:color'])}`,
-        }
+        get(props, ['w:u']) && { underline: true }
     );
 };
 

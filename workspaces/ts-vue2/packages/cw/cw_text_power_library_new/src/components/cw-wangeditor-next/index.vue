@@ -497,4 +497,23 @@ export default {
 .cw-wangeditor-content  .w-e-image-container[style*="width: 100%"] {
   display: block !important;
 }
+
+.cw-wangeditor-content .w-e-scroll,
+.cw-wangeditor-content [data-slate-editor] {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.cw-wangeditor-content table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed;
+}
+
+.cw-wangeditor-content td,
+.cw-wangeditor-content th {
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 </style>
