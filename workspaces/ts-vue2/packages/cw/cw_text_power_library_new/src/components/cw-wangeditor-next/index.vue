@@ -501,13 +501,22 @@ export default {
 .cw-wangeditor-content .w-e-scroll,
 .cw-wangeditor-content [data-slate-editor] {
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
+}
+
+.cw-wangeditor-content [data-slate-editor] .table-container {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .cw-wangeditor-content table {
   width: 100% !important;
   max-width: 100% !important;
   table-layout: fixed;
+}
+
+.cw-wangeditor-content [data-slate-editor] .table-container[data-selected="true"] {
+  box-shadow: none;
 }
 
 .cw-wangeditor-content td,

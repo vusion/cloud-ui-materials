@@ -15,6 +15,7 @@
             style="position: relative">
             <editor
                 ref="editor"
+                class="cw-wangeditor-content"
                 :style="rootStyle"
                 v-model="currentValue"
                 :default-config="editorConfig"
@@ -439,6 +440,8 @@ export default {
             if (fragment) return true;
             const html = event.clipboardData.getData('text/html'); // 获取粘贴的 html
             if (html) {
+                const text = event.clipboardData.getData('text/plain');
+                console.log('[cw-wang-editor paste] original html:', html);
                 // editor.dangerouslyInsertHtml(html);
                 // Promise.resolve().then(() => {
                 //     editor.dangerouslyInsertHtml(html);
@@ -446,8 +449,14 @@ export default {
                 processHTML(html, async (x) => {
                     return this.customUplodeForPasteImage(x);
                 }).then((domBody) => {
-                    const str = new XMLSerializer().serializeToString(domBody);
+                    const str = domBody.innerHTML;
+                    console.log('[cw-wang-editor paste] processed html:', str);
                     editor.dangerouslyInsertHtml(str);
+                }).catch(() => {
+                    // Word HTML can contain proprietary nodes unsupported by
+                    // the editor. Keep the paste usable instead of breaking
+                    // the editing surface when that happens.
+                    if (text) editor.insertText(text);
                 });
                 event.preventDefault();
                 return false;
@@ -598,5 +607,34 @@ export default {
 }
 .w-e-text-container [data-slate-editor] {
     word-break: break-word;
+}
+
+.cw-wangeditor-content [data-slate-editor] .table-container {
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.cw-wangeditor-content table {
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    table-layout: fixed;
+}
+
+.cw-wangeditor-content [data-slate-editor] .table-container[data-selected='true'] {
+    box-shadow: none;
+}
+
+.cw-wangeditor-content td,
+.cw-wangeditor-content th {
+    box-sizing: border-box;
+    min-width: 0 !important;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 </style>
