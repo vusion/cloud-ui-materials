@@ -441,6 +441,12 @@ export default {
             const html = event.clipboardData.getData('text/html'); // 获取粘贴的 html
             if (html) {
                 const text = event.clipboardData.getData('text/plain');
+                const textareaNode = this.$refs.editor.$el.querySelector(
+                    '[data-slate-editor]'
+                );
+                const maxTableWidth = textareaNode
+                    ? Math.max(0, textareaNode.clientWidth - 40)
+                    : 0;
                 console.log('[cw-wang-editor paste] original html:', html);
                 // editor.dangerouslyInsertHtml(html);
                 // Promise.resolve().then(() => {
@@ -448,7 +454,7 @@ export default {
                 // });
                 processHTML(html, async (x) => {
                     return this.customUplodeForPasteImage(x);
-                }).then((domBody) => {
+                }, { maxTableWidth }).then((domBody) => {
                     const str = domBody.innerHTML;
                     console.log('[cw-wang-editor paste] processed html:', str);
                     editor.dangerouslyInsertHtml(str);
@@ -619,8 +625,6 @@ export default {
 
 .cw-wangeditor-content table {
     box-sizing: border-box;
-    width: 100% !important;
-    min-width: 0 !important;
     max-width: 100% !important;
     table-layout: fixed;
 }
