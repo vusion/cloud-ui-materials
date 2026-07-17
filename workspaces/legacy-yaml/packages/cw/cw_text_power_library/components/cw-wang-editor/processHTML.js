@@ -56,6 +56,11 @@ const TABLE_ALIGN_TAGS = ['TD', 'TH'];
 const TEXT_ALIGN_TAGS = ['DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'LI', 'P'];
 const TABLE_BOUNDARY_TOLERANCE = 3;
 
+const isBoldFontWeight = (fontWeight) => {
+    const normalized = String(fontWeight || '').toLowerCase().trim();
+    return normalized === 'bold' || Number(normalized) >= 600;
+};
+
 const unwrapNode = (node) => {
     const parentNode = node.parentNode;
     if (!parentNode) return;
@@ -83,9 +88,13 @@ const removeMsoStyleProps = (element) => {
 
 const preserveOnlyTextAlign = (element) => {
     const textAlign = element.style.textAlign;
+    const fontWeight = element.style.fontWeight;
     element.removeAttribute('style');
     if (textAlign) {
         element.style.textAlign = textAlign;
+    }
+    if (isBoldFontWeight(fontWeight)) {
+        element.style.fontWeight = fontWeight;
     }
 };
 
@@ -197,6 +206,7 @@ const normalizeTableElement = (element, pastedWidth = '') => {
     const textAlign = TABLE_ALIGN_TAGS.includes(element.tagName)
         ? element.style.textAlign
         : '';
+    const fontWeight = element.style.fontWeight;
 
     element.removeAttribute('style');
     element.removeAttribute('height');
@@ -204,6 +214,9 @@ const normalizeTableElement = (element, pastedWidth = '') => {
 
     setTableElementWidth(element, width);
     if (textAlign) element.style.textAlign = textAlign;
+    if (isBoldFontWeight(fontWeight)) {
+        element.style.fontWeight = fontWeight;
+    }
 };
 
 const getTableWidthTargets = (table) => {
@@ -271,7 +284,12 @@ const fitTableWidths = (domBody, maxTableWidth) => {
     });
 };
 
-const normalizePastedElement = (node, nodesToRemove, nodesToUnwrap) => {
+const normalizePastedElement = (
+    node,
+    nodesToRemove,
+    nodesToUnwrap,
+    nodesToBold
+) => {
     if (!(node instanceof HTMLElement)) return;
 
     if (PASTE_NODES_TO_REMOVE.includes(node.tagName)) {
@@ -281,6 +299,9 @@ const normalizePastedElement = (node, nodesToRemove, nodesToUnwrap) => {
 
     if (INLINE_STYLE_TAGS_TO_UNWRAP.includes(node.tagName)) {
         nodesToUnwrap.push(node);
+    }
+    if (node.tagName === 'FONT' && isBoldFontWeight(node.style.fontWeight)) {
+        nodesToBold.push(node);
     }
 
     const pastedWidth = TABLE_WIDTH_TAGS.includes(node.tagName)
@@ -302,13 +323,19 @@ export const processHTML = async (html, upload, options = {}) => {
     const needUploadImgs = [];
     const nodesToRemove = [];
     const nodesToUnwrap = [];
+    const nodesToBold = [];
     const tableLayouts = new WeakMap();
     traverseNode(domBody, (node, parentNode) => {
         if (node instanceof HTMLTableElement) {
             const tableLayout = measureTableLayout(node);
             if (tableLayout) tableLayouts.set(node, tableLayout);
         }
-        normalizePastedElement(node, nodesToRemove, nodesToUnwrap);
+        normalizePastedElement(
+            node,
+            nodesToRemove,
+            nodesToUnwrap,
+            nodesToBold
+        );
 
         if (node instanceof HTMLImageElement) {
             const src = node.getAttribute('src') || '';
@@ -325,7 +352,17 @@ export const processHTML = async (html, upload, options = {}) => {
     nodesToRemove.forEach((node) => {
         if (node.parentNode) node.parentNode.removeChild(node);
     });
-    nodesToUnwrap.forEach(unwrapNode);
+    nodesToUnwrap.forEach((node) => {
+        if (nodesToBold.includes(node) && node.parentNode) {
+            const strong = document.createElement('strong');
+            while (node.firstChild) {
+                strong.appendChild(node.firstChild);
+            }
+            node.parentNode.replaceChild(strong, node);
+            return;
+        }
+        unwrapNode(node);
+    });
     applyMeasuredTableLayouts(domBody, tableLayouts);
     fitTableWidths(domBody, options.maxTableWidth);
     await Promise.all(
