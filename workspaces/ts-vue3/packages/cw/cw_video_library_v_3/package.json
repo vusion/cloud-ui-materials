@@ -1,0 +1,69 @@
+{
+  "name": "cw_video_library_v_3",
+  "private": true,
+  "version": "1.0.0",
+  "lcapIdeVersion": "3.12",
+  "main": "dist-theme/index.js",
+  "module": "dist-theme/index.mjs",
+  "title": "视频播放——Vue3",
+  "description": "视频播放——Vue3",
+  "files": [
+    "dist-theme"
+  ],
+  "scripts": {
+    "dev": "npm run start",
+    "start": "storybook dev -p 8008",
+    "build": "lcap-scripts build",
+    "create": "lcap-scripts create",
+    "watch": "lcap-scripts watch",
+    "play": "lcap-scripts play",
+    "release": "lcap publish",
+    "test": "vitest"
+  },
+  "keywords": [
+    "Vue3"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "video.js": "^7.20.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "vue": "^3.5.13",
+      "@vue/compiler-sfc": "^3.5.13"
+    }
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.2",
+    "@lcap/builder": "^1.6.2",
+    "@nasl/types": "^0.2.1",
+    "@storybook/addon-essentials": "8.6.17",
+    "@storybook/addon-interactions": "8.6.17",
+    "@storybook/addon-onboarding": "8.6.17",
+    "@storybook/blocks": "8.6.17",
+    "@storybook/test": "8.6.17",
+    "@storybook/vue3": "8.6.17",
+    "@storybook/vue3-vite": "8.6.17",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vue/compiler-dom": "^3.5.13",
+    "@vue/server-renderer": "^3.5.13",
+    "@vue/test-utils": "^2.4.6",
+    "autoprefixer": "^10.4.16",
+    "fs-extra": "^11.2.0",
+    "jsdom": "^24.0.0",
+    "lcap-ide-server-proxy": "^0.1.2-beta",
+    "storybook": "8.6.17",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1",
+    "vitest": "^1.6.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vue-tsc": "^2.1.10"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "vue-router": "^4.5.0"
+  }
+}
