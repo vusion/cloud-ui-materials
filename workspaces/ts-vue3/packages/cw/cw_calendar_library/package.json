@@ -50,7 +50,7 @@
     "lcap-ide-server-proxy": "^0.1.2-beta",
     "storybook": "^8.4.6",
     "typescript": "~5.6.2",
-    "vite": "^6.0.1",
+    "vite": "^6.4.3",
     "vitest": "^1.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
