@@ -50,7 +50,7 @@
     "less-loader": "^5.0.0",
     "lodash.debounce": "^4.0.8",
     "lru-cache": "5.1.1",
-    "markdown-it": "^13.0.1",
+    "markdown-it": "^14.1.1",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-emoji": "^2.0.2",
     "markdown-it-table-of-contents": "^0.6.0",
