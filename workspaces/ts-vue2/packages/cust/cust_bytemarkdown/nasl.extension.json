@@ -5,7 +5,7 @@
   "specVersion": "1.0.0",
   "type": "module",
   "subType": "extension",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "frontends": [
     {
       "concept": "FrontendLibrary",
@@ -303,7 +303,7 @@
   "summary": {
     "name": "cw_bytemarkdown",
     "title": "markdown依赖库",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "markdown依赖库",
     "frontends": [
       {
@@ -342,7 +342,7 @@
     "js": {
       "prefix": "extension"
     },
-    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.json\":\"c8e05445424f65d8\",\"nasl.extension.d.ts\":\"39762ffc137e0398\",\"dist-theme/index.css\":\"8d1a4c72d46cf7ae\",\"dist-theme/index.js\":\"99ed106a1c3328cd\"}}"
+    "manifest": "{\"nasl\":[\"nasl.extension.json\",\"nasl.extension.d.ts\"],\"runtime\":[\"dist-theme/index.js\",\"dist-theme/index.css\"],\"theme\":[],\"style\":[],\"package\":[\"source.zip\",\"zip.tgz\"],\"i18n\":[],\"modules\":[],\"ide\":[],\"hashMap\":{\"nasl.extension.json\":\"354f051dc4d829cf\",\"nasl.extension.d.ts\":\"39762ffc137e0398\",\"dist-theme/index.css\":\"8d1a4c72d46cf7ae\",\"dist-theme/index.js\":\"385c4a71489cc703\"}}"
   },
   "ideVersion": "3.8"
 }
