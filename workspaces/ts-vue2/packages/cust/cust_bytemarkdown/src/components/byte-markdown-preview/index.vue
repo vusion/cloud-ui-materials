@@ -1,6 +1,6 @@
 <template>
   <div :class="['markdown-preview-wrapper', { 'has-toc': showToc }]">
-    <Viewer :value="text" :plugins="plugins" :sanitize="sanitize" />
+    <Viewer :value="text || ''" :plugins="plugins" :sanitize="sanitize" />
   </div>
 </template>
 <script>

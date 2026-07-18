@@ -1,5 +1,5 @@
 <template>
-  <Editor class="editos" :locale="zhHans" :value="value" :plugins="plugins" @change="onChange"
+  <Editor class="editos" :locale="zhHans" :value="value || ''" :plugins="plugins" @change="onChange"
   :uploadImages="uploadImage" />
 </template>
 
@@ -65,6 +65,31 @@ export default {
     const sourceEl = this.$el.querySelector(".bytemd-toolbar-right [bytemd-tippy-path='5']");
     if (sourceEl) {
       sourceEl.style.display = "none";
+    }
+
+    // 解决在隐藏容器（如 Tab 选项卡）中初始化时 CodeMirror 无法获取尺寸导致空白的问题
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.$nextTick(() => {
+              setTimeout(() => {
+                const cmEl = this.$el.querySelector('.CodeMirror');
+                if (cmEl && cmEl.CodeMirror && typeof cmEl.CodeMirror.refresh === 'function') {
+                  cmEl.CodeMirror.refresh();
+                  console.log('[byte-markdown-editor] Refreshed CodeMirror instance successfully.');
+                }
+              }, 100);
+            });
+          }
+        });
+      });
+      this.observer.observe(this.$el);
+    }
+  },
+  destroyed() {
+    if (this.observer) {
+      this.observer.disconnect();
     }
   },
   methods: {

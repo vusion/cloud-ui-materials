@@ -46,7 +46,7 @@ export default defineConfig(({ command }) => {
         entry: 'src/index',
         name: kb2Camcel(pkgInfo.name),
       },
-      sourcemap: true,
+      sourcemap: false,
       rollupOptions: {
         output: {
           inlineDynamicImports: true, // 将动态导入的模块内联到一个文件中
