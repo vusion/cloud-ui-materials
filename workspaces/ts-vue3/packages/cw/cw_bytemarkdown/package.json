@@ -38,7 +38,7 @@
     "@bytemd/plugin-medium-zoom": "^1.22.0",
     "@bytemd/plugin-mermaid": "^1.22.0",
     "@bytemd/vue-next": "^1.22.0",
-    "axios": "^1.16.0",
+    "axios": "^1.18.0",
     "bytemd": "^1.22.0",
     "github-markdown-css": "^5.9.0",
     "highlight.js": "^11.11.1",
