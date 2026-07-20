@@ -42,7 +42,7 @@
     "@lcap/storybook-vue-vite": "^7.6.17",
     "@lcap/vite-plugin-vue2": "^1.0.0",
     "@nasl/types": "^0.1.10",
-    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
     "@storybook/addon-onboarding": "^1.0.10",
