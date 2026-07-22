@@ -65,6 +65,16 @@
         type: boolean
         default: true
         description: 控制插入图片/视频时是否直接使用服务端返回的原始URL
+      - name: fontFamily
+        title: 默认字体
+        type: string
+        default: 宋体
+        description: 编辑器默认字体，粘贴时会替换为该字体
+      - name: fontSize
+        title: 默认字号
+        type: string
+        default: 16px
+        description: 编辑器默认字号，粘贴时会替换为该字号
   events:
       - name: change
         title: 内容改变时

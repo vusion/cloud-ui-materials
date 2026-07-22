@@ -1,6 +1,7 @@
 <template>
     <div
         :class="{ [$style.root]: true, [$style.border]: !readOnly }"
+        :style="editorFontCssVars"
         ref="root">
         <toolbar
             ref="toolbar"
@@ -102,6 +103,14 @@ export default {
             type: Boolean,
             default: true,
         },
+        fontFamily: {
+            type: String,
+            default: '宋体',
+        },
+        fontSize: {
+            type: String,
+            default: '16px',
+        },
     },
     data() {
         const vm = this;
@@ -120,6 +129,28 @@ export default {
         };
     },
     computed: {
+        normalizedFontFamily() {
+            const value = String(this.fontFamily || '').trim();
+            return value || '宋体';
+        },
+        normalizedFontSize() {
+            const value = String(this.fontSize || '').trim();
+            if (!value) return '16px';
+            if (/^\d+(\.\d+)?$/.test(value)) return `${value}px`;
+            return value;
+        },
+        editorFontCssVars() {
+            const fontFamily = this.normalizedFontFamily.replace(/["']/g, '');
+            // macOS often lacks 宋体; keep SimSun / Songti SC as fallbacks.
+            const fontFamilyStack =
+                fontFamily === '宋体' || fontFamily === 'SimSun'
+                    ? '"宋体", SimSun, "Songti SC", serif'
+                    : `"${fontFamily}"`;
+            return {
+                '--cw-editor-font-family': fontFamilyStack,
+                '--cw-editor-font-size': this.normalizedFontSize,
+            };
+        },
         rootStyle() {
             return {
                 ...this.editorHeight,
@@ -433,11 +464,8 @@ export default {
             return finalUrl;
         },
         customPaste(editor, event) {
-            // return true;
-            const fragment = event.clipboardData.getData(
-                'application/x-slate-fragment'
-            );
-            if (fragment) return true;
+            // Prefer HTML path so font/size replacement always runs. Slate
+            // fragments from the same editor would otherwise skip processing.
             const html = event.clipboardData.getData('text/html'); // 获取粘贴的 html
             if (html) {
                 const text = event.clipboardData.getData('text/plain');
@@ -448,13 +476,13 @@ export default {
                     ? Math.max(0, textareaNode.clientWidth - 40)
                     : 0;
                 console.log('[cw-wang-editor paste] original html:', html);
-                // editor.dangerouslyInsertHtml(html);
-                // Promise.resolve().then(() => {
-                //     editor.dangerouslyInsertHtml(html);
-                // });
                 processHTML(html, async (x) => {
                     return this.customUplodeForPasteImage(x);
-                }, { maxTableWidth }).then((domBody) => {
+                }, {
+                    maxTableWidth,
+                    fontFamily: this.normalizedFontFamily,
+                    fontSize: this.normalizedFontSize,
+                }).then((domBody) => {
                     const str = domBody.innerHTML;
                     console.log('[cw-wang-editor paste] processed html:', str);
                     editor.dangerouslyInsertHtml(str);
@@ -613,6 +641,17 @@ export default {
 }
 .w-e-text-container [data-slate-editor] {
     word-break: break-word;
+    font-family: var(--cw-editor-font-family, '宋体');
+    font-size: var(--cw-editor-font-size, 16px);
+}
+
+.w-e-text-container [data-slate-editor] h1,
+.w-e-text-container [data-slate-editor] h2,
+.w-e-text-container [data-slate-editor] h3,
+.w-e-text-container [data-slate-editor] h4,
+.w-e-text-container [data-slate-editor] h5 {
+    font-family: inherit;
+    font-size: inherit;
 }
 
 .cw-wangeditor-content [data-slate-editor] .table-container {

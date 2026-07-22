@@ -6,6 +6,8 @@
         {{ value }}
         <cw-wang-editor
             :value="value"
+            :fontSize="24"
+            fontFamily="黑体"
             @update:value="handleChange"
             showDocxButton
             ref="editor"></cw-wang-editor>
@@ -28,7 +30,7 @@ export default {
         return {
             readOnly: true,
             value: '',
-            base64: undefined,
+            base64: undefined, 
         };
     },
     mounted() {

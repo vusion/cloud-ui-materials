@@ -20,6 +20,9 @@ const PASTE_STYLE_PROPS_TO_REMOVE = [
     'border-top',
     'border-width',
     'color',
+    'font',
+    'font-family',
+    'font-size',
     'font-style',
     'mso-highlight',
     'text-decoration',
@@ -55,6 +58,8 @@ const TABLE_WIDTH_TAGS = ['TD', 'TH', 'COL'];
 const TABLE_ALIGN_TAGS = ['TD', 'TH'];
 const TEXT_ALIGN_TAGS = ['DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'LI', 'P'];
 const TABLE_BOUNDARY_TOLERANCE = 3;
+const DEFAULT_PASTE_FONT_FAMILY = '宋体';
+const DEFAULT_PASTE_FONT_SIZE = '16px';
 
 const isBoldFontWeight = (fontWeight) => {
     const normalized = String(fontWeight || '').toLowerCase().trim();
@@ -284,6 +289,64 @@ const fitTableWidths = (domBody, maxTableWidth) => {
     });
 };
 
+const normalizeFontSize = (fontSize) => {
+    const value = String(fontSize || '').trim();
+    if (!value) return DEFAULT_PASTE_FONT_SIZE;
+    if (/^\d+(\.\d+)?$/.test(value)) return `${value}px`;
+    return value;
+};
+
+const normalizeFontFamily = (fontFamily) => {
+    const value = String(fontFamily || '').trim();
+    return value || DEFAULT_PASTE_FONT_FAMILY;
+};
+
+const SKIP_FONT_WRAP_TAGS = [
+    'SCRIPT',
+    'STYLE',
+    'TEXTAREA',
+    'CODE',
+    'PRE',
+];
+
+// wangEditor only maps font-size / font-family from the DOM node tied to a
+// text leaf (usually a span). Styles on p/h1/div are ignored, so wrap text.
+const applyPasteFontStyles = (domBody, options = {}) => {
+    const fontFamily = normalizeFontFamily(options.fontFamily);
+    const fontSize = normalizeFontSize(options.fontSize);
+    const textNodes = [];
+
+    traverseNode(domBody, (node) => {
+        if (!(node instanceof Text)) return;
+        if (!node.textContent || !node.textContent.trim()) return;
+        const parent = node.parentNode;
+        if (!(parent instanceof HTMLElement)) return;
+        if (SKIP_FONT_WRAP_TAGS.includes(parent.tagName)) return;
+        textNodes.push(node);
+    });
+
+    textNodes.forEach((textNode) => {
+        const parent = textNode.parentNode;
+        if (!(parent instanceof HTMLElement)) return;
+
+        if (
+            parent.tagName === 'SPAN' &&
+            parent.childNodes.length === 1 &&
+            parent.firstChild === textNode
+        ) {
+            parent.style.fontFamily = fontFamily;
+            parent.style.fontSize = fontSize;
+            return;
+        }
+
+        const span = document.createElement('span');
+        span.style.fontFamily = fontFamily;
+        span.style.fontSize = fontSize;
+        parent.insertBefore(span, textNode);
+        span.appendChild(textNode);
+    });
+};
+
 const normalizePastedElement = (
     node,
     nodesToRemove,
@@ -365,6 +428,7 @@ export const processHTML = async (html, upload, options = {}) => {
     });
     applyMeasuredTableLayouts(domBody, tableLayouts);
     fitTableWidths(domBody, options.maxTableWidth);
+    applyPasteFontStyles(domBody, options);
     await Promise.all(
         needUploadImgs.map(async ({ node, src }) => {
             const realSrc = await upload(src);
