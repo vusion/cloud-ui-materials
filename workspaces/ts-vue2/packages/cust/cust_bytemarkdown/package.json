@@ -39,7 +39,7 @@
     "@bytemd/plugin-mermaid": "^1.21.0",
     "@bytemd/vue": "^1.21.0",
     "@jsdevtools/rehype-toc": "^3.0.2",
-    "axios": "^1.7.3",
+    "axios": "^1.18.0",
     "bytemd": "^1.21.0",
     "github-markdown-css": "^5.8.1",
     "highlight.js": "^11.9.0",
