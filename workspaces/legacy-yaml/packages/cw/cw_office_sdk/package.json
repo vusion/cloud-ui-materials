@@ -53,7 +53,7 @@
   "dependencies": {
     "@babel/traverse": "^7.22.6",
     "@js-preview/excel": "^1.6.0",
-    "axios": "^1.6.7",
+    "axios": "^1.18.0",
     "docx-preview": "0.1.20",
     "downloadjs": "^1.4.7",
     "jspdf": "^3.0.1",
