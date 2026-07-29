@@ -2,6 +2,8 @@
 export default {
     a: ['href', 'title', 'target', 'style'],
     br: [],
+    col: ['style', 'width'],
+    colgroup: ['style', 'width'],
     div: ['style', 'data-w-e-type'],
     u: ['style'],
     em: ['style'],
