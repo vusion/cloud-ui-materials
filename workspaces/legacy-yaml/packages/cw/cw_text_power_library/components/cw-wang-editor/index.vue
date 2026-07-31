@@ -101,7 +101,7 @@ export default {
         },
         viaOriginURL: {
             type: Boolean,
-            default: true,
+            default: false,
         },
         fontFamily: {
             type: String,
@@ -122,9 +122,10 @@ export default {
             },
             mode: 'default', // or 'simple',
             defaultHeight: '',
+            // 写死高度/宽度，不依赖 scroll 分支；避免 tab(display:none) 初始化时内容区宽高为 0
             editorHeight: {
-                height: vm.scroll ? '180px' : null,
-                'min-height': vm.scroll ? null : '180px',
+                height: '180px',
+                width: '100%',
             },
         };
     },
@@ -280,7 +281,8 @@ export default {
             );
             return {
                 readOnly: this.readOnly,
-                scroll: this.scroll,
+                // 与写死的 height 对齐，始终走固定高度滚动，避免 tab 隐藏初始化时按 scroll 分支算错
+                scroll: true,
                 placeholder: this.placeholder,
                 autoFocus: false,
                 MENU_CONF,
@@ -503,9 +505,10 @@ export default {
             this.editor = Object.seal(editor);
             let height = this.$refs.root.style.height;
             setTimeout(() => {
-                if (height) {
-                    const toolHeight =
-                        this.$refs.toolbar.$el.getBoundingClientRect().height;
+                // tab display:none 时 getBoundingClientRect 为 0，此时不要改写死的高度
+                const toolHeight =
+                    this.$refs.toolbar.$el.getBoundingClientRect().height;
+                if (height && toolHeight > 0) {
                     height = this.removePX(height);
                     this.editorHeight.height = height - toolHeight - 2 + 'px';
                     // 部分场景在编辑器内，删除高度会导致页面反复重新渲染，所以在编辑器下不删除高度
@@ -514,16 +517,9 @@ export default {
                     }
                 }
                 this.defaultHeight = this.editorHeight.height || '';
-                if (!this.scroll) {
-                    this.setHeight();
-                }
             });
         },
         onChange(editor) {
-            // 添加min-height时，container容器小于editor编辑器高度，click事件需精确触发，体验较差。所以当container容器大于editor编辑器高度时再添加min-height属性
-            if (!this.scroll) {
-                this.setHeight();
-            }
             // 内容为空时不重复赋值，防止表单错误校验
             if (
                 editor.isEmpty() &&

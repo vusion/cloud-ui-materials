@@ -63,7 +63,7 @@
       - name: viaOriginURL
         title: 使用原始URL
         type: boolean
-        default: true
+        default: false
         description: 控制插入图片/视频时是否直接使用服务端返回的原始URL
       - name: fontFamily
         title: 默认字体

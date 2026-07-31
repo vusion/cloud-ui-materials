@@ -5,6 +5,7 @@
     <div>
         {{ value }}
         <cw-wang-editor
+            style="height:500px"
             :value="value"
             :fontSize="24"
             fontFamily="黑体"
