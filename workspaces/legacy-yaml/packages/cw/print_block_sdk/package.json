@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
-    "jspdf": "^2.5.1",
+    "jspdf": "^4.0.0",
     "print-js": "^1.6.0"
   },
   "turbo": {
