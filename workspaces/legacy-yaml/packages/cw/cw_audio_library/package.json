@@ -58,7 +58,7 @@
     "axios": "^1.6.7",
     "js-audio-recorder": "^1.0.7",
     "lamejs": "^1.2.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.23"
   },
   "turbo": {
     "tags": [
