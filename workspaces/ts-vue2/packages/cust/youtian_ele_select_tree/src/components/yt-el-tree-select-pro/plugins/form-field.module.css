@@ -1,0 +1,21 @@
+.formFieldInput {
+  display: inline-block;
+  vertical-align: top;
+  width: 240px;
+  max-width: 100%;
+  --el-input-number-right-width: 240px;
+  --el-input-number-width-s: 240px;
+  --el-input-number-width-l: 240px;
+  --el-input-number-right-width-l: 240px;
+  --el-input-number-right-width-s: 240px;
+}
+
+.formRangeFieldInput {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+}
+
+.formFieldInput.autoWidth, .formRangeFieldInput.autoWidth {
+  width: auto;
+}
