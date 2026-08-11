@@ -46,7 +46,7 @@
     "lodash": "^4.17.21",
     "normalize.css": "^7.0.0",
     "online-svg-icon-vue2": "^1.2.3",
-    "postcss": "7.0.0",
+    "postcss": "8.5.23",
     "resize-observer-polyfill": "^1.5.1",
     "vconsole": "^3.9.3",
     "vue-lazyload": "1.2.3",
