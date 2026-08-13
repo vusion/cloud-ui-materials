@@ -51,6 +51,21 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
     group: 'Selector'
   })
   export class YtElTreeSelectPro<T, V, M extends nasl.core.Boolean> extends ViewComponent {
+    @Prop({
+      title: '数据',
+      description: '当前加载的数据列表',
+    })
+    data: YtElTreeSelectProOptions<T, V, M>['dataSource'];
+    @Prop({
+      title: '父节点值',
+      description: '懒加载展开时当前父节点的值（按值字段提取）。可绑定到数据源逻辑入参。根节点加载时为空。',
+    })
+    id: V;
+    @Prop({
+      title: '当前展开节点',
+      description: '懒加载展开时当前父节点完整数据。可绑定到数据源逻辑入参。根节点加载时为空。',
+    })
+    node: T;
     @Method({
       title: '重新加载',
       description: '清除缓存，重新加载'
@@ -64,8 +79,8 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
     @Prop({
       group: '数据属性',
       title: '数据源',
-      description: '展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。开启懒加载后，逻辑入参包含 node（当前展开的父节点数据；首次加载根节点时为空）。',
-      docDescription: '支持动态绑定集合类型变量（List<T>）或输出参数为集合类型的逻辑。开启懒加载后：首次/重新加载时 node 为空返回根节点；展开节点时传入 node 返回该节点子列表。',
+      description: '展示数据的输入源，可设置为集合类型变量（List<T>）或输出参数为集合类型的逻辑。开启懒加载后，展开节点会同步组件属性 id、node，请将逻辑入参绑定到组件的「父节点值」(id) 或「当前展开节点」(node)。',
+      docDescription: '支持动态绑定集合类型变量（List<T>）或输出参数为集合类型的逻辑。开启懒加载后：首次/重新加载时 id、node 为空，返回根节点；展开时先写入组件属性 id（值字段）与 node（节点数据），再请求子列表。请在数据源绑定中把逻辑入参映射到本组件的 id / node。',
       designerValue: [{}, {}, {}],
       setter: {
         concept: 'DataSourceSetter'
