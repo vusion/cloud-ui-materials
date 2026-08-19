@@ -2,45 +2,78 @@
  * Excel 数据突变：粘贴写入、Delete 清空、行同步、undo/redo 快照应用。
  */
 import cloneDeep from 'lodash/cloneDeep';
+import { parseExcelPasteCellValue } from './cell-value.js';
 import {
   computeExcelPasteDestinationSelection,
   getExcelSelectionBounds,
   getExcelSelectionStart,
 } from './selection.js';
 
-export function removeRowFromDataSource(ctx, rowRef) {
+/** Excel 数据层空值：null（JSON 保留，显示层拦截为空不显示 '-'） */
+const EXCEL_EMPTY_VALUE = null;
+
+function syncExcelLocalDataSourceTotal(ds) {
+  if (!ds || ds.treeDisplay) return;
+  if (Array.isArray(ds.data)) {
+    ds.originTotal = ds.data.length;
+  }
+}
+
+// 同步行增删到外层数据源（数组 push/splice；{list,total} 同引用仅刷 total；函数形式跳过）
+function syncExcelExternalDataSource(ctx, wrapRow, action) {
+  const external = ctx.externalDataSource;
+  if (!external) return;
+  if (Array.isArray(external)) {
+    if (action === 'add') {
+      if (external.indexOf(wrapRow) < 0) external.push(wrapRow);
+    } else if (action === 'remove') {
+      const idx = external.indexOf(wrapRow);
+      if (idx >= 0) external.splice(idx, 1);
+    }
+  } else if (Array.isArray(external.list)) {
+    if (typeof external.total === 'number') {
+      external.total = external.list.length;
+    }
+  }
+}
+
+function isRowInDataSource(ctx, rowRef) {
   const ds = ctx.currentDataSource;
   if (!ds || !rowRef) {
+    return false;
+  }
+  const list = ds.viewData || ds.data;
+  return list ? list.indexOf(rowRef) >= 0 : false;
+}
+
+export function removeRowFromDataSource(ctx, rowRef) {
+  const ds = ctx.currentDataSource;
+  if (!ds || !rowRef || !Array.isArray(ds.data)) {
     return;
   }
-  const lists = [ds.data, ds.viewData, ds.arrangedData].filter(Boolean);
-  const seen = new Set();
-  lists.forEach((list) => {
-    if (seen.has(list)) {
-      return;
+  const idx = ds.data.indexOf(rowRef);
+  if (idx >= 0) {
+    ds.data.splice(idx, 1);
+    syncExcelLocalDataSourceTotal(ds);
+    if (ds.remote && typeof ds.arrange === 'function') {
+      ds.arrange();
     }
-    seen.add(list);
-    const idx = list.indexOf(rowRef);
-    if (idx >= 0) {
-      list.splice(idx, 1);
-    }
-  });
+  }
+  syncExcelExternalDataSource(ctx, rowRef, 'remove');
 }
 
 export function syncPushRow(ctx, wrapRow) {
   const ds = ctx.currentDataSource;
-  if (!ds || !wrapRow) {
+  if (!ds || !wrapRow || !Array.isArray(ds.data)) {
     return;
   }
-  const lists = [ds.data, ds.viewData, ds.arrangedData].filter(Boolean);
-  const seen = new Set();
-  lists.forEach((list) => {
-    if (seen.has(list)) {
-      return;
-    }
-    seen.add(list);
-    list.push(wrapRow);
-  });
+  ds.data.push(wrapRow);
+  syncExcelLocalDataSourceTotal(ds);
+  // 远程数据源的 data watcher 不会触发 arrange，需手动刷新 arrangedData→viewData
+  if (ds.remote && typeof ds.arrange === 'function') {
+    ds.arrange();
+  }
+  syncExcelExternalDataSource(ctx, wrapRow, 'add');
 }
 
 export function createNewExcelRow(ctx, anchorRowIndex, excelPasteableColumnVMs) {
@@ -51,10 +84,12 @@ export function createNewExcelRow(ctx, anchorRowIndex, excelPasteableColumnVMs) 
   const anchorWrap = anchorIndex >= 0 ? currentData[anchorIndex] : null;
   const anchorSimple = anchorWrap ? ctx.getRealSimpleItem(anchorWrap) : null;
 
-  let newSimple = anchorSimple ? cloneDeep(anchorSimple) : {};
+  // 类型骨架克隆（见 blankTypedClone）：不携带锚点 id/timestamps/audit，由后端保存时分配
+  const newSimple = blankTypedClone(anchorSimple);
+
   excelPasteableColumnVMs.forEach((vm) => {
     if (vm.field) {
-      ctx.$setAt(newSimple, vm.field, '');
+      ctx.$setAt(newSimple, vm.field, EXCEL_EMPTY_VALUE);
     }
   });
 
@@ -82,6 +117,24 @@ export function createNewExcelRow(ctx, anchorRowIndex, excelPasteableColumnVMs) 
   return wrapRow;
 }
 
+// 锚点行类型骨架克隆：保留原型链 + $type（NASL 标记，cloneDeep 默认丢）+ 嵌套对象结构（field 路径可解析），
+// 叶子值全清空为 undefined。产出与 app `New(EntityType)` 一致：typed shell + 全字段 present + 无克隆系统值。
+function blankTypedClone(source) {
+  if (!source || typeof source !== 'object') return {};
+  const clone = Object.create(Object.getPrototypeOf(source));
+  const typeDesc = Object.getOwnPropertyDescriptor(source, '$type');
+  if (typeDesc) Object.defineProperty(clone, '$type', typeDesc);
+  Object.keys(source).forEach((k) => {
+    const v = source[k];
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      clone[k] = blankTypedClone(v);
+    } else {
+      clone[k] = undefined;
+    }
+  });
+  return clone;
+}
+
 export function getExcelPasteRowLimit(ctx) {
   const rows = ctx.currentData || [];
   if (!ctx.isExcelPastePaginationMode) {
@@ -94,7 +147,7 @@ export function getExcelPasteRowLimit(ctx) {
   return pageSize > 0 ? pageSize : rows.length;
 }
 
-export function applyExcelPaste(ctx, pasteRows, excelSelection) {
+export function applyExcelPaste(ctx, pasteRows, excelSelection, valueMode = false) {
   if (!pasteRows || !pasteRows.length) {
     return null;
   }
@@ -152,9 +205,11 @@ export function applyExcelPaste(ctx, pasteRows, excelSelection) {
       const colVM = cols[c];
       const field = colVM.field;
       const oldValue = ctx.$at(item, field);
-      const newValue = rowVals[c] == null ? '' : String(rowVals[c]);
+      const srcVal = rowVals[c];
+      const newValue = valueMode ? cloneDeep(srcVal) : parseExcelPasteCellValue(srcVal, colVM);
       if (oldValue !== newValue) {
-        changedCells.push({ item, field, oldValue, newValue });
+        // valueMode 下 snapshot 存源值引用，redo 时再 cloneDeep 防对象别名
+        changedCells.push({ item, field, oldValue, newValue: valueMode ? srcVal : newValue });
         ctx.$setAt(item, field, newValue);
       }
     }
@@ -184,14 +239,27 @@ export function applyExcelPaste(ctx, pasteRows, excelSelection) {
 }
 
 export function applyExcelSnapshot(ctx, snapshot, direction) {
-  if (!ctx || !snapshot || !snapshot.changedCells) {
+  if (!ctx || !snapshot) {
     return;
   }
+
+  if (direction === 'redo') {
+    (snapshot.addedRows || []).forEach((rowRef) => {
+      if (isRowInDataSource(ctx, rowRef)) {
+        return;
+      }
+      ctx.processData([rowRef]);
+      syncPushRow(ctx, rowRef);
+    });
+  }
+
   const cells = snapshot.changedCells || [];
   cells.forEach((cell) => {
     const value = direction === 'undo' ? cell.oldValue : cell.newValue;
-    ctx.$setAt(cell.item, cell.field, value);
+    // redo 深拷贝，避免快照内对象引用被后续编辑反向污染
+    ctx.$setAt(cell.item, cell.field, direction === 'redo' ? cloneDeep(value) : value);
   });
+
   if (direction === 'undo') {
     (snapshot.addedRows || []).forEach((rowRef) => removeRowFromDataSource(ctx, rowRef));
   }
@@ -229,7 +297,7 @@ export function clearExcelSelectionCells(ctx, excelSelection) {
       }
       const field = colVM.field;
       const oldValue = ctx.$at(item, field);
-      const newValue = '';
+      const newValue = EXCEL_EMPTY_VALUE;
       if (oldValue !== newValue) {
         changedCells.push({ item, field, oldValue, newValue });
         ctx.$setAt(item, field, newValue);

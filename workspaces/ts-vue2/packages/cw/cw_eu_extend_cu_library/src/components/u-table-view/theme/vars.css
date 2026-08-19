@@ -46,7 +46,7 @@
    * @desc 表格表头文字颜色,如 #223325
    * @excludeElTags ["td"]
    */
-  --table-view-head-item-color: var(--gray-dark);
+  --table-view-head-item-color: #606266;
 
   /**
    * @type color
@@ -187,6 +187,42 @@
 
   /**
    * @type color
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格合计行背景色,如 #22325
+   * @excludeElTags ["th"]
+   */
+  --table-view-footer-calc-background: #f7f8fa;
+
+  /**
+   * @type color
+   * @group 表头
+   * @prefix table-view
+   * @desc 表格内容区边框颜色,如 #223325
+   * @excludeElTags ["td"]
+   */
+  --table-view-resizer-border-color: var(--table-view-border-color);
+
+  /**
+   * @type color
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格列内容区字体颜色（禁用状态）,如 #223325
+   * @excludeElTags ["th"]
+   */
+  --table-view-td-color-disabled: var(--text-color-disabled);
+
+  /**
+   * @type color
+   * @group 内容区
+   * @prefix table-view
+   * @desc 表格列内容区背景色（禁用状态）,如 #223325
+   * @excludeElTags ["th"]
+   */
+  --table-view-td-background-color-disabled: #f5f5f5;
+
+  /**
+   * @type color
    * @group 交互
    * @prefix table-view
    * @desc Excel 模式选区框边框颜色（可由 excelModeSelectionColor 覆盖）,如 #337eff
@@ -195,4 +231,5 @@
    */
   --table-view-excel-mode-selection-border: #337eff;
 
+  --table-head-color: #606266;
 }

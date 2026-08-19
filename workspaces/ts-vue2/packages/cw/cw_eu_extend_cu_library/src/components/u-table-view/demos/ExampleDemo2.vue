@@ -1,7 +1,12 @@
 <template>
   <u-table-view
-    :dataSource="dataSource"
+    :dataSource="loadTableData"
+    :pagination="true"
+    :pageSize="10"
+    :pageNumber="1"
+    :showTotal="true"
     :excelMode="true"
+    style="height: 520px;"
     @excel-paste="onExcelPaste"
     @excel-delete="onExcelDelete"
     @excel-undo="onExcelUndo"
@@ -33,34 +38,29 @@
 import UTableView from '../index.vue';
 import UTableViewColumn from '../column.vue';
 
+const MOCK_ALL_ROWS = Array.from({ length: 2 }, (_, index) => ({
+  entity1: {
+    property1: index % 2 === 0,
+    property2: index + 1,
+    property4: `row${index + 1}`,
+  },
+}));
+
 export default {
   components: {
     UTableView,
     UTableViewColumn,
   },
-  data() {
-    return {
-      dataSource: {
-        list: [
-          {
-            entity1: {
-              property1: true,
-              property2: 1,
-              property4: 'row1',
-            },
-          },
-          {
-            entity1: {
-              property1: false,
-              property2: 2,
-              property4: 'row2',
-            },
-          },
-        ],
-      },
-    };
-  },
   methods: {
+    loadTableData(params) {
+      const page = params.page || 1;
+      const size = params.size || 20;
+      const start = (page - 1) * size;
+      return {
+        list: MOCK_ALL_ROWS.slice(start, start + size),
+        total: MOCK_ALL_ROWS.length,
+      };
+    },
     formatCellText(value) {
       if (value === null || value === undefined) {
         return '';
@@ -68,16 +68,16 @@ export default {
       return typeof value === 'string' ? value : String(value);
     },
     onExcelPaste(event) {
-      console.log('[CasesDemoPasteNoPage] excel-paste', event);
+      console.log('[ExampleDemo2] excel-paste', event);
     },
     onExcelDelete(event) {
-      console.log('[CasesDemoPasteNoPage] excel-delete', event);
+      console.log('[ExampleDemo2] excel-delete', event);
     },
     onExcelUndo(event) {
-      console.log('[CasesDemoPasteNoPage] excel-undo', event);
+      console.log('[ExampleDemo2] excel-undo', event);
     },
     onExcelRedo(event) {
-      console.log('[CasesDemoPasteNoPage] excel-redo', event);
+      console.log('[ExampleDemo2] excel-redo', event);
     },
   },
 };

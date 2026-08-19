@@ -37,6 +37,7 @@
       :disabled="item.disabled || disabled"
       :ellipsis="ellipsis"
       :readonly="readonly"
+      :singleClickEdit="singleClickEdit"
       :treeDisplay="treeDisplay"
       :hasChildrenField="hasChildrenField"
       :treeColumnIndex="treeColumnIndex"
@@ -91,6 +92,10 @@ export default {
     },
     // 单元格是否缩略展示
     readonly: {
+      type: Boolean,
+      default: false
+    },
+    singleClickEdit: {
       type: Boolean,
       default: false
     },

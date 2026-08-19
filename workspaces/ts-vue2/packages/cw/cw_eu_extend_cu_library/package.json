@@ -1,7 +1,7 @@
 {
   "name": "cw_eu_extend_cu_library",
   "private": "true",
-  "version": "1.0.27",
+  "version": "1.1.13",
   "lcapIdeVersion": "3.10",
   "title": "ElementUI扩展CloudUI组件依赖库",
   "description": "ElementUI扩展CloudUI组件依赖库",
@@ -13,8 +13,10 @@
   "scripts": {
     "dev": "npm run start",
     "start": "storybook dev -p 8008",
+    "create": "lcap-scripts create",
     "build": "vite build",
     "watch": "lcap-scripts watch",
+    "play": "lcap-scripts play",
     "test": "vitest",
     "release": "lcap publish",
     "lcap:install": "lcap install --once",
@@ -36,7 +38,6 @@
     "dayjs": "^1.10.7",
     "decimal.js": "^10.4.2",
     "dompurify": "^2.0.15",
-    "lodash": "^4.17.5",
     "normalize.css": "^7.0.0",
     "online-svg-icon-vue2": "^1.2.3",
     "regenerator-runtime": "^0.13.9",
@@ -44,13 +45,13 @@
     "swiper": "^7.4.1",
     "vue-cropper": "^0.5.8",
     "whatwg-fetch": "3.6.2",
+    "lodash": "^4.17.5",
     "xlsx-js-style": "^1.2.0",
     "yargs": "^16.2.0",
     "@lcap/vue2-utils": "1.0.0",
     "@lcap/validator": "1.0.0"
   },
   "devDependencies": {
-    "@vue/composition-api": "^1.7.2",
     "@lcap/builder": "^1.6.2",
     "@nasl/types": "^0.2.1",
     "@lcap/storybook-vue-vite": "^7.6.17",
@@ -77,6 +78,7 @@
     "vite": "^5.0.10",
     "vitest": "^1.1.0",
     "vitest-canvas-mock": "^0.3.3",
+    "@vue/composition-api": "^1.7.2",
     "vue": "2.6.12",
     "vue-i18n": "^8.15.5",
     "vue-router": "3.3.4",
@@ -91,7 +93,7 @@
       "pkgName": "@lcap/pc-ui",
       "platform": "http://defaulttenant.lcap.codewave-test.163yun.com",
       "type": "pc",
-      "version": "1.4.0"
+      "version": "1.5.0"
     }
   }
 }

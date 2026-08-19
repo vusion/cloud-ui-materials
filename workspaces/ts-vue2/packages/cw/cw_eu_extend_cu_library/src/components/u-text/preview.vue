@@ -6,19 +6,17 @@
 </template>
 
 <script>
-import UText from './index.vue'
-
-  export default {
-    name: 'u-preview',
-    props: {
-      text: String,
-    },
-    components: {
-      UText
-    }
+import UText from './index.vue';
+export default {
+  name: 'u-preview',
+  props: {
+    text: String
+  },
+  components: {
+    UText
   }
+};
 </script>
-
 <style module>
 .root {
   word-wrap: break-word;

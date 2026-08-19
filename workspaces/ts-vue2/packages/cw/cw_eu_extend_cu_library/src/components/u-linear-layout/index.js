@@ -1,7 +1,3 @@
 import ULinearLayout from './index.vue';
-
-export {
-    ULinearLayout,
-};
-
+export { ULinearLayout };
 export default ULinearLayout;

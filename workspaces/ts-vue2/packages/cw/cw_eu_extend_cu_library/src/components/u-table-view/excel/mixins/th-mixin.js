@@ -1,6 +1,5 @@
-/**
- * Excel 表头视图（render.th）：可粘贴列索引与列选点击。
- */
+/** Excel 表头视图（render.th）：单列选中点击 */
+import { isEditableTarget } from '../cell-value.js';
 import { getExcelInject } from './mode-mixin.js';
 
 export default {
@@ -10,21 +9,17 @@ export default {
       return !!(this.excelColumnSelect && this.excelSelection);
     },
     excelHeadColIndex() {
-      if (!this.isExcelInteractionEnabled || !this.getExcelColIndex) {
-        return -1;
-      }
+      if (!this.isExcelInteractionEnabled || !this.getExcelColIndex) return -1;
       return this.getExcelColIndex(this.columnVM);
     },
   },
   methods: {
     onHeadClick(columnVM, event) {
-      if (
-        this.isExcelInteractionEnabled
-        && this.excelHeadColIndex >= 0
-        && this.excelColumnSelect
-      ) {
+      if (this.isExcelInteractionEnabled && this.excelHeadColIndex >= 0) {
         event.stopPropagation();
         event.preventDefault();
+        const active = document.activeElement;
+        if (active && active !== document.body && isEditableTarget(active)) active.blur();
         this.excelColumnSelect(this.excelHeadColIndex);
         return;
       }

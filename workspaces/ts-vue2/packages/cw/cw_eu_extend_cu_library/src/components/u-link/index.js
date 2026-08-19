@@ -1,7 +1,3 @@
 import ULink from './index.vue';
-
-export {
-    ULink,
-};
-
+export { ULink };
 export default ULink;

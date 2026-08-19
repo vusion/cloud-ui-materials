@@ -106,6 +106,7 @@
                                       :disabled="disabled"
                                       :ellipsis="ellipsis"
                                       :readonly="readonly"
+                                      :singleClickEdit="singleClickEdit"
                                       :treeDisplay="treeDisplay"
                                       :hasChildrenField="hasChildrenField"
                                       :treeColumnIndex="treeColumnIndex"
@@ -187,7 +188,7 @@
 </template>
 
 <script>
-import isNumber from 'lodash/isNumber';
+import { isNumber } from 'lodash';
 import FVirtualTable from './f-virtual-table.vue';
 import i18nMixin from "@lcap-ui/src/mixins/i18n";
 import KeyMap from "@lcap-ui/src/utils/keyMap";
@@ -214,6 +215,10 @@ export default {
     columnVMsMap: Object,
     valueField: String,
     readonly: {
+      type: Boolean,
+      default: false
+    },
+    singleClickEdit: {
       type: Boolean,
       default: false
     },
@@ -437,7 +442,6 @@ export default {
         return treeColumnIndex;
       }
     },
-    /** 各 tablewrap（left/static/right）上的 Excel 选区框样式，按 position 索引 */
     excelSelectionOverlayByPosition() {
       if (!this.isExcelModeEnabled || !this.getExcelOverlayStyle) {
         return {};
@@ -456,7 +460,6 @@ export default {
     },
   },
   methods: {
-    /** 滚动/虚拟列表后通知根组件重算选区 overlay（RAF 防抖） */
     syncExcelSelectionOverlay() {
       this.scheduleExcelOverlayUpdate && this.scheduleExcelOverlayUpdate();
     },
@@ -464,7 +467,7 @@ export default {
       return this.valueField && this.$at(item, this.valueField) ? this.$at(item, this.valueField) : rowIndex;
     },
     number2Pixel(value) {
-      return isNumber(value) ? value + 'px' : '';
+      return isNumber(value) ? value + 'px' : value;
     },
     getStyle(type, columnVM, currentData) {
       const style = Object.assign({}, columnVM.$vnode.data && columnVM.$vnode.data.style);
@@ -566,7 +569,7 @@ export default {
       if (!columnVM) return undefined;
       const inFixedLeftList = this.isInFixedList(columnVM, this.fixedLeftList);
       let isLastInList = list[columnIndex + 1] && !list[columnIndex + 1].fixed;
-      if (columnVM.$parent.isGroup) {
+      if (columnVM.$parent.isGroup && this.visibleTableHeadTrArr) {
         const groupList = this.visibleTableHeadTrArr.find(tableHeadTr => tableHeadTr.includes(columnVM.$parent));
         if (groupList) {
           const groupVMIndex = groupList.findIndex(groupVM => groupVM === columnVM.$parent);
@@ -589,7 +592,7 @@ export default {
     isFirstRightFixed(columnVM, columnIndex, list) {
       const inFixedRightList = this.isInFixedList(columnVM, this.fixedRightList);
       let isLastInList = list[columnIndex - 1] && !list[columnIndex - 1].fixed;
-      if (columnVM.$parent.isGroup) {
+      if (columnVM.$parent.isGroup && this.visibleTableHeadTrArr) {
         const groupList = this.visibleTableHeadTrArr.find(tableHeadTr => tableHeadTr.includes(columnVM.$parent));
         if (groupList) {
           const groupVMIndex = groupList.findIndex(groupVM => groupVM === columnVM.$parent);
@@ -740,8 +743,10 @@ export default {
     onTableScroll(e) {
       this.scrollXStart = e.target.scrollLeft === 0;
       this.scrollXEnd = e.target.scrollLeft >= e.target.scrollWidth - e.target.clientWidth;
+      this.syncExcelSelectionOverlay();
     },
     onScrollView(data) {
+      this.$emit('scroll-view', data);
       this.hasScroll = true;
       if (!this.useStickyFixed) {
         this.syncScrollViewScroll(data.scrollTop, data.target);

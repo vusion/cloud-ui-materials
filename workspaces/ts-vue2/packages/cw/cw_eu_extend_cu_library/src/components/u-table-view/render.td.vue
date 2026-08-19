@@ -1,11 +1,9 @@
 <template>
-  <td :class="[$style.cell, showExcelCell ? $style['cell-excel-mode'] : null]"
-    :data-excel-row="showExcelCell ? rowIndex : undefined"
-    :data-excel-col="showExcelCell ? excelColIndex : undefined"
-    :ellipsis="getTdEllipsis()" v-ellipsis-title :disabled="disabled"
-    :tree-column="treeDisplay && columnIndex === treeColumnIndex"
-    @mousedown.stop="onExcelCellMouseDownLocal"
-    @mouseover="onExcelCellMouseOverLocal">
+  <td :class="[$style.cell, isExcelPasteableCell ? $style['cell-excel-mode'] : null]"
+    :data-excel-row="isExcelPasteableCell ? rowIndex : undefined"
+    :data-excel-col="isExcelPasteableCell ? excelColIndex : undefined" :ellipsis="getTdEllipsis()" v-ellipsis-title
+    :disabled="disabled" :tree-column="treeDisplay && columnIndex === treeColumnIndex"
+    @mousedown.stop="onExcelCellMouseDownLocal" @mouseover="onExcelCellMouseOverLocal" :tdtextalign="vm.tdtextalign">
     <!-- type === 'index' -->
     <span v-if="vm.type === 'index'">
       <template v-if="vm.autoIndex && usePagination && currentDataSource">
@@ -52,34 +50,9 @@
       <i-ico :class="$style.dragHandler" name="dragHandler" :draggable="handlerDraggable && item.draggable || undefined"
         :disabled="!(handlerDraggable && item.draggable)"></i-ico>
     </span>
-    <!-- Excel 模式：展示绑定字段文本，双击 / F2 / 输入进入编辑 -->
-    <div
-      v-if="showExcelCell"
-      :class="[$style['cell-excel'], isExcelCellEditingNow ? $style['cell-excel-editing'] : null]"
-      @dblclick.stop="onExcelCellDblClick"
-      @selectstart="onExcelCellSelectStart"
-    >
-      <input
-        v-if="isExcelCellEditingNow"
-        ref="excelInput"
-        :class="$style['cell-excel-input']"
-        :value="excelEditingDraft"
-        :readonly="readonly"
-        :disabled="disabled"
-        @input="onExcelCellInput"
-        @keydown.stop="onExcelCellKeydown"
-        @blur="onExcelCellBlur"
-      />
-      <span
-        v-else
-        ref="excelText"
-        :class="[$style['cell-excel-text'], cellExcelTextClass]"
-        :title="excelDisplayText"
-      >{{ excelDisplayText }}</span>
-    </div>
     <!-- Editable text -->
-    <template v-else-if="vm.type === 'editable'">
-      <div @dblclick.stop="onSetEditing(item, vm)" :class="$style.editablewrap"
+    <template v-if="vm.type === 'editable'">
+      <div @[editTrigger].stop="onSetEditing(item, vm)" :class="$style.editablewrap"
         :ellipsis="vm.ellipsis !== undefined ? vm.ellipsis : ellipsis"
         :style="{ width: getEditablewrapWidth(item, columnIndex, treeColumnIndex) }" :editing="item.editing === vm.field">
         <div>
@@ -100,10 +73,10 @@
         </div>
       </div>
     </template>
-    <f-slot v-else-if="!showExcelCell" name="cell" :vm="vm"
+    <f-slot v-else name="cell" :vm="vm"
       :props="{ item: item, value: $at(item, vm.field), columnVM: vm, rowIndex, columnIndex, index: rowIndex, columnItem: vm.columnItem }">
       <span v-if="vm.field && !['radio', 'checkbox'].includes(vm.type)" :class="$style['column-field']">{{
-        vm.currentFormatter.format($at(item, vm.field) || item) }}</span>
+        vm.currentFormatter.format($at(item, vm.field)) }}</span>
     </f-slot>
     <!-- type === 'expander' right -->
     <f-slot v-if="vm.type === 'expander' && vm.expanderPosition === 'right'" name="expander" :vm="vm" :props="{
@@ -143,6 +116,7 @@ export default {
     wrapItem: Object,
     valueField: String,
     readonly: Boolean,
+    singleClickEdit: Boolean,
     disabled: Boolean,
     usePagination: Boolean,
     ellipsis: Boolean,
@@ -150,6 +124,11 @@ export default {
     hasChildrenField: String,
     treeColumnIndex: Number,
     handlerDraggable: Boolean
+  },
+  computed: {
+    editTrigger() {
+      return this.singleClickEdit ? 'click' : 'dblclick';
+    },
   },
   methods: {
     getTdEllipsis() {
@@ -192,6 +171,7 @@ export default {
     },
     onSetEditing(item, columnVM) {
       const fieldName = columnVM.field;
+      if (item.editing === fieldName) return;
       item.editing = fieldName;
       if (columnVM.dblclickHandler) {
         columnVM.dblclickHandler({

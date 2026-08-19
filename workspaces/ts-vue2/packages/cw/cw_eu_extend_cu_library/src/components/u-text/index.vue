@@ -6,13 +6,12 @@
 
 <script>
 export default {
-    name: 'u-text',
-    props: {
-        text: String,
-    },
+  name: 'u-text',
+  props: {
+    text: String
+  }
 };
 </script>
-
 <style module>
 .root {
     white-space: pre-wrap;

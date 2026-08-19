@@ -30,7 +30,12 @@
       "@lcap-ui/*": ["./.lcap/lcap-ui/package/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "ide/**/*.ts"],
+  "include": [
+    "./node_modules/@lcap/builder/typings.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "ide/**/*.ts"
+  ],
   "references": [
   ]
 }

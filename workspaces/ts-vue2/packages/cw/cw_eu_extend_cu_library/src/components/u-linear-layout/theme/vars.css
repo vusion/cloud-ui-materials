@@ -1,0 +1,11 @@
+/**
+ * @component u-linear-layout
+ */
+:root {
+  /**
+   * @type color
+   * @desc 加载时遮罩背景颜色,如：#223325
+   */
+  --linear-layout-background: rgba(255,255,255,0.5);
+
+}

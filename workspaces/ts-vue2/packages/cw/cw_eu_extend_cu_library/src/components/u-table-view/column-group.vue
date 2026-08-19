@@ -1,10 +1,10 @@
 <template>
-<div v-show="false">
+  <div v-show="false">
     <div>
-        <slot name="title"></slot>
-        <slot></slot>
+      <slot name="title"></slot>
+      <slot></slot>
     </div>
-</div>
+  </div>
 </template>
 <script>
 import MEmitter from "@lcap-ui/src/components/m-emitter.vue";
@@ -21,7 +21,8 @@ export default {
     thEllipsis: {
       type: Boolean,
       default: undefined
-    } // 表头是否缩略展示
+    }, // 表头是否缩略展示
+    thtextalign: { type: String, default: 'center' },
   },
   data() {
     return {

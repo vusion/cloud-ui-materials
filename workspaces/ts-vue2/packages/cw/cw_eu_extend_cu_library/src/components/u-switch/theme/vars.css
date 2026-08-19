@@ -1,0 +1,85 @@
+/**
+ * @component u-switch
+ */
+:root {
+  /**
+   * @type input
+   * @desc 开关宽度,如 1px
+   * @depStaticStyles ["width"]
+   */
+  --switch-width: 40px;
+
+  /**
+   * @type input
+   * @desc 开关高度,如 1px
+   * @depStaticStyles ["height"]
+   */
+  --switch-height: 20px;
+
+  /**
+   * @type input
+   * @desc 开关按钮内边距,如 1px
+   */
+  --switch-button-space: 2px;
+
+  /**
+   * @type input
+   * @desc 开关按钮大小,如 1px
+   */
+  --switch-button-size: 16px;
+
+  /**
+   * @type color
+   * @desc 开关按钮背景色,如 #223325
+   */
+  --switch-button-background: white;
+
+  /**
+   * @type input
+   * @desc 开关按钮圆角,如 1px
+   */
+  --switch-button-radius: 100px;
+
+  /**
+   * @type color
+   * @desc 开关背景色（关状态）,如 #223325
+   */
+  --switch-background: #ccc;
+
+  /**
+   * @type color
+   * @desc 开关背景色（开状态）,如 #223325
+   */
+  --switch-background-checked: var(--brand-primary);
+
+  /**
+   * @type color
+   * @desc 开关背景色（禁用状态）,如 #223325
+   */
+  --switch-background-disabled: #e5e5e5;
+
+  /**
+   * @type color
+   * @desc 开关按钮文字颜色,如 #223325
+   */
+  --switch-color: white;
+
+  /**
+   * @type input
+   * @desc 开关按钮文字外边距,如 1px
+   */
+  --switch-text-margin: 0 5px;
+
+  /**
+   * @type input
+   * @desc 开关背景色渐变动画快慢参数,如 background
+   */
+  --switch-transition: background-color var(--transition-duration-base);
+
+  /**
+   * @type input
+   * @desc 开关按钮移动动画快慢参数,如 all 2s
+   */
+  --switch-button-transition: all var(--transition-duration-base);
+
+}

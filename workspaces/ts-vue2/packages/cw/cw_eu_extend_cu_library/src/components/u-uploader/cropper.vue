@@ -103,50 +103,62 @@ Vue.use(VueCropper);
 export default {
   name: "cropper",
   components: {
-    VueCropper,
+    VueCropper
   },
   data() {
     const vm = this;
     return {
       isPreview: false,
-      previewImg: "", // 预览图片地址
+      previewImg: "",
+      // 预览图片地址
       visible: this.modalVisible,
       // 裁剪组件的基础配置option
       option: {
         img: this.cropImg,
-        info: true, // 裁剪框的大小信息
-        outputSize: 1, // 裁剪生成图片的质量
-        outputType: "png", // 裁剪生成图片的格式
-        canScale: true, // 图片是否允许滚轮缩放
-        canMove: false, // 图片是否允许拖动
-        autoCrop: true, // 是否默认生成截图框
-        canMoveBox: true, // 截图框能否拖动
-        autoCropWidth: this.cropConfig.boxWidth || 200, // 默认生成截图框宽度
-        autoCropHeight: this.cropConfig.boxHeight || this.cropConfig.boxWidth, // 默认生成截图框高度
-        fixedBox: this.cropConfig.fixed, // 固定截图框大小 不允许改变
-        fixed: this.cropConfig.previewShape !== "rect", // 是否开启截图框宽高固定比例
-        fixedNumber: [
-          1,
-          (this.cropConfig.boxHeight || this.cropConfig.boxWidth) /
-            this.cropConfig.boxWidth,
-        ], // 截图框的宽高比例
-        full: true, // 是否输出原图比例的截图
-        original: false, // 上传图片按照原始比例渲染
-        centerBox: false, // 截图框是否被限制在图片里面
-        infoTrue: false, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
+        info: true,
+        // 裁剪框的大小信息
+        outputSize: 1,
+        // 裁剪生成图片的质量
+        outputType: "png",
+        // 裁剪生成图片的格式
+        canScale: true,
+        // 图片是否允许滚轮缩放
+        canMove: false,
+        // 图片是否允许拖动
+        autoCrop: true,
+        // 是否默认生成截图框
+        canMoveBox: true,
+        // 截图框能否拖动
+        autoCropWidth: this.cropConfig.boxWidth || 200,
+        // 默认生成截图框宽度
+        autoCropHeight: this.cropConfig.boxHeight || this.cropConfig.boxWidth,
+        // 默认生成截图框高度
+        fixedBox: this.cropConfig.fixed,
+        // 固定截图框大小 不允许改变
+        fixed: this.cropConfig.previewShape !== "rect",
+        // 是否开启截图框宽高固定比例
+        fixedNumber: [1, (this.cropConfig.boxHeight || this.cropConfig.boxWidth) / this.cropConfig.boxWidth],
+        // 截图框的宽高比例
+        full: true,
+        // 是否输出原图比例的截图
+        original: false,
+        // 上传图片按照原始比例渲染
+        centerBox: false,
+        // 截图框是否被限制在图片里面
+        infoTrue: false // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
       },
       previewStyle1: {},
-      previews: {},
+      previews: {}
     };
   },
   props: {
     modalVisible: {
       type: Boolean,
-      default: false,
+      default: false
     },
     cropImg: undefined,
     cropFileName: undefined,
-    cropConfig: undefined,
+    cropConfig: undefined
   },
   mounted() {
     this.option.img = this.cropImg;
@@ -158,14 +170,14 @@ export default {
       handler(val) {
         this.visible = val;
       },
-      immediate: true,
+      immediate: true
     },
     cropImg: {
       handler(val) {
         this.option.img = val;
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   methods: {
     // 上传按钮 限制图片大小和类型
@@ -173,7 +185,7 @@ export default {
       const cropFile = e.target.files[0];
       let reader = new FileReader();
       reader.readAsArrayBuffer(cropFile);
-      reader.onload = (e) => {
+      reader.onload = e => {
         let data;
         if (typeof e.target.result === "object") {
           data = window.URL.createObjectURL(new Blob([e.target.result]));
@@ -202,13 +214,13 @@ export default {
     },
     finish() {
       // 获取截图的 blob 数据
-      this.$refs.cropper.getCropBlob((blob) => {
+      this.$refs.cropper.getCropBlob(blob => {
         this.previewImg = URL.createObjectURL(new Blob([blob]));
-            this.$emit("uploadFiles", {
-              data: this.previewImg,
-              name: this.cropFileName,
-              blob,
-            });
+        this.$emit("uploadFiles", {
+          data: this.previewImg,
+          name: this.cropFileName,
+          blob
+        });
         // if (this.cropConfig.previewShape === "circle") {
         //   this.convertImageToBlob(blob).then((circularBlob) => {
         //     // 处理转换后的圆形图片 blob 对象
@@ -272,23 +284,21 @@ export default {
     realTime(data) {
       const previews = data;
       const h = 0.5;
-
       this.previewStyle1 = {
         width: previews.w + "px",
         height: previews.h + "px",
         overflow: "hidden",
         margin: "20",
-        zoom: h,
+        zoom: h
       };
       this.previews = data;
     },
     uploadFile() {
       this.$refs.fileUpload.click();
-    },
-  },
+    }
+  }
 };
 </script>
-
 <style module>
 .cropper {
   display: inline-block;

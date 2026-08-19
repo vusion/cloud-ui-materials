@@ -13,12 +13,19 @@
 import MEmitter from "@lcap-ui/src/components/m-emitter.vue";
 import SupportDataSource from "@lcap-ui/src/mixins/support.datasource.js";
 import UTableViewColumn from './column.vue';
+import { normalizeExcelCellType } from './excel/cell-value.js';
 import Vue from 'vue';
 export default {
   name: 'u-table-view-column-dynamic',
   parentName: 'u-table-view',
   extends: UTableViewColumn,
   mixins: [MEmitter, SupportDataSource],
+  props: {
+    excelCellTypeField: {
+      type: [String, Function],
+      default: 'excelCellType',
+    },
+  },
   watch: {
     'currentDataSource.data'(value) {
       this.addVms();
@@ -40,6 +47,13 @@ export default {
     });
   },
   methods: {
+    resolveDynamicExcelCellType(item) {
+      const raw = this.$at(item, this.excelCellTypeField);
+      if (raw === null || raw === undefined || raw === '') {
+        return 'string';
+      }
+      return normalizeExcelCellType(raw);
+    },
     addVms() {
       // fix: 2825186155187968 动态列宽度拖动没有实时渲染
       let vms = this.currentDataSource.data.map(item => {
@@ -62,6 +76,7 @@ export default {
         });
         Object.assign(copiedComponent, this._props, {
           field: this.$at(item, valueField),
+          excelCellType: this.resolveDynamicExcelCellType(item),
           colSpan: 1 // 列合并还原为默认值
         });
         return copiedComponent;

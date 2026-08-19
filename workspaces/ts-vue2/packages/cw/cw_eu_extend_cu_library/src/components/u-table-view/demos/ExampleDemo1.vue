@@ -10,6 +10,7 @@
     <u-table-view
       :ref="`table_view_1`"
       :pagination="true"
+      :showTotal="true"
       :pageSize="20"
       :pageNumber="1"
       :dataSource="dataSource"

@@ -1,0 +1,47 @@
+/**
+ * @component u-radios
+ */
+:root {
+  /**
+   * @type input
+   * @group 间距
+   * @prefix radio
+   * @desc 单选项之间的水平间距,如 1px
+   * @excludeTags ["u-radio"]
+   */
+  --radio-space-x: 32px;
+
+  /**
+   * @type input
+   * @group 间距
+   * @prefix radio
+   * @desc 单选项之间的垂直间距,如 1px
+   * @excludeTags ["u-radio"]
+   */
+  --radio-space-y: 16px;
+
+  /**
+   * @type input
+   * @group 大小
+   * @prefix radio
+   * @desc 单选项按钮大小,如 1px
+   */
+  --radio-size: 16px;
+
+  /**
+   * @type color
+   * @group 背景色
+   * @prefix radio
+   * @desc 单选项按钮背景色,如 #223325
+   */
+  --radio-background: var(--background-color-default);
+
+  /**
+   * @type input
+   * @group 边框阴影
+   * @prefix radio
+   * @desc 单选项边框阴影（选中状态）,如 2px 2px 2px 1px rgba(0, 0, 0, 0.2)
+   */
+  --radio-box-shadow-focus: var(--box-shadow-form-item-base);
+
+}

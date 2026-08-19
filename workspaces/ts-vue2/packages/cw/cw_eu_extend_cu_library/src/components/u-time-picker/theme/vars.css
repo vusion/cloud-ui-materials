@@ -1,0 +1,234 @@
+/**
+ * @component u-time-picker
+ */
+:root {
+  /**
+   * @type color
+   * @desc 时间选择框输入框边框颜色,如 #223325
+   * @prefix timepicker-input
+   */
+  --timepicker-input-border-color: var(--input-border-color);
+
+  /**
+   * @type input
+   * @desc 时间选择框输入框边框宽度,如 1px
+   * @prefix timepicker-input
+   */
+  --timepicker-input-border-width: var(--input-border-width);
+
+  /**
+   * @type color
+   * @desc 时间选择框输入框字体颜色,如 #223325
+   * @prefix timepicker-input
+   */
+  --timepicker-input-color: var(--input-color);
+
+  /**
+   * @type color
+   * @desc 时间选择框输入框背景颜色,如 #223325
+   * @prefix timepicker-input
+   */
+  --timepicker-input-background: var(--input-background);
+
+  /**
+   * @type input
+   * @desc 时间选择框输入框圆角,如 1px
+   * @prefix timepicker-input
+   */
+  --timepicker-input-border-radius: var(--input-border-radius);
+
+  /**
+   * @type color
+   * @desc 时间选择框输入框背景颜色（禁用状态）,如 #223325
+   * @prefix timepicker-input
+   */
+  --timepicker-input-background-disabled: var(--input-background-disabled);
+
+  /**
+   * @type color
+   * @desc 时间选择框输入框提示字体颜色,如 #223325
+   * @prefix timepicker-input
+   */
+  --timepicker-input-placeholder-color: var(--input-placeholder-color);
+
+  /**
+   * @type input
+   * @desc Mini时间选择框输入框宽度,如 1px
+   * @depAttrs {"width":["mini"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --timepicker-input-width-mini: var(--input-width-mini);
+
+  /**
+   * @type input
+   * @desc Mini时间选择框输入框水平内边距,如 1px
+   * @depAttrs {"width":["mini"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --timepicker-input-padding-x-mini: var(--input-padding-x-mini);
+
+  /**
+   * @type input
+   * @desc Mini时间选择框输入框高度,如 1px
+   * @depAttrs {"height":["mini"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --timepicker-input-height-mini: var(-input-height-mini);
+
+  /**
+   * @type input
+   * @desc Small时间选择框输入框宽度,如 1px
+   * @depAttrs {"width":["small"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --timepicker-input-width-small: var(--input-width-small);
+
+  /**
+   * @type input
+   * @desc Small时间选择框输入框水平内边距,如 1px
+   * @depAttrs {"width":["small"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --timepicker-input-padding-x-small: var(--input-padding-x-small);
+
+  /**
+   * @type input
+   * @desc Small时间选择框输入框高度,如 1px
+   * @depAttrs {"height":["small"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --timepicker-input-height-small: var(--input-height-small);
+
+  /**
+   * @type input
+   * @desc 时间选择框输入框宽度,如 1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --timepicker-input-width: var(--input-width);
+
+  /**
+   * @type input
+   * @desc 时间选择框输入框高度,如 1px
+   * @depAttrs {"height":["normal",null]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --timepicker-input-height: var(--input-height);
+
+  /**
+   * @type input
+   * @desc 时间选择框输入框水平内边距,如 1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --timepicker-input-padding-x: var(--input-padding-x);
+
+  /**
+   * @type input
+   * @desc Medium时间选择框输入框宽度,如 1px
+   * @depAttrs {"width":["medium"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --timepicker-input-width-medium: var(--input-width-medium);
+
+  /**
+   * @type input
+   * @desc Medium时间选择框输入框水平内边距,如 1px
+   * @depAttrs {"width":["medium"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --timepicker-input-padding-x-medium: var(--input-padding-x-medium);
+
+  /**
+   * @type input
+   * @desc Medium时间选择框输入框高度,如 1px
+   * @depAttrs {"height":["medium"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --timepicker-input-height-medium: var(--input-height-medium);
+
+  /**
+   * @type input
+   * @desc Large时间选择框输入框宽度,如 1px
+   * @depAttrs {"width":["large"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --timepicker-input-width-large: var(--input-width-large);
+
+  /**
+   * @type input
+   * @desc Large时间选择框输入框水平内边距,如 1px
+   * @depAttrs {"width":["large"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --timepicker-input-padding-x-large: var(--input-padding-x-large);
+
+  /**
+   * @type input
+   * @desc Large时间选择框输入框高度,如 1px
+   * @depAttrs {"height":["large"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --timepicker-input-height-large: var(--input-height-large);
+
+  /**
+   * @type input
+   * @desc Huge时间选择框输入框宽度,如 1px
+   * @depAttrs {"width":["huge"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --timepicker-input-width-huge: var(--input-width-huge);
+
+  /**
+   * @type input
+   * @desc Huge时间选择框输入框水平内边距,如 1px
+   * @depAttrs {"width":["huge"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --timepicker-input-padding-x-huge: var(--input-padding-x-huge);
+
+  /**
+   * @type input
+   * @desc Huge时间选择框输入框高度,如 1px
+   * @depAttrs {"height":["huge"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["height"]
+   */
+  --timepicker-input-height-huge: var(--input-height-huge);
+
+  /**
+   * @type input
+   * @desc Full时间选择框输入框水平内边距,如 1px
+   * @depAttrs {"width":["full"]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["padding-left","padding-right"]
+   */
+  --timepicker-input-padding-x-full: var(--input-padding-x-full);
+
+  /**
+   * @type input
+   * @desc 时间选择框输入框宽度,如 1px
+   * @depAttrs {"width":["normal",null]}
+   * @prefix timepicker-input
+   * @depStaticStyles ["width"]
+   */
+  --timepicker-range-input-width: var(--input-width-medium);
+
+}

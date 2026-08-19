@@ -1,7 +1,3 @@
 import UUploader from './index.vue';
-
-export {
-    UUploader,
-};
-
+export { UUploader };
 export default UUploader;

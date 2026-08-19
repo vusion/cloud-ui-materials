@@ -1,12 +1,12 @@
 <template>
-<div v-show="false">
+  <div v-show="false">
     <div v-if="false">
-        <slot name="title"></slot>
-        <slot name="cell"></slot>
-        <slot name="expand-content"></slot>
-        <slot></slot>
+      <slot name="title"></slot>
+      <slot name="cell"></slot>
+      <slot name="expand-content"></slot>
+      <slot></slot>
     </div>
-</div>
+  </div>
 </template>
 <script>
 import MEmitter from "@lcap-ui/src/components/m-emitter.vue";
@@ -27,6 +27,10 @@ export default {
     },
     title: String,
     field: String,
+    excelCellType: {
+      type: String,
+      default: 'string',
+    },
     width: [String, Number],
     fixed: {
       type: Boolean,
@@ -77,7 +81,11 @@ export default {
     // 表头是否缩略展示
     subFormDropColumn: Boolean,
     // 子表单放置列
-    subFormInitialColumn: String // 子表单初始列(表单设计器中，不允许选中，拖拽)
+    subFormInitialColumn: String, // 子表单初始列(表单设计器中，不允许选中，拖拽)
+    thtextalign: { type: String, default: 'center' },
+    tdtextalign: { type: String, default: 'center' },
+    thEllipsis: { type: Boolean, default: undefined }
+
   },
   data() {
     const data = {
@@ -89,7 +97,7 @@ export default {
       currentHidden: this.hidden,
       isUnderGroup: false
     };
-    if (typeof this.formatter === 'object') data.currentFormatter = this.formatter;else if (typeof this.formatter === 'string') {
+    if (typeof this.formatter === 'object') data.currentFormatter = this.formatter; else if (typeof this.formatter === 'string') {
       data.currentFormatter = {
         _format: parseFormatters(this.formatter),
         format(value) {
@@ -101,6 +109,16 @@ export default {
         format: this.formatter
       };
     } else data.currentFormatter = placeholderFormatter;
+    // 包装 format：null/undefined → ''（不显示 '-' 占位符）
+    const _orig = data.currentFormatter;
+    if (_orig && typeof _orig.format === 'function') {
+      data.currentFormatter = {
+        format(value) {
+          if (value == null) return '';
+          return _orig.format(value);
+        },
+      };
+    }
     return data;
   },
   watch: {

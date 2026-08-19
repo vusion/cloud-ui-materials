@@ -12,7 +12,7 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     ViewComponentOptions
   } = nasl.ui;
   @ExtensionComponent({
-    replaceNaslUIComponent: "UTableView",
+    // replaceNaslUIComponent: "UTableView",
     type: "pc",
     show: true,
     ideusage: {
@@ -73,7 +73,7 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     })
     sort: UTableViewOptions<T, V, P, M>['sorting']['field'];
     @Prop({
-      title: '排序方式'
+      title: '排序顺序'
     })
     order: UTableViewOptions<T, V, P, M>['sorting']['order'];
     @Prop({
@@ -112,6 +112,16 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     })
     getFields(): nasl.core.String {
       return '';
+    }
+    @Method({
+      title: '获取当前数据',
+      description: '与组件.data 同源，返回当前视图 { list, total }',
+    })
+    getCurDataSource(): {
+      list: nasl.collection.List<T>;
+      total: nasl.core.Integer;
+    } {
+      return { list: [], total: 0 };
     }
     @Method({
       title: 'undefined',
@@ -196,7 +206,9 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       description: '展示数据的输入源，可设置为数据集对象或者返回数据集的逻辑',
       docDescription: '表格展示的数据。数据源可以绑定变量或者逻辑。变量或逻辑的返回值可以是数组，也可以是对象。对象格式为{list:[], total:10}',
       designerValue: [{}, {}, {}],
-      bindOpen: true
+      setter: {
+        concept: 'DataSourceSetter'
+      }
     })
     dataSource: {
       list: nasl.collection.List<T>;
@@ -502,6 +514,59 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     })
     ellipsis: nasl.core.Boolean = false;
     @Prop({
+      group: '主要属性',
+      title: '显示表尾计算行',
+      description: '是否在表尾显示功能行。默认关闭',
+      setter: {
+        concept: 'SwitchSetter'
+      },
+      onChange: [{
+        clear: ['footerCalcType', 'footerCalcText', 'footerCalcFormater'],
+        if: _ => _ === false
+      }]
+    })
+    footerCalcShow: nasl.core.Boolean = false;
+    @Prop({
+      group: '主要属性',
+      title: '表尾计算行第一列文本',
+      description: '表尾计算行第一列文本',
+      if: _ => _.footerCalcShow === true
+    })
+    footerCalcText: nasl.core.String = '合计';
+    @Prop({
+      group: '主要属性',
+      title: '表尾计算行功能选项',
+      description: '表尾计算行功能选项。默认求和',
+      setter: {
+        concept: 'EnumSelectSetter',
+        options: [{
+          title: '求和'
+        }, {
+          title: '最大值'
+        }, {
+          title: '最小值'
+        }, {
+          title: '平均值'
+        }]
+      },
+      if: _ => _.footerCalcShow === true
+    })
+    footerCalcType: 'sum' | 'max' | 'min' | 'average' = 'sum';
+    @Prop({
+      group: '主要属性',
+      title: '表尾计算行格式设置',
+      description: '可为计算结果设置格式，如增加前后缀等。默认不设置',
+      bindOpen: true,
+      setter: {
+        concept: 'AnonymousFunctionSetter'
+      },
+      if: _ => _.footerCalcShow === true
+    })
+    footerCalcFormater: (item: {
+      value: nasl.core.Integer | nasl.core.Decimal | nasl.core.String;
+      index: nasl.core.Integer;
+    }) => nasl.core.String;
+    @Prop({
       group: '交互属性',
       title: '悬浮高亮行',
       description: '表格行在悬浮时是否高亮显示',
@@ -594,9 +659,19 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     resizable: nasl.core.Boolean = false;
     @Prop({
       group: '交互属性',
+      title: '是否单击编辑',
+      description: '开启后编辑列通过单击进入编辑模式（含 Excel 模式），默认双击编辑',
+      docDescription: '开启后编辑列通过单击进入编辑模式（含 Excel 模式），默认关闭，关闭时为双击编辑。',
+      setter: {
+        concept: 'SwitchSetter'
+      }
+    })
+    singleClickEdit: nasl.core.Boolean = false;
+    @Prop({
+      group: '交互属性',
       title: '启用 Excel 模式',
-      description: '开启后切换为 Excel 式单元格展示与选区交互，支持复制/粘贴、删除、撤销与重做',
-      docDescription: '开启后以字段值文本展示数据格（不渲染列模板内表单），单击选中、双击或输入编辑，支持 Ctrl/Cmd+C/V、Delete、Ctrl/Cmd+Z 撤销与 Ctrl/Cmd+Shift+Z/Ctrl/Cmd+Y 重做',
+      description: '开启后在保留列原组件展示的基础上，叠加 Excel 式选区与剪贴板能力（复制/粘贴、删除、撤销与重做）',
+      docDescription: '开启后保留列 #cell 原组件，叠加选区框与剪贴板操作。单击空白区域选中单元格，点击列内控件可正常编辑。支持 Ctrl/Cmd+C/V、Delete、Ctrl/Cmd+Z 撤销与 Ctrl/Cmd+Shift+Z/Ctrl/Cmd+Y 重做',
       setter: {
         concept: 'SwitchSetter'
       }
@@ -617,7 +692,7 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       group: '交互属性',
       title: 'Excel 选区颜色',
       description: 'Excel 模式下选区框边框与单元格编辑态边框颜色',
-      docDescription: '设置选区 overlay 边框颜色；同时作用于行内编辑 input 边框。默认 #337eff',
+      docDescription: '设置选区 overlay 边框颜色。默认 #337eff',
       setter: {
         concept: 'InputSetter'
       },
@@ -875,7 +950,7 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
         concept: 'SwitchSetter'
       }
     })
-    line: nasl.core.Boolean = false;
+    line: nasl.core.Boolean = true;
     @Prop({
       group: '样式属性',
       title: '斑马条纹',
@@ -913,6 +988,36 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
        */
       color?: nasl.core.String;
     };
+    @Prop<UTableViewOptions<T, V, P, M>, 'prevIcon'>({
+      group: '交互属性',
+      title: '上一页图标',
+      description: '设置上一页图标',
+      setter: {
+        concept: 'IconSetter'
+      },
+      if: _ => _.pagination === true
+    })
+    prevIcon: nasl.core.String;
+    @Prop<UTableViewOptions<T, V, P, M>, 'nextIcon'>({
+      group: '交互属性',
+      title: '下一页图标',
+      description: '设置下一页图标',
+      setter: {
+        concept: 'IconSetter'
+      },
+      if: _ => _.pagination === true
+    })
+    nextIcon: nasl.core.String;
+    @Prop<UTableViewOptions<T, V, P, M>, 'selectDropdownIcon'>({
+      group: '交互属性',
+      title: '选择下拉图标',
+      description: '设置选择下拉图标',
+      setter: {
+        concept: 'IconSetter'
+      },
+      if: _ => _.pagination === true && _.showSizer === true
+    })
+    selectDropdownIcon: nasl.core.String;
     @Event({
       title: '加载前',
       description: '加载前触发'
@@ -1216,17 +1321,13 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       emptyBackground: 'drag-entity-here',
       snippets: [{
         title: '表格列',
-        code: '<u-table-view-column> <template #cell="current"></template> <template #title><el-text text="表格列"></el-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column>'
+        code: '<u-table-view-column> <template #cell="current"></template> <template #title><u-text text="表格列"></u-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column>'
       }, {
         title: '表格动态列',
-        code: '<u-table-view-column-dynamic><template #cell="current"></template><template #title="current"><el-text text="表格动态列"></el-text></template></u-table-view-column-dynamic>'
+        code: '<u-table-view-column-dynamic><template #cell="current"></template><template #title="current"><u-text text="表格动态列"></u-text></template></u-table-view-column-dynamic>'
       }, {
         title: '表格列分组',
-        code: '<u-table-view-column-group> <template #title><el-text text="表格列分组"></el-text></template> <u-table-view-column> <template #cell="current"></template> <template #title><el-text text="表格列"></el-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column> </u-table-view-column-group>'
-      },
-      {
-        title: '表格列2',
-        code: '<u-table-view-column> <template #cell="current"></template> <template #title><u-text text="表格列"></u-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column>'
+        code: '<u-table-view-column-group> <template #title><u-text text="表格列分组"></u-text></template> <u-table-view-column> <template #cell="current"></template> <template #title><u-text text="表格列"></u-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column> </u-table-view-column-group>'
       }]
     })
     slotDefault: () => Array<nasl.ui.UTableViewColumn<T, V, P, M> | nasl.ui.UTableViewColumnDynamic<T, V, P, M, unknown> | nasl.ui.UTableViewColumnGroup<T, V, P, M> | nasl.ui.ViewComponent>;
@@ -1279,7 +1380,6 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
         "cell": "{const type = this.getAttribute('type')?.value; const parentNode = this.getParent(); if(['index', 'radio', 'checkbox', 'dragHandler'].includes(type)) {return true;};const dependent = ['index', 'radio', 'checkbox', 'expander', 'dragHandler']; const el = parentNode.getElement(el => !dependent.includes(el.getAttribute('type')?.value)); return el === this; }"
       },
       "namedSlotOmitWrapper": ["title"],
-      "forceUpdateWhenAttributeChange": "parent",
       "disableSlotAutoFill": ["title"]
     }
   })
@@ -1310,9 +1410,30 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       group: '数据属性',
       title: '值字段',
       description: 'data 项中的字段',
-      docDescription: '数据项中对应的字段名，如createdTime'
+      docDescription: '数据项中对应的字段名，如createdTime',
+      setter: {
+        concept: 'PropertySelectSetter'
+      }
     })
     field: (item: T) => any;
+    @Prop<UTableViewColumnOptions<T, V, P, M>, 'excelCellType'>({
+      group: '数据属性',
+      title: 'Excel 单元格类型',
+      description: 'Excel 模式下复制/粘贴时按该类型转换剪贴板文本与字段值。未设置时按字符串处理',
+      docDescription: '用于 Excel 复制与粘贴时的类型转换，仅覆盖运行时三种基础类型：字符串、数字、布尔。日期/时间等语义字段在数据中通常为字符串，应配置为字符串；展示格式由 #cell 原组件负责',
+      setter: {
+        concept: 'EnumSelectSetter',
+        options: [{
+          title: '字符串'
+        }, {
+          title: '数字'
+        }, {
+          title: '布尔'
+        }]
+      },
+      if: _ => _.field !== null
+    })
+    excelCellType: 'string' | 'number' | 'boolean' = 'string';
     @Prop({
       group: '数据属性',
       title: '排序',
@@ -1338,7 +1459,7 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       },
       if: _ => _.sortable === true
     })
-    defaultOrder: 'asc' | 'desc' = 'asc';
+    defaultOrder: 'asc' | 'desc' = 'desc';
     @Prop<UTableViewColumnOptions<T, V, P, M>, 'type'>({
       group: '数据属性',
       title: '列类型',
@@ -1392,9 +1513,9 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     startIndex: nasl.core.Decimal | nasl.core.Integer = 1;
     @Prop({
       group: '数据属性',
-      title: '双击处理函数',
-      description: '用于可编辑表格，双击表格列时的处理函数',
-      docDescription: '用于可编辑表格，双击表格列时的处理函数。在表格是"可编辑"的表格时有效'
+      title: '进入编辑处理函数',
+      description: '用于可编辑表格，进入编辑模式时的处理函数。默认双击触发；开启"是否单击编辑"后改为单击触发',
+      docDescription: '用于可编辑表格，进入编辑模式时的处理函数。默认双击触发；开启"是否单击编辑"后改为单击触发。在表格是"可编辑"的表格时有效'
     })
     private dblclickHandler: Function;
     @Prop({
@@ -1504,7 +1625,7 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
         options: [{ title: '居左' }, { title: '居中' }, { title: '居右' }],
       },
     })
-    tdtextalign: 'left' | 'center' | 'right' = 'left';
+    tdtextalign: 'left' | 'center' | 'right' = 'center';
 
     @Slot({
       title: '单元格',
@@ -1580,7 +1701,9 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       tooltipLink: 'https://help.lcap.163yun.com/99.%E5%8F%82%E8%80%83/40.%E9%A1%B5%E9%9D%A2IDE/30.%E9%A1%B5%E9%9D%A2%E7%BB%84%E4%BB%B6/05.PC%E9%A1%B5%E9%9D%A2%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/05.%E8%A1%A8%E6%A0%BC/100.%E6%95%B0%E6%8D%AE%E8%A1%A8%E6%A0%BC.html',
       docDescription: '表格展示的数据。数据源可以绑定变量或者逻辑。变量或逻辑的返回值可以是数组，也可以是对象。对象格式为{list:[], total:10}',
       designerValue: [{}, {}, {}],
-      bindOpen: true
+      setter: {
+        concept: 'DataSourceSetter'
+      }
     })
     dataSource: nasl.collection.List<T> | {
       list: nasl.collection.List<T>;
@@ -1684,7 +1807,9 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       tooltipLink: 'https://help.lcap.163yun.com/99.%E5%8F%82%E8%80%83/40.%E9%A1%B5%E9%9D%A2IDE/30.%E9%A1%B5%E9%9D%A2%E7%BB%84%E4%BB%B6/05.PC%E9%A1%B5%E9%9D%A2%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/05.%E8%A1%A8%E6%A0%BC/100.%E6%95%B0%E6%8D%AE%E8%A1%A8%E6%A0%BC.html',
       docDescription: '表格展示的数据。数据源可以绑定变量或者逻辑。变量或逻辑的返回值可以是数组，也可以是对象。对象格式为{list:[], total:10}',
       designerValue: [{}],
-      bindOpen: true
+      setter: {
+        concept: 'DataSourceSetter'
+      }
     })
     dataSource: {
       list: nasl.collection.List<T1>;
@@ -1709,6 +1834,16 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       }
     })
     valueField: (item: T1) => any = ((item: any) => item.value) as any;
+    @Prop<UTableViewColumnDynamicOptions<T, V, P, M, T1>, 'excelCellTypeField'>({
+      group: '数据属性',
+      title: 'Excel 单元格类型字段',
+      description: '列配置数据源项中，表示 Excel 复制/粘贴类型的属性名',
+      docDescription: '与值字段类似：从 dataSource 每一项读取 excelCellType，不在动态列组件上统一配置。项上未配置时按字符串处理',
+      setter: {
+        concept: 'PropertySelectSetter'
+      }
+    })
+    excelCellTypeField: (item: T1) => any = ((item: any) => item.excelCellType) as any;
     @Prop({
       group: '数据属性',
       title: '排序',
@@ -1827,7 +1962,7 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
     ideusage: {
       "idetype": "container",
       "structured": true,
-      "forceRefresh": "transparent",
+      "forceRefresh": "parent",
       "childAccept": "['u-table-view-column', 'u-table-view-column-dynamic'].includes(target.tag)",
       "parentAccept": "['u-table-view', 'u-table-view-column-group'].includes(target.tag)",
       "selector": [{
@@ -1850,33 +1985,16 @@ namespace extensions.cw_eu_extend_cu_library.viewComponents {
       title: '表格标题'
     })
     private title: nasl.core.String;
-
-    @Prop({
-      group: '样式属性',
-      title: '表头位置',
-      docDescription: '表头位置，默认居中',
-      setter: {
-        concept: 'EnumSelectSetter',
-        options: [{ title: '居左' }, { title: '居中' }, { title: '居右' }],
-      },
-    })
-    thtextalign: 'left' | 'center' | 'right' = 'center';
-
-
-
     @Slot({
       title: '默认',
       description: '在表格中插入`<u-table-view-column>`子组件',
       emptyBackground: 'drag-entity-here',
       snippets: [{
         title: '表格列',
-        code: '<u-table-view-column><template #cell="current"></template><template #title><el-text text="表格列"></el-text></template></u-table-view-column>'
-      }, {
-        title: '表格列分组',
-        code: '<u-table-view-column-group> <template #title><el-text text="表格列分组"></el-text></template> <u-table-view-column> <template #cell="current"></template> <template #title><el-text text="表格列"></el-text></template> <template #expander="current"><u-table-view-expander :item="current.item" @toggle="current.toggle"></u-table-view-expander></template> </u-table-view-column> </u-table-view-column-group>'
+        code: '<u-table-view-column><template #cell="current"></template><template #title><u-text text="表格列"></u-text></template></u-table-view-column>'
       }, {
         title: '表格动态列',
-        code: '<u-table-view-column-dynamic><template #cell="current"></template><template #title="current"><el-text text="表格动态列"></el-text></template></u-table-view-column-dynamic>'
+        code: '<u-table-view-column-dynamic><template #cell="current"></template><template #title="current"><u-text text="表格动态列"></u-text></template></u-table-view-column-dynamic>'
       }]
     })
     slotDefault: () => Array<nasl.ui.UTableViewColumn<T, V, P, M> | nasl.ui.ViewComponent>;

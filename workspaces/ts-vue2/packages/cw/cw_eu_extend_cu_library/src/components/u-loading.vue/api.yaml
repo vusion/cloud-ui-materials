@@ -1,0 +1,7 @@
+- name: loading
+  title: 加载中
+  attrs:
+    - name: size
+      type: string
+      default: normal
+      description: 图标的大小。可选值：`'small'`, `'normal'`, `'large'`

@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
 import path from 'path';
+import { defineConfig } from 'vite';
 import { createVuePlugin as vue2 } from '@lcap/vite-plugin-vue2';
 import { createGenScopedName, lcapPlugin } from '@lcap/builder';
 
@@ -41,7 +41,6 @@ export default defineConfig(({ command }) => {
         'swiper/swiper-bundle.esm.js': path.resolve(__dirname, './node_modules/swiper/swiper-bundle.esm.js'),
         '@joskii/jflow-core': path.resolve(__dirname, './node_modules/@joskii/jflow-core/dist/jflow.es.min.js'),
         '@joskii/jflow-vue2-plugin': path.resolve(__dirname, './node_modules/@joskii/jflow-vue2-plugin/dist/jflow-vue2-plugin.es.min.js'),
-        '@vue/composition-api': path.resolve(__dirname, './node_modules/@vue/composition-api'),
       },
     },
     define: {
@@ -56,6 +55,7 @@ export default defineConfig(({ command }) => {
       },
     },
     build: {
+      assetsInlineLimit: 0,
       cssCodeSplit: false,
       target: ['es2020', 'edge88', 'firefox78', 'chrome56', 'safari14'],
       lib: {

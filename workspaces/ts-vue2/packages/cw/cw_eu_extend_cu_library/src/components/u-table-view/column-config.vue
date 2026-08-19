@@ -34,32 +34,23 @@
 import MEmitter from "@lcap-ui/src/components/m-emitter.vue";
 import SupportDataSource from "@lcap-ui/src/mixins/support.datasource.js";
 import SEmpty from "@lcap-ui/src/components/s-empty.vue";
+
 export default {
   name: 'u-table-view-column-config',
   parentName: 'u-table-view',
   components: {
-    SEmpty
+    SEmpty,
   },
   mixins: [MEmitter, SupportDataSource],
   props: {
-    value: {
-      type: Array
-    },
-    // 配置列下拉数据里的选中项
-    hiddenConfig: {
-      type: Boolean,
-      default: false
-    },
-    // 隐藏配置列的下拉弹层
-    showFooter: {
-      type: Boolean,
-      default: true
-    }
+    value: { type: Array }, // 配置列下拉数据里的选中项
+    hiddenConfig: { type: Boolean, default: false }, // 隐藏配置列的下拉弹层
+    showFooter: { type: Boolean, default: true },
   },
   data() {
     const data = {
       parentVM: undefined,
-      currentValue: this.value || []
+      currentValue: this.value || [],
     };
     return data;
   },
@@ -74,42 +65,41 @@ export default {
     dataSource(dataSource, oldDataSource) {
       // 当绑定的是:data-source=['name']这样的，watch会一直进来，所以增加判断
       if (typeof dataSource === 'function' || typeof oldDataSource === 'function') {
-        if (String(dataSource) === String(oldDataSource)) return;
+        if (String(dataSource) === String(oldDataSource))
+          return;
       } else if (JSON.stringify(dataSource) === JSON.stringify(oldDataSource)) {
         return;
       }
       this.$nextTick(() => {
         this.currentValue = this.value || [];
-        if (this.currentDataSource && this.currentDataSource.load) this.load();
+        if (this.currentDataSource && this.currentDataSource.load)
+          this.load();
         this.handleColumnsData();
       });
-    }
+    },
   },
   created() {
-    console.log("created", columnVM)
-    !this.parentVM && this.$contact(this.$options.parentName, parentVM => {
-      this.parentVM = parentVM;
-      parentVM.configColumnVM = this;
-    });
+    !this.parentVM
+      && this.$contact(this.$options.parentName, (parentVM) => {
+        this.parentVM = parentVM;
+        parentVM.configColumnVM = this;
+      });
   },
   destroyed() {
-    this.$contact(this.$options.parentName, parentVM => {
+    this.$contact(this.$options.parentName, (parentVM) => {
       parentVM.configColumnVM = undefined;
     });
   },
   methods: {
     getTitleInfo(nodes, columnVM) {
-      console.log("输出表格配置列getTitleInfo", columnVM)
       let titleInfo;
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-        if (node && node.tag && (node.tag.endsWith('u-text') || node.tag.endsWith('el-text'))) {
-          const title = node.componentOptions && node.componentOptions.propsData && node.componentOptions.propsData.text;
+        if (node && node.tag && (node.tag.endsWith('u-text') || node.tag.endsWith('ElText'))) {
+          const title = (node.componentOptions && node.componentOptions.propsData && node.componentOptions.propsData.text) ||
+            (node.data && node.data.attrs && node.componentOptions.attrs.text);
           if (title) {
-            titleInfo = {
-              text: title,
-              value: columnVM.field
-            };
+            titleInfo = { text: title, value: columnVM.field };
           }
         } else if (node.children) {
           titleInfo = this.getTitleInfo(node.children, columnVM);
@@ -130,41 +120,50 @@ export default {
      * 没有数据源解析每一列的数据，如果title是插槽，只处理第一层组件是u-text的情况
      */
     getConfigurabeList() {
-      console.log("getConfigurabeList")
       // 解析列得到默认值
-      if (!this.parentVM) return [];
-
+      if (!this.parentVM)
+        return [];
       const columnVMs = this.parentVM.columnVMs;
-      console.log("表格配置列", columnVMs)
       const data = [];
-      columnVMs.forEach(columnVM => {
+
+      console.log('columnVMs', columnVMs)
+      columnVMs.forEach((columnVM) => {
         if (columnVM.field) {
           if (columnVM.title) {
-            data.push({
-              text: columnVM.title,
-              value: columnVM.field
-            });
+            data.push({ text: columnVM.title, value: columnVM.field });
           } else {
             const titleSlot = columnVM.$slots.title && columnVM.$slots.title[0];
-            console.log("输出表格配置列titleSlot", titleSlot)
-            if (titleSlot && titleSlot.tag && (titleSlot.tag.endsWith('u-text') || titleSlot.tag.endsWith('el-text'))) {
-              const title = titleSlot.componentOptions && titleSlot.componentOptions.propsData && titleSlot.componentOptions.propsData.text;
+            if (titleSlot && titleSlot.tag && (titleSlot.tag.endsWith('u-text') || titleSlot.tag.endsWith('ElText'))) {
+              const title = (titleSlot.componentOptions && titleSlot.componentOptions.propsData && titleSlot.componentOptions.propsData.text) ||
+                (titleSlot.data && titleSlot.data.attrs && titleSlot.data.attrs.text);
               if (title) {
-                data.push({
-                  text: title,
-                  value: columnVM.field
-                });
+                data.push({ text: title, value: columnVM.field });
               }
             } else if (this.$env.VUE_APP_DESIGNER) {
-              const titleInfo = this.getTitleInNewIDE(columnVM);
-              console.log("输出表格配置列titleInfo", titleInfo)
+              const titleInfo = this.getTitleInNewIDE(columnVM)
               if (titleInfo) {
-                data.push(titleInfo);
+                data.push(titleInfo)
               }
             }
           }
         }
       });
+      console.log("parentVM", this.parentVM)
+      this.parentVM.dynamicColumnVMs.forEach(dynamicColumnComponent => {
+        console.log("dynamicColumnComponent", dynamicColumnComponent)
+        if (dynamicColumnComponent.inColumnConfig && dynamicColumnComponent.currentDataSource?.data) {
+          const dynamicColumnData = dynamicColumnComponent.currentDataSource?.data;
+          console.log('dynamicColumnData', dynamicColumnComponent.textField, dynamicColumnComponent.valueField, dynamicColumnData)
+          dynamicColumnData.forEach(d => {
+            data.push({
+              disabled: false,
+              text: d[dynamicColumnComponent.textField],
+              value: d[dynamicColumnComponent.valueField]
+            })
+          })
+
+        }
+      })
       this.currentDataSource.data = data;
     },
     /**
@@ -189,14 +188,30 @@ export default {
      * 处理列显隐
      */
     handleColumnsHidden(selectedValue) {
-      if (!this.parentVM) return;
+      if (!this.parentVM)
+        return;
       const columnVMs = this.parentVM.columnVMs;
-      if (!selectedValue) return;
+      const columnGroupVMs = this.parentVM.columnGroupVMs;
+      console.log("this.parentVM", this.parentVM)
+      console.log("column-config.handleColumnsHidden columnVMs", columnVMs)
+      console.log("column-config.handleColumnsHidden columnGroupVMs", columnGroupVMs)
+      console.log("this.currentDataSource.data", this.currentDataSource.data)
+
+      // const leafUid = []
+      // for (let i = 0; i < columnVMs.length; i++) {
+      //     const columnVM = columnVMs[i];
+      //     leafUid.push(columnVM)
+      // }
+
+      if (!selectedValue)
+        return;
       // 有些列可能不参与隐藏处理，即不在配置列的下拉数据里，这种列不能隐藏
-      const configList = this.currentDataSource.data.map(item => this.$at(item, this.valueField) || item.value || item);
+      const configList = this.currentDataSource.data.map((item) => (this.$at(item, this.valueField) || item.value || item));
       for (let i = 0; i < columnVMs.length; i++) {
         const columnVM = columnVMs[i];
-        if (columnVM.field && configList.includes(columnVM.field) && !selectedValue.includes(columnVM.field)) {
+        if (columnVM.field
+          && configList.includes(columnVM.field)
+          && !selectedValue.includes(columnVM.field)) {
           columnVM.currentHidden = true;
           this.setColSpanColumn(columnVM, i, columnVMs);
           if (columnVM.colSpan > 1) {
@@ -209,7 +224,112 @@ export default {
             i = i + columnVM.colSpan;
           }
         }
+
       }
+
+      const findLeafComp = (leafs, com) => {
+        columnVMs.forEach(columnVm => {
+          /** 遍历父级的光标 */
+          let cursor = columnVm
+          while (cursor.$parent !== com && cursor.$parent !== this.parentVM && cursor.$parent !== com) {
+            cursor = cursor.$parent
+          }
+          if (cursor.$parent === com) {
+            leafs.push(columnVm);
+          }
+        })
+        // if (com.$slots?.default) {
+
+        //     for (const slot of com.$slots?.default) {
+        //         if (slot.componentInstance) {
+        //             const slottComponent = slot.componentInstance
+
+        //             console.log("findLeafComp", slottComponent._uid, com._uid)
+        //             if (leafUid.find(id => id === slottComponent._uid)) {
+        //                 leafs.push(slottComponent)
+        //             }
+        //             findLeafComp(leafs, slottComponent)
+        //         }
+        //     }
+        // }
+      }
+      for (const vm in columnGroupVMs) {
+        const com = columnGroupVMs[vm]?.groupVM;
+        console.log("groupCom", com._uid, com.colSpan, com.currentHidden)
+        const leafs = [];
+        findLeafComp(leafs, com)
+        console.log("leafs", leafs)
+        let colspan = 0
+        leafs.forEach(leafCom => {
+          console.log("leafCom" + leafCom._uid, leafCom)
+          if (!leafCom.currentHidden) {
+            colspan += (leafCom.colSpan || 1)
+          }
+        })
+        console.log("colspan", colspan)
+        if (colspan) {
+          com.currentHidden = false;
+          com.colSpan = colspan
+        } else {
+          com.currentHidden = true;
+        }
+
+        // if (!comMap.has(com._uid)) {
+        //     comMap.set(com._uid, {
+        //         comp: com
+        //     })
+        // }
+
+        // if (com.$slots?.default) {
+
+        //     for (const slot of com.$slots?.default) {
+        //         if (slot.componentInstance) {
+        //             const slottComponent = slot.componentInstance
+
+        //             if (slottComponent) {
+        //                 if (!comMap.has(slottComponent._uid)) {
+        //                     comMap.set(slottComponent._uid, {
+        //                         comp: slottComponent,
+        //                         parent: com._uid
+        //                     })
+        //                 }
+        //                 console.log("slottComponent", slottComponent._uid, com._uid)
+        //             }
+        //         }
+        //     }
+        // }
+      }
+      // console.log("comMap", comMap)
+      // console.log("leafUid", leafUid)
+      // // for (const [k, v] of comMap) {
+      // //     console.log("k", k, v)
+      // //     const com = v.comp
+      // //     console.log(k, com.colSpan, com.currentHidden)
+      // // }
+      // /** 调整跨列 */
+      // const modifyParentColspanFun = (id, colSpan) => {
+      //     /**
+      //      * 父亲节点
+      //      */
+      //     const pid = comMap.get(id)?.parent
+      //     if (!pid) return;
+      //     const pCom = comMap.get(pid).comp
+      //     if (!pCom) return;
+      //     console.log("pcom", id, pCom._uid, colSpan)
+      //     modifyParentColspanFun(pCom._uid, colSpan)
+      // }
+      // leafUid.forEach(_uid => {
+      //     console.log(_uid, comMap.get(_uid))
+      //     /**
+      //      * 叶子节点组件
+      //      */
+      //     const com = comMap.get(_uid)?.comp
+      //     console.log(_uid, com)
+      //     if (com?.currentHidden) {
+      //         console.log("hidden", _uid, com, com.colSpan)
+      //         modifyParentColspanFun(_uid, com.colSpan)
+      //     }
+      // })
     },
     setColSpanColumn(columnVM, index, list) {
       if (columnVM.colSpan > 1) {
@@ -231,8 +351,8 @@ export default {
       this.handleInitColumnsHidden();
     },
     setCurrentValue(value) {
-      if (!this.currentValue || !this.value && !this.currentValue.length) {
-        this.currentValue = value.map(item => this.$at(item, this.valueField) || item.value || item);
+      if (!this.currentValue || (!this.value && !this.currentValue.length)) {
+        this.currentValue = value.map((item) => this.$at(item, this.valueField) || item.value || item);
       }
     },
     confirm() {
@@ -242,11 +362,13 @@ export default {
       this.$refs.filterPopper.cancel();
     },
     onPopperOpen() {
-      if (this.$env.VUE_APP_DESIGNER) this.handleColumnsData();
-    }
-  }
+      if (this.$env.VUE_APP_DESIGNER)
+        this.handleColumnsData();
+    },
+  },
 };
 </script>
+
 <style module>
 .root {
   cursor: pointer;

@@ -25,6 +25,7 @@
     }
   },
   "include": [
+    "./node_modules/@lcap/builder/typings.d.ts",
     "./src/components/*/api.ts",
     "./src/logics/api.ts",
     "./src/typings.d.ts"

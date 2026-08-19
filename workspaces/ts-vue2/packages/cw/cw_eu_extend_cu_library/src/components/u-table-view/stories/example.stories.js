@@ -2,6 +2,9 @@ import Component from '../index';
 import ExampleDemo1 from '../demos/ExampleDemo1.vue';
 import ExampleDemo2 from '../demos/ExampleDemo2.vue';
 import ExampleDemo3 from '../demos/ExampleDemo3.vue';
+import ExampleDemo4 from '../demos/ExampleDemo4.vue';
+import ExampleDemo5 from '../demos/ExampleDemo5.vue';
+import ExampleDemo6 from '../demos/ExampleDemo6.vue';
 
 export default {
   id: 'u-table-view-examples',
@@ -37,7 +40,7 @@ export const Example2 = {
 };
 
 export const Example3 = {
-  name: 'excel 粘贴（非分页扩行）',
+  name: 'excel 粘贴（函数数据源 + 分页 + 总条数）',
   render: () => ({
     components: {
       ExampleDemo: ExampleDemo2,
@@ -51,6 +54,36 @@ export const Example4 = {
   render: () => ({
     components: {
       ExampleDemo: ExampleDemo3,
+    },
+    template: '<example-demo />',
+  }),
+};
+
+export const Example5 = {
+  name: 'excel 单元格类型 + 动态列显隐',
+  render: () => ({
+    components: {
+      ExampleDemo: ExampleDemo5,
+    },
+    template: '<example-demo />',
+  }),
+};
+
+export const Example6 = {
+  name: 'excel 单元格类型（保留原组件 + 剪贴板）',
+  render: () => ({
+    components: {
+      ExampleDemo: ExampleDemo4,
+    },
+    template: '<example-demo />',
+  }),
+};
+
+export const Example7 = {
+  name: 'checkbox 联动列显隐 + excel 粘贴',
+  render: () => ({
+    components: {
+      ExampleDemo: ExampleDemo6,
     },
     template: '<example-demo />',
   }),

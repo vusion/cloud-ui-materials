@@ -7,16 +7,5 @@ import UTableViewColumnConfig from './column-config.vue';
 import UTableViewColumnDynamic from './column-dynamic.vue';
 import UTableViewColumnGroup from './column-group.vue';
 import UTableViewExpander from './expander.vue';
-// export { UTableView, UTableViewColumn, UTableViewFilters, UTableViewFilter, UTableViewFiltersPopper, UTableViewColumnConfig, UTableViewColumnDynamic, UTableViewColumnGroup, UTableViewExpander, UTableViewColumn as ExUTableViewColumn, UTableViewColumnConfig as ExUTableViewColumnConfig, UTableViewColumnDynamic as ExUTableViewColumnDynamic, UTableViewColumnGroup as ExUTableViewColumnGroup, UTableViewExpander as ExUTableViewExpander };
-export {
-  UTableView,
-  UTableViewColumn,
-  UTableViewFilters,
-  UTableViewFilter,
-  UTableViewFiltersPopper,
-  UTableViewColumnConfig,
-  UTableViewColumnDynamic,
-  UTableViewColumnGroup,
-  UTableViewExpander,
-};
+export { UTableView, UTableViewColumn, UTableViewFilters, UTableViewFilter, UTableViewFiltersPopper, UTableViewColumnConfig, UTableViewColumnDynamic, UTableViewColumnGroup, UTableViewExpander};
 export default UTableView;

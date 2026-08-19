@@ -1,0 +1,79 @@
+/**
+ * @component u-link
+ */
+:root {
+  /**
+   * @type color
+   * @desc 默认链接字体颜色,如：#223325
+   * @depAttrs {"color":["default",null]}
+   * @depStaticStyles ["color"]
+   */
+  --link-color: var(--brand-primary);
+
+  /**
+   * @type color
+   * @desc 浅色链接字体颜色,如：#223325
+   * @depAttrs {"color":["light"]}
+   * @depStaticStyles ["color"]
+   */
+  --link-color-light: #6eadff;
+
+  /**
+   * @type color
+   * @desc 成功链接字体颜色,如：#223325
+   * @depAttrs {"color":["success"]}
+   * @depStaticStyles ["color"]
+   */
+  --link-color-success: var(--brand-success);
+
+  /**
+   * @type color
+   * @desc 警告链接字体颜色,如：#223325
+   * @depAttrs {"color":["warning"]}
+   * @depStaticStyles ["color"]
+   */
+  --link-color-warning: var(--brand-warning);
+
+  /**
+   * @type color
+   * @desc 危险链接字体颜色,如：#223325
+   * @depAttrs {"color":["danger"]}
+   * @depStaticStyles ["color"]
+   */
+  --link-color-danger: var(--brand-danger);
+
+  /**
+   * @type color
+   * @desc 禁用链接字体颜色,如：#223325
+   */
+  --link-color-disabled: var(--font-disabled-color);
+
+  /**
+   * @type color
+   * @desc 默认链接字体颜色,如：#223325
+   * @depAttrs {"color":["default",null]}
+   */
+  --link-color-hover: var(--brand-primary-light);
+
+  /**
+   * @type color
+   * @desc 成功链接字体颜色,如：#223325
+   * @depAttrs {"color":["success"]}
+   */
+  --link-color-success-hover: var(--brand-success-light);
+
+  /**
+   * @type color
+   * @desc 警告链接字体颜色,如：#223325
+   * @depAttrs {"color":["warning"]}
+   */
+  --link-color-warning-hover: var(--brand-warning-light);
+
+  /**
+   * @type color
+   * @desc 危险链接字体颜色,如：#223325
+   * @depAttrs {"color":["danger"]}
+   */
+  --link-color-danger-hover: var(--brand-danger-light);
+
+}

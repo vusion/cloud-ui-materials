@@ -1,123 +1,119 @@
 <script>
 import SEmpty from "@lcap-ui/src/components/s-empty.vue";
-import ULoading from '../u-loading.vue';
-import { throttle } from '../../utils/throttle';
-import Gap from '../../mixins/gap';
-
+import ULoading from "@lcap-ui/src/components/u-loading.vue";
+import { throttle } from 'lodash';
+import Gap from "@lcap-ui/src/mixins/gap";
 export default {
-    name: 'u-linear-layout',
-    components: {
-        SEmpty,
-        ULoading,
+  name: 'u-linear-layout',
+  components: {
+    SEmpty,
+    ULoading
+  },
+  mixins: [Gap()],
+  props: {
+    type: {
+      type: String,
+      default: ''
     },
-    mixins: [Gap()],
-    props: {
-        type: {
-            type: String,
-            default: '',
-        },
-        loadingIcon: {
-            type: String,
-            default: 'loading',
-        },
-        loadingIconRotate: {
-            type: Boolean,
-            default: true,
-        },
-        loadingText: {
-            type: String,
-            default: '',
-        },
-        direction: {
-            default: 'horizontal',
-            validator: (value) => ['horizontal', 'vertical'].includes(value),
-        },
-        wrap: {
-            type: Boolean,
-            default: true,
-        }
+    loadingIcon: {
+      type: String,
+      default: 'loading'
     },
-    data() {
-        return {
-            showLoading: false,
-        };
+    loadingIconRotate: {
+      type: Boolean,
+      default: true
     },
-    mounted() {
-        this._handleScroll = throttle(this.handleScroll.bind(this), 200);
-        this.$refs.root.addEventListener('scroll', this._handleScroll);
+    loadingText: {
+      type: String,
+      default: ''
     },
-    beforeDestroy() {
-        if (this.$refs.root && this._handleScroll) {
-          this.$refs.root.removeEventListener('scroll', this._handleScroll);
-        }
+    direction: {
+      default: 'horizontal',
+      validator: value => ['horizontal', 'vertical'].includes(value)
     },
-    methods: {
-        openLoading() {
-            this.showLoading = true;
-        },
-        closeLoading() {
-            this.showLoading = false;
-        },
-        handleScroll(e) {
-            const el = e.target;
-            const { scrollHeight, scrollWidth, scrollTop, scrollLeft, clientHeight, clientWidth} = el;
-            this.$emit('scroll', {
-                scrollHeight,
-                scrollWidth,
-                scrollTop,
-                scrollLeft,
-                clientHeight,
-                clientWidth,
-            });
-        },
-    },
-    render(h) {
-      const children = [];
-
-      children.push(
-        ...(this.$slots.default || [])
-      );
-
-      this.setGapStyle(children);
-
-      if (this.showLoading) {
-        children.push(h('div', {
-          staticClass: this.$style.mask,
-        }, [
-          h('u-loading', {
-            staticClass: this.$style.loading,
-            attrs: {
-              icon: this.loadingIcon,
-              text: this.loadingText,
-              iconRotate: this.loadingIconRotate,
-            },
-          })
-        ]));
-      }
-
-      const listeners = {
-        ...this.$listeners,
-      };
-
-      // 修复 scroll 事件被监听两次的问题
-      delete listeners.scroll;
-
-      return h('div', {
-         staticClass: this.$style.root,
-         attrs: {
-          type: this.type,
-          gap: this.getGapAttrValue(),
-          direction: this.direction,
-          'vusion-slot-name': 'default',
-           nowrap: !this.wrap,
-         },
-         ref: 'root',
-         on: listeners,
-      }, children);
+    wrap: {
+      type: Boolean,
+      default: true
     }
+  },
+  data() {
+    return {
+      showLoading: false
+    };
+  },
+  mounted() {
+    this._handleScroll = throttle(this.handleScroll.bind(this), 200);
+    this.$refs.root.addEventListener('scroll', this._handleScroll);
+  },
+  beforeDestroy() {
+    if (this.$refs.root && this._handleScroll) {
+      this.$refs.root.removeEventListener('scroll', this._handleScroll);
+    }
+  },
+  methods: {
+    openLoading() {
+      this.showLoading = true;
+    },
+    closeLoading() {
+      this.showLoading = false;
+    },
+    handleScroll(e) {
+      const el = e.target;
+      const {
+        scrollHeight,
+        scrollWidth,
+        scrollTop,
+        scrollLeft,
+        clientHeight,
+        clientWidth
+      } = el;
+      this.$emit('scroll', {
+        scrollHeight,
+        scrollWidth,
+        scrollTop,
+        scrollLeft,
+        clientHeight,
+        clientWidth
+      });
+    }
+  },
+  render(h) {
+    const children = [];
+    children.push(...(this.$slots.default || []));
+    this.setGapStyle(children);
+    if (this.showLoading) {
+      children.push(h('div', {
+        staticClass: this.$style.mask
+      }, [h('u-loading', {
+        staticClass: this.$style.loading,
+        attrs: {
+          icon: this.loadingIcon,
+          text: this.loadingText,
+          iconRotate: this.loadingIconRotate
+        }
+      })]));
+    }
+    const listeners = {
+      ...this.$listeners
+    };
+
+    // 修复 scroll 事件被监听两次的问题
+    delete listeners.scroll;
+    return h('div', {
+      staticClass: this.$style.root,
+      attrs: {
+        type: this.type,
+        gap: this.getGapAttrValue(),
+        direction: this.direction,
+        'vusion-slot-name': 'default',
+        nowrap: !this.wrap
+      },
+      ref: 'root',
+      on: listeners
+    }, children);
+  }
 };
 </script>
-
 <style module>
 .root[type="root"] {
     height: 100%;

@@ -164,7 +164,7 @@
                                             </template>
                                             <!-- Normal text -->
                                             <f-slot name="cell" :vm="columnVM" :props="{ item: getRealItem(item, rowIndex + virtualIndex), value: $at(item, columnVM.field), columnVM, rowIndex, columnIndex, index: rowIndex, columnItem: columnVM.columnItem }">
-                                                <span v-if="columnVM.field && !['radio', 'checkbox'].includes(columnVM.type)" vusion-slot-name="cell" :class="$style['column-field']">{{ columnVM.currentFormatter.format($at(item, columnVM.field) || item) }}</span>
+                                                <span v-if="columnVM.field && !['radio', 'checkbox'].includes(columnVM.type)" vusion-slot-name="cell" :class="$style['column-field']">{{ columnVM.currentFormatter.format($at(item, columnVM.field)) }}</span>
                                             </f-slot>
                                             <!-- type === 'dragHandler' -->
                                             <span v-if="columnVM.type === 'dragHandler'">
