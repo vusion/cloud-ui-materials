@@ -1,0 +1,4 @@
+.el-tabs__nav.is-top:not(.is-stretch),
+.el-tabs__nav.is-bottom:not(.is-stretch) {
+  width: max-content;
+}
