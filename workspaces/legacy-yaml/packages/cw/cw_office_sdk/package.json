@@ -2,7 +2,7 @@
   "name": "cw_office_sdk",
   "title": "文档SDK",
   "description": "",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "main": "./index.js",
   "author": "",
   "repository": "",
@@ -17,9 +17,9 @@
     "kind:component"
   ],
   "scripts": {
-    "dev": "vue-cli-service doc --port 9090",
-    "build:theme": "vue-cli-service library-build --dest dist-theme",
-    "build:doc": "vue-cli-service doc-build",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service doc --port 9090",
+    "build:theme": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service library-build --dest dist-theme",
+    "build:doc": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service doc-build",
     "build": "npm run build:theme",
     "usage": "lcap usage",
     "deploy": "lcap deploy dist-theme",
