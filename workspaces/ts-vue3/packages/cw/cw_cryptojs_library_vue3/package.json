@@ -32,7 +32,7 @@
     "jsencrypt": "^3.5.4",
     "node-forge": "^1.4.0",
     "sjcl": "^1.0.9",
-    "sm-crypto": "^0.3.14"
+    "sm-crypto": "^0.5.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
