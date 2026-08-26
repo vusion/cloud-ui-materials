@@ -1,5 +1,5 @@
 ### 基本用法
 
 ``` html
-<cw-doc-preview value="http://static.shanhuxueyuan.com/test6.docx"></cw-doc-preview>
+<cw-doc-preview value="https://minio-api.codewave-test.163yun.com/lowcode-static/user/neteasecw/1787727314978_0e4d063a24ed465b9912f559fd55d219.docx"></cw-doc-preview>
 ```
