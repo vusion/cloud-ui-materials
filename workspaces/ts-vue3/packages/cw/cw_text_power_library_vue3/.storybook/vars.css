@@ -1,0 +1,562 @@
+:root {
+  --el-color-white: #ffffff;
+  --el-color-black: #000000;
+  /**
+   * @title 主色
+   * @type color
+   */
+  --el-color-primary: #409eff;
+  /**
+   * @title 主色-悬浮
+   * @type color
+   */
+  --el-color-primary-light-3: rgb(121.3, 187.1, 255);
+  /**
+   * @title 主色-禁用背景
+   * @type color
+   */
+  --el-color-primary-light-5: rgb(159.5, 206.5, 255);
+  /**
+   * @title 主色-边框悬浮
+   * @type color
+   */
+  --el-color-primary-light-7: rgb(197.7, 225.9, 255);
+  /**
+   * @title 主色-边框背景
+   * @type color
+   */
+  --el-color-primary-light-8: rgb(216.8, 235.6, 255);
+  /**
+   * @title 主色-背景填充
+   * @type color
+   */
+  --el-color-primary-light-9: rgb(235.9, 245.3, 255);
+  /**
+   * @title 主色-深色
+   * @type color
+   */
+  --el-color-primary-dark-2: rgb(51.2, 126.4, 204);
+  /**
+   * @title 成功色
+   * @type color
+   */
+  --el-color-success: #67c23a;
+  /**
+   * @title 成功色-悬浮
+   * @type color
+   */
+  --el-color-success-light-3: rgb(148.6, 212.3, 117.1);
+  /**
+   * @title 成功色-禁用背景
+   * @type color
+   */
+  --el-color-success-light-5: rgb(179, 224.5, 156.5);
+  /**
+   * @title 成功色-边框悬浮
+   * @type color
+   */
+  --el-color-success-light-7: rgb(209.4, 236.7, 195.9);
+  /**
+   * @title 成功色-边框背景
+   * @type color
+   */
+  --el-color-success-light-8: rgb(224.6, 242.8, 215.6);
+  /**
+   * @title 成功色-背景填充
+   * @type color
+   */
+  --el-color-success-light-9: rgb(239.8, 248.9, 235.3);
+  /**
+   * @title 成功色-深色
+   * @type color
+   */
+  --el-color-success-dark-2: rgb(82.4, 155.2, 46.4);
+  /**
+   * @title 警示色
+   * @type color
+   */
+  --el-color-warning: #e6a23c;
+  /**
+   * @title 警示色-悬浮
+   * @type color
+   */
+  --el-color-warning-light-3: rgb(237.5, 189.9, 118.5);
+  /**
+   * @title 警示色-禁用背景
+   * @type color
+   */
+  --el-color-warning-light-5: rgb(242.5, 208.5, 157.5);
+  /**
+   * @title 警示色-边框悬浮
+   * @type color
+   */
+  --el-color-warning-light-7: rgb(247.5, 227.1, 196.5);
+  /**
+   * @title 警示色-边框背景
+   * @type color
+   */
+  --el-color-warning-light-8: rgb(250, 236.4, 216);
+  /**
+   * @title 警示色-背景填充
+   * @type color
+   */
+  --el-color-warning-light-9: rgb(252.5, 245.7, 235.5);
+  /**
+   * @title 警示色-深色
+   * @type color
+   */
+  --el-color-warning-dark-2: rgb(184, 129.6, 48);
+  /**
+   * @title 危险色
+   * @type color
+   */
+  --el-color-danger: #f56c6c;
+  /**
+   * @title 危险色-悬浮
+   * @type color
+   */
+  --el-color-danger-light-3: rgb(248, 152.1, 152.1);
+  /**
+   * @title 危险色-禁用背景
+   * @type color
+   */
+  --el-color-danger-light-5: rgb(250, 181.5, 181.5);
+  /**
+   * @title 危险色-边框悬浮
+   * @type color
+   */
+  --el-color-danger-light-7: rgb(252, 210.9, 210.9);
+  /**
+   * @title 危险色-边框背景
+   * @type color
+   */
+  --el-color-danger-light-8: rgb(253, 225.6, 225.6);
+  /**
+   * @title 危险色-背景填充
+   * @type color
+   */
+  --el-color-danger-light-9: rgb(254, 240.3, 240.3);
+  /**
+   * @title 危险色-深色
+   * @type color
+   */
+  --el-color-danger-dark-2: rgb(196, 86.4, 86.4);
+  /**
+   * @title 错误色
+   * @type color
+   */
+  --el-color-error: #f56c6c;
+  /**
+   * @title 错误色-悬浮
+   * @type color
+   */
+  --el-color-error-light-3: rgb(248, 152.1, 152.1);
+  /**
+   * @title 错误色-禁用背景
+   * @type color
+   */
+  --el-color-error-light-5: rgb(250, 181.5, 181.5);
+  /**
+   * @title 错误色-边框悬浮
+   * @type color
+   */
+  --el-color-error-light-7: rgb(252, 210.9, 210.9);
+  /**
+   * @title 错误色-边框背景
+   * @type color
+   */
+  --el-color-error-light-8: rgb(253, 225.6, 225.6);
+  /**
+   * @title 错误色-背景填充
+   * @type color
+   */
+  --el-color-error-light-9: rgb(254, 240.3, 240.3);
+  /**
+   * @title 错误色-深色
+   * @type color
+   */
+  --el-color-error-dark-2: rgb(196, 86.4, 86.4);
+  /**
+   * @title 信息色
+   * @type color
+   */
+  --el-color-info: #909399;
+  /**
+   * @title 信息色-悬浮
+   * @type color
+   */
+  --el-color-info-light-3: rgb(177.3, 179.4, 183.6);
+  /**
+   * @title 信息色-禁用背景
+   * @type color
+   */
+  --el-color-info-light-5: rgb(199.5, 201, 204);
+  /**
+   * @title 信息色-边框悬浮
+   * @type color
+   */
+  --el-color-info-light-7: rgb(221.7, 222.6, 224.4);
+  /**
+   * @title 信息色-边框背景
+   * @type color
+   */
+  --el-color-info-light-8: rgb(232.8, 233.4, 234.6);
+  /**
+   * @title 信息色-背景填充
+   * @type color
+   */
+  --el-color-info-light-9: rgb(243.9, 244.2, 244.8);
+  /**
+   * @title 信息色-深色
+   * @type color
+   */
+  --el-color-info-dark-2: rgb(115.2, 117.6, 122.4);
+  /**
+   * @title 背景色
+   * @type color
+   */
+  --el-bg-color: #ffffff;
+  /**
+   * @title 背景色-页面
+   * @type color
+   */
+  --el-bg-color-page: #f2f3f5;
+  /**
+   * @title 背景色-弹出层
+   * @type color
+   */
+  --el-bg-color-overlay: #ffffff;
+  /**
+   * @title 强调/正文标题
+   * @type color
+   */
+  --el-text-color-primary: #303133;
+  /**
+   * @title 次强调/正文标题
+   * @type color
+   */
+  --el-text-color-regular: #606266;
+  /**
+   * @title 次要信息
+   * @type color
+   */
+  --el-text-color-secondary: #909399;
+  /**
+   * @title 置灰信息
+   * @type color
+   */
+  --el-text-color-placeholder: #a8abb2;
+  /**
+   * @title 禁用
+   * @type color
+   */
+  --el-text-color-disabled: #c0c4cc;
+  /**
+   * @title 边框色
+   * @type color
+   */
+  --el-border-color: #dcdfe6;
+  /**
+   * @title 边框色-浅色
+   * @type color
+   */
+  --el-border-color-light: #e4e7ed;
+  /**
+   * @title 边框色-浅色
+   * @type color
+   */
+  --el-border-color-lighter: #ebeef5;
+  /**
+   * @title 边框色-浅色
+   * @type color
+   */
+  --el-border-color-extra-light: #f2f6fc;
+  /**
+   * @title 边框色-深色
+   * @type color
+   */
+  --el-border-color-dark: #d4d7de;
+  /**
+   * @title 边框色-深色
+   * @type color
+   */
+  --el-border-color-darker: #cdd0d6;
+  /**
+   * @title 边框颜色-悬浮
+   * @type color
+   */
+  --el-border-color-hover: var(--el-text-color-disabled);
+
+  /**
+   * @title 填充色
+   * @type color
+   */
+  --el-fill-color: #f0f2f5;
+  /**
+   * @title 填充色-浅色
+   * @type color
+   */
+  --el-fill-color-light: #f5f7fa;
+  /**
+   * @title 填充色-浅色
+   * @type color
+   */
+  --el-fill-color-lighter: #fafafa;
+  /**
+   * @title 填充色-浅色
+   * @type color
+   */
+  --el-fill-color-extra-light: #fafcff;
+  /**
+   * @title 填充色-深色
+   * @type color
+   */
+  --el-fill-color-dark: #ebedf0;
+  /**
+   * @title 填充色-深色
+   * @type color
+   */
+  --el-fill-color-darker: #e6e8eb;
+  /**
+   * @title 填充色-空白
+   * @type color
+   */
+  --el-fill-color-blank: #ffffff;
+
+  /**
+  * @title 禁用背景色
+  * @type color
+  */
+  --el-disabled-bg-color: var(--el-fill-color-light);
+  /**
+  * @title 禁用文本色
+  * @type color
+  */
+  --el-disabled-text-color: var(--el-text-color-placeholder);
+  /**
+  * @title 禁用边框色
+  * @type color
+  */
+  --el-disabled-border-color: var(--el-border-color-light);
+
+  /**
+   * @title 遮罩色
+   * @type color
+   */
+  --el-overlay-color: rgba(0, 0, 0, 0.8);
+  /**
+   * @title 遮罩色-浅色
+   * @type color
+   */
+  --el-overlay-color-light: rgba(0, 0, 0, 0.7);
+  /**
+   * @title 遮罩色-浅色
+   * @type color
+   */
+  --el-overlay-color-lighter: rgba(0, 0, 0, 0.5);
+  /**
+   * @title 遮罩色-加载
+   * @type color
+   */
+  --el-mask-color: rgba(255, 255, 255, 0.9);
+  /**
+   * @title 遮罩色-加载浅色
+   * @type color
+   */
+  --el-mask-color-extra-light: rgba(255, 255, 255, 0.3);
+
+  /**
+   * @title 字体大小-超大
+   * @type size
+   */
+  --el-font-size-extra-large: 20px;
+  /**
+   * @title 字体大小-大
+   * @type size
+   */
+  --el-font-size-large: 18px;
+  /**
+   * @title 字体大小-中
+   * @type size
+   */
+  --el-font-size-medium: 16px;
+  /**
+   * @title 字体大小-常规
+   * @type size
+   */
+  --el-font-size-base: 14px;
+  /**
+   * @title 字体大小-小
+   * @type size
+   */
+  --el-font-size-small: 13px;
+  /**
+   * @title 字体大小-超小
+   * @type size
+   */
+  --el-font-size-extra-small: 12px;
+
+  /**
+   * @title 圆角
+   * @type size
+   */
+  --el-border-radius-base: 4px;
+  /**
+   * @title 圆角-小
+   * @type size
+   */
+  --el-border-radius-small: 2px;
+  /**
+   * @title 圆角-圆
+   * @type size
+   */
+  --el-border-radius-round: 20px;
+  /**
+   * @title 圆角-圆
+   * @type input
+   */
+  --el-border-radius-circle: 100%;
+
+  /**
+   * @title 组件尺寸-大
+   * @type size
+   */
+  --el-component-size-large: 40px;
+  /**
+   * @title 组件尺寸-中
+   * @type size
+   */
+  --el-component-size: 32px;
+  /**
+   * @title 组件尺寸-小
+   * @type size
+   */
+  --el-component-size-small: 24px;
+
+  /**
+   * @title 字体
+   * @type input
+   */
+  --el-font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  /**
+  * @title 字体权重
+  * @type input
+  */
+  --el-font-weight-primary: 500;
+  /**
+  * @title 正文行高
+  * @type size
+  */
+  --el-font-line-height-primary: 24px;
+
+  /**
+   * @title 层级
+   * @type size
+   */
+  --el-index-normal: 1;
+  /**
+   * @title 层级-顶部
+   * @type size
+   */
+  --el-index-top: 1000;
+  /**
+   * @title 层级-弹窗
+   * @type size
+   */
+  --el-index-popper: 2000;
+  /**
+   * @title 过渡动画时长
+   * @type size
+   */
+  --el-transition-duration: 0.3s;
+  /**
+   * @title 过渡动画时长-快
+   * @type size
+   */
+  --el-transition-duration-fast: 0.2s;
+  /**
+   * @title 过渡动画函数-缓入缓出
+   * @type input
+   */
+  --el-transition-function-ease-in-out-bezier: cubic-bezier(0.645, 0.045, 0.355, 1);
+  /**
+   * @title 过渡动画函数-快
+   * @type input
+   */
+  --el-transition-function-fast-bezier: cubic-bezier(0.23, 1, 0.32, 1);
+  /**
+   * @title 过渡动画
+   * @type input
+   */
+  --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
+  /**
+   * @title 过渡动画-淡入淡出
+   * @type input
+   */
+  --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+  /**
+   * @title 过渡动画-淡入淡出（中）
+   * @type input
+   */
+  --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier), opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+  /**
+   * @title 过渡动画-淡入淡出（线性）
+   * @type input
+   */
+  --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
+  /**
+   * @title 过渡动画-边框
+   * @type input
+   */
+  --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+  /**
+   * @title 过渡动画-阴影
+   * @type input
+   */
+  --el-transition-box-shadow: box-shadow var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+  /**
+   * @title 过渡动画-颜色
+   * @type input
+   */
+  --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+  /**
+   * @title 阴影
+   * @type input
+   */
+  --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04), 0px 8px 20px rgba(0, 0, 0, 0.08);
+  /**
+   * @title 阴影-浅色
+   * @type input
+   */
+  --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  /**
+   * @title 阴影-浅色
+   * @type input
+   */
+  --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.12);
+  /**
+   * @title 阴影-深色
+   * @type input
+   */
+  --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.08), 0px 12px 32px rgba(0, 0, 0, 0.12), 0px 8px 16px -8px rgba(0, 0, 0, 0.16);
+  /**
+   * @title 边框宽度
+   * @type size
+   */
+  --el-border-width: 1px;
+  /**
+   * @title 边框样式
+   * @type input
+   */
+  --el-border-style: solid;
+  /**
+   * @title 边框
+   * @type input
+   */
+  --el-border: var(--el-border-width) var(--el-border-style) var(--el-border-color);
+  /**
+   * @title 边框颜色-灰色
+   * @type color
+   */
+  --el-svg-monochrome-grey: var(--el-border-color);
+}
