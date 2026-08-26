@@ -1,7 +1,7 @@
 import Component from '../index';
 
 export default {
-  id: 'yt-el-tree-select-pro-blocks',
+  id: 'el-tree-select-pro-blocks',
   title: '组件列表/YtElTreeSelectPro/内置区块',
   component: Component,
   parameters: {
@@ -13,6 +13,6 @@ export default {
 export const Block1 = {
   name: '基础示例',
   render: () => ({
-    template: `<yt-el-tree-select-pro></yt-el-tree-select-pro>`,
+    template: `<el-tree-select-pro></el-tree-select-pro>`,
   }),
 };

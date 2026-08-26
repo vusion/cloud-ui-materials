@@ -3,7 +3,7 @@
     <div style="margin-bottom: 8px;">
       value: {{ value }}
     </div>
-    <yt-el-tree-select-pro
+    <el-tree-select-pro
       :value.sync="value"
       :data-source="load"
       :lazy="true"

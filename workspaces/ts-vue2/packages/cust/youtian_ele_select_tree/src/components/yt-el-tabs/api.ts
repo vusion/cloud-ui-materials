@@ -18,7 +18,7 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
     ideusage: {
       "idetype": "container",
       "structured": true,
-      "childAccept": "target.tag === 'yt-el-tab-pane'",
+      "childAccept": "target.tag === 'el-tab-pane'",
       "dataSource": {
         "dismiss": "!this.getAttribute('dataSource') && this.getDefaultElements().length > 0",
         "display": 1,
@@ -48,17 +48,17 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
     description: '分隔内容上有关联但属于不同类别的数据集合。',
     group: 'Selector'
   })
-  export class YtElTabs<T, V> extends ViewComponent {
+  export class ElTabs<T, V> extends ViewComponent {
     @Method({
       title: '重新加载',
       description: '清除缓存，重新加载'
     })
     reload(): void {}
-    constructor(options?: Partial<YtElTabsOptions<T, V>>) {
+    constructor(options?: Partial<ElTabsOptions<T, V>>) {
       super();
     }
   }
-  export class YtElTabsOptions<T, V> extends ViewComponentOptions {
+  export class ElTabsOptions<T, V> extends ViewComponentOptions {
     @Prop({
       group: '数据属性',
       title: '数据源',
@@ -80,7 +80,7 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
       docDescription: '该属性为只读状态，当数据源动态绑定集合List<T>后，会自动识别T的类型并进行展示。'
     })
     dataSchema: T;
-    @Prop<YtElTabsOptions<T, V>, 'titleField'>({
+    @Prop<ElTabsOptions<T, V>, 'titleField'>({
       group: '数据属性',
       title: '文本字段',
       description: '集合的元素类型中，用于显示文本的属性名称',
@@ -90,7 +90,7 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
       }
     })
     titleField: (item: T) => nasl.core.String = ((item: any) => item.title) as any;
-    @Prop<YtElTabsOptions<T, V>, 'valueField'>({
+    @Prop<ElTabsOptions<T, V>, 'valueField'>({
       group: '数据属性',
       title: '值字段',
       description: '集合的元素类型中，用于标识选中值的属性',
@@ -100,7 +100,7 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
       }
     })
     valueField: (item: T) => V = ((item: any) => item.value) as any;
-    @Prop<YtElTabsOptions<T, V>, 'tabPaneProps'>({
+    @Prop<ElTabsOptions<T, V>, 'tabPaneProps'>({
       group: '数据属性',
       title: '标签页属性设置',
       description: '开启数据源后，设置每个标签页属性',
@@ -243,7 +243,7 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
       emptyBackground: 'add-sub',
       snippets: [{
         title: '标签页',
-        code: '<yt-el-tab-pane><template #label><el-text text="标签页"></el-text></template><template #default><el-text text="内容"></el-text></template></yt-el-tab-pane>'
+        code: '<el-tab-pane><template #label><el-text text="标签页"></el-text></template><template #default><el-text text="内容"></el-text></template></el-tab-pane>'
       }]
     })
     slotDefault: () => Array<nasl.ui.ViewComponent>;
@@ -263,7 +263,7 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
     show: true,
     ideusage: {
       "idetype": "container",
-      "parentAccept": "target.tag.endsWith('yt-el-tabs')",
+      "parentAccept": "target.tag.endsWith('el-tabs')",
       "selector": [{
         "expression": "this.getElement(el => el.slotTarget === 'label')",
         "cssSelector": ".el-tabs__item"
@@ -284,12 +284,12 @@ namespace extensions.youtian_ele_select_tree.viewComponents {
     title: '标签页',
     description: '标签页'
   })
-  export class YtElTabPane extends ViewComponent {
-    constructor(options?: Partial<YtElTabPaneOptions>) {
+  export class ElTabPane extends ViewComponent {
+    constructor(options?: Partial<ElTabPaneOptions>) {
       super();
     }
   }
-  export class YtElTabPaneOptions extends ViewComponentOptions {
+  export class ElTabPaneOptions extends ViewComponentOptions {
     // @Prop({
     //   group: '主要属性',
     //   title: '选项卡标题',

@@ -1,8 +1,8 @@
-import { extendComponent, ElTabs } from 'virtual-lcap:lcap-ui';
+import { extendComponent, ElTabs as ElTabsComponent } from 'virtual-lcap:lcap-ui';
 import ExtendElTabs from './index.vue';
 
-export const YtElTabs = extendComponent(ElTabs, ExtendElTabs);
-export default YtElTabs;
+export const ElTabs = extendComponent(ElTabsComponent, ExtendElTabs);
+export default ElTabs;
 
-import { ElTabPane as YtElTabPane } from 'virtual-lcap:lcap-ui';
-export { YtElTabPane };
+import { ElTabPane } from 'virtual-lcap:lcap-ui';
+export { ElTabPane };

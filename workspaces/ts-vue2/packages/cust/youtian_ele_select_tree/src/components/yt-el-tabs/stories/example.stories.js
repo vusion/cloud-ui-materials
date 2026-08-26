@@ -1,7 +1,7 @@
 import Component from '../index';
 
 export default {
-  id: 'yt-el-tabs-examples',
+  id: 'el-tabs-examples',
   title: '组件列表/YtElTabs/示例',
   component: Component,
   parameters: {
@@ -16,7 +16,7 @@ export const Example1 = {
   name: '基本用法',
   render: (args, { argTypes }) => ({
     props: Object.keys(argTypes),
-    template: '<yt-el-tabs v-bind="$props"></yt-el-tabs>',
+    template: '<el-tabs v-bind="$props"></el-tabs>',
   }),
   args: {
     text: 'Hello world',

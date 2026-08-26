@@ -9,7 +9,7 @@ import { BaseComponent } from 'virtual-lcap:lcap-ui';
 import './index.css';
 
 export default {
-  name: 'yt-el-tabs',
+  name: 'el-tabs',
   inheritAttrs: false,
   components: {
     BaseComponent,

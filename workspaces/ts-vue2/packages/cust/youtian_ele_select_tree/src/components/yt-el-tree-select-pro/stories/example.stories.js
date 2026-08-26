@@ -34,7 +34,7 @@ async function loadDashboardElselectpro5(params = {}) {
 }
 
 export default {
-  id: 'yt-el-tree-select-pro-examples',
+  id: 'el-tree-select-pro-examples',
   title: '组件列表/YtElTreeSelectPro/示例',
   component: Component,
   parameters: {
@@ -87,7 +87,7 @@ export const Default = {
         ],
       };
     },
-    template: `<yt-el-tree-select-pro
+    template: `<el-tree-select-pro
       :dataSource="data"
       parentField="entityForSel.fid"
       valueField="entityForSel.id"
@@ -112,7 +112,7 @@ export const LazyRealApi = {
     },
     template: `<div>
       <div style="margin-bottom: 8px;">value: {{ value }}</div>
-      <yt-el-tree-select-pro
+      <el-tree-select-pro
         :value.sync="value"
         :data-source="load"
         :lazy="true"

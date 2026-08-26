@@ -11,7 +11,7 @@
         点击父层级名称展开/收起
       </label>
     </div>
-    <yt-el-tree-select-pro
+    <el-tree-select-pro
       :value.sync="value"
       :data-source="items"
       :only-select-leaf="onlySelectLeaf"
