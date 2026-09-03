@@ -62,6 +62,8 @@ export default defineConfig(({ command }) => {
       lib: {
         entry: 'src/index',
         name: kb2Camcel(pkgInfo.name),
+        formats: ['umd'],
+        fileName: (format) => `index.${format === 'umd' ? 'js' : 'mjs'}`,
       },
       sourcemap: true,
     },
