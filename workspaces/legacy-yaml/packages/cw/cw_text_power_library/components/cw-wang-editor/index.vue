@@ -122,11 +122,14 @@ export default {
             },
             mode: 'default', // or 'simple',
             defaultHeight: '',
-            // 写死高度/宽度，不依赖 scroll 分支；避免 tab(display:none) 初始化时内容区宽高为 0
+            // 默认给足高度（wangEditor scroll 区建议 >=300）；宽度始终 100%
+            // 真正可用尺寸在 syncEditorLayout（ResizeObserver）里按父容器重算
             editorHeight: {
-                height: '180px',
+                height: '300px',
                 width: '100%',
             },
+            _resizeObserver: null,
+            _layoutSynced: false,
         };
     },
     computed: {
@@ -281,7 +284,6 @@ export default {
             );
             return {
                 readOnly: this.readOnly,
-                // 与写死的 height 对齐，始终走固定高度滚动，避免 tab 隐藏初始化时按 scroll 分支算错
                 scroll: true,
                 placeholder: this.placeholder,
                 autoFocus: false,
@@ -302,13 +304,104 @@ export default {
             this.$emit('update:value', value);
         },
     },
+    mounted() {
+        this.bindSizeWatchers();
+    },
     beforeDestroy() {
+        this.unbindSizeWatchers();
         const { editor } = this;
         if (editor === null) return;
         // 组件销毁时，及时销毁编辑器
         editor.destroy();
     },
     methods: {
+        bindSizeWatchers() {
+            const root = this.$refs.root;
+            if (!root || typeof ResizeObserver === 'undefined') return;
+            this._resizeObserver = new ResizeObserver(() => {
+                this.syncEditorLayout();
+            });
+            this._resizeObserver.observe(root);
+        },
+        unbindSizeWatchers() {
+            if (this._resizeObserver) {
+                this._resizeObserver.disconnect();
+                this._resizeObserver = null;
+            }
+        },
+        /**
+         * tab(display:none) 下初始化时宽高为 0，切到可见后再按真实父容器尺寸校正，
+         * 避免内容区被截断成一条窄缝/矮框。
+         */
+        syncEditorLayout() {
+            const root = this.$refs.root;
+            if (!root) return;
+            const rect = root.getBoundingClientRect();
+            // 仍在隐藏 tab 中，跳过
+            if (rect.width < 1 || rect.height < 1) return;
+
+            const toolEl = this.$refs.toolbar && this.$refs.toolbar.$el;
+            const toolH =
+                !this.readOnly && toolEl
+                    ? toolEl.getBoundingClientRect().height
+                    : 0;
+
+            // 若业务通过 editorStyle 写了 height，以业务为准，只校正内部 DOM
+            const styleFromProp = this.parseStyleAttr(this.editorStyle || '');
+            if (!styleFromProp.height) {
+                // 优先吃父容器高度；至少 300，避免 scroll 区过矮被截断
+                const available = Math.max(
+                    Math.round(rect.height - toolH - 2),
+                    300
+                );
+                const prev = parseFloat(this.editorHeight.height) || 0;
+                if (Math.abs(prev - available) >= 2) {
+                    this.$set(this.editorHeight, 'height', `${available}px`);
+                }
+                this.defaultHeight = `${available}px`;
+            }
+            this.$set(this.editorHeight, 'width', '100%');
+
+            // 平台给 root 写的固定矮 height 会把编辑区裁切；运行时强制撑开
+            if (!(this.$env && this.$env.VUE_APP_DESIGNER)) {
+                const contentH =
+                    parseFloat(
+                        styleFromProp.height || this.editorHeight.height
+                    ) || 300;
+                const need = Math.round(toolH + contentH + 2);
+                root.style.minHeight = `${need}px`;
+                // 仅当实际高度不够时写入，避免 remove/set 触发 ResizeObserver 死循环
+                if (rect.height + 1 < need) {
+                    root.style.height = `${need}px`;
+                }
+            }
+
+            this.$nextTick(() => {
+                this.forceEditorDomSize();
+            });
+            this._layoutSynced = true;
+        },
+        forceEditorDomSize() {
+            const editorEl = this.$refs.editor && this.$refs.editor.$el;
+            if (!editorEl) return;
+            const textContainer = editorEl.querySelector('.w-e-text-container');
+            const scroll = editorEl.querySelector('.w-e-scroll');
+            const slate = editorEl.querySelector('[data-slate-editor]');
+            if (textContainer) {
+                textContainer.style.width = '100%';
+                textContainer.style.height = '100%';
+            }
+            if (scroll) {
+                scroll.style.width = '100%';
+                scroll.style.height = '100%';
+                scroll.style.overflowY = 'auto';
+            }
+            if (slate) {
+                slate.style.width = '100%';
+                slate.style.minHeight = '100%';
+            }
+        },
+
         async docxParse(file) {
             if (!file) {
                 file = await new Promise((res) => {
@@ -503,20 +596,8 @@ export default {
         onCreated(editor) {
             // 一定要用 Object.seal() ，否则会报错
             this.editor = Object.seal(editor);
-            let height = this.$refs.root.style.height;
-            setTimeout(() => {
-                // tab display:none 时 getBoundingClientRect 为 0，此时不要改写死的高度
-                const toolHeight =
-                    this.$refs.toolbar.$el.getBoundingClientRect().height;
-                if (height && toolHeight > 0) {
-                    height = this.removePX(height);
-                    this.editorHeight.height = height - toolHeight - 2 + 'px';
-                    // 部分场景在编辑器内，删除高度会导致页面反复重新渲染，所以在编辑器下不删除高度
-                    if (!this.$env.VUE_APP_DESIGNER) {
-                        this.$refs.root.style.removeProperty('height');
-                    }
-                }
-                this.defaultHeight = this.editorHeight.height || '';
+            this.$nextTick(() => {
+                this.syncEditorLayout();
             });
         },
         onChange(editor) {
@@ -596,6 +677,8 @@ export default {
 <style module>
 .root {
     z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .border {
@@ -603,6 +686,20 @@ export default {
 }
 </style>
 <style>
+.cw-wangeditor-content {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+.cw-wangeditor-content .w-e-text-container,
+.cw-wangeditor-content .w-e-scroll {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+.cw-wangeditor-content [data-slate-editor] {
+    width: 100% !important;
+    min-height: 100%;
+    box-sizing: border-box;
+}
 .w-e-text-container img {
     min-height: unset !important;
     min-width: unset !important;
