@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "dhtmlx-gantt": "7.0.4",
-    "moment": "2.29.4"
+    "moment": "2.31.0"
   },
   "turbo": {
     "tags": [
