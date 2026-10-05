@@ -38,7 +38,7 @@
     "@bytemd/plugin-mermaid": "^1.22.0",
     "@bytemd/vue-next": "^1.22.0",
     "@jsdevtools/rehype-toc": "^3.0.2",
-    "axios": "^1.17.0",
+    "axios": "^1.20.0",
     "bytemd": "^1.22.0",
     "github-markdown-css": "^5.9.0",
     "hast-util-from-html-isomorphic": "^2.0.0",
