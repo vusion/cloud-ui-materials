@@ -1,7 +1,6 @@
 <template>
 <div :class="$style.pdfContainer">
   <div id="originPDFPreview"></div>
-  <div :class="$style.pdfOverlay"></div>
 </div>
 </template>
 <script>
@@ -43,25 +42,6 @@ export default {
   width: 100%;
   height: 100vh;
   overflow: auto; /* 启用滚动 */
-}
-.pdfOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  pointer-events: none; /* 默认允许穿透所有事件 */
-}
-.pdfOverlay::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: auto;
-  cursor: default;
 }
 </style>
 <style>

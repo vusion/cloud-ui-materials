@@ -1,7 +1,7 @@
 {
   "name": "cw_pdf_preview",
   "private": "true",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "lcapIdeVersion": "3.8",
   "title": "pdf预览组件（基于浏览器原生）",
   "description": "pdf预览组件（基于浏览器原生）",
