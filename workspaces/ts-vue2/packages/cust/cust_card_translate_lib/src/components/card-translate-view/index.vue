@@ -1,6 +1,6 @@
 <template>
         <div class="card-translate-image-fold">
-            <div class="card-translate-image-item" v-for="item,index in list" :key="index" :style="`background-image: url(${item.img})`">
+            <div class="card-translate-image-item" v-for="item,index in list" :key="index" :class="{ active: activeIndex === index }" :style="`background-image: url(${item.img})`" @mouseover="activeIndex = index">
                 <div class="card-translate-image-item-title">
                     <h4>{{ item.title }}</h4>
                     <p class="info">
@@ -17,12 +17,6 @@
       </div>
 </template>
 <script>
-const defaultData = {
-  title: '赠礼品',
-  subTitle: '不断推动元宇宙科',
-  info: '不断推动元宇宙科技与整合营销的创新融合，深入探索NFT数字藏品、虚拟礼品、虚拟形象、虚拟IP运营、虚拟场域营销等，为品牌和用户提供“虚实相生”的双重体验',
-  img: 'https://picsum.photos/1000/500?random=3'
-}
 export default {
   name: 'card-translate-view',
   props: {
@@ -39,27 +33,9 @@ export default {
       default: 500
     }
   },
-  watch:{
-    list(){
-      this.$nextTick(() => {
-        this.init()
-      })
-    }
-  },
-  mounted(){
-    // this.list = [defaultData,defaultData,defaultData,defaultData]
-  },
-  methods:{
-    init(){
-      document.querySelector('.card-translate-image-item').classList.add('active')
-      document.querySelectorAll('.card-translate-image-item').forEach(item => {
-            item.addEventListener('mouseover', () => {
-                document.querySelectorAll('.card-translate-image-item').forEach(el => {
-                    el.classList.remove('active');
-                });
-                item.classList.add('active');
-            });
-        });
+  data() {
+    return {
+      activeIndex: 0
     }
   }
 };
