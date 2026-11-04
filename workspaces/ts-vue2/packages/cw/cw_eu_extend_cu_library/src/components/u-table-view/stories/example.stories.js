@@ -5,6 +5,8 @@ import ExampleDemo3 from '../demos/ExampleDemo3.vue';
 import ExampleDemo4 from '../demos/ExampleDemo4.vue';
 import ExampleDemo5 from '../demos/ExampleDemo5.vue';
 import ExampleDemo6 from '../demos/ExampleDemo6.vue';
+import ExampleDemo54 from '../demos/cases/CasesDemo54.vue';
+import ExampleDemo55 from '../demos/cases/CasesDemo55.vue';
 
 export default {
   id: 'u-table-view-examples',
@@ -84,6 +86,26 @@ export const Example7 = {
   render: () => ({
     components: {
       ExampleDemo: ExampleDemo6,
+    },
+    template: '<example-demo />',
+  }),
+};
+
+export const Example8 = {
+  name: '隐藏列后自动合并（auto-row-span）不漂移',
+  render: () => ({
+    components: {
+      ExampleDemo: ExampleDemo54,
+    },
+    template: '<example-demo />',
+  }),
+};
+
+export const Example9 = {
+  name: '隐藏列后数据级 rowSpan 配置合并不错位',
+  render: () => ({
+    components: {
+      ExampleDemo: ExampleDemo55,
     },
     template: '<example-demo />',
   }),

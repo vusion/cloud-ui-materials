@@ -722,6 +722,11 @@ export default {
       }
     },
     visibleColumnVMs() {
+      // 列显隐、动态列增减后，按当前可见列重建自动合并缓存，
+      // 保证合并始终跟着列本身走，不会停留在被隐藏列的下标上
+      const hasAutoRowSpanColumn = this.visibleColumnVMs.some((columnVM) => columnVM && columnVM.autoRowSpan);
+      if (hasAutoRowSpanColumn || this.autoRowSpan.length)
+        this.autoMergeRow();
       this.reHandleResize();
     },
     stickFixed(value) {
@@ -2768,28 +2773,61 @@ export default {
       const marginBottom = +(style.marginBottom || '').replace(/px/, '') || 0;
       return height + marginTop + marginBottom;
     },
+    /**
+     * 合并单元格的定位键：合并必须锚定到列本身，不能按可见列下标，
+     * 否则列显隐后下标整体前移，合并会错位到后面的列上。
+     * 这里用列组件的唯一标识（同一 field 可能出现多列，如地址列既固定又重复配置）
+     */
+    getColumnMergeKey(columnVM) {
+      return columnVM ? `column:${columnVM._uid}` : undefined;
+    },
+    getColumnIndexMergeKey(columnIndex) {
+      const columnVM = this.visibleColumnVMs && this.visibleColumnVMs[columnIndex];
+      return this.getColumnMergeKey(columnVM) || `index:${columnIndex}`;
+    },
+    setAutoRowSpan(rowIndex, key, value) {
+      if (key === undefined)
+        return;
+      // 这里可能发生在渲染过程中（item.rowSpan 配置），沿用直接赋值 + autoMergeRow 里的 $forceUpdate
+      // 避免在 render 中触发响应式更新
+      if (!this.autoRowSpan[rowIndex])
+        this.autoRowSpan[rowIndex] = {};
+      this.autoRowSpan[rowIndex][key] = value;
+    },
+    getAutoRowSpan(rowIndex, key) {
+      const rowSpans = key === undefined ? undefined : this.autoRowSpan[rowIndex];
+      return rowSpans ? rowSpans[key] : undefined;
+    },
+    /**
+     * 数据里手写的合并配置（item.rowSpan / item.colSpan）里的列下标，按列配置里的原始列顺序解释。
+     * 渲染时拿到的是可见列下标，这里换算回原始下标：列被隐藏后换算不到那一列，合并就不生效，
+     * 不会因为可见列下标前移而把合并迁移到后面的列上。
+     */
+    getOriginColumnIndex(columnIndex) {
+      const columnVM = this.visibleColumnVMs && this.visibleColumnVMs[columnIndex];
+      if (!columnVM || !this.columnVMs)
+        return undefined;
+      const originColumnIndex = this.columnVMs.indexOf(columnVM);
+      return originColumnIndex === -1 ? undefined : originColumnIndex;
+    },
     autoMergeRow(currentData = this.currentData) {
       // 这里要再重置一下，因为表格列也会调用这个方法
       this.autoRowSpan = [];
-      this.visibleColumnVMs && this.visibleColumnVMs.forEach((columnVM, columnIndex) => {
-        if (columnVM.autoRowSpan && columnVM.field && Array.isArray(currentData)) {
-          let count = 0;
-          for (let i = currentData.length - 1; i >= 0; i--) {
-            const item = currentData[i];
-            const itemValue = this.$at(item, columnVM.field);
-            if (itemValue !== undefined && itemValue === this.$at(currentData[i - 1], columnVM.field)) {
-              if (!this.autoRowSpan[i]) {
-                this.autoRowSpan[i] = [];
-              }
-              this.autoRowSpan[i][columnIndex] = 0;
-              count++;
-            } else if (count) {
-              if (!this.autoRowSpan[i]) {
-                this.autoRowSpan[i] = [];
-              }
-              this.autoRowSpan[i][columnIndex] = count + 1;
-              count = 0;
-            }
+      this.visibleColumnVMs && this.visibleColumnVMs.forEach((columnVM) => {
+        // 合并结果锚定在列本身，列被隐藏时没有可见列使用这个 key，合并自然不生效也不会迁移
+        const key = columnVM && columnVM.autoRowSpan && columnVM.field ? this.getColumnMergeKey(columnVM) : undefined;
+        if (key === undefined || !Array.isArray(currentData))
+          return;
+        let count = 0;
+        for (let i = currentData.length - 1; i >= 0; i--) {
+          const item = currentData[i];
+          const itemValue = this.$at(item, columnVM.field);
+          if (itemValue !== undefined && itemValue === this.$at(currentData[i - 1], columnVM.field)) {
+            this.setAutoRowSpan(i, key, 0);
+            count++;
+          } else if (count) {
+            this.setAutoRowSpan(i, key, count + 1);
+            count = 0;
           }
         }
       });
@@ -2797,7 +2835,8 @@ export default {
     },
     getItemColSpan(item, rowIndex, columnIndex) {
       if (Array.isArray(item.colSpan)) {
-        const config = item.colSpan.find(configItem => configItem[0] === columnIndex);
+        // item.colSpan 里的列下标按原始列解释，列被隐藏时不生效、不迁移
+        const config = item.colSpan.find((configItem) => configItem[0] === this.getOriginColumnIndex(columnIndex));
         if (config) {
           for (let i = 1; i < config[1]; i++) {
             if (!this.autoColSpan[rowIndex]) {
@@ -2814,19 +2853,20 @@ export default {
     },
     getItemRowSpan(item, rowIndex, columnIndex) {
       if (Array.isArray(item.rowSpan)) {
-        const config = item.rowSpan.find(configItem => configItem[0] === columnIndex);
+        // item.rowSpan 里的列下标按原始列解释，列被隐藏时不生效、不迁移
+        const config = item.rowSpan.find((configItem) => configItem[0] === this.getOriginColumnIndex(columnIndex));
         if (config) {
+          const key = this.getColumnIndexMergeKey(columnIndex);
           for (let i = 1; i < config[1]; i++) {
-            if (!this.autoRowSpan[rowIndex + i]) {
-              this.autoRowSpan[rowIndex + i] = [];
-            }
-            this.autoRowSpan[rowIndex + i][columnIndex] = 0;
+            this.setAutoRowSpan(rowIndex + i, key, 0);
           }
           return config[1];
         }
       }
-      if (this.autoRowSpan[rowIndex] && this.autoRowSpan[rowIndex][columnIndex] !== undefined) {
-        return this.autoRowSpan[rowIndex][columnIndex];
+      // 自动合并结果按列 field 存放，这里按当前列（而不是下标）取值
+      const autoRowSpan = this.getAutoRowSpan(rowIndex, this.getColumnIndexMergeKey(columnIndex));
+      if (autoRowSpan !== undefined) {
+        return autoRowSpan;
       }
     },
     /**
